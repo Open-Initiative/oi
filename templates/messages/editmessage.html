@@ -1,0 +1,8 @@
+<label for="title_{{divid}}">Titre</label>
+<input id="title_{{divid}}" type="text" />
+<label for="text_{{divid}}">Message</label>
+<textarea id="text_{{divid}}" ></textarea>
+<input id="parents_{{divid}}"type="hidden"  value="{{parents}}" />
+parents :{{parents}}
+<button onclick="saveMessage('{{divid}}',0)">OK</button>
+<button onclick="if (!tinyMCE.get('text_{{divid}}')) tinyMCE.execCommand('mceAddControl', false, 'text_{{divid}}'); else tinyMCE.execCommand('mceRemoveControl', false, 'text_{{divid}}');">Toggle</button>

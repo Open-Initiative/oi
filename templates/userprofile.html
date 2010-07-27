@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="userprofile">
+Date de naissance : {{user.get_profile.birthdate}}
+</div>
+<a href="/user/editprofile">Editer le profil</a>
+<div>
+Mes Messages :
+{%for message in user.ownmessages.all%}
+{%include 'message.html'%}
+{%endfor%}
+</div>
+{% endblock %}

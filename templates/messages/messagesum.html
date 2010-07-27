@@ -1,0 +1,22 @@
+{% load oifilters %}
+﻿<div id="message_{{message.id}}" class="message" onclick="document.location='/message/get/{{message.id}}'">
+    <div class="msgbox">
+        {%include "messages/msgtop.html" %}
+        <div class="msginfo">
+            {{message.author|default:"invité"}}
+            {{message.created|date:"d/m/Y"}}
+        </div>
+        <div class="msgtitle">
+            {{message.title}}
+        </div>
+        {{message.text|oiunescape}}
+        Pertinence : {{message.relevance}}
+        id : {{message.id}}
+        <br />
+        Experts :
+        {%for expert in message.expert_set.select_related%}
+            {{expert.user}} : {{expert.score}},
+        {%endfor%}
+    </div>
+    {%include "messages/msgbottom.html" %}
+</div>

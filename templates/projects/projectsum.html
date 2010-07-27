@@ -1,0 +1,22 @@
+<div id="project_{{project.id}}" class="project" onclick="document.location='/project/get/{{project.id}}'">
+    <div class="prjbox">
+        {%include "projects/prjtop.html" %}
+        <div class="msginfo">
+            {{project.author}}
+            {{project.created}}
+        </div>
+        <div class="msgtitle">
+            {{project.title}}
+            id : {{project.id}}
+        </div>
+        <div id="specs_{{project.id}}">
+        {%for spec in project.get_specs%}
+            <div id="specs_{{project.id}}_{{spec.order}}">
+                {{spec.text}}
+            </div>
+        {%endfor%}
+        </div>
+        <a href="/project/delete/{{project.id}}">Supprimer le projet</a>
+    </div>
+    {%include "projects/prjbottom.html" %}
+</div>

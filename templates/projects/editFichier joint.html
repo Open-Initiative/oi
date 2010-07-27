@@ -1,0 +1,9 @@
+<label for="text_{{divid}}">Description</label>
+<input id="text_{{divid}}" name="text" type="text" />
+<input id="filename_{{divid}}" name="filename" type="hidden" />
+<form id="form_{{divid}}" method="POST" enctype="multipart/form-data" action="/project/{{project.id}}/uploadfile/0" target="dest_{{divid}}">
+<label for="file_{{divid}}">Fichier</label>
+<input id="divid_{{divid}}" name="divid" type="hidden" value="{{divid}}" />
+<input id="file_{{divid}}" name="file" type="file" onchange="document.getElementById('form_{{divid}}').submit()" />
+</form>
+<iframe id="dest_{{divid}}" name="dest_{{divid}}" src="/"></iframe>

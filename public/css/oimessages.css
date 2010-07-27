@@ -1,0 +1,112 @@
+div.message {
+   height: 100%;
+}
+
+div.msgbox {
+    width: 500px;
+    margin: 3px;
+    border-left-image:url('/img/msgml.png');
+}
+
+div.msgup {
+    z-index: -1;
+    position: absolute;
+    width: 500px;
+}
+div.msguc {
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 80px;
+    background: url('/img/msguc.png') repeat-x;
+}
+div.msgul {
+    float: left;
+    width: 281px;
+    height: 80px;
+    background: url('/img/msgul.png');
+}
+div.msgur {
+    float: right;
+    width: 19px;
+    height: 80px;
+    background: url('/img/msgur.png');
+}
+
+div.msgml {
+    height: 100%;
+    overflow: auto;
+    background: url('/img/msgml.png') repeat-y;
+}
+div.msgml2 {
+    width: 20px;
+    height: 100%;
+    margin-top:10px;
+    z-index: -2;
+    background: url('/img/msgml.png') repeat-y;
+    position: relative;
+    left:0;
+}
+div.msgmr {
+    float: right;
+    width: 20px;
+    height: 100%;
+    margin-top:10px;
+    z-index: -2;
+    background: url('/img/msgmr.png') repeat-y;
+}
+
+div.msgbc {
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 20px;
+    background: url('/img/msgbc.png') repeat-x;
+}
+div.msgbl {
+    float: left;
+    clear: left;
+    width: 280px;
+    height: 20px;
+    background: url('/img/msgbl.png');
+}
+div.msgbr {
+    float: right;
+    width: 20px;
+    height: 20px;
+    background: url('/img/msgbr.png');
+}
+
+div.msginfo {
+    float: left;
+    width: 100px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+div.msgtitle {
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+div.childrenlist {
+    padding: 70px;
+}
+div.smallmsg {
+    width: 260px;
+    height: 60px;  
+    margin-top: -60px;
+    padding: 20px;
+    background: url('/img/message.png');
+}
+
+div#nav {
+    width: 200px;
+    min-height: 300px;
+    margin: 10px;
+    float: left;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 12px;
+    background: #EEEDFF;
+    border: 1px gray solid;
+}
+span.selectedcateg {
+    background: #BBBCEE;
+}

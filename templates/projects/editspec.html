@@ -1,0 +1,9 @@
+<select id="type_{{divid}}" onchange="changeSpecType('{{divid}}')">
+{%for type in types.items%}
+<option value={{type.0}}>{{type.1}}</option>
+{%endfor%}
+</select>
+<input type="hidden" id="specid_{{divid}}" value="{{specid}}" />
+<input type="hidden" id="projectid_{{divid}}" value="{{project.id}}" />
+<div id="spec_{{divid}}"></div>
+<button onclick="saveSpec('{{divid}}',{{project.id}},{{specorder}},0)">OK</button>

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<form action="/project/save/{{project.id|default:0}}" method="POST">
+<label for="title">Titre</label>
+<input name="title" type="text" />
+{%if parent%}<input name="parent" type="hidden" value="{{parent}}" />{%endif%}
+<input name="message" type="hidden" value="{{message}}" />
+message :{{message}}
+<div id="project_specs">
+{%for spec in project.spec_set.all%}
+{%include 'projects/editspec.html'%}
+<button onclick="addspec({{project.id}}, {{spec.order}})">+</button>
+{%endfor%}
+</div>
+<input type="submit" />
+</form>
+{% endblock %}
