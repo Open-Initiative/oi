@@ -1,0 +1,15 @@
+<div class="related">
+Mes Messages :
+<div>
+{%for message in user.ownmessages.all%}
+{%include 'messages/messagesum.html'%}
+{%endfor%}
+</div>
+Mes Projets :
+<div>
+{%for project in user.ownprojects.all%}
+{%include 'projects/projectsum.html'%}
+{%endfor%}
+</div>
+</div>
+

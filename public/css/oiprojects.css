@@ -1,70 +1,85 @@
 div.project {
    height: 100%;
+   float: left;
 }
-div.prjbox {
-    width: 500px;
-    margin: 3px;
-    border-left-image:url('/img/prjml.png');
+/*div.prjbox {*/
+/*    width: 400px;*/
+/*    margin: 3px;*/
+/*    border-left-image:url('/img/prjml.png');*/
+/*}*/
+div.prjbody {
+    background: url('/img/prjmid.png');
+    padding: 20px;
 }
-
 div.prjup {
-    z-index: -1;
-    position: absolute;
-    width: 500px;
+    width: 420px;
+    height:70px;
+    background: url('/img/prjup.png');
 }
-div.prjuc {
-    margin-left: 20px;
-    margin-right: 20px;
-    height: 70px;
-    background: url('/img/prjuc.png') repeat-x;
-}
-div.prjul {
-    float: left;
-    width: 281px;
-    height: 70px;
-    background: url('/img/prjul.png');
-}
-div.prjur {
-    float: right;
-    width: 139px;
-    height: 70px;
-    background: url('/img/prjur.png');
+div.prjbtm {
+    width: 420px;
+    height:30px;
+    background: url('/img/prjbtm.png');
 }
 
-div.prjml {
-    height: 100%;
-    overflow: auto;
-    background: url('/img/prjml.png') repeat-y;
-}
+/*div.prjup {*/
+/*    z-index: -1;*/
+/*    position: absolute;*/
+/*    width: 500px;*/
+/*}*/
+/*div.prjuc {*/
+/*    margin-left: 20px;*/
+/*    margin-right: 20px;*/
+/*    height: 70px;*/
+/*    background: url('/img/prjuc.png') repeat-x;*/
+/*}*/
+/*div.prjul {*/
+/*    float: left;*/
+/*    width: 281px;*/
+/*    height: 70px;*/
+/*    background: url('/img/prjul.png');*/
+/*}*/
+/*div.prjur {*/
+/*    float: right;*/
+/*    width: 139px;*/
+/*    height: 70px;*/
+/*    background: url('/img/prjur.png');*/
+/*}*/
 
-div.prjmr {
-    float: right;
-    width: 20px;
-    height: 100%;
-    margin-top:10px;
-    z-index: -2;
-    background: url('/img/prjmr.png') repeat-y;
-}
+/*div.prjml {*/
+/*    height: 100%;*/
+/*    overflow: auto;*/
+/*    background: url('/img/prjml.png') repeat-y;*/
+/*}*/
 
-div.prjbc {
-    margin-left: 20px;
-    margin-right: 20px;
-    height: 30px;
-    background: url('/img/prjbc.png') repeat-x;
-}
-div.prjbl {
-    float: left;
-    clear: left;
-    width: 280px;
-    height: 30px;
-    background: url('/img/prjbl.png');
-}
-div.prjbr {
-    float: right;
-    width: 140px;
-    height: 30px;
-    background: url('/img/prjbr.png');
-}
+/*div.prjmr {*/
+/*    float: right;*/
+/*    width: 20px;*/
+/*    height: 100%;*/
+/*    margin-top:10px;*/
+/*    z-index: -2;*/
+/*    background: url('/img/prjmr.png') repeat-y;*/
+/*}*/
+
+/*div.prjbc {*/
+/*    margin-left: 20px;*/
+/*    margin-right: 20px;*/
+/*    height: 30px;*/
+/*    background: url('/img/prjbc.png') repeat-x;*/
+/*}*/
+/*div.prjbl {*/
+/*    float: left;*/
+/*    clear: left;*/
+/*    width: 280px;*/
+/*    height: 30px;*/
+/*    background: url('/img/prjbl.png');*/
+/*}*/
+/*div.prjbr {*/
+/*    float: right;*/
+/*    width: 140px;*/
+/*    height: 30px;*/
+/*    background: url('/img/prjbr.png');*/
+/*}*/
 
 div.prjtitle {
     margin-top: 5px;

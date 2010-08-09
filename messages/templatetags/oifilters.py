@@ -23,4 +23,15 @@ def oiescape(text):
     for code in OI_ESCAPE_CODE:
         text = text.replace(code, OI_ESCAPE_CODE[code])
     return text
+    
+@register.filter
+def multiply(value, arg):
+    return int(value) * int(arg)
+
+@register.filter
+def oidateshift(end_date, start_date):
+    try:
+        return (end_date-start_date).days+1
+    except:
+        return None
 

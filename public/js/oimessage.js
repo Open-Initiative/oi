@@ -22,6 +22,11 @@ function saveMessage(divid, msgid){
     params = "message="+getValue("text_"+divid)+"&title="+getValue("title_"+divid)+"&parents="+parents;
     OIajaxCall("/message/save/"+msgid, params, divid);
 }
+function editMessage(msgid) {
+    divid = "message_"+msgid;
+    OIajaxCall("/message/edit/"+msgid+"?divid="+divid, null, divid);
+    tinyMCE.execCommand('mceAddControl', false, "text_"+divid);
+}
 function deleteMessage(msgid) {
     OIajaxCall("/message/delete/"+msgid, null, "output");
     document.getElementById("message_"+msgid).innerHTML="";

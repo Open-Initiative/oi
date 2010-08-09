@@ -2,6 +2,7 @@
 # Modèles des messages
 from django.db import models
 from django.contrib.auth.models import User
+from django.http import HttpResponseForbidden
 from math import copysign
 
 # Constantes de transmission de pertinence
@@ -25,6 +26,7 @@ class Message(models.Model):
     text = models.TextField()
     parents = models.ManyToManyField('self',symmetrical=False, related_name='children', blank=True)
     relevance = models.FloatField()
+    public = models.BooleanField()
     
     # Lorsqu'un utilisateur vote pour un message
     def vote(self, user, opinion, ip_address):
@@ -98,9 +100,48 @@ class Message(models.Model):
         if score >= OI_SCORE_ANONYMOUS:
             for parent in self.parents.all():
                 parent.add_expertise(user,score*OI_SCORE_FRACTION_TO_PARENT)
-            
+    
+    def has_perm(self, user, perm):
+        """checks if the user has the required perms"""
+        #superuser a tous les droits
+        if user.is_superuser:
+            return True
+        if perm in [1,4] and self.public:
+            return True
+        if user.is_anonymous:
+            return False
+        return len(self.messageacl_set.filter(user=user,permission=perm))>0
+    
+    def set_perm(self, user, perm):
+        """adds the specified perm to the user"""
+        if user.is_authenticated:
+            self.messageacl_set.add(MessageACL(user=user, permission=perm))
+    
     def __unicode__(self):
         return "%s : %s"%(self.id, self.title)
+
+#Liste des permissions sur les messages
+OI_MSG_READ, OI_MSG_WRITE, OI_MSG_ANSWER = 1,2,4
+OI_MSG_PERMS = ((OI_MSG_READ, "Lecture"), (OI_MSG_WRITE, "Ecriture"), (OI_MSG_ANSWER, "Réponse"),) 
+
+#Structure de contrôle des permissions
+class MessageACL(models.Model):
+    user = models.ForeignKey(User)
+    message = models.ForeignKey(Message)
+    permission = models.IntegerField(choices=OI_MSG_PERMS)
+
+#Décorateur de vérification de permissions
+def OINeedsMsgPerms(*required_perms):
+    def decorate(f):
+        def new_f(request, id, *args, **kwargs):
+            #Vérification de toutes les permissions
+            msg = Message.objects.get(id=id)
+            for perm in required_perms:
+                if not msg.has_perm(request.user, perm):
+                    return HttpResponseForbidden("Permissions insuffisantes")
+            return f(request, id, *args, **kwargs)
+        return new_f
+    return decorate 
 
 # Ip qui a voté sur un message
 class UsedIP(models.Model):

@@ -1,50 +1,82 @@
 #coding: utf-8
 # Vues des projets
 from oi.settings import MEDIA_ROOT
-from django.http import HttpResponseRedirect,HttpResponse
-from oi.projects.models import Project, Spec
+from django.http import HttpResponseRedirect,HttpResponse,HttpResponseForbidden
+from oi.projects.models import Project, Spec, OINeedsPrjPerms, OI_PRJ_READ, OI_PRJ_WRITE
 from oi.messages.models import Message
+from oi.users.models import User
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
-from time import time
+from datetime import time, timedelta
 from os import rename
 from urllib import quote
 
+@OINeedsPrjPerms(OI_PRJ_READ)
 def getproject(request, id):
     """Project given by id"""
     project = Project.objects.get(id=id)
-    return render_to_response('projects/project.html',{'user': request.user, 'project' : project})
+    return render_to_response('projects/project.html',{'user':request.user, 'project':project})
 
+@OINeedsPrjPerms(OI_PRJ_WRITE)
 def editproject(request, id):
     """Edit template of the project"""
-    return render_to_response('projects/editproject.html',{'user': request.user, 'parent':request.GET.get("parent"), 'message':request.GET["message"]})
+    project=None
+    if id!='0':
+        project = Project.objects.get(id=id)
+    return render_to_response('projects/editproject.html',{'user': request.user, 'parent':request.GET.get("parent"), 'message':request.GET.get("message"), 'project':project})
 
-def saveproject(request, id=0):
+@OINeedsPrjPerms(OI_PRJ_WRITE)
+def saveproject(request, id='0'):
     """Saves the edited project and redirects to it"""
     author = None
     parent = None
     if request.user.is_authenticated():
         author=request.user
-    if request.POST.has_key("parent"):
-        parent = Project.objects.get(id=request.POST["parent"])
-        message = parent.message
-    else:
-        message = Message.objects.get(id=request.POST["message"])
-    project = Project(title = request.POST["title"], author=author, parent=parent, message=message)
+    
+    if id=='0': #new project
+        #gets message from parent
+        if request.POST.has_key("parent"):
+            parent = Project.objects.get(id=request.POST["parent"])
+            message = parent.message
+        #or from query
+        else:
+            message = Message.objects.get(id=request.POST["message"])
+        project = Project(title = request.POST["title"], author=author, parent=parent, message=message, public=True,
+            start_date=request.POST.get("start_date"), due_date=request.POST.get("due_date"))
+        
+    else: #existing project
+        project = Project.objects.get(id=id)
+        project.title = request.POST["title"]
+        project.start_date = request.POST.get("start_date")
+        project.due_date = request.POST.get("due_date")
+
+    if request.POST.has_key("assignee"):
+        project.assignee = User.objects.get(username=request.POST["assignee"])
+
     project.save()
     return HttpResponseRedirect(reverse('oi.projects.views.getproject',args=(project.id,)))
 
+@OINeedsPrjPerms(OI_PRJ_WRITE)
 def deleteproject(request, id):
     """Deletes the project given by id"""
     Project.objects.get(id=id).delete()
     return HttpResponseRedirect('/')
 
+@OINeedsPrjPerms(OI_PRJ_READ)
+def projectview(request, id):
+    """Shows the project summary"""
+    project = Project.objects.get(id=id)
+    days = [project.start_date+timedelta(n) for n in range((project.due_date-project.start_date).days)]
+    return render_to_response('projects/prjview.html',{'user':request.user, 'project':project, 'days':days})
+
+@OINeedsPrjPerms(OI_PRJ_WRITE)
 def editspec(request, projectid, specid):
     """Edit template of a spec contains a spec details edit template"""
     divid = request.GET["divid"]
     project = Project.objects.get(id=projectid)
     return render_to_response('projects/editspec.html',{'user': request.user, 'divid': divid, 'specid':specid, 'project':project, 'types':Spec.TYPES, 'specorder':request.GET["specorder"]})
 
+@OINeedsPrjPerms(OI_PRJ_WRITE)
 def editspecdetails(request, projectid, specid):
     """Edit template of a spec detail, ie, text, image, file..."""
     divid = request.GET["divid"]
@@ -52,6 +84,7 @@ def editspecdetails(request, projectid, specid):
     project = Project.objects.get(id=projectid)
     return render_to_response('projects/edit%s.html'%(Spec.TYPES[type].replace("é","e")),{'user': request.user, 'divid': divid, 'project':project})
 
+@OINeedsPrjPerms(OI_PRJ_WRITE)
 def uploadfile(request, projectid, specid=0):
     """temporarily stores a file to be used in a spec"""
     uploadedfile = request.FILES['file']
@@ -63,6 +96,7 @@ def uploadfile(request, projectid, specid=0):
     tempfile.close()
     return HttpResponse('<script>window.parent.document.getElementById("filename_%s").value="%s"</script>'%(divid,filename))
 
+@OINeedsPrjPerms(OI_PRJ_WRITE)
 def savespec(request, projectid, specid=0):
     """saves the spec"""
     author = None
@@ -84,11 +118,13 @@ def savespec(request, projectid, specid=0):
     spec.save()
     return render_to_response('projects/spec.html',{'user': request.user, 'project' : project, 'spec' : spec})
 
+@OINeedsPrjPerms(OI_PRJ_WRITE)
 def deletespec(request, projectid, specid):
     """deletes the spec"""
     Spec.objects.get(id=specid).delete()
     return HttpResponse('Supprimé')
     
+@OINeedsPrjPerms(OI_PRJ_READ)
 def getfile(request, filename):
     """gets a file in the FS for download"""
     response = HttpResponse(mimetype='application/force-download')

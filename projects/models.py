@@ -4,6 +4,7 @@ from django.db import models
 from oi.settings import MEDIA_ROOT
 from django.contrib.auth.models import User
 from oi.messages.models import Message
+from django.http import HttpResponseForbidden
 
 # A project can contain subprojects and/or specs. Without them it is only a task
 class Project(models.Model):
@@ -15,6 +16,9 @@ class Project(models.Model):
     parent = models.ForeignKey('self', blank=True, null=True, related_name='tasks')
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+    start_date = models.DateTimeField(null=True)
+    due_date = models.DateTimeField(null=True)
+    public = models.BooleanField()
 
     def get_specs(self):
         """Returns all the specs of the project"""
@@ -33,9 +37,50 @@ class Project(models.Model):
     def is_simple_task(self):
         """A simple task is a project with no spec and no subproject"""
         return self.tasks.count() == 0 and self.spec_set.count() == 0
-        
+    
+    def has_perm(self, user, perm):
+        """checks if the user has the required perms"""
+        if perm in [1,4] and self.public:
+            return True
+        if user.is_anonymous:
+            return False
+        return len(self.projectacl_set.filter(user=user,permission=perm))>0
+    
+    def set_perm(self, user, perm):
+        """adds the specified perm to the user"""
+        if user.is_authenticated:
+            self.projectacl_set.add(ProjectACL(user=user, permission=perm))
+
     def __unicode__(self):
         return "%s : %s"%(self.id, self.title)
+
+#Liste des permissions sur les projets
+OI_PRJ_READ, OI_PRJ_WRITE = 1,2
+OI_PRJ_PERMS = ((OI_PRJ_READ, "Lecture"), (OI_PRJ_WRITE, "Ecriture"),) 
+
+#Structure de contrôle des permissions
+class ProjectACL(models.Model):
+    user = models.ForeignKey(User)
+    project = models.ForeignKey(Project)
+    permission = models.IntegerField(choices=OI_PRJ_PERMS)
+
+#Décorateur de vérification de permissions
+def OINeedsPrjPerms(*required_perms):
+    def decorate(f):
+        def new_f(request, id, *args, **kwargs):
+            #superuser a tous les droits
+            if request.user.is_superuser:
+                return f(request, id, *args, **kwargs)
+
+            #Vérification de toutes les permissions
+            msg = Message.objects.get(id=id)
+            for perm in required_perms:
+                if not msg.has_perm(request.user, perm):
+                    return HttpResponseForbidden("Permissions insuffisantes")
+            return f(request, id, *args, **kwargs)
+        return new_f
+    return decorate 
+
 
 # Aspec is a content of a project
 class Spec(models.Model):

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "users/related.html" %}
+<div class="uservertsep"></div>
+<div id="userprofile">
+<a href="/user/editprofile">Editer le profil</a>
+Date de naissance : {{user.get_profile.birthdate}}
+</div>
+<div id="training">
+<img src="/img/icons/addmsg.png" id="addtrain" onclick="addTraining()" alt="Ajouter une formation">
+Ma formation
+{% for training in user.training_set.all %}
+{{training}}
+{% endfor %}
+</div>
+<div id="experience">
+<img src="/img/icons/addmsg.png" id="addxp" onclick="addExperience()" alt="Ajouter une expérience">
+Mon expérience
+{% for experience in user.experience_set.all %}
+{{experience}}
+{% endfor %}
+</div>
+{% endblock %}

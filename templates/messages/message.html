@@ -1,40 +1,44 @@
 ﻿{% load oifilters %}
 <div id="message_{{message.id}}" class="message">
-    <div class="msgbox">
-        {%include "messages/msgtop.html"%}
-        <div class="msginfo">
-            {{message.author|default:"invité"}}
-            {{message.created|date:"d/m/Y"}}
+<!--    <div class="msgbox">-->
+        <div class="msgup">
+            <div class="msginfo">
+                {{message.author|default:"invité"}}
+                {{message.created|date:"d/m/Y"}}
+            </div>
+            <div class="msgtitle">
+                {{message.title}}
+            </div>
         </div>
-        <div class="msgtitle">
-            {{message.title}}
+        <div class="msgbody">
+            {{message.text|oiunescape}}
+            Pertinence : {{message.relevance}}
+            id : {{message.id}}
+            <br />
+            Experts :
+            {%for expert in message.expert_set.select_related%}
+                {{expert.user}} : {{expert.score}},
+            {%endfor%}
+            <div id="projects_{{message.id}}" class="msgml">
+            {%for project in message.get_projects%}
+                <a id="project_{{project.id}}" href="/project/get/{{project.id}}">
+                    <div class="smallprj">
+                        {{project}}
+                    </div>
+                </a>
+            {%endfor%}
+            <a href="/project/edit/0?message={{message.id}}">Créer un nouveau projet</a>
+            </div>
+            {%if not message.current_user_has_voted%}
+                <button onclick="vote({{message.id}},1)">+</button>
+                <button onclick="vote({{message.id}},-1)">-</button>
+            {%endif%}
+            <button onclick="addMessage({{message.id}})">Repondre</button>
+            <button onclick="deleteMessage({{message.id}})">Supprimer</button>
+            <button onclick="editMessage({{message.id}})">Modifier</button>
         </div>
-        {{message.text|oiunescape}}
-        Pertinence : {{message.relevance}}
-        id : {{message.id}}
-        <br />
-        Experts :
-        {%for expert in message.expert_set.select_related%}
-            {{expert.user}} : {{expert.score}},
-        {%endfor%}
-        <div id="projects_{{message.id}}" class="msgml">
-        {%for project in message.get_projects%}
-            <a id="project_{{project.id}}" href="/project/get/{{project.id}}">
-                <div class="smallprj">
-                    {{project}}
-                </div>
-            </a>
-        {%endfor%}
-        <a href="/project/edit/0?message={{message.id}}">Créer un nouveau projet</a>
-        </div>
-        {%if not message.current_user_has_voted%}
-            <button onclick="vote({{message.id}},1)">+</button>
-            <button onclick="vote({{message.id}},-1)">-</button>
-        {%endif%}
-        <button onclick="addMessage({{message.id}})">Repondre</button>
-        <button onclick="deleteMessage({{message.id}})">Supprimer</button>
-        {%include "messages/msgbottom.html" %}
-    </div>
+        <div class="msgbtm"></div>
+<!--    </div>-->
     <div id="children_{{message.id}}" {%if message.children.all%}class="childrenlist"{%endif%}>
         {%for child in message.children.all%}
         <div id="message_{{child.id}}" onclick="expandMessage({{child.id}})">

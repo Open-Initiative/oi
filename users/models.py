@@ -12,9 +12,37 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return "Profil de %s"%self.user
 
+class Experience(models.Model):
+    user = models.ForeignKey(User)
+    begining = models.DateField(null=True, blank=True)
+    end = models.DateField(null=True, blank=True)
+    company = models.CharField(max_length=100, blank=True)
+    job = models.CharField(max_length=100, blank=True)
+    def __unicode__(self):
+        return self.company
+
+class Training(models.Model):
+    user = models.ForeignKey(User)
+    begining = models.DateField(null=True, blank=True)
+    end = models.DateField(null=True, blank=True)
+    degree = models.CharField(max_length=100, blank=True)
+    university = models.CharField(max_length=100, blank=True)
+    def __unicode__(self):
+        return self.university
+
 class UserProfileForm(ModelForm):
     class Meta:
         model = UserProfile
+        exclude = ('user',)
+
+class ExperienceForm(ModelForm):
+    class Meta:
+        model = Experience
+        exclude = ('user',)
+
+class TrainingForm(ModelForm):
+    class Meta:
+        model = Training
         exclude = ('user',)
 
 # Sets the UserProfile class to be the profile of the given django User class

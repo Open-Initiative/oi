@@ -1,6 +1,6 @@
 function addTask(projectid) {
     divid = newDiv("tasks_"+projectid);
-    url = "/project/save/0"+projectid;
+    url = "/project/save/0";
     params = "title="+getValue("newtask_title_"+projectid)+"&parent="+projectid;
     OIajaxCall(url, params, divid);
 }

@@ -1,0 +1,30 @@
+﻿{% extends "base.html" %}
+{% load oifilters %}
+{% block content %}
+<div id="prjview_{{project.id}}">
+    <div>Vue d'ensemble de <a href="{% url oi.projects.views.getproject id=project.id%}">{{project.title}}</a></div>
+    {%if project.tasks.all%}
+    <div>Tâches :</div>
+    <div id="gantt" style="border:solid 1px;overflow-x:auto;height:{{project.tasks.all.count|add:4}}em;position:relative">
+        <div style="float:left;width:20em;">
+            <div>Date</div>
+            {%for task in project.tasks.all%}
+            <div>{{task.title}} - {{task.assignee}}
+                <div style="position:absolute;left:{{task.start_date|oidateshift:project.start_date|add:20}}em;height:5px;width:{{task.due_date|oidateshift:task.start_date}}em;background:orange"></div>
+            </div>
+            {% empty %}
+                Pas de tache dans le projet
+            {% endfor %}    
+        </div>
+        {% for day in days %}
+        <div style="position:absolute;left:{{forloop.counter0|add:20}}em;width:1em;border-right:solid lightgray 1px;height:{{project.tasks.count|add:3}}em;{%if day.weekday > 5%}background:#F0F0F0;{%endif%};z-index:-1">
+            <span style="font-size:.8em;">{{day.day}}</span>
+        </div>
+        {% endfor %}
+        {%for task in project.tasks.all%}
+            {%if day > task.start_date and day < task.due_date%}X{%endif%}
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}
+
