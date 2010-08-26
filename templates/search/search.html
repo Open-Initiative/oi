@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Résultats pour '{{query}}'</h1>
+{% if page.object_list %}
+    <ol>
+        {% for result in page.object_list %}
+            <li>
+                {% ifequal result.model_name 'message' %}
+                <a href='{% url oi.messages.views.getmessage id=result.object.id%}'>{{ result.object.title }}</a> {{ result.object }}
+                {% else %}
+                <a href='{% url oi.projects.views.getproject id=result.object.id%}'>{{ result.object.title }}</a> {{ result.object }}
+                {% endifequal %}
+            </li>
+        {% endfor %}
+    </ol>
+{% else %}
+    <p>No results found.</p>
+{% endif %}
+
+{% endblock %}

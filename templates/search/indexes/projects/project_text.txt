@@ -1,0 +1,11 @@
+{{object.title}}
+{{object.title}}
+{{object.title}}
+{{object.title}}
+{{object.title}}
+
+{%for spec in object.get_specs%}
+    {{spec.text}}
+    {{spec.url}}
+    {{spec.file}}
+{%endfor%}

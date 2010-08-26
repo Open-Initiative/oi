@@ -1,3 +1,4 @@
+﻿﻿{% load oifilters %}
 <div id="spec_{{project.id}}_{{spec.id}}">
 {%ifequal spec.type 1%}
 {{spec.text}}
@@ -16,6 +17,6 @@
 <a href="{{spec.file.url}}">{{spec.file.name}}</a>
 {{spec.text}}
 {%endifequal%}
-<button onclick="deleteSpec({{project.id}}, {{spec.id}})">-</button>
-<button onclick="addSpec({{project.id}}, {{spec.order}})">+</button>
+{% if project|can_write:user %}<img src="/img/icons/delspec.png" onclick="deleteSpec({{project.id}}, {{spec.id}})" alt="Ajouter une spécification" title="Ajouter une spécification"/>{% endif %}
+{% if project|can_write:user %}<img src="/img/icons/addspec.png" onclick="addSpec({{project.id}}, {{spec.order}})" alt="Ajouter une spécification" title="Ajouter une spécification"/>{% endif %}
 </div>

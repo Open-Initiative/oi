@@ -1,30 +1,37 @@
 #coding: utf-8
 # Vues des messages
 from django.http import HttpResponse, HttpResponseForbidden
-from oi.messages.models import Message, OI_SCORE_ADD, OI_SCORE_DEFAULT_RELEVANCE, OI_MSG_READ, OI_MSG_WRITE, OI_MSG_ANSWER, OINeedsMsgPerms
+from oi.messages.models import Message, OI_SCORE_ADD, OI_SCORE_DEFAULT_RELEVANCE, OI_READ, OI_WRITE, OI_ANSWER, OINeedsMsgPerms
 from oi.messages.templatetags.oifilters import oiescape
 from oi.projects.models import Project
 from django.shortcuts import render_to_response
+from django.template import RequestContext
+from django.views.generic.list_detail import object_detail, object_list
+from django.views.generic.simple import direct_to_template
+
+OI_PAGE_SIZE = 10
+
+def index(request):
+    """All messages with no partents"""
+    messages = Message.objects.filter(category=False)
+    projects = Project.objects.filter(parent=None)
+    return render_to_response('index.html',{'messages': messages, 'projects': projects}, context_instance=RequestContext(request))
 
 def getmessages(request):
     """All messages with no partents"""
-    messages = Message.objects.filter(parents=None, category=False)
-    projects = Project.objects.filter(parent=None)
-    for message in messages:
-        message.current_user_has_voted = message.has_voted(request.user, request.META['REMOTE_ADDR'])
-        message.text = message.text
-    return render_to_response('index.html',{'user': request.user, 'messages': messages, 'projects': projects})
+    messages = Message.objects.filter(parents__in=[id for id in request.GET.get("categs","").split(",") if id!=""], category=False)
+    return object_list(request, queryset=messages)
 
-@OINeedsMsgPerms(OI_MSG_READ)
+@OINeedsMsgPerms(OI_READ)
 def getmessage(request, id):
     """Message given by id"""
-    message = Message.objects.get(id=id)
-    message.current_user_has_voted = message.has_voted(request.user, request.META['REMOTE_ADDR'])
-    if request.GET.get("inline"):
-        template = 'messages/message.html'
-    else:
-        template = 'messages/getmessage.html'
-    return render_to_response(template,{'user': request.user, 'message' : message})
+    extra_context={'depth': request.GET.get('depth',OI_PAGE_SIZE), 'base':"%sbase.html"%request.GET.get("mode","")}
+    return object_detail(request, queryset=Message.objects, object_id=id, extra_context=extra_context)
+
+def newmessage(request):
+    """Shows the new message form"""
+    return direct_to_template(request, template='messages/newmessage.html',extra_context={'parents':request.GET.get("parents","")})
+
 
 def editmessage(request, id):
     """Edit form of the message"""
@@ -34,9 +41,9 @@ def editmessage(request, id):
         parents = request.GET["parents"]
     if id!='0':
         message = Message.objects.get(id=id)
-        if not message.has_perm(request.user, OI_MSG_WRITE):
+        if not message.has_perm(request.user, OI_WRITE):
             return HttpResponseForbidden('Permissions insuffisantes')
-    return render_to_response('messages/editmessage.html',{'divid':request.GET["divid"], 'parents':parents, 'message':message})
+    return render_to_response('messages/editmessage.html',{'divid':request.GET["divid"], 'parents':parents, 'message':message}, context_instance=RequestContext(request))
 
 def savemessage(request, id):
     """Saves the edited message and redirects to its view"""
@@ -58,7 +65,7 @@ def savemessage(request, id):
         if request.POST.has_key("parents") and request.POST["parents"]!='':
             parents = request.POST["parents"].split(",")
             for parent in parents:
-                if not Message.objects.get(id=parent).has_perm(request.user, OI_MSG_ANSWER):
+                if not Message.objects.get(id=parent).has_perm(request.user, OI_ANSWER):
                     return HttpResponseForbidden("Permissions insuffisantes")
         if parents is None:
             return HttpResponseForbidden("Merci de choisir une catégorie")
@@ -74,11 +81,11 @@ def savemessage(request, id):
         message.current_user_has_voted = True
     
     #affiche le nouveau message en retour
-    return render_to_response('messages/message.html',{'message' : message})
+    return render_to_response('messages/message.html',{'message' : message}, context_instance=RequestContext(request))
 
-@OINeedsMsgPerms(OI_MSG_WRITE)
+@OINeedsMsgPerms(OI_WRITE)
 def deletemessage(request, id):
-    """Deletes the message and output a message"""
+    """Deletes the message and outputs a message"""
     Message.objects.get(id=id).delete()
     return HttpResponse(u"Message supprimé")
 
@@ -99,4 +106,4 @@ def listcategories(request, id='0'):
         categories = Message.objects.filter(category=True, parents=None)
     else:
         categories = Message.objects.filter(category=True, parents=id)
-    return render_to_response('messages/arbo.html',{'categories': categories})
+    return render_to_response('messages/arbo.html',{'categories': categories}, context_instance=RequestContext(request))

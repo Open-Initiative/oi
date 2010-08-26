@@ -1,0 +1,8 @@
+{% extends base %}
+{% block content %}
+{% with object as message %}
+{%ifequal base "base.html" %}<div class="list">{% endifequal %}
+{% include "messages/message.html" %}
+{%ifequal base "base.html" %}</div>{% endifequal %}
+{% endwith %}
+{% endblock %}

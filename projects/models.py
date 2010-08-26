@@ -3,7 +3,7 @@
 from django.db import models
 from oi.settings import MEDIA_ROOT
 from django.contrib.auth.models import User
-from oi.messages.models import Message
+from oi.messages.models import Message, OI_READ, OI_WRITE
 from django.http import HttpResponseForbidden
 
 # A project can contain subprojects and/or specs. Without them it is only a task
@@ -40,6 +40,9 @@ class Project(models.Model):
     
     def has_perm(self, user, perm):
         """checks if the user has the required perms"""
+        #superuser a tous les droits
+        if user.is_superuser:
+            return True
         if perm in [1,4] and self.public:
             return True
         if user.is_anonymous:
@@ -55,8 +58,7 @@ class Project(models.Model):
         return "%s : %s"%(self.id, self.title)
 
 #Liste des permissions sur les projets
-OI_PRJ_READ, OI_PRJ_WRITE = 1,2
-OI_PRJ_PERMS = ((OI_PRJ_READ, "Lecture"), (OI_PRJ_WRITE, "Ecriture"),) 
+OI_PRJ_PERMS = ((OI_READ, "Lecture"), (OI_WRITE, "Ecriture"),) 
 
 #Structure de contrôle des permissions
 class ProjectACL(models.Model):
@@ -68,19 +70,14 @@ class ProjectACL(models.Model):
 def OINeedsPrjPerms(*required_perms):
     def decorate(f):
         def new_f(request, id, *args, **kwargs):
-            #superuser a tous les droits
-            if request.user.is_superuser:
-                return f(request, id, *args, **kwargs)
-
             #Vérification de toutes les permissions
-            msg = Message.objects.get(id=id)
+            prj = Project.objects.get(id=id)
             for perm in required_perms:
-                if not msg.has_perm(request.user, perm):
+                if not prj.has_perm(request.user, perm):
                     return HttpResponseForbidden("Permissions insuffisantes")
             return f(request, id, *args, **kwargs)
         return new_f
     return decorate 
-
 
 # Aspec is a content of a project
 class Spec(models.Model):

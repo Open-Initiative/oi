@@ -1,51 +1,64 @@
 ﻿{% load oifilters %}
 <div id="message_{{message.id}}" class="message">
-<!--    <div class="msgbox">-->
-        <div class="msgup">
-            <div class="msginfo">
-                {{message.author|default:"invité"}}
-                {{message.created|date:"d/m/Y"}}
-            </div>
-            <div class="msgtitle">
-                {{message.title}}
-            </div>
+    <div class="msgup">
+        <div class="msginfo">
+            {{message.author|default:"invité"}}
+            {{message.created|date:"d/m/Y"}}
         </div>
-        <div class="msgbody">
+        <div class="actions">
+            {% if message|can_answer:user %}<img src="/img/icons/answermsg.png" onclick="addMessage({{message.id}})" alt="Répondre au message" title="Répondre au message" />{% endif %}
+            {% if message|can_write:user %}<img src="/img/icons/delmsg.png" onclick="deleteMessage({{message.id}})" alt="Supprimer le message" title="Supprimer le message" />{% endif %}
+            {% if message|can_write:user %}<img src="/img/icons/editmsg.png" onclick="editMessage({{message.id}})" alt="Modifier le message" title="Modifier le message" />{% endif %}
+        </div>
+        <div class="msgtitle">
+            {{message.title}}
+        </div>
+    </div>
+    <div class="msgbody">
+        <div class="msgtext">
             {{message.text|oiunescape}}
-            Pertinence : {{message.relevance}}
-            id : {{message.id}}
-            <br />
-            Experts :
-            {%for expert in message.expert_set.select_related%}
-                {{expert.user}} : {{expert.score}},
-            {%endfor%}
-            <div id="projects_{{message.id}}" class="msgml">
-            {%for project in message.get_projects%}
-                <a id="project_{{project.id}}" href="/project/get/{{project.id}}">
-                    <div class="smallprj">
-                        {{project}}
-                    </div>
-                </a>
-            {%endfor%}
-            <a href="/project/edit/0?message={{message.id}}">Créer un nouveau projet</a>
-            </div>
-            {%if not message.current_user_has_voted%}
-                <button onclick="vote({{message.id}},1)">+</button>
-                <button onclick="vote({{message.id}},-1)">-</button>
-            {%endif%}
-            <button onclick="addMessage({{message.id}})">Repondre</button>
-            <button onclick="deleteMessage({{message.id}})">Supprimer</button>
-            <button onclick="editMessage({{message.id}})">Modifier</button>
         </div>
-        <div class="msgbtm"></div>
-<!--    </div>-->
+        <div id="projects_{{message.id}}" class="prjlist">
+        {% if message.get_projects %} <div>Projets en réponse :</div>
+        {% for project in message.get_projects %}
+            <a id="project_{{project.id}}" href="/project/get/{{project.id}}">
+                <div class="smallprj">
+                    {{project.title}}
+                </div>
+            </a>
+        {% endfor %}
+        {% endif %}
+        {% if message|can_answer:user %}<a href="/project/edit/0?message={{message.id}}">
+            <img src="/img/icons/addprj.png" alt="Créer un nouveau projet" title="Créer un nouveau projet"/>
+        </a>{% endif %}
+        </div>
+        {% if not message|has_voted:user %}
+            <button onclick="vote({{message.id}},1)">+</button>
+            <button onclick="vote({{message.id}},-1)">-</button>
+        {% endif %}
+    </div>
+    <div class="msgbtm"></div>
     <div id="children_{{message.id}}" {%if message.children.all%}class="childrenlist"{%endif%}>
-        {%for child in message.children.all%}
-        <div id="message_{{child.id}}" onclick="expandMessage({{child.id}})">
+        {% if depth > 1 %}
+        {% if message.children.all|length == 1 %}
+            {% with message.children.all|first as message %}
+            {% with depth|add:-1 as depth %}
+            {% with "messages/message.html" as templatename %}
+                {% include templatename %}
+            {% endwith %}
+            {% endwith %}
+            {% endwith %}
+        {% else %}
+        {% for child in message.children.all %}
+        {% if child|can_read:user %}
+        <div id="message_{{child.id}}" onclick="expandMessage({{child.id}}, {{depth}})">
             <div class="smallmsg">
-                {{child}}
+                {{child.title}}
             </div>
         </div>
-        {%endfor%}
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% endif %}
     </div>
 </div>

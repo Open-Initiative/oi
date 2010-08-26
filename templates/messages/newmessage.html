@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block nav %}
+Créer un message dans :
+<div id="arbo">
+<script>OIajaxCall("/message/listcategories/0","","arbo");</script>
+</div>{% endblock %}
+{% block content %}
+<div class="list">
+{% include "messages/editmessage.html" %}
+</div>
+{% endblock %}

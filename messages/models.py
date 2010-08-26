@@ -121,8 +121,8 @@ class Message(models.Model):
         return "%s : %s"%(self.id, self.title)
 
 #Liste des permissions sur les messages
-OI_MSG_READ, OI_MSG_WRITE, OI_MSG_ANSWER = 1,2,4
-OI_MSG_PERMS = ((OI_MSG_READ, "Lecture"), (OI_MSG_WRITE, "Ecriture"), (OI_MSG_ANSWER, "Réponse"),) 
+OI_READ, OI_WRITE, OI_ANSWER = 1,2,4
+OI_MSG_PERMS = ((OI_READ, "Lecture"), (OI_WRITE, "Ecriture"), (OI_ANSWER, "Réponse"),) 
 
 #Structure de contrôle des permissions
 class MessageACL(models.Model):

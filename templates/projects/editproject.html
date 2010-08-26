@@ -1,20 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
-<form action="/project/save/{{project.id|default:0}}" method="POST">
-<label for="title">Titre</label>
-<input name="title" type="text" value="{{project.title}}"/><br />
-{%if parent%}<input name="parent" type="hidden" value="{{parent}}" />{%endif%}
-<label for="start_date"">date de début : </label><input name="start_date" type="text" value="{{project.start_date}}" /><br />
-<label for="due_date"">date de fin : </label><input name="due_date" type="text" value="{{project.due_date}}" /><br />
-<label for="assignee"">responsable : </label><input name="assignee" type="text" value="{{project.assignee}}" /><br />
-<input name="message" type="hidden" value="{{message}}" />
-message :{{message}}
-<div id="project_specs">
-{%for spec in project.spec_set.all%}
-{%include 'projects/editspec.html'%}
-<button onclick="addspec({{project.id}}, {{spec.order}})">+</button>
-{%endfor%}
+<div class="project">
+    <form action="/project/save/{{project.id|default:0}}" method="POST">
+    <div class="prjup">
+        <div class="prjtitle">
+            <input name="title" type="text" value="{{project.title}}"/><br />
+            {%if parent%}<input name="parent" type="hidden" value="{{parent}}" />{%endif%}
+        </div>
+    </div>
+    <div class="prjbody">
+        <label for="start_date"">date de début : </label><input name="start_date" type="text" value="{{project.start_date}}" /><br />
+        <label for="due_date"">date de fin : </label><input name="due_date" type="text" value="{{project.due_date}}" /><br />
+        <label for="assignee"">responsable : </label><input name="assignee" type="text" value="{{project.assignee}}" /><br />
+        <input name="message" type="hidden" value="{{message}}" />
+        message :{{message}}
+        <div id="specs_{{project.id}}">
+            {%for spec in project.get_specs%}
+            <div id="specs_{{project.id}}_{{spec.order}}">
+                {%include 'projects/spec.html'%}
+            </div>
+            {%endfor%}
+        </div>
+        <img src="/img/icons/spec.png" onclick="addSpec({{project.id}}, -1)" alt="Ajouter une spécification" title="Ajouter une spécification"/>
+        <input type="submit" />
+    </div>
+    <div class="prjbtm"></div>
+    </form>
 </div>
-<input type="submit" />
-</form>
 {% endblock %}

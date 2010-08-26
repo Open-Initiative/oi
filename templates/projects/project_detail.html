@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+﻿﻿{% load oifilters %}
+{% block content %}
+{% if object|can_read:user %}
+{% with object as project %}
+<div class="list">
+    <div id="project_{{project.id}}" class="project">
+        <div class="prjup">
+            <div class="msginfo">
+                {{project.author}}
+                {{project.created}}
+            </div>
+            <div class="actions">
+                {% if project|can_write:user %}<a href="{% url oi.projects.views.deleteproject id=project.id%}">
+                    <img src="/img/icons/delprj.png" alt="Supprimer le projet" title="Supprimer le projet" />
+                </a>
+                <a href="{% url oi.projects.views.editproject id=project.id%}">
+                    <img src="/img/icons/project.png" alt="Modifier le projet" title="Modifier le projet" />
+                </a>{% endif %}
+            </div>
+            <div class="prjtitle">
+                {{project.title}}
+            </div>
+        </div>
+        <div class="prjbody">
+            assigné à : {{project.assignee}}<br />
+            démarré le : {{project.start_date}}<br />
+            du le : {{project.due_date}}<br />
+            <div id="specs_{{project.id}}">
+                {%for spec in project.get_specs%}
+                <div id="specs_{{project.id}}_{{spec.order}}">
+                    {%include 'projects/spec.html'%}
+                </div>
+                {%endfor%}
+            </div>
+            {% if project|can_write:user %}<img src="/img/icons/addspec.png" onclick="addSpec({{project.id}}, -1)" alt="Ajouter une spécification" title="Ajouter une spécification"/>{% endif %}
+            <div id="tasks_{{project.id}}" class="tasklist">
+                {%if project.tasks.all%}
+                Tâches :
+                {%for task in project.tasks.all%}
+                {% if task|can_read:user %}
+                <div id="project_{{task.id}}">
+                    {%if task.is_simple_task%}
+                        {%include 'projects/task.html'%}
+                    {%else%}
+                        <a href="/project/get/{{task.id}}">{{task}}</a>
+                    {%endif%}
+                </div>
+                {% endif %}
+                {%endfor%}
+                {%endif%}
+            </div>
+            {% if project|can_write:user %}
+            <div>
+                <input type="text" id="newtask_title_{{project.id}}"/>
+                <img src="/img/icons/addprj.png" alt="Nouvelle tâche" title="Nouvelle tâche" onclick="addTask({{project.id}})" />
+            </div>
+            {% endif %}
+            <a href="{% url oi.projects.views.projectview id=project.id%}">
+                <img src="/img/icons/overview.png" alt="Vue d'ensemble" title="Vue d'ensemble" />
+            </a>
+        </div>
+        <div class="prjbtm"></div>
+    </div>
+</div>
+{% endwith %}
+{% else %}
+Permissions insuffisantes
+{% endif %}
+{% endblock %}

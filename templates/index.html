@@ -2,7 +2,7 @@
 {% block content %}
 <div class="list">
 <span class="indextitle">Discutez !</span>
-<img src="/img/icons/addmsg.png" id="addmsg" onclick="addMessage()" alt="Ajouter un message">
+<div class="actions"><a href="/message/new"><img src="/img/icons/addmsg.png" id="addmsg" alt="Ajouter un message"></a></div>
 <div id="messages">
 {%for message in messages%}
 {%include 'messages/messagesum.html'%}

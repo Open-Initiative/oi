@@ -5,7 +5,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Page d'accueil
-    (r'^$', 'oi.messages.views.getmessages'),
+    (r'^$', 'oi.messages.views.index'),
     # Pages des messages
     (r'^message/', include('oi.messages.urls')),
     # Pages des projets
@@ -20,4 +20,6 @@ urlpatterns = patterns('',
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     # Page d'administration
     (r'^admin/', include(admin.site.urls)),
+    # Moteur de recherche
+    (r'^search/', include('haystack.urls')),
     )

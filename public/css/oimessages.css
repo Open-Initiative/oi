@@ -1,15 +1,15 @@
 div.message {
    height: 100%;
+   width: 500px;
 }
-
-/*div.msgbox {*/
-/*    width: 500px;*/
-/*    margin: 3px;*/
-/*}*/
 
 div.msgbody {
     background: url('/img/msgmid.png');
     padding: 20px;
+}
+div.msgtext {
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 12px;
 }
 div.msgup {
     width: 500px;
@@ -24,19 +24,24 @@ div.msgbtm {
 div.msginfo {
     float: left;
     width: 100px;
-    margin-top: 10px;
-    margin-left: 10px;
+    padding: 20px;
+    font-style: italic;
+    font-size: 1em;
     z-index: 2;
 }
 div.msgtitle {
     margin-top: 5px;
-    padding: 10px;
+    padding: 30px;
     font-weight: bold;
     z-index: 2;
 }
 
+div.prjlist {
+    border-top: solid black 1px;
+    margin-top: 25px;
+}
 div.childrenlist {
-    padding: 70px;
+    padding: 20px;
 }
 div.smallmsg {
     width: 260px;
@@ -44,6 +49,7 @@ div.smallmsg {
     margin-top: -60px;
     padding: 20px;
     background: url('/img/message.png');
+    font-weight: bold;
 }
 
 #nav {
@@ -59,63 +65,6 @@ div.smallmsg {
 span.selectedcateg {
     background: #BBBCEE;
 }
-/*div.msguc {*/
-/*    margin-left: 20px;*/
-/*    margin-right: 20px;*/
-/*    height: 80px;*/
-/*}*/
-/*div.msgul {*/
-/*    float: left;*/
-/*    width: 281px;*/
-/*    height: 80px;*/
-/*    background: url('/img/msgul.png');*/
-/*}*/
-/*div.msgur {*/
-/*    float: right;*/
-/*    width: 19px;*/
-/*    height: 80px;*/
-/*    background: url('/img/msgur.png');*/
-/*}*/
-
-/*div.msgml {*/
-/*    height: 100%;*/
-/*    overflow: auto;*/
-/*    background: url('/img/msgml.png') repeat-y;*/
-/*}*/
-/*div.msgml2 {*/
-/*    width: 20px;*/
-/*    height: 100%;*/
-/*    margin-top:10px;*/
-/*    z-index: -2;*/
-/*    background: url('/img/msgml.png') repeat-y;*/
-/*    position: relative;*/
-/*    left:0;*/
-/*}*/
-/*div.msgmr {*/
-/*    float: right;*/
-/*    width: 20px;*/
-/*    height: 100%;*/
-/*    margin-top:10px;*/
-/*    z-index: -2;*/
-/*    background: url('/img/msgmr.png') repeat-y;*/
-/*}*/
-
-/*div.msgbc {*/
-/*    margin-left: 20px;*/
-/*    margin-right: 20px;*/
-/*    height: 20px;*/
-/*    background: url('/img/msgbc.png') repeat-x;*/
-/*}*/
-/*div.msgbl {*/
-/*    float: left;*/
-/*    clear: left;*/
-/*    width: 280px;*/
-/*    height: 20px;*/
-/*    background: url('/img/msgbl.png');*/
-/*}*/
-/*div.msgbr {*/
-/*    float: right;*/
-/*    width: 20px;*/
-/*    height: 20px;*/
-/*    background: url('/img/msgbr.png');*/
-/*}*/
+.msgfield {
+    width:100%;
+}

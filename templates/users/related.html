@@ -1,14 +1,24 @@
 <div class="related">
 Mes Messages :
 <div>
-{%for message in user.ownmessages.all%}
-{%include 'messages/messagesum.html'%}
-{%endfor%}
+    <div class="usermsg">
+    {%for message in user.ownmessages.all%}
+        <a href="{% url oi.messages.views.getmessage id=message.id %}">
+            <div id="message_{{message.id}}" class="smallmsg">
+                {{message.title}}
+            </div>
+        </a>
+    {%endfor%}
+    </div>
 </div>
 Mes Projets :
 <div>
 {%for project in user.ownprojects.all%}
-{%include 'projects/projectsum.html'%}
+    <a href="/project/get/{{project.id}}">
+        <div id="project_{{project.id}}" onclick="expandProject({{project.id}})" class="smallprj">
+            {{project.title}}
+        </div>
+    </a>
 {%endfor%}
 </div>
 </div>

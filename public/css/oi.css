@@ -1,9 +1,13 @@
 body {
     margin:0;
     height: 100%;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 html{
     height: 100%;
+}
+img {
+    border: None;
 }
 #messages {
     height: 100%;
@@ -13,18 +17,14 @@ html{
 }
 #logo {
     height: 80px;
-    border: 0;
     margin: 10px;
 }
-#searchbox {
+.searchbox {
     font-style: italic;
     color: gray;
 }
-#searchicon {
+#searchbtn {
     height: 20px;
-}
-#addmsg {
-    float: right;
 }
 div.list {
     float: left;
@@ -49,7 +49,6 @@ span.indextitle {
     font-size: 30px;
     font-style:italic;
     font-weight: bold;
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 div.vertsep {
     height: 100%;
@@ -57,15 +56,10 @@ div.vertsep {
     margin: 10px;
     float: left;
 }
-div.uservertsep {
-    height: 100%;
-    border: solid 1px gray;
-    margin: 10px;
-    float: right;
-}
 div.subcateg {
     margin-left: 10px;
 }
-div.related {
+div.actions {
     float: right;
+    margin: 5px;
 }

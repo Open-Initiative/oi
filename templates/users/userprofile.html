@@ -1,23 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
 {% include "users/related.html" %}
-<div class="uservertsep"></div>
-<div id="userprofile">
-<a href="/user/editprofile">Editer le profil</a>
-Date de naissance : {{user.get_profile.birthdate}}
-</div>
-<div id="training">
-<img src="/img/icons/addmsg.png" id="addtrain" onclick="addTraining()" alt="Ajouter une formation">
-Ma formation
-{% for training in user.training_set.all %}
-{{training}}
-{% endfor %}
-</div>
-<div id="experience">
-<img src="/img/icons/addmsg.png" id="addxp" onclick="addExperience()" alt="Ajouter une expérience">
-Mon expérience
-{% for experience in user.experience_set.all %}
-{{experience}}
-{% endfor %}
+<div class="userpage" >
+    <div id="userprofile">
+        <a href="/user/editprofile">Editer le profil</a>
+        Date de naissance : {{user.get_profile.birthdate}}
+    </div>
+    <div>
+        <div id="training" class="list" style="width:200px">
+            <div class="actions">
+                <img src="/img/icons/addmsg.png" id="addtrain" onclick="addTraining()" alt="Ajouter une formation" title="Ajouter une formation" />
+            </div>
+            Ma formation
+            {% for training in user.training_set.all %}
+            <p>{{training.university}}<br />({{training.begining.year}} à {{training.end.year}})<br />{{training.degree}}</p>
+            {% endfor %}
+        </div>
+        <div id="experience" class="list" style="width:200px">
+            <div class="actions">
+                <img src="/img/icons/addmsg.png" id="addxp" onclick="addExperience()" alt="Ajouter une expérience" title="Ajouter une expérience" />
+            </div>
+            Mon expérience
+            {% for experience in user.experience_set.all %}
+            <p>{{experience.company}}<br />({{experience.begining.year}} à {{experience.end.year}})<br />{{experience.job}}</p>
+            {% endfor %}
+        </div>
+        <div class="contacts">
+        Contacts
+        </div>
+    </div>
 </div>
 {% endblock %}

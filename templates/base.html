@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/oi.css" />
     <link rel="stylesheet" href="/css/oimessages.css" />
     <link rel="stylesheet" href="/css/oiprojects.css" />
+    <link rel="stylesheet" href="/css/oiusers.css" />
     <script type="text/javascript" src="/js/oijs.js"></script>
     <script type="text/javascript" src="/js/oimessage.js"></script>
     <script type="text/javascript" src="/js/oiproject.js"></script>
@@ -14,7 +15,7 @@
     <script type="text/javascript">
         tinyMCE.init({mode : "textareas"});
     </script>
-    <title>{% block title %}My site{% endblock %}</title>
+    <title>{% block title %}Open Initiative{% endblock %}</title>
 </head>
 
 <body>
@@ -29,22 +30,30 @@
             <a class="homelink" href="/login">Se connecter</a>
             {%endif%}
         </div>
-        <a href="/"><img src="/img/logo.png" id="logo" /></a>
-        <a  class="homelink" href="#">Pourquoi Open Initiative ?</a>
-        <input id="searchbox" type="texte" value="Rechercher..."/> <img src="/img/icons/loupe.png" id="searchicon"/>
-        <div class="sepheader"> </div>
+        <div id="logodiv">
+            <a href="/"><img src="/img/logo.png" id="logo" /></a>
+            <a  class="homelink" href="#">Pourquoi Open Initiative ?</a>
+        </div>
+        <form name="searchform" action="/search" method="GET">
+            <input class="searchbox" name="q" type="texte" value="Rechercher..." onclick="value=''" />
+            <input id="searchbtn" type="image" src="/img/icons/loupe.png" />
+        </form>
+        <div class="sepheader"></div>
         {% endblock %}
     </div>
 
     <div id="nav">
         {% block nav %}
-        Catégories
+        <h3>Catégories</h3>
         <div id="arbo">
         <script>OIajaxCall("/message/listcategories/0","","arbo");</script>
         </div>
-        <div>
-        Date
-        </div>
+        <h3>Date</h3>
+        <select></select>
+        <h3>Etat</h3>
+        Proposé <br />
+        En cours <br />
+        Terminé <br />
 	    {% endblock %}
     </div>
     <div id="content">

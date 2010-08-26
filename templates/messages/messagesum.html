@@ -11,14 +11,9 @@
             </div>
         </div>
         <div class="msgbody">
-            {{message.text|oiunescape}}
-            Pertinence : {{message.relevance}}
-            id : {{message.id}}
-            <br />
-            Experts :
-            {%for expert in message.expert_set.select_related%}
-                {{expert.user}} : {{expert.score}},
-            {%endfor%}
+            <div class="msgtext">
+                {{message.text|oiunescape}}
+            </div>
         </div>
         <div class="msgbtm"></div>
     </div>

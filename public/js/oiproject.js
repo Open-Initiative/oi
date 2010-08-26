@@ -7,8 +7,7 @@ function addTask(projectid) {
 function addSpec(projectid, specorder) {
     if(specorder==-1) divid = newDiv("specs_"+projectid);
     else divid = newDiv("specs_"+projectid+"_"+specorder);
-    url = "/project/"+projectid+"/editspec/0?divid="+divid+"&specorder="+specorder;
-    OIajaxCall(url, null, divid);
+    OIajaxCall("/project/"+projectid+"/editspec/0?divid="+divid+"&specorder="+specorder, null, divid);
     changeSpecType(divid);
 }
 function changeSpecType(divid){

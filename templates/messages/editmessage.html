@@ -1,9 +1,15 @@
 ﻿{% load oifilters %}
-<label for="title_{{divid}}">Titre</label>
-<input id="title_{{divid}}" type="text" value="{{message.title}}"/>
-<label for="text_{{divid}}">Message</label>
-<textarea id="text_{{divid}}" >{{message.text|oiunescape}}</textarea>
-<input id="parents_{{divid}}"type="hidden"  value="{{parents}}" />
-parents :{{parents}}
-<button onclick="saveMessage('{{divid}}',{{message.id|default:0}})">OK</button>
-<button onclick="if (!tinyMCE.get('text_{{divid}}')) tinyMCE.execCommand('mceAddControl', false, 'text_{{divid}}'); else tinyMCE.execCommand('mceRemoveControl', false, 'text_{{divid}}');">Toggle</button>
+<div class="message">
+    <div class="msgup">
+        <div class="msgtitle">
+            <input id="title_{{divid}}" class="msgfield" type="text" value="{{message.title}}"/>
+        </div>
+    </div>
+     <div class="msgbody">
+        <textarea id="text_{{divid}}" class="msgfield">{{message.text|oiunescape}}</textarea>
+        <input id="parents_{{divid}}"type="hidden"  value="{{parents}}" />
+        <button onclick="saveMessage('{{divid}}',{{message.id|default:0}})">OK</button>
+    </div>
+    <div class="msgbtm"></div>
+<!--    <button onclick="if (!tinyMCE.get('text_{{divid}}')) tinyMCE.execCommand('mceAddControl', false, 'text_{{divid}}'); else tinyMCE.execCommand('mceRemoveControl', false, 'text_{{divid}}');">Toggle</button>-->
+</div>

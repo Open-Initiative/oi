@@ -1,0 +1,17 @@
+div.userpage {
+    height: 100%;
+    float: left;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+div.related {
+    border-left: solid 1px gray;
+    float: right;
+    width: 510px;
+}
+div.contacts {
+    clear: left;
+    border-top: solid black 1px;
+}
+div.usermsg {
+    padding: 70px;
+}
