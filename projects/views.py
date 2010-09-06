@@ -1,25 +1,29 @@
 #coding: utf-8
 # Vues des projets
-from oi.settings import MEDIA_ROOT
-from django.http import HttpResponseRedirect,HttpResponse,HttpResponseForbidden
-from oi.projects.models import Project, Spec, OINeedsPrjPerms, OI_READ, OI_WRITE
-from oi.messages.models import Message
+from oi.settings import MEDIA_ROOT, TEMP_DIR
+from oi.projects.models import Project, Spec, OINeedsPrjPerms
+from oi.messages.models import Message, OI_READ, OI_ANSWER, OI_WRITE
+from oi.messages.templatetags.oifilters import oiescape
 from oi.users.models import User
+from django.http import HttpResponseRedirect,HttpResponse,HttpResponseForbidden
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
-from datetime import time, timedelta
-from os import rename
+from datetime import timedelta
+from django.views.generic.list_detail import object_detail
+from django.core.files import File
+from time import time
 from urllib import quote
+import os
 
-@OINeedsPrjPerms(OI_WRITE)
 def editproject(request, id):
     """Edit template of the project"""
     project=None
     if id!='0':
         project = Project.objects.get(id=id)
+        if not project.has_perm(request.user, OI_WRITE):
+            return HttpResponseForbidden("Permissions insuffisantes")
     return render_to_response('projects/editproject.html',{'user': request.user, 'parent':request.GET.get("parent"), 'message':request.GET.get("message"), 'project':project})
 
-@OINeedsPrjPerms(OI_WRITE)
 def saveproject(request, id='0'):
     """Saves the edited project and redirects to it"""
     author = None
@@ -35,26 +39,41 @@ def saveproject(request, id='0'):
         #or from query
         else:
             message = Message.objects.get(id=request.POST["message"])
-        project = Project(title = request.POST["title"], author=author, parent=parent, message=message, public=True,
-            start_date=request.POST.get("start_date"), due_date=request.POST.get("due_date"))
+        if not message.has_perm(request.user, OI_ANSWER):
+            return HttpResponseForbidden("Permissions insuffisantes")
+        project = Project(title = request.POST["title"], author=author, parent=parent, message=message, public=True)
         
     else: #existing project
         project = Project.objects.get(id=id)
+        if not project.has_perm(request.user, OI_ANSWER):
+            return HttpResponseForbidden("Permissions insuffisantes")
         project.title = request.POST["title"]
-        project.start_date = request.POST.get("start_date")
-        project.due_date = request.POST.get("due_date")
 
-    if request.POST.has_key("assignee"):
+    if request.POST["assignee"] and len(request.POST["assignee"])>0:
         project.assignee = User.objects.get(username=request.POST["assignee"])
+    if request.POST.has_key("start_date") and len(request.POST["start_date"])>0:
+        project.start_date = request.POST["start_date"]
+    if request.POST.has_key("due_date") and len(request.POST["due_date"])>0:
+        project.due_date = request.POST["due_date"]
+    if request.POST.has_key("progress") and len(request.POST["progress"])>0:
+        project.progress = request.POST["progress"]
 
     project.save()
-    return HttpResponseRedirect(reverse('oi.projects.views.getproject',args=(project.id,)))
+    return HttpResponseRedirect('/project/get/%s'%project.id)
 
 @OINeedsPrjPerms(OI_WRITE)
 def deleteproject(request, id):
     """Deletes the project given by id"""
     Project.objects.get(id=id).delete()
     return HttpResponseRedirect('/')
+
+@OINeedsPrjPerms(OI_WRITE)
+def finishproject(request, id):
+    """Marks the project as finished"""
+    project = Project.objects.get(id=id)
+    project.progress = 1.
+    project.save()
+    return HttpResponse("Projet terminé")
 
 @OINeedsPrjPerms(OI_READ)
 def projectview(request, id):
@@ -66,9 +85,11 @@ def projectview(request, id):
 @OINeedsPrjPerms(OI_WRITE)
 def editspec(request, id, specid):
     """Edit template of a spec contains a spec details edit template"""
-    divid = request.GET["divid"]
-    project = Project.objects.get(id=id)
-    return render_to_response('projects/editspec.html',{'user': request.user, 'divid': divid, 'specid':specid, 'project':project, 'types':Spec.TYPES, 'specorder':request.GET["specorder"]})
+    spec=None
+    if specid!='0':
+        spec = Spec.objects.get(id=specid)
+    extra_context = {'divid': request.GET["divid"], 'spec':spec, 'types':Spec.TYPES, 'specorder':request.GET.get("specorder")}
+    return object_detail(request, queryset=Project.objects, object_id=id, template_object_name='project', template_name='projects/editspec.html', extra_context=extra_context)
 
 @OINeedsPrjPerms(OI_WRITE)
 def editspecdetails(request, id, specid):
@@ -76,30 +97,18 @@ def editspecdetails(request, id, specid):
     divid = request.GET["divid"]
     type = int(request.GET["type"])
     project = Project.objects.get(id=id)
-    return render_to_response('projects/edit%s.html'%(Spec.TYPES[type].replace("é","e")),{'user': request.user, 'divid': divid, 'project':project})
+    spec=None
+    if specid!='0':
+        spec = Spec.objects.get(id=specid)
+    return render_to_response('projects/edit%s.html'%(Spec.TYPES[type].replace("é","e")),{'user': request.user, 'divid': divid, 'project':project, 'spec':spec})
 
 @OINeedsPrjPerms(OI_WRITE)
-def uploadfile(request, id, specid=0):
-    """temporarily stores a file to be used in a spec"""
-    uploadedfile = request.FILES['file']
-    divid = request.POST['divid']
-    filename = "%s_%s"%(time(),uploadedfile.name)
-    tempfile = open('/home/lamp/tmp/%s'%filename, 'wb+')
-    for chunk in uploadedfile.chunks():
-        tempfile.write(chunk)
-    tempfile.close()
-    return HttpResponse('<script>window.parent.document.getElementById("filename_%s").value="%s"</script>'%(divid,filename))
-
-@OINeedsPrjPerms(OI_WRITE)
-def savespec(request, id, specid=0):
+def savespec(request, id, specid='0'):
     """saves the spec"""
     author = None
     if request.user.is_authenticated():
         author=request.user
     project = Project.objects.get(id=id)
-    filename = request.POST.get("filename")
-    if filename:
-        rename("/home/lamp/tmp/%s"%filename,MEDIA_ROOT+filename)
     
     order = int(request.POST["order"])
     if order==-1:
@@ -108,8 +117,23 @@ def savespec(request, id, specid=0):
         order += 1
         project.insert_spec(order)
     
-    spec = Spec(text = request.POST["text"], url = request.POST.get("url"), image = request.POST.get("image"), file = filename, author=author, project=project, order=order, type=request.POST["type"])
+    if specid=='0': #new spec
+        spec = Spec(text = oiescape(request.POST["text"]), author=author, project=project, order=order, type=int(request.POST["type"]))
+    else: #edit existing spec
+        spec = Spec.objects.get(id=specid)
+        spec.text = oiescape(request.POST["text"])
+        
+    if request.POST.has_key("url"):
+        spec.url = request.POST["url"]
+        
+    filename = request.POST.get("filename")
+    if filename:
+        spec.file.delete()
+        path = "%s%s_%s_%s"%(TEMP_DIR,request.user.id,request.POST["ts"],filename)
+        spec.file.save(filename, File(open(path)), False)
+        os.remove(path)
     spec.save()
+
     return render_to_response('projects/spec.html',{'user': request.user, 'project' : project, 'spec' : spec})
 
 @OINeedsPrjPerms(OI_WRITE)
@@ -118,11 +142,30 @@ def deletespec(request, id, specid):
     Spec.objects.get(id=specid).delete()
     return HttpResponse('Supprimé')
     
+@OINeedsPrjPerms(OI_WRITE)
+def uploadfile(request, id, specid='0'):
+    """temporarily stores a file to be used in a spec"""
+    uploadedfile = request.FILES['file']
+    divid = request.POST['divid']
+    ts = time()
+    tempfile = open("%s%s_%s_%s"%(TEMP_DIR,request.user.id,ts,uploadedfile.name), 'wb+')
+    for chunk in uploadedfile.chunks():
+        tempfile.write(chunk)
+    tempfile.close()
+    return render_to_response('projects/fileframe.html',{'divid':divid,'filename':uploadedfile.name,'ts':ts,'projectid':id})
+
+@OINeedsPrjPerms(OI_WRITE)
+def deltmpfile(request, id):
+    """deletes a temporary file"""
+    path = "%s%s_%s_%s"%(TEMP_DIR,request.user.id,request.POST["ts"],request.POST["filename"])
+    os.remove(path)
+    return HttpResponse('Supprimé')
+
 @OINeedsPrjPerms(OI_READ)
-def getfile(request, filename):
+def getfile(request, id, filename):
     """gets a file in the FS for download"""
     response = HttpResponse(mimetype='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename=%s'%quote(filename)
-    response['X-Sendfile'] = quote(MEDIA_ROOT+filename)
-    response['Content-Length'] = 0
+    response['Content-Disposition'] = 'attachment; filename=%s'%filename
+    response['X-Sendfile'] = "%sproject/%s/%s"%(MEDIA_ROOT,id,filename)
+    response['Content-Length'] = os.path.getsize("%sproject/%s/%s"%(MEDIA_ROOT,id,filename))
     return response

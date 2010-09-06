@@ -1,7 +1,6 @@
 div.project {
    height: 100%;
    width: 420px;
-/*   float: left;*/
 }
 div.prjbody {
     background: url('/img/prjmid.png');
@@ -43,4 +42,9 @@ div.smallprj {
     margin: 5px;
     float: left;
     background: url('/img/project.png');
+}
+.filedest {
+    visibility: hidden;
+    height: 0;
+    width: 0;
 }

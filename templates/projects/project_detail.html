@@ -7,11 +7,19 @@
     <div id="project_{{project.id}}" class="project">
         <div class="prjup">
             <div class="msginfo">
-                {{project.author}}
+                {% if project.author %}
+                <a href="/user/profile/{{project.author.username}}">{{project.author}}</a>
+                {% else %}
+                invité
+                {% endif %}
                 {{project.created}}
             </div>
             <div class="actions">
-                {% if project|can_write:user %}<a href="{% url oi.projects.views.deleteproject id=project.id%}">
+                {% if project|can_read:user %}<a href="{% url oi.projects.views.projectview id=project.id%}">
+                    <img src="/img/icons/viewprj.png" alt="Vue d'ensemble" title="Vue d'ensemble" />
+                </a>{% endif %}
+                {% if project|can_write:user %} <img onclick="finishProject({{project.id}})" src="/img/icons/okprj.png" alt="Marquer le projet comme terminé" title="Marquer le projet comme terminé" />
+                <a href="{% url oi.projects.views.deleteproject id=project.id%}">
                     <img src="/img/icons/delprj.png" alt="Supprimer le projet" title="Supprimer le projet" />
                 </a>
                 <a href="{% url oi.projects.views.editproject id=project.id%}">
@@ -26,6 +34,7 @@
             assigné à : {{project.assignee}}<br />
             démarré le : {{project.start_date}}<br />
             du le : {{project.due_date}}<br />
+            Avancement : {{project.progress}}<br />
             <div id="specs_{{project.id}}">
                 {%for spec in project.get_specs%}
                 <div id="specs_{{project.id}}_{{spec.order}}">
@@ -56,9 +65,6 @@
                 <img src="/img/icons/addprj.png" alt="Nouvelle tâche" title="Nouvelle tâche" onclick="addTask({{project.id}})" />
             </div>
             {% endif %}
-            <a href="{% url oi.projects.views.projectview id=project.id%}">
-                <img src="/img/icons/overview.png" alt="Vue d'ensemble" title="Vue d'ensemble" />
-            </a>
         </div>
         <div class="prjbtm"></div>
     </div>

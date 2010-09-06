@@ -1,15 +1,21 @@
 #coding: utf-8
 # Vues des messages
-from django.http import HttpResponse, HttpResponseForbidden
-from oi.messages.models import Message, OI_SCORE_ADD, OI_SCORE_DEFAULT_RELEVANCE, OI_READ, OI_WRITE, OI_ANSWER, OINeedsMsgPerms
+from oi.messages.models import Message, OI_SCORE_ADD, OI_SCORE_DEFAULT_RELEVANCE, OI_READ, OI_WRITE, OI_ANSWER, OI_EXPERTISE_FROM_ANSWER, OINeedsMsgPerms
 from oi.messages.templatetags.oifilters import oiescape
 from oi.projects.models import Project
+from oi.users.models import User
+from oi.settings import MEDIA_ROOT, MEDIA_URL
+from django.http import HttpResponse, HttpResponseForbidden
+from django.db.models import get_app
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.generic.list_detail import object_detail, object_list
 from django.views.generic.simple import direct_to_template
+from time import time
+import os
 
 OI_PAGE_SIZE = 10
+notification = get_app( 'notification' )
 
 def index(request):
     """All messages with no partents"""
@@ -31,7 +37,6 @@ def getmessage(request, id):
 def newmessage(request):
     """Shows the new message form"""
     return direct_to_template(request, template='messages/newmessage.html',extra_context={'parents':request.GET.get("parents","")})
-
 
 def editmessage(request, id):
     """Edit form of the message"""
@@ -77,8 +82,8 @@ def savemessage(request, id):
         #ajout des parents et de l'expertise
         for parent in parents:
             message.parents.add(parent)
+            Message.objects.get(id=parent).add_expertise(Message.objects.get(id=parent).author, message.get_expertise(request.user)*OI_EXPERTISE_FROM_ANSWER, False)
         message.add_expertise(request.user, OI_SCORE_ADD, True)
-        message.current_user_has_voted = True
     
     #affiche le nouveau message en retour
     return render_to_response('messages/message.html',{'message' : message}, context_instance=RequestContext(request))
@@ -89,6 +94,7 @@ def deletemessage(request, id):
     Message.objects.get(id=id).delete()
     return HttpResponse(u"Message supprimé")
 
+@OINeedsMsgPerms(OI_READ)
 def vote(request, id):
     """Handles a user vote on a message"""
     message = Message.objects.get(id=id)
@@ -99,6 +105,24 @@ def vote(request, id):
     message.vote(request.user, opinion, request.META['REMOTE_ADDR'])
     message.save()
     return HttpResponse(u"A voté")
+
+def uploadFile(request):
+    """uploads an image on the server"""
+    uploadedfile = request.FILES['image']
+    ts = time()
+    image = open("%s%.0f_%s"%(MEDIA_ROOT,ts,uploadedfile.name), 'wb+')
+    for chunk in uploadedfile.chunks():
+        image.write(chunk)
+    image.close()
+    return render_to_response('messages/setFile.html', {'filename':"%.0f_%s"%(ts,uploadedfile.name)})
+
+def getFile(request, filename):
+    """gets a file in the FS for download"""
+    response = HttpResponse(mimetype='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename=%s'%filename
+    response['X-Sendfile'] = "%s%s"%(MEDIA_ROOT,filename)
+    response['Content-Length'] = os.path.getsize("%s%s"%(MEDIA_ROOT,filename))
+    return response
 
 def listcategories(request, id='0'):
     """List all the category messages"""

@@ -7,18 +7,16 @@
     <link rel="stylesheet" href="/css/oimessages.css" />
     <link rel="stylesheet" href="/css/oiprojects.css" />
     <link rel="stylesheet" href="/css/oiusers.css" />
+    <script type="text/javascript" src="/js/tiny_mce/tiny_mce.js"></script>
     <script type="text/javascript" src="/js/oijs.js"></script>
     <script type="text/javascript" src="/js/oimessage.js"></script>
     <script type="text/javascript" src="/js/oiproject.js"></script>
     <script type="text/javascript" src="/js/oiuser.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/tiny_mce.js"></script>
-    <script type="text/javascript">
-        tinyMCE.init({mode : "textareas"});
-    </script>
     <title>{% block title %}Open Initiative{% endblock %}</title>
 </head>
 
 <body>
+    <div id="popup"></div>
     <div id="header">
         {% block header %}
         <div class="userheader">
@@ -38,6 +36,7 @@
             <input class="searchbox" name="q" type="texte" value="Rechercher..." onclick="value=''" />
             <input id="searchbtn" type="image" src="/img/icons/loupe.png" />
         </form>
+        <div id="output"></div>
         <div class="sepheader"></div>
         {% endblock %}
     </div>
@@ -56,9 +55,17 @@
         Terminé <br />
 	    {% endblock %}
     </div>
+    <div id="breadcrumb">
+        {% block breadcrumb %}
+        {% for path in object.get_ancestors %}
+        {% for ancestor in path %}
+        <a href="{% url oi.messages.views.getmessage id=ancestor.id%}">{{ancestor.title}}</a> - 
+        {% endfor %} <br />
+        {% endfor %}
+        {% endblock %}
+    </div>
     <div id="content">
         {% block content %}{% endblock %}
     </div>
-    <div id="output"></div>
 </body>
 </html>

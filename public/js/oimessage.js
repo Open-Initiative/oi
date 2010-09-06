@@ -5,7 +5,7 @@ function expandMessage(msgid, depth) {
 }
 function addMessage(parentid) {
     if(parentid==null) {
-        divid = newDiv("messages");
+        divid = 
         url = "/message/edit/0?divid="+divid;
     } else {
         divid = newDiv("children_"+parentid);

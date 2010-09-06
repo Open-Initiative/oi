@@ -41,7 +41,8 @@ div.prjlist {
     margin-top: 25px;
 }
 div.childrenlist {
-    padding: 20px;
+    clear: left;
+    padding-left: 20px;
 }
 div.smallmsg {
     width: 260px;

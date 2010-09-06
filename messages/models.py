@@ -14,6 +14,7 @@ OI_SCORE_FRACTION_TO_PARENT = .5 #Fraction montante
 OI_SCORE_FRACTION_FROM_PARENT = .5 #Fraction descendante
 OI_EXPERTISE_TO_MESSAGE = .02 #Transmission d'expertise au message
 OI_EXPERTISE_TO_AUTHOR = .02 #Transmission d'expertise à l'auteur
+OI_EXPERTISE_FROM_ANSWER = .002 #Fraction transmise par une réponse
 
 # Représentation du message
 class Message(models.Model):
@@ -106,7 +107,7 @@ class Message(models.Model):
         #superuser a tous les droits
         if user.is_superuser:
             return True
-        if perm in [1,4] and self.public:
+        if perm in [OI_READ, OI_ANSWER] and self.public:
             return True
         if user.is_anonymous:
             return False
@@ -116,6 +117,17 @@ class Message(models.Model):
         """adds the specified perm to the user"""
         if user.is_authenticated:
             self.messageacl_set.add(MessageACL(user=user, permission=perm))
+    
+    def get_ancestors(self):
+        """returns all the paths to the message"""
+        if self.parents.count()==0:
+            return [[]]
+        ancestors=[]
+        #makes a list of all paths to all parents
+        for parent in self.parents.all():
+            for path in parent.get_ancestors():
+                ancestors.append(path+[parent])        
+        return ancestors
     
     def __unicode__(self):
         return "%s : %s"%(self.id, self.title)

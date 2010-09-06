@@ -3,8 +3,14 @@
 {% include "users/related.html" %}
 <div class="userpage" >
     <div id="userprofile">
-        <a href="/user/editprofile">Editer le profil</a>
-        Date de naissance : {{user.get_profile.birthdate}}
+        <div class="actions">
+            {% ifequal user selected_user %}
+            <a href="/user/editprofile"><img src="/img/icons/editcontact.png" alt="Editer le profil" title="Editer le profil" /></a>
+            {% else %}
+            <img src="/img/icons/addcontact.png" onclick="addContact({{selected_user.id}})" alt="Ajouter à mes contacts" title="Ajouter à mes contacts" />
+            {% endifequal %}
+        </div>
+        Date de naissance : {{selected_user.get_profile.birthdate}}
     </div>
     <div>
         <div id="training" class="list" style="width:200px">
@@ -12,7 +18,7 @@
                 <img src="/img/icons/addmsg.png" id="addtrain" onclick="addTraining()" alt="Ajouter une formation" title="Ajouter une formation" />
             </div>
             Ma formation
-            {% for training in user.training_set.all %}
+            {% for training in selected_user.training_set.all %}
             <p>{{training.university}}<br />({{training.begining.year}} à {{training.end.year}})<br />{{training.degree}}</p>
             {% endfor %}
         </div>
@@ -21,12 +27,15 @@
                 <img src="/img/icons/addmsg.png" id="addxp" onclick="addExperience()" alt="Ajouter une expérience" title="Ajouter une expérience" />
             </div>
             Mon expérience
-            {% for experience in user.experience_set.all %}
+            {% for experience in selected_user.experience_set.all %}
             <p>{{experience.company}}<br />({{experience.begining.year}} à {{experience.end.year}})<br />{{experience.job}}</p>
             {% endfor %}
         </div>
         <div class="contacts">
-        Contacts
+            <div><img src="/img/icons/contacts.png" />{{selected_user.get_profile.contacts.count}} Contacts</div>
+            {% for contact in selected_user.get_profile.contacts.all %}
+            <a href="/user/profile/{{contact.user.username}}">{{contact.user}}</a>
+            {% endfor %}
         </div>
     </div>
 </div>

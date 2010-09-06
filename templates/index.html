@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="list">
-<span class="indextitle">Discutez !</span>
+<span class="indextitle">Trouvez une réponse</span>
 <div class="actions"><a href="/message/new"><img src="/img/icons/addmsg.png" id="addmsg" alt="Ajouter un message"></a></div>
+<div class="indexdesc">Publiez votre cahier des charges, posez vos questions, obtenez la réponse à votre besoin !</div>
 <div id="messages">
 {%for message in messages%}
 {%include 'messages/messagesum.html'%}
@@ -11,7 +12,8 @@
 </div>
 <div class="vertsep"></div>
 <div class="list">
-<span class="indextitle">Participez !</span>
+<span class="indextitle">Participez aux projets</span>
+<div class="indexdesc">Misez sur les projets qui vous intéressent, proposez vos services, et apportez des solutions concrètes aux problèmes posés !</div>
 <div>
 {%for project in projects%}
 {%include 'projects/projectsum.html'%}

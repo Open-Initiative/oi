@@ -2,7 +2,7 @@
 Mes Messages :
 <div>
     <div class="usermsg">
-    {%for message in user.ownmessages.all%}
+    {%for message in selected_user.ownmessages.all%}
         <a href="{% url oi.messages.views.getmessage id=message.id %}">
             <div id="message_{{message.id}}" class="smallmsg">
                 {{message.title}}
@@ -13,7 +13,7 @@ Mes Messages :
 </div>
 Mes Projets :
 <div>
-{%for project in user.ownprojects.all%}
+{%for project in selected_user.ownprojects.all%}
     <a href="/project/get/{{project.id}}">
         <div id="project_{{project.id}}" onclick="expandProject({{project.id}})" class="smallprj">
             {{project.title}}

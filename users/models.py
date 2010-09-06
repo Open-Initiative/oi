@@ -9,6 +9,7 @@ from django.db.models.signals import post_save
 class UserProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
     birthdate = models.DateField(null=True, blank=True)
+    contacts = models.ManyToManyField('self', symmetrical=True, blank=True)
     def __unicode__(self):
         return "Profil de %s"%self.user
 

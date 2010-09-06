@@ -1,7 +1,14 @@
 from django.conf.urls.defaults import *
+from haystack.views import SearchView
+from haystack.query import SearchQuerySet
 # Activation de l'admin
 from django.contrib import admin
 admin.autodiscover()
+
+def oi_search_view_factory(view_class=SearchView, *args, **kwargs):
+    def search_view(request):
+        return view_class(searchqueryset=SearchQuerySet().filter(public=True).filter_or(perms=request.user) , *args, **kwargs)(request)
+    return search_view
 
 urlpatterns = patterns('',
     # Page d'accueil
@@ -21,5 +28,7 @@ urlpatterns = patterns('',
     # Page d'administration
     (r'^admin/', include(admin.site.urls)),
     # Moteur de recherche
-    (r'^search/', include('haystack.urls')),
+    (r'^search/', oi_search_view_factory()),
+    # notifications
+    (r'^notification/', include('notification.urls')),
     )

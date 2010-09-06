@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<form method="post" action="{% url oi.users.views.createuser %}">
+<table>
+<tr>
+    <td><label for="username">Nom d'utilisateur</label></td>
+    <td><input type="text" name="username" /></td>
+</tr>
+<tr>
+    <td><label for="password">Mot de passe</label></td>
+    <td><input type="password" name="password" /></td>
+</tr>
+<tr>
+    <td><label for="password_confirm">Confirmation du mot de passe</label></td>
+    <td><input type="password" name="password_confirm" /></td>
+</tr>
+<tr>
+    <td><label for="email">Adresse e-mail</label></td>
+    <td><input type="text" name="email" /></td>
+</tr>
+</table>
+
+<input type="submit" value="login" />
+</form>
+{% endblock %}

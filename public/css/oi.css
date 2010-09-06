@@ -50,6 +50,9 @@ span.indextitle {
     font-style:italic;
     font-weight: bold;
 }
+div.indexdesc {
+    width: 450px;
+}
 div.vertsep {
     height: 100%;
     border: solid 1px gray;
@@ -60,6 +63,7 @@ div.subcateg {
     margin-left: 10px;
 }
 div.actions {
+    clear: right;
     float: right;
     margin: 5px;
 }

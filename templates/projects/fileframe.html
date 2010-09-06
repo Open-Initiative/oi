@@ -1,0 +1,11 @@
+<html>
+<head>
+<script>
+window.parent.document.getElementById("filename_{{divid}}").value="{{filename}}";
+window.parent.document.getElementById("ts_{{divid}}").value="{{ts}}";
+window.parent.document.getElementById("filespan_{{divid}}").innerHTML="<img src='/img/icons/delete.png' alt='Supprimer' title='Supprimer' onclick='deltmp({{projectid}},\"{{filename}}\",\"{{ts}}\",\"{{divid}}\")' /> {{filename}}";
+window.parent.document.getElementById("filediv_{{divid}}").style.display="none";
+window.parent.document.getElementById("filespan_{{divid}}").style.display="inline";
+</script>
+</head>
+</html>

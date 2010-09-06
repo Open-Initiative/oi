@@ -5,6 +5,7 @@ from oi.settings import MEDIA_ROOT
 from django.contrib.auth.models import User
 from oi.messages.models import Message, OI_READ, OI_WRITE
 from django.http import HttpResponseForbidden
+from datetime import datetime
 
 # A project can contain subprojects and/or specs. Without them it is only a task
 class Project(models.Model):
@@ -18,7 +19,8 @@ class Project(models.Model):
     modified = models.DateTimeField(auto_now=True)
     start_date = models.DateTimeField(null=True)
     due_date = models.DateTimeField(null=True)
-    public = models.BooleanField()
+    progress = models.FloatField(null=True)
+    public = models.BooleanField(default=0.0)
 
     def get_specs(self):
         """Returns all the specs of the project"""
@@ -37,6 +39,10 @@ class Project(models.Model):
     def is_simple_task(self):
         """A simple task is a project with no spec and no subproject"""
         return self.tasks.count() == 0 and self.spec_set.count() == 0
+    
+    def is_late(self):
+        """A simple task is a project with no spec and no subproject"""
+        return self.progress < 1.0 and self.due_date < datetime.now()
     
     def has_perm(self, user, perm):
         """checks if the user has the required perms"""
@@ -79,6 +85,9 @@ def OINeedsPrjPerms(*required_perms):
         return new_f
     return decorate 
 
+def getpath(instance, filename):
+    return "project/%s/%s"%(instance.project.id,filename)
+
 # Aspec is a content of a project
 class Spec(models.Model):
     #Different types
@@ -94,9 +103,8 @@ class Spec(models.Model):
     type = models.IntegerField(choices=TYPES.items(), default=TEXT_TYPE)
     text = models.TextField()
     url = models.URLField(null=True, blank=True)
-    file = models.FileField(upload_to="/home/lamp/tmp/",null=True, blank=True)
-    image = models.ImageField(upload_to="/home/lamp/tmp/",null=True, blank=True)
-    #~ content_type = models.CharField(max_length=100)
+    file = models.FileField(upload_to=getpath,null=True, blank=True)
+    image = models.ImageField(upload_to=getpath,null=True, blank=True)
     order = models.IntegerField()
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)

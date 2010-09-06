@@ -1,2 +1,2 @@
-<label for="text_{{divid}}">Texte</label>
-<input id="text_{{divid}}" type="text" />
+{% load oifilters %}
+<textarea id="text_{{divid}}" class="msgfield">{{spec.text|oiunescape}}</textarea>

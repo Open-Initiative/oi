@@ -1,19 +1,40 @@
 #coding: utf-8
 # Vues des utilisateurs
+from oi.users.models import User, UserProfile, UserProfileForm, Training, TrainingForm, Experience, ExperienceForm
 from django.http import HttpResponseRedirect,HttpResponse
-from oi.users.models import UserProfile, UserProfileForm, Training, TrainingForm, Experience, ExperienceForm
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response
+from django.views.generic.simple import direct_to_template
 from django.contrib.auth.decorators import login_required
+from django.db.models import get_app
+
+notification = get_app( 'notification' )
 
 @login_required
-def userprofile(request):
-    return render_to_response("users/userprofile.html",{'user':request.user})
+def myprofile(request):
+    return direct_to_template(request, template="users/profile.html",extra_context={'selected_user':request.user})
+
+def userprofile(request, username):
+    return direct_to_template(request, template="users/profile.html",extra_context={'selected_user':User.objects.get(username=username)})
+
+@login_required
+def invite(request, id):
+    request.user.get_profile().contacts.add(id)
+    notification.send( [ User.objects.get(id=id) ], 'invitation', {}  )
+    return HttpResponse("Contact ajouté")
 
 @login_required
 def editprofile(request):
     return render_to_response("users/editprofile.html",{'user':request.user,'form':UserProfileForm(instance=request.user.get_profile())})
 
+def createuser(request):
+    if request.POST["password"] != request.POST["password_confirm"]:
+        return HttpResponse("Les mots de passe ne correspondent pas.")
+    user = User.objects.create_user(request.POST["username"], request.POST["email"], request.POST["password"])
+    user.save()
+    return HttpResponseRedirect(reverse('oi.users.views.userprofile'))
+    
 @login_required
 def edittraining(request, id):
     if id=='0':

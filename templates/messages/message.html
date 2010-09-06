@@ -2,13 +2,22 @@
 <div id="message_{{message.id}}" class="message">
     <div class="msgup">
         <div class="msginfo">
-            {{message.author|default:"invité"}}
+            {% if message.author %}
+            <a href="/user/profile/{{message.author.username}}">{{message.author}}</a>
+            {% else %}
+            invité
+            {% endif %}
             {{message.created|date:"d/m/Y"}}
         </div>
         <div class="actions">
-            {% if message|can_answer:user %}<img src="/img/icons/answermsg.png" onclick="addMessage({{message.id}})" alt="Répondre au message" title="Répondre au message" />{% endif %}
-            {% if message|can_write:user %}<img src="/img/icons/delmsg.png" onclick="deleteMessage({{message.id}})" alt="Supprimer le message" title="Supprimer le message" />{% endif %}
-            {% if message|can_write:user %}<img src="/img/icons/editmsg.png" onclick="editMessage({{message.id}})" alt="Modifier le message" title="Modifier le message" />{% endif %}
+            {% if message|can_answer:user %}<a href="/project/edit/0?message={{message.id}}">
+                <img src="/img/icons/addprj.png" alt="Créer un nouveau projet" title="Créer un nouveau projet"/>
+            </a>
+            <img src="/img/icons/answermsg.png" onclick="addMessage({{message.id}})" alt="Répondre au message" title="Répondre au message" />
+            {% endif %}
+            {% if message|can_write:user %}<img src="/img/icons/delmsg.png" onclick="deleteMessage({{message.id}})" alt="Supprimer le message" title="Supprimer le message" />
+            <img src="/img/icons/editmsg.png" onclick="editMessage({{message.id}})" alt="Modifier le message" title="Modifier le message" />
+            {% endif %}
         </div>
         <div class="msgtitle">
             {{message.title}}
@@ -18,20 +27,18 @@
         <div class="msgtext">
             {{message.text|oiunescape}}
         </div>
+        {% if message.get_projects %}
         <div id="projects_{{message.id}}" class="prjlist">
-        {% if message.get_projects %} <div>Projets en réponse :</div>
-        {% for project in message.get_projects %}
+            <div>Projets en réponse :</div>
+            {% for project in message.get_projects %}
             <a id="project_{{project.id}}" href="/project/get/{{project.id}}">
                 <div class="smallprj">
                     {{project.title}}
                 </div>
             </a>
-        {% endfor %}
-        {% endif %}
-        {% if message|can_answer:user %}<a href="/project/edit/0?message={{message.id}}">
-            <img src="/img/icons/addprj.png" alt="Créer un nouveau projet" title="Créer un nouveau projet"/>
-        </a>{% endif %}
+            {% endfor %}
         </div>
+        {% endif %}
         {% if not message|has_voted:user %}
             <button onclick="vote({{message.id}},1)">+</button>
             <button onclick="vote({{message.id}},-1)">-</button>
