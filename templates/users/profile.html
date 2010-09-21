@@ -10,6 +10,11 @@
             <img src="/img/icons/addcontact.png" onclick="addContact({{selected_user.id}})" alt="Ajouter à mes contacts" title="Ajouter à mes contacts" />
             {% endifequal %}
         </div>
+        {{selected_user}}
+        {{selected_user.last_name}}
+        {{selected_user.first_name}}
+        <div class="clickable" onclick="writeMP({{selected_user.id}})">Envoyer un message</div>
+        <div id="sendmp"></div>
         Date de naissance : {{selected_user.get_profile.birthdate}}
     </div>
     <div>

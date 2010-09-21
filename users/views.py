@@ -1,6 +1,6 @@
 #coding: utf-8
 # Vues des utilisateurs
-from oi.users.models import User, UserProfile, UserProfileForm, Training, TrainingForm, Experience, ExperienceForm
+from oi.users.models import User, UserProfile, UserProfileForm, Training, TrainingForm, Experience, ExperienceForm, PersonalMessage
 from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -76,3 +76,10 @@ def saveexperience(request, id):
     form = ExperienceForm(request.POST, instance=instance)
     form.save()
     return HttpResponseRedirect(reverse('oi.users.views.userprofile'))
+
+@login_required
+def sendMP(request, id):
+    mp = PersonalMessage(from_user=request.user, to_user=User.objects.get(id=id), text=request.POST['message'], subject=request.POST['subject'])
+    mp.save()
+    notification.send( [ User.objects.get(id=id) ], 'message', {'message':mp}  )
+    return HttpResponse("Message envoyé")

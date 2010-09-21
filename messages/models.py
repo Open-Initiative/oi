@@ -129,6 +129,9 @@ class Message(models.Model):
                 ancestors.append(path+[parent])        
         return ancestors
     
+    def get_children(self):
+        return self.children.order_by("-relevance")
+    
     def __unicode__(self):
         return "%s : %s"%(self.id, self.title)
 

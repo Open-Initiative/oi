@@ -46,6 +46,12 @@ class TrainingForm(ModelForm):
         model = Training
         exclude = ('user',)
 
+class PersonalMessage(models.Model):
+    from_user = models.ForeignKey(User, related_name='sent')
+    to_user = models.ForeignKey(User, related_name='received')
+    subject = models.CharField(max_length=100)
+    text = models.TextField()
+
 # Sets the UserProfile class to be the profile of the given django User class
 def set_profile(sender, instance, created, **kwargs):
     if created==True:

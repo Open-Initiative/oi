@@ -1,8 +1,8 @@
 {%for category in categories%}
 <div>
-    <img id="arrow{{category.id}}" src="/img/fleche1.png" onclick="expandCateg(this, {{category.id}});"/>
+    <img class="clickable" id="arrow{{category.id}}" src="/img/fleche1.png" onclick="expandCateg(this, {{category.id}});"/>
     {%if category.icon%}<img src="{{category.icon}}" />{%endif%}
-    <span id="categ_{{category.id}}" onclick="selectCateg(this,{{category.id}})">{{category.title}}</span>
+    <span class="clickable" id="categ_{{category.id}}" onclick="selectCateg(this,{{category.id}})">{{category.title}}</span>
     <div id="subcateg{{category.id}}" class="subcateg"></div>
 </div>
 {%endfor%}

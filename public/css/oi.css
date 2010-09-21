@@ -16,11 +16,13 @@ img {
     background: #B3B3B3;
 }
 #logo {
-    height: 80px;
-    margin: 10px;
+    width: 210px;
 }
 .searchbox {
     font-style: italic;
+    height: 1em;
+    position: relative;
+    top: -4px;
     color: gray;
 }
 #searchbtn {
@@ -28,13 +30,17 @@ img {
 }
 div.list {
     float: left;
+    padding: 3px;
+    padding-left: 10px;
+    margin: 5px;
+    border-left: solid 1px lightgray;
 }
 div.userheader {
     float: right;
 }
 div.sepheader {
     width:100%;
-    height:10px;
+    height:20px;
     background:url('/img/gradgray.png') repeat-x;
 }
 #content{
@@ -44,20 +50,31 @@ div.sepheader {
     color: white;
     font-weight: bold;
 }
-
+div.nav {
+    width: 200px;
+    margin-left: 10px;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 12px;
+    background: #EEEDFF;
+}
 span.indextitle {
-    font-size: 30px;
+    font-size: 1.5em;
     font-style:italic;
     font-weight: bold;
 }
 div.indexdesc {
     width: 450px;
 }
-div.vertsep {
-    height: 100%;
-    border: solid 1px gray;
-    margin: 10px;
-    float: left;
+/*div.vertsep {*/
+/*    height: 100%;*/
+/*   border-left: solid 1px gray;*/
+/*    margin: 0 10px;*/
+/*    float: left;*/
+/*}*/
+div.horsep {
+    width: 100%;
+    border-top: solid 1px gray;
+    margin: 10px 0;
 }
 div.subcateg {
     margin-left: 10px;
@@ -66,4 +83,7 @@ div.actions {
     clear: right;
     float: right;
     margin: 5px;
+}
+.clickable {
+    cursor:pointer;
 }

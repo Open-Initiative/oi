@@ -13,6 +13,8 @@ def oi_search_view_factory(view_class=SearchView, *args, **kwargs):
 urlpatterns = patterns('',
     # Page d'accueil
     (r'^$', 'oi.messages.views.index'),
+    # Page d'accueil
+    (r'^index$', 'oi.messages.views.index'),
     # Pages des messages
     (r'^message/', include('oi.messages.urls')),
     # Pages des projets

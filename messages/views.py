@@ -12,6 +12,7 @@ from django.template import RequestContext
 from django.views.generic.list_detail import object_detail, object_list
 from django.views.generic.simple import direct_to_template
 from time import time
+from datetime import datetime
 import os
 
 OI_PAGE_SIZE = 10
@@ -19,14 +20,22 @@ notification = get_app( 'notification' )
 
 def index(request):
     """All messages with no partents"""
-    messages = Message.objects.filter(category=False)
+    messages = Message.objects.filter(category=False)[:10]
     projects = Project.objects.filter(parent=None)
     return render_to_response('index.html',{'messages': messages, 'projects': projects}, context_instance=RequestContext(request))
 
 def getmessages(request):
-    """All messages with no partents"""
-    messages = Message.objects.filter(parents__in=[id for id in request.GET.get("categs","").split(",") if id!=""], category=False)
-    return object_list(request, queryset=messages)
+    """Apply filter to message list"""
+    datemin = datetime.strptime(request.GET.get("datemin","2000,1,1"),"%Y,%m,%d")
+    datemax = datetime.strptime(request.GET.get("datemax","2100,1,1"),"%Y,%m,%d")
+    messages = Message.objects.filter(created__gte=datemin, created__lte=datemax, category=False)
+
+    parents = [id for id in request.GET.get("categs","").split(",") if id!=""] #parents séparés par des virgules dans les paramètres
+    if parents:
+        messages = messages.filter(parents__in=parents)
+        
+    return object_list(request, queryset=messages.order_by("-relevance")[:10]
+)
 
 @OINeedsMsgPerms(OI_READ)
 def getmessage(request, id):

@@ -10,13 +10,17 @@
             {{message.created|date:"d/m/Y"}}
         </div>
         <div class="actions">
+            {% if not message|has_voted:user %}
+                <button onclick="vote({{message.id}},1)">+</button>
+                <button onclick="vote({{message.id}},-1)">-</button>
+            {% endif %}
             {% if message|can_answer:user %}<a href="/project/edit/0?message={{message.id}}">
                 <img src="/img/icons/addprj.png" alt="Créer un nouveau projet" title="Créer un nouveau projet"/>
             </a>
-            <img src="/img/icons/answermsg.png" onclick="addMessage({{message.id}})" alt="Répondre au message" title="Répondre au message" />
+            <img class="clickable" src="/img/icons/answermsg.png" onclick="addMessage({{message.id}})" alt="Répondre au message" title="Répondre au message" />
             {% endif %}
-            {% if message|can_write:user %}<img src="/img/icons/delmsg.png" onclick="deleteMessage({{message.id}})" alt="Supprimer le message" title="Supprimer le message" />
-            <img src="/img/icons/editmsg.png" onclick="editMessage({{message.id}})" alt="Modifier le message" title="Modifier le message" />
+            {% if message|can_write:user %}<img class="clickable" src="/img/icons/delmsg.png" onclick="deleteMessage({{message.id}})" alt="Supprimer le message" title="Supprimer le message" />
+            <img class="clickable" src="/img/icons/editmsg.png" onclick="editMessage({{message.id}})" alt="Modifier le message" title="Modifier le message" />
             {% endif %}
         </div>
         <div class="msgtitle">
@@ -39,10 +43,6 @@
             {% endfor %}
         </div>
         {% endif %}
-        {% if not message|has_voted:user %}
-            <button onclick="vote({{message.id}},1)">+</button>
-            <button onclick="vote({{message.id}},-1)">-</button>
-        {% endif %}
     </div>
     <div class="msgbtm"></div>
     <div id="children_{{message.id}}" {%if message.children.all%}class="childrenlist"{%endif%}>
@@ -56,10 +56,10 @@
             {% endwith %}
             {% endwith %}
         {% else %}
-        {% for child in message.children.all %}
+        {% for child in message.get_children %}
         {% if child|can_read:user %}
         <div id="message_{{child.id}}" onclick="expandMessage({{child.id}}, {{depth}})">
-            <div class="smallmsg">
+            <div class="smallmsg clickable">
                 {{child.title}}
             </div>
         </div>

@@ -5,7 +5,7 @@ div.message {
 
 div.msgbody {
     background: url('/img/msgmid.png');
-    padding: 20px;
+    padding: 1px 20px;
 }
 div.msgtext {
     font-family: Verdana, Geneva, sans-serif;
@@ -53,16 +53,6 @@ div.smallmsg {
     font-weight: bold;
 }
 
-#nav {
-    width: 200px;
-    min-height: 300px;
-    margin: 10px;
-    float: left;
-    font-family: "Trebuchet MS", Helvetica, sans-serif;
-    font-size: 12px;
-    background: #EEEDFF;
-    border: 1px gray solid;
-}
 span.selectedcateg {
     background: #BBBCEE;
 }

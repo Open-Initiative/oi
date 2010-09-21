@@ -20,10 +20,6 @@ function newDiv(parentid) {
     return divid;
 }
 
-function showcoucou(url) {
-    alert("coucou "+url);
-}
-
 function uploadFile(field_name, url, type, win) {
     tinyMCE.activeEditor.windowManager.open({file:'/message/uploadForm', width:300,height:200,close_previous:"no",popup_css:false,inline:"yes"},
     {window : win,input : field_name});
