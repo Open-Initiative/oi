@@ -1,13 +1,13 @@
 ﻿{% load oifilters %}
 <div class="message">
-    <div class="msgup">
+    <div class="msgtop"></div>
+    <div class="msgbody">
         <div class="msgtitle">
             <input id="title_{{divid}}" class="msgfield" type="text" value="{{message.title}}"/>
         </div>
-    </div>
-     <div class="msgbody">
         <textarea id="text_{{divid}}" rows="15" class="msgfield">{{message.text|oiunescape}}</textarea>
         <input id="parents_{{divid}}"type="hidden"  value="{{parents}}" />
+        <button onclick="saveMessage('{{divid}}',{{message.id|default:0}})">OK</button>
     </div>
-    <div class="msgbtm"><button onclick="saveMessage('{{divid}}',{{message.id|default:0}})">OK</button></div>
+    <div class="msgbtm"></div>
 </div>

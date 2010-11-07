@@ -1,18 +1,25 @@
 function expandMessage(msgid, depth) {
-    if(document.getElementById("message_"+msgid).expanded != 1)
-        OIajaxCall("/message/get/"+msgid+"?mode=ajax&depth="+depth, null, "message_"+msgid);
-    document.getElementById("message_"+msgid).expanded=1;
+    if(document.getElementById("message_"+msgid+"_box").expanded != 1)
+        OIajaxCall("/message/get/"+msgid+"?mode=ajax&depth="+depth, null, "message_"+msgid+"_box");
+    document.getElementById("message_"+msgid+"_box").expanded=1;
+    document.getElementById("message_"+msgid+"_box").style.top="-70px";
 }
 function addMessage(parentid) {
     if(parentid==null) {
-        divid = 
+        if(getSelectedCategs(selectedcateg)=="") {
+            alert("Sélectionnez une catégorie");
+            return;
+        }
+        divid = "messages";
         url = "/message/edit/0?divid="+divid;
+//        +"&parents="+getSelectedCategs(selectedcateg);
     } else {
         divid = newDiv("children_"+parentid);
         url = "/message/edit/0?divid="+divid+"&parents="+parentid;
     }
     OIajaxCall(url, null, divid);
     tinyMCE.execCommand('mceAddControl', false, "text_"+divid);
+    tinyMCE.execCommand('mceFocus', false, "text_"+divid);
 }
 function saveMessage(divid, msgid){
     tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
@@ -55,7 +62,7 @@ selectedDateFilter = null;
 datemin = null;
 datemax = null;
 function applyFilter() {
-    categlist = getSelectedCategs(selectedcateg)
+    categlist = getSelectedCategs(selectedcateg);
     
     paramList = new Array();
     if(categlist.length) paramList.push("categs=" + categlist);
@@ -67,22 +74,22 @@ function applyFilter() {
 }
 function selectCateg(span, categid) {
     selectedcateg[categid] = !selectedcateg[categid];
-    span.className = selectedcateg[categid]?"selectedcateg clickable":"clickable";
+    span.className = selectedcateg[categid]?"selectedfilter clickable":"clickable";
     applyFilter();
 }
 function setDateDelta(span,delta) {
-    if(selectedDateFilter) selectedDateFilter.style.fontWeight="normal";
+    if(selectedDateFilter) selectedDateFilter.className="";
     selectedDateFilter = span;
-    span.style.fontWeight="bold";
+    span.className="selectedfilter";
     datemax = null;
     datemin = new Date();
     datemin.setDate(datemin.getDate()-delta);
     applyFilter();
 }
 function setAnyDate(span) {
-    if(selectedDateFilter) selectedDateFilter.style.fontWeight="normal";
+    if(selectedDateFilter) selectedDateFilter.className="";
     selectedDateFilter = span;
-    span.style.fontWeight="bold";
+     span.className="selectedfilter";
     datemax = null;
     datemin = null;
     applyFilter();

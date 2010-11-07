@@ -1,7 +1,7 @@
-function addTask(projectid) {
-    divid = newDiv("tasks_"+projectid);
+function addTask(projectid,userid) {
     url = "/project/save/0";
-    params = "title="+getValue("newtask_title_"+projectid)+"&parent="+projectid;
+    params = "title="+getValue("newtask_title_"+projectid)+"&assignee="+userid+"&progress=0&inline=1&parent="+projectid;
+    divid = newDiv("tasks_"+projectid);
     OIajaxCall(url, params, divid);
 }
 function finishProject(projectid) {

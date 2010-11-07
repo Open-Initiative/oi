@@ -1,14 +1,7 @@
 ﻿{% load oifilters %}
-<div id="message_{{message.id}}" class="message">
-    <div class="msgup">
-        <div class="msginfo">
-            {% if message.author %}
-            <a href="/user/profile/{{message.author.username}}">{{message.author}}</a>
-            {% else %}
-            invité
-            {% endif %}
-            {{message.created|date:"d/m/Y"}}
-        </div>
+<div id="message_{{message.id}}" class="message" >
+    <div class="msgtop"></div>
+    <div class="msgbody">
         <div class="actions">
             {% if not message|has_voted:user %}
                 <button onclick="vote({{message.id}},1)">+</button>
@@ -26,11 +19,14 @@
         <div class="msgtitle">
             {{message.title}}
         </div>
-    </div>
-    <div class="msgbody">
         <div class="msgtext">
             {{message.text|oiunescape}}
         </div>
+        Publié par {% if message.author %}
+        <a href="/user/profile/{{message.author.username}}">{{message.author}}</a>
+        {% else %}
+        invité
+        {% endif %} le {{message.created|date:"d/m/Y"}}
         {% if message.get_projects %}
         <div id="projects_{{message.id}}" class="prjlist">
             <div>Projets en réponse :</div>
@@ -45,22 +41,25 @@
         {% endif %}
     </div>
     <div class="msgbtm"></div>
-    <div id="children_{{message.id}}" {%if message.children.all%}class="childrenlist"{%endif%}>
+    <div id="children_{{message.id}}" {%if message.children.all%}class="childrenlist pile"{%endif%}>
         {% if depth > 1 %}
         {% if message.children.all|length == 1 %}
             {% with message.children.all|first as message %}
+            <div id="message_{{message.id}}_box" class="overlap">
             {% with depth|add:-1 as depth %}
             {% with "messages/message.html" as templatename %}
                 {% include templatename %}
             {% endwith %}
             {% endwith %}
+            </div>
             {% endwith %}
         {% else %}
         {% for child in message.get_children %}
         {% if child|can_read:user %}
-        <div id="message_{{child.id}}" onclick="expandMessage({{child.id}}, {{depth}})">
-            <div class="smallmsg clickable">
-                {{child.title}}
+        <div id="message_{{child.id}}_box" style="position:relative" onclick="expandMessage({{child.id}}, {{depth}})">
+            <div class="smallmsg overlap clickable">
+                <div class="morelink"><img src="/img/link.png" /> Lire la suite</div>
+                <span class="msgtitle">{{child.title}}</span> {{child.text|summarize}}
             </div>
         </div>
         {% endif %}

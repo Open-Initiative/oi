@@ -1,4 +1,0 @@
-{% load oifilters %}
-<label for="url_{{divid}}">Url</label>
-<input id="url_{{divid}}" type="text" value="{{spec.url}}" />
-<textarea id="text_{{divid}}" class="msgfield">{{spec.text|oiunescape}}</textarea>

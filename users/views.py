@@ -33,7 +33,7 @@ def createuser(request):
         return HttpResponse("Les mots de passe ne correspondent pas.")
     user = User.objects.create_user(request.POST["username"], request.POST["email"], request.POST["password"])
     user.save()
-    return HttpResponseRedirect(reverse('oi.users.views.userprofile'))
+    return HttpResponseRedirect(reverse('oi.users.views.myprofile'))
     
 @login_required
 def edittraining(request, id):
@@ -55,7 +55,7 @@ def editexperience(request, id):
 def saveprofile(request):
     form = UserProfileForm(request.POST, instance=request.user.get_profile())
     form.save()
-    return HttpResponseRedirect(reverse('oi.users.views.userprofile'))
+    return HttpResponseRedirect(reverse('oi.users.views.myprofile'))
 
 @login_required
 def savetraining(request, id):

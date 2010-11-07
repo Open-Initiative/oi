@@ -6,6 +6,7 @@ from oi.projects.models import Project, OINeedsPrjPerms, OI_READ, OI_WRITE
 
 urlpatterns = patterns('oi.projects.views',
     (r'^get/(?P<object_id>\d+)$', object_detail, {'queryset': Project.objects.all()}),
+    (r'^gettask/(?P<object_id>\d+)$', object_detail,{'template_name': 'projects/task.html','queryset': Project.objects.all(),'template_object_name':"task"}),
     (r'^edit/(?P<id>\d+)$', 'editproject'),
     (r'^save/(?P<id>\d+)$', 'saveproject'),
     (r'^delete/(?P<id>\d+)$', 'deleteproject'),

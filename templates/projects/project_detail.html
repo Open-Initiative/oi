@@ -5,15 +5,8 @@
 {% with object as project %}
 <div class="list">
     <div id="project_{{project.id}}" class="project">
-        <div class="prjup">
-            <div class="msginfo">
-                {% if project.author %}
-                <a href="/user/profile/{{project.author.username}}">{{project.author}}</a>
-                {% else %}
-                invité
-                {% endif %}
-                {{project.created}}
-            </div>
+        <div class="prjtop"></div>
+        <div class="prjbody">
             <div class="actions">
                 {% if project|can_read:user %}<a href="{% url oi.projects.views.projectview id=project.id%}">
                     <img src="/img/icons/viewprj.png" alt="Vue d'ensemble" title="Vue d'ensemble" />
@@ -29,12 +22,10 @@
             <div class="prjtitle">
                 {{project.title}}
             </div>
-        </div>
-        <div class="prjbody">
             assigné à : {{project.assignee}}<br />
-            démarré le : {{project.start_date}}<br />
-            du le : {{project.due_date}}<br />
-            Avancement : {{project.progress}}<br />
+            démarré le : {{project.start_date|date:"d/m/Y"}}<br />
+            du le : {{project.due_date|date:"d/m/Y"}}<br />
+            Avancement : {{project.progress|multiply:100}}%<br />
             <div id="specs_{{project.id}}">
                 {%for spec in project.get_specs%}
                 <div id="specs_{{project.id}}_{{spec.order}}">
@@ -43,31 +34,31 @@
                 {%endfor%}
             </div>
             {% if project|can_write:user %}<img src="/img/icons/addspec.png" onclick="addSpec({{project.id}}, -1)" alt="Ajouter une spécification" title="Ajouter une spécification"/>{% endif %}
-            <div id="tasks_{{project.id}}" class="tasklist">
-                {%if project.tasks.all%}
-                Tâches :
-                {%for task in project.tasks.all%}
-                {% if task|can_read:user %}
-                <div id="project_{{task.id}}">
-                    {%if task.is_simple_task%}
-                        {%include 'projects/task.html'%}
-                    {%else%}
-                        <a href="/project/get/{{task.id}}">{{task}}</a>
-                    {%endif%}
-                </div>
-                {% endif %}
-                {%endfor%}
-                {%endif%}
-            </div>
-            {% if project|can_write:user %}
-            <div>
-                <input type="text" id="newtask_title_{{project.id}}"/>
-                <img src="/img/icons/addprj.png" alt="Nouvelle tâche" title="Nouvelle tâche" onclick="addTask({{project.id}})" />
-            </div>
-            {% endif %}
+            <br />
+            Publié par {% if project.author %}
+            <a href="/user/profile/{{project.author.username}}">{{project.author}}</a>
+            {% else %}
+            invité
+            {% endif %} le {{project.created}}
         </div>
         <div class="prjbtm"></div>
     </div>
+</div>
+<div id="tasks_{{project.id}}" class="list">
+    Tâches :
+    {% if project|can_write:user %}
+    <div>
+        <input type="text" id="newtask_title_{{project.id}}"/>
+        <img src="/img/icons/addprj.png" alt="Nouvelle tâche" title="Nouvelle tâche" onclick="addTask({{project.id}},'{{user.username}}')" />
+    </div>
+    {% endif %}
+    {%if project.tasks.all%}
+    {%for task in project.tasks.all%}
+    {% if task|can_read:user %}
+    {% include "projects/task.html" %}<br />
+    {% endif %}
+    {%endfor%}
+    {%endif%}
 </div>
 {% endwith %}
 {% else %}

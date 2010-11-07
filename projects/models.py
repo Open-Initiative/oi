@@ -3,7 +3,7 @@
 from django.db import models
 from oi.settings import MEDIA_ROOT
 from django.contrib.auth.models import User
-from oi.messages.models import Message, OI_READ, OI_WRITE
+from oi.messages.models import Message, OI_ALL_PERMS, OI_RIGHTS, OI_READ, OI_WRITE
 from django.http import HttpResponseForbidden
 from datetime import datetime
 
@@ -51,14 +51,27 @@ class Project(models.Model):
             return True
         if perm in [1,4] and self.public:
             return True
-        if user.is_anonymous:
+        if user.is_anonymous():
             return False
         return len(self.projectacl_set.filter(user=user,permission=perm))>0
     
     def set_perm(self, user, perm):
         """adds the specified perm to the user"""
         if user.is_authenticated:
-            self.projectacl_set.add(ProjectACL(user=user, permission=perm))
+            if perm == OI_ALL_PERMS:
+                for right in OI_RIGHTS:
+                    self.projectacl_set.add(ProjectACL(user=user, permission=right))
+            else:
+                self.projectacl_set.add(ProjectACL(user=user, permission=perm))
+
+    def get_ancestors(self):
+        if self.parent:
+            ancestors = self.parent.get_ancestors()
+        else:
+            ancestors = self.message.get_ancestors()
+        for anclist in ancestors:
+            anclist.append(self)
+        return ancestors
 
     def __unicode__(self):
         return "%s : %s"%(self.id, self.title)
@@ -116,3 +129,10 @@ class Bid(models.Model):
     amount = models.DecimalField(max_digits= 12,decimal_places=2)
     def __unicode__(self):
         return "%s : %s"%(self.user, self.amount)
+
+# Contenu éditorial
+class PromotedProject(models.Model):
+    project = models.ForeignKey(Project)
+    location = models.CharField(max_length=50)
+    def __unicode__(self):
+        return "%s(%s)"%(self.project.title, self.location)

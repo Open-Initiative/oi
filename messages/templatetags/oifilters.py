@@ -25,6 +25,18 @@ def oiunescape(text, autoescape=None):
     return mark_safe(text.replace("[[close]]",">"))
 oiunescape.needs_autoescape = True
 
+@register.filter
+def summarize(text, autoescape=None):
+    """gets rid of tags used by the rich text editor and shortens text"""
+    if autoescape:
+        text = conditional_escape(text)
+    for code in OI_ESCAPE_CODE:
+        text = text.replace(OI_ESCAPE_CODE[code], code)
+    text = text.replace("[[close]]",">") #close tags
+    text = re.compile(r'<.*?>').sub('', text) #gets rid of all tags
+    return mark_safe(text[:100]) #returns only 100 first characters
+oiunescape.needs_autoescape = True
+
 def repl(tag):
     return lambda g:"%s%s[[close]]"%(tag,g.group("param").replace('"', "[[dstr]]").replace("'", "[[sstr]]"))
 

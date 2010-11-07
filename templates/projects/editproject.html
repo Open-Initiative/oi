@@ -1,19 +1,19 @@
 {% extends "base.html" %}
+{% block title %}{{project.title|default:"Nouveau Projet"}}{% endblock %}
 {% block content %}
 <div class="list">
     <div class="project">
         <form action="/project/save/{{project.id|default:0}}" method="POST">
-        <div class="prjup">
+        <div class="prjtop"></div>
+        <div class="prjbody">
             <div class="prjtitle">
-                <input name="title" type="text" value="{{project.title}}"/><br />
+                Projet : <input name="title" type="text" value="{{project.title}}"/><br />
                 {%if parent%}<input name="parent" type="hidden" value="{{parent}}" />{%endif%}
             </div>
-        </div>
-        <div class="prjbody">
-            <label for="start_date"">date de début : </label><input name="start_date" type="text" value="{{project.start_date}}" /><br />
+            <label for="start_date"">date de début : </label><input name="start_date" type="text" value="{% if project %}{{project.start_date}}{% else %}{%now "Y-m-d"%}{% endif %}" /><br />
             <label for="due_date"">date de fin : </label><input name="due_date" type="text" value="{{project.due_date}}" /><br />
             <label for="assignee"">responsable : </label><input name="assignee" type="text" value="{{project.assignee}}" /><br />
-            <label for="progress"">Avancement : </label><input name="progress" type="text" value="{{project.progress}}" /><br />
+            {% if project %}<label for="progress"">Avancement : </label><input name="progress" type="text" value="{{project.progress}}" /><br />{% endif %}
             <input name="message" type="hidden" value="{{message}}" />
             <div id="specs_{{project.id}}">
                 {%for spec in project.get_specs%}
@@ -22,7 +22,7 @@
                 </div>
                 {%endfor%}
             </div>
-            <img src="/img/icons/spec.png" onclick="addSpec({{project.id}}, -1)" alt="Ajouter une spécification" title="Ajouter une spécification"/>
+            {% if project %}<img src="/img/icons/addspec.png" onclick="addSpec({{project.id}}, -1)" alt="Ajouter une spécification" title="Ajouter une spécification"/>{% endif %}
             <input type="submit" />
         </div>
         <div class="prjbtm"></div>

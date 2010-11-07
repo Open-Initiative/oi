@@ -1,4 +1,5 @@
 {% extends base %}
+{% block title %}{{object.title}}{% endblock %}
 {% block content %}
 {% with object as message %}
 {% ifequal base "base.html" %}<div class="list">{% endifequal %}

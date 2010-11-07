@@ -2,7 +2,7 @@
 # Vues des projets
 from oi.settings import MEDIA_ROOT, TEMP_DIR
 from oi.projects.models import Project, Spec, OINeedsPrjPerms
-from oi.messages.models import Message, OI_READ, OI_ANSWER, OI_WRITE
+from oi.messages.models import Message, OI_READ, OI_ANSWER, OI_WRITE, OI_ALL_PERMS
 from oi.messages.templatetags.oifilters import oiescape
 from oi.users.models import User
 from django.http import HttpResponseRedirect,HttpResponse,HttpResponseForbidden
@@ -14,9 +14,9 @@ from django.core.files import File
 from time import time
 from urllib import quote
 import os
-
+    
 def editproject(request, id):
-    """Edit template of the project"""
+    """Shows the Edit template of the project"""
     project=None
     if id!='0':
         project = Project.objects.get(id=id)
@@ -59,7 +59,11 @@ def saveproject(request, id='0'):
         project.progress = request.POST["progress"]
 
     project.save()
-    return HttpResponseRedirect('/project/get/%s'%project.id)
+    project.set_perm(author, OI_ALL_PERMS)
+    if request.POST.get("inline","0") == "1":
+        return HttpResponseRedirect('/project/gettask/%s'%project.id)
+    else:
+        return HttpResponseRedirect('/project/get/%s'%project.id)
 
 @OINeedsPrjPerms(OI_WRITE)
 def deleteproject(request, id):

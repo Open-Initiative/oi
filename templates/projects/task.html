@@ -1,1 +1,9 @@
-<a href="/project/get/{{task.id}}">{{task.title}}</a>
+{% load oifilters %}
+<a href="/project/get/{{task.id}}"><div id="project_{{task.id}}" class="smallprj">
+    <div class="prjtitle">{{task.title}}</div>
+    <div class="morelink"><img src="/img/link.png" /> Voir le détail</div>
+    assigné à : {{task.assignee}}<br />
+    démarré le : {{task.start_date|date:"d/m/Y"}}<br />
+    du le : {{task.due_date|date:"d/m/Y"}}<br />
+    Avancement : {{task.progress|multiply:100}}%<br />
+</div></a>

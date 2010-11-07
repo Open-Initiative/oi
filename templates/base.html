@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="shortcut icon" href="/favicons.ico" />
     <link rel="stylesheet" href="/css/oi.css" />
     <link rel="stylesheet" href="/css/oimessages.css" />
     <link rel="stylesheet" href="/css/oiprojects.css" />
@@ -12,61 +13,44 @@
     <script type="text/javascript" src="/js/oimessage.js"></script>
     <script type="text/javascript" src="/js/oiproject.js"></script>
     <script type="text/javascript" src="/js/oiuser.js"></script>
-    <title>{% block title %}Open Initiative{% endblock %}</title>
+    <title>{% block title %}{% endblock %} - Open Initiative</title>
 </head>
 
 <body>
     <div id="popup"></div>
     <div id="header">
         {% block header %}
+        <a href="/"><img src="/img/logo.png" id="logo" /></a><span style="position:absolute;top:80px;left:180px;font-size:16px;font-weight:bold">BETA</span>
         <div class="userheader">
             {%if user.is_authenticated%}
             {{user}}
-            <a class="homelink" "href="/user/myprofile">Mon profil</a>
-            <a class="homelink" href="/logout">Vous n'êtes pas {{user}} ?</a>
+            <div><a class="homelink" href="/user/myprofile">Mon profil</a></div>
+            <div><a class="homelink" href="">Préférences</a></div>
+            <div><a class="homelink" href="/logout">Vous n'êtes pas {{user}} ?</a></div>
             {%else%}
-            <a class="homelink" href="/login">Se connecter</a>
+            <div><a class="homelink" href="/login">Se connecter</a></div>
             {%endif%}
+            <div><form name="searchform" action="/search" method="GET">
+                <input class="searchbox" name="q" type="texte" value="Rechercher..." onclick="value=''" />
+                <input id="searchbtn" type="image" src="/img/icons/loupe.png" />
+            </form></div>
         </div>
-        <form name="searchform" action="/search" method="GET">
-            <input class="searchbox" name="q" type="texte" value="Rechercher..." onclick="value=''" />
-            <input id="searchbtn" type="image" src="/img/icons/loupe.png" />
-        </form>
         <div id="output"></div>
         {% endblock %}
     </div>
     <div class="sepheader"></div>
 
-    <div style="float:left">
-        <a href="/"><img src="/img/logo.png" id="logo" /></a>
-        <br />
-        <a  href="#">Pourquoi Open Initiative ?</a>
+    <div class="list">
+        <div class="navitem"><img src="/img/pictoOI.png" /><img src="/img/link.png" /> <a href="#">Présentation</a></div>
         {% block nav %}
         <div class="nav">
-            <h3>Catégories</h3>
+            <div class="navtitle">Catégories</div>
             <div id="arbo">
-                <script>OIajaxCall("/message/listcategories/0","","arbo");</script>
+                <script>OIajaxCall("/message/listcategories/0?dest=index","","arbo");</script>
             </div>
         </div>
-        <div class="horsep"></div>
         <div class="nav">
-            <h3>Date</h3>
-            <span class="clickable" onclick="setAnyDate(this)">Indifférent</span><br />
-            <span class="clickable" onclick="setDateDelta(this,7)">Depuis une semaine</span><br />
-            <span class="clickable" onclick="setDateDelta(this,30)">Depuis un mois</span><br />
-            <span class="clickable" onclick="setDateDelta(this,365)">Depuis un an</span><br />
-            <span class="clickable" onclick="setDateDelta(this,0)">Période précise</span><br />
-        </div>
-        <div class="horsep"></div>
-        <div class="nav">
-            <h3>Etat</h3>
-            Proposé <br />
-            En cours <br />
-            Terminé <br />
-        </div>
-        <div class="horsep"></div>
-        <div class="nav">
-            <h3>Mes tâches en cours</h3>
+            <div class="navtitle">Mes tâches en cours</div>
         </div>
         {% endblock %}
     </div>
@@ -82,6 +66,12 @@
     </div>
     <div id="content">
         {% block content %}{% endblock %}
+    </div>
+    <div id="footer">
+        <a href="">Mensions Légales</a>,
+        <a href="">Conditions générales d'utilisation</a>,
+        <a href="">Charte des forums</a>,
+        <a href="">Contact</a>
     </div>
 </body>
 </html>

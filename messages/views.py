@@ -1,8 +1,9 @@
 #coding: utf-8
 # Vues des messages
-from oi.messages.models import Message, OI_SCORE_ADD, OI_SCORE_DEFAULT_RELEVANCE, OI_READ, OI_WRITE, OI_ANSWER, OI_EXPERTISE_FROM_ANSWER, OINeedsMsgPerms
+from oi.messages.models import Message, PromotedMessage, OI_SCORE_ADD, OI_SCORE_DEFAULT_RELEVANCE, OI_EXPERTISE_FROM_ANSWER
+from oi.messages.models import OI_ALL_PERMS, OI_READ, OI_WRITE, OI_ANSWER, OINeedsMsgPerms
 from oi.messages.templatetags.oifilters import oiescape
-from oi.projects.models import Project
+from oi.projects.models import Project, PromotedProject
 from oi.users.models import User
 from oi.settings import MEDIA_ROOT, MEDIA_URL
 from django.http import HttpResponse, HttpResponseForbidden
@@ -20,9 +21,16 @@ notification = get_app( 'notification' )
 
 def index(request):
     """All messages with no partents"""
-    messages = Message.objects.filter(category=False)[:10]
+    promotedmsg = PromotedMessage.objects.filter(location="index")
+    promotedprj = PromotedProject.objects.filter(location="index")
+    messages = Message.objects.filter(category=False)
     projects = Project.objects.filter(parent=None)
-    return render_to_response('index.html',{'messages': messages, 'projects': projects}, context_instance=RequestContext(request))
+
+    parents = [id for id in request.GET.get("categs","").split(",") if id!=""] #parents séparés par des virgules dans les paramètres
+    if parents:
+        messages = messages.filter(parents__in=parents)
+
+    return render_to_response('index.html',{'promotedmsg': promotedmsg, 'promotedprj': promotedprj, 'messages': messages[:10], 'projects': projects}, context_instance=RequestContext(request))
 
 def getmessages(request):
     """Apply filter to message list"""
@@ -51,8 +59,11 @@ def editmessage(request, id):
     """Edit form of the message"""
     parents=""
     message=None
-    if request.GET.has_key("parents"):
-        parents = request.GET["parents"]
+#    if request.GET.has_key("parents"):
+#        parents = request.GET["parents"]
+    parents = request.GET.get("parents","") #parents séparés par des virgules dans les paramètres
+    if parents!="":
+        message = Message(title = "Re: %s"%Message.objects.get(id=parents.split(",")[0]).title.lstrip("Re: "))
     if id!='0':
         message = Message.objects.get(id=id)
         if not message.has_perm(request.user, OI_WRITE):
@@ -87,6 +98,7 @@ def savemessage(request, id):
         #Création du message
         message = Message(title = request.POST["title"], text = text, author=author, public=True, relevance=OI_SCORE_DEFAULT_RELEVANCE)
         message.save()
+        message.set_perm(author, OI_ALL_PERMS)
         
         #ajout des parents et de l'expertise
         for parent in parents:
@@ -139,4 +151,4 @@ def listcategories(request, id='0'):
         categories = Message.objects.filter(category=True, parents=None)
     else:
         categories = Message.objects.filter(category=True, parents=id)
-    return render_to_response('messages/arbo.html',{'categories': categories}, context_instance=RequestContext(request))
+    return render_to_response('messages/arbo.html',{'categories': categories.order_by("-relevance"), 'dest': request.GET.get("dest")}, context_instance=RequestContext(request))

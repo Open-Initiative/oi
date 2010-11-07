@@ -1,34 +1,38 @@
-div.project {
-   height: 100%;
-   width: 420px;
-}
 div.prjbody {
     background: url('/img/prjmid.png');
-    padding: 20px;
-    font-family: Verdana, Geneva, sans-serif;
+    width: 560px;
+    padding: 1px 20px;
     font-size: 12px;
 }
-div.prjup {
-    width: 420px;
-    height:70px;
-    background: url('/img/prjup.png');
+div.prjtop {
+    width: 600px;
+    height:17px;
+    background: url('/img/prjtop.png');
 }
 div.prjbtm {
-    width: 420px;
-    height:30px;
+    width: 600px;
+    height:17px;
     background: url('/img/prjbtm.png');
 }
-
-div.prjinfo {
-    float: left;
-    width: 100px;
-    padding: 20px;
-    font-style: italic;
+div.prjbodysum {
+    background: url('/img/prjmidsum.png');
+    width: 330px;
+    padding: 1px 20px;
+    font-size: 12px;
 }
+div.prjtopsum {
+    width: 370px;
+    height:17px;
+    background: url('/img/prjtopsum.png');
+}
+div.prjbtmsum {
+    width: 370px;
+    height:17px;
+    background: url('/img/prjbtmsum.png');
+}
+
 div.prjtitle {
-    margin-top: 5px;
-    font-weight: bold;
-    padding: 30px;
+    font-size: 1.2em;
 }
 div.tasklist {
     border-top: solid black 1px;
@@ -36,12 +40,11 @@ div.tasklist {
 }
 
 div.smallprj {
-    width: 180px;
+    width: 260px;
     height: 60px;
     padding: 20px;
-    margin: 5px;
-    float: left;
     background: url('/img/project.png');
+    color: #778e9c;
 }
 .filedest {
     visibility: hidden;

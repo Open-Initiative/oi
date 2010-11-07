@@ -1,7 +1,9 @@
 body {
     margin:0;
     height: 100%;
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-family: Verdana;
+    font-size: 12px;
+    color: #778e9c;
 }
 html{
     height: 100%;
@@ -9,14 +11,28 @@ html{
 img {
     border: None;
 }
-#messages {
-    height: 100%;
+a {
+    color: #006fb8;
+}
+#content {
+    width: 1200px;
+}
+#footer {
+    clear: left;
+    text-align: center;
+    font-size: .9em;
+    font-weight: bold;
+    color: #006fb8;
+    padding: 15px;
 }
 #header {
-    background: #B3B3B3;
+    background: url('/img/header.png');
+    height: 104px;
 }
 #logo {
+    float: left;
     width: 210px;
+    margin: 10px;
 }
 .searchbox {
     font-style: italic;
@@ -28,15 +44,13 @@ img {
 #searchbtn {
     height: 20px;
 }
-div.list {
-    float: left;
-    padding: 3px;
-    padding-left: 10px;
-    margin: 5px;
-    border-left: solid 1px lightgray;
-}
 div.userheader {
-    float: right;
+    position: absolute;
+    left: 752px;
+    width: 224px;
+    height: 93px;
+    padding: 5px;
+    background: url('/img/blocuser.png');
 }
 div.sepheader {
     width:100%;
@@ -50,31 +64,50 @@ div.sepheader {
     color: white;
     font-weight: bold;
 }
-div.nav {
-    width: 200px;
-    margin-left: 10px;
-    font-family: "Trebuchet MS", Helvetica, sans-serif;
-    font-size: 12px;
-    background: #EEEDFF;
+div.list {
+    float: left;
+    margin: 5px;
+}
+#msgheader {
+    background: url('/img/msgheader.png') no-repeat;
+    height: 100px;
+    width: 370px;
+    padding: 3px;
+}
+#prjheader {
+    background: url('/img/prjheader.png') no-repeat;
+    height: 100px;
+    width: 370px;
+    padding: 3px;
+}
+.headersep {
+    height: 1px;
+    margin: 2px 5px;
+    background: url('/img/dots.png');
 }
 span.indextitle {
     font-size: 1.5em;
     font-style:italic;
     font-weight: bold;
+    color: white;
 }
-div.indexdesc {
-    width: 450px;
+div.navtitle {
+    padding: 20px 0 5px 10px;
+    font-size: 14px;
+    text-transform:uppercase;
 }
-/*div.vertsep {*/
-/*    height: 100%;*/
-/*   border-left: solid 1px gray;*/
-/*    margin: 0 10px;*/
-/*    float: left;*/
-/*}*/
-div.horsep {
-    width: 100%;
-    border-top: solid 1px gray;
-    margin: 10px 0;
+div.nav {
+    width: 200px;
+    height: 200px;
+    margin: 10px 5px;
+    background: url('/img/nav.jpg') repeat-y;
+}
+div.navitem {
+    margin-left: 3px;
+    font-size: 12px;
+    color: #006fb8;
+    line-height: 2;
+    font-weight: bold;
 }
 div.subcateg {
     margin-left: 10px;
@@ -83,6 +116,22 @@ div.actions {
     clear: right;
     float: right;
     margin: 5px;
+}
+.selectedfilter {
+    color: #ff8f3f;
+}
+.overlap {  
+    margin-top: -60px;
+}
+div.pile {
+    padding-top: 70px
+}
+div.morelink {
+    float:right;
+    width:40px;
+    font-size:.7em;
+    position:relative;
+    top:-5px
 }
 .clickable {
     cursor:pointer;

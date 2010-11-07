@@ -26,8 +26,16 @@ class Message(models.Model):
     category = models.BooleanField()
     text = models.TextField()
     parents = models.ManyToManyField('self',symmetrical=False, related_name='children', blank=True)
+    ancestors = models.ManyToManyField('self',symmetrical=False, related_name='descendants', blank=True)
     relevance = models.FloatField()
     public = models.BooleanField()
+    
+    # surcharge la sauvegarde pour le calcul des ancetres
+    def save(self):
+        super(Message, self).save()
+        for line in self.get_ancestors():
+            for ancestor in line:
+                self.ancestors.add(ancestor)
     
     # Lorsqu'un utilisateur vote pour un message
     def vote(self, user, opinion, ip_address):
@@ -109,24 +117,28 @@ class Message(models.Model):
             return True
         if perm in [OI_READ, OI_ANSWER] and self.public:
             return True
-        if user.is_anonymous:
+        if user.is_anonymous():
             return False
         return len(self.messageacl_set.filter(user=user,permission=perm))>0
     
     def set_perm(self, user, perm):
         """adds the specified perm to the user"""
-        if user.is_authenticated:
-            self.messageacl_set.add(MessageACL(user=user, permission=perm))
+        if user and user.is_authenticated:
+            if perm == OI_ALL_PERMS:
+                for right in OI_RIGHTS:
+                    self.messageacl_set.add(MessageACL(user=user, permission=right))
+            else:
+                self.messageacl_set.add(MessageACL(user=user, permission=perm))
     
     def get_ancestors(self):
         """returns all the paths to the message"""
         if self.parents.count()==0:
-            return [[]]
+            return [[self]]
         ancestors=[]
         #makes a list of all paths to all parents
         for parent in self.parents.all():
             for path in parent.get_ancestors():
-                ancestors.append(path+[parent])        
+                ancestors.append(path+[self])        
         return ancestors
     
     def get_children(self):
@@ -136,7 +148,8 @@ class Message(models.Model):
         return "%s : %s"%(self.id, self.title)
 
 #Liste des permissions sur les messages
-OI_READ, OI_WRITE, OI_ANSWER = 1,2,4
+OI_ALL_PERMS = -1
+OI_RIGHTS = [OI_READ, OI_WRITE, OI_ANSWER] = [1,2,4]
 OI_MSG_PERMS = ((OI_READ, "Lecture"), (OI_WRITE, "Ecriture"), (OI_ANSWER, "Réponse"),) 
 
 #Structure de contrôle des permissions
@@ -144,6 +157,8 @@ class MessageACL(models.Model):
     user = models.ForeignKey(User)
     message = models.ForeignKey(Message)
     permission = models.IntegerField(choices=OI_MSG_PERMS)
+    def __unicode__(self):
+        return "%s on %s : %s"%(self.user, self.message, self.permission)
 
 #Décorateur de vérification de permissions
 def OINeedsMsgPerms(*required_perms):
@@ -173,3 +188,10 @@ class Expert(models.Model):
     voted = models.BooleanField()
     def __unicode__(self):
         return "%s : %s"%(self.user, self.message.title)
+        
+# Contenu éditorial
+class PromotedMessage(models.Model):
+    message = models.ForeignKey(Message)
+    location = models.CharField(max_length=50)
+    def __unicode__(self):
+        return "%s(%s)"%(self.message.title, self.location)

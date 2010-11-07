@@ -1,23 +1,75 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
+{% load oifilters %}
+{% block title %}Accueil{% endblock %}
+{% block nav %}
+    <div class="nav">
+        <div class="navtitle">Catégories</div>
+            <div id="arbo">
+                <script>OIajaxCall("/message/listcategories/0","","arbo");</script>
+            </div>
+    </div>
+    <div class="nav">
+        <div class="navtitle">Date</div>
+            <div class="navitem clickable"><span onclick="setAnyDate(this)">Indifférent</span></div>
+            <div class="navitem clickable"><span onclick="setDateDelta(this,7)">Depuis une semaine</span></div>
+            <div class="navitem clickable"><span onclick="setDateDelta(this,30)">Depuis un mois</span></div>
+            <div class="navitem clickable"><span onclick="setDateDelta(this,365)">Depuis un an</span></div>
+            <div class="navitem clickable"><span onclick="setDateDelta(this,0)">Période précise</span></div>
+    </div>
+    <div class="nav">
+        <div class="navtitle">Projets</div>
+            <div class="navitem clickable">Proposés</div>
+            <div class="navitem clickable">En cours</div>
+            <div class="navitem clickable">Terminés</div>
+    </div>
+{% endblock %}
 {% block content %}
-<div class="list">
-<span class="indextitle">Trouvez une réponse</span>
-<div class="actions"><a href="/message/new"><img src="/img/icons/addmsg.png" id="addmsg" alt="Ajouter un message"></a></div>
-<div class="indexdesc">Publiez votre cahier des charges, posez vos questions, obtenez la réponse à votre besoin !</div>
-<div id="messages">
-{%for message in messages%}
-{%include 'messages/messagesum.html'%}
-{%endfor%}
-</div>
-</div>
-<div class="vertsep"></div>
-<div class="list">
-<span class="indextitle">Participez aux projets</span>
-<div class="indexdesc">Misez sur les projets qui vous intéressent, proposez vos services, et apportez des solutions concrètes aux problèmes posés !</div>
-<div>
-{%for project in projects%}
-{%include 'projects/projectsum.html'%}
-{%endfor%}
-</div>
-</div>
+    <div class="list">
+        <div id="msgheader">
+            <img src="/img/pictoOI.png" /><span class="indextitle">Trouvez une réponse</span>
+            <div class="actions"><img class="clickable" onclick="addMessage()" src="/img/icons/addmsg.png" id="addmsg" alt="Ajouter un message"></div>
+            <div class="headersep"></div>
+            <div class="indexdesc">Publiez votre cahier des charges, posez vos questions, obtenez la réponse à votre besoin !</div>
+        </div>
+        <div id="messages">
+            {% for promoted in promotedmsg %}{% with promoted.message as message %}
+            {% include 'messages/messagesum.html' %}
+            {% endwith %}{% endfor %}
+    
+            <div class="pile">
+                {% for message in messages %}
+                <div style="position:relative">
+                <a  href="/message/get/{{message.id}}">
+                    <div class="smallmsg overlap clickable">
+                        <div class="morelink"><img src="/img/link.png" /> Lire la suite</div>
+                        <span class="msgtitle">{{message.title}}</span> {{message.text|summarize}}
+                    </div>
+                </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="list">
+        <div id="prjheader">
+            <img src="/img/pictoOI.png" /><span class="indextitle">Participez aux projets</span>
+            <div class="headersep"></div>
+            <div class="indexdesc">Misez sur les projets qui vous intéressent, proposez vos services, et apportez des solutions concrètes aux problèmes posés !</div>
+        </div>
+        <div id="projects">
+            {% for promoted in promotedprj %}
+            {% with promoted.project as project %}
+            {% include 'projects/projectsum.html' %}
+            {% endwith %}
+            {% endfor %}
+            <div class="pile">
+                {% for project in projects %}
+                <a href="/project/get/{{project.id}}"><div class="smallprj overlap">
+                    <div class="morelink"><img src="/img/link.png" /> Voir le détail</div>
+                    {{project.title}}
+                </div></a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

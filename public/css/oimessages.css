@@ -1,39 +1,35 @@
-div.message {
-   height: 100%;
-   width: 500px;
-}
-
 div.msgbody {
-    background: url('/img/msgmid.png');
+    background: url('/img/msgmid.png') repeat-y;
+    width: 560px;
     padding: 1px 20px;
 }
-div.msgtext {
-    font-family: Verdana, Geneva, sans-serif;
-    font-size: 12px;
-}
-div.msgup {
-    width: 500px;
-    height:70px;
-    background: url('/img/msgup.png');
+div.msgtop {
+    width: 600px;
+    height:17px;
+    background: url('/img/msgtop.png');
 }
 div.msgbtm {
-    width: 500px;
-    height:30px;
+    width: 600px;
+    height:18px;
     background: url('/img/msgbtm.png');
 }
-div.msginfo {
-    float: left;
-    width: 100px;
-    padding: 20px;
-    font-style: italic;
-    font-size: 1em;
-    z-index: 2;
+div.msgbodysum {
+    background: url('/img/msgmidsum.png') repeat-y;
+    width: 330px;
+    padding: 1px 20px;
 }
-div.msgtitle {
-    margin-top: 5px;
-    padding: 30px;
-    font-weight: bold;
-    z-index: 2;
+div.msgtopsum {
+    width: 370px;
+    height:17px;
+    background: url('/img/msgtopsum.png');
+}
+div.msgbtmsum {
+    width: 370px;
+    height:18px;
+    background: url('/img/msgbtmsum.png');
+}
+.msgtitle {
+    font-size: 1.2em;
 }
 
 div.prjlist {
@@ -46,15 +42,10 @@ div.childrenlist {
 }
 div.smallmsg {
     width: 260px;
-    height: 60px;  
-    margin-top: -60px;
+    height: 60px;
     padding: 20px;
     background: url('/img/message.png');
-    font-weight: bold;
-}
-
-span.selectedcateg {
-    background: #BBBCEE;
+    color: #778e9c;
 }
 .msgfield {
     width:100%;
