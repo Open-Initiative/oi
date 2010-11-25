@@ -1,1 +1,1 @@
-Vous avez un nouveau contact !
+{% load i18n %}{% blocktrans %}{{ notice }} : {{contact}}{% endblocktrans %}

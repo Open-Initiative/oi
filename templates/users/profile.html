@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% block title %}{{selected_user.username}}{% endblock %}
 {% block content %}
 {% include "users/related.html" %}
 <div class="userpage" >
@@ -11,11 +12,19 @@
             {% endifequal %}
         </div>
         {{selected_user}}
-        {{selected_user.last_name}}
-        {{selected_user.first_name}}
+        <div>
+            {{selected_user.last_name}}
+            {{selected_user.first_name}}
+        </div>
         <div class="clickable" onclick="writeMP({{selected_user.id}})">Envoyer un message</div>
         <div id="sendmp"></div>
-        Date de naissance : {{selected_user.get_profile.birthdate}}
+        <div>
+            {{selected_user.get_profile.address}}
+            {{selected_user.get_profile.postcode}}
+            {{selected_user.get_profile.city}}
+            {{selected_user.get_profile.country}}
+        </div>
+        Date de naissance : {{selected_user.get_profile.birthdate|date:"d/m/Y"}}
     </div>
     <div>
         <div id="training" class="list" style="width:200px">

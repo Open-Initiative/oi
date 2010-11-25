@@ -3,7 +3,6 @@
 from oi.messages.models import Message, PromotedMessage, OI_SCORE_ADD, OI_SCORE_DEFAULT_RELEVANCE, OI_EXPERTISE_FROM_ANSWER
 from oi.messages.models import OI_ALL_PERMS, OI_READ, OI_WRITE, OI_ANSWER, OINeedsMsgPerms
 from oi.messages.templatetags.oifilters import oiescape
-from oi.projects.models import Project, PromotedProject
 from oi.users.models import User
 from oi.settings import MEDIA_ROOT, MEDIA_URL
 from django.http import HttpResponse, HttpResponseForbidden
@@ -19,31 +18,18 @@ import os
 OI_PAGE_SIZE = 10
 notification = get_app( 'notification' )
 
-def index(request):
-    """All messages with no partents"""
-    promotedmsg = PromotedMessage.objects.filter(location="index")
-    promotedprj = PromotedProject.objects.filter(location="index")
-    messages = Message.objects.filter(category=False)
-    projects = Project.objects.filter(parent=None)
-
-    parents = [id for id in request.GET.get("categs","").split(",") if id!=""] #parents séparés par des virgules dans les paramètres
-    if parents:
-        messages = messages.filter(parents__in=parents)
-
-    return render_to_response('index.html',{'promotedmsg': promotedmsg, 'promotedprj': promotedprj, 'messages': messages[:10], 'projects': projects}, context_instance=RequestContext(request))
-
 def getmessages(request):
     """Apply filter to message list"""
     datemin = datetime.strptime(request.GET.get("datemin","2000,1,1"),"%Y,%m,%d")
     datemax = datetime.strptime(request.GET.get("datemax","2100,1,1"),"%Y,%m,%d")
-    messages = Message.objects.filter(created__gte=datemin, created__lte=datemax, category=False)
+    messages = Message.objects.filter(created__gte=datemin, created__lte=datemax, category=False, public=True)
+    promotedmsg = PromotedMessage.objects.filter(location="index")
 
-    parents = [id for id in request.GET.get("categs","").split(",") if id!=""] #parents séparés par des virgules dans les paramètres
-    if parents:
-        messages = messages.filter(parents__in=parents)
+    ancestors = [id for id in request.GET.get("categs","").split(",") if id!=""] #parents séparés par des virgules dans les paramètres
+    if ancestors:
+        messages = messages.filter(ancestors__in=ancestors)
         
-    return object_list(request, queryset=messages.order_by("-relevance")[:10]
-)
+    return object_list(request, queryset=messages.order_by("-relevance")[:10], extra_context={'promotedmsg': promotedmsg})
 
 @OINeedsMsgPerms(OI_READ)
 def getmessage(request, id):
@@ -59,11 +45,12 @@ def editmessage(request, id):
     """Edit form of the message"""
     parents=""
     message=None
-#    if request.GET.has_key("parents"):
-#        parents = request.GET["parents"]
     parents = request.GET.get("parents","") #parents séparés par des virgules dans les paramètres
     if parents!="":
-        message = Message(title = "Re: %s"%Message.objects.get(id=parents.split(",")[0]).title.lstrip("Re: "))
+        title = Message.objects.get(id=parents.split(",")[0]).title
+        while title[:4] == "Re: ":
+            title = title[4:]
+        message = Message(title = "Re: %s"%title)
     if id!='0':
         message = Message.objects.get(id=id)
         if not message.has_perm(request.user, OI_WRITE):
@@ -114,6 +101,22 @@ def deletemessage(request, id):
     """Deletes the message and outputs a message"""
     Message.objects.get(id=id).delete()
     return HttpResponse(u"Message supprimé")
+
+@OINeedsMsgPerms(OI_WRITE)
+def hidemessage(request, id):
+    """Makes the message private and outputs a message"""
+    message = Message.objects.get(id=id)
+    message.public = False
+    message.save()
+    return HttpResponse(u"Message privé")
+
+@OINeedsMsgPerms(OI_WRITE)
+def sharemessage(request, id):
+    """Shares the message with a user and outputs a message"""
+    message = Message.objects.get(id=id)
+    user = User.objects.get(username=request.POST["username"])
+    message.set_perm(user, OI_ALL_PERMS)
+    return HttpResponse(u"Message partagé")
 
 @OINeedsMsgPerms(OI_READ)
 def vote(request, id):

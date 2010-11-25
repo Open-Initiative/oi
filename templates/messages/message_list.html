@@ -1,3 +1,17 @@
-{%for message in object_list%}
-{%include 'messages/messagesum.html'%}
-{%endfor%}
+{% load oifilters %}
+{% for promoted in promotedmsg %}{% with promoted.message as message %}
+{% include 'messages/messagesum.html' %}
+{% endwith %}{% endfor %}
+<div class="pile">
+    {% for message in object_list %}
+    <div style="position:relative">
+    <a  href="/message/get/{{message.id}}">
+        <div class="smallmsg overlap clickable">
+            <div class="morelink"><img src="/img/link.png" /> Lire la suite</div>
+            <span class="msgtitle">{{message.title}}</span> {{message.text|summarize}}
+        </div>
+    </a>
+    </div>
+    {% endfor %}
+</div>
+

@@ -2,15 +2,14 @@
 {% load oifilters %}
 {% block title %}Accueil{% endblock %}
 {% block nav %}
-    <div class="nav">
-        <div class="navtitle">Catégories</div>
-            <div id="arbo">
-                <script>OIajaxCall("/message/listcategories/0","","arbo");</script>
-            </div>
+    <div class="navitem"><img src="/img/fleche2.png" /> Catégories</div>
+    <div id="arbo" class="subcateg">
+        <script>OIajaxCall("/message/listcategories/0",null,"arbo");</script>
     </div>
+    {% if params.id %}<script>selectCateg(document.getElementById("categ_{{params.id}}"),{{params.id}})</script>{% endif %}
     <div class="nav">
         <div class="navtitle">Date</div>
-            <div class="navitem clickable"><span onclick="setAnyDate(this)">Indifférent</span></div>
+            <div class="navitem clickable"><span onclick="setDateDelta(this)">Indifférent</span></div>
             <div class="navitem clickable"><span onclick="setDateDelta(this,7)">Depuis une semaine</span></div>
             <div class="navitem clickable"><span onclick="setDateDelta(this,30)">Depuis un mois</span></div>
             <div class="navitem clickable"><span onclick="setDateDelta(this,365)">Depuis un an</span></div>
@@ -18,37 +17,22 @@
     </div>
     <div class="nav">
         <div class="navtitle">Projets</div>
-            <div class="navitem clickable">Proposés</div>
-            <div class="navitem clickable">En cours</div>
-            <div class="navitem clickable">Terminés</div>
+            <div class="navitem clickable"><span onclick="setPrjState(this)">Tous</span></div>
+            <div class="navitem clickable"><span onclick="setPrjState(this,0)">Proposés</div>
+            <div class="navitem clickable"><span onclick="setPrjState(this,1)">Acceptés</div>
+            <div class="navitem clickable"><span onclick="setPrjState(this,2)">En cours</div>
+            <div class="navitem clickable"><span onclick="setPrjState(this,3)">Livrés</div>
+            <div class="navitem clickable"><span onclick="setPrjState(this,4)">Validés</div>
     </div>
 {% endblock %}
 {% block content %}
     <div class="list">
         <div id="msgheader">
             <img src="/img/pictoOI.png" /><span class="indextitle">Trouvez une réponse</span>
-            <div class="actions"><img class="clickable" onclick="addMessage()" src="/img/icons/addmsg.png" id="addmsg" alt="Ajouter un message"></div>
             <div class="headersep"></div>
             <div class="indexdesc">Publiez votre cahier des charges, posez vos questions, obtenez la réponse à votre besoin !</div>
         </div>
-        <div id="messages">
-            {% for promoted in promotedmsg %}{% with promoted.message as message %}
-            {% include 'messages/messagesum.html' %}
-            {% endwith %}{% endfor %}
-    
-            <div class="pile">
-                {% for message in messages %}
-                <div style="position:relative">
-                <a  href="/message/get/{{message.id}}">
-                    <div class="smallmsg overlap clickable">
-                        <div class="morelink"><img src="/img/link.png" /> Lire la suite</div>
-                        <span class="msgtitle">{{message.title}}</span> {{message.text|summarize}}
-                    </div>
-                </a>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
+        <div id="messages"></div>
     </div>
     <div class="list">
         <div id="prjheader">
@@ -56,20 +40,6 @@
             <div class="headersep"></div>
             <div class="indexdesc">Misez sur les projets qui vous intéressent, proposez vos services, et apportez des solutions concrètes aux problèmes posés !</div>
         </div>
-        <div id="projects">
-            {% for promoted in promotedprj %}
-            {% with promoted.project as project %}
-            {% include 'projects/projectsum.html' %}
-            {% endwith %}
-            {% endfor %}
-            <div class="pile">
-                {% for project in projects %}
-                <a href="/project/get/{{project.id}}"><div class="smallprj overlap">
-                    <div class="morelink"><img src="/img/link.png" /> Voir le détail</div>
-                    {{project.title}}
-                </div></a>
-                {% endfor %}
-            </div>
-        </div>
+        <div id="projects"><script>applyFilter()</script></div>
     </div>
 {% endblock %}

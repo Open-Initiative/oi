@@ -9,10 +9,12 @@
         <div style="float:left;width:20em;">
             <div>Date</div>
             {%for task in project.tasks.all%}
-            <div><a href="/project/get/{{task.id}}">{{task.title}}</a> - {{task.assignee}} ({{task.progress|multiply:100}}%)
-            
+            <div>
+                {% if task.start_date %}{% if task.due_date %}
                 <div style="position:absolute;left:{{task.start_date|oidateshift:project.start_date|add:20}}em;height:5px;width:{{task.due_date|oidateshift:task.start_date}}em;background:{% if task.is_late %}red{% else %}orange{% endif %}"></div>
                 <div style="position:absolute;left:{{task.start_date|oidateshift:project.start_date|add:20}}em;height:5px;width:{{task.due_date|oidateshift:task.start_date|multiply:task.progress}}em;background:lightgreen"></div>
+                {% endif %}{% endif %}
+                <a href="/project/get/{{task.id}}">{{task.title}}</a> - {{task.assignee}} ({{task.progress|multiply:100}}%)
             </div>
             {% empty %}
                 Pas de tache dans le projet

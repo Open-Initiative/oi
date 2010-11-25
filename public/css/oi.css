@@ -34,6 +34,14 @@ a {
     width: 210px;
     margin: 10px;
 }
+#subtitle {
+    position:absolute;
+    top:80px;
+    left:400px;
+    letter-spacing:1px;
+    font-size:12px;
+    font-weight:bold;
+}
 .searchbox {
     font-style: italic;
     height: 1em;

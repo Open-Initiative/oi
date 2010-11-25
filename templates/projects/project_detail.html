@@ -8,10 +8,34 @@
         <div class="prjtop"></div>
         <div class="prjbody">
             <div class="actions">
+                {% if project.state < 3 %}
+                    {% if project|can_read:user %}
+                    <img class="clickable" onclick="bidProject({{project.id}})" src="/img/icons/miseprj.png" alt="Souscrire au projet" title="Souscrire au projet" />
+                    {% endif %}
+                {% endif %}
+                {% if project.state = 1 %}
+                    {% if project.assignee = user %}
+                    <img class="clickable" onclick="startProject({{project.id}})" src="/img/icons/startprj.png" alt="Démarrer le projet" title="Démarrer le projet" />
+                    {% endif %}
+                {% endif %}
+                {% if project.state = 2 %}
+                    {% if project.assignee = user %} <img class="clickable" onclick="deliverProject({{project.id}})" src="/img/icons/okprj.png" alt="Marquer le projet comme terminé" title="Marquer le projet comme terminé" />{% endif %}
+                {% endif %}
+                {% if project.state = 3 %}
+                    {% if project|is_bidder:user %} <img class="clickable" onclick="validateProject({{project.id}})" src="/img/icons/okprj.png" alt="Valider le projet" title="Valider le projet" />{% endif %}
+                {% endif %}
+                {% if project.state = 4 %}
+                    {% if project|is_bidder:user %} <img class="clickable" onclick="evalProject({{project.id}})" src="/img/icons/evalprj.png" alt="Evaluer le projet" title="Evaluer le projet" />{% endif %}
+                {% endif %}
                 {% if project|can_read:user %}<a href="{% url oi.projects.views.projectview id=project.id%}">
                     <img src="/img/icons/viewprj.png" alt="Vue d'ensemble" title="Vue d'ensemble" />
                 </a>{% endif %}
-                {% if project|can_write:user %} <img onclick="finishProject({{project.id}})" src="/img/icons/okprj.png" alt="Marquer le projet comme terminé" title="Marquer le projet comme terminé" />
+                {% if project|can_write:user %}
+                {% if project.public %}
+                <img class="clickable" src="/img/icons/privateprj.png" onclick="hideProject({{project.id}})" alt="Projet privé" title="Projet privé" />
+                {% else %}
+                <img class="clickable" src="/img/icons/shareprj.png" onclick="shareProject({{project.id}})" alt="Partager le projet" title="Partager le projet" />
+                {% endif %}
                 <a href="{% url oi.projects.views.deleteproject id=project.id%}">
                     <img src="/img/icons/delprj.png" alt="Supprimer le projet" title="Supprimer le projet" />
                 </a>
@@ -22,10 +46,18 @@
             <div class="prjtitle">
                 {{project.title}}
             </div>
+            <div id="prjdialogue_{{project.id}}"></div>
             assigné à : {{project.assignee}}<br />
             démarré le : {{project.start_date|date:"d/m/Y"}}<br />
             du le : {{project.due_date|date:"d/m/Y"}}<br />
             Avancement : {{project.progress|multiply:100}}%<br />
+            <div id="bids_{{project.id}}">
+                Souscripteurs :
+                {% for bid in project.bid_set.all %}
+                {{bid.user}}
+                {% endfor %}
+            </div>
+            <h2>Spécifications</h2>
             <div id="specs_{{project.id}}">
                 {%for spec in project.get_specs%}
                 <div id="specs_{{project.id}}_{{spec.order}}">

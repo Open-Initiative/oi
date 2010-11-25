@@ -1,6 +1,7 @@
 from django import template
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
+from django.contrib.auth.models import AnonymousUser
 from oi.messages.models import Message, OI_READ, OI_WRITE, OI_ANSWER
 from oi.projects.models import Project
 import re
@@ -70,10 +71,18 @@ def can_write(obj, user):
 @register.filter
 def can_answer(obj, user):
     return obj.has_perm(user, OI_READ)
-    
+
+@register.filter
+def is_bidder(prj, user):
+    return prj.bid_set.filter(user=user).filter(rating=None).count() > 0
+
+@register.filter
+def ip_has_voted(obj,ip_address):
+    return obj.has_voted(AnonymousUser(),ip_address)
+
 @register.filter
 def has_voted(obj, user):
-    return obj.has_voted(user, OI_READ)
+    return obj.has_voted(user, "")
     
 @register.filter
 def cleanfilename(path):

@@ -157,6 +157,8 @@ class MessageACL(models.Model):
     user = models.ForeignKey(User)
     message = models.ForeignKey(Message)
     permission = models.IntegerField(choices=OI_MSG_PERMS)
+    class Meta:
+        unique_together = (("message", "user", "permission"),)
     def __unicode__(self):
         return "%s on %s : %s"%(self.user, self.message, self.permission)
 

@@ -4,8 +4,33 @@ function addTask(projectid,userid) {
     divid = newDiv("tasks_"+projectid);
     OIajaxCall(url, params, divid);
 }
-function finishProject(projectid) {
-    OIajaxCall("/project/finish/"+projectid, null, "output");
+function bidProject(projectid) {
+    OIajaxCall("/project/bid/"+projectid, null, "output");
+}
+function startProject(projectid) {
+    OIajaxCall("/project/start/"+projectid, null, "output");
+}
+function deliverProject(projectid) {
+    OIajaxCall("/project/deliver/"+projectid, null, "output");
+}
+function validateProject(projectid) {
+    OIajaxCall("/project/validate/"+projectid, null, "output");
+}
+function evalProject(projectid, rating) {
+    OIajaxCall("/project/eval/"+projectid, null, "prjdialogue_"+projectid);
+}
+function confirmEvalProject(projectid) {
+    OIajaxCall("/project/confirmeval/"+projectid, "rating="+getValue("evaluate_"+projectid), "output");
+}
+function hideProject(projectid) {
+    OIajaxCall("/project/hide/"+projectid, null, "output");
+}
+function shareProject(projectid) {
+    divid = newDiv("prjdialogue_"+projectid);
+    OIajaxCall("/project/share/"+projectid+"/"+divid, null, divid);
+}
+function confirmShareProject(projectid, divid) {
+    OIajaxCall("/project/confirmshare/"+projectid, "username="+getValue("usershare_"+divid), "output");
 }
 function addSpec(projectid, specorder) {
     if(specorder==-1) divid = newDiv("specs_"+projectid);
@@ -29,7 +54,7 @@ function changeSpecType(divid){
 }
 function saveSpec(divid, projectid, order, specid){
     tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
-    params = "text="+getValue("text_"+divid)+"&order="+order+"&type="+getValue("type_"+divid);
+    params = "text="+getValue("text_"+divid).replace(/\+/gi,"%2B")+"&order="+order+"&type="+getValue("type_"+divid);
     if(getValue("url_"+divid)) params+="&url="+getValue("url_"+divid);
     if(getValue("filename_"+divid)) params+="&filename="+getValue("filename_"+divid);
     if(getValue("ts_"+divid)) params+="&ts="+getValue("ts_"+divid);

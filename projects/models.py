@@ -3,9 +3,13 @@
 from django.db import models
 from oi.settings import MEDIA_ROOT
 from django.contrib.auth.models import User
-from oi.messages.models import Message, OI_ALL_PERMS, OI_RIGHTS, OI_READ, OI_WRITE
+from oi.messages.models import Message, OI_ALL_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_ANSWER
 from django.http import HttpResponseForbidden
 from datetime import datetime
+
+#Liste des permissions sur les projets
+[OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED] = [0,1,2,3,4]
+OI_PRJ_STATES = ((OI_PROPOSED, "Proposé"), (OI_ACCEPTED, "Accepté"), (OI_STARTED, "Démarré"), (OI_DELIVERED, "Livré"), (OI_VALIDATED, "Validé"),)
 
 # A project can contain subprojects and/or specs. Without them it is only a task
 class Project(models.Model):
@@ -19,8 +23,9 @@ class Project(models.Model):
     modified = models.DateTimeField(auto_now=True)
     start_date = models.DateTimeField(null=True)
     due_date = models.DateTimeField(null=True)
-    progress = models.FloatField(null=True)
-    public = models.BooleanField(default=0.0)
+    progress = models.FloatField(default=0.0)
+    state = models.IntegerField(choices=OI_PRJ_STATES)
+    public = models.BooleanField(default=True)
 
     def get_specs(self):
         """Returns all the specs of the project"""
@@ -77,13 +82,17 @@ class Project(models.Model):
         return "%s : %s"%(self.id, self.title)
 
 #Liste des permissions sur les projets
-OI_PRJ_PERMS = ((OI_READ, "Lecture"), (OI_WRITE, "Ecriture"),) 
+OI_PRJ_PERMS = ((OI_READ, "Lecture"), (OI_WRITE, "Ecriture"), (OI_ANSWER, "Réponse"),) 
 
 #Structure de contrôle des permissions
 class ProjectACL(models.Model):
     user = models.ForeignKey(User)
     project = models.ForeignKey(Project)
     permission = models.IntegerField(choices=OI_PRJ_PERMS)
+    class Meta:
+        unique_together = (("project", "user", "permission"),)
+    def __unicode__(self):
+        return "%s on %s: %s"%(self.user, self.project, self.permission)
 
 #Décorateur de vérification de permissions
 def OINeedsPrjPerms(*required_perms):
@@ -126,9 +135,12 @@ class Spec(models.Model):
 class Bid(models.Model):
     project = models.ForeignKey(Project)
     user = models.ForeignKey(User, related_name='bid_projects')
-    amount = models.DecimalField(max_digits= 12,decimal_places=2)
+    amount = models.DecimalField(max_digits=12,decimal_places=2)
+    validated = models.BooleanField(default=False)
+    rating = models.IntegerField(null=True)
+    comment = models.TextField()
     def __unicode__(self):
-        return "%s : %s"%(self.user, self.amount)
+        return "%s on %s: %s"%(self.user, self.project, self.amount)
 
 # Contenu éditorial
 class PromotedProject(models.Model):

@@ -3,22 +3,29 @@
     <div class="msgtop"></div>
     <div class="msgbody">
         <div class="actions">
-            {% if not message|has_voted:user %}
-                <button onclick="vote({{message.id}},1)">+</button>
-                <button onclick="vote({{message.id}},-1)">-</button>
-            {% endif %}
+            {% if not message|has_voted:user %}{% if not message|ip_has_voted:request.META.REMOTE_ADDR %}
+                <img class="clickable" src="/img/pouce1.gif" onclick="vote({{message.id}},1)" title="Message pertinent">
+                <img class="clickable" src="/img/pouce2.gif" onclick="vote({{message.id}},-1)" title="Message non pertinent">
+            {% endif %}{% endif %}
             {% if message|can_answer:user %}<a href="/project/edit/0?message={{message.id}}">
                 <img src="/img/icons/addprj.png" alt="Créer un nouveau projet" title="Créer un nouveau projet"/>
             </a>
             <img class="clickable" src="/img/icons/answermsg.png" onclick="addMessage({{message.id}})" alt="Répondre au message" title="Répondre au message" />
             {% endif %}
-            {% if message|can_write:user %}<img class="clickable" src="/img/icons/delmsg.png" onclick="deleteMessage({{message.id}})" alt="Supprimer le message" title="Supprimer le message" />
+            {% if message|can_write:user %}
+            {% if message.public %}
+            <img class="clickable" src="/img/icons/privatemsg.png" onclick="hideMessage({{message.id}})" alt="Message privé" title="Message privé" />
+            {% else %}
+            <img class="clickable" src="/img/icons/sharemsg.png" onclick="shareMessage({{message.id}})" alt="Partager le message" title="Partager le message" />
+            {% endif %}
+            <img class="clickable" src="/img/icons/delmsg.png" onclick="deleteMessage({{message.id}})" alt="Supprimer le message" title="Supprimer le message" />
             <img class="clickable" src="/img/icons/editmsg.png" onclick="editMessage({{message.id}})" alt="Modifier le message" title="Modifier le message" />
             {% endif %}
         </div>
         <div class="msgtitle">
             {{message.title}}
         </div>
+        <div id="msgdialogue_{{message.id}}"></div>
         <div class="msgtext">
             {{message.text|oiunescape}}
         </div>

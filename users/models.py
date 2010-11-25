@@ -9,6 +9,12 @@ from django.db.models.signals import post_save
 class UserProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
     birthdate = models.DateField(null=True, blank=True)
+    address = models.CharField(max_length=200, null=True, blank=True)
+    postcode = models.CharField(max_length=9, null=True, blank=True)
+    city = models.CharField(max_length=50, null=True, blank=True)
+    country = models.CharField(max_length=30, null=True, blank=True)
+    mobile = models.CharField(max_length=30, null=True, blank=True)
+    phone = models.CharField(max_length=30, null=True, blank=True)
     contacts = models.ManyToManyField('self', symmetrical=True, blank=True)
     def __unicode__(self):
         return "Profil de %s"%self.user
@@ -51,6 +57,8 @@ class PersonalMessage(models.Model):
     to_user = models.ForeignKey(User, related_name='received')
     subject = models.CharField(max_length=100)
     text = models.TextField()
+    def __unicode__(self):
+        return "%s to %s : %s"%(self.from_user, self.to_user, self.subject)
 
 # Sets the UserProfile class to be the profile of the given django User class
 def set_profile(sender, instance, created, **kwargs):

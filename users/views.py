@@ -21,7 +21,7 @@ def userprofile(request, username):
 @login_required
 def invite(request, id):
     request.user.get_profile().contacts.add(id)
-    notification.send( [ User.objects.get(id=id) ], 'invitation', {}  )
+    notification.send( [ User.objects.get(id=id) ], 'invitation', {"contact":request.user}  )
     return HttpResponse("Contact ajouté")
 
 @login_required
@@ -32,6 +32,8 @@ def createuser(request):
     if request.POST["password"] != request.POST["password_confirm"]:
         return HttpResponse("Les mots de passe ne correspondent pas.")
     user = User.objects.create_user(request.POST["username"], request.POST["email"], request.POST["password"])
+    user.first_name = request.POST["firstname"]
+    user.last_name = request.POST["lastname"]
     user.save()
     return HttpResponseRedirect(reverse('oi.users.views.myprofile'))
     
@@ -55,6 +57,9 @@ def editexperience(request, id):
 def saveprofile(request):
     form = UserProfileForm(request.POST, instance=request.user.get_profile())
     form.save()
+    request.user.last_name = request.POST.get("lastname")
+    request.user.first_name = request.POST.get("firstname")
+    request.user.save()
     return HttpResponseRedirect(reverse('oi.users.views.myprofile'))
 
 @login_required
@@ -81,5 +86,5 @@ def saveexperience(request, id):
 def sendMP(request, id):
     mp = PersonalMessage(from_user=request.user, to_user=User.objects.get(id=id), text=request.POST['message'], subject=request.POST['subject'])
     mp.save()
-    notification.send( [ User.objects.get(id=id) ], 'message', {'message':mp}  )
+    notification.send( [ User.objects.get(id=id) ], 'message', {'message':mp.text, 'sender':mp.from_user, 'subject':mp.subject}  )
     return HttpResponse("Message envoyé")

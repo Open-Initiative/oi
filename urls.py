@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import *
+from django.views.generic.simple import direct_to_template
 from haystack.views import SearchView
 from haystack.query import SearchQuerySet
 # Activation de l'admin
@@ -12,9 +13,9 @@ def oi_search_view_factory(view_class=SearchView, *args, **kwargs):
 
 urlpatterns = patterns('',
     # Page d'accueil
-    (r'^$', 'oi.messages.views.index'),
+    (r'^$', direct_to_template, {'template': "index.html"}),
     # Page d'accueil
-    (r'^index$', 'oi.messages.views.index'),
+    (r'^index/(?P<id>\d+)$', direct_to_template, {'template': "index.html"}),
     # Pages des messages
     (r'^message/', include('oi.messages.urls')),
     # Pages des projets
