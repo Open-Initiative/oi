@@ -14,8 +14,10 @@ def oi_search_view_factory(view_class=SearchView, *args, **kwargs):
 urlpatterns = patterns('',
     # Page d'accueil
     (r'^$', direct_to_template, {'template': "index.html"}),
-    # Page d'accueil
     (r'^index/(?P<id>\d+)$', direct_to_template, {'template': "index.html"}),
+    # contenu statique
+    (r'^cgu$', direct_to_template, {'template': "cgu.html"}),    
+    (r'^contact$', direct_to_template, {'template': "contact.html"}),
     # Pages des messages
     (r'^message/', include('oi.messages.urls')),
     # Pages des projets

@@ -27,7 +27,7 @@
         Date de naissance : {{selected_user.get_profile.birthdate|date:"d/m/Y"}}
     </div>
     <div>
-        <div id="training" class="list" style="width:200px">
+        <div id="training" class="column" style="width:200px">
             <div class="actions">
                 <img src="/img/icons/addmsg.png" id="addtrain" onclick="addTraining()" alt="Ajouter une formation" title="Ajouter une formation" />
             </div>
@@ -36,7 +36,7 @@
             <p>{{training.university}}<br />({{training.begining.year}} à {{training.end.year}})<br />{{training.degree}}</p>
             {% endfor %}
         </div>
-        <div id="experience" class="list" style="width:200px">
+        <div id="experience" class="column" style="width:200px">
             <div class="actions">
                 <img src="/img/icons/addmsg.png" id="addxp" onclick="addExperience()" alt="Ajouter une expérience" title="Ajouter une expérience" />
             </div>

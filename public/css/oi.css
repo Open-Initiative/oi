@@ -1,17 +1,15 @@
 body {
     margin:0;
     height: 100%;
-    font-family: Verdana;
+    font-family: Verdana,Arial,Helvetica,sans-serif;
     font-size: 12px;
     color: #778e9c;
-}
-html{
-    height: 100%;
 }
 img {
     border: None;
 }
 a {
+    text-decoration: None;
     color: #006fb8;
 }
 #content {
@@ -72,21 +70,21 @@ div.sepheader {
     color: white;
     font-weight: bold;
 }
-div.list {
+div.column {
     float: left;
     margin: 5px;
 }
 #msgheader {
     background: url('/img/msgheader.png') no-repeat;
-    height: 100px;
-    width: 370px;
-    padding: 3px;
 }
 #prjheader {
     background: url('/img/prjheader.png') no-repeat;
+}
+.header{
     height: 100px;
     width: 370px;
     padding: 3px;
+    margin-bottom: .5em;
 }
 .headersep {
     height: 1px;
@@ -116,10 +114,21 @@ div.navitem {
     color: #006fb8;
     line-height: 2;
     font-weight: bold;
+    width: 200px;
 }
 div.subcateg {
     margin-left: 10px;
 }
+#addmsg {
+    float: left;
+    margin-right: .5em;
+}
+#newmsgtxt {
+    padding: .5em;
+    line-height: 1em;
+    margin: 1em
+}
+
 div.actions {
     clear: right;
     float: right;
@@ -135,12 +144,15 @@ div.pile {
     padding-top: 70px
 }
 div.morelink {
-    float:right;
-    width:40px;
-    font-size:.7em;
-    position:relative;
-    top:-5px
+    float: right;
+    width: 40px;
+    font-size: .7em;
+    position: relative;
+    top: -5px
 }
 .clickable {
-    cursor:pointer;
+    cursor: pointer;
+}
+.invisible{
+    display: none;
 }

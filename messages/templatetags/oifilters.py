@@ -35,7 +35,9 @@ def summarize(text, autoescape=None):
         text = text.replace(OI_ESCAPE_CODE[code], code)
     text = text.replace("[[close]]",">") #close tags
     text = re.compile(r'<.*?>').sub('', text) #gets rid of all tags
-    return mark_safe(text[:100]) #returns only 100 first characters
+    # searches for ; to avoid cutting &eamp; and others
+    length = max(100,text.find(";",100,105))
+    return mark_safe(text[:length]) #returns only 100 first characters
 oiunescape.needs_autoescape = True
 
 def repl(tag):

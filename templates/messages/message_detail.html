@@ -2,7 +2,7 @@
 {% block title %}{{object.title}}{% endblock %}
 {% block content %}
 {% with object as message %}
-{% ifequal base "base.html" %}<div class="list">{% endifequal %}
+{% ifequal base "base.html" %}<div class="column">{% endifequal %}
 {% include "messages/message.html" %}
 {% ifequal base "base.html" %}</div>{% endifequal %}
 {% endwith %}

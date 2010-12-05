@@ -36,6 +36,19 @@ function expandCateg(img, categid){
         document.getElementById("subcateg"+categid).innerHTML = "";
     }
 }
+function toggle(img, divid) {
+    div = document.getElementById(divid);
+    if(img.down != 1) {
+        img.down = 1;
+        img.src = "/img/fleche2.png";
+        div.style.display = "block"
+    } else {
+        img.down = null;
+        img.src = "/img/fleche1.png";
+        div.style.display = "none"
+    }
+}
+
 selectedcateg = new Array();
 selectedDateFilter = null;
 datemin = null;
@@ -64,6 +77,7 @@ function applyFilter() {
 function selectCateg(span, categid) {
     selectedcateg[categid] = !selectedcateg[categid];
     span.className = selectedcateg[categid]?"selectedfilter clickable":"clickable";
+    expandCateg(document.getElementById("arrow"+categid), categid);
     applyFilter();
 }
 function setDateDelta(span,delta) {
@@ -91,6 +105,7 @@ tinyMCE.init({
 		// General options
 		mode : "textareas",
 		theme : "advanced",
+		content_css : "/css/tinymce.css",
 		plugins : "advlink,emotions,iespell,inlinepopups,media,searchreplace,print,contextmenu,paste,noneditable,nonbreaking,xhtmlxtras,advlist,autosave",
 
 		// Theme options
@@ -100,4 +115,5 @@ tinyMCE.init({
 		theme_advanced_toolbar_location : "top",
 		theme_advanced_toolbar_align : "left",
 		
-		file_browser_callback : 'uploadFile'});
+		file_browser_callback : 'uploadFile'}
+);

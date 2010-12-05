@@ -8,7 +8,7 @@
                 <img class="clickable" src="/img/pouce2.gif" onclick="vote({{message.id}},-1)" title="Message non pertinent">
             {% endif %}{% endif %}
             {% if message|can_answer:user %}<a href="/project/edit/0?message={{message.id}}">
-                <img src="/img/icons/addprj.png" alt="Créer un nouveau projet" title="Créer un nouveau projet"/>
+                <img src="/img/icons/addprj.png" alt="Proposer un nouveau projet" title="Proposer un nouveau projet"/>
             </a>
             <img class="clickable" src="/img/icons/answermsg.png" onclick="addMessage({{message.id}})" alt="Répondre au message" title="Répondre au message" />
             {% endif %}

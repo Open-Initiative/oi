@@ -19,7 +19,6 @@
 </head>
 
 <body>
-    <div id="popup"></div>
     <div id="header">
         {% block header %}
         <a href="/"><img src="/img/logo.png" id="logo" /></a>
@@ -43,42 +42,50 @@
         {% endblock %}
     </div>
     <div class="sepheader"></div>
-
-    <div class="list">
-        <div class="navitem"><img src="/img/pictoOI.png" /><img src="/img/link.png" /> <a href="#">Présentation</a></div>
+﻿{% load oifilters %}
+    <div class="column">
         <div class="navitem clickable" onclick="addMessage()">
-            <img src="/img/icons/addmsg.png" id="addmsg" alt="Ajouter un message">
-            <img src="/img/link.png" />
-            Ajouter un message
+            <img src="/img/icons/addmsg.png" id="addmsg" alt="Nouvelle discussion">
+            <div id="newmsgtxt">Démarrer une discussion</div>
         </div>
         {% block nav %}
-        <div class="navitem"><img src="/img/fleche2.png" /> Catégories</div>
-        <div id="arbo" class="subcateg">
-            <script>OIajaxCall("/message/listcategories/0?dest=index",null,"arbo");</script>
-        </div>
-        <div class="nav">
-            <div class="navtitle">Mes tâches en cours</div>
-        </div>
+        <div class="navitem"><img src="/img/fleche2.png" /> Tous les domaines</div>
+        <div id="arbo" class="subcateg"></div>
+<!--        <div class="nav">-->
+<!--            <div class="navtitle">Mes tâches en cours</div>-->
+<!--        </div>-->
+        <script>
+            OIajaxCall("/message/listcategories/0?dest=index",null,"arbo");
+            {% for categ in object.get_categories %}selectCateg(document.getElementById("categ_{{categ.id}}"),{{categ.id}});{% endfor %}
+        </script>
         {% endblock %}
     </div>
-    <div class="vertsep"></div>
-    <div id="breadcrumb">
+    <div>
         {% block breadcrumb %}
-        {% for path in object.get_ancestors %}
-        {% for ancestor in path %}
-        <a href="{% url oi.messages.views.getmessage id=ancestor.id%}">{{ancestor.title}}</a> - 
-        {% endfor %} <br />
+        {% for parent in object.parents.all %}
+        <div id="path_{{parent.id}}">
+            {% if object %}{% if object|can_write:user %}
+            <img class="clickable" src="/img/icons/delete.png" onclick="orphanMessage({{object.id}},{{parent.id}})" />
+            {% endif %}{% endif %}
+            {% for path in parent.get_ancestors %}
+            {% for ancestor in path %}
+            <a href="/message/get/{{ancestor.id}}">{{ancestor.title}}</a> - 
+            {% endfor %}
+        </div>
+        {% endfor %}
         {% endfor %}
         {% endblock %}
+        {% if object %}{% if object|can_write:user %}
+        <div id="newParent"><img class="clickable" src="/img/icons/add.png" onclick="moveMessage({{object.id}})" /></div>
+        {% endif %}{% endif %}
     </div>
     <div id="content">
         {% block content %}{% endblock %}
     </div>
     <div id="footer">
-        <a href="">Mensions Légales</a>,
-        <a href="">Conditions générales d'utilisation</a>,
-        <a href="">Charte des forums</a>,
-        <a href="">Contact</a>
+        <a href="/cgu">Conditions générales d'utilisation</a>,
+        <a href="/contact">Mentions Légales</a>,
+        <a href="/contact">Contact</a>
     </div>
 </body>
 </html>

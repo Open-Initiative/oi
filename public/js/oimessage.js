@@ -10,8 +10,7 @@ function addMessage(parentid) {
             alert("Sélectionnez une catégorie");
             return;
         }
-        divid = "messages";
-        url = "/message/edit/0?divid="+divid;
+        location = "/message/new?categs="+getSelectedCategs(selectedcateg);
     } else {
         divid = newDiv("children_"+parentid);
         url = "/message/edit/0?divid="+divid+"&parents="+parentid;
@@ -41,6 +40,17 @@ function shareMessage(msgid) {
 }
 function confirmShareMessage(msgid, divid) {
     OIajaxCall("/message/confirmshare/"+msgid, "username="+getValue("usershare_"+divid), "output");
+}
+function moveMessage(msgid) {
+    divid = newDiv("newParent");
+    OIajaxCall("/message/move/"+msgid+"/"+divid, null, divid);
+}
+function confirmMoveMessage(msgid, divid) {
+    OIajaxCall("/message/confirmmove/"+msgid, "parentid="+getValue("parentid_"+divid), "output");
+}
+function orphanMessage(msgid, parentid) {
+    OIajaxCall("/message/orphan/"+msgid, "parentid="+parentid, "output");    
+    document.getElementById("path_"+parentid).innerHTML="";
 }
 function deleteMessage(msgid) {
     OIajaxCall("/message/delete/"+msgid, null, "output");

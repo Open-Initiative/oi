@@ -33,6 +33,7 @@ class Message(models.Model):
     # surcharge la sauvegarde pour le calcul des ancetres
     def save(self):
         super(Message, self).save()
+        self.ancestors.clear()
         for line in self.get_ancestors():
             for ancestor in line:
                 self.ancestors.add(ancestor)
@@ -140,6 +141,9 @@ class Message(models.Model):
             for path in parent.get_ancestors():
                 ancestors.append(path+[self])        
         return ancestors
+        
+    def get_categories(self):
+        return self.ancestors.filter(category=True)
     
     def get_children(self):
         return self.children.order_by("-relevance")

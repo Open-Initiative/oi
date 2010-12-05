@@ -5,7 +5,7 @@ from oi.messages.models import OI_ALL_PERMS, OI_READ, OI_WRITE, OI_ANSWER, OINee
 from oi.messages.templatetags.oifilters import oiescape
 from oi.users.models import User
 from oi.settings import MEDIA_ROOT, MEDIA_URL
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.db.models import get_app
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -34,12 +34,14 @@ def getmessages(request):
 @OINeedsMsgPerms(OI_READ)
 def getmessage(request, id):
     """Message given by id"""
+    if Message.objects.get(id=id).category:
+        return HttpResponseRedirect("/index/%s"%id)
     extra_context={'depth': request.GET.get('depth',OI_PAGE_SIZE), 'base':"%sbase.html"%request.GET.get("mode","")}
     return object_detail(request, queryset=Message.objects, object_id=id, extra_context=extra_context)
 
 def newmessage(request):
     """Shows the new message form"""
-    return direct_to_template(request, template='messages/newmessage.html',extra_context={'parents':request.GET.get("parents","")})
+    return direct_to_template(request, template='messages/newmessage.html',extra_context={'categs':request.GET.get("categs","").split(",")})
 
 def editmessage(request, id):
     """Edit form of the message"""
@@ -117,6 +119,30 @@ def sharemessage(request, id):
     user = User.objects.get(username=request.POST["username"])
     message.set_perm(user, OI_ALL_PERMS)
     return HttpResponse(u"Message partagé")
+
+@OINeedsMsgPerms(OI_WRITE)
+def movemessage(request, id):
+    """Adds a parent to the message"""
+    message = Message.objects.get(id=id)
+    parent = Message.objects.get(id=request.POST["parentid"])
+    if message in parent.ancestors.all():
+        return HttpResponse(u"Impossible de déplacer un message vers sa réponse")
+    message.parents.add(parent)
+    message.save() # to recompute ancestors
+    return HttpResponse(u"Message déplacé")
+
+@OINeedsMsgPerms(OI_WRITE)
+def orphanmessage(request, id):
+    """Removes a parent of the message"""
+    message = Message.objects.get(id=id)
+    parent = Message.objects.get(id=request.POST["parentid"])
+    if parent not in message.parents.all():
+        return HttpResponse(u"Ce n'est pas une réponse du message")
+    if message.parents.count() < 2:
+        return HttpResponse(u"Ne peut pas laisser ce message orphelin")
+    message.parents.remove(parent)
+    message.save() # to recompute ancestors
+    return HttpResponse(u"Réponse retirée")
 
 @OINeedsMsgPerms(OI_READ)
 def vote(request, id):

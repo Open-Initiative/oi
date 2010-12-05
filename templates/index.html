@@ -2,12 +2,11 @@
 {% load oifilters %}
 {% block title %}Accueil{% endblock %}
 {% block nav %}
-    <div class="navitem"><img src="/img/fleche2.png" /> Catégories</div>
-    <div id="arbo" class="subcateg">
-        <script>OIajaxCall("/message/listcategories/0",null,"arbo");</script>
+    <div class="navitem"><img src="/img/fleche2.png" /> Tous les domaines</div>
+    <div id="arbo">
     </div>
-    {% if params.id %}<script>selectCateg(document.getElementById("categ_{{params.id}}"),{{params.id}})</script>{% endif %}
-    <div class="nav">
+    <div class="navitem clickable" onclick="toggle(document.getElementById('arrowdate'),'datefilter')"><img id="arrowdate" src="/img/fleche1.png" /> Filtrer par date</div>
+    <div class="nav invisible" id="datefilter">
         <div class="navtitle">Date</div>
             <div class="navitem clickable"><span onclick="setDateDelta(this)">Indifférent</span></div>
             <div class="navitem clickable"><span onclick="setDateDelta(this,7)">Depuis une semaine</span></div>
@@ -15,7 +14,8 @@
             <div class="navitem clickable"><span onclick="setDateDelta(this,365)">Depuis un an</span></div>
             <div class="navitem clickable"><span onclick="setDateDelta(this,0)">Période précise</span></div>
     </div>
-    <div class="nav">
+    <div class="navitem clickable" onclick="toggle(document.getElementById('arrowprj'),'prjfilter')"><img id="arrowprj" src="/img/fleche1.png" /> Filtrer par avancement</div>
+    <div class="nav invisible" id="prjfilter">
         <div class="navtitle">Projets</div>
             <div class="navitem clickable"><span onclick="setPrjState(this)">Tous</span></div>
             <div class="navitem clickable"><span onclick="setPrjState(this,0)">Proposés</div>
@@ -26,20 +26,33 @@
     </div>
 {% endblock %}
 {% block content %}
-    <div class="list">
-        <div id="msgheader">
-            <img src="/img/pictoOI.png" /><span class="indextitle">Trouvez une réponse</span>
+    <div class="column">
+        <div id="msgheader" class="header">
+            <img src="/img/pictoOI.png" /><span class="indextitle">Prenez l'initiative !</span>
             <div class="headersep"></div>
-            <div class="indexdesc">Publiez votre cahier des charges, posez vos questions, obtenez la réponse à votre besoin !</div>
+            <div class="indexdesc">
+                Exprimez votre besoin et recevez des offres de projets<br />
+                Posez vos questions et obtenez une aide sur votre problème<br />
+                Discutez avec des experts <a href="/presentation"><img src="/img/link.png" /> En savoir plus</a>
+            </div>
         </div>
         <div id="messages"></div>
     </div>
-    <div class="list">
-        <div id="prjheader">
-            <img src="/img/pictoOI.png" /><span class="indextitle">Participez aux projets</span>
+    <div class="column">
+        <div id="prjheader" class="header">
+            <img src="/img/pictoOI.png" /><span class="indextitle">Rejoignez l'initiative !</span>
             <div class="headersep"></div>
-            <div class="indexdesc">Misez sur les projets qui vous intéressent, proposez vos services, et apportez des solutions concrètes aux problèmes posés !</div>
+            <div class="indexdesc">
+                Suivez les projets en cours<br />
+                Misez sur ceux qui vous intéressent<br />
+                Participez à un projet en fixant votre prix <a href="/presentation"><img src="/img/link.png" /> En savoir plus</a>
+            </div>
         </div>
-        <div id="projects"><script>applyFilter()</script></div>
+        <div id="projects"></div>
     </div>
+    <script>
+        OIajaxCall("/message/listcategories/0",null,"arbo");
+        {% if params.id %}selectCateg(document.getElementById("categ_{{params.id}}"),{{params.id}});{% endif %}
+        applyFilter();
+    </script>
 {% endblock %}

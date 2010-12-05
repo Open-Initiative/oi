@@ -78,6 +78,9 @@ class Project(models.Model):
             anclist.append(self)
         return ancestors
 
+    def get_categories(self):
+        return self.message.ancestors.filter(category=True)
+    
     def __unicode__(self):
         return "%s : %s"%(self.id, self.title)
 

@@ -1,12 +1,13 @@
 {% for category in categories %}
+<img style="float:left" src="/img/tree{% if forloop.last %}end{% endif %}.png"/>
 <div class="navitem">
     <img class="clickable" id="arrow{{category.id}}" src="/img/fleche1.png" onclick="expandCateg(this, {{category.id}});"/>
     {% if category.icon %}<img src="{{category.icon}}" />{% endif %}
     {% if dest %}
-    <a href="/{{dest}}/{{category.id}}">{{category.title}}</a>
+    <a href="/{{dest}}/{{category.id}}"><span id="categ_{{category.id}}">{{category.title}}</span></a>
     {% else %}
     <span class="clickable" id="categ_{{category.id}}" onclick="selectCateg(this,{{category.id}})">{{category.title}}</span>
     {% endif %}
-    <div id="subcateg{{category.id}}" class="subcateg"></div>
+    <div style="background:url('/img/tree2.png') repeat-y"><div id="subcateg{{category.id}}" class="subcateg"></div></div>
 </div>
 {% endfor %}
