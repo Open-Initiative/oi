@@ -2,9 +2,9 @@
 <div id="spec_{{project.id}}_{{spec.id}}">
     <div class="actions">
         {% if project|can_write:user %}
-        <img src="/img/icons/delspec.png" onclick="deleteSpec({{project.id}}, {{spec.id}})" alt="Supprimer la spécification" title="Supprimer la spécification"/>
-        <img src="/img/icons/spec.png" onclick="editSpec({{project.id}}, {{spec.id}})" alt="Modifier la spécification" title="Modifier la spécification"/>
-        <img src="/img/icons/addspec.png" onclick="addSpec({{project.id}}, {{spec.order}})" alt="Ajouter une spécification" title="Ajouter une spécification"/>
+        <img class="clickable" src="/img/icons/delspec.png" onclick="deleteSpec({{project.id}}, {{spec.id}})" alt="Supprimer la spécification" title="Supprimer la spécification"/>
+        <img class="clickable" src="/img/icons/spec.png" onclick="editSpec({{project.id}}, {{spec.id}})" alt="Modifier la spécification" title="Modifier la spécification"/>
+        <img class="clickable" src="/img/icons/addspec.png" onclick="addSpec({{project.id}}, {{spec.order}})" alt="Ajouter une spécification" title="Ajouter une spécification"/>
         {% endif %}
     </div>
     {% if spec.type == 3 or spec.type == 4 %}<a href="{{spec.url}}" >{% endif %}

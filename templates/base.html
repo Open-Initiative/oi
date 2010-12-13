@@ -20,68 +20,71 @@
 
 <body>
     <div id="header">
-        {% block header %}
-        <a href="/"><img src="/img/logo.png" id="logo" /></a>
-        <span style="position:absolute;top:80px;left:180px;font-size:16px;font-weight:bold">BETA</span>
-        <span id="subtitle">Portail communautaire de travail collaboratif</span>
-        <div class="userheader">
-            {%if user.is_authenticated%}
-            {{user}}
-            <div><a class="homelink" href="/user/myprofile">Mon profil</a></div>
-            <div><a class="homelink" href="">Préférences</a></div>
-            <div><a class="homelink" href="/logout">Vous n'êtes pas {{user}} ?</a></div>
-            {%else%}
-            <div><a class="homelink" href="/login">Se connecter</a></div>
-            {%endif%}
-            <div><form name="searchform" action="/search" method="GET">
-                <input class="searchbox" name="q" type="texte" value="Rechercher..." onclick="value=''" />
-                <input id="searchbtn" type="image" src="/img/icons/loupe.png" />
-            </form></div>
+        <div class="center" id="headerimg">
+            {% block header %}
+            <div class="userheader">
+                {%if user.is_authenticated%}
+                {{user}}
+                <div><a class="homelink" href="/user/myprofile">Mon profil</a></div>
+                <div><a class="homelink" href="">Préférences</a></div>
+                <div><a class="homelink" href="/logout">Déconnexion {{user}}</a></div>
+                {%else%}
+                <div><a class="homelink" href="/login">Se connecter</a></div>
+                <a class="homelink" href="/user/register">S'inscrire</a>
+                {%endif%}
+                <div id="search"><form name="searchform" action="/search" method="GET">
+                    <input class="searchbox" name="q" type="texte" value="Rechercher..." onclick="value=''" />
+                    <input id="searchbtn" type="image" src="/img/icons/loupe.png" />
+                </form></div>
+            </div>
+            <a href="/"><img src="/img/logo.png" id="logo" /></a>
+            <span style="position:absolute;top:80px;left:180px;font-size:16px;font-weight:bold">BETA</span>
+            <span id="subtitle">Portail communautaire de travail collaboratif</span>
+            <div id="output"></div>
+            {% endblock %}
         </div>
-        <div id="output"></div>
-        {% endblock %}
     </div>
-    <div class="sepheader"></div>
-﻿{% load oifilters %}
-    <div class="column">
-        <div class="navitem clickable" onclick="addMessage()">
-            <img src="/img/icons/addmsg.png" id="addmsg" alt="Nouvelle discussion">
-            <div id="newmsgtxt">Démarrer une discussion</div>
+    <div class="sepheader">{% load oifilters %}</div>
+
+    <div class="center">
+        <div class="column">
+            <div class="navitem clickable" onclick="addMessage()">
+                <img src="/img/icons/addmsg.png" id="addmsg" alt="Nouvelle discussion">
+                <div id="newmsgtxt">Démarrer une discussion</div>
+            </div>
+            {% block nav %}
+            <div class="navitem"><img src="/img/fleche2.png" /> Tous les domaines</div>
+            <div id="arbo" class="subcateg"></div>
+            <script>
+                OIajaxCall("/message/listcategories/0?dest=index",null,"arbo");
+                {% for categ in object.get_categories %}selectCateg(document.getElementById("categ_{{categ.id}}"),{{categ.id}});{% endfor %}
+            </script>
+            {% endblock %}
         </div>
-        {% block nav %}
-        <div class="navitem"><img src="/img/fleche2.png" /> Tous les domaines</div>
-        <div id="arbo" class="subcateg"></div>
-<!--        <div class="nav">-->
-<!--            <div class="navtitle">Mes tâches en cours</div>-->
-<!--        </div>-->
-        <script>
-            OIajaxCall("/message/listcategories/0?dest=index",null,"arbo");
-            {% for categ in object.get_categories %}selectCateg(document.getElementById("categ_{{categ.id}}"),{{categ.id}});{% endfor %}
-        </script>
-        {% endblock %}
-    </div>
-    <div>
         {% block breadcrumb %}
-        {% for parent in object.parents.all %}
-        <div id="path_{{parent.id}}">
-            {% if object %}{% if object|can_write:user %}
-            <img class="clickable" src="/img/icons/delete.png" onclick="orphanMessage({{object.id}},{{parent.id}})" />
-            {% endif %}{% endif %}
-            {% for path in parent.get_ancestors %}
-            {% for ancestor in path %}
-            <a href="/message/get/{{ancestor.id}}">{{ancestor.title}}</a> - 
+        <div>
+            {% for parent in object.parents.all %}
+            <div id="path_{{parent.id}}">
+                {% if object %}{% if object|can_write:user %}
+                <img class="clickable" src="/img/icons/delete.png" onclick="orphanMessage({{object.id}},{{parent.id}})" />
+                {% endif %}{% endif %}
+                {% for path in parent.get_ancestors %}
+                {% for ancestor in path %}
+                <a href="/message/get/{{ancestor.id}}">{{ancestor.title}}</a> - 
+                {% endfor %}
+                {% endfor %}
+            </div>
             {% endfor %}
+            {% if object %}{% if object|can_write:user %}
+            <div id="newParent"><img class="clickable" src="/img/icons/add.png" onclick="moveMessage({{object.message.id|default:object.id}})" /></div>
+            {% endif %}{% endif %}
         </div>
-        {% endfor %}
-        {% endfor %}
         {% endblock %}
-        {% if object %}{% if object|can_write:user %}
-        <div id="newParent"><img class="clickable" src="/img/icons/add.png" onclick="moveMessage({{object.id}})" /></div>
-        {% endif %}{% endif %}
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
     </div>
-    <div id="content">
-        {% block content %}{% endblock %}
-    </div>
+
     <div id="footer">
         <a href="/cgu">Conditions générales d'utilisation</a>,
         <a href="/contact">Mentions Légales</a>,

@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     # contenu statique
     (r'^cgu$', direct_to_template, {'template': "cgu.html"}),    
     (r'^contact$', direct_to_template, {'template': "contact.html"}),
+    (r'^presentation$', direct_to_template, {'template': "presentation.html"}),
     # Pages des messages
     (r'^message/', include('oi.messages.urls')),
     # Pages des projets
@@ -26,7 +27,7 @@ urlpatterns = patterns('',
     (r'^user/', include('oi.users.urls')),
     # Authentification par defaut
     (r'^login/$', 'django.contrib.auth.views.login'),
-    (r'^logout/$', 'django.contrib.auth.views.logout'),
+    (r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': "/"}),
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),

@@ -27,16 +27,22 @@ def getmessages(request):
 
     ancestors = [id for id in request.GET.get("categs","").split(",") if id!=""] #parents séparés par des virgules dans les paramètres
     if ancestors:
-        messages = messages.filter(ancestors__in=ancestors)
+        messages = messages.filter(ancestors__in=ancestors).distinct()
         
     return object_list(request, queryset=messages.order_by("-relevance")[:10], extra_context={'promotedmsg': promotedmsg})
 
 @OINeedsMsgPerms(OI_READ)
 def getmessage(request, id):
     """Message given by id"""
-    if Message.objects.get(id=id).category:
+    message = Message.objects.get(id=id)
+    depth = request.GET.get('depth',OI_PAGE_SIZE)
+    mode = request.GET.get("mode","")
+    
+    if message.category:
         return HttpResponseRedirect("/index/%s"%id)
-    extra_context={'depth': request.GET.get('depth',OI_PAGE_SIZE), 'base':"%sbase.html"%request.GET.get("mode","")}
+    if mode == "small":
+        return render_to_response('messages/messagesmall.html',{'message':message, 'depth':depth})
+    extra_context={'depth':depth, 'base':"%sbase.html"%mode}
     return object_detail(request, queryset=Message.objects, object_id=id, extra_context=extra_context)
 
 def newmessage(request):

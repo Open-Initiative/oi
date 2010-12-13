@@ -8,7 +8,8 @@
             {% ifequal user selected_user %}
             <a href="/user/editprofile"><img src="/img/icons/editcontact.png" alt="Editer le profil" title="Editer le profil" /></a>
             {% else %}
-            <img src="/img/icons/addcontact.png" onclick="addContact({{selected_user.id}})" alt="Ajouter à mes contacts" title="Ajouter à mes contacts" />
+            <img class="clickable" src="/img/icons/sendmsg.png" onclick="writeMP({{selected_user.id}})" alt="Envoyer un message" title="Envoyer un message" />
+            <img class="clickable" src="/img/icons/addcontact.png" onclick="addContact({{selected_user.id}})" alt="Ajouter à mes contacts" title="Ajouter à mes contacts" />
             {% endifequal %}
         </div>
         {{selected_user}}
@@ -16,14 +17,20 @@
             {{selected_user.last_name}}
             {{selected_user.first_name}}
         </div>
-        <div class="clickable" onclick="writeMP({{selected_user.id}})">Envoyer un message</div>
-        <div id="sendmp"></div>
+        {% ifequal user selected_user %}
         <div>
             {{selected_user.get_profile.address}}
             {{selected_user.get_profile.postcode}}
             {{selected_user.get_profile.city}}
             {{selected_user.get_profile.country}}
         </div>
+        <div>
+            <a href="/user/changepassword">Changer de mot de passe</a>
+        </div>
+        {% else %}
+        <div id="sendmp"></div>
+        {% endifequal %}
+        
         Date de naissance : {{selected_user.get_profile.birthdate|date:"d/m/Y"}}
     </div>
     <div>

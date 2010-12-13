@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Modification du mot de passe{% endblock %}
+{% block content %}
+<form method="post" action="/user/confirmchangepassword">
+    <div>
+        <label for="oldpassword">Ancien mot de passe</label>
+        <input type="password" id="oldpassword" name="oldpassword" />
+    </div>
+    <div>
+        <label for="newpassword">Nouveau mot de passe</label>
+        <input type="password" id="newpassword" name="newpassword" />
+    </div>
+    <div>
+        <label for="confirmpassword">Confirmation du mot de passe</label>
+        <input type="password" id="confirmpassword" name="confirmpassword" />
+    </div>
+<input type="submit" value="Réinitialiser le mot de passe" />
+</form>
+{% endblock %}

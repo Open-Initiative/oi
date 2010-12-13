@@ -19,6 +19,9 @@ function newDiv(parentid) {
     document.getElementById(parentid).innerHTML+='<div id="'+divid+'"></div>';
     return divid;
 }
+function clearDiv(divid) {
+    document.getElementById(divid).innerHTML="";
+}
 
 function uploadFile(field_name, url, type, win) {
     tinyMCE.activeEditor.windowManager.open({file:'/message/uploadForm', width:300,height:200,close_previous:"no",popup_css:false,inline:"yes"},

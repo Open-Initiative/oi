@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 ﻿﻿{% load oifilters %}
+{% block title %}{{object.title|default:"Projet"}}{% endblock %}
 {% block content %}
 {% if object|can_read:user %}
 {% with object as project %}
@@ -36,9 +37,7 @@
                 {% else %}
                 <img class="clickable" src="/img/icons/shareprj.png" onclick="shareProject({{project.id}})" alt="Partager le projet" title="Partager le projet" />
                 {% endif %}
-                <a href="{% url oi.projects.views.deleteproject id=project.id%}">
-                    <img src="/img/icons/delprj.png" alt="Supprimer le projet" title="Supprimer le projet" />
-                </a>
+                <img class="clickable" src="/img/icons/delprj.png" onclick="deleteProject({{project.id}})" alt="Supprimer le projet" title="Supprimer le projet" />
                 <a href="{% url oi.projects.views.editproject id=project.id%}">
                     <img src="/img/icons/project.png" alt="Modifier le projet" title="Modifier le projet" />
                 </a>{% endif %}
@@ -65,7 +64,7 @@
                 </div>
                 {%endfor%}
             </div>
-            {% if project|can_write:user %}<img src="/img/icons/addspec.png" onclick="addSpec({{project.id}}, -1)" alt="Ajouter une spécification" title="Ajouter une spécification"/>{% endif %}
+            {% if project|can_write:user %}<img class="clickable" src="/img/icons/addspec.png" onclick="addSpec({{project.id}}, -1)" alt="Ajouter une spécification" title="Ajouter une spécification"/>{% endif %}
             <br />
             Publié par {% if project.author %}
             <a href="/user/profile/{{project.author.username}}">{{project.author}}</a>

@@ -4,6 +4,11 @@ function expandMessage(msgid, depth) {
     document.getElementById("message_"+msgid+"_box").expanded=1;
     document.getElementById("message_"+msgid+"_box").style.top="-70px";
 }
+function shrinkMessage(msgid, depth) {
+    OIajaxCall("/message/get/"+msgid+"?mode=small&depth="+depth, null, "message_"+msgid+"_box");
+    document.getElementById("message_"+msgid+"_box").expanded=0;
+    document.getElementById("message_"+msgid+"_box").style.top="0";
+}
 function addMessage(parentid) {
     if(parentid==null) {
         if(getSelectedCategs(selectedcateg)=="") {
@@ -50,11 +55,13 @@ function confirmMoveMessage(msgid, divid) {
 }
 function orphanMessage(msgid, parentid) {
     OIajaxCall("/message/orphan/"+msgid, "parentid="+parentid, "output");    
-    document.getElementById("path_"+parentid).innerHTML="";
+    clearDiv("path_"+parentid);
 }
 function deleteMessage(msgid) {
-    OIajaxCall("/message/delete/"+msgid, null, "output");
-    document.getElementById("message_"+msgid).innerHTML="";
+    if(confirm("Etes vous sûr de vouloir supprimer définitivement ce message ?")) {
+        OIajaxCall("/message/delete/"+msgid, null, "output");
+        clearDiv("message_"+msgid);
+    }
 }
 function vote(msgid, opinion){
     OIajaxCall("/message/vote/"+msgid, "opinion="+opinion, "output");

@@ -18,11 +18,11 @@
     <div class="nav invisible" id="prjfilter">
         <div class="navtitle">Projets</div>
             <div class="navitem clickable"><span onclick="setPrjState(this)">Tous</span></div>
-            <div class="navitem clickable"><span onclick="setPrjState(this,0)">Proposés</div>
-            <div class="navitem clickable"><span onclick="setPrjState(this,1)">Acceptés</div>
-            <div class="navitem clickable"><span onclick="setPrjState(this,2)">En cours</div>
-            <div class="navitem clickable"><span onclick="setPrjState(this,3)">Livrés</div>
-            <div class="navitem clickable"><span onclick="setPrjState(this,4)">Validés</div>
+            <div class="navitem clickable"><span onclick="setPrjState(this,0)">Proposés</span></div>
+            <div class="navitem clickable"><span onclick="setPrjState(this,1)">Acceptés</span></div>
+            <div class="navitem clickable"><span onclick="setPrjState(this,2)">En cours</span></div>
+            <div class="navitem clickable"><span onclick="setPrjState(this,3)">Livrés</span></div>
+            <div class="navitem clickable"><span onclick="setPrjState(this,4)">Validés</span></div>
     </div>
 {% endblock %}
 {% block content %}
@@ -33,7 +33,7 @@
             <div class="indexdesc">
                 Exprimez votre besoin et recevez des offres de projets<br />
                 Posez vos questions et obtenez une aide sur votre problème<br />
-                Discutez avec des experts <a href="/presentation"><img src="/img/link.png" /> En savoir plus</a>
+                Discutez avec des experts <a href="/presentation"><span class="details"><img src="/img/link.png" /> En savoir plus</span></a>
             </div>
         </div>
         <div id="messages"></div>
@@ -45,7 +45,7 @@
             <div class="indexdesc">
                 Suivez les projets en cours<br />
                 Misez sur ceux qui vous intéressent<br />
-                Participez à un projet en fixant votre prix <a href="/presentation"><img src="/img/link.png" /> En savoir plus</a>
+                Participez à un projet en fixant votre prix <a href="/presentation"><span class="details"><img src="/img/link.png" /> En savoir plus</span></a>
             </div>
         </div>
         <div id="projects"></div>

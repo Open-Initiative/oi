@@ -6,4 +6,6 @@
 <input type="hidden" id="specid_{{divid}}" value="{{spec.id|default:0}}" />
 <input type="hidden" id="projectid_{{divid}}" value="{{project.id}}" />
 <div id="spec_{{divid}}"></div>
-<button onclick="saveSpec('{{divid}}',{{project.id}},{{specorder|default:0}},{{spec.id|default:0}})">OK</button>
+<img class="clickable" src="/img/icons/ok-32.png" onclick="saveSpec('{{divid}}',{{project.id}},{{specorder|default:0}},{{spec.id|default:0}})" />
+<img class="clickable" src="/img/icons/del-32.png" onclick="clearDiv('{{divid}}')" />
+

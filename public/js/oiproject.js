@@ -32,6 +32,12 @@ function shareProject(projectid) {
 function confirmShareProject(projectid, divid) {
     OIajaxCall("/project/confirmshare/"+projectid, "username="+getValue("usershare_"+divid), "output");
 }
+function deleteProject(projectid) {
+    if(confirm("Etes vous sûr de vouloir supprimer définitivement ce projet ?")) {
+        OIajaxCall("/project/delete/"+projectid, null, "output");
+        clearDiv("spec_"+projectid+"_"+specid);
+    }
+}
 function addSpec(projectid, specorder) {
     if(specorder==-1) divid = newDiv("specs_"+projectid);
     else divid = newDiv("specs_"+projectid+"_"+specorder);
@@ -62,12 +68,16 @@ function saveSpec(divid, projectid, order, specid){
     OIajaxCall("/project/"+projectid+"/savespec/"+specid, params, divid);
 }
 function deleteSpec(projectid, specid) {
-    OIajaxCall("/project/"+projectid+"/deletespec/"+specid, null, "output");
-    document.getElementById("spec_"+projectid+"_"+specid).innerHTML="";
+    if(confirm("Etes vous sûr de vouloir supprimer définitivement cette spécification ?")) {
+        OIajaxCall("/project/"+projectid+"/deletespec/"+specid, null, "output");
+        clearDiv("spec_"+projectid+"_"+specid);
+    }
 }
 function deltmp(projectid,filename,ts,divid) {
-    OIajaxCall("/project/"+projectid+"/deltmp", "filename="+filename+"&ts="+ts+"&divid="+divid, "output");
-    changeFile(divid);
+    if(confirm("Etes vous sûr de vouloir supprimer définitivement cette pièce jointe ?")) {
+        OIajaxCall("/project/"+projectid+"/deltmp", "filename="+filename+"&ts="+ts+"&divid="+divid, "output");
+        changeFile(divid);
+    }
 }
 function changeFile(divid) {
     document.getElementById("filediv_"+divid).style.display="inline";

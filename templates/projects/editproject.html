@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}{{project.title|default:"Nouveau Projet"}}{% endblock %}
 {% block content %}
-<div class="list">
+<div class="column">
     <div class="project">
         <form action="/project/save/{{project.id|default:0}}" method="POST">
         <div class="prjtop"></div>
@@ -25,7 +25,8 @@
                 {%endfor%}
             </div>
             {% if project %}<img src="/img/icons/addspec.png" onclick="addSpec({{project.id}}, -1)" alt="Ajouter une spécification" title="Ajouter une spécification"/>{% endif %}
-            <input type="submit" />
+            <input type="image" src="/img/icons/ok-32.png" alt="OK" />
+            <img class="clickable" src="/img/icons/del-32.png" onclick="history.back()" />
         </div>
         <div class="prjbtm"></div>
         </form>

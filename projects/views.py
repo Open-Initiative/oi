@@ -148,7 +148,7 @@ def evaluateproject(request, id):
 def deleteproject(request, id):
     """Deletes the project given by id"""
     Project.objects.get(id=id).delete()
-    return HttpResponseRedirect('/')
+    return HttpResponse("Projet supprimé")
 
 @OINeedsPrjPerms(OI_READ)
 def projectview(request, id):

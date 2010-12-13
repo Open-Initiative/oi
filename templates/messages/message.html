@@ -3,10 +3,10 @@
     <div class="msgtop"></div>
     <div class="msgbody">
         <div class="actions">
-            {% if not message|has_voted:user %}{% if not message|ip_has_voted:request.META.REMOTE_ADDR %}
+            {% if not message|ip_has_voted:request.META.REMOTE_ADDR and user.is_anonymous or not message|has_voted:user and user.is_authenticated%}
                 <img class="clickable" src="/img/pouce1.gif" onclick="vote({{message.id}},1)" title="Message pertinent">
                 <img class="clickable" src="/img/pouce2.gif" onclick="vote({{message.id}},-1)" title="Message non pertinent">
-            {% endif %}{% endif %}
+            {% endif %}
             {% if message|can_answer:user %}<a href="/project/edit/0?message={{message.id}}">
                 <img src="/img/icons/addprj.png" alt="Proposer un nouveau projet" title="Proposer un nouveau projet"/>
             </a>
@@ -22,7 +22,7 @@
             <img class="clickable" src="/img/icons/editmsg.png" onclick="editMessage({{message.id}})" alt="Modifier le message" title="Modifier le message" />
             {% endif %}
         </div>
-        <div class="msgtitle">
+        <div class="clickable msgtitle" onclick="shrinkMessage({{message.id}}, {{depth}})">
             {{message.title}}
         </div>
         <div id="msgdialogue_{{message.id}}"></div>
@@ -63,11 +63,8 @@
         {% else %}
         {% for child in message.get_children %}
         {% if child|can_read:user %}
-        <div id="message_{{child.id}}_box" style="position:relative" onclick="expandMessage({{child.id}}, {{depth}})">
-            <div class="smallmsg overlap clickable">
-                <div class="morelink"><img src="/img/link.png" /> Lire la suite</div>
-                <span class="msgtitle">{{child.title}}</span> {{child.text|summarize}}
-            </div>
+        <div id="message_{{child.id}}_box" style="position:relative">
+            {% with child as message %}{% include "messages/messagesmall.html" %}{% endwith %}
         </div>
         {% endif %}
         {% endfor %}

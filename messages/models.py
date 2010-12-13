@@ -2,7 +2,8 @@
 # Modèles des messages
 from django.db import models
 from django.contrib.auth.models import User
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, Http404
+from django.shortcuts import get_object_or_404
 from math import copysign
 
 # Constantes de transmission de pertinence
@@ -171,9 +172,11 @@ def OINeedsMsgPerms(*required_perms):
     def decorate(f):
         def new_f(request, id, *args, **kwargs):
             #Vérification de toutes les permissions
-            msg = Message.objects.get(id=id)
+            msg = get_object_or_404(Message, pk=id)
             for perm in required_perms:
                 if not msg.has_perm(request.user, perm):
+                    if perm==OI_READ:
+                        raise Http404
                     return HttpResponseForbidden("Permissions insuffisantes")
             return f(request, id, *args, **kwargs)
         return new_f

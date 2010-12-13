@@ -1,7 +1,6 @@
 {% extends "base.html" %}
-
+{% block title %}Connexion{% endblock %}
 {% block content %}
-
 {% if form.errors %}
 <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
@@ -22,4 +21,6 @@
 <input type="hidden" name="next" value="{{next}}" />
 </form>
 <a href="/user/register">S'inscrire</a>
+<br />
+<a href="/user/resetpassword">Mot de passe oublié ?</a>
 {% endblock %}

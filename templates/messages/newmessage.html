@@ -1,6 +1,6 @@
 {% extends "base.html" %}
+{% block title %}Nouvelle discussion{% endblock %}
 {% block nav %}
-
 Créer un message dans :
 <div id="arbo"></div>
 <script>
@@ -9,7 +9,7 @@ Créer un message dans :
 </script>
 {% endblock %}
 {% block content %}
-<div class="list">
+<div class="column">
     {% with "newmessage" as divid %}
     <div id="newmessage">
         {% include "messages/editmessage.html" %}

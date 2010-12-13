@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Réinitialisation du mot de passe{% endblock %}
+{% block content %}
+<form method="post" action="/user/confirmresetpassword">
+    <div>
+        <label for="username">Nom d'utilisateur</label>
+        <input type="text" id="username" name="username" />
+    </div>
+    <div>
+        <label for="email">Adresse e-mail</label>
+        <input type="text" id="email" name="email" />
+    </div>
+<input type="submit" value="Réinitialiser le mot de passe" />
+</form>
+{% endblock %}

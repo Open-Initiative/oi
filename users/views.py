@@ -8,6 +8,8 @@ from django.shortcuts import render_to_response
 from django.views.generic.simple import direct_to_template
 from django.contrib.auth.decorators import login_required
 from django.db.models import get_app
+from django.db import IntegrityError
+from django.core.mail import send_mail
 
 notification = get_app( 'notification' )
 
@@ -28,10 +30,33 @@ def invite(request, id):
 def editprofile(request):
     return render_to_response("users/editprofile.html",{'user':request.user,'form':UserProfileForm(instance=request.user.get_profile())})
 
+def resetpassword(request):
+    user = User.objects.get(username=request.POST["username"])
+    if user.email != request.POST["email"]:
+        return HttpResponse("L'adresse e-mail ne correspond pas !")
+    password = User.objects.make_random_password()
+    user.set_password(password)
+    user.save()
+    send_mail("Nouveau Mot de passe", "Votre mot de passe a été réinitialisé. Votre nouveau mot de passe est : %s"%password, "admin@open-initiative.com", [user.email])    
+    return HttpResponse("Le nouveau mot de passe vous a été renvoyé par e-mail")
+
+@login_required
+def changepassword(request):
+    if not request.user.check_password(request.POST["oldpassword"]):
+        return HttpResponse('Mot de passe incorrect !')
+    if request.POST['newpassword'] != request.POST['confirmpassword']:
+        return HttpResponse('Les mots de passe ne correspondent pas !')
+    request.user.set_password(request.POST['newpassword'])
+    request.user.save()
+    return HttpResponse("Votre mot de passe a été mis à jour")
+
 def createuser(request):
     if request.POST["password"] != request.POST["password_confirm"]:
-        return HttpResponse("Les mots de passe ne correspondent pas.")
-    user = User.objects.create_user(request.POST["username"], request.POST["email"], request.POST["password"])
+        return render_to_response("users/register.html",{'message':"Les mots de passe ne correspondent pas."})
+    try:
+        user = User.objects.create_user(request.POST["username"], request.POST["email"], request.POST["password"])
+    except IntegrityError:
+        return render_to_response("users/register.html",{'message':"Ce nom d'utilisateur existe déjà !"})
     user.first_name = request.POST["firstname"]
     user.last_name = request.POST["lastname"]
     user.save()

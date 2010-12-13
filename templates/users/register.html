@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <form method="post" action="{% url oi.users.views.createuser %}">
+{{message}}
 <table>
 <tr>
     <td><label for="lastname">Nom</label></td>
@@ -28,6 +29,6 @@
 </tr>
 </table>
 
-<input type="submit" value="login" />
+<input type="submit" value="S'inscrire" />
 </form>
 {% endblock %}

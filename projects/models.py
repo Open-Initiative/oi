@@ -70,6 +70,7 @@ class Project(models.Model):
                 self.projectacl_set.add(ProjectACL(user=user, permission=perm))
 
     def get_ancestors(self):
+        """get message ancestors of the project"""
         if self.parent:
             ancestors = self.parent.get_ancestors()
         else:
@@ -77,6 +78,10 @@ class Project(models.Model):
         for anclist in ancestors:
             anclist.append(self)
         return ancestors
+
+    def parents(self):
+        """for breadcrumb compatibility"""
+        return self.message.parents        
 
     def get_categories(self):
         return self.message.ancestors.filter(category=True)

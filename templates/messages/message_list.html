@@ -6,10 +6,7 @@
     {% for message in object_list %}
     <div style="position:relative">
         <a  href="/message/get/{{message.id}}">
-            <div class="smallmsg overlap clickable">
-                <div class="morelink"><img src="/img/link.png" /> Lire la suite</div>
-                <span class="msgtitle">{{message.title}}</span> {{message.text|summarize}}
-            </div>
+            {% include "messages/messagesmall.html" %}
         </a>
     </div>
     {% endfor %}
