@@ -1,19 +1,19 @@
 #coding: utf-8
 # Vues des projets
 from oi.settings import MEDIA_ROOT, TEMP_DIR
-from oi.projects.models import Project, Spec, Bid, PromotedProject, OINeedsPrjPerms, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED
+from oi.projects.models import Project, Spec, Bid, PromotedProject, OINeedsPrjPerms
+from oi.projects.models import OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS
 from oi.messages.models import Message, OI_READ, OI_ANSWER, OI_WRITE, OI_ALL_PERMS
 from oi.messages.templatetags.oifilters import oiescape
 from oi.users.models import User
-from django.http import HttpResponseRedirect,HttpResponse,HttpResponseForbidden
+from django.http import HttpResponse,HttpResponseForbidden,HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
-from django.db.models import Sum
-from datetime import timedelta
-from django.views.generic.list_detail import object_detail, object_list
 from django.core.files import File
+from django.views.generic.list_detail import object_detail, object_list
+from django.contrib.auth.decorators import login_required
 from time import time
-from datetime import datetime
+from datetime import datetime,timedelta
 from decimal import Decimal
 from urllib import quote
 import os
@@ -68,7 +68,7 @@ def saveproject(request, id='0'):
             return HttpResponseForbidden("Permissions insuffisantes")
         project.title = request.POST["title"]
 
-    if request.POST["assignee"] and len(request.POST["assignee"])>0:
+    if request.POST.get("assignee") and len(request.POST["assignee"])>0:
         project.assignee = User.objects.get(username=request.POST["assignee"])
     if request.POST.has_key("start_date") and len(request.POST["start_date"])>0:
         project.start_date = request.POST["start_date"]
@@ -79,22 +79,62 @@ def saveproject(request, id='0'):
 
     project.save()
     project.set_perm(author, OI_ALL_PERMS)
+    if project.assignee:
+        project.set_perm(project.assignee, OI_ALL_PERMS)
     if request.POST.get("inline","0") == "1":
         return HttpResponseRedirect('/project/gettask/%s'%project.id)
     else:
         return HttpResponseRedirect('/project/get/%s'%project.id)
 
-@OINeedsPrjPerms(OI_READ)
-def bidproject(request, id):
-    """Bids on the project"""
+@OINeedsPrjPerms(OI_WRITE)
+def editdate(request, id):
+    """Modifies a date of the project"""
     project = Project.objects.get(id=id)
-    bid = Bid(project=project, user=request.user, amount=0)
+    if project.state > OI_ACCEPTED:
+        return HttpResponse("Impossible de modifier un projet démarré")
+
+    project.__setattr__(request.POST["field_name"],request.POST["date"])
+    project.save()
+    return HttpResponse("Date mise à jour")
+
+@OINeedsPrjPerms(OI_READ)
+@login_required
+def takeonproject(request, id):
+    """Makes the current user assignee of the project"""
+    project = Project.objects.get(id=id)
+    if project.assignee:
+        return HttpResponse("Le projet est déjà assigné")
+
+    project.assignee = request.user
+    project.offer = Decimal("0"+request.POST.get("offer",0))
+    project.commission = project.offer / 20
+    project.save()
+    project.set_perm(project.assignee, OI_ALL_PERMS)
+
+    if project.is_ready_to_start():
+        project.state = OI_ACCEPTED
+        project.save()
+    return HttpResponse("Projet pris en charge")
+
+@OINeedsPrjPerms(OI_READ)
+@login_required
+def bidproject(request, id):
+    """Makes a new bid on the project"""
+    project = Project.objects.get(id=id)
+    amount = Decimal("0"+request.POST.get("bid",0))
+    #checks that the user can afford the bid
+    if amount > request.user.get_profile().balance:
+        return HttpResponse('/user/myprofile#deposit/%s'%((amount-request.user.get_profile().balance).to_eng_string()),status=333)
+    #updates user account
+    request.user.get_profile().make_payment(-amount, project)
+    #and creates the bid
+    bid, created = Bid.objects.get_or_create(project=project, user=request.user)
+    bid.amount += amount
     bid.save()
-    if project.state == OI_PROPOSED:
-        # if the sum of bids is not less than the offer
-        if not project.bid_set.aggregate(Sum("amount"))["amount__sum"].compare(project.offer).is_signed():
-            project.state = OI_ACCEPTED
-            project.save()
+    project.set_perm(bid.user, OI_ALL_PERMS)
+    if project.is_ready_to_start():
+        project.state = OI_ACCEPTED
+        project.save()
     return HttpResponse("Souscription enregistrée")
 
 @OINeedsPrjPerms(OI_READ)
@@ -131,6 +171,8 @@ def validateproject(request, id):
         # If there are no more users waiting for validation
         if project.bid_set.filter(validated=False).count()==0:
             project.state = OI_VALIDATED
+            # pays the assignee
+            project.assignee.get_profile().make_payment(project.offer, project)
             project.save()
     return HttpResponse("Validation enregistrée")
 
@@ -140,22 +182,87 @@ def evaluateproject(request, id):
     project = Project.objects.get(id=id)
     if project.state == OI_VALIDATED:
         for bid in Bid.objects.filter(user=request.user):
-            bid.rating = Decimal(request.POST["rating"])
+            bid.rating = int(request.POST["rating"])
             bid.save()
     return HttpResponse("Evaluation enregistrée")
+
+@OINeedsPrjPerms(OI_READ)
+def cancelbid(request, id):
+    """Cancels the bid of the user on the project given by id"""
+    project = Project.objects.get(id=id)
+    if project.state > OI_DELIVERED:
+        return HttpResponse("Le projet est déjà terminé")
+    bids = Bid.objects.filter(user=request.user)
+    if bids.count() < 1:
+        return HttpResponse("Vous ne participez pas au projet") 
+    for bid in bids:
+        #If the project has not started, simply remove the bid
+        if project.state < OI_STARTED:
+            bid.delete()  
+        else:        
+            bid.rating = -1
+            bid.validated = True #We won't ask for user's validation anymore
+            bid.save()
+    return HttpResponse("Projet annulé. En attente de la confirmation des autres utilisateurs")
+
+@OINeedsPrjPerms(OI_WRITE)
+def answercancelbid(request, id):
+    """Accepts or refuses bid cancellation"""
+    project = Project.objects.get(id=id)
+    bid = Bid.objects.get(id=request.POST["bid"])
+    #Cancels the bid
+    if request.POST.get("answer") == "true":
+        bid.cancel()
+        return HttpResponse("Participation annulée")
+    if request.POST.get("answer") == "false":
+        bid.rating = None
+        bid.save()
+        project.state = OI_CONTENTIOUS
+        project.save()
+        return HttpResponse("Annulation refusée. En attente d'arbitrage")
+    #if neither true nor false
+    return HttpResponse("Réponse non précisée")
+
+@OINeedsPrjPerms(OI_WRITE)
+def cancelproject(request, id):
+    """Cancels the project given by id"""
+    project = Project.objects.get(id=id)
+    if project.state > OI_DELIVERED:
+        return HttpResponse("Le projet est déjà terminé")
+    if request.user != project.assignee:
+        return HttpResponse("Seul le responsable peut annuler le projet") 
+    project.state = OI_CANCELLED
+    #The assignee canceling the project after its start pays for the commission
+    if project.state > OI_STARTED:
+        request.user.get_profile().make_payment(-project.commission, project)
+        project.commission = 0
+    project.save()
+    return HttpResponse("Projet annulé. En attente de la confirmation des autres utilisateurs")
+
+@OINeedsPrjPerms(OI_READ)
+def answercancelproject(request, id):
+    """Accepts or refuses the cancellation of the project"""
+    project = Project.objects.get(id=id)
+    #if accepted, reimburses the bidder and deletes the bid
+    if request.POST.get("answer") == "true":
+        for bid in Bid.objects.filter(user=request.user):
+            bid.cancel()
+        return HttpResponse("Participation annulée")
+    if request.POST.get("answer") == "false":
+        project.state = OI_CONTENTIOUS
+        project.save()
+        return HttpResponse("Annulation refusée. En attente d'arbitrage")
+    #if neither true nor false
+    return HttpResponse("Réponse non précisée")
 
 @OINeedsPrjPerms(OI_WRITE)
 def deleteproject(request, id):
     """Deletes the project given by id"""
-    Project.objects.get(id=id).delete()
-    return HttpResponse("Projet supprimé")
-
-@OINeedsPrjPerms(OI_READ)
-def projectview(request, id):
-    """Shows the project summary"""
     project = Project.objects.get(id=id)
-    days = [project.start_date+timedelta(n) for n in range((project.due_date-project.start_date).days)]
-    return render_to_response('projects/prjview.html',{'user':request.user, 'project':project, 'days':days})
+    if project.bid_set.count() > 0:
+        return HttpResponse("Impossible de supprimer un projet en cours. Annulez le d'abord")
+    project.delete()
+    return HttpResponse('/message/get/%s'%(project.message.id),status=333)
 
 @OINeedsPrjPerms(OI_WRITE)
 def hideproject(request, id):
@@ -173,6 +280,33 @@ def shareproject(request, id):
     project.set_perm(user, OI_ALL_PERMS)
     return HttpResponse(u"Project partagé")
 
+@OINeedsPrjPerms(OI_READ)
+def editprogress(request, id):
+    """Updates the progress of the project"""
+    project = Project.objects.get(id=id)
+    if project.state != OI_STARTED:
+        return HttpResponse("Le projet doit être en cours pour que l'avancement soit modifié.")
+    if request.user != project.assignee:
+        return HttpResponse("Seul le responsable peut modifier l'avancement du projet.")
+
+    progress = request.POST.get("progress")
+    if not progress:
+        return HttpResponse("Valeur incorrecte")
+    project.progress = Decimal(progress) / 100
+    project.save()
+    return HttpResponse("Avancement mis à jour")
+
+
+@OINeedsPrjPerms(OI_READ)
+def projectview(request, id):
+    """Shows the project summary"""
+    project = Project.objects.get(id=id)
+    #list the days covered by the project, for display
+    days = []
+    if project.start_date and project.due_date:
+        days = [project.start_date+timedelta(n) for n in range((project.due_date-project.start_date).days+1)]
+    return render_to_response('projects/prjview.html',{'user':request.user, 'project':project, 'days':days})
+
 @OINeedsPrjPerms(OI_WRITE)
 def editspec(request, id, specid):
     """Edit template of a spec contains a spec details edit template"""
@@ -180,7 +314,7 @@ def editspec(request, id, specid):
     if specid!='0':
         spec = Spec.objects.get(id=specid)
     extra_context = {'divid': request.GET["divid"], 'spec':spec, 'types':Spec.TYPES, 'specorder':request.GET.get("specorder")}
-    return object_detail(request, queryset=Project.objects, object_id=id, template_object_name='project', template_name='projects/editspec.html', extra_context=extra_context)
+    return object_detail(request, queryset=Project.objects, object_id=id, template_object_name='project', template_name='projects/spec/editspec.html', extra_context=extra_context)
 
 @OINeedsPrjPerms(OI_WRITE)
 def editspecdetails(request, id, specid):
@@ -191,7 +325,7 @@ def editspecdetails(request, id, specid):
     spec=None
     if specid!='0':
         spec = Spec.objects.get(id=specid)
-    return render_to_response('projects/edit%s.html'%(Spec.TYPES[type].replace("é","e")),{'user': request.user, 'divid': divid, 'project':project, 'spec':spec})
+    return render_to_response('projects/spec/edit%s.html'%(Spec.TYPES[type].replace("é","e")),{'user': request.user, 'divid': divid, 'project':project, 'spec':spec})
 
 @OINeedsPrjPerms(OI_WRITE)
 def savespec(request, id, specid='0'):
@@ -225,7 +359,7 @@ def savespec(request, id, specid='0'):
         os.remove(path)
     spec.save()
 
-    return render_to_response('projects/spec.html',{'user': request.user, 'project' : project, 'spec' : spec})
+    return render_to_response('projects/spec/spec.html',{'user': request.user, 'project' : project, 'spec' : spec})
 
 @OINeedsPrjPerms(OI_WRITE)
 def deletespec(request, id, specid):

@@ -10,17 +10,17 @@
                 Projet : <input name="title" type="text" value="{{project.title}}"/><br />
                 {%if parent%}<input name="parent" type="hidden" value="{{parent}}" />{%endif%}
             </div>
-            <label for="start_date">date de début : </label><input name="start_date" id="start_date" type="text" value="{% if project %}{{project.start_date}}{% else %}{%now "Y-m-d"%}{% endif %}" /><br />
+            <label for="start_date">date de début : </label><input name="start_date" id="start_date" type="text" value="{% if project and project.start_date%}{{project.start_date}}{% else %}{%now "Y-m-d"%}{% endif %}" />
             <script>new JsDatePick({useMode:2,target:"start_date",dateFormat:"%Y-%m-%d"});</script>
-            <label for="due_date"">date de fin : </label><input name="due_date" id="due_date" type="text" value="{{project.due_date}}" /><br />
+            <img class="clickable" src="/img/icons/calendar.png" onclick="JsDatePick.getCalInstanceById(document.getElementById('start_date').getAttribute('globalNumber')).showCalendar()" /><br />
+            <label for="due_date"">date de fin : </label><input name="due_date" id="due_date" type="text" value="{{project.due_date|default:''}}" />
             <script>new JsDatePick({useMode:2,target:"due_date",dateFormat:"%Y-%m-%d"});</script>
-            <label for="assignee"">responsable : </label><input name="assignee" type="text" value="{{project.assignee}}" /><br />
-            {% if project %}<label for="progress"">Avancement : </label><input name="progress" type="text" value="{{project.progress}}" /><br />{% endif %}
+            <img class="clickable" src="/img/icons/calendar.png" onclick="JsDatePick.getCalInstanceById(document.getElementById('due_date').getAttribute('globalNumber')).showCalendar()" /><br />
             <input name="message" type="hidden" value="{{message}}" />
             <div id="specs_{{project.id}}">
                 {%for spec in project.get_specs%}
                 <div id="specs_{{project.id}}_{{spec.order}}">
-                    {%include 'projects/spec.html'%}
+                    {%include 'projects/spec/spec.html'%}
                 </div>
                 {%endfor%}
             </div>

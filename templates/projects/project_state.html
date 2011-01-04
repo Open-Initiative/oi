@@ -1,0 +1,58 @@
+{% load oifilters %}
+<div class="actions">
+    {% ifequal project.state 0 %}
+    Manque {{project.missing_bid}} €
+    {% endifequal %}
+    {% ifequal project.state 1 %}
+    Projet accepté
+    {% endifequal %}
+    {% ifequal project.state 2 %}
+    <div class="progressbar" {% ifequal project.assignee user %}onclick="updateProgress({{project.id}},(event.clientX-this.offsetLeft)/this.offsetWidth)"{% endifequal %}>
+        <span id="progressbar_{{project.id}}" class="progress" style="width:{{project.progress|default:0|multiply:100}}%;"></span>
+    </div>
+    <span id="progresslabel_{{project.id}}" >{{project.progress|default:0|multiply:100|floatformat:0}}%</span>
+    {% endifequal %}
+    {% ifequal project.state 3 %}
+    Projet livré, en attente de validation
+    {% endifequal %}
+    {% ifequal project.state 4 %}
+    Projet terminé
+    {% endifequal %}
+    <div>
+        {% if project.assignee %}
+        Responsable : {{project.assignee}}
+        {% if project|can_write:user %}<img class="clickable" src="/img/icons/edit.png" onclick="assignProject({{project.id}})" title="modifier" />{% endif %}
+        {% else %}
+        {% if user.is_authenticated %}<img class="clickable" src="/img/icons/assignprj.png" onclick="assignProject({{project.id}})" title="Prendre en charge le projet" />
+        {% else %}projet non pris en charge
+        {% endif %}{% endif %}
+    </div>
+    <div id="bids_{{project.id}}">
+        Souscripteurs :
+        {% for bid in project.bid_set.all %}
+        {{bid.user}}
+        {% endfor %}
+    </div>
+    {% ifequal user project.assignee %}
+    {% for bid in project.canceled_bids %}
+    <div id="question_{{project.id}}_{{bid.id}}" class="smalltext">
+        {{bid.user.username}} veut annuler sa <br /> souscription au projet.<br />
+        Votre offre sera réduite de {{bid.amount}}.<br />
+        Acceptez vous ?
+        <img class="clickable" src="/img/icons/ok.png" onclick="answerCancelBid({{project.id}}, {{bid.id}}, true, 'question_{{project.id}}_{{bid.id}}')" title="Accepter"/>
+        <img class="clickable" src="/img/icons/delete.png" onclick="answerCancelBid({{project.id}}, {{bid.id}}, false, 'question_{{project.id}}_{{bid.id}}')" title="Refuser"/>
+    </div>
+    {% endfor %}
+    {% endifequal %}
+    {% if project|is_bidder:user %}
+    {% ifequal project.state 11 %}
+    <div id="question_{{project.id}}_{{bid.id}}" class="smalltext">
+        {{project.assignee.username}} veut annuler le projet.<br />
+        Vous serez remboursé intégralement.<br />
+        Acceptez vous ?
+        <img class="clickable" src="/img/icons/ok.png" onclick="answerCancelProject({{project.id}}, true, 'question_{{project.id}}')" title="Accepter"/>
+        <img class="clickable" src="/img/icons/delete.png" onclick="answerCancelProject({{project.id}}, false, 'question_{{project.id}}')" title="Refuser"/>
+    </div>
+    {% endifequal %}
+    {% endif %}
+</div>

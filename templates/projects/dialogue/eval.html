@@ -1,0 +1,11 @@
+<div>
+    <img class="clickable" id="star0_{{params.id}}" src="/img/icons/star0.png" onclick="setStar({{params.id}},0)" />
+    <img class="clickable" id="star1_{{params.id}}" src="/img/icons/starno.png" onclick="setStar({{params.id}},1)" />
+    <img class="clickable" id="star2_{{params.id}}" src="/img/icons/starno.png" onclick="setStar({{params.id}},2)" />
+    <img class="clickable" id="star3_{{params.id}}" src="/img/icons/starno.png" onclick="setStar({{params.id}},3)" />
+    <img class="clickable" id="star4_{{params.id}}" src="/img/icons/starno.png" onclick="setStar({{params.id}},4)" />
+    <img class="clickable" id="star5_{{params.id}}" src="/img/icons/starno.png" onclick="setStar({{params.id}},5)" />
+    <input type="hidden" id="evaluate_{{params.id}}" value=0 />
+</div>
+<img class="clickable" src="/img/icons/ok-32.png" onclick="confirmEvalProject({{params.id}})" />
+<img class="clickable" src="/img/icons/del-32.png" onclick="hide('prjdialogue_{{params.id}}')" />

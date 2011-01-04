@@ -8,7 +8,7 @@
         <textarea id="text_{{divid}}" rows="15" class="msgfield">{{message.text|oiunescape}}</textarea>
         <input id="parents_{{divid}}"type="hidden"  value="{{parents}}" />
         <img class="clickable" src="/img/icons/ok-32.png" onclick="saveMessage('{{divid}}',{{message.id|default:0}})" />
-        <img class="clickable" src="/img/icons/del-32.png" onclick="history.back()" />
+        <img class="clickable" src="/img/icons/del-32.png" onclick="cancelMessage('{{divid}}',{{message.id|default:0}})" />
     </div>
     <div class="msgbtm"></div>
 </div>

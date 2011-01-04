@@ -128,9 +128,9 @@ class Message(models.Model):
         if user and user.is_authenticated:
             if perm == OI_ALL_PERMS:
                 for right in OI_RIGHTS:
-                    self.messageacl_set.add(MessageACL(user=user, permission=right))
+                    self.messageacl_set.get_or_create(user=user, permission=right)
             else:
-                self.messageacl_set.add(MessageACL(user=user, permission=perm))
+                self.messageacl_set.get_or_create(user=user, permission=perm)
     
     def get_ancestors(self):
         """returns all the paths to the message"""

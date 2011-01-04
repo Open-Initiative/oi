@@ -139,6 +139,15 @@ div.subcateg {
     margin: 1em
 }
 
+div.popup {
+  background: white;
+  border: solid;
+  height: 60px;
+  left: 300px;
+  position: fixed;
+  top: 150px;
+  width: 210px;
+}
 div.actions {
     clear: right;
     float: right;

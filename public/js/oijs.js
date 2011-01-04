@@ -7,7 +7,11 @@ function OIajaxCall(url, params, divid) {
     }
     xmlhttp.open(method,url,false);
     xmlhttp.send(params);
-    document.getElementById(divid).innerHTML=xmlhttp.responseText;
+    if(xmlhttp.status == 333) document.location = xmlhttp.responseText;
+    else {
+        if(!divid) return xmlhttp.responseText;
+        document.getElementById(divid).innerHTML = xmlhttp.responseText;
+    }
 }
 function getValue(eltid){
     elt = document.getElementById(eltid);
@@ -22,17 +26,25 @@ function newDiv(parentid) {
 function clearDiv(divid) {
     document.getElementById(divid).innerHTML="";
 }
+function show(divid) {
+    document.getElementById(divid).style.display="block";
+}
+function hide(divid) {
+    document.getElementById(divid).style.display="none";
+}
 
 function uploadFile(field_name, url, type, win) {
     tinyMCE.activeEditor.windowManager.open({file:'/message/uploadForm', width:300,height:200,close_previous:"no",popup_css:false,inline:"yes"},
     {window : win,input : field_name});
 }
 
-function expandCateg(img, categid){
+function expandCateg(img, categid, dest){
     if(img.down != 1){
         img.down = 1;
         img.src = "/img/fleche2.png";
-        OIajaxCall("/message/listcategories/"+categid, null, "subcateg"+categid);
+        url = "/message/listcategories/"+categid;
+        if(dest) url += "?dest="+dest;
+        OIajaxCall(url, null, "subcateg"+categid);
     } else {
         img.down = null;
         img.src = "/img/fleche1.png";
@@ -77,10 +89,18 @@ function applyFilter() {
     if(document.getElementById("projects"))
         OIajaxCall("/project/getall?"+paramList.join("&"), null, "projects");
 }
-function selectCateg(span, categid) {
+function selectCateg(span, categid, dest) {
+    if(!span) {
+        anclist = OIajaxCall("/message/listancestors/"+categid, null, null).split(",")
+        for(i=0;i<anclist.length;i++) {
+            img = document.getElementById("arrow"+anclist[i])
+            expandCateg(img, Number(anclist[i]), null);
+        }
+        span = document.getElementById("categ_"+categid)
+    }
     selectedcateg[categid] = !selectedcateg[categid];
     span.className = selectedcateg[categid]?"selectedfilter clickable":"clickable";
-    expandCateg(document.getElementById("arrow"+categid), categid);
+    expandCateg(document.getElementById("arrow"+categid), categid, dest);
     applyFilter();
 }
 function setDateDelta(span,delta) {

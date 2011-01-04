@@ -40,9 +40,9 @@ div.tasklist {
 }
 
 div.smallprj {
-    width: 260px;
-    height: 60px;
-    padding: 20px;
+    width: 270px;
+    height: 70px;
+    padding: 15px;
     background: url('/img/project.png');
     color: #778e9c;
 }
@@ -50,4 +50,51 @@ div.smallprj {
     visibility: hidden;
     height: 0;
     width: 0;
+}
+.viewtaskalign {
+    position:relative;
+    top:5px;
+}
+.viewtask {
+    position:absolute;
+    height:5px;
+}
+.progressbar {
+    float:left;
+    height:.8em;
+    width:10em;
+    border:solid 1px;
+}
+.progress {
+    float:left;
+    height:.8em;
+    background:green;
+}
+.smalltext {
+    font-size:.7em;
+}
+.viewprjalign {
+    position:relative;
+    top:-6px;
+}
+.viewprj {
+    position:absolute;
+    left:20em;
+    height:8px;
+    border:gray solid;
+    border-width: 2px 2px 0 2px;
+}
+.gantt {
+    position:relative;
+    border:solid 1px;
+    overflow-x:auto;
+}
+.ganttlabels {
+    float:left;
+    width:20em;
+}
+.ganttday {
+    position:absolute;
+    width:1em;
+    border-right:solid lightgray 1px;
 }

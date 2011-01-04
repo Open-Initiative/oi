@@ -1,0 +1,16 @@
+{% load oifilters %}
+<div>
+    {% if task.start_date %}{% if task.due_date %}
+    <div class="viewtaskalign">
+        <div class="{% if task.is_simple_task %}viewtask{% else %}viewprj{% endif %}" style="left:{{task.start_date|oidateshift:project.start_date|add:19}}em;width:{{task.due_date|oidateshift:task.start_date}}em;{% if task.is_simple_task %}background:{% if task.is_late %}red{% else %}orange{% endif %}{% endif %}"></div>
+        {% if task.is_simple_task %}  
+        <div class="viewtask" style="left:{{task.start_date|oidateshift:project.start_date|add:19}}em;width:{{task.due_date|oidateshift:task.start_date|multiply:task.progress}}em;background:lightgreen;"></div>{% endif %}
+    </div>
+    {% endif %}{% endif %}
+    <a href="/project/get/{{task.id}}">{{task.title}}</a> - {{task.assignee}} ({{task.progress|multiply:100}}%)
+    {% for subtask in task.tasks.all %}
+    {% with subtask as task %}
+    {% with "projects/taskview.html" as templatename %}{% include templatename %}{% endwith %}
+    {% endwith %}
+    {% endfor %}    
+</div>

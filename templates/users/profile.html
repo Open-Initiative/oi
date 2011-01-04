@@ -6,13 +6,14 @@
     <div id="userprofile">
         <div class="actions">
             {% ifequal user selected_user %}
-            <a href="/user/editprofile"><img src="/img/icons/editcontact.png" alt="Editer le profil" title="Editer le profil" /></a>
+            <a href="/user/editprofile"><img src="/img/icons/editcontact.png" alt="Modifier le profil" title="Modifier le profil" /></a>
             {% else %}
             <img class="clickable" src="/img/icons/sendmsg.png" onclick="writeMP({{selected_user.id}})" alt="Envoyer un message" title="Envoyer un message" />
             <img class="clickable" src="/img/icons/addcontact.png" onclick="addContact({{selected_user.id}})" alt="Ajouter à mes contacts" title="Ajouter à mes contacts" />
             {% endifequal %}
         </div>
         {{selected_user}}
+        <div class="popup invisible" id="deposit">Montant :<input id="amount" /><br /><img src="/img/icons/ok-32.png" /><img class="clickable" onclick="hide('deposit')" src="/img/icons/del-32.png" /> </div>
         <div>
             {{selected_user.last_name}}
             {{selected_user.first_name}}
@@ -24,6 +25,7 @@
             {{selected_user.get_profile.city}}
             {{selected_user.get_profile.country}}
         </div>
+        {% ifequal user selected_user %}compte : {{user.get_profile.balance|default:0}} € <img class="clickable" src="/img/icons/add.png" onclick="show('deposit')" title="Alimenter le compte" />{% endifequal %}
         <div>
             <a href="/user/changepassword">Changer de mot de passe</a>
         </div>
@@ -59,5 +61,12 @@
             {% endfor %}
         </div>
     </div>
+    <script>
+        ajaxParams = document.location.hash.split("/");
+        if(ajaxParams[0] == "#deposit"){
+            show('deposit');
+            document.getElementById('amount').value = ajaxParams[1];
+        }
+    </script>
 </div>
 {% endblock %}

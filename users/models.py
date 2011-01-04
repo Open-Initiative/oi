@@ -1,5 +1,6 @@
 # coding: utf-8
 # Modèles des profils utilisateurs
+from oi.projects.models import Project
 from django.db import models
 from django.forms import ModelForm
 from django.contrib.auth.models import User
@@ -16,6 +17,15 @@ class UserProfile(models.Model):
     mobile = models.CharField(max_length=30, null=True, blank=True)
     phone = models.CharField(max_length=30, null=True, blank=True)
     contacts = models.ManyToManyField('self', symmetrical=True, blank=True)
+    balance = models.DecimalField(max_digits=10, decimal_places=2)
+    
+    def make_payment(self, amount, project=None):
+        """makes a new payment and updates user account"""
+        payment = Payment(user=self.user, amount=amount, project=project)
+        payment.save()
+        self.balance += amount
+        self.save()
+
     def __unicode__(self):
         return "Profil de %s"%self.user
 
@@ -37,10 +47,19 @@ class Training(models.Model):
     def __unicode__(self):
         return self.university
 
+#Transaction from a user account
+class Payment(models.Model):
+    user = models.ForeignKey(User)
+    amount = models.DecimalField(max_digits=10,decimal_places=2)
+    transaction_date = models.DateTimeField(auto_now_add=True)
+    project = models.ForeignKey(Project, blank=True)
+    def __unicode__(self):
+        return "%s on %s's account"%(self.amount,self.user)
+
 class UserProfileForm(ModelForm):
     class Meta:
         model = UserProfile
-        exclude = ('user',)
+        exclude = ('user','contacts','balance')
 
 class ExperienceForm(ModelForm):
     class Meta:

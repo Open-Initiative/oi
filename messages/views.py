@@ -187,3 +187,9 @@ def listcategories(request, id='0'):
     else:
         categories = Message.objects.filter(category=True, parents=id)
     return render_to_response('messages/arbo.html',{'categories': categories.order_by("-relevance"), 'dest': request.GET.get("dest")}, context_instance=RequestContext(request))
+    
+def listancestors(request, id):
+    """lists ancestors of the message in a string"""
+    message = Message.objects.get(id=id)
+    anclist = map(lambda x:x.id.__str__(),message.get_ancestors()[0])
+    return HttpResponse(",".join(anclist))

@@ -1,5 +1,25 @@
 {% extends base %}
+{% load oifilters %}
 {% block title %}{{object.title}}{% endblock %}
+{% block breadcrumb %}
+<div>
+    {% for parent in object.parents.all %}
+    <div id="path_{{parent.id}}">
+        {% if object %}{% if object|can_write:user %}
+        <img class="clickable" src="/img/icons/delete.png" onclick="orphanMessage({{object.id}},{{parent.id}})" />
+        {% endif %}{% endif %}
+        {% for path in parent.get_ancestors %}
+        {% for ancestor in path %}
+        <a href="/message/get/{{ancestor.id}}">{{ancestor.title}}</a>{% if not forloop.last %} - {% endif %}
+        {% endfor %}
+        {% endfor %}
+    </div>
+    {% endfor %}
+    {% if object %}{% if object|can_write:user %}
+    <div id="newParent"><img class="clickable" src="/img/icons/add.png" onclick="moveMessage({{object.message.id|default:object.id}})" /></div>
+    {% endif %}{% endif %}
+</div>
+{% endblock %}
 {% block content %}
 {% with object as message %}
 {% ifequal base "base.html" %}<div class="column">{% endifequal %}

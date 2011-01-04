@@ -21,4 +21,5 @@ urlpatterns = patterns('oi.messages.views',
     (r'^uploadForm$', direct_to_template, {'template': "messages/uploadForm.html"}),
     (r'^uploadFile$', 'uploadFile'),
     (r'^listcategories/(?P<id>\d+)$', 'listcategories'),
+    (r'^listancestors/(?P<id>\d+)$', 'listancestors'),
 )

@@ -1,72 +1,45 @@
 {% extends "base.html" %}
 ﻿﻿{% load oifilters %}
 {% block title %}{{object.title|default:"Projet"}}{% endblock %}
+{% block breadcrumb %}
+{% for ancestor in object.get_path %}
+<a href="/project/get/{{ancestor.id}}">{{ancestor.title}}</a>{% if not forloop.last %} - {% endif %}
+{% endfor %}
+{% endblock %}
 {% block content %}
 {% if object|can_read:user %}
 {% with object as project %}
 <div class="column">
     <div id="project_{{project.id}}" class="project">
         <div class="prjtop"></div>
-        <div class="prjbody">
-            <div class="actions">
-                {% if project.state < 3 %}
-                    {% if project|can_read:user %}
-                    <img class="clickable" onclick="bidProject({{project.id}})" src="/img/icons/miseprj.png" alt="Souscrire au projet" title="Souscrire au projet" />
-                    {% endif %}
-                {% endif %}
-                {% if project.state = 1 %}
-                    {% if project.assignee = user %}
-                    <img class="clickable" onclick="startProject({{project.id}})" src="/img/icons/startprj.png" alt="Démarrer le projet" title="Démarrer le projet" />
-                    {% endif %}
-                {% endif %}
-                {% if project.state = 2 %}
-                    {% if project.assignee = user %} <img class="clickable" onclick="deliverProject({{project.id}})" src="/img/icons/okprj.png" alt="Marquer le projet comme terminé" title="Marquer le projet comme terminé" />{% endif %}
-                {% endif %}
-                {% if project.state = 3 %}
-                    {% if project|is_bidder:user %} <img class="clickable" onclick="validateProject({{project.id}})" src="/img/icons/okprj.png" alt="Valider le projet" title="Valider le projet" />{% endif %}
-                {% endif %}
-                {% if project.state = 4 %}
-                    {% if project|is_bidder:user %} <img class="clickable" onclick="evalProject({{project.id}})" src="/img/icons/evalprj.png" alt="Evaluer le projet" title="Evaluer le projet" />{% endif %}
-                {% endif %}
-                {% if project|can_read:user %}<a href="{% url oi.projects.views.projectview id=project.id%}">
-                    <img src="/img/icons/viewprj.png" alt="Vue d'ensemble" title="Vue d'ensemble" />
-                </a>{% endif %}
-                {% if project|can_write:user %}
-                {% if project.public %}
-                <img class="clickable" src="/img/icons/privateprj.png" onclick="hideProject({{project.id}})" alt="Projet privé" title="Projet privé" />
-                {% else %}
-                <img class="clickable" src="/img/icons/shareprj.png" onclick="shareProject({{project.id}})" alt="Partager le projet" title="Partager le projet" />
-                {% endif %}
-                <img class="clickable" src="/img/icons/delprj.png" onclick="deleteProject({{project.id}})" alt="Supprimer le projet" title="Supprimer le projet" />
-                <a href="{% url oi.projects.views.editproject id=project.id%}">
-                    <img src="/img/icons/project.png" alt="Modifier le projet" title="Modifier le projet" />
-                </a>{% endif %}
-            </div>
+        <div class="prjbody">{% include "projects/project_actions.html" %}{% include "projects/project_state.html" %}
             <div class="prjtitle">
-                {{project.title}}
+                {{project.title}} {% if project|can_write:user %}<img class="clickable" src="/img/icons/edit.png" />{% endif %}
             </div>
-            <div id="prjdialogue_{{project.id}}"></div>
-            assigné à : {{project.assignee}}<br />
-            démarré le : {{project.start_date|date:"d/m/Y"}}<br />
-            du le : {{project.due_date|date:"d/m/Y"}}<br />
-            Avancement : {{project.progress|multiply:100}}%<br />
-            <div id="bids_{{project.id}}">
-                Souscripteurs :
-                {% for bid in project.bid_set.all %}
-                {{bid.user}}
-                {% endfor %}
+            <div id="prjdialogue_{{project.id}}" class="popup invisible"></div>
+            <div>
+                démarré le : <span id="start_date_{{project.id}}">{{project.start_date|date:"d/m/Y"}}</span>
+                {% if project|can_write:user %}{% with "start_date" as field_name %}
+                {% include "projects/edit_date.html" %}
+                {% endwith %}{% endif %}
             </div>
-            <h2>Spécifications</h2>
+            <div>
+                du le : <span id="due_date_{{project.id}}">{{project.due_date|date:"d/m/Y"}}</span>
+                {% if project|can_write:user %}{% with "due_date" as field_name %}
+                {% include "projects/edit_date.html" %}
+                {% endwith %}{% endif %}
+            </div>
+            <h3>Spécifications</h3>
             <div id="specs_{{project.id}}">
                 {%for spec in project.get_specs%}
                 <div id="specs_{{project.id}}_{{spec.order}}">
-                    {%include 'projects/spec.html'%}
+                    {%include 'projects/spec/spec.html'%}
                 </div>
                 {%endfor%}
             </div>
             {% if project|can_write:user %}<img class="clickable" src="/img/icons/addspec.png" onclick="addSpec({{project.id}}, -1)" alt="Ajouter une spécification" title="Ajouter une spécification"/>{% endif %}
             <br />
-            Publié par {% if project.author %}
+            Projet proposé par {% if project.author %}
             <a href="/user/profile/{{project.author.username}}">{{project.author}}</a>
             {% else %}
             invité
@@ -80,7 +53,7 @@
     {% if project|can_write:user %}
     <div>
         <input type="text" id="newtask_title_{{project.id}}"/>
-        <img src="/img/icons/addprj.png" alt="Nouvelle tâche" title="Nouvelle tâche" onclick="addTask({{project.id}},'{{user.username}}')" />
+        <img class="clickable" src="/img/icons/addprj.png" alt="Nouvelle tâche" title="Nouvelle tâche" onclick="addTask({{project.id}},'{{project.assignee.username}}')" />
     </div>
     {% endif %}
     {%if project.tasks.all%}

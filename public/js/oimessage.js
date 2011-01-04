@@ -31,6 +31,13 @@ function saveMessage(divid, msgid){
     params = "message="+getValue("text_"+divid).replace(/\+/gi,"%2B")+"&title="+getValue("title_"+divid).replace(/\+/gi,"%2B")+"&parents="+parents;
     OIajaxCall("/message/save/"+msgid, params, divid);
 }
+function cancelMessage(divid, msgid){
+    if(msgid==0) document.location = "/";
+    else {
+        tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
+        OIajaxCall("/message/get/"+msgid+"?mode=ajax", null, divid);
+    }
+}
 function editMessage(msgid) {
     divid = "message_"+msgid;
     OIajaxCall("/message/edit/"+msgid+"?divid="+divid, null, divid);

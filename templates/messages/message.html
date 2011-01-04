@@ -4,8 +4,8 @@
     <div class="msgbody">
         <div class="actions">
             {% if not message|ip_has_voted:request.META.REMOTE_ADDR and user.is_anonymous or not message|has_voted:user and user.is_authenticated%}
-                <img class="clickable" src="/img/pouce1.gif" onclick="vote({{message.id}},1)" title="Message pertinent">
-                <img class="clickable" src="/img/pouce2.gif" onclick="vote({{message.id}},-1)" title="Message non pertinent">
+                <img class="clickable" src="/img/icons/relevantmsg.png" onclick="vote({{message.id}},1)" title="Message pertinent">
+                <img class="clickable" src="/img/icons/irrelevantmsg.png" onclick="vote({{message.id}},-1)" title="Message non pertinent">
             {% endif %}
             {% if message|can_answer:user %}<a href="/project/edit/0?message={{message.id}}">
                 <img src="/img/icons/addprj.png" alt="Proposer un nouveau projet" title="Proposer un nouveau projet"/>
@@ -22,7 +22,7 @@
             <img class="clickable" src="/img/icons/editmsg.png" onclick="editMessage({{message.id}})" alt="Modifier le message" title="Modifier le message" />
             {% endif %}
         </div>
-        <div class="clickable msgtitle" onclick="shrinkMessage({{message.id}}, {{depth}})">
+        <div class="clickable msgtitle" onclick="shrinkMessage({{message.id}}, {{depth|default:0}})">
             {{message.title}}
         </div>
         <div id="msgdialogue_{{message.id}}"></div>
@@ -49,15 +49,20 @@
     </div>
     <div class="msgbtm"></div>
     <div id="children_{{message.id}}" {%if message.children.all%}class="childrenlist pile"{%endif%}>
-        {% if depth > 1 %}
         {% if message.children.all|length == 1 %}
-            {% with message.children.all|first as message %}
-            <div id="message_{{message.id}}_box" class="overlap">
+        {% with message.children.all|first as message %}
+        <div id="message_{{message.id}}_box" class="overlap">
+            {% if depth > 1 %}
             {% with depth|add:-1 as depth %}
             {% with "messages/message.html" as templatename %}
                 {% include templatename %}
             {% endwith %}
             {% endwith %}
+            {% else %}    
+            {% with "messages/messagesum.html" as templatename %}
+                {% include templatename %}
+            {% endwith %}
+            {% endif %}
             </div>
             {% endwith %}
         {% else %}
@@ -68,7 +73,6 @@
         </div>
         {% endif %}
         {% endfor %}
-        {% endif %}
         {% endif %}
     </div>
 </div>

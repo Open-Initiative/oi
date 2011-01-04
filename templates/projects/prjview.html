@@ -1,28 +1,26 @@
 ﻿{% extends "base.html" %}
 {% load oifilters %}
+{% block title %}Avancement de {{project.title}}{% endblock %}
 {% block content %}
 <div id="prjview_{{project.id}}">
     <div>Vue d'ensemble de <a href="/project/get/{{project.id}}">{{project.title}}</a></div>
-    {%if project.tasks.all%}
+    {% if project.tasks.all %}
     <div>Tâches :</div>
-    <div id="gantt" style="border:solid 1px;overflow-x:auto;height:{{project.tasks.all.count|add:4}}em;position:relative">
-        <div style="float:left;width:20em;">
+    <div id="gantt" class="gantt" style="height:{{project.tasks.all.count|add:4}}em;">
+        <div class="ganttlabels">
             <div>Date</div>
-            {%for task in project.tasks.all%}
-            <div>
-                {% if task.start_date %}{% if task.due_date %}
-                <div style="position:absolute;left:{{task.start_date|oidateshift:project.start_date|add:20}}em;height:5px;width:{{task.due_date|oidateshift:task.start_date}}em;background:{% if task.is_late %}red{% else %}orange{% endif %}"></div>
-                <div style="position:absolute;left:{{task.start_date|oidateshift:project.start_date|add:20}}em;height:5px;width:{{task.due_date|oidateshift:task.start_date|multiply:task.progress}}em;background:lightgreen"></div>
-                {% endif %}{% endif %}
-                <a href="/project/get/{{task.id}}">{{task.title}}</a> - {{task.assignee}} ({{task.progress|multiply:100}}%)
+            <div class="viewprjalign">
+<!--m            <div class="viewprj" style="width:{{project.due_date|oidateshift:project.start_date}}em"></div>-->
             </div>
+            {% for task in project.tasks.all %}
+            {% include "projects/taskview.html" %}
             {% empty %}
                 Pas de tache dans le projet
             {% endfor %}    
         </div>
         {% for day in days %}
-        <div style="position:absolute;left:{{forloop.counter0|add:20}}em;width:1em;border-right:solid lightgray 1px;height:{{project.tasks.count|add:3}}em;{%if day.weekday > 5%}background:#F0F0F0;{%endif%};z-index:-1">
-            <span style="font-size:.8em;">{{day.day}}</span>
+        <div class="ganttday" style="left:{{forloop.counter0|add:20}}em;height:{{project.tasks.count|add:4}}em;{%if day.weekday > 5%}background:#F0F0F0;{%endif%};z-index:-1">
+            <span class="smalltext">{{day.day}}</span>
         </div>
         {% endfor %}
     {% endif %}
