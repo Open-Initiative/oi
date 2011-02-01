@@ -4,11 +4,9 @@
 {% endwith %}{% endfor %}
 <div class="pile">
     {% for message in object_list %}
-    <div style="position:relative">
-        <a  href="/message/get/{{message.id}}">
-            {% include "messages/messagesmall.html" %}
-        </a>
-    </div>
+    <a  href="/message/get/{{message.id}}">
+        {% include "messages/messagesmall.html" %}
+    </a>
     {% endfor %}
 </div>
 

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Messages personnels{% endblock %}
+{% block content %}
+<div class="column">
+    <h1>Messages reçus</h1>
+    {% for pm in user.get_profile.get_discussions %}
+    <a href="/user/messageswith/{{pm.from_user.username}}">{{pm.from_user}}</a>
+    <div>
+        {{pm.text}}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

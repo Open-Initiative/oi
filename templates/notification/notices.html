@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 {% block title %}Notifications{% endblock %}
 {% block content %}
-Notifications
-{% for notice in notices %}
-{{notice|safe}}
-{% endfor %}
+<div class="column">
+    <h1>Notifications</h1>
+    {% for notice in notices %}
+    <h3>{{notice.notice_type.display}}</h3>
+    <div>
+        {{notice|safe}}
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}

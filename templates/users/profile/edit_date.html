@@ -1,0 +1,12 @@
+<input id="birthdate_box" class="filedest" value="{{user.get_profile.birthdate}}"/>
+<img class="clickable" src="/img/icons/edit.png" onclick="JsDatePick.getCalInstanceById(document.getElementById('birthdate_box').getAttribute('globalNumber')).showCalendar()" />
+<script>
+    cal_birthdate = new JsDatePick({useMode:2,target:"birthdate_box",dateFormat:"%Y-%m-%d"});
+    cal_birthdate.setOnSelectedDelegate(function(){
+        var dateobj = cal_birthdate.getSelectedDay();
+        date = new Date(dateobj.year,dateobj.month-1,dateobj.day);
+        setBirthdate(date);
+        document.getElementById('birthdate').innerHTML = date.dateFormat("j/m/Y");
+        cal_birthdate.closeCalendar();
+    });
+</script>

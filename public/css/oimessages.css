@@ -41,6 +41,7 @@ div.childrenlist {
     padding-left: 20px;
 }
 div.smallmsg {
+    position: relative;
     width: 260px;
     height: 60px;
     padding: 20px;

@@ -1,0 +1,21 @@
+<div class="related">
+<!--<h3>Mes dernières putblications</h3>-->
+
+<h3>Mes derniers messages :</h3>
+<div class="pile">
+    {%for message in selected_user.get_profile.last_messages %}
+    <a  href="/message/get/{{message.id}}">
+        {% include "messages/messagesmall.html" %}
+    </a>
+    {%endfor%}
+</div>
+<h3>Mes derniers projets :</h3>
+<div class="pile">
+    {%for project in selected_user.get_profile.last_projects %}
+    {% include "projects/projectsmall.html" %}
+    {%endfor%}
+</div>
+<h3>Mes évaluations :</h3>
+Evaluation : {{rating__avg}} ({{rating__count}} évaluations)
+</div>
+

@@ -2,7 +2,15 @@
 ﻿﻿{% load oifilters %}
 {% block title %}{{object.title|default:"Projet"}}{% endblock %}
 {% block breadcrumb %}
-{% for ancestor in object.get_path %}
+{% for parent in object.parents.all %}
+<div id="path_{{parent.id}}">
+    {% for path in parent.get_ancestors %}
+    {% for ancestor in path %}
+    <a href="/message/get/{{ancestor.id}}">{{ancestor.title}}</a>{% if not forloop.last %} - {% endif %}
+    {% endfor %}
+    {% endfor %}
+</div>
+{% endfor %}{% for ancestor in object.get_path %}
 <a href="/project/get/{{ancestor.id}}">{{ancestor.title}}</a>{% if not forloop.last %} - {% endif %}
 {% endfor %}
 {% endblock %}
@@ -12,9 +20,11 @@
 <div class="column">
     <div id="project_{{project.id}}" class="project">
         <div class="prjtop"></div>
-        <div class="prjbody">{% include "projects/project_actions.html" %}{% include "projects/project_state.html" %}
-            <div class="prjtitle">
-                {{project.title}} {% if project|can_write:user %}<img class="clickable" src="/img/icons/edit.png" />{% endif %}
+        <div class="prjbody">
+            {% include "projects/project_actions.html" %}{% include "projects/project_state.html" %}
+            <div id="prjtitle_{{project.id}}" class="prjtitle">
+                {{project.title}}
+                {% if project|can_write:user %}<img onclick="editTitle({{project.id}})" class="clickable" src="/img/icons/edit.png" />{% endif %}
             </div>
             <div id="prjdialogue_{{project.id}}" class="popup invisible"></div>
             <div>
@@ -31,10 +41,8 @@
             </div>
             <h3>Spécifications</h3>
             <div id="specs_{{project.id}}">
-                {%for spec in project.get_specs%}
-                <div id="specs_{{project.id}}_{{spec.order}}">
-                    {%include 'projects/spec/spec.html'%}
-                </div>
+                {%for spec in project.spec_set.all|dictsort:"order"%}
+                {%include 'projects/spec/spec.html'%}
                 {%endfor%}
             </div>
             {% if project|can_write:user %}<img class="clickable" src="/img/icons/addspec.png" onclick="addSpec({{project.id}}, -1)" alt="Ajouter une spécification" title="Ajouter une spécification"/>{% endif %}
@@ -57,11 +65,13 @@
     </div>
     {% endif %}
     {%if project.tasks.all%}
+    <div class="pile">
     {%for task in project.tasks.all%}
     {% if task|can_read:user %}
-    {% include "projects/task.html" %}<br />
+    {% include "projects/task.html" %}
     {% endif %}
     {%endfor%}
+    </div>
     {%endif%}
 </div>
 {% endwith %}

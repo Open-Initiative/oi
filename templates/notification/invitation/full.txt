@@ -1,1 +1,4 @@
-{% load i18n %}{% blocktrans %}{{ notice }} : {{contact}}{% endblocktrans %}
+{% load i18n %}
+<a href="/user/profile/{{sender.id}}">{{sender.username}}</a>
+{% blocktrans %}souhaite entrer en contact avec vous.<br />
+Vous pouvez <a>accepter</a> ou <a>refuser</a>{% endblocktrans %}

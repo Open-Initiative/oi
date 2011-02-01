@@ -7,6 +7,18 @@ function addTask(projectid,userid) {
 function editDate(projectid, field_name, date) {
     OIajaxCall("/project/editdate/"+projectid, "field_name="+field_name+"&date="+date.dateFormat("Y-m-d"), "output");
 }
+function editTitle(projectid) {
+    OIajaxCall("/project/edittitle/"+projectid, null, "prjtitle_"+projectid);
+}
+function confirmEditTitle(projectid) {
+    title = getValue("title_"+projectid);
+    OIajaxCall("/project/confirmedittitle/"+projectid, "title="+title, "output");
+    resetTitle(projectid, title);
+}
+function resetTitle(projectid, title) {
+    document.getElementById("prjtitle_"+projectid).innerHTML = title;
+    document.getElementById("prjtitle_"+projectid).innerHTML += ' <img onclick="editTitle('+projectid+')" class="clickable" src="/img/icons/edit.png" />';
+}
 function bidProject(projectid, rating) {
     OIajaxCall("/project/bid/"+projectid, null, "prjdialogue_"+projectid);
     show("prjdialogue_"+projectid);
@@ -78,10 +90,10 @@ function answerCancelBid(projectid, bidid, answer, divid) {
     OIajaxCall("/project/answercancelbid/"+projectid, "answer="+answer+"&bid="+bidid, "output");
     clearDiv(divid);
 }
-function deleteProject(projectid) {
+function deleteProject(projectid, messageid) {
     if(confirm("Etes vous sûr de vouloir supprimer définitivement ce projet ?")) {
         OIajaxCall("/project/delete/"+projectid, null, "output");
-        clearDiv("spec_"+projectid+"_"+specid);
+        document.location = '/message/get/'+messageid;
     }
 }
 function updateProgress(projectid, progress) {
@@ -90,14 +102,19 @@ function updateProgress(projectid, progress) {
     document.getElementById("progressbar_"+projectid).style.width = progress+"%";
     document.getElementById("progresslabel_"+projectid).innerHTML = progress+"%";
 }
+function observeProject(prjid){
+    OIajaxCall("/project/observe/"+prjid, null, "output");
+}
 function addSpec(projectid, specorder) {
     if(specorder==-1) divid = newDiv("specs_"+projectid);
-    else divid = newDiv("specs_"+projectid+"_"+specorder);
+    else divid = newDiv("spec_"+projectid+"_"+specorder);
     OIajaxCall("/project/"+projectid+"/editspec/0?divid="+divid+"&specorder="+specorder, null, divid);
+    document.getElementById(divid).scrollIntoView();
     changeSpecType(divid);
 }
-function editSpec(projectid, specid) {
-    divid = "spec_"+projectid+"_"+specid;
+function editSpec(projectid, specorder) {
+    specid = getValue("specid_"+specorder);
+    divid = "spec_"+projectid+"_"+specorder;
     OIajaxCall("/project/"+projectid+"/editspec/"+specid+"?divid="+divid, null, divid);
     changeSpecType(divid);
 }
@@ -119,10 +136,11 @@ function saveSpec(divid, projectid, order, specid){
     if(getValue("image_"+divid)) params+="&image="+getValue("image_"+divid);
     OIajaxCall("/project/"+projectid+"/savespec/"+specid, params, divid);
 }
-function deleteSpec(projectid, specid) {
+function deleteSpec(projectid, specorder) {
     if(confirm("Etes vous sûr de vouloir supprimer définitivement cette spécification ?")) {
+        specid = getValue("specid_"+specorder);
         OIajaxCall("/project/"+projectid+"/deletespec/"+specid, null, "output");
-        clearDiv("spec_"+projectid+"_"+specid);
+        clearDiv("spec_"+projectid+"_"+specorder);
     }
 }
 function deltmp(projectid,filename,ts,divid) {

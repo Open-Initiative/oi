@@ -8,11 +8,15 @@ body {
 img {
     border: None;
 }
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
 a {
     text-decoration: None;
     color: #006fb8;
 }
-#content {
+div.center{
+    margin: auto;
     width: 1200px;
 }
 #footer {
@@ -63,18 +67,15 @@ div.userheader {
     float: right;
     position: relative;
     margin-right: 40px;
-    width: 224px;
-    height: 93px;
-    padding: 5px;
+    width: 228px;
+    height: 97px;
+    padding: 3px;
     background: url('/img/blocuser.png');
 }
 div.sepheader {
     width:100%;
     height:20px;
     background:url('/img/gradgray.png') repeat-x;
-}
-#content{
-    height: 100%;
 }
 .homelink{
     color: white;
@@ -147,6 +148,7 @@ div.popup {
   position: fixed;
   top: 150px;
   width: 210px;
+  z-index: 1;
 }
 div.actions {
     clear: right;
@@ -178,7 +180,8 @@ div.morelink {
 .invisible{
     display: none;
 }
-div.center{
-    margin: auto;
-    width: 1024px;
+.filedest {
+    visibility: hidden;
+    height: 0;
+    width: 0;
 }

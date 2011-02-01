@@ -23,22 +23,23 @@
         <img src="/img/icons/viewprj.png" alt="Vue d'ensemble" title="Vue d'ensemble" />
     </a>{% endif %}
     {% if project|can_write:user %}
-    {% if project.public %}
-    <img class="clickable" src="/img/icons/privateprj.png" onclick="hideProject({{project.id}})" alt="Projet privé" title="Projet privé" />
-    {% else %}
-    <img class="clickable" src="/img/icons/shareprj.png" onclick="shareProject({{project.id}})" alt="Partager le projet" title="Partager le projet" />
+        {% if project.public %}
+        <img class="clickable" src="/img/icons/privateprj.png" onclick="hideProject({{project.id}})" alt="Projet privé" title="Projet privé" />
+        {% else %}
+        <img class="clickable" src="/img/icons/shareprj.png" onclick="shareProject({{project.id}})" alt="Partager le projet" title="Partager le projet" />
+        {% endif %}
+        {% ifequal project.bid_set.count 0 %}
+        <img class="clickable" src="/img/icons/delprj.png" onclick="deleteProject({{project.id}},{{project.message.id}})" alt="Supprimer le projet" title="Supprimer le projet" />
+        {% else %}
+            {% if project.state <= 3 %}
+                {% ifequal user project.assignee %}
+                <img class="clickable" src="/img/icons/delprj.png" onclick="cancelProject({{project.id}}, {% if project.state > 1 %}true{% else %}false{% endif %})" alt="Annuler le projet" title="Annuler le projet" />
+                {% endifequal %}
+                {% if project|is_bidder:user %}
+                <img class="clickable" src="/img/icons/delprj.png" onclick="cancelBid({{project.id}}, {% if project.state > 1 %}true{% else %}false{% endif %})" alt="Annuler la participation au projet" title="Annuler la participation au projet" />
+                {% endif %}
+            {% endif %}
+        {% endifequal %}
     {% endif %}
-    {% ifequal project.bid_set.count 0 %}
-    <img class="clickable" src="/img/icons/delprj.png" onclick="deleteProject({{project.id}})" alt="Supprimer le projet" title="Supprimer le projet" />
-    {% else %}
-    {% if project.state <= 3 %}
-    {% ifequal user project.assignee %}
-    <img class="clickable" src="/img/icons/delprj.png" onclick="cancelProject({{project.id}}, {% if project.state > 1 %}true{% else %}false{% endif %})" alt="Annuler le projet" title="Annuler le projet" />
-    {% endifequal %}
-    {% if project|is_bidder:user %}
-    <img class="clickable" src="/img/icons/delprj.png" onclick="cancelBid({{project.id}}, {% if project.state > 1 %}true{% else %}false{% endif %})" alt="Annuler la participation au projet" title="Annuler la participation au projet" />
-    {% endif %}
-    {% endif %}
-    {% endifequal %}
-    {% endif %}
+    <img class="clickable" src="/img/icons/favprj.png" onclick="observeProject({{project.id}})" alt="Suivre le projet" title="Suivre le projet" />
 </div>

@@ -1,14 +1,16 @@
 {% load oifilters %}
-<a href="/project/get/{{task.id}}"><div id="project_{{task.id}}" class="smallprj">
-    <div class="prjtitle">{{task.title}}</div>
-    <div class="morelink"><img src="/img/link.png" /> Voir le détail</div>
-    <div class="actions smalltext">
-        <div class="progressbar">
+<a href="/project/get/{{task.id}}">
+    <div id="project_{{task.id}}" class="smallprj overlap">
+        <div class="morelink"><img src="/img/link.png" /> Voir le détail</div>
+        <span class="progressbar smalltext">
             <span id="progressbar_{{task.id}}" class="progress" style="width:{{task.progress|multiply:100|floatformat:0}}%;"></span>
-        </div><br/>
-        <span id="progresslabel_{{task.id}}" >{{task.progress|multiply:100}}%</span>
+            <span id="progresslabel_{{task.id}}" >{{task.progress|multiply:100}}%</span>
+        </span>
+        <span class="prjtitle"> {{task.title}}</span>
+        <div>
+            assigné à : {{task.assignee}}<br />
+            démarré le : {{task.start_date|date:"d/m/Y"}}<br />
+            du le : {{task.due_date|date:"d/m/Y"}}<br />
+        </div>
     </div>
-    assigné à : {{task.assignee}}<br />
-    démarré le : {{task.start_date|date:"d/m/Y"}}<br />
-    du le : {{task.due_date|date:"d/m/Y"}}<br />
-</div></a>
+</a>

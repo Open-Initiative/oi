@@ -1,17 +1,32 @@
 div.userpage {
-    height: 100%;
+    width: 600px;
     float: left;
-    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+div.userblock {
+    float: left;
+    clear: left;
+    padding: 10px;
+    width: 400px;
 }
 div.related {
-    border-left: solid 1px gray;
     float: right;
-    width: 510px;
-}
-div.contacts {
-    clear: left;
-    border-top: solid black 1px;
+    clear: right;
+    width: 300px;
 }
 div.usermsg {
     padding: 70px;
+}
+.contactinfo {
+    clear: left;
+}
+.contactpicture {
+    float: left;
+    width: 40px;
+    height: 60px;
+    margin-left: .2em;
+    margin-right: .6em;
+}
+.dashboardlist {
+    width:400px;
+    margin:0 20px;
 }

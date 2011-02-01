@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Préférences{% endblock %}
+{% block content %}
+<div>
+    Contact Information
+    <div>
+        {{user.get_profile.address}}
+        {{user.get_profile.postcode}}
+        {{user.get_profile.city}}
+        {{user.get_profile.country}}
+    </div>
+</div>
+<div>
+    <a href="/user/changepassword">Changer de mot de passe</a>
+</div>
+<div>
+    <h2>Notification preferences</h2>
+    {{user.get_profile.observed_messages.all}}<br/>
+    {{user.get_profile.observed_projects.all}}<br/>
+</div>
+<div>
+    Privacy settings
+</div>
+{% endblock %}

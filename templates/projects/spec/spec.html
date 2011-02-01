@@ -1,12 +1,13 @@
 {% load oifilters %}
-<div id="spec_{{project.id}}_{{spec.id}}">
+<div id="spec_{{project.id}}_{{spec.order}}">
     <div class="actions">
         {% if project|can_write:user %}
-        <img class="clickable" src="/img/icons/delspec.png" onclick="deleteSpec({{project.id}}, {{spec.id}})" alt="Supprimer la spécification" title="Supprimer la spécification"/>
-        <img class="clickable" src="/img/icons/editspec.png" onclick="editSpec({{project.id}}, {{spec.id}})" alt="Modifier la spécification" title="Modifier la spécification"/>
+        <img class="clickable" src="/img/icons/delspec.png" onclick="deleteSpec({{project.id}}, {{spec.order}})" alt="Supprimer la spécification" title="Supprimer la spécification"/>
+        <img class="clickable" src="/img/icons/editspec.png" onclick="editSpec({{project.id}}, {{spec.order}})" alt="Modifier la spécification" title="Modifier la spécification"/>
         <img class="clickable" src="/img/icons/addspec.png" onclick="addSpec({{project.id}}, {{spec.order}})" alt="Ajouter une spécification" title="Ajouter une spécification"/>
         {% endif %}
     </div>
+    <input type="hidden" id="specid_{{spec.order}}" value="{{spec.id}}" />
     {% if spec.type == 3 or spec.type == 4 %}<a href="{{spec.url}}" >{% endif %}
     {{spec.text|oiunescape}}
     {% if spec.type == 3 or spec.type == 4 %}</a>{% endif %}

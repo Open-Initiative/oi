@@ -1,0 +1,4 @@
+{% load i18n %}
+<a href="/user/profile/{{sender.username}}">{{sender}}</a>
+{% blocktrans %}vous a envoyé un message personnel :{% endblocktrans %}
+<a href="/user/messageswith/{{sender.username}}">{{subject}}</a>

@@ -1,22 +1,18 @@
 #coding: utf-8
 # Vues des messages
-from oi.messages.models import Message, PromotedMessage, OI_SCORE_ADD, OI_SCORE_DEFAULT_RELEVANCE, OI_EXPERTISE_FROM_ANSWER
-from oi.messages.models import OI_ALL_PERMS, OI_READ, OI_WRITE, OI_ANSWER, OINeedsMsgPerms
+from oi.messages.models import Message, PromotedMessage, OINeedsMsgPerms
 from oi.messages.templatetags.oifilters import oiescape
-from oi.users.models import User
+from oi.helpers import OI_PAGE_SIZE, OI_ALL_PERMS, OI_READ, OI_WRITE, OI_ANSWER, OI_SCORE_ADD, OI_SCORE_DEFAULT_RELEVANCE, OI_EXPERTISE_FROM_ANSWER
 from oi.settings import MEDIA_ROOT, MEDIA_URL
+from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
-from django.db.models import get_app
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.views.generic.list_detail import object_detail, object_list
+from django.views.generic.list_detail import object_list
 from django.views.generic.simple import direct_to_template
 from time import time
 from datetime import datetime
 import os
-
-OI_PAGE_SIZE = 10
-notification = get_app( 'notification' )
 
 def getmessages(request):
     """Apply filter to message list"""
@@ -42,8 +38,8 @@ def getmessage(request, id):
         return HttpResponseRedirect("/index/%s"%id)
     if mode == "small":
         return render_to_response('messages/messagesmall.html',{'message':message, 'depth':depth})
-    extra_context={'depth':depth, 'base':"%sbase.html"%mode}
-    return object_detail(request, queryset=Message.objects, object_id=id, extra_context=extra_context)
+    extra_context={'object':message, 'depth':depth, 'base':"%sbase.html"%mode}
+    return direct_to_template(request, template="messages/message_detail.html", extra_context=extra_context)
 
 def newmessage(request):
     """Shows the new message form"""
@@ -75,6 +71,8 @@ def savemessage(request, id):
     #Modification du message
     if id!='0':
         message = Message.objects.get(id=id)
+        if not message.has_perm(request.user, OI_WRITE):
+            return HttpResponseForbidden("Permissions insuffisantes")
         message.title = request.POST["title"]
         message.text = text
         message.save()
@@ -101,6 +99,11 @@ def savemessage(request, id):
             Message.objects.get(id=parent).add_expertise(Message.objects.get(id=parent).author, message.get_expertise(request.user)*OI_EXPERTISE_FROM_ANSWER, False)
         message.add_expertise(request.user, OI_SCORE_ADD, True)
     
+    #notify users about this message
+    request.user.get_profile().msg_notify_all(message, "answer", message.title)
+    #adds the message to user's observation
+    request.user.get_profile().observed_messages.add(message)
+
     #affiche le nouveau message en retour
     return render_to_response('messages/message.html',{'message' : message}, context_instance=RequestContext(request))
 
@@ -126,6 +129,12 @@ def sharemessage(request, id):
     message.set_perm(user, OI_ALL_PERMS)
     return HttpResponse(u"Message partagé")
 
+@OINeedsMsgPerms(OI_READ)
+def observemessage(request, id):
+    """adds the message in the observe list of the user"""
+    request.user.get_profile().observed_messages.add(Message.objects.get(id=id))
+    return HttpResponse("Message suivi")
+    
 @OINeedsMsgPerms(OI_WRITE)
 def movemessage(request, id):
     """Adds a parent to the message"""
@@ -135,6 +144,10 @@ def movemessage(request, id):
         return HttpResponse(u"Impossible de déplacer un message vers sa réponse")
     message.parents.add(parent)
     message.save() # to recompute ancestors
+
+    #notify users about this message
+    request.user.get_profile().msg_notify_all(parent, "answer", message.title)
+
     return HttpResponse(u"Message déplacé")
 
 @OINeedsMsgPerms(OI_WRITE)

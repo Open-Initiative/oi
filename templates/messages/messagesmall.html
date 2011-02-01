@@ -1,5 +1,5 @@
 {% load oifilters %}
-<div class="smallmsg overlap clickable" onclick="expandMessage({{message.id}}, {{depth}})">
+<div class="smallmsg overlap clickable" {% if depth %}onclick="expandMessage({{message.id}}, {{depth}})"{% endif %}>
     <div class="morelink"><span class="details"><img src="/img/link.png" /> Lire la suite</span></div>
     <span class="msgtitle">{{message.title}}</span> {{message.text|summarize}}
 </div>

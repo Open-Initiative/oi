@@ -1,17 +1,19 @@
 #coding: utf-8
 # Vues des projets
-from oi.settings import MEDIA_ROOT, TEMP_DIR
 from oi.projects.models import Project, Spec, Bid, PromotedProject, OINeedsPrjPerms
-from oi.projects.models import OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS
-from oi.messages.models import Message, OI_READ, OI_ANSWER, OI_WRITE, OI_ALL_PERMS
+from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape
-from oi.users.models import User
-from django.http import HttpResponse,HttpResponseForbidden,HttpResponseRedirect
+from oi.helpers import OI_READ, OI_ANSWER, OI_WRITE, OI_ALL_PERMS
+from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS
+from oi.settings import MEDIA_ROOT, TEMP_DIR
+from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
 from django.core.files import File
 from django.views.generic.list_detail import object_detail, object_list
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from notification import models as notification
 from time import time
 from datetime import datetime,timedelta
 from decimal import Decimal
@@ -64,7 +66,7 @@ def saveproject(request, id='0'):
         
     else: #existing project
         project = Project.objects.get(id=id)
-        if not project.has_perm(request.user, OI_ANSWER):
+        if not project.has_perm(request.user, OI_WRITE):
             return HttpResponseForbidden("Permissions insuffisantes")
         project.title = request.POST["title"]
 
@@ -81,6 +83,11 @@ def saveproject(request, id='0'):
     project.set_perm(author, OI_ALL_PERMS)
     if project.assignee:
         project.set_perm(project.assignee, OI_ALL_PERMS)
+        
+    #notify users about this project
+    request.user.get_profile().msg_notify_all(project.message, "new_project", project)
+    #adds the project to user's observation
+    request.user.get_profile().observed_projects.add(project)
     if request.POST.get("inline","0") == "1":
         return HttpResponseRedirect('/project/gettask/%s'%project.id)
     else:
@@ -95,7 +102,24 @@ def editdate(request, id):
 
     project.__setattr__(request.POST["field_name"],request.POST["date"])
     project.save()
+    
+    #notify users about this project
+    request.user.get_profile().prj_notify_all(project, "project_modified", request.POST["date"])
     return HttpResponse("Date mise à jour")
+
+@OINeedsPrjPerms(OI_WRITE)
+def edittitle(request, id):
+    """Modifies the title of the project"""
+    project = Project.objects.get(id=id)
+    if project.state > OI_ACCEPTED:
+        return HttpResponse("Impossible de modifier un projet démarré")
+
+    project.title = request.POST["title"]
+    project.save()
+    
+    #notify users about this project
+    request.user.get_profile().prj_notify_all(project, "project_modified", project.title)
+    return HttpResponse("Titre mise à jour")
 
 @OINeedsPrjPerms(OI_READ)
 @login_required
@@ -114,6 +138,11 @@ def takeonproject(request, id):
     if project.is_ready_to_start():
         project.state = OI_ACCEPTED
         project.save()
+    
+    #adds the project to user's observation
+    request.user.get_profile().observed_projects.add(project)
+    #notify users about this project
+    request.user.get_profile().prj_notify_all(project, "project_modified", project.state)
     return HttpResponse("Projet pris en charge")
 
 @OINeedsPrjPerms(OI_READ)
@@ -135,6 +164,11 @@ def bidproject(request, id):
     if project.is_ready_to_start():
         project.state = OI_ACCEPTED
         project.save()
+    
+    #adds the project to user's observation
+    request.user.get_profile().observed_projects.add(project)
+    #notify users about this new bid
+    request.user.get_profile().prj_notify_all(project, "project_bid", bid)
     return HttpResponse("Souscription enregistrée")
 
 @OINeedsPrjPerms(OI_READ)
@@ -145,7 +179,10 @@ def startproject(request, id):
         # only the assignee can start the project
         if project.assignee == request.user:
             project.state = OI_STARTED
+            project.start_date = datetime.now()
             project.save()
+            #notify users about this state change
+            request.user.get_profile().prj_notify_all(project, "project_state", OI_PRJ_STATES[project.state][1])
     return HttpResponse("Projet démarré")
 
 @OINeedsPrjPerms(OI_WRITE)
@@ -158,6 +195,9 @@ def deliverproject(request, id):
             project.progress = 1.
             project.state = OI_DELIVERED
             project.save()
+
+            #notify users about this state change
+            request.user.get_profile().prj_notify_all(project, "project_state", OI_PRJ_STATES[project.state][1])
     return HttpResponse("Projet terminé")
 
 @OINeedsPrjPerms(OI_READ)
@@ -167,6 +207,8 @@ def validateproject(request, id):
     if project.state == OI_DELIVERED:
         for bid in Bid.objects.filter(user=request.user):
             bid.validated = True
+            if request.user==project.assignee:
+                bid.rating = -2 # the assignee doesn't evaluates himself
             bid.save()
         # If there are no more users waiting for validation
         if project.bid_set.filter(validated=False).count()==0:
@@ -174,16 +216,22 @@ def validateproject(request, id):
             # pays the assignee
             project.assignee.get_profile().make_payment(project.offer, project)
             project.save()
+
+            #notify users about this state change
+            request.user.get_profile().prj_notify_all(project, "project_state", OI_PRJ_STATES[project.state][1])
     return HttpResponse("Validation enregistrée")
 
 @OINeedsPrjPerms(OI_READ)
 def evaluateproject(request, id):
     """Gives user's evaluation on the project"""
     project = Project.objects.get(id=id)
+    rating = int(request.POST["rating"])
     if project.state == OI_VALIDATED:
         for bid in Bid.objects.filter(user=request.user):
-            bid.rating = int(request.POST["rating"])
+            bid.rating = rating
             bid.save()
+        #notify assignee that he has an evaluation
+        notification.send([project.assignee], "project_eval", {'project':project, 'rating':rating}, True, request.user)
     return HttpResponse("Evaluation enregistrée")
 
 @OINeedsPrjPerms(OI_READ)
@@ -203,6 +251,8 @@ def cancelbid(request, id):
             bid.rating = -1
             bid.validated = True #We won't ask for user's validation anymore
             bid.save()
+    #notify users about this bid cancellation
+    request.user.get_profile().prj_notify_all(project, "project_cancel", bid)
     return HttpResponse("Projet annulé. En attente de la confirmation des autres utilisateurs")
 
 @OINeedsPrjPerms(OI_WRITE)
@@ -237,6 +287,8 @@ def cancelproject(request, id):
         request.user.get_profile().make_payment(-project.commission, project)
         project.commission = 0
     project.save()
+    #notify users about this cancellation
+    request.user.get_profile().prj_notify_all(project, "project_cancel", project.title)
     return HttpResponse("Projet annulé. En attente de la confirmation des autres utilisateurs")
 
 @OINeedsPrjPerms(OI_READ)
@@ -294,8 +346,15 @@ def editprogress(request, id):
         return HttpResponse("Valeur incorrecte")
     project.progress = Decimal(progress) / 100
     project.save()
+    #notify users about this state change
+    request.user.get_profile().prj_notify_all(project, "project_state", "%s %%"%project.progress)
     return HttpResponse("Avancement mis à jour")
 
+@OINeedsPrjPerms(OI_READ)
+def observeproject(request, id):
+    """adds the project in the observe list of the user"""
+    request.user.get_profile().observed_projects.add(Project.objects.get(id=id).master)
+    return HttpResponse("Projet suivi")
 
 @OINeedsPrjPerms(OI_READ)
 def projectview(request, id):
@@ -359,6 +418,8 @@ def savespec(request, id, specid='0'):
         os.remove(path)
     spec.save()
 
+    #notify users about this spec change
+    request.user.get_profile().prj_notify_all(project, "project_spec", spec)
     return render_to_response('projects/spec/spec.html',{'user': request.user, 'project' : project, 'spec' : spec})
 
 @OINeedsPrjPerms(OI_WRITE)

@@ -31,7 +31,7 @@ div.prjbtmsum {
     background: url('/img/prjbtmsum.png');
 }
 
-div.prjtitle {
+.prjtitle {
     font-size: 1.2em;
 }
 div.tasklist {
@@ -45,11 +45,7 @@ div.smallprj {
     padding: 15px;
     background: url('/img/project.png');
     color: #778e9c;
-}
-.filedest {
-    visibility: hidden;
-    height: 0;
-    width: 0;
+    position: relative;
 }
 .viewtaskalign {
     position:relative;

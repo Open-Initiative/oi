@@ -1,0 +1,7 @@
+<form name="form_{{divid}}">
+    <table>{{ form }}</table>
+    <img class="clickable" src="/img/icons/ok-32.png" onclick="saveDetail('{{divid}}', {{id}})"/>
+    <img class="clickable" src="/img/icons/del-32.png" onclick="clearDiv('{{divid}}')"/>
+    <input name="divid" type="hidden" value="{{divid}}" />
+    <input name="type" type="hidden" value="{{type}}" />
+</form>

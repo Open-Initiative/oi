@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Réinitialisation du mot de passe{% endblock %}
 {% block content %}
+{{message}}
 <form method="post" action="/user/confirmresetpassword">
     <div>
         <label for="username">Nom d'utilisateur</label>

@@ -1,7 +1,7 @@
 <select id="type_{{divid}}" value="{{spec.type}}" onchange="changeSpecType('{{divid}}')">
-{%for elttype in types.items%}
-<option value={{elttype.0}} {% ifequal elttype.0 spec.type %}selected{% endifequal %} >{{elttype.1}}</option>
-{%endfor%}
+{% for elttype in types.items %}
+<option value={{elttype.0}} {% ifequal elttype.0 spec.type %}selected {% endifequal %}>{{elttype.1}}</option>
+{% endfor %}
 </select>
 <input type="hidden" id="specid_{{divid}}" value="{{spec.id|default:0}}" />
 <input type="hidden" id="projectid_{{divid}}" value="{{project.id}}" />

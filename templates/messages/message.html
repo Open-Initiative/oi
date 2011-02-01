@@ -2,26 +2,7 @@
 <div id="message_{{message.id}}" class="message" >
     <div class="msgtop"></div>
     <div class="msgbody">
-        <div class="actions">
-            {% if not message|ip_has_voted:request.META.REMOTE_ADDR and user.is_anonymous or not message|has_voted:user and user.is_authenticated%}
-                <img class="clickable" src="/img/icons/relevantmsg.png" onclick="vote({{message.id}},1)" title="Message pertinent">
-                <img class="clickable" src="/img/icons/irrelevantmsg.png" onclick="vote({{message.id}},-1)" title="Message non pertinent">
-            {% endif %}
-            {% if message|can_answer:user %}<a href="/project/edit/0?message={{message.id}}">
-                <img src="/img/icons/addprj.png" alt="Proposer un nouveau projet" title="Proposer un nouveau projet"/>
-            </a>
-            <img class="clickable" src="/img/icons/answermsg.png" onclick="addMessage({{message.id}})" alt="Répondre au message" title="Répondre au message" />
-            {% endif %}
-            {% if message|can_write:user %}
-            {% if message.public %}
-            <img class="clickable" src="/img/icons/privatemsg.png" onclick="hideMessage({{message.id}})" alt="Message privé" title="Message privé" />
-            {% else %}
-            <img class="clickable" src="/img/icons/sharemsg.png" onclick="shareMessage({{message.id}})" alt="Partager le message" title="Partager le message" />
-            {% endif %}
-            <img class="clickable" src="/img/icons/delmsg.png" onclick="deleteMessage({{message.id}})" alt="Supprimer le message" title="Supprimer le message" />
-            <img class="clickable" src="/img/icons/editmsg.png" onclick="editMessage({{message.id}})" alt="Modifier le message" title="Modifier le message" />
-            {% endif %}
-        </div>
+    {% include "messages/message_actions.html" %}
         <div class="clickable msgtitle" onclick="shrinkMessage({{message.id}}, {{depth|default:0}})">
             {{message.title}}
         </div>
@@ -63,12 +44,12 @@
                 {% include templatename %}
             {% endwith %}
             {% endif %}
-            </div>
-            {% endwith %}
+        </div>
+        {% endwith %}
         {% else %}
-        {% for child in message.get_children %}
+        {% for child in message.children.all|dictsortreversed:"relevance" %}
         {% if child|can_read:user %}
-        <div id="message_{{child.id}}_box" style="position:relative">
+        <div id="message_{{child.id}}_box">
             {% with child as message %}{% include "messages/messagesmall.html" %}{% endwith %}
         </div>
         {% endif %}

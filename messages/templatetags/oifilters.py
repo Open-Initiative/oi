@@ -61,22 +61,34 @@ def oidateshift(end_date, start_date):
         return (end_date-start_date).days+1
     except:
         return None
-        
+    
 @register.filter
 def can_read(obj, user):
-    return obj.has_perm(user, OI_READ)
+    can_read = getattr(obj,"can_read",None) #request caching for performance
+    if can_read==None:
+        can_read = obj.has_perm(user, OI_READ)
+        setattr(obj, "can_read", can_read)
+    return can_read
 
 @register.filter
 def can_write(obj, user):
-    return obj.has_perm(user, OI_WRITE)
+    can_write = getattr(obj,"can_write",None) #request caching for performance
+    if can_write==None:
+        can_write = obj.has_perm(user, OI_WRITE)
+        setattr(obj, "can_write", can_write)
+    return can_write
 
 @register.filter
 def can_answer(obj, user):
-    return obj.has_perm(user, OI_READ)
+    can_answer = getattr(obj,"can_answer",None) #request caching for performance
+    if can_answer==None:
+        can_answer = obj.has_perm(user, OI_ANSWER)
+        setattr(obj, "can_answer", can_answer)
+    return can_answer
 
 @register.filter
 def is_bidder(prj, user):
-    return prj.bid_set.filter(user=user).filter(rating=None).count() > 0
+    return user.is_authenticated() and prj.bid_set.filter(user=user).filter(rating=None).count() > 0
 
 @register.filter
 def ip_has_voted(obj,ip_address):

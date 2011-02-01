@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Messages personnels{% endblock %}
+{% block content %}
+<div class="column" style="width:600px">
+    <h1>Messages personnels avec <a href="/user/profile/{{contact.username}}">{{contact}}</a></h1>
+    {% for pm in personalmessages %}
+    <div class="contactinfo" style="padding:10px">
+        <div class="contactpicture" style="padding:10px">
+            {{pm.from_user}}
+            <img class="contactpicture" src="/user/getpicture/{{pm.from_user.username}}" />
+        </div>
+        <div>
+        <h3>{{pm.subject}}</h3>
+            {{pm.sent_date}}<br/>
+            {{pm.text}}
+        </div>
+    </div>
+    {% endfor %}
+    <h2>Répondre</h2>
+    {% with contact as params %}
+    {% include "users/writemp.html" %}
+    {% endwith %}
+</div>
+{% endblock %}

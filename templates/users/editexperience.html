@@ -1,5 +1,6 @@
-<form action="/user/saveexperience/{{id}}" method="POST">
-{{ form.as_p }}
-<input type="submit" />
+<form name="form_{{divid}}">
+    <table>{{ form }}</table>
+    <img class="clickable" src="/img/icons/ok-32.png" onclick="saveExperience('{{divid}}')"/>
+    <img class="clickable" src="/img/icons/del-32.png" onclick="clearDiv('{{divid}}')"/>
+    <input name="divid" type="hidden" value="{{divid}}" />
 </form>
-

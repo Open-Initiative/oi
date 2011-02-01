@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+﻿{% load oifilters %}
+{% block title %}Tableau de bord{% endblock %}
+{% block nav %}
+    <div class="navitem"><img src="/img/fleche2.png" /> Mes domaines</div>
+    <div id="arbo" class="subcateg"></div>
+
+    <div>
+        <h3>Mes Contacts ({{user.get_profile.contacts.count}})</h3>
+        {% for contact in user.get_profile.contacts.all %}
+        <div class="contactinfo">
+            <img class="contactpicture" src="/user/getpicture/{{contact.user.username}}" />
+            <a href="/user/profile/{{contact.user.username}}">{{contact.user}}</a><br />
+            {% if contact.title %}
+            {{contact.title}}
+            {% else %}
+            {{contact.get_titles|first}}
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block content %}
+<div class="column" style="margin:0 70px 0 40px">
+    <div class="popup invisible" id="deposit">
+        Montant :<input id="amount" /><br />
+        <img src="/img/icons/ok-32.png" /><img class="clickable" onclick="hide('deposit')" src="/img/icons/del-32.png" />
+    </div>
+    Mon compte : {{user.get_profile.balance|default:0}} €
+    <img class="clickable" src="/img/icons/add.png" onclick="show('deposit')" title="Alimenter le compte" />
+    <h3>Nouveautés dans les discussions :</h3>
+    <div class="pile">
+        {%for message in user.get_profile.get_message_updates|slice:":5" %}
+        <a  href="/message/get/{{message.id}}">
+            {% include "messages/messagesmall.html" %}
+        </a>
+        {%endfor%}
+        <a><img src="/img/link.png" /> Plus de nouveautés</a>
+    </div>
+    <h3>Nouveautés dans les projets :</h3>
+    <div class="pile">
+        {%for project in user.get_profile.get_project_updates|slice:":5" %}
+            {% include "projects/projectsmall.html" %}
+        {%endfor%}
+        <a><img src="/img/link.png" /> Plus de nouveautés</a>
+    </div>
+</div>
+<div class="column" style="width:400px">
+    <h3>Notifications</h3>
+    {% for notice in user.recieved_notices.all|slice:":3" %}
+    <div class="contactinfo">
+        <img class="contactpicture" src="/user/getpicture/{{notice.sender.username}}" />
+        {{notice|safe}}
+    </div>
+    {% endfor %}
+    <div class="contactinfo"><a href="/notification"><img src="/img/link.png" /> Toutes les notifications</a></div>
+    <h3>Mes messages</h3>
+    {% for pm in user.get_profile.get_discussions %}
+    <div class="contactinfo">
+        <img class="contactpicture" src="/user/getpicture/{{pm.from_user.username}}" />
+        <a href="/user/messageswith/{{pm.from_user.username}}">
+            {{pm.from_user.username}} : {{pm.subject}}
+            <div>{{pm.text|summarize}}</div>
+        </a>
+    </div>
+    {% endfor %}
+    <div class="contactinfo"><a href="/user/discussions"><img src="/img/link.png" /> Toutes les messages personnels</a></div>
+    <h3>Mon réseau</h3>
+</div>
+<script>
+    ajaxParams = document.location.hash.split("/");
+    if(ajaxParams[0] == "#deposit"){
+        show('deposit');
+        document.getElementById('amount').value = ajaxParams[1];
+    }
+    OIajaxCall("/message/listcategories/0?dest=index",null,"arbo");
+    {% for categ in user.get_profile.get_categories %}
+    selectCateg(document.getElementById("categ_{{categ.id}}"),{{categ.id}}, "index");
+    {% endfor %}
+</script>
+{% endblock %}

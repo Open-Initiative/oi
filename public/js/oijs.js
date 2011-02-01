@@ -32,6 +32,16 @@ function show(divid) {
 function hide(divid) {
     document.getElementById(divid).style.display="none";
 }
+function prepareForm(formid) {
+    form = document.forms[formid];
+    params=[];
+    for(i=0;i<form.elements.length;i++)
+        if(form.elements[i].type=="checkbox")
+            params.push(form.elements[i].name+"="+form.elements[i].checked);
+        else
+            params.push(form.elements[i].name+"="+form.elements[i].value);
+    return params.join('&');
+}
 
 function uploadFile(field_name, url, type, win) {
     tinyMCE.activeEditor.windowManager.open({file:'/message/uploadForm', width:300,height:200,close_previous:"no",popup_css:false,inline:"yes"},
@@ -126,10 +136,11 @@ function setPrjState(span,statenum) {
 
 tinyMCE.init({
 		// General options
-		mode : "textareas",
+		mode : "specific_textareas",
+		editor_deselector : "MPmessage",
 		theme : "advanced",
 		content_css : "/css/tinymce.css",
-		plugins : "advlink,emotions,iespell,inlinepopups,media,searchreplace,print,contextmenu,paste,noneditable,nonbreaking,xhtmlxtras,advlist,autosave",
+		plugins : "advlink,emotions,iespell,inlinepopups,media,searchreplace,print,contextmenu,paste,noneditable,nonbreaking,xhtmlxtras,advlist",
 
 		// Theme options
 		theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontselect,fontsizeselect",

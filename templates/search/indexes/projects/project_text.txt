@@ -4,7 +4,7 @@
 {{object.title}}
 {{object.title}}
 
-{%for spec in object.get_specs%}
+{%for spec in project.spec_set.all%}
     {{spec.text}}
     {{spec.url}}
     {{spec.file}}

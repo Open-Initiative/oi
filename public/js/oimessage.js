@@ -21,6 +21,7 @@ function addMessage(parentid) {
         url = "/message/edit/0?divid="+divid+"&parents="+parentid;
     }
     OIajaxCall(url, null, divid);
+    document.getElementById(divid).scrollIntoView();
     tinyMCE.execCommand('mceAddControl', false, "text_"+divid);
     tinyMCE.execCommand('mceFocus', false, "text_"+divid);
 }
@@ -32,7 +33,10 @@ function saveMessage(divid, msgid){
     OIajaxCall("/message/save/"+msgid, params, divid);
 }
 function cancelMessage(divid, msgid){
-    if(msgid==0) document.location = "/";
+    if(msgid==0) {
+        if(getValue("parents_"+divid)) clearDiv(divid);
+        else document.location = "/";
+    }
     else {
         tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
         OIajaxCall("/message/get/"+msgid+"?mode=ajax", null, divid);
@@ -72,4 +76,7 @@ function deleteMessage(msgid) {
 }
 function vote(msgid, opinion){
     OIajaxCall("/message/vote/"+msgid, "opinion="+opinion, "output");
+}
+function observeMessage(msgid){
+    OIajaxCall("/message/observe/"+msgid, null, "output");
 }

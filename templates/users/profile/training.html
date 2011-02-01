@@ -1,0 +1,12 @@
+<div id="training_{{training.id}}">
+    <h3>
+        {{training.begining.year}} à {{training.end.year|default:"Aujourd'hui"}} -
+        {{training.degree}} à {{training.university}}
+        {% ifequal user selected_user %}
+        <img class="clickable" src="/img/icons/edit.png" onclick="editDetail('training','training_{{training.id}}',{{training.id}})" />
+        <img class="clickable" src="/img/icons/delete.png" onclick="deleteDetail({{training.id}},'training')" />
+        {% endifequal %}
+    </h3>
+    {{training.comment}}
+</div>
+

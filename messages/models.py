@@ -1,21 +1,13 @@
 ﻿# coding: utf-8
 # Modèles des messages
+from oi.helpers import OI_SCORE_ANONYMOUS, OI_SCORE_DEFAULT_RELEVANCE, OI_SCORE_ADD, OI_SCORE_VOTE, OI_SCORE_FRACTION_TO_PARENT
+from oi.helpers import OI_SCORE_FRACTION_FROM_PARENT, OI_EXPERTISE_TO_MESSAGE, OI_EXPERTISE_TO_AUTHOR, OI_EXPERTISE_FROM_ANSWER
+from oi.helpers import OI_ALL_PERMS, OI_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_ANSWER
 from django.db import models
 from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden, Http404
 from django.shortcuts import get_object_or_404
 from math import copysign
-
-# Constantes de transmission de pertinence
-OI_SCORE_ANONYMOUS = 1. #Score du vote anonyme
-OI_SCORE_DEFAULT_RELEVANCE = 10. #Pertinence par défaut des messages
-OI_SCORE_ADD = 3. #Score au contributeur
-OI_SCORE_VOTE = 2. #Score au votant
-OI_SCORE_FRACTION_TO_PARENT = .5 #Fraction montante
-OI_SCORE_FRACTION_FROM_PARENT = .5 #Fraction descendante
-OI_EXPERTISE_TO_MESSAGE = .02 #Transmission d'expertise au message
-OI_EXPERTISE_TO_AUTHOR = .02 #Transmission d'expertise à l'auteur
-OI_EXPERTISE_FROM_ANSWER = .002 #Fraction transmise par une réponse
 
 # Représentation du message
 class Message(models.Model):
@@ -144,24 +136,22 @@ class Message(models.Model):
         return ancestors
         
     def get_categories(self):
+        """returns categories of which the message descents"""
         return self.ancestors.filter(category=True)
     
-    def get_children(self):
-        return self.children.order_by("-relevance")
-    
+#!!DEPRECATED!!
+#    def get_children(self):
+#        """returns children of the message, most relevant first"""
+#        return self.children.order_by("-relevance")
+        
     def __unicode__(self):
         return "%s : %s"%(self.id, self.title)
-
-#Liste des permissions sur les messages
-OI_ALL_PERMS = -1
-OI_RIGHTS = [OI_READ, OI_WRITE, OI_ANSWER] = [1,2,4]
-OI_MSG_PERMS = ((OI_READ, "Lecture"), (OI_WRITE, "Ecriture"), (OI_ANSWER, "Réponse"),) 
 
 #Structure de contrôle des permissions
 class MessageACL(models.Model):
     user = models.ForeignKey(User)
     message = models.ForeignKey(Message)
-    permission = models.IntegerField(choices=OI_MSG_PERMS)
+    permission = models.IntegerField(choices=OI_PERMS)
     class Meta:
         unique_together = (("message", "user", "permission"),)
     def __unicode__(self):

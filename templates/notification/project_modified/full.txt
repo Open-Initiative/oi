@@ -1,0 +1,4 @@
+{% load i18n %}
+<a href="/user/profile/{{sender.username}}">{{sender}}</a>
+{% blocktrans %} a modifié un projet que vous suivez :{% endblocktrans %}
+<a href="/project/get/{{project.id}}">{{project.title}}</a>

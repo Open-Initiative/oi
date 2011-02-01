@@ -1,0 +1,12 @@
+<div id="experience_{{experience.id}}">
+    <h3>
+        {{experience.begining.year}} à {{experience.end.year|default:"Aujourd'hui"}} -
+        {{experience.job}} chez {{experience.company}}
+        {% ifequal user selected_user %}
+        <img class="clickable" src="/img/icons/edit.png" onclick="editDetail('experience','experience_{{experience.id}}',{{experience.id}})" />
+        <img class="clickable" src="/img/icons/delete.png" onclick="deleteDetail({{experience.id}},'experience')" />
+        {% endifequal %}
+    </h3>
+    {{experience.description}}
+</div>
+

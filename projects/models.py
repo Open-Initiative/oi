@@ -1,15 +1,13 @@
 # coding: utf-8
 # Modèles des projets
-from oi.messages.models import Message, OI_ALL_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_ANSWER
+from oi.helpers import OI_ALL_PERMS, OI_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_ANSWER
+from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS
+from oi.messages.models import Message
 from oi.settings import MEDIA_ROOT
+from django.db import models
 from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden
-from django.db import models
 from datetime import datetime
-
-#Liste des permissions sur les projets
-[OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED,  OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS] = [0,1,2,3,4,11,12,99]
-OI_PRJ_STATES = ((OI_PROPOSED, "Proposé"), (OI_ACCEPTED, "Accepté"), (OI_STARTED, "Démarré"), (OI_DELIVERED, "Livré"), (OI_VALIDATED, "Validé"), (OI_CANCELLED, "Annulé"),(OI_POSTPONED, "Retardé"),(OI_CONTENTIOUS, "Litigieux"),)
 
 # A project can contain subprojects and/or specs. Without them it is only a task
 class Project(models.Model):
@@ -32,15 +30,18 @@ class Project(models.Model):
     
     # surcharge la sauvegarde pour le calcul du projet maitre
     def save(self):
-        parent = self
-        while parent.parent:
-            parent = parent.parent
-        self.master = parent
         super(Project, self).save()
+        if not self.master:
+            parent = self
+            while parent.parent:
+                parent = parent.parent
+            self.master = parent
+            super(Project, self).save()
 
-    def get_specs(self):
-        """Returns all the specs of the project"""
-        return self.spec_set.order_by('order')
+#!!DEPRECATED!!
+#    def get_specs(self):
+#        """Returns all the specs of the project"""
+#        return self.spec_set.order_by('order')
         
     def get_max_order(self):
         """Returns the position of the last spec of the project"""
@@ -125,14 +126,11 @@ class Project(models.Model):
     def __unicode__(self):
         return "%s : %s"%(self.id, self.title)
 
-#Liste des permissions sur les projets
-OI_PRJ_PERMS = ((OI_READ, "Lecture"), (OI_WRITE, "Ecriture"), (OI_ANSWER, "Réponse"),) 
-
 #Structure de contrôle des permissions
 class ProjectACL(models.Model):
     user = models.ForeignKey(User)
     project = models.ForeignKey(Project)
-    permission = models.IntegerField(choices=OI_PRJ_PERMS)
+    permission = models.IntegerField(choices=OI_PERMS)
     class Meta:
         unique_together = (("project", "user", "permission"),)
     def __unicode__(self):
@@ -174,6 +172,11 @@ class Spec(models.Model):
     order = models.IntegerField()
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+    
+    #saves project as well
+    def save(self):
+        self.project.save()
+        super(Spec, self).save()   
 
 # Offer of users on projets
 class Bid(models.Model):
@@ -185,7 +188,7 @@ class Bid(models.Model):
     comment = models.TextField()
 
     def cancel(self):
-        """Cancels the bid  : reimburses the bidder, reduces project offer, and deletes the bid"""
+        """Cancels the bid : reimburses the bidder, reduces project offer, and deletes the bid"""
         self.project.offer -= self.amount
         self.project.save()
         self.user.get_profile().make_payment(self.amount, self.project)

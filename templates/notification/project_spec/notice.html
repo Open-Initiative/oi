@@ -1,0 +1,5 @@
+{% load i18n %}{% load oifilters %}
+<a href="/user/profile/{{sender.username}}">{{sender}}</a>
+{% blocktrans %} a modifié la spécification d'un projet que vous suivez :{% endblocktrans %}
+<a href="/project/get/{{project.id}}">{{project.title}}</a> : <br />
+{{param.text|oiunescape}}

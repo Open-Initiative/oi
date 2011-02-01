@@ -11,7 +11,7 @@
             du le : {{project.due_date|date:"d/m/Y"}}<br />
         </div>
         <div id="specs_{{project.id}}">
-        {%for spec in project.get_specs%}
+        {%for spec in project.spec_set.all|dictsort:"order"%}
             <div id="specs_{{project.id}}_{{spec.order}}">
                 {{spec.text|summarize}}
             </div>

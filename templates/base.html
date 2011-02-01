@@ -25,9 +25,13 @@
             {% block header %}
             <div class="userheader">
                 {%if user.is_authenticated%}
-                {{user}}
+                <div class="contactpicture">
+                    {{user}}
+                    <img class="contactpicture" src="/user/getpicture/{{user.username}}" />
+                </div>
+                <div><a class="homelink" href="/user/dashboard">Mon tableau de bord</a></div>
                 <div><a class="homelink" href="/user/myprofile">Mon profil</a></div>
-                <div><a class="homelink" href="">Préférences</a></div>
+                <div><a class="homelink" href="/user/preferences">Préférences</a></div>
                 <div><a class="homelink" href="/logout">Déconnexion {{user}}</a></div>
                 {%else%}
                 <div><a class="homelink" href="/login">Se connecter</a></div>
@@ -40,7 +44,7 @@
             </div>
             <a href="/"><img src="/img/logo.png" id="logo" /></a>
             <span style="position:relative;top:80px;left:-80px;font-size:16px;font-weight:bold">BETA</span>
-            <span id="subtitle">Portail communautaire de travail collaboratif</span>
+            <span id="subtitle">la communauté informatique au service des entreprises</span>
             <div id="output"></div>
             {% endblock %}
         </div>
