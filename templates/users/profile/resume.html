@@ -1,0 +1,71 @@
+<table id="userprofile">
+    <tr>
+        <td width="70%">
+            <h1>{{selected_user.first_name}} {{selected_user.last_name}}</h1>
+            <h2>{{selected_user.username}}</h2>
+            <div id="usertitle">
+                <h3>
+                    {% if selected_user.get_profile.title %}
+                    {{selected_user.get_profile.title}}
+                    {% else %}
+                    {{selected_user.get_profile.get_titles|first}}
+                    {% endif %}
+                    {% ifequal user selected_user %}
+                    <img class="clickable" src="/img/icons/edit.png" onclick="editTitle()" />
+                    {% endifequal %}
+                </h3>
+            </div>
+        </td>
+        <td>
+            <div class="userpicture">
+                <img id="user_picture" width="100" height="150" src="/user/getpicture/{{selected_user.username}}" />
+                {% ifequal user selected_user %}
+                <img class="clickable" src="/img/icons/edit.png" onclick="show('profile_picture')" />
+                <div id="profile_picture" class="invisible">
+                    <form id="profile_picture_form" method="POST" enctype="multipart/form-data" action="/user/uploadpicture" target="picturedest">
+                        <input id="picture" name="picture" type="file" size="1" onchange="document.getElementById('profile_picture_form').submit();hide('profile_picture')" />
+                    </form>
+                </div>
+                <iframe id="picturedest" name="picturedest" class="filedest"></iframe>
+                {% endifequal %}
+            </div>
+            <div class="actions">
+                {{user.get_profile.city|default:""}}<br/>
+                ({{user.get_profile.country|default:"localisation non précisée"}})
+                {% ifequal user selected_user %}
+                <a href="/user/preferences"><img src="/img/icons/edit.png" /></a>
+                {% endifequal %}
+                <br />
+                né le <span id="birthdate">{{selected_user.get_profile.birthdate|date:"d/m/Y"}}</span>
+                {% ifequal user selected_user %}{% include "users/profile/edit_date.html" %}{% endifequal %}
+            </div>
+        </td>
+    </tr>
+</table>
+<div id="skill" class="userblock">
+    {% ifequal user selected_user %}<div class="actions">
+        <img src="/img/icons/add.png" class="clickable" onclick="editDetail('skill')" alt="Ajouter une compétence" title="Ajouter une compétence" />
+    </div>{% endifequal %}
+    <h2 class="resumetitle">Compétences</h2>
+    {% for skill in selected_user.skill_set.all %}
+        {% include "users/profile/skill.html" %}
+    {% endfor %}
+</div>
+<div id="experience" class="userblock">
+    {% ifequal user selected_user %}<div class="actions">
+        <img src="/img/icons/add.png" class="clickable" onclick="editDetail('experience')" alt="Ajouter une expérience" title="Ajouter une expérience" />
+    </div>{% endifequal %}
+    <h2 class="resumetitle">Expérience</h2>
+    {% for experience in selected_user.experience_set.all|dictsortreversed:"begining" %}
+        {% include "users/profile/experience.html" %}
+    {% endfor %}
+</div>
+<div id="training" class="userblock">
+    {% ifequal user selected_user %}<div class="actions">
+        <img src="/img/icons/add.png" class="clickable" onclick="editDetail('training')" alt="Ajouter une formation" title="Ajouter une formation" />
+    </div>{% endifequal %}
+    <h2 class="resumetitle">Formation</h2>
+    {% for training in selected_user.training_set.all|dictsortreversed:"begining" %}
+        {% include "users/profile/training.html" %}
+    {% endfor %}
+</div>

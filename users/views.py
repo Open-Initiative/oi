@@ -1,9 +1,7 @@
 #coding: utf-8
 # Vues des utilisateurs
-from oi.settings import MEDIA_ROOT
-from oi.users.models import User, UserProfile, UserProfileForm,  PersonalMessage
-from oi.users.models import Training, TrainingForm, Experience, ExperienceForm, Skill, SkillForm, OI_USERPROFILE_DETAILS_CLASSES
-from oi.projects.models import Bid
+import os
+from random import random
 from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -15,8 +13,11 @@ from django.views.generic.simple import direct_to_template
 from django.db.models import get_app, Count, Avg
 from django.db import IntegrityError
 from notification import models as notification
-from random import random
-import os
+from oi.settings import MEDIA_ROOT, MEDIA_URL
+from oi.helpers import render_to_pdf
+from oi.users.models import User, UserProfile, UserProfileForm,  PersonalMessage
+from oi.users.models import Training, TrainingForm, Experience, ExperienceForm, Skill, SkillForm, OI_USERPROFILE_DETAILS_CLASSES
+from oi.projects.models import Bid
 
 @login_required
 def myprofile(request):
@@ -24,6 +25,13 @@ def myprofile(request):
     extra_context = {'selected_user':request.user}
     extra_context.update(Bid.objects.filter(project__assignee=request.user).aggregate(Count("rating"),Avg("rating")))
     return direct_to_template(request, template="users/profile/profile.html", extra_context = extra_context)
+
+@login_required
+def exportresume(request):
+    """Exports the profile of the current user as pdf"""
+    response = HttpResponse(render_to_pdf("users/profile/resume.html", {'selected_user':request.user}), mimetype='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=resume.pdf'
+    return response
 
 def userprofile(request, username):
     """shows the profile of the given user"""
@@ -35,7 +43,7 @@ def userprofile(request, username):
 @login_required
 def dashboard(request):
     """user customized dashboard"""
-    return direct_to_template(request, template="users/dashboard.html", )
+    return direct_to_template(request, template="users/dashboard.html")
 
 @login_required
 def invite(request, id):
@@ -152,6 +160,13 @@ def getpicture(request, username):
     response = HttpResponse(mimetype='image/jpeg')
     response['X-Sendfile'] = "%suser/%s/profile.jpg"%(MEDIA_ROOT,username)
     response['Content-Length'] = os.path.getsize("%suser/%s/profile.jpg"%(MEDIA_ROOT,username))
+    return response
+
+@login_required
+def invoice(request):
+    """Exports the invoice of all user payments as pdf"""
+    response = HttpResponse(render_to_pdf("users/pdf/invoice.html", {'user':request.user}), mimetype='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=invoice.pdf'
     return response
 
 @login_required

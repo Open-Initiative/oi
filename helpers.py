@@ -1,6 +1,10 @@
 ﻿# coding: utf-8
+import cStringIO as StringIO
 from django.contrib.auth.models import User
+from django.template.loader import render_to_string
 from notification import models as notification
+from ho import pisa
+from oi.settings import MEDIA_ROOT, TEMPLATE_DIRS
 
 # Constantes de transmission de pertinence
 OI_SCORE_ANONYMOUS = 1. #Score du vote anonyme
@@ -24,3 +28,18 @@ OI_PAGE_SIZE = 10
 OI_ALL_PERMS = -1
 OI_RIGHTS = [OI_READ, OI_WRITE, OI_ANSWER] = [1,2,4]
 OI_PERMS = ((OI_READ, "Lecture"), (OI_WRITE, "Ecriture"), (OI_ANSWER, "Réponse"),)
+
+def fetch_resources(uri, rel):
+    """Url transformation for pdf generation"""
+    if uri.startswith("/user/getpicture"):  #special case for user pictures
+        return MEDIA_ROOT + uri.replace("/getpicture", "") + "/profile.jpg"
+    return TEMPLATE_DIRS + "users/pdf/" + uri
+    
+def render_to_pdf(template, extra_context):
+    """renders a template to a pdf"""
+    resbuffer = StringIO.StringIO()
+    css = open(TEMPLATE_DIRS+"users/pdf/resume.css").read()
+    pdf = pisa.CreatePDF(render_to_string(template, extra_context), dest=resbuffer, link_callback=fetch_resources, default_css=css)
+    if pdf.err:
+        raise Exception("PDF Transformation Error")
+    return resbuffer.getvalue()

@@ -3,10 +3,9 @@ div.userpage {
     float: left;
 }
 div.userblock {
-    float: left;
     clear: left;
     padding: 10px;
-    width: 400px;
+    width: 500px;
 }
 div.related {
     float: right;
@@ -15,6 +14,9 @@ div.related {
 }
 div.usermsg {
     padding: 70px;
+}
+div.userpicture {
+    float: right;
 }
 .contactinfo {
     clear: left;

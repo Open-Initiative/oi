@@ -1,0 +1,9 @@
+{% for payment in user.payment_set.all|dictsortreversed:"transaction_date" %}
+<table>
+    <tr>
+        <td>projet {{payment.project.title}}</td>
+        <td>{{payment.amount}} euros</td>
+    </tr>
+</table>
+{% endfor %}
+Solde final : {{user.get_profile.balance}} euros
