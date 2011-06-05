@@ -1,4 +1,4 @@
 {% load i18n %}
 <a href="/user/profile/{{sender.username}}">{{sender}}</a>
-{% blocktrans %} a misé sur un projet que vous suivez :{% endblocktrans %}
+{% trans "has added a bid on a project you follow:" %}
 <a href="/project/get/{{project.id}}">{{project.title}}</a>

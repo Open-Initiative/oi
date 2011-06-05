@@ -1,4 +1,5 @@
+{% load i18n %}
 <a href="/project/get/{{project.id}}"><div class="smallprj overlap">
-    <div class="morelink"><span class="details"><img src="/img/link.png" /> Voir le détail</span></div>
+    <div class="morelink"><span class="details"><img src="/img/link.png" /> {% trans "See more" %}</span></div>
     {{project.title}}
 </div></a>

@@ -1,0 +1,6 @@
+{% load i18n %}
+{% if sender.is_authenticated %}
+<a href="{{current_site}}/user/profile/{{sender.username}}">{{sender}}</a>
+{% else %} {% trans "guest" %} {% endif %}
+{% blocktrans %} has published a message on a subject you follow:{% endblocktrans %}
+<a href="{{current_site}}/message/get/{{message.id}}">{{param}}</a>

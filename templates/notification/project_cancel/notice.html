@@ -1,4 +1,4 @@
 {% load i18n %}
 <a href="/user/profile/{{sender.username}}">{{sender}}</a>
-{% blocktrans %} a annulé un projet que vous suivez :{% endblocktrans %}
+{% trans "has cancelled a project you follow:" %}
 <a href="/project/get/{{project.id}}">{{project.title}}</a>

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block content %}
-<h1>Résultats pour '{{query}}'</h1>
+<h1>{% trans "Results for" %} '{{query}}'</h1>
 {% if page.object_list %}
     <ol>
         {% for result in page.object_list %}
@@ -14,7 +15,7 @@
         {% endfor %}
     </ol>
 {% else %}
-    <p>No results found.</p>
+    <p>{% trans "No results found." %}</p>
 {% endif %}
 
 {% endblock %}

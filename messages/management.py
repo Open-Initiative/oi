@@ -3,6 +3,7 @@ from django.conf import settings
 from django.db.models import signals
 from django.utils.translation import ugettext_noop as _
 from django.contrib.sites.models import Site
+from oi.notification import models as notification
 
 def register_site(app, created_models, verbosity, **kwargs):
     if Site.objects.count() > 0:
@@ -15,23 +16,21 @@ def register_site(app, created_models, verbosity, **kwargs):
     
 signals.post_syncdb.connect(register_site)
 
+def create_notice_types(app, created_models, verbosity, **kwargs):
+    notification.create_notice_type("invitation", _(u"Invitation"), _(u"A user wishes to add you to his contacts"))
+    notification.create_notice_type("invitation_accepted", _(u"Invitation accepted"), _(u"You have a new contact"))
+    notification.create_notice_type("personal_message", _(u"Personal message"), _(u"You have received a personal message"))
+    notification.create_notice_type("answer", _(u"Message posted"), _(u"A message has been posted in a subject you follow"))
+    notification.create_notice_type("new_project", _(u"New project"), _(u"A new project has been proposed in a subject you follow"))
+    notification.create_notice_type("delegate", _(u"Project delegated"), _(u"A project has been offered to be delegated to you"))
+    notification.create_notice_type("answerdelegate", _(u"Answer to the delegation"), _(u"The user has answered your delegation offer"))
+    notification.create_notice_type("answerdelay", _(u"Answer to your delay request"), _(u"Your delay request has been answered"))
+    notification.create_notice_type("project_modified", _(u"Project changed"), _(u"A project you follow has been changed"))
+    notification.create_notice_type("project_bid", _(u"Bid on the project"), _(u"A project you follow has been bid on"))
+    notification.create_notice_type("project_state", _(u"Project progress"), _(u"A project you follow has changed state"))
+    notification.create_notice_type("project_eval", _(u"Project evaluation"), _(u"A user has evaluated your project"))
+    notification.create_notice_type("project__bid_cancel", _(u"Bid cancelled"), _(u"A user has cancelled his bis on a project"))
+    notification.create_notice_type("project_cancel", _(u"Project cancelled"), _(u"A user has requested the project to be cancelled"))
+    notification.create_notice_type("project_spec", _(u"Specification changed"), _(u"The specification of a project you follow has been changed"))
 
-if "notification" in settings.INSTALLED_APPS:
-    from notification import models as notification
-
-    def create_notice_types(app, created_models, verbosity, **kwargs):
-        notification.create_notice_type("invitation", _(u"Invitation"), _(u"Un utilisateur souhaite entrer en contact avec vous"))
-        notification.create_notice_type("invitation_accepted", _(u"Invitation acceptée"), _(u"Vous avez un nouveau contact"))
-        notification.create_notice_type("personal_message", _(u"Message reçu"), _(u"Vous avez reçu un message"))
-        notification.create_notice_type("answer", _(u"Message publié"), _(u"Un message a été publié sur un sujet que vous suivez."))
-        notification.create_notice_type("new_project", _(u"Nouveau projet"), _(u"Un nouveau projet a été proposé dans un sujet que vous suivez."))
-        notification.create_notice_type("project_modified", _(u"Projet modifié"), _(u"Un projet que vous suivez a été modifié."))
-        notification.create_notice_type("project_bid", _(u"Mise sur le projet"), _(u"Un projet vous suivez a reçu une mise."))
-        notification.create_notice_type("project_state", _(u"Avancement du projet"), _(u"Un projet que vous suivez a changé d'état."))
-        notification.create_notice_type("project_eval", _(u"Projet évalué"), _(u"Un utilisateur a évalué votre projet."))
-        notification.create_notice_type("project_cancel", _(u"Annulation du projet"), _(u"Un utilisateur a demandé l'annulation du projet."))
-        notification.create_notice_type("project_spec", _(u"Spécification du projet modifiée"), _(u"La spécification d'un projet que vous suivez a été modifiée."))
-
-    signals.post_syncdb.connect(create_notice_types, sender=notification)
-else:
-    print "Skipping creation of NoticeTypes as notification app not found"
+signals.post_syncdb.connect(create_notice_types, sender=notification)

@@ -5,7 +5,8 @@ from oi.users.models import UserProfile,PersonalMessage,Payment
 from django.contrib import admin
 
 class PaymentAdmin(admin.ModelAdmin):
-    list_display=('user','amount','transaction_date')
+    list_display=('id','user','amount','transaction_date', 'project')
+    pass
 
 admin.site.register(UserProfile)
 admin.site.register(PersonalMessage)

@@ -1,3 +1,2 @@
 {% load i18n %}
-<a href="/user/profile/{{sender.username}}">{{sender}}</a>
-{% blocktrans %}a accepté votre invitation.{% endblocktrans %}
+{{sender}} {% trans "has accepted your invitation." %}

@@ -1,35 +1,35 @@
 ﻿# coding: utf-8
 # Modèles des messages
+from math import copysign
+from django.db import models
+from django.contrib.auth.models import User
+from django.utils.translation import ugettext as _
+from django.http import HttpResponseForbidden, Http404
+from django.shortcuts import get_object_or_404
 from oi.helpers import OI_SCORE_ANONYMOUS, OI_SCORE_DEFAULT_RELEVANCE, OI_SCORE_ADD, OI_SCORE_VOTE, OI_SCORE_FRACTION_TO_PARENT
 from oi.helpers import OI_SCORE_FRACTION_FROM_PARENT, OI_EXPERTISE_TO_MESSAGE, OI_EXPERTISE_TO_AUTHOR, OI_EXPERTISE_FROM_ANSWER
 from oi.helpers import OI_ALL_PERMS, OI_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_ANSWER
-from django.db import models
-from django.contrib.auth.models import User
-from django.http import HttpResponseForbidden, Http404
-from django.shortcuts import get_object_or_404
-from math import copysign
 
 # Représentation du message
 class Message(models.Model):
     title = models.CharField(max_length=100)
     author = models.ForeignKey(User, related_name='ownmessages', null=True, blank=True)
+    text = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     icon = models.CharField(max_length=100, blank=True)
     category = models.BooleanField()
-    text = models.TextField()
-    parents = models.ManyToManyField('self',symmetrical=False, related_name='children', blank=True)
+    rfp = models.BooleanField()
+    parent = models.ForeignKey('self', blank=True, null=True, related_name='children')
     ancestors = models.ManyToManyField('self',symmetrical=False, related_name='descendants', blank=True)
+    related = models.ManyToManyField('self',symmetrical=False, related_name='related_to', blank=True)
     relevance = models.FloatField()
     public = models.BooleanField()
     
     # surcharge la sauvegarde pour le calcul des ancetres
-    def save(self):
-        super(Message, self).save()
-        self.ancestors.clear()
-        for line in self.get_ancestors():
-            for ancestor in line:
-                self.ancestors.add(ancestor)
+    def save(self, *args, **kwargs):
+        super(Message, self).save(*args, **kwargs)
+        self.ancestors = self.get_ancestors()
     
     # Lorsqu'un utilisateur vote pour un message
     def vote(self, user, opinion, ip_address):
@@ -47,7 +47,7 @@ class Message(models.Model):
 
         # Augmente l'expertise de l'utilisateur 
         if user.is_authenticated():
-            self.add_expertise(user, OI_SCORE_VOTE, True) # Remonte l'expertise aux messages parents
+            self.add_expertise(user, OI_SCORE_VOTE, True) # Remonte l'expertise aux parent
         else:
             self.usedip_set.add(UsedIP(address=ip_address)) # Enregistre l'adresse ip pour éviter les doubles votes
     
@@ -75,15 +75,14 @@ class Message(models.Model):
         expertise = OI_SCORE_ANONYMOUS
         if self.is_expert(user):
             expertise = self.expert_set.filter(user=user)[0].score
-        # Gets expertise from the whole branch, ie including parents
-        for parent in self.parents.all():
-            expertise += parent.get_expertise(user)*OI_SCORE_FRACTION_FROM_PARENT
+        # Gets expertise from the whole branch, ie including parent
+        if self.parent:
+            expertise += self.parent.get_expertise(user)*OI_SCORE_FRACTION_FROM_PARENT
         return expertise
         
     def add_expertise(self, user, score, is_vote=False):
-        """Adds expertise to that user on that particular message, and on parents
-        If is_vote, prevents the user from voting twice
-        """
+        """Adds expertise to that user on that particular message, and on parent
+        If is_vote, prevents the user from voting twice"""
         if user==None or user.is_anonymous():
             return
             
@@ -99,10 +98,10 @@ class Message(models.Model):
             expert.save()
             self.expert_set.add(expert)
             
-        # Adds fraction to parents, if score still high enough
+        # Adds fraction to parent, if score still high enough
         if score >= OI_SCORE_ANONYMOUS:
-            for parent in self.parents.all():
-                parent.add_expertise(user,score*OI_SCORE_FRACTION_TO_PARENT)
+            if self.parent:
+                self.parent.add_expertise(user,score*OI_SCORE_FRACTION_TO_PARENT)
     
     def has_perm(self, user, perm):
         """checks if the user has the required perms"""
@@ -126,24 +125,15 @@ class Message(models.Model):
     
     def get_ancestors(self):
         """returns all the paths to the message"""
-        if self.parents.count()==0:
-            return [[self]]
-        ancestors=[]
-        #makes a list of all paths to all parents
-        for parent in self.parents.all():
-            for path in parent.get_ancestors():
-                ancestors.append(path+[self])        
-        return ancestors
-        
+        if self.parent:
+            return self.parent.get_ancestors()+[self]
+        else:
+           return [self]
+
     def get_categories(self):
         """returns categories of which the message descents"""
         return self.ancestors.filter(category=True)
     
-#!!DEPRECATED!!
-#    def get_children(self):
-#        """returns children of the message, most relevant first"""
-#        return self.children.order_by("-relevance")
-        
     def __unicode__(self):
         return "%s : %s"%(self.id, self.title)
 
@@ -167,7 +157,7 @@ def OINeedsMsgPerms(*required_perms):
                 if not msg.has_perm(request.user, perm):
                     if perm==OI_READ:
                         raise Http404
-                    return HttpResponseForbidden("Permissions insuffisantes")
+                    return HttpResponseForbidden(_("Forbidden"))
             return f(request, id, *args, **kwargs)
         return new_f
     return decorate 

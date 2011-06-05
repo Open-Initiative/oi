@@ -2,7 +2,8 @@ function expandMessage(msgid, depth) {
     if(document.getElementById("message_"+msgid+"_box").expanded != 1)
         OIajaxCall("/message/get/"+msgid+"?mode=ajax&depth="+depth, null, "message_"+msgid+"_box");
     document.getElementById("message_"+msgid+"_box").expanded=1;
-    document.getElementById("message_"+msgid+"_box").style.top="-70px";
+//    document.getElementById("message_"+msgid+"_box").style.position="relative";
+//    document.getElementById("message_"+msgid+"_box").style.top="-70px";
 }
 function shrinkMessage(msgid, depth) {
     OIajaxCall("/message/get/"+msgid+"?mode=small&depth="+depth, null, "message_"+msgid+"_box");
@@ -11,14 +12,10 @@ function shrinkMessage(msgid, depth) {
 }
 function addMessage(parentid) {
     if(parentid==null) {
-        if(getSelectedCategs(selectedcateg)=="") {
-            alert("Sélectionnez une catégorie");
-            return;
-        }
         location = "/message/new?categs="+getSelectedCategs(selectedcateg);
     } else {
         divid = newDiv("children_"+parentid);
-        url = "/message/edit/0?divid="+divid+"&parents="+parentid;
+        url = "/message/edit/0?divid="+divid+"&parent="+parentid;
     }
     OIajaxCall(url, null, divid);
     document.getElementById(divid).scrollIntoView();
@@ -26,10 +23,11 @@ function addMessage(parentid) {
     tinyMCE.execCommand('mceFocus', false, "text_"+divid);
 }
 function saveMessage(divid, msgid){
+    parent = getValue("parent_"+divid);
+//    if(parent=="") parent = getSelectedCategs(selectedcateg);
     tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
-    parents = getValue("parents_"+divid);
-    if(parents=="") parents = getSelectedCategs(selectedcateg);
-    params = "message="+getValue("text_"+divid).replace(/\+/gi,"%2B")+"&title="+getValue("title_"+divid).replace(/\+/gi,"%2B")+"&parents="+parents;
+    params = "message="+getValue("text_"+divid).replace(/\+/gi,"%2B")+"&title="+getValue("title_"+divid).replace(/\+/gi,"%2B")+"&parent="+parent;
+    if(document.getElementById("rfp") && document.getElementById("rfp").checked) params +="&rfp=True";
     OIajaxCall("/message/save/"+msgid, params, divid);
 }
 function cancelMessage(divid, msgid){
@@ -47,6 +45,9 @@ function editMessage(msgid) {
     OIajaxCall("/message/edit/"+msgid+"?divid="+divid, null, divid);
     tinyMCE.execCommand('mceAddControl', false, "text_"+divid);
 }
+function editMessageTitle(divid, title) {
+    document.getElementById("msgtitle_"+divid).innerHTML = '<input id="title_'+divid+'" class="msgfield" type="text" value="'+title+'"/>';
+}
 function hideMessage(msgid) {
     OIajaxCall("/message/hide/"+msgid, null, "output");
 }
@@ -58,8 +59,7 @@ function confirmShareMessage(msgid, divid) {
     OIajaxCall("/message/confirmshare/"+msgid, "username="+getValue("usershare_"+divid), "output");
 }
 function moveMessage(msgid) {
-    divid = newDiv("newParent");
-    OIajaxCall("/message/move/"+msgid+"/"+divid, null, divid);
+    OIajaxCall("/message/move/"+msgid+"/path_"+msgid, null, "path_"+msgid);
 }
 function confirmMoveMessage(msgid, divid) {
     OIajaxCall("/message/confirmmove/"+msgid, "parentid="+getValue("parentid_"+divid), "output");
@@ -69,7 +69,7 @@ function orphanMessage(msgid, parentid) {
     clearDiv("path_"+parentid);
 }
 function deleteMessage(msgid) {
-    if(confirm("Etes vous sûr de vouloir supprimer définitivement ce message ?")) {
+    if(confirm(gettext("Are you sure you want to delete this message permanently?"))) {
         OIajaxCall("/message/delete/"+msgid, null, "output");
         clearDiv("message_"+msgid);
     }
@@ -77,6 +77,6 @@ function deleteMessage(msgid) {
 function vote(msgid, opinion){
     OIajaxCall("/message/vote/"+msgid, "opinion="+opinion, "output");
 }
-function observeMessage(msgid){
-    OIajaxCall("/message/observe/"+msgid, null, "output");
+function observeMessage(msgid, param){
+    OIajaxCall("/message/observe/"+msgid, param, "output");
 }

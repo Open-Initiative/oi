@@ -1,16 +1,24 @@
+{% load i18n %}
 {% load oifilters %}
+{% if task|can_write:user %}
+<div class="copyicon"><img class="clickable" src="/img/icons/clipboard-12.png" title="{% trans "Copy to clipboard" %}" alt="{% trans "Copy to clipboard" %}" onclick="copyTask({{task.id}}, '{{task.title}}')"></div>
+{% endif %}
 <a href="/project/get/{{task.id}}">
     <div id="project_{{task.id}}" class="smallprj overlap">
-        <div class="morelink"><img src="/img/link.png" /> Voir le détail</div>
+        <div class="morelink"><img src="/img/link.png" /> {% trans "See more" %}</div>
+        {% if task.state < 2 %}
+        {{task.missing_bid|floatformat:2}} €
+        {% else %}
         <span class="progressbar smalltext">
             <span id="progressbar_{{task.id}}" class="progress" style="width:{{task.progress|multiply:100|floatformat:0}}%;"></span>
             <span id="progresslabel_{{task.id}}" >{{task.progress|multiply:100}}%</span>
         </span>
-        <span class="prjtitle"> {{task.title}}</span>
+        {% endif %}
+        {% show_stars task.priority %}
+        <div class="prjtitle"> {{task.title}}</div>
         <div>
-            assigné à : {{task.assignee}}<br />
-            démarré le : {{task.start_date|date:"d/m/Y"}}<br />
-            du le : {{task.due_date|date:"d/m/Y"}}<br />
+            {% trans "Assigned to:" %} {{task.assignee|default:_("Not assigned")}}<br />
+            {{task.start_date|date:"d/m/Y"}} {% trans "to" %} {{task.due_date|date:"d/m/Y"}}
         </div>
     </div>
 </a>

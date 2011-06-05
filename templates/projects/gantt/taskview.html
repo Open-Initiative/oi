@@ -1,0 +1,21 @@
+{% load oifilters %}
+<div style="height:1.33em">
+    {% if task.start_date %}{% if task.due_date %}
+    <div class="viewtaskalign">
+        <div class="{% if task.is_simple_task %}viewtask{% else %}viewprj{% endif %}" style="left:{{task.start_date|oidateshift:project.start_date|multiply:day_length|add:-1}}em;width:{{task.due_date|oidateshift:task.start_date|multiply:day_length|add:1}}em;{% if task.is_simple_task %}background:{% if task.is_late %}red{% else %}orange{% endif %}{% endif %}"></div>
+        {% if task.is_simple_task %}
+        {% if task.due_date > task.due_date.now %}
+        <div class="viewtask" style="left:{{task.start_date|oidateshift:project.start_date|multiply:day_length|add:-1}}em;width:{{task.due_date.now|oidateshift:task.start_date|multiply:day_length}}em;background:red;"></div>
+        {% else %}
+        <div class="viewtask" style="left:{{task.start_date|oidateshift:project.start_date|multiply:day_length|add:-1}}em;width:{{task.due_date|oidateshift:task.start_date|multiply:day_length}}em;background:red;"></div>
+        {% endif %}
+        <div class="viewtask" style="left:{{task.start_date|oidateshift:project.start_date|multiply:day_length|add:-1}}em;width:{{task.due_date|oidateshift:task.start_date|multiply:task.progress|multiply:day_length|add:1}}em;background:lightgreen;"></div>
+        {% endif %}
+    </div>
+    {% endif %}{% endif %}
+</div>
+{% for subtask in task.tasks.all %}
+{% with subtask as task %}
+{% with "projects/gantt/taskview.html" as templatename %}{% include templatename %}{% endwith %}
+{% endwith %}
+{% endfor %}    

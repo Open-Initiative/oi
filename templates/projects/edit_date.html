@@ -1,4 +1,4 @@
-<input id="{{field_name}}_{{project.id}}_box" style="visibility:hidden;height:0;width:0;border:0;padding:0"/>
+<input id="{{field_name}}_{{project.id}}_box" class="hiddenfield" value="{{date|date:"Y-m-d"}}"/>
 <img class="clickable" src="/img/icons/edit.png" onclick="JsDatePick.getCalInstanceById(document.getElementById('{{field_name}}_{{project.id}}_box').getAttribute('globalNumber')).showCalendar()" />
 <script>
     cal_{{field_name}} = new JsDatePick({useMode:2,target:"{{field_name}}_{{project.id}}_box",dateFormat:"%Y-%m-%d"});
@@ -7,6 +7,7 @@
         date = new Date(dateobj.year,dateobj.month-1,dateobj.day);
         editDate({{project.id}}, "{{field_name}}", date);
         document.getElementById('{{field_name}}_{{project.id}}').innerHTML = date.dateFormat("j/m/Y");
+        document.getElementById('{{field_name}}_{{project.id}}_box').value = date.dateFormat("Y-m-d");
         cal_{{field_name}}.closeCalendar();
     });
 </script>

@@ -1,5 +1,0 @@
-{{email_subject.txt -> short.txt}}
-{{email_body.txt -> full.txt}}
-{{on_site -> notice.html}}
-{{full.html ? not currently used for anything}}
-404

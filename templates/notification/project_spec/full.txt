@@ -1,5 +1,3 @@
 {% load i18n %}{% load oifilters %}
-<a href="/user/profile/{{sender.username}}">{{sender}}</a>
-{% blocktrans %} a modifié la spécification d'un projet que vous suivez :{% endblocktrans %}
-<a href="/project/get/{{project.id}}">{{project.title}}</a> : <br />
+{{sender}} {% trans "has changed the specification of a project you follow:" %} {{project.title}} :
 {{param.text|oiunescape}}

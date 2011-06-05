@@ -1,12 +1,22 @@
 {% extends "base.html" %}
-{% block title %}Messages personnels{% endblock %}
+{% load i18n %}
+{% load oifilters %}
+{% block title %}{% trans "Personal messages" %}{% endblock %}
+{% block nav %}
+<div class="navitem">{% trans "Received messages" %}</div>
+<div class="sep"></div>
+<div class="navitem">{% trans "Sent messages" %}</div>
+{% endblock %}
 {% block content %}
 <div class="column">
-    <h1>Messages reçus</h1>
+    <h1>{% trans "Received messages" %}</h1>
     {% for pm in user.get_profile.get_discussions %}
-    <a href="/user/messageswith/{{pm.from_user.username}}">{{pm.from_user}}</a>
-    <div>
-        {{pm.text}}
+    <div class="contactinfo">
+        <img class="contactpicture" src="/user/getpicture/{{pm.from_user.username}}" />
+        <a href="/user/messageswith/{{pm.from_user.username}}">
+            {{pm.from_user.username}} : {{pm.subject}}
+            <div>{{pm.text|summarize}}</div>
+        </a>
     </div>
     {% endfor %}
 </div>

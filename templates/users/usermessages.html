@@ -1,24 +1,27 @@
 {% extends "base.html" %}
-{% block title %}Messages personnels{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Personal messages" %}{% endblock %}
+{% block nav %}<a href="#sendmp">{% trans "Send a personal message to" %} {{contact.get_profile}}</a>{% endblock %}
 {% block content %}
-<div class="column" style="width:600px">
-    <h1>Messages personnels avec <a href="/user/profile/{{contact.username}}">{{contact}}</a></h1>
+<div class="usercontentlarge">
+    <h1>Messages personnels avec <a href="/user/profile/{{contact.get_profile}}">{{contact}}</a></h1>
     {% for pm in personalmessages %}
-    <div class="contactinfo" style="padding:10px">
-        <div class="contactpicture" style="padding:10px">
-            {{pm.from_user}}
+    <div class="contactinfo">
+        <div class="column">
             <img class="contactpicture" src="/user/getpicture/{{pm.from_user.username}}" />
+            <div class="author">{{pm.from_user.get_profile}}<br />{{pm.sent_date|date:"d/m/Y"}}</div>
         </div>
         <div>
         <h3>{{pm.subject}}</h3>
-            {{pm.sent_date}}<br/>
             {{pm.text}}
         </div>
     </div>
     {% endfor %}
-    <h2>Répondre</h2>
-    {% with contact as params %}
-    {% include "users/writemp.html" %}
-    {% endwith %}
+    <h2>{% trans "Reply" %}</h2>
+    <div id="sendmp">
+        {% with contact as params %}
+        {% include "users/writemp.html" %}
+        {% endwith %}
+    </div>
 </div>
 {% endblock %}

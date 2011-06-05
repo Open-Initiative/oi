@@ -1,4 +1,2 @@
 {% load i18n %}
-<a href="/user/profile/{{sender.username}}">{{sender}}</a>
-{% blocktrans %} a évalué votre prestation sur le projet {% endblocktrans %}
-<a href="/project/get/{{project.id}}">{{project.title}}</a> : {{rating}}/5
+{{sender}}{% trans "has evaluated you on project" %} {{project.title}} : {{rating}}/5

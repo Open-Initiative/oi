@@ -1,0 +1,11 @@
+{% load oifilters %}
+<div>
+    <a href="/project/get/{{task.id}}">{{task.title|truncatewords:6}}</a> - {{task.assignee|default:_("Not assigned")}} ({{task.progress|multiply:100}}%)
+    <div style="border-left:.1em solid black;padding-left:.3em">
+        {% for subtask in task.tasks.all %}
+        {% with subtask as task %}
+        {% with "projects/gantt/tasknames.html" as templatename %}{% include templatename %}{% endwith %}
+        {% endwith %}
+        {% endfor %}    
+    </div>
+</div>

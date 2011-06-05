@@ -1,19 +1,23 @@
 # coding: utf-8
 # Modèles des projets
-from oi.helpers import OI_ALL_PERMS, OI_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_ANSWER
-from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS
-from oi.messages.models import Message
-from oi.settings import MEDIA_ROOT
+from datetime import datetime
+from decimal import Decimal
 from django.db import models
 from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden
-from datetime import datetime
+from django.utils.translation import ugettext as _
+from oi.settings import MEDIA_ROOT
+from oi.helpers import OI_ALL_PERMS, OI_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_ANSWER, OI_COMMISSION, OI_COM_ON_BID
+from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS
+from oi.helpers import SPEC_TYPES, TEXT_TYPE
+from oi.messages.models import Message
 
 # A project can contain subprojects and/or specs. Without them it is only a task
 class Project(models.Model):
     title = models.CharField(max_length=100)
     author = models.ForeignKey(User, related_name='ownprojects', null=True, blank=True)
     assignee = models.ForeignKey(User, related_name='assigned_projects', null=True, blank=True)
+    delegate_to = models.ForeignKey(User, related_name='delegated_projects', null=True, blank=True)    
     offer = models.DecimalField(max_digits= 12,decimal_places=2,default=0)
     commission = models.DecimalField(max_digits= 12,decimal_places=2,default=0)
     message = models.ForeignKey(Message)
@@ -21,28 +25,24 @@ class Project(models.Model):
     master = models.ForeignKey('self', blank=True, null=True, related_name='subprojects')
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    start_date = models.DateTimeField(null=True)
-    due_date = models.DateTimeField(null=True)
+    start_date = models.DateTimeField(blank=True, null=True)
+    due_date = models.DateTimeField(blank=True, null=True)
+    delay = models.DateTimeField(blank=True, null=True)
     progress = models.FloatField(default=0.0)
     priority = models.IntegerField(default=0)
     state = models.IntegerField(choices=OI_PRJ_STATES)
     public = models.BooleanField(default=True)
     
-    # surcharge la sauvegarde pour le calcul du projet maitre
-    def save(self):
-        super(Project, self).save()
+    # overloads save to compute master project
+    def save(self, *args, **kwargs):
+        super(Project, self).save(*args, **kwargs)
         if not self.master:
             parent = self
             while parent.parent:
                 parent = parent.parent
             self.master = parent
-            super(Project, self).save()
+            super(Project, self).save(*args, **kwargs)
 
-#!!DEPRECATED!!
-#    def get_specs(self):
-#        """Returns all the specs of the project"""
-#        return self.spec_set.order_by('order')
-        
     def get_max_order(self):
         """Returns the position of the last spec of the project"""
         return self.spec_set.aggregate(maxorder=models.Max('order'))['maxorder'] or 0
@@ -54,8 +54,8 @@ class Project(models.Model):
             spec.save()
             
     def is_simple_task(self):
-        """A simple task is a project with no spec and no subproject"""
-        return self.tasks.count() == 0 and self.spec_set.count() == 0
+        """A simple task is a project with no subproject"""
+        return self.tasks.count() == 0
     
     def is_late(self):
         """A simple task is a project with no spec and no subproject"""
@@ -63,7 +63,7 @@ class Project(models.Model):
     
     def has_perm(self, user, perm):
         """checks if the user has the required perms"""
-        #superuser a tous les droits
+        #superuser always has all permissions
         if user.is_superuser:
             return True
         if perm in [1,4] and self.public:
@@ -84,16 +84,33 @@ class Project(models.Model):
     def canceled_bids(self):
         """gets all the bids marked as canceled"""
         return self.bid_set.filter(rating=-1)
+    
+    def is_bidder(self, user):
+        return user.is_authenticated() and self.bid_set.filter(user=user).filter(rating=None).count() > 0
+
+    def tasksbid_sum(self):
+        """sums up all bids on the project's tasks"""
+        return self.tasks.aggregate(models.Sum("bid__amount"))["bid__amount__sum"] or 0
+        
+    def tasksoffer_sum(self):
+        """sums up all offers on the project's tasks"""
+        return self.tasks.aggregate(models.Sum("offer"))["offer__sum"] or 0
+        
+    def bid_sum(self):
+        """returns the sum of all bids on this project"""
+        return self.bid_set.aggregate(models.Sum("amount"))["amount__sum"] or 0
+    
+    def missing_bid(self):
+        """returns how much the project still needs to be started"""
+        return max((self.offer*OI_COMMISSION) - self.bid_sum(), Decimal("0"))
+    
+    def finished_tasks(self):
+        """gets all the tasks which state is at least delivered"""
+        return self.tasks.filter(state__gte = OI_DELIVERED)
 
     def get_ancestors(self):
         """get message ancestors of the project"""
-        if self.parent:
-            ancestors = self.parent.get_ancestors()
-        else:
-            ancestors = self.message.get_ancestors()
-        for anclist in ancestors:
-            anclist.append(self)
-        return ancestors
+        return self.message.get_ancestors()
 
     def get_path(self):
         """get the location of the task inside the project"""
@@ -102,17 +119,8 @@ class Project(models.Model):
         else:
             return [self]
 
-    def parents(self):
-        """for breadcrumb compatibility"""
-        return self.message.parents        
-
     def get_categories(self):
         return self.message.ancestors.filter(category=True)
-    
-    def missing_bid(self):
-        """returns how much the project still needs to be started"""
-        bid_sum = self.bid_set.aggregate(models.Sum("amount"))["amount__sum"] or 0
-        return (self.offer+self.commission) - bid_sum
     
     def is_ready_to_start(self):
         """returns True if the project is not started yet, has an assignee and enough bids"""
@@ -123,6 +131,14 @@ class Project(models.Model):
         missing_bid = self.missing_bid()
         return missing_bid.is_signed() or missing_bid.is_zero()
     
+    def reset_delay_request(self):
+        """Remove the delay and resets user ratings"""    
+        for bid in self.bid_set.all(): #reset all 
+            bid.rating = None
+            bid.save()
+        self.delay = None
+        self.save()
+
     def __unicode__(self):
         return "%s : %s"%(self.id, self.title)
 
@@ -144,7 +160,7 @@ def OINeedsPrjPerms(*required_perms):
             prj = Project.objects.get(id=id)
             for perm in required_perms:
                 if not prj.has_perm(request.user, perm):
-                    return HttpResponseForbidden("Permissions insuffisantes")
+                    return HttpResponseForbidden(_("Forbidden"))
             return f(request, id, *args, **kwargs)
         return new_f
     return decorate 
@@ -152,19 +168,11 @@ def OINeedsPrjPerms(*required_perms):
 def getpath(instance, filename):
     return "project/%s/%s"%(instance.project.id,filename)
 
-# Aspec is a content of a project
+# A spec is the content of a project
 class Spec(models.Model):
-    #Different types
-    TEXT_TYPE = 1
-    IMAGE_TYPE = 2
-    URL_TYPE = 3
-    VIDEO_TYPE = 4
-    DOC_TYPE = 5
-    TYPES =  {TEXT_TYPE:"Texte", IMAGE_TYPE:"Image", URL_TYPE:"Lien url", VIDEO_TYPE:"Vidéo", DOC_TYPE:"Fichier joint"}
-    
     author = models.ForeignKey(User, null=True, blank=True)
     project = models.ForeignKey(Project)
-    type = models.IntegerField(choices=TYPES.items(), default=TEXT_TYPE)
+    type = models.IntegerField(choices=SPEC_TYPES.items(), default=TEXT_TYPE)
     text = models.TextField()
     url = models.URLField(null=True, blank=True)
     file = models.FileField(upload_to=getpath,null=True, blank=True)
@@ -189,9 +197,10 @@ class Bid(models.Model):
 
     def cancel(self):
         """Cancels the bid : reimburses the bidder, reduces project offer, and deletes the bid"""
-        self.project.offer -= self.amount
+        amount = self.amount - self.amount*OI_COM_ON_BID #don't reimburse the commission part of the bid
+        self.project.offer -= amount
         self.project.save()
-        self.user.get_profile().make_payment(self.amount, self.project)
+        self.user.get_profile().make_payment(amount, _("Refund of bid"), self.project)
         self.delete()
 
     class Meta:
@@ -199,7 +208,7 @@ class Bid(models.Model):
     def __unicode__(self):
         return "%s on %s: %s"%(self.user, self.project.title, self.amount)
 
-# Contenu éditorial
+# Projects promoted on main page
 class PromotedProject(models.Model):
     project = models.ForeignKey(Project)
     location = models.CharField(max_length=50)

@@ -1,0 +1,20 @@
+Open Initiative, la communauté informatique au service des entreprises.
+
+Bonjour {{name}},
+
+Vous avez un projet informatique, un besoin ? Ou tout simplement un sujet sur lequel vous voulez consulter des professionnels en informatique ?
+
+Site web, application mobile, informatique décisionnelle, expertise de votre secteur d'activité..
+Joignez tous les experts sur www.openinitiative.com :
+  - Déposez votre projet en exprimant vos besoins, et précisez le en discutant avec des professionnels.
+  - Les professionnels vous font une proposition de projet détaillée tâche par tâche, et chiffrée.
+  - Vous ne payez les tâches qu'au fur et à mesure qu'elles sont démarrées, selon votre rythme et votre budget.
+  - Open Initiative conserve les fonds avancés jusqu'à votre validation de la tâche, de sorte que le prestataire ne sera payé qu'une fois que vous aurez obtenu entière satisfaction !
+    
+Vous avez un besoin particulier ? Vous souhaitez obtenir plus d'information ? N'hésitez pas à nous contacter :
+contact@openinitiative.com
+
+Nous espérons vous voir bientôt sur notre site !
+
+L'équipe Open Initiative
+www.openinitiative.com

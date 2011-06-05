@@ -1,42 +1,80 @@
 function addTask(projectid,userid) {
     url = "/project/save/0";
     params = "title="+getValue("newtask_title_"+projectid)+"&assignee="+userid+"&progress=0&inline=1&parent="+projectid;
-    divid = newDiv("tasks_"+projectid);
+    divid = newDiv("newtasks_"+projectid);
+    document.getElementById("newtasks_"+projectid).className = "pile";
+    document.getElementById("newtask_title_"+projectid).value = "";
     OIajaxCall(url, params, divid);
+    return false;
+}
+function copyTask(taskid, tasktitle) {
+    OIajaxCall("/project/copy/"+taskid, null, "output");
+    div = document.getElementById("project_clipboard");
+    div.innerHTML += '<div id="project_clipboard_'+taskid+'">' +
+        '<img class="clickable" src="/img/icons/delete.png" title="'+gettext('remove from clipboard')+'" onclick="uncopyTask('+taskid+')"/> ' +
+        tasktitle + '</div>';
+}
+function uncopyTask(taskid) {
+    OIajaxCall("/project/uncopy/"+taskid, null, "output");
+    clearDiv("project_clipboard_"+taskid);
+}
+function pasteTasks(projectid) {
+    if(confirm(gettext("Do you want to empty the clipboard and move all tasks it contains to this project?"))) {
+        OIajaxCall("/project/paste/"+projectid, null, "output");
+    }
 }
 function editDate(projectid, field_name, date) {
     OIajaxCall("/project/editdate/"+projectid, "field_name="+field_name+"&date="+date.dateFormat("Y-m-d"), "output");
 }
-function editTitle(projectid) {
+function editProjectTitle(projectid) {
     OIajaxCall("/project/edittitle/"+projectid, null, "prjtitle_"+projectid);
 }
 function confirmEditTitle(projectid) {
     title = getValue("title_"+projectid);
     OIajaxCall("/project/confirmedittitle/"+projectid, "title="+title, "output");
-    resetTitle(projectid, title);
+    resetProjectTitle(projectid, title);
 }
-function resetTitle(projectid, title) {
+function resetProjectTitle(projectid, title) {
     document.getElementById("prjtitle_"+projectid).innerHTML = title;
-    document.getElementById("prjtitle_"+projectid).innerHTML += ' <img onclick="editTitle('+projectid+')" class="clickable" src="/img/icons/edit.png" />';
+    document.getElementById("prjtitle_"+projectid).innerHTML += ' <img onclick="editProjectTitle('+projectid+')" class="clickable" src="/img/icons/edit.png" />';
 }
 function bidProject(projectid, rating) {
     OIajaxCall("/project/bid/"+projectid, null, "prjdialogue_"+projectid);
     show("prjdialogue_"+projectid);
+    document.getElementById('bid_'+projectid).focus();
 }
 function confirmBidProject(projectid) {
-    OIajaxCall("/project/confirmbid/"+projectid, "bid="+getValue("bid_"+projectid), "output");
-    hide("prjdialogue_"+projectid);
+    if(document.getElementById("acceptcgu").checked){
+        OIajaxCall("/project/confirmbid/"+projectid, "bid="+getValue("bid_"+projectid), "output");
+        hide("prjdialogue_"+projectid);
+    } else {
+        alert(gettext("Please accept the Terms of Use"));
+    }
 }
-function assignProject(projectid) {
-    OIajaxCall("/project/assign/"+projectid, null, "prjdialogue_"+projectid);
+function offerProject(projectid) {
+    OIajaxCall("/project/offer/"+projectid, null, "prjdialogue_"+projectid);
+    show("prjdialogue_"+projectid);
+    document.getElementById('offer_'+projectid).focus();
+}
+function confirmOfferProject(projectid) {
+    if(document.getElementById("acceptcgu").checked){
+        OIajaxCall("/project/confirmoffer/"+projectid, "offer="+getValue("offer_"+projectid), "output");
+        hide("prjdialogue_"+projectid);
+    } else {
+        alert(gettext("Please accept the Terms of Use"));
+    }
+}
+function delegateProject(projectid) {
+    OIajaxCall("/project/delegate/"+projectid, null, "prjdialogue_"+projectid);
     show("prjdialogue_"+projectid);
 }
-function takeonProject(projectid) {
-    OIajaxCall("/project/takeon/"+projectid, "offer="+getValue("offer_"+projectid), "output");
+function confirmDelegateProject(projectid) {
+    OIajaxCall("/project/confirmdelegate/"+projectid, "delegate_to="+getValue("delegate_to_"+projectid), "output");
     hide("prjdialogue_"+projectid);
 }
 function startProject(projectid) {
-    OIajaxCall("/project/start/"+projectid, null, "output");
+    if(confirm(gettext("Are you sure you want to start this project?")))
+        OIajaxCall("/project/start/"+projectid, null, "output");
 }
 function deliverProject(projectid) {
     OIajaxCall("/project/deliver/"+projectid, null, "output");
@@ -44,18 +82,28 @@ function deliverProject(projectid) {
 function validateProject(projectid) {
     OIajaxCall("/project/validate/"+projectid, null, "output");
 }
-function setStar(projectid, number) {
-    for(i=1;i<=5;i++) 
-        if(i<=number) document.getElementById("star"+i+"_"+projectid).src = "/img/icons/staryes.png";
-        else document.getElementById("star"+i+"_"+projectid).src = "/img/icons/starno.png";
-    document.getElementById("evaluate_"+projectid).value = number;
+function showStar(id, number) {
+    for(i=1;i<=5;i++)
+        if(i<=number) document.getElementById("star"+i+"_"+id).src = document.getElementById("star"+i+"_"+id).src.replace("False","True");
+        else document.getElementById("star"+i+"_"+id).src = document.getElementById("star"+i+"_"+id).src.replace("True","False");
+}
+function setStar(id, dest, number) {
+    showStar(id, number);
+    document.getElementById(dest).value = number;
+}
+function resetStar(id, dest) {
+    number = parseInt(getValue(dest));
+    showStar(id, number);
+}
+function setPriority(projectid) {
+    OIajaxCall("/project/setpriority/"+projectid, "priority="+getValue(projectid+"_priority"), "output");
 }
 function evalProject(projectid, rating) {
     OIajaxCall("/project/eval/"+projectid, null, "prjdialogue_"+projectid);
     show("prjdialogue_"+projectid);
 }
 function confirmEvalProject(projectid) {
-    OIajaxCall("/project/confirmeval/"+projectid, "rating="+getValue("evaluate_"+projectid), "output");
+    OIajaxCall("/project/confirmeval/"+projectid, "rating="+getValue(projectid+"_eval")+"&comment="+getValue("eval_comment_"+projectid), "output");
     hide("prjdialogue_"+projectid);
 }
 function hideProject(projectid) {
@@ -71,18 +119,26 @@ function confirmShareProject(projectid, divid) {
     hide("prjdialogue_"+projectid);
 }
 function cancelProject(projectid, started) {
-    question = "Etes vous sûr de vouloir annuler ce projet ?";
-    if(started) question += " La commission reste à votre charge, les autres sommes seront remboursées si les clients acceptent l'annulation.";
+    question = gettext("Are you sure you want to cancel this project?");
+    if(started) question += gettext(" You will still pay the commission, other amounts will be reimbursed if clients accept cancellation.");
     if(confirm(question))
         OIajaxCall("/project/cancel/"+projectid, null, "output");
+}
+function answerDelegate(projectid, answer, divid) {
+    OIajaxCall("/project/answerdelegate/"+projectid, "answer="+answer, "output");
+    clearDiv(divid);
 }
 function answerCancelProject(projectid, answer, divid) {
     OIajaxCall("/project/answercancelproject/"+projectid, "answer="+answer, "output");
     clearDiv(divid);
 }
+function answerDelayProject(projectid, answer, divid) {
+    OIajaxCall("/project/answerdelay/"+projectid, "answer="+answer, "output");
+    clearDiv(divid);
+}
 function cancelBid(projectid, started) {
-    question = "Etes vous sûr de vouloir annuler votre participation ?";
-    if(started) question += " Vous serez remboursé si le responsable accepte votre annulation.";
+    question = gettext("Are you sure you want to cancel your bid?");
+    if(started) question += gettext(" You will be reimbursed if the project assignee accepts the cancellation. The commission stays at your expense.");
     if(confirm(question))
         OIajaxCall("/project/cancelbid/"+projectid, null, "output");
 }
@@ -91,10 +147,17 @@ function answerCancelBid(projectid, bidid, answer, divid) {
     clearDiv(divid);
 }
 function deleteProject(projectid, messageid) {
-    if(confirm("Etes vous sûr de vouloir supprimer définitivement ce projet ?")) {
+    if(confirm(gettext("Are you sure you want to delete this project permanently?"))) {
         OIajaxCall("/project/delete/"+projectid, null, "output");
-        document.location = '/message/get/'+messageid;
     }
+}
+function moveProject(projectid) {
+    OIajaxCall("/project/move/"+projectid, null, "prjdialogue_"+projectid);
+    show("prjdialogue_"+projectid);
+}
+function confirmMoveProject(projectid) {
+    OIajaxCall("/project/confirmmove/"+projectid, "parent="+getValue("parent_"+projectid), "output");
+    hide("prjdialogue_"+projectid);
 }
 function updateProgress(projectid, progress) {
     progress = Math.round(progress*100);
@@ -102,12 +165,12 @@ function updateProgress(projectid, progress) {
     document.getElementById("progressbar_"+projectid).style.width = progress+"%";
     document.getElementById("progresslabel_"+projectid).innerHTML = progress+"%";
 }
-function observeProject(prjid){
-    OIajaxCall("/project/observe/"+prjid, null, "output");
+function observeProject(prjid, param){
+    OIajaxCall("/project/observe/"+prjid, param, "output");
 }
 function addSpec(projectid, specorder) {
     if(specorder==-1) divid = newDiv("specs_"+projectid);
-    else divid = newDiv("spec_"+projectid+"_"+specorder);
+    else divid = newDivTop("spec_"+projectid+"_"+specorder);
     OIajaxCall("/project/"+projectid+"/editspec/0?divid="+divid+"&specorder="+specorder, null, divid);
     document.getElementById(divid).scrollIntoView();
     changeSpecType(divid);
@@ -137,18 +200,19 @@ function saveSpec(divid, projectid, order, specid){
     OIajaxCall("/project/"+projectid+"/savespec/"+specid, params, divid);
 }
 function deleteSpec(projectid, specorder) {
-    if(confirm("Etes vous sûr de vouloir supprimer définitivement cette spécification ?")) {
+    if(confirm(gettext("Are you sure you want to delete this specification permanently?"))) {
         specid = getValue("specid_"+specorder);
         OIajaxCall("/project/"+projectid+"/deletespec/"+specid, null, "output");
         clearDiv("spec_"+projectid+"_"+specorder);
     }
 }
 function deltmp(projectid,filename,ts,divid) {
-    if(confirm("Etes vous sûr de vouloir supprimer définitivement cette pièce jointe ?")) {
+    if(confirm(gettext("Are you sure you want to delete this attachment permanently?"))) {
         OIajaxCall("/project/"+projectid+"/deltmp", "filename="+filename+"&ts="+ts+"&divid="+divid, "output");
         changeFile(divid);
     }
 }
+
 function changeFile(divid) {
     document.getElementById("filediv_"+divid).style.display="inline";
     document.getElementById("filespan_"+divid).style.display="none";

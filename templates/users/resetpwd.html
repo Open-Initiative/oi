@@ -1,16 +1,18 @@
 {% extends "base.html" %}
-{% block title %}Réinitialisation du mot de passe{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Reset password" %}{% endblock %}
 {% block content %}
 {{message}}
 <form method="post" action="/user/confirmresetpassword">
+    {% csrf_token %}
     <div>
-        <label for="username">Nom d'utilisateur</label>
+        <label for="username">{% trans "Username" %}</label>
         <input type="text" id="username" name="username" />
     </div>
     <div>
-        <label for="email">Adresse e-mail</label>
+        <label for="email">{% trans "E-mail address" %}</label>
         <input type="text" id="email" name="email" />
     </div>
-<input type="submit" value="Réinitialiser le mot de passe" />
+<input type="submit" value="{% trans "Reset password" %}" />
 </form>
 {% endblock %}

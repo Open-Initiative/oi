@@ -1,17 +1,20 @@
+import re
+import string
+import random
 from django import template
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from django.contrib.auth.models import AnonymousUser
 from oi.messages.models import Message, OI_READ, OI_WRITE, OI_ANSWER
 from oi.projects.models import Project
-import re
 register = template.Library()
 
-OI_ESCAPE_CODE = {"<p":"[[p]]","</p>":"[[/p]]","<strong>":"[[strong]]","</strong>":"[[/strong]]","<em>":"[[em]]","</em>":"[[/em]]",
+OI_ESCAPE_CODE = {"<hr />":"[[hr]]","<p":"[[p]]","</p>":"[[/p]]","<strong>":"[[strong]]","</strong>":"[[/strong]]","<em>":"[[em]]","</em>":"[[/em]]",
     "<ul>":"[[ul]]","</ul>":"[[/ul]]","<li>":"[[li]]","</li>":"[[/li]]","<blockquote>":"[[quote]]","</blockquote>":"[[/quote]]",
-    "<a":"[[a]]","</a>":"[[/a]]","<img":"[[img]]","</img>":"[[/img]]",'<span':'[[s]]','</span>':'[[/s]]',
-    '<h':'[[h]]','</h':'[[/h]]','<pre>':'[[pre]]','</pre>':'[[/pre]]','<address>':'[[address]]','</address>':'[[/address]]',
-    "<em>":"[[em]]","</em>":"[[/em]]","<ol>":"[[ol]]","</ol>":"[[/ol]]","<br />":"[[br]]","<hr />":"[[hr]]","&":"[[amp]]",'"':"[[dstr]]","'":"[[sstr]]"}
+    "<a":"[[a]]","</a>":"[[/a]]","<img":"[[img]]","</img>":"[[/img]]",'<span':'[[s]]','</span>':'[[/s]]','<sub>':'[[sub]]','</sub>':'[[/sub]]',
+    '<sup>':'[[sup]]','</sup>':'[[/sup]]','<h':'[[h]]','</h':'[[/h]]','<pre>':'[[pre]]','</pre>':'[[/pre]]',
+    '<address>':'[[address]]','</address>':'[[/address]]',"<em>":"[[em]]","</em>":"[[/em]]","<ol>":"[[ol]]","</ol>":"[[/ol]]",
+    "<br/>":"[[br]]","<br />":"[[br]]","&":"[[amp]]",'"':"[[dstr]]","'":"[[sstr]]"}
 
 OI_SPECIAL_ESCAPE_CODE = {"<a(?P<param>.*?)>":"[[a]]","<p(?P<param>.*?)>":"[[p]]","<img(?P<param>.*?)>":"[[img]]","<span(?P<param>.*?)>":"[[s]]",
     "<h(?P<param>\d)>":"[[h]]","</h(?P<param>\d)>":"[[/h]]"}
@@ -56,6 +59,16 @@ def multiply(value, arg):
     return float(value) * float(arg)
 
 @register.filter
+def get(valueset, key):
+    try:
+        valueset = dict(valueset)
+    finally:
+        try:
+            return valueset.__getitem__(key)
+        except KeyError, IndexError:
+            return ''
+
+@register.filter
 def oidateshift(end_date, start_date):
     try:
         return (end_date-start_date).days+1
@@ -97,7 +110,27 @@ def ip_has_voted(obj,ip_address):
 @register.filter
 def has_voted(obj, user):
     return obj.has_voted(user, "")
-    
+
+@register.filter
+def is_contact(user, contact):
+    return user.get_profile().contacts.filter(user=contact).count() > 0
+
 @register.filter
 def cleanfilename(path):
     return path.split("/").pop()
+    
+@register.simple_tag
+def show_stars(value, dest=None):
+    id = "".join([random.choice(string.lowercase) for i in range(5)])
+    size = "16"
+    result = ""
+    if dest:
+        size=""
+        result += '<input type="hidden" id="%(dest)s" value=%(value)s />'%{'id': id, 'value': value, 'dest': dest}
+        result += '<img src="/img/icons/star0.png" id="star0_%(id)s" onmouseover="showStar(\'%(id)s\', 0)" onmouseout="resetStar(\'%(id)s\', \'%(dest)s\')" onclick="setStar(\'%(id)s\', \'%(dest)s\', 0)" />'%{'id': id,'dest': dest}
+    for starnb in range(5):
+        result += '<img src="/img/icons/star%(highligted)s%(size)s.png" '%{'starnb': starnb+1, 'id': id, 'highligted': starnb<value, 'size': size}
+        if dest:
+            result += 'id="star%(starnb)s_%(id)s" onmouseover="showStar(\'%(id)s\', %(starnb)s)" onmouseout="resetStar(\'%(id)s\', \'%(dest)s\')" onclick="setStar(\'%(id)s\', \'%(dest)s\', %(starnb)s)" '%{'starnb': starnb+1, 'id': id, 'dest': dest}
+        result += '/>'
+    return result

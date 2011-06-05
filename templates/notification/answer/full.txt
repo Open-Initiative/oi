@@ -1,4 +1,2 @@
 {% load i18n %}
-<a href="/user/profile/{{sender.username}}">{{sender}}</a>
-{% blocktrans %} a publié un message dans un sujet que vous suivez :{% endblocktrans %}
-<a href="/message/get/{{message.id}}">{{param}}</a>
+{{sender}} {% blocktrans %} has published a message on a subject you follow:{% endblocktrans %} {{param}}

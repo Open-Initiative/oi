@@ -1,4 +1,3 @@
 {% load i18n %}
-<a href="/user/profile/{{sender.username}}">{{sender}}</a>
-{% blocktrans %} a proposé un projet dans un sujet que vous suivez :{% endblocktrans %}
-<a href="/project/get/{{project.id}}">{{param}}</a>
+{{sender}} % trans "has added a project proposal in a subject you follow:" %} {{param.title}}
+

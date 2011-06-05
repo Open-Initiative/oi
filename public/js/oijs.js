@@ -1,3 +1,23 @@
+function trim (myString)
+{
+    return myString.replace(/^\s+/g,'').replace(/\s+$/g,'')
+}
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
 function OIajaxCall(url, params, divid) {
     xmlhttp = new XMLHttpRequest();
     if(params==null) {
@@ -5,8 +25,10 @@ function OIajaxCall(url, params, divid) {
     } else {
         method="POST";
     }
-    xmlhttp.open(method,url,false);
+    xmlhttp.open(method, url, false);
+    xmlhttp.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
     xmlhttp.send(params);
+    if(xmlhttp.status == 332) document.location.reload();
     if(xmlhttp.status == 333) document.location = xmlhttp.responseText;
     else {
         if(!divid) return xmlhttp.responseText;
@@ -23,6 +45,11 @@ function newDiv(parentid) {
     document.getElementById(parentid).innerHTML+='<div id="'+divid+'"></div>';
     return divid;
 }
+function newDivTop(parentid) {
+    divid = "oi"+((new Date).getTime());
+    document.getElementById(parentid).innerHTML='<div id="'+divid+'"></div>' + document.getElementById(parentid).innerHTML;
+    return divid;
+}
 function clearDiv(divid) {
     document.getElementById(divid).innerHTML="";
 }
@@ -32,6 +59,23 @@ function show(divid) {
 function hide(divid) {
     document.getElementById(divid).style.display="none";
 }
+function toggle(img, divid) {
+    div = document.getElementById(divid);
+    if(document.defaultView.getComputedStyle(div,null).getPropertyValue('display').toString() == "block") {
+        if(img){
+            img.down = null;
+            img.src = "/img/fleche1.png";
+        }
+        div.style.display = "none"
+    } else {
+        if(img){
+            img.down = 1;
+            img.src = "/img/fleche2.png";
+        }
+        div.style.display = "block"
+    }
+}
+
 function prepareForm(formid) {
     form = document.forms[formid];
     params=[];
@@ -59,18 +103,6 @@ function expandCateg(img, categid, dest){
         img.down = null;
         img.src = "/img/fleche1.png";
         document.getElementById("subcateg"+categid).innerHTML = "";
-    }
-}
-function toggle(img, divid) {
-    div = document.getElementById(divid);
-    if(img.down != 1) {
-        img.down = 1;
-        img.src = "/img/fleche2.png";
-        div.style.display = "block"
-    } else {
-        img.down = null;
-        img.src = "/img/fleche1.png";
-        div.style.display = "none"
     }
 }
 
@@ -137,7 +169,7 @@ function setPrjState(span,statenum) {
 tinyMCE.init({
 		// General options
 		mode : "specific_textareas",
-		editor_deselector : "MPmessage",
+		editor_deselector : "norich",
 		theme : "advanced",
 		content_css : "/css/tinymce.css",
 		plugins : "advlink,emotions,iespell,inlinepopups,media,searchreplace,print,contextmenu,paste,noneditable,nonbreaking,xhtmlxtras,advlist",

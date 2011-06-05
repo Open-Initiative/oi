@@ -2,7 +2,6 @@ div.prjbody {
     background: url('/img/prjmid.png');
     width: 560px;
     padding: 1px 20px;
-    font-size: 12px;
 }
 div.prjtop {
     width: 600px;
@@ -14,38 +13,28 @@ div.prjbtm {
     height:17px;
     background: url('/img/prjbtm.png');
 }
-div.prjbodysum {
-    background: url('/img/prjmidsum.png');
-    width: 330px;
-    padding: 1px 20px;
-    font-size: 12px;
-}
-div.prjtopsum {
-    width: 370px;
-    height:17px;
-    background: url('/img/prjtopsum.png');
-}
-div.prjbtmsum {
-    width: 370px;
-    height:17px;
-    background: url('/img/prjbtmsum.png');
-}
-
 .prjtitle {
-    font-size: 1.2em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.prjstate {
+    clear: right;
+    float: right;
+    font-size: .8em;
 }
 div.tasklist {
     border-top: solid black 1px;
     margin-top: 25px;
 }
-
 div.smallprj {
-    width: 270px;
-    height: 70px;
-    padding: 15px;
+    width: 280px;
+    height: 80px;
+    padding: 10px;
+    margin-left: 12px;
     background: url('/img/project.png');
     color: #778e9c;
     position: relative;
+    overflow: hidden;
 }
 .viewtaskalign {
     position:relative;
@@ -69,6 +58,21 @@ div.smallprj {
 .smalltext {
     font-size:.7em;
 }
+.hiddenfield {
+    visibility:hidden;
+    height:0;
+    width:0;
+    border:0;
+    padding:0;
+}
+.taskcolumn {
+    float: left;
+    width:180px;
+}
+.copyicon {
+    float: left;
+    margin-top: -30px;
+}
 .viewprjalign {
     position:relative;
     top:-6px;
@@ -82,15 +86,26 @@ div.smallprj {
 }
 .gantt {
     position:relative;
-    border:solid 1px;
+    border:solid .1em;
     overflow-x:auto;
 }
 .ganttlabels {
-    float:left;
-    width:20em;
+    float: left;
+    width: 25em;
+    white-space: nowrap;
+    overflow: auto;
 }
 .ganttday {
-    position:absolute;
-    width:1em;
-    border-right:solid lightgray 1px;
+    position:relative;
+    width:.92em;
+    float:left;
+    border-right:.1em solid lightgray;
+    height:95%;
+    z-index:-1;
+}
+.ganttmonth {
+    width:0px;
+    position:relative;
+    float:left;
+    top:-1.1em;
 }

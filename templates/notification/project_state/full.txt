@@ -1,4 +1,3 @@
 {% load i18n %}
-<a href="/user/profile/{{sender.username}}">{{sender}}</a>
-{% blocktrans %} a changé l'état d'un projet que vous suivez :{% endblocktrans %}<br />
-<a href="/project/get/{{project.id}}">{{project.title}}</a> est maintenant en l'état {{param}}
+{{sender}} {% trans "has changed state of a project you follow:" %}
+{{project.title}} {% trans "is now in state" %} {{param}}

@@ -10,16 +10,31 @@ function editDetail(type, divid, id) {
 function saveDetail(divid, id) {
     OIajaxCall("/user/savedetail/"+id, prepareForm("form_"+divid), divid);
 }
-function editTitle() {
+function setRSS(divid, id) {
+    OIajaxCall("/user/setrss/", "rss="+getValue("rssfeed"), "output");
+}
+function editUserTitle() {
     OIajaxCall("/user/edittitle", null, "usertitle");
 }
-function resetTitle(title) {
-    document.getElementById("usertitle").innerHTML = title + '<img class="clickable" src="/img/icons/edit.png" onclick="editTitle()" />';
+function resetUserTitle(title) {
+    document.getElementById("usertitle").innerHTML = title + ' <img class="clickable" src="/img/icons/edit.png" onclick="editUserTitle()" />';
 }
 function setUserTitle() {
     title = getValue("select_title");
-    OIajaxCall("/user/setusertitle","title=" + title, "output");
-    resetTitle(title);
+    OIajaxCall("/user/settitle","title=" + title, "output");
+    resetUserTitle(title);
+}
+function selectNameDisplay() {
+    OIajaxCall("/user/selectnamedisplay", null, "fullname");
+}
+function resetFullName(fullname) {
+    document.getElementById("fullname").innerHTML = fullname + ' <img class="clickable" src="/img/icons/edit.png" onclick="selectNameDisplay()" />';
+}
+function setNameDisplay() {
+    displaytype = getValue("select_display");
+    display = document.getElementById("select_display").options[displaytype].innerHTML;
+    OIajaxCall("/user/setnamedisplay","display=" + displaytype, "output");
+    resetFullName(display);
 }
 function setBirthdate(date) {
     OIajaxCall("/user/setbirthdate", "date="+date.dateFormat("Y-m-d"), "output");
@@ -31,6 +46,12 @@ function deleteDetail(id, type) {
 function addContact(userid) {
     OIajaxCall("/user/invite/"+userid, null, "output");
 }
+function setemailing(label, send) {
+    OIajaxCall("/user/setemailing", "label="+label+"&send="+send, "output");
+}
+function saveContactInfo() {
+    OIajaxCall("/user/savecontactinfo", prepareForm("contact_form"), "output");
+}
 function writeMP(userid) {
     OIajaxCall("/user/writemp/"+userid, null, "sendmp");
     show("sendmp");
@@ -38,4 +59,8 @@ function writeMP(userid) {
 function sendMP(userid) {
     OIajaxCall("/user/sendmp/"+userid, "message="+getValue("MPmessage")+"&subject="+getValue("MPsubject"), "output");
     hide("sendmp");
+}
+function archiveNotice(noticeid) {
+    OIajaxCall("/user/archivenotice", "notice="+noticeid, "output");
+    clearDiv("notice_"+noticeid);
 }

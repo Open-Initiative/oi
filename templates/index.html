@@ -1,58 +1,50 @@
 ﻿{% extends "base.html" %}
+{% load i18n %}
 {% load oifilters %}
 {% block title %}Accueil{% endblock %}
-{% block nav %}
-    <div class="navitem"><img src="/img/fleche2.png" /> Tous les domaines</div>
-    <div id="arbo">
+{% block announcement %}
+    <div id="catcherbg">
+        <div id="catcher">
+            <div class="catcherleft">
+                <a href="/message/new"><div class="catchericon" onmouseover="show('slider2');hide('slider1');" onmouseout="show('slider1');hide('slider2');">
+                    <img src="/img/icons/msg100.png" />
+                    <div>{% trans "Talk" %}</div><div class="catchercomment">{% trans "to the community" %}</div>
+                </div></a>
+                <div class="sep"></div>
+                <a href="/message/new?rfp=true"><div class="catchericon" onmouseover="show('slider3');hide('slider1');" onmouseout="show('slider1');hide('slider3');">
+                    <img src="/img/icons/prj100.png" />
+                    <div>{% trans "Submit" %}</div><div class="catchercomment">{% trans "a project" %}</div>
+                </div></a>
+            </div>
+            <div id="slider1" class="slider">
+                <div class="slidertext">Avec Open Initiative accédez aux conseils de professionnels, précisez et définissez avec eux votre projet ainsi que les solutions envisageables.</div>
+                <div class="slidericon"><img src="/img/icons/user.png" /></div>
+                <a href="/presentation"><div class="slidermore" onmouseover="this.style.color='#D0574C'" onmouseout="this.style.color='white'">
+                    {% trans "Learn More" %}
+                </div></a>
+            </div>
+            <div id="slider2" class="slider invisible">
+                <div class="slidertext">Échangez gratuitement avec la communauté informatique et obtenez des propositions parfaitement adaptées à vos objectifs et à vos contraintes.</div>
+                <div class="slidericon"><img src="/img/icons/message.png" /></div>
+            </div>
+            <div id="slider3" class="slider invisible">
+                <div class="slidertext">Choisissez parmi les offres qui vous sont faites et suivez l'avancement de votre projet en ligne. Adaptez votre projet à votre rythme et votre budget !</div>
+                <div class="slidericon"><img src="/img/icons/project.png" /></div>
+            </div>
+        </div>
     </div>
-    <div class="navitem clickable" onclick="toggle(document.getElementById('arrowdate'),'datefilter')"><img id="arrowdate" src="/img/fleche1.png" /> Filtrer par date</div>
-    <div class="nav invisible" id="datefilter">
-        <div class="navtitle">Date</div>
-            <div class="navitem clickable"><span onclick="setDateDelta(this)">Indifférent</span></div>
-            <div class="navitem clickable"><span onclick="setDateDelta(this,7)">Depuis une semaine</span></div>
-            <div class="navitem clickable"><span onclick="setDateDelta(this,30)">Depuis un mois</span></div>
-            <div class="navitem clickable"><span onclick="setDateDelta(this,365)">Depuis un an</span></div>
-            <div class="navitem clickable"><span onclick="setDateDelta(this,0)">Période précise</span></div>
-    </div>
-    <div class="navitem clickable" onclick="toggle(document.getElementById('arrowprj'),'prjfilter')"><img id="arrowprj" src="/img/fleche1.png" /> Filtrer par avancement</div>
-    <div class="nav invisible" id="prjfilter">
-        <div class="navtitle">Projets</div>
-            <div class="navitem clickable"><span onclick="setPrjState(this)">Tous</span></div>
-            <div class="navitem clickable"><span onclick="setPrjState(this,0)">Proposés</span></div>
-            <div class="navitem clickable"><span onclick="setPrjState(this,1)">Acceptés</span></div>
-            <div class="navitem clickable"><span onclick="setPrjState(this,2)">En cours</span></div>
-            <div class="navitem clickable"><span onclick="setPrjState(this,3)">Livrés</span></div>
-            <div class="navitem clickable"><span onclick="setPrjState(this,4)">Validés</span></div>
+    <div class="agileline">
+        <a href="/presentation#methodology">
+            <div class="agiletext">
+                <img src="/img/agilearrow.png" class="agilearrow" />
+                {% trans "Why Agile development" %} <img class="askoi" src="/img/askoi.png" />
+                <img src="/img/agilearrow2.png" class="agilearrow" />
+            </div>
+        </a>
     </div>
 {% endblock %}
 {% block content %}
-    <div class="column">
-        <div id="msgheader" class="header">
-            <img src="/img/pictoOI.png" /><span class="indextitle">Prenez l'initiative !</span>
-            <div class="headersep"></div>
-            <div class="indexdesc">
-                Exprimez votre besoin et recevez des offres de projets<br />
-                Posez vos questions et obtenez une aide sur votre problème<br />
-                Discutez avec des experts <a href="/presentation"><span class="details"><img src="/img/link.png" /> En savoir plus</span></a>
-            </div>
-        </div>
-        <div id="messages"></div>
-    </div>
-    <div class="column">
-        <div id="prjheader" class="header">
-            <img src="/img/pictoOI.png" /><span class="indextitle">Rejoignez l'initiative !</span>
-            <div class="headersep"></div>
-            <div class="indexdesc">
-                Suivez les projets en cours<br />
-                Misez sur ceux qui vous intéressent<br />
-                Participez à un projet en fixant votre prix <a href="/presentation"><span class="details"><img src="/img/link.png" /> En savoir plus</span></a>
-            </div>
-        </div>
-        <div id="projects"></div>
-    </div>
-    <script>
-        OIajaxCall("/message/listcategories/0",null,"arbo");
-        {% if params.id %}selectCateg(document.getElementById("categ_{{params.id}}"),{{params.id}});{% endif %}
-        applyFilter();
-    </script>
+        {% with "True" as is_ajax %}
+        <div id="messages" class="column" style="padding-left:20px">{% include "messages/message_list.html" %}</div>
+        {% endwith %}
 {% endblock %}
