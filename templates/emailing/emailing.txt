@@ -2,19 +2,22 @@ Open Initiative, la communauté informatique au service des entreprises.
 
 Bonjour {{name}},
 
-Vous avez un projet informatique, un besoin ? Ou tout simplement un sujet sur lequel vous voulez consulter des professionnels en informatique ?
+Vous recherchez un prestataire informatique pour réaliser un projet ?
+Vous souhaitez rencontrer des professionnels pour discuter de votre besoin ?
 
-Site web, application mobile, informatique décisionnelle, expertise de votre secteur d'activité..
-Joignez tous les experts sur www.openinitiative.com :
-  - Déposez votre projet en exprimant vos besoins, et précisez le en discutant avec des professionnels.
-  - Les professionnels vous font une proposition de projet détaillée tâche par tâche, et chiffrée.
-  - Vous ne payez les tâches qu'au fur et à mesure qu'elles sont démarrées, selon votre rythme et votre budget.
-  - Open Initiative conserve les fonds avancés jusqu'à votre validation de la tâche, de sorte que le prestataire ne sera payé qu'une fois que vous aurez obtenu entière satisfaction !
-    
-Vous avez un besoin particulier ? Vous souhaitez obtenir plus d'information ? N'hésitez pas à nous contacter :
-contact@openinitiative.com
+Open Initiative réunit des professionnels prêts à réaliser votre site web, vos applications mobiles, votre informatique décisionnelle...
+
+Ils vous répondront sur www.openinitiative.com :
+- Publiez votre projet expliquant vos besoins, et discutez-en avec les professionnels présents sur Open Initiative.
+- Recevez une une proposition de projet détaillée tâche par tâche et chiffrée, élaborée par un membre d'Open Initiative.
+- Vous ne payez les tâches qu'au fur et à mesure qu'elles sont mises en oeuvre, selon votre rythme et votre budget.
+- Open Initiative conserve les fonds avancés jusqu'à votre validation du travail accompli, de sorte que le prestataire ne sera payé qu'une fois le travail terminé !
+
+Vous souhaitez obtenir plus d'information ? N'hésitez pas à nous contacter : contact@openinitiative.com
 
 Nous espérons vous voir bientôt sur notre site !
 
-L'équipe Open Initiative
+Sylvain Le Bon,
+fondateur d'Open Initiative
+
 www.openinitiative.com

@@ -101,15 +101,6 @@ class UserProfile(models.Model):
             logger.warning("Paiement %s non validé : %s"%(payment.id,info['STATUS'].__str__()))
         payment.save()
 
-#!DEPRECATED
-#    def last_projects(self):
-#        """returns the last five projects of the user, in which he participates, on which he bids, or which he created"""
-#        return Project.objects.filter(models.Q(assignee=self.user)|models.Q(bid__user=self.user)|models.Q(author=self.user)).order_by("-start_date")[:5]
-
-#    def last_messages(self):
-#        """returns the last five messages the user posted"""
-#        return self.user.ownmessages.order_by("-created")[:5]
-    
     def followed_rfp(self):
         """returns all rfp followed by the user"""
         return self.observed_messages.filter(rfp=True)
@@ -206,6 +197,13 @@ class TrainingForm(ModelForm):
     class Meta:
         model = Training
         exclude = ('user',)
+
+class Prospect(models.Model):
+    email = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=100)
+    contacted = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    kompassId = models.CharField(max_length=20)
 
 OI_USERPROFILE_DETAILS_CLASSES = {"experience":(Experience,ExperienceForm), "training":(Training,TrainingForm), "skill":(Skill,SkillForm)}
 
