@@ -222,13 +222,13 @@ def getFile(request, filename):
     response['Content-Length'] = os.path.getsize("%s%s"%(MEDIA_ROOT,filename))
     return response
 
-def listcategories(request, id='0'):
-    """List all the category messages"""
-    if id=='0':
-        categories = Message.objects.filter(category=True, parent=None)
-    else:
-        categories = Message.objects.filter(category=True, parent=id)
-    return render_to_response('messages/arbo.html',{'categories': categories.order_by("-relevance"), 'dest': request.GET.get("dest")}, context_instance=RequestContext(request))
+#def listcategories(request, id='0'):
+#    """List all the category messages"""
+#    if id=='0':
+#        categories = Message.objects.filter(category=True, parent=None)
+#    else:
+#        categories = Message.objects.filter(category=True, parent=id)
+#    return render_to_response('messages/arbo.html',{'categories': categories.order_by("-relevance"), 'dest': request.GET.get("dest")}, context_instance=RequestContext(request))
     
 def listancestors(request, id):
     """lists ancestors of the message in a string"""
