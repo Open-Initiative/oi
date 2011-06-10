@@ -89,6 +89,8 @@ def savemessage(request, id):
         message.title = request.POST["title"]
         message.text = text
         if request.POST.get("rfp") == "True":
+            if request.user.is_anonymous():
+                return HttpResponseRedirect('/login?next=%s'%request.META['HTTP_REFERER'])
             message.rfp = True
         message.save()
     
@@ -106,6 +108,8 @@ def savemessage(request, id):
             relevance = parent.get_expertise(request.user) * OI_EXPERTISE_TO_MESSAGE
         message = Message(title = request.POST["title"], text = text, author=author, public=True, parent=parent, relevance=relevance)
         if request.POST.get("rfp") == "True":
+            if request.user.is_anonymous():
+                return HttpResponse('/login?next=%s'%request.META['HTTP_REFERER'], status=333)
             message.rfp = True
         message.save()
         message.set_perm(author, OI_ALL_PERMS)

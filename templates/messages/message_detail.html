@@ -4,15 +4,9 @@
 {% block breadcrumb %}
 <div>
     <div id="path_{{object.id}}">
-<!--        {% if object %}{% if object|can_write:user %}-->
-<!--        <img class="clickable" src="/img/icons/delete.png" onclick="orphanMessage({{object.id}},{{parent.id}})" />-->
-<!--        {% endif %}{% endif %}-->
         {% for ancestor in object.parent.get_ancestors %}
         <a href="/message/get/{{ancestor.id}}">{{ancestor.title}}</a>{% if not forloop.last %} - {% endif %}
         {% endfor %}
-<!--        {% if object %}{% if object|can_write:user %}-->
-<!--        <img class="clickable" src="/img/icons/edit.png" onclick="moveMessage({{object.message.id|default:object.id}})" />-->
-<!--        {% endif %}{% endif %}-->
     </div>
 </div>
 {% endblock %}

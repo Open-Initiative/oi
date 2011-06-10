@@ -11,7 +11,7 @@
                     <div>{% trans "Talk" %}</div><div class="catchercomment">{% trans "to the community" %}</div>
                 </div></a>
                 <div class="sep"></div>
-                <a href="/message/new?rfp=true"><div class="catchericon" onmouseover="show('slider3');hide('slider1');" onmouseout="show('slider1');hide('slider3');">
+                <a href="{% if user.is_anonymous %}/login?next={% endif %}/message/new?rfp=true"><div class="catchericon" onmouseover="show('slider3');hide('slider1');" onmouseout="show('slider1');hide('slider3');">
                     <img src="/img/icons/prj100.png" />
                     <div>{% trans "Submit" %}</div><div class="catchercomment">{% trans "a project" %}</div>
                 </div></a>

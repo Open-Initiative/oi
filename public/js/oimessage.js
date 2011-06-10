@@ -2,8 +2,6 @@ function expandMessage(msgid, depth) {
     if(document.getElementById("message_"+msgid+"_box").expanded != 1)
         OIajaxCall("/message/get/"+msgid+"?mode=ajax&depth="+depth, null, "message_"+msgid+"_box");
     document.getElementById("message_"+msgid+"_box").expanded=1;
-//    document.getElementById("message_"+msgid+"_box").style.position="relative";
-//    document.getElementById("message_"+msgid+"_box").style.top="-70px";
 }
 function shrinkMessage(msgid, depth) {
     OIajaxCall("/message/get/"+msgid+"?mode=small&depth="+depth, null, "message_"+msgid+"_box");
@@ -24,7 +22,6 @@ function addMessage(parentid) {
 }
 function saveMessage(divid, msgid){
     parent = getValue("parent_"+divid);
-//    if(parent=="") parent = getSelectedCategs(selectedcateg);
     tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
     params = "message="+getValue("text_"+divid).replace(/\+/gi,"%2B")+"&title="+getValue("title_"+divid).replace(/\+/gi,"%2B")+"&parent="+parent;
     if(document.getElementById("rfp") && document.getElementById("rfp").checked) params +="&rfp=True";
