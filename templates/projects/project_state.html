@@ -3,7 +3,7 @@
 <div class="prjstate">
     <h3>
         <div>{% trans "Project" %} {{OI_PRJ_STATES|get:project.state}}</div>
-        {% if project.state < 2 %}{% trans "Awaiting for bidders" %}{% endif %}
+        {% if project.state < 1 %}{% trans "Awaiting for bidders" %}{% endif %}
         {% ifequal project.state 2 %}
         <div class="progressbar" {% ifequal project.assignee user %}onclick="updateProgress({{project.id}},(event.clientX-this.offsetLeft)/this.offsetWidth)"{% endifequal %}>
             <span id="progressbar_{{project.id}}" class="progress" style="width:{{project.progress|default:0|multiply:100|floatformat:0}}%;"></span>
