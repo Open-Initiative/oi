@@ -1,6 +1,6 @@
 #coding: utf-8
 # Vues des utilisateurs
-import os
+import os, re
 from random import random
 from decimal import Decimal
 from django.contrib.auth.models import User
@@ -128,6 +128,8 @@ def createuser(request):
     """creates a new user"""
     if request.POST.get("acceptcgu") != "on":
         return direct_to_template(request, template="users/register.html", extra_context = {'message':_("Please accept the terms of use")})
+    if not re.compile("^[\w\-\.]+$").search(request.POST.get("username")):
+        return direct_to_template(request, template="users/register.html", extra_context = {'message':_("Invalid username. Please use only letters, digits, - and _.")})
     if not request.POST["password"]:
         return direct_to_template(request, template="users/register.html", extra_context = {'message':_("Please enter a password")})
     if request.POST["password"] != request.POST["password_confirm"]:
