@@ -38,6 +38,7 @@ div.author {
     clear:left;
     font-variant:small-caps;
     font-weight:bold;
+    width:100px;
 }
 div.moreblue {
     background:url('/img/discblue.png');
