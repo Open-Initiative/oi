@@ -114,6 +114,7 @@
             <img src="/img/navtop.png"/>
             <div id="navbg">
                 {% block nav %}
+                {% comment %}
                 <a href="/message/getall">
                     <div class="navitem">
                         <div class="navicon"><img src="/img/icons/msg32.png"/></div>
@@ -132,6 +133,12 @@
                     <div class="navitem">
                         <div class="navicon"><img src="/img/icons/usr32.png" /></div>
                         {% trans "Members" %}
+                    </div>
+                </a>
+                {% endcomment %}
+                <a href="/">
+                    <div class="navitem">
+                        Préinscription
                     </div>
                 </a>
                 {% endblock %}
