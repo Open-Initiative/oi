@@ -3,9 +3,7 @@
 {% load oifilters %}
 {% block title %}{% trans "Personal messages" %}{% endblock %}
 {% block nav %}
-<div class="navitem">{% trans "Received messages" %}</div>
-<div class="sep"></div>
-<div class="navitem">{% trans "Sent messages" %}</div>
+<div class="navitem">{% trans "Personal messages" %}</div>
 {% endblock %}
 {% block content %}
 <div class="column">
@@ -18,6 +16,8 @@
             <div>{{pm.text|summarize}}</div>
         </a>
     </div>
+    {% empty %}
+    {% trans "No message received" %}
     {% endfor %}
 </div>
 {% endblock %}
