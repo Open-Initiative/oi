@@ -8,7 +8,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.forms import ModelForm, DateField
 from django.forms.extras.widgets import SelectDateWidget
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy, ugettext as _
 from oi.notification import models as notification
 from oi.settings import SHASIGN_NAME
 from oi.helpers import OI_DISPLAYNAME_TYPES, computeSHA
@@ -21,13 +21,13 @@ def getpicturepath(instance, filename):
 # Extra data in the user profile
 class UserProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
-    birthdate = models.DateField(null=True, blank=True)
-    address = models.CharField(max_length=200, blank=True)
-    postcode = models.CharField(max_length=9, blank=True)
-    city = models.CharField(max_length=50, blank=True)
-    country = models.CharField(max_length=30, blank=True)
-    mobile = models.CharField(max_length=30, blank=True)
-    phone = models.CharField(max_length=30, blank=True)
+    birthdate = models.DateField(null=True, blank=True, verbose_name=ugettext_lazy("Birthdate"))
+    address = models.CharField(max_length=200, blank=True, verbose_name=ugettext_lazy("Address"))
+    postcode = models.CharField(max_length=9, blank=True, verbose_name=ugettext_lazy("Post Code"))
+    city = models.CharField(max_length=50, blank=True, verbose_name=ugettext_lazy("City"))
+    country = models.CharField(max_length=30, blank=True, verbose_name=ugettext_lazy("Country"))
+    mobile = models.CharField(max_length=30, blank=True, verbose_name=ugettext_lazy("Mobile"))
+    phone = models.CharField(max_length=30, blank=True, verbose_name=ugettext_lazy("Phone Number"))
     title = models.CharField(max_length=100, blank=True)
     display_name = models.IntegerField(default=0)
     picture = models.ImageField(upload_to=getpicturepath,null=True, blank=True)
@@ -142,29 +142,29 @@ class UserProfile(models.Model):
 
 class Skill(models.Model):
     user = models.ForeignKey(User)
-    title = models.CharField(max_length=100, blank=True)
-    main = models.BooleanField(default=True)
-    comment = models.TextField(blank=True)
+    title = models.CharField(max_length=100, blank=True, verbose_name=ugettext_lazy("Title"))
+    main = models.BooleanField(default=True, verbose_name=ugettext_lazy("Main skill"))
+    comment = models.TextField(blank=True, verbose_name=ugettext_lazy("Comment"))
     def __unicode__(self):
         return self.company
 
 class Experience(models.Model):
     user = models.ForeignKey(User)
-    begining = models.DateField(null=True, blank=True)
-    end = models.DateField(null=True, blank=True)
-    company = models.CharField(max_length=100, blank=True)
-    job = models.CharField(max_length=100, blank=True)
-    description = models.TextField(blank=True)
+    begining = models.DateField(null=True, blank=True, verbose_name=ugettext_lazy("Begining"))
+    end = models.DateField(null=True, blank=True, verbose_name=ugettext_lazy("End"))
+    company = models.CharField(max_length=100, blank=True, verbose_name=ugettext_lazy("Company"))
+    job = models.CharField(max_length=100, blank=True, verbose_name=ugettext_lazy("Job"))
+    description = models.TextField(blank=True, verbose_name=ugettext_lazy("Description"))
     def __unicode__(self):
         return self.company
 
 class Training(models.Model):
     user = models.ForeignKey(User)
-    begining = models.DateField(null=True, blank=True)
-    end = models.DateField(null=True, blank=True)
-    degree = models.CharField(max_length=100, blank=True)
-    university = models.CharField(max_length=100, blank=True)
-    comment = models.TextField(blank=True)
+    begining = models.DateField(null=True, blank=True, verbose_name=ugettext_lazy("Begining"))
+    end = models.DateField(null=True, blank=True, verbose_name=ugettext_lazy("End"))
+    degree = models.CharField(max_length=100, blank=True, verbose_name=ugettext_lazy("Degree"))
+    university = models.CharField(max_length=100, blank=True, verbose_name=ugettext_lazy("University"))
+    comment = models.TextField(blank=True, verbose_name=ugettext_lazy("Comment"))
     def __unicode__(self):
         return self.university
 
@@ -181,7 +181,7 @@ class Payment(models.Model):
 class UserProfileForm(ModelForm):
     class Meta:
         model = UserProfile
-        exclude = ('user','contacts','balance','observed_messages','observed_projects','picture','title','birthdate','display_name','blog','language')
+        fields = ('address','postcode','city','country','mobile','phone')
 
 class SkillForm(ModelForm):
     class Meta:

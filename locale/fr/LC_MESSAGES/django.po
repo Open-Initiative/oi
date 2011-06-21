@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-02 02:09+0200\n"
+"POT-Creation-Date: 2011-06-21 12:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -204,50 +204,50 @@ msgstr "Spécifications modifiées"
 msgid "The specification of a project you follow has been changed"
 msgstr "Les spécifications d'un projet que vous suivez ont été modifiées"
 
-#: messages/models.py:160 messages/views.py:88 messages/views.py:100
-#: messages/views.py:170 projects/models.py:163 projects/views.py:70
+#: messages/models.py:160 messages/views.py:88 messages/views.py:102
+#: messages/views.py:174 projects/models.py:163 projects/views.py:70
 #: projects/views.py:88 projects/views.py:94
 #: templates/projects/project_detail.html:124
 msgid "Forbidden"
 msgstr "Permissions insuffisantes"
 
-#: messages/views.py:134
+#: messages/views.py:138
 msgid "Message deleted"
 msgstr "Message supprimé"
 
-#: messages/views.py:142
+#: messages/views.py:146
 msgid "Message is now private"
 msgstr "Le message est maintenant confidentiel"
 
-#: messages/views.py:150
+#: messages/views.py:154
 msgid "Message shared"
 msgstr "Message partagé"
 
-#: messages/views.py:159
+#: messages/views.py:163
 msgid "Stopped following"
 msgstr "Arrêt du suivi"
 
-#: messages/views.py:162
+#: messages/views.py:166
 msgid "Following the message"
 msgstr "Message suivi"
 
-#: messages/views.py:173
+#: messages/views.py:177
 msgid "Can not move a message to its answer"
 msgstr "Impossible de déplacer un message vers sa réponse"
 
-#: messages/views.py:180
+#: messages/views.py:184
 msgid "Message moved"
 msgstr "Message déplacé"
 
-#: messages/views.py:200
+#: messages/views.py:204
 msgid "already voted!"
 msgstr "Déjà voté !"
 
-#: messages/views.py:205
+#: messages/views.py:209
 msgid "voted"
 msgstr "A voté"
 
-#: messages/views.py:243
+#: messages/views.py:247
 msgid "Latest updates of Open Initiative "
 msgstr "L'activité la plus récente d'Open Initiative "
 
@@ -646,90 +646,81 @@ msgstr ""
 "Il y a eu une erreur sur le serveur. Les administrateurs en ont été "
 "informés. Ils essaieront de la corriger dès qu'ils pourront. Désolé !"
 
-#: templates/base.html:36
+#: templates/base.html:41
 msgid "My profile"
 msgstr "Mon profil"
 
-#: templates/base.html:37
+#: templates/base.html:42
 msgid "Settings"
 msgstr "Préférences"
 
-#: templates/base.html:38
+#: templates/base.html:43
 msgid "Disconnect"
 msgstr "Déconnecter"
 
-#: templates/base.html:52
+#: templates/base.html:57 templates/index.html:4
 msgid "The IT community dedicated to your business"
 msgstr "La communaute informatique au service des entreprises"
 
-#: templates/base.html:68 templates/users/dashboard.html:4
+#: templates/base.html:73 templates/users/dashboard.html:4
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
-#: templates/base.html:69 templates/notification/notices.html:8
+#: templates/base.html:74 templates/notification/notices.html:8
 #: templates/users/dashboard.html:37
 msgid "Notices"
 msgstr "Notifications"
 
-#: templates/base.html:70
+#: templates/base.html:75
 msgid "Personal Messages"
 msgstr "Messages personnels"
 
-#: templates/base.html:71
+#: templates/base.html:76
 msgid "Publications"
 msgstr "Publications"
 
-#: templates/base.html:72
+#: templates/base.html:77
 msgid "Transactions"
 msgstr "Transactions"
 
-#: templates/base.html:76
+#: templates/base.html:81
 msgid "Login"
 msgstr "Se connecter"
 
-#: templates/base.html:81 templates/users/register.html:18
+#: templates/base.html:86 templates/index.html:76
+#: templates/users/register.html:18
 msgid "username"
 msgstr "Nom d'utilisateur"
 
-#: templates/base.html:85
+#: templates/base.html:90
 msgid "password"
 msgstr "Mot de passe"
 
-#: templates/base.html:89 templates/registration/login.html:21
+#: templates/base.html:94 templates/registration/login.html:21
 msgid "login"
 msgstr "Se connecter"
 
-#: templates/base.html:94 templates/registration/login.html:25
-#: templates/users/register.html:3 templates/users/register.html.py:36
+#: templates/base.html:99 templates/index.html:94
+#: templates/registration/login.html:25 templates/users/register.html:3
+#: templates/users/register.html.py:36
 msgid "Register"
 msgstr "S'inscrire"
 
-#: templates/base.html:96 templates/registration/login.html:27
+#: templates/base.html:101 templates/registration/login.html:27
 msgid "Forgot your password?"
 msgstr "Mot de passe oublié ?"
 
-#: templates/base.html:115 templates/projects/project_nav.html:17
-msgid "Discussion"
-msgstr "Discussion"
-
-#: templates/base.html:122
-msgid "Projects"
-msgstr "Projets"
-
-#: templates/base.html:129
-msgid "Members"
-msgstr "Membres"
-
-#: templates/base.html:146 templates/projects/dialogue/bid.html:4
+#: templates/base.html:159 templates/index.html:93
+#: templates/projects/dialogue/bid.html:4
 #: templates/projects/dialogue/offer.html:4 templates/users/register.html:35
 msgid "Terms of Use"
 msgstr "Conditions Générales d'Utilisation"
 
-#: templates/base.html:147 templates/contact.html:3
+#: templates/base.html:160 templates/contact.html:3
 msgid "Legal notice"
 msgstr "Mentions légales"
 
-#: templates/base.html:148
+#: templates/base.html:161
 msgid "Contact"
 msgstr "Contact"
 
@@ -765,11 +756,37 @@ msgstr "En savoir plus"
 msgid "Why Agile development"
 msgstr "Pourquoi la méthodologie Agile"
 
-#: templates/messages/editmessage.html:27
+#: templates/index.html:68 templates/users/register.html:10
+msgid "Last name"
+msgstr "Nom de famille"
+
+#: templates/index.html:72 templates/users/register.html:14
+msgid "First name"
+msgstr "Prénom"
+
+#: templates/index.html:80 templates/users/register.html:22
+msgid "Password"
+msgstr "Mot de passe"
+
+#: templates/index.html:84 templates/users/register.html:26
+msgid "Confirm password"
+msgstr "Confirmez le mot de passe"
+
+#: templates/index.html:88 templates/users/register.html:30
+#: templates/users/resetpwd.html:13
+msgid "E-mail address"
+msgstr "Adresse e-mail"
+
+#: templates/index.html:93 templates/projects/dialogue/bid.html:4
+#: templates/projects/dialogue/offer.html:4 templates/users/register.html:35
+msgid "I have read and accepted the"
+msgstr "J'ai lu et j'accepte les"
+
+#: templates/messages/editmessage.html:31
 msgid "Request for proposal"
 msgstr "Appel à propositions"
 
-#: templates/messages/editmessage.html:27
+#: templates/messages/editmessage.html:31
 msgid ""
 "By checking this box, you invite members to make formal project proposals in "
 "which you will be able to select the one that suits your needs."
@@ -919,11 +936,13 @@ msgid "to take on project"
 msgstr "de prendre en charge le projet"
 
 #: templates/notification/delegate/full.html:3
+#, python-format
 msgid ""
 "wants to delegate project <a href=\"%(current_site)s/project/get/%(id)s\">%"
 "(title)s</a> to you."
 msgstr ""
-"veut vous déléguer le projet <a href=\"%(current_site)s/project/get/%(id)s\">%(title)s</a>."
+"veut vous déléguer le projet <a href=\"%(current_site)s/project/get/%(id)s\">"
+"%(title)s</a>."
 
 #: templates/notification/delegate/notice.html:3
 #, python-format
@@ -1099,6 +1118,10 @@ msgstr "Presse-papier"
 msgid "remove from clipboard"
 msgstr "retirer du presse-papier"
 
+#: templates/projects/project_nav.html:17
+msgid "Discussion"
+msgstr "Discussion"
+
 #: templates/projects/project_nav.html:24
 msgid "Specification"
 msgstr "Spécification"
@@ -1225,11 +1248,6 @@ msgstr "Assigné à :"
 #: templates/users/profile/training.html:5
 msgid "to"
 msgstr "à"
-
-#: templates/projects/dialogue/bid.html:4
-#: templates/projects/dialogue/offer.html:4 templates/users/register.html:35
-msgid "I have read and accepted the"
-msgstr "J'ai lu et j'accepte les"
 
 #: templates/projects/gantt/prjview.html:10
 msgid "Overview of"
@@ -1371,7 +1389,7 @@ msgstr "Modifier le mot de passe"
 msgid "Former password"
 msgstr "Ancien mot de passe"
 
-#: templates/users/changepwd.html:13 users/views.py:98
+#: templates/users/changepwd.html:13 users/views.py:102
 msgid "New password"
 msgstr "Nouveau mot de passe"
 
@@ -1476,26 +1494,6 @@ msgstr "Projets suivis"
 msgid "E-mail notification"
 msgstr "Notification par e-mail"
 
-#: templates/users/register.html:10
-msgid "Last name"
-msgstr "Nom de famille"
-
-#: templates/users/register.html:14
-msgid "First name"
-msgstr "Prénom"
-
-#: templates/users/register.html:22
-msgid "Password"
-msgstr "Mot de passe"
-
-#: templates/users/register.html:26
-msgid "Confirm password"
-msgstr "Confirmez le mot de passe"
-
-#: templates/users/register.html:30 templates/users/resetpwd.html:13
-msgid "E-mail address"
-msgstr "Adresse e-mail"
-
 #: templates/users/resetpwd.html:3 templates/users/resetpwd.html.py:16
 msgid "Reset password"
 msgstr "Réinitialisation du mot de passe"
@@ -1589,6 +1587,34 @@ msgstr "Ajouter une formation"
 msgid "Training"
 msgstr "Formation"
 
+#: users/models.py:24
+msgid "Birthdate"
+msgstr "Date de naissance"
+
+#: users/models.py:25
+msgid "Address"
+msgstr "Adresse"
+
+#: users/models.py:26
+msgid "Post Code"
+msgstr "Code postal"
+
+#: users/models.py:27
+msgid "City"
+msgstr "Ville"
+
+#: users/models.py:28
+msgid "Country"
+msgstr "Pays"
+
+#: users/models.py:29
+msgid "Mobile"
+msgstr "Téléphone portable"
+
+#: users/models.py:30
+msgid "Phone Number"
+msgstr "Numéro de téléphone"
+
 #: users/models.py:46
 #, python-format
 msgid "%(job)s at %(company)s"
@@ -1613,84 +1639,135 @@ msgstr "Versement par paiement en ligne"
 msgid "Paiement %s validated"
 msgstr "Paiement %s validé"
 
-#: users/models.py:224
+#: users/models.py:145
+msgid "Title"
+msgstr "Titre"
+
+#: users/models.py:146
+msgid "Main skill"
+msgstr "Compétence principale"
+
+#: users/models.py:147 users/models.py:167
+msgid "Comment"
+msgstr "Commentaire"
+
+#: users/models.py:153 users/models.py:163
+msgid "Begining"
+msgstr "Début"
+
+#: users/models.py:154 users/models.py:164
+msgid "End"
+msgstr "Fin"
+
+#: users/models.py:155
+msgid "Company"
+msgstr "Société"
+
+#: users/models.py:156
+msgid "Job"
+msgstr "Emploi"
+
+#: users/models.py:157
+msgid "Description"
+msgstr "Description"
+
+#: users/models.py:165
+msgid "Degree"
+msgstr "Diplôme"
+
+#: users/models.py:166
+msgid "University"
+msgstr "Université"
+
+#: users/models.py:222
 #, python-format
 msgid "%s's blog"
 msgstr "blog de %s"
 
-#: users/views.py:63
+#: users/views.py:67
 msgid "Setting saved"
 msgstr "Paramètre enregistré"
 
-#: users/views.py:70
+#: users/views.py:74
 msgid "Information saved"
 msgstr "Information enregistrée"
 
-#: users/views.py:85
+#: users/views.py:89
 msgid "Invitation sent"
 msgstr "Invitation envoyée"
 
-#: users/views.py:92
+#: users/views.py:96
 msgid "The user doesn't exist"
 msgstr "L'utilisateur n'existe pas"
 
-#: users/views.py:94
+#: users/views.py:98
 msgid "E-mail address did not match"
 msgstr "L'adresse e-mail ne correspond pas"
 
-#: users/views.py:98
+#: users/views.py:102
 #, python-format
 msgid "Your password has been reset. Your new password is: %s"
 msgstr ""
 "Votre mot de passe a été réinitialisé. Votre nouveau mot de passe est : %s"
 
-#: users/views.py:99
+#: users/views.py:103
 msgid "The new password has been sent to you by e-mail"
 msgstr "Le nouveau mot de passe vous a été envoyé par e-mail"
 
-#: users/views.py:105
+#: users/views.py:109
 msgid "Old password did not match"
 msgstr "L'ancien mot de passe ne correspond pas"
 
-#: users/views.py:110
+#: users/views.py:114
 msgid "Your password has been updated"
 msgstr "Votre mot de passe a été mis-à-jour."
 
-#: users/views.py:120
+#: users/views.py:124
 msgid "Your email has been updated"
 msgstr "Votre adresse e-mail a été mise-à-jour"
 
-#: users/views.py:126
+#: users/views.py:130
 msgid "Please accept the terms of use"
 msgstr "Merci d'accepter les Conditions Générales d'Utilisation"
 
-#: users/views.py:128
+#: users/views.py:132
+msgid "Invalid username. Please use only letters, digits, - and _."
+msgstr ""
+"Nom d'utilisateur non valide. Merci d'utiliser des lettres, chiffres, - et _."
+
+#: users/views.py:134
 msgid "Please enter a password"
 msgstr "Veuillez choisir un mot de passe"
 
-#: users/views.py:130
+#: users/views.py:136
 msgid "Passwords did not match"
 msgstr "Les mots de passe ne correspondent pas"
 
-#: users/views.py:134
+#: users/views.py:140
 msgid "This username is already used"
 msgstr "Ce nom d'utilisateur n'est pas disponible"
 
-#: users/views.py:177
+#: users/views.py:183
 msgid "Can not change other users' profiles"
 msgstr "Impossible de modifier le profil d'un autre utilisateur"
 
-#: users/views.py:179 users/views.py:186 users/views.py:199 users/views.py:206
+#: users/views.py:185 users/views.py:192 users/views.py:205 users/views.py:212
 msgid "Modification saved"
 msgstr "Mofication enregistrée"
 
-#: users/views.py:238
+#: users/views.py:244
 msgid "Message sent"
 msgstr "Message envoyé"
 
-#: users/views.py:247
+#: users/views.py:253
 msgid "Notice archived"
 msgstr "Notification archivée"
+
+#~ msgid "Projects"
+#~ msgstr "Projets"
+
+#~ msgid "Members"
+#~ msgstr "Membres"
 
 #~ msgid "Validate the project"
 #~ msgstr "Valider le projet"
