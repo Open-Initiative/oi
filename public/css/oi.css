@@ -184,6 +184,7 @@ div.center{
 }
 .info {
     background: #D0574C;
+    font-weight: bold;
     color: white;
 }
 div.column {
