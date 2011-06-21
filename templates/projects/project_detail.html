@@ -106,10 +106,10 @@
             <img id="arrow_{{project.id}}_{{group.grouper}}" src="/img/fleche{% if group.grouper > 2 %}1{% else %}2{% endif %}.png" />
             {{group.list|length}} {% trans "tasks" %} {{OI_PRJ_STATES|get:group.grouper}}{% trans "past_fem_plur" %}
         </h3>
-        <div id="tasks_{{project.id}}_{{group.grouper}}" {% if group.grouper > 2 %}class="invisible"{% endif %}>
+        <div id="tasks_{{project.id}}_{{group.grouper}}" {% if group.grouper > 2 %}class="invisible"{% endif %} class="pile">
             {% regroup group.list|dictsortreversed:"priority" by priority as tasks %}
             {% for taskgroup in tasks %}
-            <div class="pile">
+            <div>
                 {% for task in taskgroup.list %}
                 {% if task|can_read:user %}{% include "projects/task.html" %}{% endif %}
                 {% endfor %}

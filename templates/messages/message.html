@@ -9,19 +9,21 @@
     {% if message.rfp %}
     <div class="rfptop"></div>
     <div id="projects_{{message.id}}" class="prjlist">
-        <div>{% trans "Project proposal" %}:</div>
-        {% if message|can_answer:user %}
-        <a href="/project/edit/0?message={{message.id}}">
-            <img src="/img/icons/addprj.png" alt="{% trans "Propose a new project" %}" title="{% trans "Propose a new project" %}" />
-        </a>
-        {% endif %}
+        <div class="navitem">{% trans "Offers" %}:</div>
         <div class="pile">
             {% for task in message.get_projects %}
-            <a id="project_{{task.id}}" href="/project/get/{{task.id}}">
-                {% include "projects/task.html" %}
-            </a>
+            <div>
+                <a id="project_{{task.id}}" href="/project/get/{{task.id}}">
+                    {% include "projects/task.html" %}
+                </a>
+            </div>
             {% endfor %}
         </div>
+        {% if message|can_answer:user %}
+        <a href="/project/edit/0?message={{message.id}}" class="navitem">
+            <img src="/img/icons/addprj.png" alt="{% trans "Make an offer" %}" title="{% trans "Make an offer" %}" /> {% trans "Make an offer" %}
+        </a>
+        {% endif %}
     </div>
     {% endif %}
     <div class="msgbubble">

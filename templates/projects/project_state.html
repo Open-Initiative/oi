@@ -16,7 +16,7 @@
     </h3>
     <div>
         {% if project.assignee %}
-            {% trans "In charge" %} : {{project.assignee}} ({{project.offer}} €)
+            {% trans "In charge" %} : {{project.assignee}} : {{project.offer}} €
             {% ifequal user project.assignee %}
             {% if project.state < 2 %}<img class="clickable" src="/img/icons/edit.png" onclick="offerProject({{project.id}})" />{% endif %}
             {% if project.state < 3 %}
@@ -44,7 +44,7 @@
         {% for bid in project.bid_set.all %}
         {{bid.user}}
         {% ifequal user bid.user %}
-        {{bid.amount}} €
+        ({{bid.amount}} €)
         {% if project.state < 2 %}<img class="clickable" src="/img/icons/add.png" onclick="bidProject({{project.id}})" />{% endif %}
         <img class="clickable" src="/img/icons/delprj.png" onclick="cancelBid({{project.id}}, {% if project.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "Cancel your bid on this project" %}" title="{% trans "Cancel your bid on this project" %}" />
         {% endifequal %}

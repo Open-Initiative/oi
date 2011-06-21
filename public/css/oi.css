@@ -209,7 +209,7 @@ div.column {
     margin-top: 15px;
 }
 .navitem {
-    padding: 10px;
+    padding: 10px 0;
     text-transform: uppercase;
     font-family:'Interstate';
     font-size:1.2em;
@@ -314,7 +314,7 @@ div.actions {
     margin-top: -60px;
 }
 div.pile {
-    padding-top: 70px
+    padding-top: 50px
 }
 div.morelink {
     float: right;
