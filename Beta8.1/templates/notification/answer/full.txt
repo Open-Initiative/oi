@@ -1,2 +1,0 @@
-{% load i18n %}
-{{sender}} {% blocktrans %} has published a message on a subject you follow:{% endblocktrans %} {{param}}

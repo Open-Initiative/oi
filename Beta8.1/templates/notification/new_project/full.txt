@@ -1,3 +1,0 @@
-{% load i18n %}
-{{sender}} % trans "has added a project proposal in a subject you follow:" %} {{param.title}}
-

@@ -1,2 +1,0 @@
-{% load i18n %}
-{{sender}}{% trans "has evaluated you on project" %} {{project.title}} : {{rating}}/5

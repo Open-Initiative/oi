@@ -1,5 +1,0 @@
-{% load i18n %}
-<a href="{{current_site}}/user/profile/{{sender.username}}">{{sender}}</a> {% trans "has" %}
-{% ifequal answer "true" %}{% trans "accepted" %}{% else %}{% trans "refused" %}{% endifequal %}
-{% trans "to change the due date of the project" %}
-<a href="{{current_site}}/project/get/{{project.id}}">{{project.title}}</a>

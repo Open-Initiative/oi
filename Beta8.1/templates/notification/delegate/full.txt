@@ -1,2 +1,0 @@
-{% load i18n %}
-{{sender}} {% blocktrans with title=project.title %}wants to delegate project {{title}} to you.{% endblocktrans %}

@@ -1,2 +1,0 @@
-{% load i18n %}
-{{sender}} {% trans "has sent you a personal message:" %} {{subject}}

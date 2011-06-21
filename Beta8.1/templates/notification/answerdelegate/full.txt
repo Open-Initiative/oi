@@ -1,2 +1,0 @@
-{% load i18n %}
-{{sender}} {% trans "has" %} {% ifequal answer "true" %}{% trans "accepted" %}{% else %}{% trans "refused" %}{% endifequal %} {% trans "to take on project" %} {{project.title}}
