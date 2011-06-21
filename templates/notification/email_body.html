@@ -1,6 +1,22 @@
-{% load i18n %}{% blocktrans %}You have received the following notice from {{ current_site }}:
-
-{{ message }}
-
-To see other notices or change how you receive notifications, please go to {{ notices_url }}.
-{% endblocktrans %}
+{% load i18n %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Open Initiative</title>
+</head>
+<body>
+<div style="width: 630px; margin: auto; font-size: 14px; font-family: Helvetica, Arial, sans-serif; line-height: 19px; color: #333; background-color: #ffffff;color:#444444">
+    <a href="http://{{current_site}}/">
+        <div style="float: right; text-align: center; margin: 0 0 50px 50px; width: 200px; font-weight: bold; color: #D0574C">
+            <img src="http://{{current_site}}/img/logo.png" alt="Open Initiative" style="border: none"/> <br />
+            {% trans "The IT community dedicated to your business" %}
+        </div>
+    </a>
+    <p style="color: #D0574C; font-size: 20px">{% trans "Hello" %} {{name}},</p>
+    {% trans "You have received the following notice from" %} {{ current_site }}:
+    <p>{{ message }}</p>
+    <p style="font-weight: bold; color: #D0574C"><a href="{{notices_url}}">{% trans "See all notices" %}</a></p>
+</div>
+</body>
+</html>

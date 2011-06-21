@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-21 12:02+0200\n"
+"POT-Creation-Date: 2011-06-21 14:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -659,6 +659,7 @@ msgid "Disconnect"
 msgstr "Déconnecter"
 
 #: templates/base.html:57 templates/index.html:4
+#: templates/notification/email_body.html:13
 msgid "The IT community dedicated to your business"
 msgstr "La communaute informatique au service des entreprises"
 
@@ -801,14 +802,14 @@ msgid "guest"
 msgstr "invité"
 
 #: templates/messages/message.html:12
-msgid "Project proposal"
-msgstr "Propositions de projet"
+msgid "Offers"
+msgstr ""
 
-#: templates/messages/message.html:15
-msgid "Propose a new project"
-msgstr "Proposer un nouveau projet"
+#: templates/messages/message.html:24
+msgid "Make an offer"
+msgstr ""
 
-#: templates/messages/message.html:40
+#: templates/messages/message.html:42
 msgid "Answer this message"
 msgstr "Répondre à ce message"
 
@@ -867,21 +868,17 @@ msgstr "plus récents"
 msgid "Create in"
 msgstr "Créer dans"
 
-#: templates/notification/email_body.html:1
-#, python-format
-msgid ""
-"You have received the following notice from %(current_site)s:\n"
-"\n"
-"%(message)s\n"
-"\n"
-"To see other notices or change how you receive notifications, please go to %"
-"(notices_url)s.\n"
+#: templates/notification/email_body.html:16
+msgid "Hello"
 msgstr ""
-"Vous avez reçu une notification de %(current_site)s:\n"
-"\n"
-"%(message)s\n"
-"\n"
-"Pour voir toutes vos notifications, rendez-vous sur : %(notices_url)s.\n"
+
+#: templates/notification/email_body.html:17
+msgid "You have received the following notice from"
+msgstr ""
+
+#: templates/notification/email_body.html:19 templates/users/dashboard.html:45
+msgid "See all notices"
+msgstr "Voir toutes les notifications"
 
 #: templates/notification/notices.html:6
 msgid "Don't show archived notices"
@@ -1293,12 +1290,12 @@ msgstr "Résultats pour"
 msgid "No results found."
 msgstr "Aucun résultat trouvé."
 
-#: templates/users/account.html:3 templates/users/account.html.py:20
+#: templates/users/account.html:3 templates/users/account.html.py:22
 #: templates/users/dashboard.html:11
 msgid "My account"
 msgstr "Mon compte"
 
-#: templates/users/account.html:5 templates/users/account.html.py:32
+#: templates/users/account.html:5 templates/users/account.html.py:34
 #: templates/users/pdf/invoice.html:12
 msgid "Balance:"
 msgstr "solde :"
@@ -1315,19 +1312,23 @@ msgstr ""
 "Vous n'avez pas assez d'argent sur votre compte. Merci d'indiquer ci-dessous "
 "le montant que vous souhaitez ajouter :"
 
-#: templates/users/account.html:21
+#: templates/users/account.html:18
+msgid "Go back to my dashboard"
+msgstr ""
+
+#: templates/users/account.html:23
 msgid "History"
 msgstr "Historique"
 
-#: templates/users/account.html:27 templates/users/pdf/invoice.html:7
+#: templates/users/account.html:29 templates/users/pdf/invoice.html:7
 msgid "on project"
 msgstr "sur le projet"
 
-#: templates/users/account.html:35
+#: templates/users/account.html:37
 msgid "My invoices"
 msgstr "Mes factures"
 
-#: templates/users/account.html:36
+#: templates/users/account.html:38
 msgid "Download current period history"
 msgstr "Télécharger l'en-cours"
 
@@ -1449,12 +1450,8 @@ msgstr "Mes projets"
 msgid "See all projects"
 msgstr "Voir tous les projets"
 
-#: templates/users/dashboard.html:45
-msgid "See all notices"
-msgstr "Voir toutes les notifications"
-
 #: templates/users/dashboard.html:46 templates/users/discussions.html:4
-#: templates/users/usermessages.html:3
+#: templates/users/discussions.html.py:6 templates/users/usermessages.html:3
 msgid "Personal messages"
 msgstr "Messages personnels"
 
@@ -1466,13 +1463,14 @@ msgstr "Voir tous les messages personnels"
 msgid "Followed messages"
 msgstr "Messages suivis"
 
-#: templates/users/discussions.html:6 templates/users/discussions.html:12
+#: templates/users/discussions.html:10
 msgid "Received messages"
 msgstr "Messages reçus"
 
-#: templates/users/discussions.html:8
-msgid "Sent messages"
-msgstr "Messages envoyés"
+#: templates/users/discussions.html:20
+#, fuzzy
+msgid "No message received"
+msgstr "Aucune réponse reçue"
 
 #: templates/users/preferences.html:3
 msgid "User settings"
@@ -1762,6 +1760,29 @@ msgstr "Message envoyé"
 #: users/views.py:253
 msgid "Notice archived"
 msgstr "Notification archivée"
+
+#~ msgid "Project proposal"
+#~ msgstr "Propositions de projet"
+
+#~ msgid "Propose a new project"
+#~ msgstr "Proposer un nouveau projet"
+
+#~ msgid ""
+#~ "You have received the following notice from %(current_site)s:\n"
+#~ "\n"
+#~ "%(message)s\n"
+#~ "\n"
+#~ "To see other notices or change how you receive notifications, please go "
+#~ "to %(notices_url)s.\n"
+#~ msgstr ""
+#~ "Vous avez reçu une notification de %(current_site)s:\n"
+#~ "\n"
+#~ "%(message)s\n"
+#~ "\n"
+#~ "Pour voir toutes vos notifications, rendez-vous sur : %(notices_url)s.\n"
+
+#~ msgid "Sent messages"
+#~ msgstr "Messages envoyés"
 
 #~ msgid "Projects"
 #~ msgstr "Projets"

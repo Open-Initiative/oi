@@ -9,7 +9,7 @@
             <div class="prjtop"></div>
             <div class="prjbody">
                 <div class="prjtitle">
-                    {% trans "Project" %} <input name="title" type="text" value="{{project.title}}"/><br />
+                    {% trans "Project" %} <input name="title" type="text" value="{{project.title}}" maxlength=100 /><br />
                     {%if parent%}<input name="parent" type="hidden" value="{{parent}}" />{%endif%}
                 </div>
                 <label for="start_date">{% trans "Start date" %} </label><input name="start_date" id="start_date" type="text" value='{% if project and project.start_date%}{{project.start_date}}{% else %}{%now "Y-m-d"%}{% endif %}' />

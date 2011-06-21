@@ -14,7 +14,7 @@
                 <input id="title_{{divid}}" class="msgfield" type="hidden" value="{{message.title}}"/>
                 <img class="clickable" src="/img/icons/edit.png" title="Modifier le titre" onclick="editMessageTitle('{{divid}}','{{message.title|addslashes}}')" />
                 {% else %}
-                <input id="title_{{divid}}" class="msgfield" type="text" value="{{message.title}}"/>            
+                <input id="title_{{divid}}" class="msgfield" type="text" value="{{message.title}}" maxlength=100 />            
                 {% endif %}
             </div>
         </div>
