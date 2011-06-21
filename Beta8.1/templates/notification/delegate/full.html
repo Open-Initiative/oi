@@ -1,0 +1,4 @@
+{% load i18n %}
+<a href="{{current_site}}/user/profile/{{sender.username}}">{{sender}}</a>
+{% blocktrans with title=project.title id=project.id %}wants to delegate project <a href="{{current_site}}/project/get/{{id}}">{{title}}</a> to you.{% endblocktrans %}<br />
+<a href="{{current_site}}/project/get/{{project.id}}">Répondre</a>

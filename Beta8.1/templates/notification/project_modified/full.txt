@@ -1,0 +1,3 @@
+{% load i18n %}
+{{sender}} {% trans "has changed a project you follow:" %} {{project.title}}
+{{param}}

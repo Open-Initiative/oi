@@ -1,0 +1,4 @@
+<form action="{% url oi.messages.views.uploadFile %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="image" onchange="this.parentNode.submit()" />
+</form>

@@ -1,0 +1,38 @@
+{% load oifilters %}
+<div class="actions">
+    {% if project.state = 1 %}
+        {% if project.assignee = user %}
+        <img class="clickable" onclick="startProject({{project.id}})" src="/img/icons/startprj.png" alt="Start the project" title="Start the project" />
+        {% endif %}
+    {% endif %}
+    {% if project.state = 2 %}
+        {% if project.assignee = user %} <img class="clickable" onclick="deliverProject({{project.id}})" src="/img/icons/okprj.png" alt="Mark the project as done" title="Mark the project as done" />{% endif %}
+    {% endif %}
+    {% if project.state = 3 %}
+        {% if project|is_bidder:user %} <img class="clickable" onclick="validateProject({{project.id}})" src="/img/icons/okprj.png" alt="Validate the project" title="Validate the project" />{% endif %}
+    {% endif %}
+    {% if project.state = 4 %}
+        {% if project|is_bidder:user %} <img class="clickable" onclick="evalProject({{project.id}})" src="/img/icons/evalprj.png" alt="Evaluate the project" title="Evaluate the project" />{% endif %}
+    {% endif %}
+    {% if project|can_read:user %}<a href="{% url oi.projects.views.projectview id=project.master.id %}#today">
+        <img src="/img/icons/viewprj.png" alt="Overview" title="Overview" />
+    </a>{% endif %}
+    {% if project|can_write:user %}
+        {% if project.public %}
+        <img class="clickable" src="/img/icons/privateprj.png" onclick="hideProject({{project.id}})" alt="Make the project private" title="Make the project private" />
+        {% else %}
+        <img class="clickable" src="/img/icons/shareprj.png" onclick="shareProject({{project.id}})" alt="Share the project" title="Share the project" />
+        {% endif %}
+        {% ifequal project.bid_set.count 0 %}
+        <img class="clickable" src="/img/icons/delprj.png" onclick="deleteProject({{project.id}},{{project.message.id}})" alt="Delete the project" title="Delete the project" />
+        <img class="clickable" src="/img/icons/moveprj.png" onclick="moveProject({{project.id}})" alt="Déplacer the project" title="Déplacer le projet" />
+        {% else %}
+            {% if project.state <= 3 %}
+                {% ifequal user project.assignee %}
+                <img class="clickable" src="/img/icons/delprj.png" onclick="cancelProject({{project.id}}, {% if project.state > 1 %}true{% else %}false{% endif %})" alt="Annuler le projet" title="Annuler le projet" />
+                {% endifequal %}
+            {% endif %}
+        {% endifequal %}
+    {% endif %}
+    <img class="clickable" src="/img/icons/favprj.png" onclick="observeProject({{project.id}})" alt="Suivre le projet" title="Suivre le projet" />
+</div>

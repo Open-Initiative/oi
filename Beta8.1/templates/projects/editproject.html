@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{project.title|default:_("New project")}}{% endblock %}
+{% block content %}
+<div class="column">
+    <div class="project">
+        <form action="/project/save/{{project.id|default:0}}" method="post">
+            {% csrf_token %}
+            <div class="prjtop"></div>
+            <div class="prjbody">
+                <div class="prjtitle">
+                    {% trans "Project" %} <input name="title" type="text" value="{{project.title}}"/><br />
+                    {%if parent%}<input name="parent" type="hidden" value="{{parent}}" />{%endif%}
+                </div>
+                <label for="start_date">{% trans "Start date" %} </label><input name="start_date" id="start_date" type="text" value='{% if project and project.start_date%}{{project.start_date}}{% else %}{%now "Y-m-d"%}{% endif %}' />
+                <script>new JsDatePick({useMode:2,target:"start_date",dateFormat:"%Y-%m-%d"});</script>
+                <img class="clickable" src="/img/icons/calendar.png" onclick="JsDatePick.getCalInstanceById(document.getElementById('start_date').getAttribute('globalNumber')).showCalendar()" /><br />
+                <label for="due_date"">{% trans "Due date" %} </label><input name="due_date" id="due_date" type="text" value="{{project.due_date|default:''}}" />
+                <script>new JsDatePick({useMode:2,target:"due_date",dateFormat:"%Y-%m-%d"});</script>
+                <img class="clickable" src="/img/icons/calendar.png" onclick="JsDatePick.getCalInstanceById(document.getElementById('due_date').getAttribute('globalNumber')).showCalendar()" /><br />
+                <input name="message" type="hidden" value="{{message}}" />
+                <div id="specs_{{project.id}}">
+                    {% if project %}{% for spec in project.spec_set.all|dictsort:"order" %}
+                    <div id="specs_{{project.id}}_{{spec.order}}">
+                        {% include 'projects/spec/spec.html' %}
+                    </div>
+                    {% endfor %}{% endif %}
+                </div>
+                {% if project %}<img src="/img/icons/addspec.png" onclick="addSpec({{project.id}}, -1)" alt="{% trans "Add a specification" %}" title="{% trans "Add a specification" %}"/>{% endif %}
+                <input type="image" src="/img/icons/ok-32.png" alt="OK" />
+                <img class="clickable" src="/img/icons/del-32.png" onclick="history.back()" />
+            </div>
+            <div class="prjbtm"></div>
+        </form>
+    </div>
+</div>
+{% endblock %}

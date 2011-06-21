@@ -1,0 +1,96 @@
+﻿{% extends "base.html" %}
+{% load i18n %}
+{% load oifilters %}
+{% block title %}{% trans "The IT community dedicated to your business" %}{% endblock %}
+{% block announcement %}
+    <div id="catcherbg">
+        <div id="catcher">
+            <div class="catcherleft">
+                <a href="/message/new"><div class="catchericon" onmouseover="show('slider2');hide('slider1');" onmouseout="show('slider1');hide('slider2');">
+                    <img src="/img/icons/msg100.png" />
+                    <div>{% trans "Talk" %}</div><div class="catchercomment">{% trans "to the community" %}</div>
+                </div></a>
+                <div class="sep"></div>
+                <a href="{% if user.is_anonymous %}/login?next={% endif %}/message/new?rfp=true"><div class="catchericon" onmouseover="show('slider3');hide('slider1');" onmouseout="show('slider1');hide('slider3');">
+                    <img src="/img/icons/prj100.png" />
+                    <div>{% trans "Submit" %}</div><div class="catchercomment">{% trans "a project" %}</div>
+                </div></a>
+            </div>
+            <div id="slider1" class="slider">
+                <div class="slidertext">Avec Open Initiative accédez aux conseils de professionnels, précisez et définissez avec eux votre projet ainsi que les solutions envisageables.</div>
+                <div class="slidericon"><img src="/img/icons/user.png" /></div>
+                <a href="/presentation"><div class="slidermore" onmouseover="this.style.color='#D0574C'" onmouseout="this.style.color='white'">
+                    {% trans "Learn More" %}
+                </div></a>
+            </div>
+            <div id="slider2" class="slider invisible">
+                <div class="slidertext">Échangez gratuitement avec la communauté informatique et obtenez des propositions parfaitement adaptées à vos objectifs et à vos contraintes.</div>
+                <div class="slidericon"><img src="/img/icons/message.png" /></div>
+            </div>
+            <div id="slider3" class="slider invisible">
+                <div class="slidertext">Choisissez parmi les offres qui vous sont faites et suivez l'avancement de votre projet en ligne. Adaptez votre projet à votre rythme et votre budget !</div>
+                <div class="slidericon"><img src="/img/icons/project.png" /></div>
+            </div>
+        </div>
+    </div>
+    <div class="agileline">
+        <a href="/presentation#methodology">
+            <div class="agiletext">
+                <img src="/img/agilearrow.png" class="agilearrow" />
+                {% trans "Why Agile development" %} <img class="askoi" src="/img/askoi.png" />
+                <img src="/img/agilearrow2.png" class="agilearrow" />
+            </div>
+        </a>
+    </div>
+{% endblock %}
+{% block nav %}<span style="font-size:1.2em;color:#0094B5">Préinscription</span>{% endblock %}
+{% block content %}
+    {% comment %}{% with "True" as is_ajax %}
+    <div id="messages" class="column" style="padding-left:20px">{% include "messages/message_list.html" %}</div>
+    {% endwith %}{%endcomment%}
+    <div style="margin-left:50px">
+        <div style="font-size:1.8em;color:#D0574C;font-weight:bold;text-transform:uppercase">
+            Préinscriptions jusqu'en septembre 2011
+        </div>
+        <div style="margin-top:.5em;font-size:1.3em;">
+            <img src="/img/agilearrow.png" style="vertical-align:-5px" />
+            <span style="font-weight:bold;">Avantage préinscription : votre accompagnement personnalisé offert</span>
+            pour le suivi du projet et la sélection de vos prestataires.
+            Pour en savoir plus, n'hésitez pas à <a href="mailto:contact@openinitiative.com">nous contacter</a>.
+        </div>
+        <p style="font-size:.8em;">Prestation d'une valeur maximale de 2000 euros, correspondant à 4 journées de suivi personnalisé.</p>
+        <form method="post" action="{% url oi.users.views.createuser %}">
+            <span class="info">{{message}}</span>
+            {% csrf_token %}
+            <table>
+            <tr>
+                <td><label for="lastname">{% trans "Last name" %}</label></td>
+                <td><input type="text" name="lastname" /></td>
+            </tr>
+            <tr>
+                <td><label for="firstname">{% trans "First name" %}</label></td>
+                <td><input type="text" name="firstname" /></td>
+            </tr>
+            <tr>
+                <td><label for="username">{% trans "username" %}</label></td>
+                <td><input type="text" name="username" /></td>
+            </tr>
+            <tr>
+                <td><label for="password">{% trans "Password" %}</label></td>
+                <td><input type="password" name="password" /></td>
+            </tr>
+            <tr>
+                <td><label for="password_confirm">{% trans "Confirm password" %}</label></td>
+                <td><input type="password" name="password_confirm" /></td>
+            </tr>
+            <tr>
+                <td><label for="email">{% trans "E-mail address" %}</label></td>
+                <td><input type="text" name="email" /></td>
+            </tr>
+            </table>
+            <input type="checkbox" name="acceptcgu"/>
+            <label for="acceptcgu">{% trans "I have read and accepted the" %} <a href="/cgu" target="_blank">{% trans "Terms of Use" %}</a></label><br />
+            <input type="submit" value="{% trans "Register" %}" />
+        </form>
+    </div>
+{% endblock %}

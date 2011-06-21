@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "User settings" %}{% endblock %}
+{% block content %}
+<div class="usercontent">
+    <div>
+        <h2>{% trans "Contact information" %}</h2>
+        <div class="actions">
+            <img class="clickable" src="/img/icons/ok-32.png" onclick="saveContactInfo()" />
+            <input type="image" class="clickable" src="/img/icons/del-32.png" onclick="document.forms['contact_form'].reset()" />
+        </div>
+        <form id="contact_form">
+            <table>{{contact_form.as_table}}</table>
+        </form>
+    </div>
+    <div>
+        <a href="/user/changepassword">{% trans "Change your password" %}</a>
+    </div>
+    <div>
+        {{user.email}}
+        <a href="/user/changeemail">{% trans "Change your e-mail address" %}</a>
+    </div>
+    <div>
+        <h2>{% trans "Notification settings" %}</h2>
+        <h3>{% trans "Followed messages" %}</h3>
+        {% for message in user.get_profile.observed_messages.all %}
+        <div id="followmsg_{{message.id}}">
+            <a href="/message/get/{{message.id}}">{{message.title}}</a>
+            <img class="clickable" src="/img/icons/delete.png" onclick="observeMessage({{message.id}}, 'stop=True');clearDiv('followmsg_{{message.id}}')"/>
+        </div>
+        {% endfor %}
+        <h3>{% trans "Followed projects" %}</h3>
+        {% for project in user.get_profile.observed_projects.all %}
+        <div id="followprj_{{project.id}}">    
+            <a href="/project/get/{{project.id}}">{{project.title}}</a>
+            <img class="clickable" src="/img/icons/delete.png" onclick="observeProject({{project.id}}, 'stop=True');clearDiv('followprj_{{project.id}}')"/>
+        </div>
+        {% endfor %}
+        <h3>{% trans "E-mail notification" %}</h3>
+        {% for notice_type in notice_settings %}
+        <input type="checkbox" onclick="setemailing('{{notice_type.label}}', this.checked)" {% if notice_type.send %}CHECKED{% endif %}/>
+        {{notice_type.display}}<br />
+        {% endfor %}
+    </div>
+<!--    <div>-->
+<!--        <h2>Privacy settings</h2>-->
+<!--    </div>-->
+</div>
+{% endblock %}

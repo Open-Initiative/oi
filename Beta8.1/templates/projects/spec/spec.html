@@ -1,0 +1,30 @@
+{% load i18n %}
+{% load oifilters %}
+<div id="spec_{{project.id}}_{{spec.order}}" class="cleared">
+    <div class="actions">
+        {% if project|can_write:user %}{% if project.state < 2 %}
+        <img class="clickable" src="/img/icons/delspec.png" onclick="deleteSpec({{project.id}}, {{spec.order}})" alt="Delete the specification" title="Delete the specification"/>
+        <img class="clickable" src="/img/icons/editspec.png" onclick="editSpec({{project.id}}, {{spec.order}})" alt="Correct the specification" title="Correct the specification"/>
+        <img class="clickable" src="/img/icons/addspec.png" onclick="addSpec({{project.id}}, {{spec.order}})" alt="Add a specification" title="Add a specification"/>
+        {% endif %}{% endif %}
+    </div>
+    <input type="hidden" id="specid_{{spec.order}}" value="{{spec.id}}" />
+    {% if spec.type == 3 or spec.type == 4 %}<a href="{{spec.url}}" >{% endif %}
+    {{spec.text|oiunescape}}
+    {% if spec.type == 3 or spec.type == 4 %}</a>{% endif %}
+    {% if spec.type == 2 %}<img src="{{spec.file.url}}" />{% endif %}
+    {% if spec.type == 5 %}
+    <a href="{{spec.file.url}}"><img src="/img/icons/dlspec.png" alt="Download the specification" title="Download the specification"/></a>
+    {% endif %}
+    <div class="contactinfo">
+        <img class="contactpicture" src="/user/getpicture/{{project.author.username}}" />
+        <div>
+            {% trans "Published by" %} {% if spec.author %}
+            <a href="/user/profile/{{spec.author.username}}">{{spec.author}}</a>
+            {% else %}
+            {% trans "Guest" %}
+            {% endif %}<br />{% trans "on" %} {{spec.created|date:"d/m/Y H:i:s"}}
+        </div>
+    </div>
+    <hr />
+</div>

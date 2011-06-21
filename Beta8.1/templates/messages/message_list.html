@@ -1,0 +1,33 @@
+{% extends is_ajax|yesno:"ajaxbase.html,base.html" %}
+{% load i18n %}
+{% load oifilters %}
+{% block title %}{% trans "All messages" %}{% endblock %}
+{% block content %}
+{% if not is_ajax %}
+
+<a href="/message/new{% if rfp %}?rfp=true{% endif %}"><div class="catchericon{% if rfp %} msgred{% endif %}">
+    <div class="column"><img src="/img/icons/{% if rfp %}prj{% else %}msg{% endif %}100.png" /></div>
+    {% if rfp %}<div>{% trans "Submit" %}</div><div class="catchercomment">{% trans "a project" %}</div>
+    {% else %}<div>{% trans "Talk" %}</div><div class="catchercomment">{% trans "to the community" %}</div>{% endif %}
+</div></a>
+<div class="cleared"></div>
+{{hits}} {% trans "messages" %}
+<div>
+    {% if has_next %}<a href="?page={{next}}">&lt;&lt; {% trans "older" %}</a>{% endif %}
+    <span>{% trans "Page" %} {{page}} {% trans "of" %} {{paginator.num_pages}}.</span>
+    {% if has_previous %}<a href="?page={{previous}}">{% trans "newer" %} &gt;&gt;</a>{% endif %}
+</div>
+{% endif %}
+{% for message in object_list %}
+<a  href="/message/get/{{message.id}}">
+    {% include "messages/messagesum.html" %}
+</a>
+{% endfor %}
+{% if not is_ajax %}
+<div>
+    {% if has_next %}<a href="?page={{next}}">&lt;&lt; {% trans "older" %}</a>{% endif %}
+    <span>{% trans "Page" %} {{page}} {% trans "of" %} {{paginator.num_pages}}.</span>
+    {% if has_previous %}<a href="?page={{previous}}">{% trans "newer" %} &gt;&gt;</a>{% endif %}
+</div>
+{% endif %}
+{% endblock %}

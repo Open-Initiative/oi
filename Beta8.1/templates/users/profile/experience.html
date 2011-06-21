@@ -1,0 +1,13 @@
+{% load i18n %}
+<div id="experience_{{experience.id}}">
+    <h3>
+        {{experience.begining.year}} {% trans "to" %} {{experience.end.year|default:_("Today")}} -
+        {{experience.job}} {% trans "at" %} {{experience.company}}
+        {% ifequal user selected_user %}
+        <img class="clickable" src="/img/icons/edit.png" onclick="editDetail('experience','experience_{{experience.id}}',{{experience.id}})" />
+        <img class="clickable" src="/img/icons/delete.png" onclick="deleteDetail({{experience.id}},'experience')" />
+        {% endifequal %}
+    </h3>
+    {{experience.description}}
+</div>
+

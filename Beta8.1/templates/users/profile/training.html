@@ -1,0 +1,13 @@
+{% load i18n %}
+<div id="training_{{training.id}}">
+    <h3>
+        {{training.begining.year}} {% trans "to" %} {{training.end.year|default:_("Today")}} -
+        {{training.degree}} {% trans "to" %} {{training.university}}
+        {% ifequal user selected_user %}
+        <img class="clickable" src="/img/icons/edit.png" onclick="editDetail('training','training_{{training.id}}',{{training.id}})" />
+        <img class="clickable" src="/img/icons/delete.png" onclick="deleteDetail({{training.id}},'training')" />
+        {% endifequal %}
+    </h3>
+    {{training.comment}}
+</div>
+

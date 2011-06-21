@@ -1,0 +1,19 @@
+{% extends request.GET.ajax|default:is_ajax|yesno:"ajaxbase.html,base.html" %}
+{% load oifilters %}
+{% block title %}{{object.title}}{% endblock %}
+{% block breadcrumb %}
+<div>
+    <div id="path_{{object.id}}">
+        {% for ancestor in object.parent.get_ancestors %}
+        <a href="/message/get/{{ancestor.id}}">{{ancestor.title}}</a>{% if not forloop.last %} - {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+{% block content %}
+{% with object as message %}
+{% ifequal base "base.html" %}<div class="column">{% endifequal %}
+{% include "messages/message.html" %}
+{% ifequal base "base.html" %}</div>{% endifequal %}
+{% endwith %}
+{% endblock %}

@@ -1,0 +1,91 @@
+{% load oifilters %}
+{% load i18n %}
+<div class="prjstate">
+    <h3>
+        <div>{% trans "Project" %} {{OI_PRJ_STATES|get:project.state}}</div>
+        {% if project.state < 1 %}{% trans "Awaiting for bidders" %}{% endif %}
+        {% ifequal project.state 2 %}
+        <div class="progressbar" {% ifequal project.assignee user %}onclick="updateProgress({{project.id}},(event.clientX-this.offsetLeft)/this.offsetWidth)"{% endifequal %}>
+            <span id="progressbar_{{project.id}}" class="progress" style="width:{{project.progress|default:0|multiply:100|floatformat:0}}%;"></span>
+        </div>
+        <span id="progresslabel_{{project.id}}" >{{project.progress|default:0|multiply:100|floatformat:0}}%</span>
+        {% endifequal %}
+        {% ifequal project.state 3 %}
+        {% trans "Awaiting validation" %}
+        {% endifequal %}
+    </h3>
+    <div>
+        {% if project.assignee %}
+            {% trans "In charge" %} : {{project.assignee}} ({{project.offer}} €)
+            {% ifequal user project.assignee %}
+            {% if project.state < 2 %}<img class="clickable" src="/img/icons/edit.png" onclick="offerProject({{project.id}})" />{% endif %}
+            {% if project.state < 3 %}
+            <img class="clickable" src="/img/icons/delegateprj.png" onclick="delegateProject({{project.id}})" title="{% trans "Delegate this project" %}" alt="{% trans "Delegate this project" %}" />
+            {% endif %}{% endifequal %}
+            {% if project.delegate_to %}
+                {% ifequal user project.delegate_to %}
+                <div id="question_delegate_{{project.id}}" class="smalltext">
+                    {{project.assignee}} {trans "wants to delegate this project to you." %}
+                    {% trans "Do you accept it?" %}
+                    <img class="clickable" src="/img/icons/ok.png" onclick="answerDelegate({{project.id}}, true, 'question_delegate_{{project.id}}')" title="{% trans "Accept" %}" alt="{% trans "Accept" %}"/>
+                    <img class="clickable" src="/img/icons/delete.png" onclick="answerDelegate({{project.id}}, false, 'question_delegate_{{project.id}}')" title="{%trans "Refuse" %}" alt="{%trans "Refuse" %}"/>
+                </div>
+                {% else %}
+                <div class="smalltext">{% trans "Delegation offer sent to" %} {{project.delegate_to}}</div>
+                {% endifequal %}
+            {% endif %}
+        {% else %}
+            {% trans "No one is in charge of this project" %}
+            <img class="clickable" src="/img/icons/assignprj.png" onclick="offerProject({{project.id}})" title="{% trans "Take on this project" %}" alt="{% trans "Take on this project" %}" />
+        {% endif %}
+    </div>
+    <div id="bids_{{project.id}}">
+        {% trans "Bidders:" %}
+        {% for bid in project.bid_set.all %}
+        {{bid.user}}
+        {% ifequal user bid.user %}
+        {{bid.amount}} €
+        {% if project.state < 2 %}<img class="clickable" src="/img/icons/add.png" onclick="bidProject({{project.id}})" />{% endif %}
+        <img class="clickable" src="/img/icons/delprj.png" onclick="cancelBid({{project.id}}, {% if project.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "Cancel your bid on this project" %}" title="{% trans "Cancel your bid on this project" %}" />
+        {% endifequal %}
+        {% endfor %}
+        <div>
+            <h3>{% if project.missing_bid > 0 %}{% trans "missing" %} {{project.missing_bid|floatformat:2}} €{% endif %}</h3>
+            {% if project.state < 3 %}{% if project|can_read:user %}{% if not project|is_bidder:user %}
+            <div onclick="bidProject({{project.id}})" class="clickable slidermore">{% trans "Bid on this project" %}</div>
+            {% endif %}{% endif %}{% endif %}
+        </div>
+    </div>
+    {% ifequal user project.assignee %}
+    {% for bid in project.canceled_bids %}
+    <div id="question_{{project.id}}_{{bid.id}}" class="smalltext">
+        {{bid.user.username}} {% trans "wants to cancel his" %} <br /> {% trans "bid on this project" %}<br />
+        {% trans "Your offer will be reduced of" %} {{bid.amount}}.<br />
+        {% trans "Do you accept it?" %}
+        <img class="clickable" src="/img/icons/ok.png" onclick="answerCancelBid({{project.id}}, {{bid.id}}, true, 'question_{{project.id}}_{{bid.id}}')" title="{% trans "Accept" %}" alt="{% trans "Accept" %}"/>
+        <img class="clickable" src="/img/icons/delete.png" onclick="answerCancelBid({{project.id}}, {{bid.id}}, false, 'question_{{project.id}}_{{bid.id}}')" title="{%trans "Refuse" %}" alt="{%trans "Refuse" %}"/>
+    </div>
+    {% endfor %}
+    {% endifequal %}
+    {% if project|is_bidder:user %}
+    {% ifequal project.state 11 %}
+    <div id="question_{{project.id}}_{{bid.id}}" class="smalltext">
+        {{project.assignee.username}} {% trans "wants to cancel this project." %}<br />
+        {% trans "You will be reimbursed in full." %}<br />
+        {% trans "Do you accept it?" %}
+        <img class="clickable" src="/img/icons/ok.png" onclick="answerCancelProject({{project.id}}, true, 'question_{{project.id}}')" title="{% trans "Accept" %}" alt="{% trans "Accept" %}"/>
+        <img class="clickable" src="/img/icons/delete.png" onclick="answerCancelProject({{project.id}}, false, 'question_{{project.id}}')" title="{%trans "Refuse" %}" alt="{%trans "Refuse" %}"/>
+    </div>
+    {% endifequal %}
+    {% endif %}
+    {% if project|is_bidder:user %}
+    {% if project.delay %}
+    <div id="question_{{project.id}}_{{bid.id}}" class="smalltext">
+        {{project.assignee.username}} {% trans "wants to change this project due date to" %} {{project.delay|date:"d/m/Y"}}<br />
+        {% trans "Do you accept it?" %}
+        <img class="clickable" src="/img/icons/ok.png" onclick="answerDelayProject({{project.id}}, true, 'question_delay_{{project.id}}')" title="{% trans "Accept" %}" alt="{% trans "Accept" %}"/>
+        <img class="clickable" src="/img/icons/delete.png" onclick="answerDelayProject({{project.id}}, false, 'question_delay_{{project.id}}')" title="{%trans "Refuse" %}" alt="{%trans "Refuse" %}"/>
+    </div>
+    {% endif %}
+    {% endif %}
+</div>

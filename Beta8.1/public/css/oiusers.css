@@ -1,0 +1,67 @@
+div.userpage {
+    width: 450px;
+    float: left;
+    margin:0 20px;
+}
+div.userblock {
+    clear: left;
+    padding: 10px;
+    width: 400px;
+}
+div.related {
+    float: left;
+    width: 300px;
+}
+div.usermsg {
+    padding: 70px;
+}
+div.userpicture {
+    float: right;
+    width: 150px;
+}
+.contactinfo {
+    clear: left;
+    margin: 2em;
+}
+.contactpicture {
+    float: left;
+    width: 50px;
+    height: 60px;
+    margin-left: .2em;
+    margin-right: .6em;
+}
+.usercontent {
+    width:320px;
+    float: left;
+    margin:0 40px;
+}
+.usercontentlarge {
+    width:550px;
+    float: left;
+    margin-left: 40px;
+}
+div.blogicon {
+    background: url("/img/discblue.png");
+    color: white;
+    float: left;
+    font-weight: bold;
+    margin: -3px 0 5px;
+    padding: 3px 7px 6px 11px;
+    width: 10px;
+}
+.accounticon {
+    margin: 0 3px;
+    vertical-align: middle;
+}
+.smallinput {
+    width:100px;
+}
+.accountinput {
+    text-align:right;
+    position:relative;
+    top:-10px;
+}
+.mp {
+    width: 30em;
+    height: 20em;
+}

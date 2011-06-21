@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Server Error" %}{% endblock %}
+{% block content %}
+{% trans "There has been an error on the server. Admins have been notified about it. They will try to correct it as soon as they can. Sorry !" %}
+{% trans "You can" %} {% trans "go back to" %} <a href="/">{% trans "the homepage" %}</a>
+{% endblock %}

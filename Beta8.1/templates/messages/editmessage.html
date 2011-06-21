@@ -1,0 +1,36 @@
+{% load i18n %}
+﻿{% load oifilters %}
+{% with request.GET.divid|default:"newmessage" as divid %}
+<div class="message">
+    <div class="column">
+        <img class="contactpicture" src="/user/getpicture/{{user.username}}" />
+        <div class="author">{{user.get_profile}}<br />{% now "d/m/Y" %}</div>
+    </div>
+    <div class="msgbubble">
+        <div class="msgtop">
+            <div id="msgtitle_{{divid}}" class="msgtitle">
+                {% if "Re: " in message.title %}
+                {{message.title}}
+                <input id="title_{{divid}}" class="msgfield" type="hidden" value="{{message.title}}"/>
+                <img class="clickable" src="/img/icons/edit.png" title="Modifier le titre" onclick="editMessageTitle('{{divid}}','{{message.title|addslashes}}')" />
+                {% else %}
+                <input id="title_{{divid}}" class="msgfield" type="text" value="{{message.title}}"/>            
+                {% endif %}
+            </div>
+        </div>
+        <div class="msgbody">
+            <textarea id="text_{{divid}}" rows="15" class="msgfield">{{message.text|oiunescape}}</textarea>
+            <input id="parent_{{divid}}"type="hidden"  value="{{request.GET.parent}}" />
+            <img class="clickable" src="/img/icons/ok-32.png" onclick="saveMessage('{{divid}}',{{message.id|default:0}})" />
+            <img class="clickable" src="/img/icons/del-32.png" onclick="cancelMessage('{{divid}}',{{message.id|default:0}})" />
+            {% if user.is_authenticated %}
+            <input type="checkbox" id="rfp" {% if request.GET.rfp = "true" or message.rfp %}checked{% endif %}>
+            {% else %}
+            <input type="checkbox" id="rfp" onclick="document.location = '/login?next='+document.location">
+            {% endif %}
+            <label for="rfp">{% trans "Request for proposal" %}<img src="/img/askoi.png" alt="{% trans "By checking this box, you invite members to make formal project proposals in which you will be able to select the one that suits your needs." %}" title="{% trans "By checking this box, you invite members to make formal project proposals in which you will be able to select the one that suits your needs." %}"/></label>
+        </div>
+        <div class="msgbtm"></div>
+    </div>
+</div>
+{% endwith %}

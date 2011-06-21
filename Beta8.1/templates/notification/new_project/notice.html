@@ -1,0 +1,5 @@
+{% load i18n %}
+<a href="/user/profile/{{sender.username}}">{{sender}}</a>
+{% trans "has added a project proposal in a subject you follow:" %}
+<a href="/project/get/{{param.id}}">{{param.title}}</a>
+{% trans "in" %} <a href="/message/get/{{message.id}}">{{message.title}}</a>

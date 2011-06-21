@@ -1,0 +1,11 @@
+{{object.title}}
+{{object.title}}
+{{object.title}}
+{{object.title}}
+{{object.title}}
+
+{%for spec in project.spec_set.all%}
+    {{spec.text}}
+    {{spec.url}}
+    {{spec.file}}
+{%endfor%}

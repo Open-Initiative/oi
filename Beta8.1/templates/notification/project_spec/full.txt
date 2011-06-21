@@ -1,0 +1,3 @@
+{% load i18n %}{% load oifilters %}
+{{sender}} {% trans "has changed the specification of a project you follow:" %} {{project.title}} :
+{{param.text|oiunescape}}

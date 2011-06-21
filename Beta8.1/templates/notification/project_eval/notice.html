@@ -1,0 +1,4 @@
+{% load i18n %}
+<a href="/user/profile/{{sender.username}}">{{sender}}</a>
+{% trans "has evaluated you on project" %}
+<a href="/project/get/{{project.id}}">{{project.title}}</a> : {{rating}}/5

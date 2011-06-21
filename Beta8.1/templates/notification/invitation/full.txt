@@ -1,0 +1,2 @@
+{% load i18n %}
+{{sender.username}} {% trans "wants to add you to his contacts." %}

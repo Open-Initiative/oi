@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}Notifications{% endblock %}
+{% block content %}
+<div class="usercontent">
+    {% if see_archived %}<div class="actions"><a href="/notification">{% trans "Don't show archived notices" %}</a></div>
+    {% else %}<div class="actions"><a href="/notification?see=all">{% trans "Show archived notices" %}</a></div>{% endif %}
+    <h1>{% trans "Notices" %}</h1>
+    {% for notice in notices %}
+    {% if not notice.archived or see_archived %}
+    <div class="contactinfo" id="notice_{{notice.id}}">
+        {% if notice.archived %}<div class="actions">{% trans "Archived" %}</div>
+        {% else %}<div class="actions"><a class="clickable" onclick="archiveNotice('{{notice.id}}')">{% trans "Archive" %}</a></div>{% endif %}
+        <img class="contactpicture" src="/user/getpicture/{{notice.sender.username}}" />
+        <h3>{{notice.notice_type.display}}</h3>
+        {{notice|safe}}
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}
