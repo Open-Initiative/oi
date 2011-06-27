@@ -33,8 +33,8 @@
                 {% endifequal %}
             </div>
             <div class="actions">
-                {{user.get_profile.city|default:""}}<br/>
-                ({{user.get_profile.country|default:_("location unknown")}})
+                {{selected_user.get_profile.city|default:""}}<br/>
+                ({{selected_user.get_profile.country|default:_("location unknown")}})
                 {% ifequal user selected_user %}
                 <a href="/user/preferences"><img src="/img/icons/edit.png" /></a>
                 {% endifequal %}
