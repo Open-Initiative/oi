@@ -109,7 +109,7 @@ div.center{
 #searchbtn {
     position:relative;
     left:-25px;
-    top:-12px;
+    top:-10px;
 }
 #userheader {
     width:480px;
@@ -140,7 +140,6 @@ div.center{
     margin: 0 5px;
     letter-spacing: -1px;
     color: #68274E;
-    margin-top: -15px;
 }
 .loginfield {
     width: 130px;
@@ -153,7 +152,6 @@ div.center{
 #registerarea {
     float: left;
     width: 120px;
-    margin-top: -10px;
 }
 #registerbtn {
     background:url('/img/register.png');
