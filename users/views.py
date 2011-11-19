@@ -91,7 +91,7 @@ def invite(request, id):
 def resetpassword(request):
     """sends an e-mail to the user with a new password"""
     try:
-        user = User.objects.get(username=request.POST["username"])
+        user = User.objects.get(username=request.POST.get("username"))
     except User.DoesNotExist:
         return direct_to_template(request, template="users/resetpwd.html", extra_context = {'message': _("The user doesn't exist")})
     if user.email != request.POST["email"]:
@@ -169,6 +169,9 @@ def savedetail(request, id):
     else:
         instance = objclass.objects.get(id=id)
     form = formclass(request.POST, instance=instance, prefix=request.POST['divid'])
+    if not form.is_valid():
+        messages.info(request, _("Incorrect data"))
+        return HttpResponse('', status=332)
     instance = form.save()
     return render_to_response("users/profile/%s.html"%type,{'user':request.user, type:instance, 'selected_user':request.user})
     

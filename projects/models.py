@@ -5,6 +5,7 @@ from decimal import Decimal
 from django.db import models
 from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden
+from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext as _
 from oi.settings import MEDIA_ROOT
 from oi.helpers import OI_ALL_PERMS, OI_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_ANSWER, OI_COMMISSION, OI_COM_ON_BID
@@ -157,7 +158,7 @@ def OINeedsPrjPerms(*required_perms):
     def decorate(f):
         def new_f(request, id, *args, **kwargs):
             #Vérification de toutes les permissions
-            prj = Project.objects.get(id=id)
+            prj = get_object_or_404(Project,id=id)
             for perm in required_perms:
                 if not prj.has_perm(request.user, perm):
                     return HttpResponseForbidden(_("Forbidden"))
