@@ -11,17 +11,17 @@ from oi.settings import MEDIA_ROOT
 from oi.helpers import OI_ALL_PERMS, OI_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_ANSWER, OI_COMMISSION, OI_COM_ON_BID
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS
 from oi.helpers import SPEC_TYPES, TEXT_TYPE
-from oi.messages.models import Message
+#from oi.messages.models import Message
 
 # A project can contain subprojects and/or specs. Without them it is only a task
 class Project(models.Model):
     title = models.CharField(max_length=100)
     author = models.ForeignKey(User, related_name='ownprojects', null=True, blank=True)
     assignee = models.ForeignKey(User, related_name='assigned_projects', null=True, blank=True)
-    delegate_to = models.ForeignKey(User, related_name='delegated_projects', null=True, blank=True)    
+    delegate_to = models.ForeignKey(User, related_name='delegated_projects', null=True, blank=True)
     offer = models.DecimalField(max_digits= 12,decimal_places=2,default=0)
     commission = models.DecimalField(max_digits= 12,decimal_places=2,default=0)
-    message = models.ForeignKey(Message)
+#    message = models.ForeignKey(Message)
     parent = models.ForeignKey('self', blank=True, null=True, related_name='tasks')
     master = models.ForeignKey('self', blank=True, null=True, related_name='subprojects')
     created = models.DateTimeField(auto_now_add=True)
@@ -109,9 +109,9 @@ class Project(models.Model):
         """gets all the tasks which state is at least delivered"""
         return self.tasks.filter(state__gte = OI_DELIVERED)
 
-    def get_ancestors(self):
-        """get message ancestors of the project"""
-        return self.message.get_ancestors()
+#    def get_ancestors(self):
+#        """get message ancestors of the project"""
+#        return self.message.get_ancestors()
 
     def get_path(self):
         """get the location of the task inside the project"""
@@ -120,8 +120,8 @@ class Project(models.Model):
         else:
             return [self]
 
-    def get_categories(self):
-        return self.message.ancestors.filter(category=True)
+#    def get_categories(self):
+#        return self.message.ancestors.filter(category=True)
     
     def is_ready_to_start(self):
         """returns True if the project is not started yet, has an assignee and enough bids"""

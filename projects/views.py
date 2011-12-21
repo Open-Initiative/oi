@@ -6,12 +6,13 @@ from time import time
 from datetime import datetime,timedelta
 from decimal import Decimal, InvalidOperation
 from urllib import quote
+from django.core import serializers
 from django.core.urlresolvers import reverse
 from django.core.files import File
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response
 from django.utils.translation import ugettext as _
 from django.views.generic.list_detail import object_detail, object_list
@@ -55,11 +56,17 @@ def getprojects(request):
     return object_list(request, queryset=projects[:10], extra_context={'promotedprj': promotedprj})
 
 @OINeedsPrjPerms(OI_READ)
-def getproject(request, id):
+def getproject(request, id, view="description"):
+    if not view: view = "description"
     project = Project.objects.get(id=id)
     actions = filter(lambda a:a.show(project, request.user), OIPrjActions)
-    return direct_to_template(request, template="projects/project_detail.html", extra_context={'object': project, 'actions': actions})
-    
+    return direct_to_template(request, template="projects/project_detail.html", extra_context={'object': project, 'actions': actions, 'view':view})
+
+@OINeedsPrjPerms(OI_READ)
+def listtasks(request, id):
+    project = Project.objects.get(id=id)
+    return HttpResponse(serializers.serialize("json", project.tasks.all()))
+
 @login_required
 def editproject(request, id):
     """Shows the Edit template of the project"""
@@ -68,27 +75,30 @@ def editproject(request, id):
         project = Project.objects.get(id=id)
         if not project.has_perm(request.user, OI_WRITE):
             return HttpResponseForbidden(_("Forbidden"))
-    return direct_to_template(request, template='projects/editproject.html', extra_context={'user': request.user, 'parent':request.GET.get("parent"), 'message':request.GET.get("message"), 'project':project})
+    return direct_to_template(request, template='projects/editproject.html', extra_context={'user': request.user, 'parent':request.GET.get("parent"), 'project':project})
+    # 'message':request.GET.get("message"),
 
 @login_required
 def saveproject(request, id='0'):
     """Saves the edited project and redirects to it"""
     author=request.user
     
-    parent = None
     if id=='0': #new project
         #gets message from parent
-        if request.POST.has_key("parent"):
-            parent = Project.objects.get(id=request.POST["parent"])
-            message = parent.message
+#        if request.POST.has_key("parent"):
+        if not request.POST["title"]:
+            return HttpResponse(_("Please enter a title"), status=531)
+        parent = Project.objects.get(id=request.POST["parent"]) if request.POST.get("parent") else None
+#            message = parent.message
         #or from query
-        else:
-            message = Message.objects.get(id=request.POST["message"])
-        if not message.has_perm(request.user, OI_ANSWER):
-            return HttpResponseForbidden(_("Forbidden"))
-        project = Project(title = request.POST["title"], author=author, parent=parent, message=message, public=True, state=OI_PROPOSED)
+#        else:
+#            message = Message.objects.get(id=request.POST["message"])
+#        if not message.has_perm(request.user, OI_ANSWER):
+#            return HttpResponseForbidden(_("Forbidden"))
+        project = Project(title = request.POST["title"], author=author, parent=parent, public=True, state=OI_PROPOSED)
+#        , message=message
         
-    else: #existing project
+    else: #existing project ####DEPRECATED?
         project = Project.objects.get(id=id)
         if not project.has_perm(request.user, OI_WRITE):
             return HttpResponseForbidden(_("Forbidden"))
@@ -109,7 +119,7 @@ def saveproject(request, id='0'):
         project.set_perm(project.assignee, OI_ALL_PERMS)
         
     #notify users about this project
-    request.user.get_profile().msg_notify_all(project.message, "new_project", project)
+#    request.user.get_profile().msg_notify_all(project.message, "new_project", project)
     #adds the project to user's observation
     request.user.get_profile().observed_projects.add(project.master)
     if request.POST.get("inline","0") == "1":
@@ -126,7 +136,7 @@ def copyproject(request, id):
     return HttpResponse(_("Project copied"))
 
 def uncopyproject(request, id):
-    """adds the given id to the project clipboard"""
+    """removes the given id from the project clipboard"""
     clipboard = request.session.get('project_clipboard',{})
     try:
         clipboard.pop(id)
@@ -155,7 +165,7 @@ def editdate(request, id):
             project.delay = request.POST["date"]
             project.save()
             #notify users about this project
-            request.user.get_profile().prj_notify_all(project, "project_modified", _("Request for delay"))            
+            request.user.get_profile().notify_all(project, "project_modified", _("Request for delay"))            
             return HttpResponse(_("Request for delay awaiting validation"))
         else:
             project.due_date = request.POST["date"]
@@ -168,7 +178,7 @@ def editdate(request, id):
     project.save()
     
     #notify users about this project
-    request.user.get_profile().prj_notify_all(project, "project_modified", request.POST["date"])
+    request.user.get_profile().notify_all(project, "project_modified", request.POST["date"])
     return HttpResponse(_("Date updated"))
 
 @OINeedsPrjPerms(OI_WRITE)
@@ -192,7 +202,7 @@ def edittitle(request, id):
     project.save()
     
     #notify users about this project
-    request.user.get_profile().prj_notify_all(project, "project_modified", project.title)
+    request.user.get_profile().notify_all(project, "project_modified", project.title)
     return HttpResponse(_("Title updated"))
 
 @OINeedsPrjPerms(OI_READ)
@@ -215,7 +225,7 @@ def offerproject(request, id):
     #adds the project to user's observation
     request.user.get_profile().observed_projects.add(project.master)
     #notify users about this project
-    request.user.get_profile().prj_notify_all(project, "project_modified", project.state)
+    request.user.get_profile().notify_all(project, "project_modified", project.state)
     messages.info(request, _("Project taken on"))
     return HttpResponse('', status=332)
 
@@ -227,7 +237,10 @@ def delegateproject(request, id):
         return HttpResponse(_("Can not change a project already started"))
     if project.assignee != request.user:
         return HttpResponse(_("Only the user in charge of the project can delegate it"))
-    project.delegate_to = User.objects.get(username=request.POST["delegate_to"])
+    try:
+        project.delegate_to = User.objects.get(username=request.POST["delegate_to"])
+    except (KeyError, User.DoesNotExist):
+        return HttpResponse(_("Cannot find user"), status=531)
     project.save()
     notification.send([project.delegate_to], "delegate", {'project':project}, True, request.user)
     return HttpResponse(_("Sent delegation offer"))
@@ -305,7 +318,7 @@ def bidproject(request, id):
     #adds the project to user's observation
     request.user.get_profile().observed_projects.add(project.master)
     #notify users about this new bid
-    request.user.get_profile().prj_notify_all(project, "project_bid", bid)
+    request.user.get_profile().notify_all(project, "project_bid", bid)
     messages.info(request, ("Bid saved"))
     return HttpResponse('', status=332)
 
@@ -321,7 +334,7 @@ def startproject(request, id):
             project.delegate_to = None
             project.save()
             #notify users about this state change
-            request.user.get_profile().prj_notify_all(project, "project_state", OI_PRJ_STATES[project.state][1])
+            request.user.get_profile().notify_all(project, "project_state", OI_PRJ_STATES[project.state][1])
     messages.info(request, _("Project started"))
     return HttpResponse('', status=332)
 
@@ -342,7 +355,7 @@ def deliverproject(request, id):
     #resets any delay demand
     project.reset_delay_request()
     #notify users about this state change
-    request.user.get_profile().prj_notify_all(project, "project_state", OI_PRJ_STATES[project.state][1])
+    request.user.get_profile().notify_all(project, "project_state", OI_PRJ_STATES[project.state][1])
     messages.info(request, _("Project done!"))
     return HttpResponse('', status=332)
 
@@ -365,7 +378,7 @@ def validateproject(request, id):
             project.save()
 
             #notify users about this state change
-            request.user.get_profile().prj_notify_all(project, "project_state", OI_PRJ_STATES[project.state][1])
+            request.user.get_profile().notify_all(project, "project_state", OI_PRJ_STATES[project.state][1])
     messages.info(request, _("Validation saved"))
     return HttpResponse('', status=332)
 
@@ -406,7 +419,7 @@ def cancelbid(request, id):
             bid.validated = True #We won't ask for user's validation anymore
             bid.save()
     #notify users about this bid cancellation
-    request.user.get_profile().prj_notify_all(project, "project_bid_cancel", bid)
+    request.user.get_profile().notify_all(project, "project_bid_cancel", bid)
     messages.info(request, _("Bid cancelled"))
     return HttpResponse('', status=332)
 
@@ -445,7 +458,7 @@ def cancelproject(request, id):
         project.commission = 0
     project.save()
     #notify users about this cancellation
-    request.user.get_profile().prj_notify_all(project, "project_cancel", project.title)
+    request.user.get_profile().notify_all(project, "project_cancel", project.title)
     return HttpResponse(_("Project cancelled. Awaiting confirmation from other users"))
 
 @OINeedsPrjPerms(OI_READ)
@@ -476,8 +489,12 @@ def deleteproject(request, id):
         return HttpResponse(_("Can not delete a project containing tasks. Please delete all its tasks first."))
     
     project.delete()
-    messages.info(request, _("The task has been deleted."))
-    return HttpResponse('/message/get/%s'%(project.message.id),status=333)
+    if project.parent:
+        messages.info(request, _("The task has been deleted."))
+        return HttpResponse('/project/get/%s'%(project.parent.id),status=333)
+    else:
+        messages.info(request, _("The project has been deleted."))
+        return HttpResponse('/',status=333)
 
 @OINeedsPrjPerms(OI_WRITE)
 def moveproject(request, id):
@@ -522,7 +539,7 @@ def editprogress(request, id):
     project.progress = Decimal(progress) / 100
     project.save()
     #notify users about this state change
-    request.user.get_profile().prj_notify_all(project, "project_state", "%s %%"%project.progress)
+    request.user.get_profile().notify_all(project, "project_state", "%s %%"%project.progress)
     return HttpResponse(_("Progress updated"))
 
 @ajax_login_required
@@ -603,7 +620,7 @@ def savespec(request, id, specid='0'):
     spec.save()
 
     #notify users about this spec change
-    request.user.get_profile().prj_notify_all(project, "project_spec", spec)
+    request.user.get_profile().notify_all(project, "project_spec", spec)
     return render_to_response('projects/spec/spec.html',{'user': request.user, 'project' : project, 'spec' : spec})
 
 @OINeedsPrjPerms(OI_WRITE)
@@ -640,5 +657,8 @@ def getfile(request, id, filename):
     response = HttpResponse(mimetype='application/force-download')
     response['Content-Disposition'] = 'attachment; filename=%s'%filename
     response['X-Sendfile'] = "%sproject/%s/%s"%(MEDIA_ROOT,id,filename)
-    response['Content-Length'] = os.path.getsize("%sproject/%s/%s"%(MEDIA_ROOT,id,filename))
+    try:
+        response['Content-Length'] = os.path.getsize("%sproject/%s/%s"%(MEDIA_ROOT,id,filename))
+    except OSError:
+        raise Http404
     return response

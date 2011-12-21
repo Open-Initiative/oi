@@ -37,7 +37,7 @@ class UserProfile(models.Model):
     blog = models.ForeignKey(Message, unique=True)
     rss_feed = models.URLField(verify_exists=False, blank=True)
     last_feed = models.DateTimeField(null=True, blank=True)
-    observed_messages = models.ManyToManyField(Message, related_name="followers", blank=True)
+#    observed_messages = models.ManyToManyField(Message, related_name="followers", blank=True)
     observed_projects = models.ManyToManyField(Project, related_name="followers", blank=True)
     
     def get_titles(self):
@@ -101,17 +101,17 @@ class UserProfile(models.Model):
             logger.warning("Paiement %s non validé : %s"%(payment.id,info['STATUS'].__str__()))
         payment.save()
 
-    def followed_rfp(self):
-        """returns all rfp followed by the user"""
-        return self.observed_messages.filter(rfp=True)
+#    def followed_rfp(self):
+#        """returns all rfp followed by the user"""
+#        return self.observed_messages.filter(rfp=True)
     
     def get_message_updates(self):
         """gets modified messages descendants of user's best expertised messages"""
         return Message.objects.filter(ancestors__expert__user=self.user).filter(category=False).distinct().order_by("-modified")
         
-    def get_project_updates(self):
-        """gets modified projects inside user's user's best expertised messages"""
-        return Project.objects.filter(message__ancestors__expert__user=self.user).distinct().order_by("-modified")
+#    def get_project_updates(self):
+#        """gets modified projects inside user's user's best expertised messages"""
+#        return Project.objects.filter(message__ancestors__expert__user=self.user).distinct().order_by("-modified")
         
     def get_categories(self):
         """returns the categories in which the user has most expertise"""
@@ -127,12 +127,12 @@ class UserProfile(models.Model):
         """Returns comments made in evals on the user"""
         return Bid.objects.filter(project__assignee=self.user).exclude(comment="")
 
-    def msg_notify_all(self, msg, notice_type, param):
-        """sends a notification to all users about this message"""
-        recipients = User.objects.filter(userprofile__observed_messages__descendants = msg).exclude(userprofile=self).distinct()
-        notification.send(recipients, notice_type, {'message':msg, 'param':param}, True, self.user)
+#    def msg_notify_all(self, msg, notice_type, param):
+#        """sends a notification to all users about this message"""
+#        recipients = User.objects.filter(userprofile__observed_messages__descendants = msg).exclude(userprofile=self).distinct()
+#        notification.send(recipients, notice_type, {'message':msg, 'param':param}, True, self.user)
 
-    def prj_notify_all(self, prj, notice_type, param):
+    def notify_all(self, prj, notice_type, param):
         """sends a notification to all users about this project"""
         recipients = User.objects.filter(userprofile__observed_projects__subprojects = prj).exclude(userprofile=self).distinct()
         notification.send(recipients, notice_type, {'project':prj, 'param':param}, True, self.user)
@@ -220,7 +220,7 @@ class PersonalMessage(models.Model):
 def set_profile(sender, instance, created, **kwargs):
     if created==True:
         instance.userprofile_set.add(UserProfile(blog=Message.objects.create(author=instance, relevance=1, public=True, title=_("%s's blog")%instance.username)))
-        instance.get_profile().observed_messages.add(instance.get_profile().blog)
+#        instance.get_profile().observed_messages.add(instance.get_profile().blog)
 
 # Sets the profile on user creation
 post_save.connect(set_profile, sender=User)

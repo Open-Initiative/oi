@@ -9,8 +9,8 @@ class MessageAdmin(admin.ModelAdmin):
     readonly_fields = ('ancestors',)
     filter_horizontal = ('related',)
     raw_id_fields = ('author','parent',)
-    list_display=('title', 'author', 'children_nb', 'created', 'rfp')
-    list_filter = ('rfp',)
+    list_display=('title', 'author', 'children_nb', 'created')
+#    list_filter = ('rfp',)
     search_fields = ('title', 'author__username')
 
     def children_nb(self, obj):

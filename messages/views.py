@@ -12,7 +12,7 @@ from django.template import RequestContext
 from django.utils.translation import ugettext as _
 from django.views.generic.list_detail import object_list
 from django.views.generic.simple import direct_to_template
-from oi.helpers import OI_PAGE_SIZE, OI_ALL_PERMS, OI_READ, OI_WRITE, OI_ANSWER, ajax_login_required
+from oi.helpers import OI_PAGE_SIZE, OI_ALL_PERMS, OI_READ, OI_WRITE, ajax_login_required
 from oi.helpers import OI_SCORE_ADD, OI_SCORE_DEFAULT_RELEVANCE, OI_EXPERTISE_FROM_ANSWER, OI_EXPERTISE_TO_MESSAGE
 from oi.settings import MEDIA_ROOT, MEDIA_URL
 from oi.notification import models as notification
@@ -88,17 +88,21 @@ def savemessage(request, id):
             return HttpResponseForbidden(_("Forbidden"))
         message.title = request.POST["title"]
         message.text = text
-        if request.POST.get("rfp") == "True":
-            if request.user.is_anonymous():
-                return HttpResponseRedirect('/login?next=%s'%request.META['HTTP_REFERER'])
-            message.rfp = True
+#        if request.POST.get("rfp") == "True":
+#            if request.user.is_anonymous():
+#                return HttpResponseRedirect('/login?next=%s'%request.META['HTTP_REFERER'])
+#            message.rfp = True
         message.save()
     
     else: #new message
         parent = None
         if request.POST.get("parent"): #Checking parent rights
             parent = Message.objects.get(id=request.POST["parent"])
-            if not parent.has_perm(request.user, OI_ANSWER):
+#            if not parent.has_perm(request.user, OI_ANSWER):
+#                return HttpResponseForbidden(_("Forbidden"))
+        project = Project.objects.get(id=request.POST["project"]) if request.POST.get("project") else None
+        if project:
+            if not project.has_perm(request.user, OI_WRITE):
                 return HttpResponseForbidden(_("Forbidden"))
 
         #Creating the message
@@ -106,27 +110,28 @@ def savemessage(request, id):
             relevance = OI_SCORE_DEFAULT_RELEVANCE
         else:
             relevance = parent.get_expertise(request.user) * OI_EXPERTISE_TO_MESSAGE
-        message = Message(title = request.POST["title"], text = text, author=author, public=True, parent=parent, relevance=relevance)
-        if request.POST.get("rfp") == "True":
-            if request.user.is_anonymous():
-                return HttpResponse('/login?next=%s'%request.META['HTTP_REFERER'], status=333)
-            message.rfp = True
+        message = Message(title = request.POST["title"], text = text, author=author, parent=parent, project=project, relevance=relevance)
+#        , public=True
+#        if request.POST.get("rfp") == "True":
+#            if request.user.is_anonymous():
+#                return HttpResponse('/login?next=%s'%request.META['HTTP_REFERER'], status=333)
+#            message.rfp = True
         message.save()
-        message.set_perm(author, OI_ALL_PERMS)
+#        message.set_perm(author, OI_ALL_PERMS)
         
         #Adding expertise to user and parent's author
         if parent:
             parent.add_expertise(parent.author, message.get_expertise(request.user)*OI_EXPERTISE_FROM_ANSWER, False)
         message.add_expertise(request.user, OI_SCORE_ADD, True)
 
-    if request.user.is_anonymous(): #notification from anonymous
+    if message.project: #notification from anonymous
+        #notify users about this message
+        request.user.get_profile().notify_all(message.project, "answer", message.title)
+        #adds the message to user's observation
+        request.user.get_profile().observed_projects.add(message.project)
+    else:
         recipients = User.objects.filter(userprofile__observed_messages__descendants = message).distinct()
         notification.send(recipients, "answer", {'message':message, 'param':message.title}, True, None)
-    else:
-        #notify users about this message
-        request.user.get_profile().msg_notify_all(message, "answer", message.title)
-        #adds the message to user's observation
-        request.user.get_profile().observed_messages.add(message)
 
     #affiche le nouveau message en retour
     return render_to_response('messages/message.html',{'message' : message}, context_instance=RequestContext(request))
@@ -137,41 +142,41 @@ def deletemessage(request, id):
     Message.objects.get(id=id).delete()
     return HttpResponse(_(u"Message deleted"))
 
-@OINeedsMsgPerms(OI_WRITE)
-def hidemessage(request, id):
-    """Makes the message private and outputs a message"""
-    message = Message.objects.get(id=id)
-    message.public = False
-    message.save()
-    return HttpResponse(_(u"Message is now private"))
+#@OINeedsMsgPerms(OI_WRITE)
+#def hidemessage(request, id):
+#    """Makes the message private and outputs a message"""
+#    message = Message.objects.get(id=id)
+#    message.public = False
+#    message.save()
+#    return HttpResponse(_(u"Message is now private"))
 
-@OINeedsMsgPerms(OI_WRITE)
-def sharemessage(request, id):
-    """Shares the message with a user and outputs a message"""
-    message = Message.objects.get(id=id)
-    user = User.objects.get(username=request.POST["username"])
-    message.set_perm(user, OI_ALL_PERMS)
-    return HttpResponse(_(u"Message shared"))
+#@OINeedsMsgPerms(OI_WRITE)
+#def sharemessage(request, id):
+#    """Shares the message with a user and outputs a message"""
+#    message = Message.objects.get(id=id)
+#    user = User.objects.get(username=request.POST["username"])
+#    message.set_perm(user, OI_ALL_PERMS)
+#    return HttpResponse(_(u"Message shared"))
 
-@ajax_login_required
-@OINeedsMsgPerms(OI_READ)
-def observemessage(request, id):
-    """adds the message in the observe list of the user"""
-    message = Message.objects.get(id=id)
-    if request.POST.has_key("stop"):
-        request.user.get_profile().observed_messages.remove(message)
-        return HttpResponse(_("Stopped following"))
-    else:
-        request.user.get_profile().observed_messages.add(message)
-        return HttpResponse(_("Following the message"))
+#@ajax_login_required
+#@OINeedsMsgPerms(OI_READ)
+#def observemessage(request, id):
+#    """adds the message in the observe list of the user"""
+#    message = Message.objects.get(id=id)
+#    if request.POST.has_key("stop"):
+#        request.user.get_profile().observed_messages.remove(message)
+#        return HttpResponse(_("Stopped following"))
+#    else:
+#        request.user.get_profile().observed_messages.add(message)
+#        return HttpResponse(_("Following the message"))
     
 @OINeedsMsgPerms(OI_WRITE)
 def movemessage(request, id):
     """Adds a parent to the message"""
     message = Message.objects.get(id=id)
     parent = Message.objects.get(id=request.POST["parentid"])
-    if not parent.has_perm(request.user, OI_ANSWER):
-        return HttpResponseForbidden(_("Forbidden"))
+#    if not parent.has_perm(request.user, OI_ANSWER):
+#        return HttpResponseForbidden(_("Forbidden"))
 
     if message in parent.ancestors.all():
         return HttpResponse(_(u"Can not move a message to its answer"))
@@ -179,7 +184,7 @@ def movemessage(request, id):
     message.save() # to recompute ancestors
 
     #notify users about this message
-    request.user.get_profile().msg_notify_all(parent, "answer", message.title)
+#    request.user.get_profile().notify_all(parent, "answer", message.title)
 
     return HttpResponse(_(u"Message moved"))
 

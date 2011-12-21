@@ -91,13 +91,13 @@ def can_write(obj, user):
         setattr(obj, "can_write", can_write)
     return can_write
 
-@register.filter
-def can_answer(obj, user):
-    can_answer = getattr(obj,"can_answer",None) #request caching for performance
-    if can_answer==None:
-        can_answer = obj.has_perm(user, OI_ANSWER)
-        setattr(obj, "can_answer", can_answer)
-    return can_answer
+#@register.filter
+#def can_answer(obj, user):
+#    can_answer = getattr(obj,"can_answer",None) #request caching for performance
+#    if can_answer==None:
+#        can_answer = obj.has_perm(user, OI_ANSWER)
+#        setattr(obj, "can_answer", can_answer)
+#    return can_answer
 
 @register.filter
 def is_bidder(prj, user):
