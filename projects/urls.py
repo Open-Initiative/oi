@@ -6,8 +6,9 @@ from django.views.generic.simple import direct_to_template
 from oi.projects.models import Project, OINeedsPrjPerms, OI_READ, OI_WRITE
 
 urlpatterns = patterns('oi.projects.views',
-    (r'^get/(?P<id>\d+)$', 'getproject'),
+    (r'^get/(?P<id>\d+)/(?P<view>\w*)$', 'getproject'),
     (r'^gettask/(?P<object_id>\d+)$', object_detail,{'template_name': 'projects/task.html','queryset': Project.objects.all(),'template_object_name':"task"}),
+    (r'listtasks/(?P<id>\d+)$', 'listtasks'),
     (r'^getall$', 'getprojects'),
     (r'^edit/(?P<id>\d+)$', 'editproject'),
     (r'^save/(?P<id>\d+)$', 'saveproject'),

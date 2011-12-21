@@ -1,6 +1,6 @@
 {% load oifilters %}
 {% load i18n %}
-<div id="message_{{message.id}}" class="{% if message.rfp %}msgred{% else %}msgblue{% endif %} cleared">
+<div id="message_{{message.id}}" class="msgblue cleared">
     <div class="column">
         <img class="contactpicture" src="/user/getpicture/{{message.author.username}}" /><br />
         <div class="author">{{message.author.get_profile}}<br />{{message.created|date:"d/m/Y"}}</div>

@@ -1,11 +1,37 @@
-function addTask(projectid,userid) {
+function addTask(tasktitle, projectid, userid) {
     url = "/project/save/0";
-    params = "title="+getValue("newtask_title_"+projectid)+"&assignee="+userid+"&progress=0&inline=1&parent="+projectid;
-    divid = newDiv("newtasks_"+projectid);
-    document.getElementById("newtasks_"+projectid).className = "pile";
-    document.getElementById("newtask_title_"+projectid).value = "";
+    params = "title="+tasktitle+"&assignee="+userid+"&progress=0&inline=1&parent="+projectid;
+    divid = newDiv("tasks_"+projectid);
+//    document.getElementById("tasks_"+projectid).className = "pile";
     OIajaxCall(url, params, divid);
     return false;
+}
+function listTasks(projectid){
+    document.getElementById("treebtn_"+projectid).src = "/img/treebtn2.png";
+    document.getElementById("treebtn_"+projectid).onclick = function(){shrinkTask(projectid);};
+    div = document.getElementById("tasks_"+projectid);
+    tasks = eval(OIajaxCall("/project/listtasks/"+projectid));
+    for(task=tasks[i=0];i<tasks.length;task=tasks[++i]) {
+        div = document.getElementById(newDiv("tasks_"+projectid));
+        div.innerHTML = '<img id="treebtn_'+task.pk+'" src="/img/treebtn1.png" onclick="listTasks('+task.pk+')"/>'+
+            '<a href="/project/get/'+task.pk+'">'+task.fields.title+'</a>'+
+            '<form id="newtask_'+task.pk+'"></form>'+'<div class="tasklist" id="tasks_'+task.pk+'"></div>';
+        if(typeof(gantt)!="undefined")
+            gantt.addBar(task.pk, [parseDate(task.fields.created),parseDate(task.fields.start_date),parseDate(task.fields.due_date)], projectid);
+    }
+}
+function shrinkTask(projectid) {
+    document.getElementById("tasks_"+projectid).innerHTML = "";
+    document.getElementById("treebtn_"+projectid).src = "/img/treebtn1.png";
+    document.getElementById("treebtn_"+projectid).onclick = function(){listTasks(projectid);};
+}
+function setActiveTask(projectid) {
+    form = document.getElementById("newtask_"+projectid);
+    form.onsubmit = function(){return addTask(getValue("newtask_title_"+projectid, true),projectid,username);};
+    form.innerHTML = '<input type="image" src="/img/icons/addtask.png" alt="'+gettext("New task")+'" title="'+gettext("New task")+'" />'+
+        '<input type="text" id="newtask_title_'+projectid+'" class="newtask_title" value="'+gettext("New task")+'"/>';
+    if(typeof(gantt)!="undefined")
+        gantt.addSpace(projectid);
 }
 function copyTask(taskid, tasktitle) {
     OIajaxCall("/project/copy/"+taskid, null, "output");

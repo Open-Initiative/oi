@@ -1,36 +1,40 @@
 @font-face {
-	font-family: "ProximaNova";
-	src: url('/fonts/ProximaNova-Light.otf');
+    font-family: "ProximaNova";
+    src: url('/fonts/ProximaNova-Light.otf');
 }
 @font-face {
-	font-family: "ProximaNova";
-	font-weight: bold;
-	src: url('/fonts/ProximaNova-Bold.otf');
+    font-family: "ProximaNova";
+    font-weight: bold;
+    src: url('/fonts/ProximaNova-Bold.otf');
 }
 @font-face {
-	font-family: "ProximaNova";
-	font-weight: 900;
-	src: url('/fonts/ProximaNova-Extrabold.otf');
+    font-family: "ProximaNova";
+    font-weight: 900;
+    src: url('/fonts/ProximaNova-Extrabold.otf');
 }
 @font-face {
-	font-family: "Interstate";
-	src: url('/fonts/Interstate-BoldCondensed.ttf');
+    font-family: "Interstate";
+    src: url('/fonts/Interstate-BoldCondensed.ttf');
 }
 @font-face {
-	font-family: "CCRA";
-	src: url('/fonts/CCRA.ttf');
+    font-family: "CCRA";
+    src: url('/fonts/CCRA.ttf');
 }
 body {
     margin:0;
     font-family: "ProximaNova",Verdana,Arial,Helvetica,sans-serif;
     font-size: 14px;
     color: #778e9c;
+    background: #F5F5F5;
 }
 img {
     border: None;
 }
 h1, h2, h3, h4 {
-    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-family: "ProximaNova", Helvetica, sans-serif;
+    font-weight: bold;
+    color: #0094B5;
+    text-transform: uppercase;
 }
 h5, h6 {
     font-size: 1.3em;
@@ -47,7 +51,7 @@ a:hover {
 }
 div.center{
     margin: auto;
-    width: 1000px;
+    width: 1020px;
 }
 #footer {
     clear: left;
@@ -65,7 +69,7 @@ div.center{
     color: #0094B5;
 }
 #toptext {
-    width:1000px;
+    width:1020px;
     margin:auto;
     text-align:right;
 }
@@ -84,6 +88,7 @@ div.center{
     margin: 10px 20px 0 0;
     padding-top: 5px;
     width: 250px;
+    height: 90px;
 }
 #baseline {
     width:150px;
@@ -196,17 +201,52 @@ div.column {
     border-top:1px solid #D0574C;
     height:15px;
 }
+#tabs {
+    background: #0094B5;
+    float: right;
+    height: 30px;
+    margin-top: 20px;
+}
+div.tab {
+    background: #0094B5;
+    border-right: 1px solid;
+    color: white;
+    float: left;
+    font-family: "Interstate";
+    font-size: 1.2em;
+    margin-top: 7px;
+    padding: 0 15px;
+    text-transform: uppercase;
+    width: 120px;
+}
+div.selectedtab {
+    background: #D0574C;
+    border-right: 1px solid;
+    color: white;
+    float: left;
+    font-family: "Interstate";
+    font-size: 1.2em;
+    padding: 7px 15px 1px 0;
+    text-transform: uppercase;
+    width: 120px;
+}
+#tabs div a {
+    color: #A8DCF4;;
+}
+img.tabicon {
+    float: left;
+    margin: 0 5px;
+}
 .sep {
     background:url('/img/sep.png');
     height:1px;
 }
-#navbg {
-    background:#E1F3FA;
-    width:149px;
-    padding:2px 10px;
-}
 #nav {
+    background:#E1F3FA;
+    width:230px;
+    padding:2px;
     margin-top: 15px;
+    float: left;
 }
 .navitem {
     padding: 10px 0;
@@ -221,7 +261,7 @@ div.column {
     width:40px;
 }
 #content {
-    width: 800px;
+    width: 730px;
     padding: 5px 0 0 20px;
     float: left;
 }
@@ -234,7 +274,7 @@ div.column {
 #catcher {
     background:url('/img/catcher.jpg') repeat-y;
     height:320px;
-    width:1000px;
+    width:1020px;
     margin:auto;
     clear: left;
 }
@@ -280,9 +320,10 @@ div.column {
 .slidericon {
     text-align: right;
 }
-.agileline {
-    background: url('/img/agilebg.png');
-    border-top: 1px solid #D0574C;
+.headersep {
+    background: #E1F3FA;
+    border-top: 3px solid #C8DBE1;
+    border-bottom: 3px solid #D0574C;
     height: 50px;
     clear: left;
 }

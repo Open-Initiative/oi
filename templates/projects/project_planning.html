@@ -1,0 +1,58 @@
+﻿﻿{% load oifilters %}
+{% load i18n %}
+<div>
+    {% trans "Started on:" %} <span id="start_date_{{project.id}}">{{project.start_date|date:"d/m/Y"}}</span>
+    {% if project|can_write:user %}{% if project.state < 2 %}
+    {% with "start_date" as field_name %}{% with project.start_date as date %}
+    {% include "projects/edit_date.html" %}
+    {% endwith %}{% endwith %}
+    {% endif %}{% endif %}
+</div>
+<div>
+    {% trans "Due on:" %} <span id="due_date_{{project.id}}">{{project.due_date|date:"d/m/Y"}}</span>
+    {% if project|can_write:user %}{% if project.state < 2 %}{% with "due_date" as field_name %}
+    {% include "projects/edit_date.html" %}
+    {% endwith %}{% endif %}{% endif %}
+    {% ifequal user project.assignee %}{% ifequal project.state 2 %}{% with "due_date" as field_name %}{% with project.due_date as date %}
+    {% include "projects/edit_date.html" %}
+    {% endwith %}{% endwith %}{% endifequal %}{% endifequal %}
+</div>
+<div id="ganttDiv"></div>
+<script>
+    gantt = new OIGantt("ganttDiv", new Date({{project.master.created|date:"Y,m,d"}}), new Date({{project.master.end_date|date:"Y,m,d"}}));
+    gantt.addBar({{project.id}}, [new Date({{project.master.created|date:"Y,m,d"}}),new Date({{project.master.start_date|date:"Y,m,d"}}),new Date("{{project.master.due_date|date:"Y,m,d"}}")]);
+</script>
+{% comment %}
+<div id="prjview_{{project.id}}">
+    <div>{% trans "Overview of" %} <a href="/project/get/{{project.id}}">{{project.title}}</a></div>
+    {% if project.tasks.all %}
+    <div>{% trans "Tasks" %}</div>
+    <div class="ganttlabels">
+        <div>{% trans "Month" %}</div>
+        <div>{% trans "day" %}</div>
+        {% for task in project.tasks.all %}
+        {% include "projects/gantt/tasknames.html" %}
+        {% empty %}
+            {% trans "No task in the project" %}
+        {% endfor %}    
+    </div>
+    <div id="gantt" class="gantt" style="height:{{project.subprojects.all.count|add:10}}em;">
+        <div style="position:absolute">
+            <div style="height:2.66em"></div>
+            {% for task in project.tasks.all %}
+            { include "projects/gantt/taskview.html" %}
+            {% endfor %}    
+        </div>
+        <div style="width:days|length|add:2em;height:95%">
+            <div>{days.1date:"F"}}</div>
+            {% for day in days %}
+            {% ifequal day.day 1 %}<div class="ganttmonth">{daydate:"F"}}</div>{% endifequal %}
+            <div class="ganttday" style="{% ifequal day|date:"ymd" day.now|date:"ymd" %}background:#FFDDBB{% else %}{%if day.weekday > 5%}background:#F0F0F0;{%endif%}{% endifequal %};" {% ifequal day|date:"ymd" day.now|date:"ymd" %}id="today"{% endifequal %}>
+                <span class="smalltext">{{day.day}}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endcomment %}

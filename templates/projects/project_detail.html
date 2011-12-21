@@ -3,123 +3,38 @@
 {% load i18n %}
 {% block title %}{{object.title|default:_("Project")}}{% endblock %}
 {% block nav %}
-{% if object|can_read:user %}
-{% with object as project %}
-    {% include "projects/project_nav.html" %}
-{% endwith %}
-{% endif %}
+<img id="treebtn_{{object.master.id}}" src="/img/treebtn1.png" onclick="listTasks({{object.master.id}})"/><a href="/project/get/{{object.master.id}}">{{object.master.title}}</a>
+<form id="newtask_{{object.master.id}}"></form>
+<div class="tasklist" id="tasks_{{object.master.id}}"></div>
 {% endblock %}
-{% block breadcrumb %}
-<div id="path_{{parent.id}}">
-    {% for ancestor in object.get_ancestors %}
-    <a href="/message/get/{{ancestor.id}}">{{ancestor.title}}</a>{% if not forloop.last %} - {% endif %}
-    {% endfor %}
+{% block tabs %}
+<div class="{% ifequal view "description" %}selectedtab{% else %}tab{% endifequal %}">
+    <a href="description"><img class="tabicon" src="/img/icons/spec.png"/> description</a>
 </div>
-{% for ancestor in object.get_path %}
-<a href="/project/get/{{ancestor.id}}">{{ancestor.title}}</a>{% if not forloop.last %} - {% endif %}
-{% endfor %}
+<div class="{% ifequal view "budget" %}selectedtab{% else %}tab{% endifequal %}">
+    <a href="budget"><img class="tabicon" src="/img/icons/budget.png"/> budget</a>
+</div>
+<div class="{% ifequal view "team" %}selectedtab{% else %}tab{% endifequal %}">
+    <a href="team"><img class="tabicon" src="/img/icons/team.png"/> team</a>
+</div>
+<div class="{% ifequal view "planning" %}selectedtab{% else %}tab{% endifequal %}">
+    <a href="planning"><img class="tabicon" src="/img/icons/planning.png"/> planning</a>
+</div>
 {% endblock %}
 {% block content %}
 {% if object|can_read:user %}
 {% with object as project %}
-<div class="column">
-    <div id="project_{{project.id}}" class="project">
-        <div class="prjtop"></div>
-        <div class="prjbody">
-            <div class="actions">
-                {% for action in actions %}
-                <img class="clickable" onclick="{{action.func}}({{project.id}}{% if action.extra_param %}, {{action.extra_param}}{% endif %})" src="/img/icons/{{action.icon}}" alt="{{action.title}}" title="{{action.title}}" />
-                {% endfor %}
-            </div>
-            {% include "projects/project_state.html" %}
-            <div id="prjtitle_{{project.id}}" class="prjtitle">
-                {{project.title}}
-                {% if project|can_write:user %}{% if project.state < 2 %}
-                <img onclick="editProjectTitle({{project.id}})" class="clickable" src="/img/icons/edit.png" />
-                {% endif %}{% endif %}
-            </div>
-            <div id="prjdialogue_{{project.id}}" class="popup invisible"></div>
-            <div>
-                {% trans "Started on:" %} <span id="start_date_{{project.id}}">{{project.start_date|date:"d/m/Y"}}</span>
-                {% if project|can_write:user %}{% if project.state < 2 %}{% with "start_date" as field_name %}{% with project.start_date as date %}
-                {% include "projects/edit_date.html" %}
-                {% endwith %}{% endwith %}{% endif %}{% endif %}
-            </div>
-            <div>
-                {% trans "Due on:" %} <span id="due_date_{{project.id}}">{{project.due_date|date:"d/m/Y"}}</span>
-                {% if project|can_write:user %}{% if project.state < 2 %}{% with "due_date" as field_name %}
-                {% include "projects/edit_date.html" %}
-                {% endwith %}{% endif %}{% endif %}
-                {% ifequal user project.assignee %}{% ifequal project.state 2 %}{% with "due_date" as field_name %}{% with project.due_date as date %}
-                {% include "projects/edit_date.html" %}
-                {% endwith %}{% endwith %}{% endifequal %}{% endifequal %}
-            </div>
-            <div onclick="setPriority({{project.id}})">
-            {% trans "Priority:" %}{% if project|can_write:user and project.state < 2 %}
-            {% with project.id|stringformat:"s"|add:"_priority" as dest %}{% show_stars project.priority dest %}{% endwith %}
-            {% else %}
-            {% show_stars project.priority %}
-            {% endif %}
-            </div>
-            <h3>{% trans "Specifications" %}</h3>
-            <div id="specs_{{project.id}}">
-                {%for spec in project.spec_set.all|dictsort:"order"%}
-                {%include 'projects/spec/spec.html'%}
-                {%endfor%}
-            </div>
-            {% if project|can_write:user %}{% if project.state < 4 %}<img class="clickable" src="/img/icons/addspec.png" onclick="addSpec({{project.id}}, -1)" alt="{% trans "Add a specification" %}" title="{% trans "Add a specification" %}"/>{% endif %}{% endif %}
-            <br />
-            <div class="contactinfo">
-                <img class="contactpicture" src="/user/getpicture/{{project.author.username}}" />
-                {% trans "Project proposed by" %} {% if project.author %}
-                <a href="/user/profile/{{project.author.username}}">{{project.author}}</a>
-                {% else %}
-                {% trans "Guest" %}
-                {% endif %}<br />{% trans "on" %} {{project.created|date:"d/m/Y H:i:s"}}
-            </div>
-        </div>
-        <div class="prjbtm"></div>
-    </div>
-</div>
-<div class="taskcolumn">
-    <h2>{% trans "Tasks" %}</h2>
-    {% if project.tasks.all %}
-    <div>
-        {{project.finished_tasks|length}} {% trans "tasks done out of" %} {{project.tasks.all|length}}<br />
-        {{project.tasksbid_sum}}€ / {{project.tasksoffer_sum}}€
-    </div>
-    {% endif %}
-    {% if project|can_write:user %}
-    <div>
-        <form onsubmit="return addTask({{project.id}},'{{project.assignee.username}}')">
-            <input type="text" id="newtask_title_{{project.id}}"/>
-            <input type="image" src="/img/icons/addprj.png" alt="{% trans "New task" %}" title="{% trans "New task" %}"  />
-            <img class="clickable" src="/img/icons/paste.png" alt="{% trans "Paste tasks" %}" title="{% trans "Paste tasks" %}" onclick="pasteTasks({{project.id}})" />
-        </form>
-    </div>
-    <div id="newtasks_{{project.id}}"></div>
-    {% endif %}
-    <div id="tasks_{{project.id}}">
-        {% regroup project.tasks.all|dictsortreversed:"state" by state as tasks %}
-        {% for group in tasks %}
-        <h3 class="clickable" onclick="toggle(document.getElementById('arrow_{{project.id}}_{{group.grouper}}'), 'tasks_{{project.id}}_{{group.grouper}}')">
-            <img id="arrow_{{project.id}}_{{group.grouper}}" src="/img/fleche{% if group.grouper > 2 %}1{% else %}2{% endif %}.png" />
-            {{group.list|length}} {% trans "tasks" %} {{OI_PRJ_STATES|get:group.grouper}}{% trans "past_fem_plur" %}
-        </h3>
-        <div id="tasks_{{project.id}}_{{group.grouper}}" {% if group.grouper > 2 %}class="invisible"{% endif %} class="pile">
-            {% regroup group.list|dictsortreversed:"priority" by priority as tasks %}
-            {% for taskgroup in tasks %}
-            <div>
-                {% for task in taskgroup.list %}
-                {% if task|can_read:user %}{% include "projects/task.html" %}{% endif %}
-                {% endfor %}
-            </div>
-            {% endfor %}
-        </div>
-        {% endfor %}
-    </div>
-</div>
+{% with "projects/project_"|add:view|add:".html" as template_name %}
+{% include template_name %}
 {% endwith %}
+{% endwith %}
+<script>
+    username = '{{user.username}}';
+    {% for ancestor in object.get_path %}
+    listTasks({{ancestor.id}});
+    {% endfor %}
+    setActiveTask({{object.id}});
+</script>
 {% else %}
 {% trans "Forbidden" %}
 {% endif %}

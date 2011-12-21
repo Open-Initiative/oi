@@ -28,12 +28,12 @@
 {% block content %}
 <div class="usercontent">
     <h3>{% trans "My projects" %}</h3>
-    {% for message in user.get_profile.followed_rfp|slice:":3" %}
-    <a  href="/message/get/{{message.id}}">
-        {% include "messages/messagesmall.html" %}
+    {% for project in user.get_profile.observed_projects.all|slice:":3" %}
+    <a  href="/project/get/{{project.id}}">
+        {% include "projects/projectsmall.html" %}
     </a>
     {% endfor %}
-    <a href="/message/getrfp"><img src="/img/link.png" /> {% trans "See all projects" %}</a>
+<!--    <a href="/message/getrfp"><img src="/img/link.png" /> {% trans "See all projects" %}</a>-->
     <h3>{% trans "Notices" %}</h3>
     {% for notice in user.recieved_notices.all|slice:":3" %}
     <div class="contactinfo">

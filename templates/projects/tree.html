@@ -1,0 +1,6 @@
+{% for task in object.tasks.all %}
+{% if task.tasks.all %}
+<img src="/img/fleche1.png" onclick="OIajaxCall('/project/listtasks/'+{{task.id}}, null, 'tasks_'+{{task.id}});"/>{% endif %}
+<a href="/project/get/{{task.id}}">{{task.title}}<br /></a>
+<div id="tasks_{{task.id}}"></div>
+{% endfor %}

@@ -1,48 +1,100 @@
 div.prjbody {
-    background: url('/img/prjmid.png');
-    width: 560px;
+    width: 700px;
     padding: 1px 20px;
+    background: #FFFFFF;
+    clear: left;
 }
 div.prjtop {
-    width: 600px;
-    height:17px;
-    background: url('/img/prjtop.png');
+    margin-top: 30px;
+    background: #E1F3FA;
+    height: 30px;
+    width: 740px;
+    float: left;
+    font-family: "Interstate";
+    color: white;
 }
 div.prjbtm {
     width: 600px;
     height:17px;
     background: url('/img/prjbtm.png');
 }
-.prjtitle {
-    font-weight: bold;
-    text-transform: uppercase;
+div.prjtitle {
+    position: relative;
+    top: -30px;
+    width: 140px;
+    height: 30px;
+    background: #D0574C;
+    font-size: 2.5em;
+    padding: 15px 25px;
+    float: left;
 }
-.prjstate {
-    clear: right;
+div.prjstate {
     float: right;
+    padding: 5px;
+    font-size: 1.5em;
+    text-align: right;
+    color: #0094B5;
+}
+div.prjstatebtn {
+    height: 24px;
+    width: 204px;
+    padding: 3px;
+    float: right;
+    background: #0094B5;
+    font-size: 1.5em;
+    color: #A8DCF4;
+}
+input.newtask_title {
+    width: 195px;
+    height: 15px;
+    border: 1px solid #0094B5;
     font-size: .8em;
+    font-style: italic;
+    color: #0094B5;
 }
 div.tasklist {
-    border-top: solid black 1px;
-    margin-top: 25px;
+    padding-left: 20px;
 }
-div.smallprj {
-    width: 280px;
-    height: 80px;
-    padding: 10px;
-    margin-left: 12px;
-    background: url('/img/project.png');
-    color: #778e9c;
-    position: relative;
-    overflow: hidden;
+/*div.smallprj {*/
+/*    width: 280px;*/
+/*    height: 80px;*/
+/*    padding: 10px;*/
+/*    margin-left: 12px;*/
+/*    background: url('/img/project.png');*/
+/*    color: #778e9c;*/
+/*    position: relative;*/
+/*    overflow: hidden;*/
+/*}*/
+/*.viewtaskalign {*/
+/*    position:relative;*/
+/*    top:5px;*/
+/*}*/
+/*.viewtask {*/
+/*    position:absolute;*/
+/*    height:5px;*/
+/*}*/
+.specauthor {
+    font-weight: bold;
 }
-.viewtaskalign {
-    position:relative;
-    top:5px;
+div.sepspec {
+    background: url('/img/sepspec.png');
+    height: 1px;
+    margin: 20px;
 }
-.viewtask {
-    position:absolute;
-    height:5px;
+div.specfooter {
+    height: 19px;
+    width: 300px;
+    float: right;
+    text-align: right;
+    background: #E1F3FA;
+    color: #D0574C;
+    padding: 3px;
+}
+div.sepspecfooter {
+    width: 1px;
+    height: 13px;
+    background: white;
+    display: inline-block;
 }
 .progressbar {
     float:left;

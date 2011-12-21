@@ -5,10 +5,9 @@
 {% block content %}
 {% if not is_ajax %}
 
-<a href="/message/new{% if rfp %}?rfp=true{% endif %}"><div class="catchericon{% if rfp %} msgred{% endif %}">
-    <div class="column"><img src="/img/icons/{% if rfp %}prj{% else %}msg{% endif %}100.png" /></div>
-    {% if rfp %}<div>{% trans "Submit" %}</div><div class="catchercomment">{% trans "a project" %}</div>
-    {% else %}<div>{% trans "Talk" %}</div><div class="catchercomment">{% trans "to the community" %}</div>{% endif %}
+<a href="/message/new"><div class="catchericon">
+    <div class="column"><img src="/img/icons/msg100.png" /></div>
+    <div>{% trans "Talk" %}</div><div class="catchercomment">{% trans "to the community" %}</div>
 </div></a>
 <div class="cleared"></div>
 {{hits}} {% trans "messages" %}

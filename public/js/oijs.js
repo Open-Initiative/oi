@@ -28,6 +28,10 @@ function OIajaxCall(url, params, divid) {
     xmlhttp.open(method, url, false);
     xmlhttp.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
     xmlhttp.send(params);
+    if(xmlhttp.status == 531){
+        document.getElementById("output").innerHTML = 'ERROR : ' + xmlhttp.responseText;
+        return xmlhttp.responseText;
+    }
     if(xmlhttp.status == 332) document.location.reload();
     if(xmlhttp.status == 333) document.location = xmlhttp.responseText;
     else {
@@ -35,18 +39,23 @@ function OIajaxCall(url, params, divid) {
         document.getElementById(divid).innerHTML = xmlhttp.responseText;
     }
 }
-function getValue(eltid){
+function getValue(eltid, erase){
     elt = document.getElementById(eltid);
     if(elt==null) return null;
-    return elt.value.replace(/%/g,"%25").replace(/&/g,"%26").replace(/;/g,"%3B");
+    value = elt.value.replace(/%/g,"%25").replace(/&/g,"%26").replace(/;/g,"%3B");
+    if(erase) elt.value = "";
+    return value;
 }
 function newDiv(parentid) {
-    divid = "oi"+((new Date).getTime());
-    document.getElementById(parentid).innerHTML+='<div id="'+divid+'"></div>';
+    divid = "oi" + (""+Math.random()).slice(5);
+//    document.getElementById(parentid).innerHTML+='<div id="'+divid+'"></div>';
+    var newdiv = document.createElement('div');
+    newdiv.setAttribute('id',divid);
+    document.getElementById(parentid).appendChild(newdiv);
     return divid;
 }
 function newDivTop(parentid) {
-    divid = "oi"+((new Date).getTime());
+    divid = "oi" + (""+Math.random()).slice(5);
     document.getElementById(parentid).innerHTML='<div id="'+divid+'"></div>' + document.getElementById(parentid).innerHTML;
     return divid;
 }
@@ -59,6 +68,11 @@ function show(divid) {
 function hide(divid) {
     document.getElementById(divid).style.display="none";
 }
+
+function parseDate(dateString) {
+    if(dateString) return new Date(dateString.split(" ")[0]);
+}
+
 function toggle(img, divid) {
     div = document.getElementById(divid);
     if(document.defaultView.getComputedStyle(div,null).getPropertyValue('display').toString() == "block") {
@@ -167,19 +181,19 @@ function setPrjState(span,statenum) {
 }
 
 tinyMCE.init({
-		// General options
-		mode : "specific_textareas",
-		editor_deselector : "norich",
-		theme : "advanced",
-		content_css : "/css/tinymce.css",
-		plugins : "advlink,emotions,iespell,inlinepopups,media,searchreplace,print,contextmenu,paste,noneditable,nonbreaking,xhtmlxtras,advlist",
+        // General options
+        mode : "specific_textareas",
+        editor_deselector : "norich",
+        theme : "advanced",
+        content_css : "/css/tinymce.css",
+        plugins : "advlink,emotions,iespell,inlinepopups,media,searchreplace,print,contextmenu,paste,noneditable,nonbreaking,xhtmlxtras,advlist",
 
-		// Theme options
-		theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontselect,fontsizeselect",
-		theme_advanced_buttons2 : "cut,copy,paste,search,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,|,forecolor,backcolor",
-		theme_advanced_buttons3 : "hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,|,print,|,del,ins,restoredraft",
-		theme_advanced_toolbar_location : "top",
-		theme_advanced_toolbar_align : "left",
-		
-		file_browser_callback : 'uploadFile'}
+        // Theme options
+        theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontselect,fontsizeselect",
+        theme_advanced_buttons2 : "cut,copy,paste,search,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,|,forecolor,backcolor",
+        theme_advanced_buttons3 : "hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,|,print,|,del,ins,restoredraft",
+        theme_advanced_toolbar_location : "top",
+        theme_advanced_toolbar_align : "left",
+        
+        file_browser_callback : 'uploadFile'}
 );

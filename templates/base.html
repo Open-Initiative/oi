@@ -24,6 +24,7 @@
     <script type="text/javascript" src="/js/oimessage.js"></script>
     <script type="text/javascript" src="/js/oiproject.js"></script>
     <script type="text/javascript" src="/js/oiuser.js"></script>
+    <script type="text/javascript" src="/js/oigantt.js"></script>
     <title>{% block title %}{% endblock %} - Open Initiative</title>
 </head>
 
@@ -57,10 +58,10 @@
                 <div id="baseline">{% trans "The IT community dedicated to your business" %}</div>
                 <img src="/img/baseunderline.png" />
                 <div class="sepsearch"></div>
-                <div id="search"><form name="searchform" action="/search" method="GET">
+                {% comment %}<div id="search"><form name="searchform" action="/search" method="GET">
                     <input class="searchbox" name="q" type="text" value="Rechercher..." onclick="value=''" />
                     <input id="searchbtn" type="image" src="/img/icons/search.png" />
-                </form></div>
+                </form></div>{% endcomment %}
             </div>
             <div id="userheader">
                 {%if user.is_authenticated%}
@@ -107,48 +108,47 @@
         </div>
     </div>
     {% block announcement %}
-    <div id="sepheader"></div>
     {% endblock %}
-    <div class="center">
-        <div id="nav" class="column">
-            <img src="/img/navtop.png"/>
-            <div id="navbg">
-                {% block nav %}
-                {% comment %}
-                <a href="/message/getall">
-                    <div class="navitem">
-                        <div class="navicon"><img src="/img/icons/msg32.png"/></div>
-                        {% trans "Discussion" %}
-                    </div>
-                </a>
-                <div class="sep"></div>
-                <a href="/message/getrfp">
-                    <div class="navitem">
-                        <div class="navicon"><img src="/img/icons/prj32.png" /></div>
-                        {% trans "Projects" %}
-                    </div>
-                </a>
-                <div class="sep"></div>
-                <a href="">
-                    <div class="navitem">
-                        <div class="navicon"><img src="/img/icons/usr32.png" /></div>
-                        {% trans "Members" %}
-                    </div>
-                </a>
-                {% endcomment %}
-                <a href="/">
-                    <div class="navitem">
-                        Préinscription
-                    </div>
-                </a>
-                {% endblock %}
+    <div class="headersep">
+        <div class="center">
+            <div id="tabs">
+                {% block tabs %}{% endblock %}
             </div>
-            <img src="/img/navbtm.png"/>
+        </div>
+    </div>
+    <div class="center">
+        <div id="nav">
+            {% block nav %}
+            {% comment %}
+            <a href="/message/getall">
+                <div class="navitem">
+                    <div class="navicon"><img src="/img/icons/msg32.png"/></div>
+                    {% trans "Discussion" %}
+                </div>
+            </a>
+            <div class="sep"></div>
+    <!--                <a href="/message/getrfp">-->
+    <!--                    <div class="navitem">-->
+    <!--                        <div class="navicon"><img src="/img/icons/prj32.png" /></div>-->
+    <!--                        {% trans "Projects" %}-->
+    <!--                    </div>-->
+    <!--                </a>-->
+            <div class="sep"></div>
+            <a href="">
+                <div class="navitem">
+                    <div class="navicon"><img src="/img/icons/usr32.png" /></div>
+                    {% trans "Members" %}
+                </div>
+            </a>
+            {% endcomment %}
+            <a href="/">
+                <div class="navitem">
+                    Préinscription
+                </div>
+            </a>
+            {% endblock %}
         </div>
         <div id="content">
-            <div id="breadcrumb">
-            {% block breadcrumb %}{% endblock %}
-            </div>
             {% block content %}{% endblock %}
         </div>
         <div class="cleared"></div>

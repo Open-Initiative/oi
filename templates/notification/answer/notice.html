@@ -2,5 +2,5 @@
 {% if sender.is_authenticated %}
 <a href="/user/profile/{{sender.username}}">{{sender}}</a>
 {% else %} {% trans "guest" %} {% endif %}
-{% blocktrans %} has published a message on a subject you follow:{% endblocktrans %}
+{% blocktrans %} has published a message on a project you follow:{% endblocktrans %}
 <a href="/message/get/{{message.id}}">{{param}}</a>
