@@ -6,6 +6,7 @@ from django.contrib import admin
 
 class ProjectAdmin(admin.ModelAdmin):
     radio_fields = {'state':admin.HORIZONTAL}
+    list_display=('title','parent',)
 
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Spec)
