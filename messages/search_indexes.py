@@ -8,8 +8,6 @@ class MessageIndex(indexes.RealTimeSearchIndex):
     created = indexes.DateTimeField(model_attr='created')
     modified = indexes.DateTimeField(model_attr='modified')
     category = indexes.BooleanField(model_attr='category')
-    public = indexes.BooleanField(model_attr='public')
-    perms = indexes.MultiValueField()
     
     def prepare_perms(self, obj):
         # Since we're using a M2M relationship with a complex lookup,
