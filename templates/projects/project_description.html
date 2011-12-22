@@ -10,8 +10,8 @@
                 <img onclick="editProjectTitle({{project.id}})" class="clickable" src="/img/icons/edit.png" />
                 {% endif %}{% endif %}
             </div>
-            <div class="prjstatebtn">Démarrer le projet <img src="/img/icons/start.png" /></div>
-            <div class="prjstate">{% trans "Project" %} {{OI_PRJ_STATES|get:project.state}} <img src="/img/icons/started.png" /></div>
+            <div class="prjstatebtn">Démarrer le projet <img src="/img/icons/treebtn4-closed.png" /></div>
+            <div class="prjstate">{% trans "Project" %} {{OI_PRJ_STATES|get:project.state}} <img src="/img/icons/state{{project.state}}.png" /></div>
         </div>
         <div class="prjbody">
             <div id="prjdialogue_{{project.id}}" class="popup invisible"></div>

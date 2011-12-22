@@ -18,7 +18,7 @@
 </div>
 {% endblock %}
 {% block nav %}
-<img id="treebtn_{{object.master.id}}" src="/img/treebtn1.png" onclick="listTasks({{object.master.id}})"/><a href="/project/get/{{object.master.id}}">{{object.master.title}}</a>
+<img id="treebtn_{{object.master.id}}" src="/img/icons/treebtn{{object.master.state}}-closed.png" onclick="listTasks({{object.master.id}})"/><a href="/project/get/{{object.master.id}}">{{object.master.title}}</a>
 <form id="newtask_{{object.master.id}}"></form>
 <div class="tasklist" id="tasks_{{object.master.id}}"></div>
 {% endblock %}

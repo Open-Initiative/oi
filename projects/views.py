@@ -64,8 +64,8 @@ def getproject(request, id, view="description"):
 
 @OINeedsPrjPerms(OI_READ)
 def listtasks(request, id):
-    project = Project.objects.get(id=id)
-    return HttpResponse(serializers.serialize("json", project.tasks.all()))
+    tasks = Project.objects.get(id=id).tasks.order_by('state')
+    return HttpResponse(serializers.serialize("json", tasks))
 
 @login_required
 def editproject(request, id):

@@ -7,13 +7,15 @@ function addTask(tasktitle, projectid, userid) {
     return false;
 }
 function listTasks(projectid){
-    document.getElementById("treebtn_"+projectid).src = "/img/treebtn2.png";
+    document.getElementById("treebtn_"+projectid).src = "/img/icons/treebtn1-open.png";
     document.getElementById("treebtn_"+projectid).onclick = function(){shrinkTask(projectid);};
     div = document.getElementById("tasks_"+projectid);
     tasks = eval(OIajaxCall("/project/listtasks/"+projectid));
     for(task=tasks[i=0];i<tasks.length;task=tasks[++i]) {
+        var state = task.fields.state?task.fields.state:1;
         div = document.getElementById(newDiv("tasks_"+projectid));
-        div.innerHTML = '<img id="treebtn_'+task.pk+'" src="/img/treebtn1.png" onclick="listTasks('+task.pk+')"/>'+
+        div.className = "task"+state;
+        div.innerHTML = '<img id="treebtn_'+task.pk+'" src="/img/icons/treebtn'+state+'-closed.png" onclick="listTasks('+task.pk+')"/>'+
             '<a href="/project/get/'+task.pk+'">'+task.fields.title+'</a>'+
             '<form id="newtask_'+task.pk+'"></form>'+'<div class="tasklist" id="tasks_'+task.pk+'"></div>';
         if(typeof(gantt)!="undefined")
@@ -22,7 +24,7 @@ function listTasks(projectid){
 }
 function shrinkTask(projectid) {
     document.getElementById("tasks_"+projectid).innerHTML = "";
-    document.getElementById("treebtn_"+projectid).src = "/img/treebtn1.png";
+    document.getElementById("treebtn_"+projectid).src = "/img/icons/treebtn1-closed.png";
     document.getElementById("treebtn_"+projectid).onclick = function(){listTasks(projectid);};
 }
 function setActiveTask(projectid) {

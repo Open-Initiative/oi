@@ -55,6 +55,18 @@ input.newtask_title {
 div.tasklist {
     padding-left: 20px;
 }
+div.task1 a {
+    color: #0094B5;
+}
+div.task2 a {
+    color: #D0574C;
+}
+div.task3 a {
+    color: #68274E;
+}
+div.task4 a {
+    color: #A9DDF4;
+}
 /*div.smallprj {*/
 /*    width: 280px;*/
 /*    height: 80px;*/
