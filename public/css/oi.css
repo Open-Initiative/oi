@@ -201,6 +201,15 @@ div.column {
     border-top:1px solid #D0574C;
     height:15px;
 }
+#spacetitle {
+    color: #0094B5;
+    float: left;
+    font-family: "Interstate";
+    font-size: 2em;
+    padding: 0 15px;
+    text-transform: uppercase;
+    padding-top: 20px;
+}
 #tabs {
     background: #0094B5;
     float: right;
@@ -336,6 +345,7 @@ img.tabicon {
     font-weight: bolder;
     padding: 3px;
     color: #A8DCF4;
+    height: 44px;
 }
 div.popup {
     background: white;

@@ -21,8 +21,8 @@ div.prjbtm {
 div.prjtitle {
     position: relative;
     top: -30px;
-    width: 140px;
     height: 30px;
+    max-width: 300px;
     background: #D0574C;
     font-size: 2.5em;
     padding: 15px 25px;

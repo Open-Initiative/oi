@@ -110,11 +110,14 @@
     {% block announcement %}
     {% endblock %}
     <div class="headersep">
+        {% block headersep %}
         <div class="center">
+            <div id="spacetitle">{% block spacetitle %}Open Initiative{% endblock %}</div>
             <div id="tabs">
                 {% block tabs %}{% endblock %}
             </div>
         </div>
+        {% endblock %}
     </div>
     <div class="center">
         <div id="nav">
