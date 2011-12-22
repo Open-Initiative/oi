@@ -125,12 +125,12 @@ def savemessage(request, id):
             parent.add_expertise(parent.author, message.get_expertise(request.user)*OI_EXPERTISE_FROM_ANSWER, False)
         message.add_expertise(request.user, OI_SCORE_ADD, True)
 
-    if message.project: #notification from anonymous
+    if author:
         #notify users about this message
         request.user.get_profile().notify_all(message.project, "answer", message.title)
         #adds the message to user's observation
         request.user.get_profile().observed_projects.add(message.project)
-    else:
+    else: #notification from anonymous
         recipients = User.objects.filter(userprofile__observed_projects__subprojects__message__descendants = message).distinct()
         notification.send(recipients, "answer", {'message':message, 'param':message.title}, True, None)
 
