@@ -11,7 +11,7 @@
                 {% endif %}{% endif %}
             </div>
             <div class="prjstatebtn">Démarrer le projet <img src="/img/icons/treebtn4-closed.png" /></div>
-            <div class="prjstate">{% trans "Project" %} {{OI_PRJ_STATES|get:project.state}} <img src="/img/icons/state{{project.state}}.png" /></div>
+            <div class="prjstate">{% trans "Project" %} {{OI_PRJ_STATES|get:project.state}} <img src="/img/icons/state{{project.state|default:1}}.png" /></div>
         </div>
         <div class="prjbody">
             <div id="prjdialogue_{{project.id}}" class="popup invisible"></div>
