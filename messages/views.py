@@ -16,6 +16,7 @@ from oi.helpers import OI_PAGE_SIZE, OI_ALL_PERMS, OI_READ, OI_WRITE, ajax_login
 from oi.helpers import OI_SCORE_ADD, OI_SCORE_DEFAULT_RELEVANCE, OI_EXPERTISE_FROM_ANSWER, OI_EXPERTISE_TO_MESSAGE
 from oi.settings import MEDIA_ROOT, MEDIA_URL
 from oi.notification import models as notification
+from oi.projects.models import Project
 from oi.messages.models import Message, PromotedMessage, OINeedsMsgPerms
 from oi.messages.templatetags.oifilters import oiescape, summarize
 
@@ -130,7 +131,7 @@ def savemessage(request, id):
         #adds the message to user's observation
         request.user.get_profile().observed_projects.add(message.project)
     else:
-        recipients = User.objects.filter(userprofile__observed_messages__descendants = message).distinct()
+        recipients = User.objects.filter(userprofile__observed_projects__subprojects__message__descendants = message).distinct()
         notification.send(recipients, "answer", {'message':message, 'param':message.title}, True, None)
 
     #affiche le nouveau message en retour

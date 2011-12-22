@@ -21,6 +21,7 @@
         <div class="msgbody">
             <textarea id="text_{{divid}}" rows="15" class="msgfield">{{message.text|oiunescape}}</textarea>
             <input id="parent_{{divid}}"type="hidden"  value="{{request.GET.parent}}" />
+            <input id="project_{{divid}}"type="hidden"  value="{{request.GET.project}}" />
             <img class="clickable" src="/img/icons/ok-32.png" onclick="saveMessage('{{divid}}',{{message.id|default:0}})" />
             <img class="clickable" src="/img/icons/del-32.png" onclick="cancelMessage('{{divid}}',{{message.id|default:0}})" />
 <!--            {% if user.is_authenticated %}-->
