@@ -1,40 +1,63 @@
+function setTaskName(div, id, title, view) {
+    div.innerHTML = '<a href="/project/get/'+id+'/'+view+'">'+title+' ('+id+')</a> <form id="newtask_'+id+'"></form>';
+}
 function addTask(tasktitle, projectid, userid) {
-    url = "/project/save/0";
-    params = "title="+tasktitle+"&assignee="+userid+"&progress=0&inline=1&parent="+projectid;
-    divid = newDiv("tasks_"+projectid);
-//    document.getElementById("tasks_"+projectid).className = "pile";
-    OIajaxCall(url, params, divid);
+    answer = OIajaxCall("/project/save/0", "title="+tasktitle+"&assignee="+userid+"&progress=0&inline=1&parent="+projectid);
+    task = eval(answer)[0];
+    position = oiTree.nodes[projectid].children.length;
+    setTaskName(oiTree.addChild(projectid, task.pk, 0, position), task.pk, task.fields.title, viewname);
     return false;
 }
-function listTasks(projectid){
-    document.getElementById("treebtn_"+projectid).src = "/img/icons/treebtn1-open.png";
-    document.getElementById("treebtn_"+projectid).onclick = function(){shrinkTask(projectid);};
-    div = document.getElementById("tasks_"+projectid);
-    tasks = eval(OIajaxCall("/project/listtasks/"+projectid));
-    for(task=tasks[i=0];i<tasks.length;task=tasks[++i]) {
-        var state = task.fields.state?task.fields.state:1;
-        div = document.getElementById(newDiv("tasks_"+projectid));
-        div.className = "task"+state;
-        div.innerHTML = '<img id="treebtn_'+task.pk+'" src="/img/icons/treebtn'+state+'-closed.png" onclick="listTasks('+task.pk+')"/>'+
-            '<a href="/project/get/'+task.pk+'">'+task.fields.title+'</a>'+
-            '<form id="newtask_'+task.pk+'"></form>'+'<div class="tasklist" id="tasks_'+task.pk+'"></div>';
-        if(typeof(gantt)!="undefined")
-            gantt.addBar(task.pk, [parseDate(task.fields.created),parseDate(task.fields.start_date),parseDate(task.fields.due_date)], projectid);
+function showChildren(projectid) {
+    var i, afterid = projectid, children = oiTree.nodes[projectid].children;
+    for(var child=children[i=0]; i<children.length; child=children[++i]) {
+        gantt.showBar(child.id, afterid);
+        if(oiTree.nodes[child.id].selected) gantt.addSpace(child.id);
+        if(oiTree.nodes[child.id].open && oiTree.nodes[child.id].children.length) afterid = showChildren(child.id);
+        else afterid = child.id;
+    }
+    return afterid;
+}
+function hideChildren(projectid) {
+    var i, children = oiTree.nodes[projectid].children;
+    for(var child=children[i=0]; i<children.length; child=children[++i]) {
+        gantt.hideBar(child.id, oiTree.nodes[child.id].selected);
+        if(oiTree.nodes[child.id].open) if(oiTree.nodes[child.id].children.length) hideChildren(child.id);
     }
 }
-function shrinkTask(projectid) {
-    document.getElementById("tasks_"+projectid).innerHTML = "";
-    document.getElementById("treebtn_"+projectid).src = "/img/icons/treebtn1-closed.png";
-    document.getElementById("treebtn_"+projectid).onclick = function(){listTasks(projectid);};
+function onExpandNode(projectid) {
+    if(oiTree.nodes[projectid].children.length) {
+        if(typeof(gantt)!="undefined") {
+            showChildren(projectid);
+            gantt.redraw()
+        }
+    } else {
+        tasks = eval(OIajaxCall("/project/listtasks/"+projectid));
+        var i, afterid = projectid;
+        for(var task=tasks[i=0]; i<tasks.length; task=tasks[++i]) {
+            setTaskName(oiTree.addChild(projectid, task.pk, task.fields.state, i), task.pk, task.fields.title, viewname);
+            if(typeof(gantt)!="undefined") {
+                gantt.addBar(task.pk, [parseDate(task.fields.created),parseDate(task.fields.start_date),parseDate(task.fields.due_date)], afterid);
+                afterid = task.pk;
+            }
+        }
+    }
+}
+function onShrinkNode(projectid) {
+    if(typeof(gantt)!="undefined") {
+        hideChildren(projectid);
+        gantt.redraw()
+    }
 }
 function setActiveTask(projectid) {
     form = document.getElementById("newtask_"+projectid);
-    form.onsubmit = function(){return addTask(getValue("newtask_title_"+projectid, true),projectid,username);};
+    form.onclick = function(){addTask(getValue("newtask_title_"+projectid, true),projectid,username);return false;};
     form.innerHTML = '<input type="image" src="/img/icons/addtask.png" alt="'+gettext("New task")+'" title="'+gettext("New task")+'" />'+
         '<input type="text" id="newtask_title_'+projectid+'" class="newtask_title" value="'+gettext("New task")+'"/>';
-    if(typeof(gantt)!="undefined")
-        gantt.addSpace(projectid);
+    oiTree.nodes[projectid].selected = true;
+    if(typeof(gantt)!="undefined") gantt.addSpace(projectid);
 }
+
 function copyTask(taskid, tasktitle) {
     OIajaxCall("/project/copy/"+taskid, null, "output");
     div = document.getElementById("project_clipboard");
@@ -111,7 +134,7 @@ function validateProject(projectid) {
     OIajaxCall("/project/validate/"+projectid, null, "output");
 }
 function showStar(id, number) {
-    for(i=1;i<=5;i++)
+    for(var i=1;i<=5;i++)
         if(i<=number) document.getElementById("star"+i+"_"+id).src = document.getElementById("star"+i+"_"+id).src.replace("False","True");
         else document.getElementById("star"+i+"_"+id).src = document.getElementById("star"+i+"_"+id).src.replace("True","False");
 }

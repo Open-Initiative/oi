@@ -1,6 +1,6 @@
 div.prjbody {
-    width: 700px;
-    padding: 1px 20px;
+    width: 680px;
+    padding: 1px 10px;
     background: #FFFFFF;
     clear: left;
 }
@@ -8,7 +8,7 @@ div.prjtop {
     margin-top: 30px;
     background: #E1F3FA;
     height: 30px;
-    width: 740px;
+    width: 700px;
     float: left;
     font-family: "Interstate";
     color: white;
@@ -37,7 +37,7 @@ div.prjstate {
 }
 div.prjstatebtn {
     height: 24px;
-    width: 204px;
+    width: 184px;
     padding: 3px;
     float: right;
     background: #0094B5;
@@ -46,26 +46,82 @@ div.prjstatebtn {
 }
 input.newtask_title {
     width: 195px;
-    height: 15px;
+    height: 17px;
     border: 1px solid #0094B5;
     font-size: .8em;
     font-style: italic;
     color: #0094B5;
 }
-div.tasklist {
-    padding-left: 20px;
+#projecttree {
+    padding-top: 20px;
 }
-div.task1 a {
+div.treelist {
+    padding-left: 20px;
+    border-bottom: solid 1px #D0574C;
+    display: none;
+}
+div.treeelt1{
+    padding: 2px;
+    min-height: 16px;
+}
+div.treeelt2{
+    padding: 2px;
+    min-height: 16px;
+}
+div.treeelt3{
+    padding: 2px;
+    min-height: 16px;
+}
+div.treeelt4{
+    padding: 2px;
+    min-height: 16px;
+}
+div.treeelt1 a {
     color: #0094B5;
 }
-div.task2 a {
+div.treeelt2 a {
     color: #D0574C;
 }
-div.task3 a {
+div.treeelt3 a {
     color: #68274E;
 }
-div.task4 a {
-    color: #A9DDF4;
+div.treeelt4 a {
+    color: #6C6D6E;
+}
+div.treebg0 {
+    background: #C8DBE1;
+}
+div.treebg1 {
+    background: #E1F3FA;
+}
+#ganttdiv {
+    background: white;
+    overflow: auto;
+    position: relative;
+}
+div.ganttperiod {
+    height: 100%;
+    border-right: solid gray 1px;
+    float: left;
+}
+div.ganttbar1 {
+    float: left;
+    height: 10px;
+    background: #0094B5;
+}
+div.ganttbar2 {
+    float: left;
+    height: 10px;
+    background: #D0574C;
+}
+div.ganttbar3 {
+    float: left;
+    height: 10px;
+    background: #68274E;
+}
+div.gantthighlight {
+    border: solid 5px red;
+    margin: -5px;
 }
 /*div.smallprj {*/
 /*    width: 280px;*/
@@ -148,28 +204,28 @@ div.sepspecfooter {
     border:gray solid;
     border-width: 2px 2px 0 2px;
 }
-.gantt {
-    position:relative;
-    border:solid .1em;
-    overflow-x:auto;
-}
-.ganttlabels {
-    float: left;
-    width: 25em;
-    white-space: nowrap;
-    overflow: auto;
-}
-.ganttday {
-    position:relative;
-    width:.92em;
-    float:left;
-    border-right:.1em solid lightgray;
-    height:95%;
-    z-index:-1;
-}
-.ganttmonth {
-    width:0px;
-    position:relative;
-    float:left;
-    top:-1.1em;
-}
+/*.gantt {*/
+/*    position:relative;*/
+/*    border:solid .1em;*/
+/*    overflow-x:auto;*/
+/*}*/
+/*.ganttlabels {*/
+/*    float: left;*/
+/*    width: 25em;*/
+/*    white-space: nowrap;*/
+/*    overflow: auto;*/
+/*}*/
+/*.ganttday {*/
+/*    position:relative;*/
+/*    width:.92em;*/
+/*    float:left;*/
+/*    border-right:.1em solid lightgray;*/
+/*    height:95%;*/
+/*    z-index:-1;*/
+/*}*/
+/*.ganttmonth {*/
+/*    width:0px;*/
+/*    position:relative;*/
+/*    float:left;*/
+/*    top:-1.1em;*/
+/*}*/

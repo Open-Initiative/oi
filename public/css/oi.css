@@ -250,10 +250,13 @@ img.tabicon {
 }
 #nav {
     background:#E1F3FA;
-    width:230px;
+    width:300px;
     padding:2px;
     margin-top: 15px;
     float: left;
+}
+div.navtitle {
+    padding-top: 20px;
 }
 .navitem {
     padding: 10px 0;
@@ -268,8 +271,8 @@ img.tabicon {
     width:40px;
 }
 #content {
-    width: 730px;
-    padding: 5px 0 0 20px;
+    width: 700px;
+    padding: 5px 0 0 10px;
     float: left;
 }
 #breadcrumb {

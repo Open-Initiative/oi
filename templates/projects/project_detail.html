@@ -18,9 +18,14 @@
 </div>
 {% endblock %}
 {% block nav %}
-<img id="treebtn_{{object.master.id}}" src="/img/icons/treebtn{{object.master.state}}-closed.png" onclick="listTasks({{object.master.id}})"/><a href="/project/get/{{object.master.id}}">{{object.master.title}}</a>
-<form id="newtask_{{object.master.id}}"></form>
+<div id="projecttree"></div>
+{%comment%}
+<div class="navtitle" onmouseover="gantt.barids[{{object.master.id}}].bardiv.style.border='solid 5px red'" onmouseout="gantt.barids[{{object.master.id}}].bardiv.style.border='none'">
+    <img id="treebtn_{{object.master.id}}" src="/img/icons/treebtn{{object.master.state}}-closed.png" onclick="listTasks({{object.master.id}})"/><a href="/project/get/{{object.master.id}}">{{object.master.title}}</a>
+    <div><form id="newtask_{{object.master.id}}"></form></div>
+</div>
 <div class="tasklist" id="tasks_{{object.master.id}}"></div>
+{% endcomment %}
 {% endblock %}
 {% block content %}
 {% if object|can_read:user %}
@@ -31,10 +36,15 @@
 {% endwith %}
 <script>
     username = '{{user.username}}';
+    viewname = '{{view}}';
+    oiTree = new OITree("projecttree");
+    oiTree.gantt = gantt;
+    setTaskName(oiTree.setRoot({{object.master.id}}, {{object.master.state}}, 0), {{object.master.id}}, "{{object.master.title}}", "{{view}}");
     {% for ancestor in object.get_path %}
-    listTasks({{ancestor.id}});
+    oiTree.nodes[{{ancestor.id}}].expand();
     {% endfor %}
     setActiveTask({{object.id}});
+    gantt.redraw();
 </script>
 {% else %}
 {% trans "Forbidden" %}

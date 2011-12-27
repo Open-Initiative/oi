@@ -123,7 +123,7 @@ def saveproject(request, id='0'):
     #adds the project to user's observation
     request.user.get_profile().observed_projects.add(project.master)
     if request.POST.get("inline","0") == "1":
-        return HttpResponseRedirect('/project/gettask/%s'%project.id)
+        return HttpResponse(serializers.serialize("json", [project]))
     else:
         return HttpResponseRedirect('/project/get/%s'%project.id)
 
