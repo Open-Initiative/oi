@@ -21,8 +21,8 @@
 {% endcomment %}
 <div id="ganttdiv"></div>
 <script>
-    gantt = new OIGantt("ganttdiv", new Date({{project.master.created|date:"Y,m,d"}}), new Date({{project.master.end_date|date:"Y,m,d"}}));
-    gantt.addBar({{project.master.id}}, [new Date({{project.master.created|date:"Y,m,d"}}),new Date({{project.master.start_date|date:"Y,m,d"}}),new Date("{{project.master.due_date|date:"Y,m,d"}}")]);
+    oiTable = new OIGantt("ganttdiv", new Date({{project.master.created|date:"Y,m,d"}}), new Date({{project.master.end_date|date:"Y,m,d"}}));
+    oiTable.addBar({{project.master.id}}, [new Date({{project.master.created|date:"Y,m,d"}}),new Date({{project.master.start_date|date:"Y,m,d"}}),new Date("{{project.master.due_date|date:"Y,m,d"}}")]);
 </script>
 {% comment %}
 <div id="prjview_{{project.id}}">

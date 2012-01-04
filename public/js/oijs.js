@@ -30,7 +30,7 @@ function OIajaxCall(url, params, divid) {
     xmlhttp.send(params);
     if(xmlhttp.status == 531){
         document.getElementById("output").innerHTML = 'ERROR : ' + xmlhttp.responseText;
-        return xmlhttp.responseText;
+        return;
     }
     if(xmlhttp.status == 332) document.location.reload();
     if(xmlhttp.status == 333) document.location = xmlhttp.responseText;

@@ -248,6 +248,15 @@ img.tabicon {
     background:url('/img/sep.png');
     height:1px;
 }
+div.pagetop {
+    margin-top: 30px;
+    background: #E1F3FA;
+    height: 30px;
+    width: 1010px;
+    font-family: "Interstate";
+    color: white;
+    float: left;
+}
 #nav {
     background:#E1F3FA;
     width:300px;

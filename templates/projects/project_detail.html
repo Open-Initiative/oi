@@ -17,6 +17,16 @@
     <a href="planning"><img class="tabicon" src="/img/icons/planning.png"/> planning</a>
 </div>
 {% endblock %}
+{% block pagetitle %}
+<div id="prjtitle_{{object.id}}" class="prjtitle">
+    <img class="clickable" title="Suivre le projet" alt="Suivre le projet" src="/img/icons/starTrue.png" onclick="observeProject(84)">
+    {{object.title}}
+    {% if object|can_write:user %}{% if object.state < 2 %}
+    <img onclick="editProjectTitle({{object.id}})" class="clickable" src="/img/icons/edit.png" />
+    {% endif %}{% endif %}
+</div>
+{% include 'projects/project_state.html' %}
+{% endblock %}
 {% block nav %}
 <div id="projecttree"></div>
 {%comment%}
@@ -30,21 +40,24 @@
 {% block content %}
 {% if object|can_read:user %}
 {% with object as project %}
-{% with "projects/project_"|add:view|add:".html" as template_name %}
-{% include template_name %}
-{% endwith %}
+<div id="project_{{project.id}}" class="project">
+    <div class="prjbody">
+    {% with "projects/project_"|add:view|add:".html" as template_name %}
+    {% include template_name %}
+    {% endwith %}
+        <div class="cleared"></div> 
+    </div>
+</div>
 {% endwith %}
 <script>
     username = '{{user.username}}';
     viewname = '{{view}}';
     oiTree = new OITree("projecttree");
-    oiTree.gantt = gantt;
     setTaskName(oiTree.setRoot({{object.master.id}}, {{object.master.state}}, 0), {{object.master.id}}, "{{object.master.title}}", "{{view}}");
     {% for ancestor in object.get_path %}
     oiTree.nodes[{{ancestor.id}}].expand();
     {% endfor %}
     setActiveTask({{object.id}});
-    gantt.redraw();
 </script>
 {% else %}
 {% trans "Forbidden" %}

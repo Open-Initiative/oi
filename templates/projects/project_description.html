@@ -1,40 +1,23 @@
 ﻿﻿{% load oifilters %}
 {% load i18n %}
-<div class="column">
-    <div id="project_{{project.id}}" class="project">
-        <div class="prjtop">
-            <div id="prjtitle_{{project.id}}" class="prjtitle">
-                <img class="clickable" title="Suivre le projet" alt="Suivre le projet" src="/img/icons/starTrue.png" onclick="observeProject(84)">
-                {{project.title}}
-                {% if project|can_write:user %}{% if project.state < 2 %}
-                <img onclick="editProjectTitle({{project.id}})" class="clickable" src="/img/icons/edit.png" />
-                {% endif %}{% endif %}
-            </div>
-            <div class="prjstatebtn">Démarrer le projet <img src="/img/icons/treebtn4-closed.png" /></div>
-            <div class="prjstate">{% trans "Project" %} {{OI_PRJ_STATES|get:project.state}} <img src="/img/icons/state{{project.state|default:1}}.png" /></div>
-        </div>
-        <div class="prjbody">
-            <div id="prjdialogue_{{project.id}}" class="popup invisible"></div>
-            <div onclick="setPriority({{project.id}})">
-            {% trans "Priority:" %}{% if project|can_write:user and project.state < 2 %}
-            {% with project.id|stringformat:"s"|add:"_priority" as dest %}{% show_stars project.priority dest %}{% endwith %}
-            {% else %}
-            {% show_stars project.priority %}
-            {% endif %}
-            </div>
-            <div id="specs_{{project.id}}">
-                {%for spec in project.spec_set.all|dictsort:"order"%}
-                {%include 'projects/spec/spec.html'%}
-                {%endfor%}
-            </div>
-            {% if project|can_write:user %}{% if project.state < 4 %}<img class="clickable" src="/img/icons/add.png" onclick="addSpec({{project.id}}, -1)" alt="{% trans "Add a specification" %}" title="{% trans "Add a specification" %}"/> {% trans "Add a specification" %}{% endif %}{% endif %}
-            <h1>Discussions</h1>
-            <div id="discussions_{{project.id}}">
-                {% for message in project.message_set.all %}
-                {% include 'messages/message.html' %}
-                {% endfor %}
-            </div>
-            {% if project|can_write:user %}<img class="clickable" src="/img/icons/add.png" onclick="addMessage(null, {{project.id}})" alt="{% trans "Add a discussion" %}" title="{% trans "Add a discussion" %}"/> {% trans "Add a discussion" %}{% endif %}
-        </div>
-    </div>
+<div id="prjdialogue_{{project.id}}" class="popup invisible"></div>
+<div onclick="setPriority({{project.id}})">
+{% trans "Priority:" %}{% if project|can_write:user and project.state < 2 %}
+{% with project.id|stringformat:"s"|add:"_priority" as dest %}{% show_stars project.priority dest %}{% endwith %}
+{% else %}
+{% show_stars project.priority %}
+{% endif %}
 </div>
+<div id="specs_{{project.id}}">
+    {%for spec in project.spec_set.all|dictsort:"order"%}
+    {%include 'projects/spec/spec.html'%}
+    {%endfor%}
+</div>
+{% if project|can_write:user %}{% if project.state < 4 %}<img class="clickable" src="/img/icons/add.png" onclick="addSpec({{project.id}}, -1)" alt="{% trans "Add a specification" %}" title="{% trans "Add a specification" %}"/> {% trans "Add a specification" %}{% endif %}{% endif %}
+<h1>Discussions</h1>
+<div id="discussions_{{project.id}}">
+    {% for message in project.message_set.all %}
+    {% include 'messages/message.html' %}
+    {% endfor %}
+</div>
+{% if project|can_write:user %}<img class="clickable" src="/img/icons/add.png" onclick="addMessage(null, {{project.id}})" alt="{% trans "Add a discussion" %}" title="{% trans "Add a discussion" %}"/> {% trans "Add a discussion" %}{% endif %}

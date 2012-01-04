@@ -1,0 +1,41 @@
+{% load i18n %}
+<div class="prjinfo">
+    <div>
+    {% if project.assignee %}
+        <h3>{% trans "Assignee" %}</h3>
+        <img class="contactpicture" src="/user/getpicture/{{project.assignee.username}}">{{project.assignee}}
+        {% if project.assignee == user and project.state < 3 %}
+        <div><img class="clickable" src="/img/icons/delegateprj.png" onclick="delegateProject({{project.id}})" title="{% trans "Delegate this project" %}" alt="{% trans "Delegate this project" %}" /> {% trans "Delegate this project" %}</div>
+        {% endif %}
+        {% if project.delegate_to %}
+            {% ifequal user project.delegate_to %}
+            <div id="question_delegate_{{project.id}}" class="smalltext">
+                {{project.assignee}} {trans "wants to delegate this project to you." %}
+                {% trans "Do you accept it?" %}
+                <img class="clickable" src="/img/icons/ok.png" onclick="answerDelegate({{project.id}}, true, 'question_delegate_{{project.id}}')" title="{% trans "Accept" %}" alt="{% trans "Accept" %}"/>
+                <img class="clickable" src="/img/icons/delete.png" onclick="answerDelegate({{project.id}}, false, 'question_delegate_{{project.id}}')" title="{%trans "Refuse" %}" alt="{%trans "Refuse" %}"/>
+            </div>
+            {% else %}
+            <div class="smalltext">{% trans "Delegation offer sent to" %} {{project.delegate_to}}</div>
+            {% endifequal %}
+        {% endif %}
+    {% else %}
+        {% trans "No one is in charge of this project" %}
+        <img class="clickable" src="/img/icons/assignprj.png" onclick="offerProject({{project.id}})" title="{% trans "Take on this project" %}" alt="{% trans "Take on this project" %}" />
+    {% endif %}
+    </div>
+    <div>
+        <h3>{% trans "Bidders" %}</h3>
+        {% for bid in project.bid_set.all %}
+        <img class="contactpicture" src="/user/getpicture/{{bid.user.username}}">{{bid.user}}
+        {% empty %}
+        {% trans "No bidder on this project" %}
+        {% endfor %}
+    </div>
+    <div class="cleared"><input type="checkbox" checked /> {% trans "This project is public" %}</div>
+</div>
+<div id="team" class="prjtable"></div>
+<script>
+    oiTable = new OITable("team", ["{% trans 'Assignee' %}", "{% trans 'Bidders' %}"]);
+    oiTable.addLine({{project.master.id}}, ["{{project.master.assignee.get_profile.get_display_name}}", "{{project.master.bid_set.count}}"])
+</script>

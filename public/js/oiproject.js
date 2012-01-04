@@ -1,18 +1,20 @@
+oiTable = null;
 function setTaskName(div, id, title, view) {
-    div.innerHTML = '<a href="/project/get/'+id+'/'+view+'">'+title+' ('+id+')</a> <form id="newtask_'+id+'"></form>';
+    div.innerHTML = '<a href="/project/get/'+id+'/'+view+'">'+title+'</a> <form id="newtask_'+id+'"></form>';
 }
 function addTask(tasktitle, projectid, userid) {
     answer = OIajaxCall("/project/save/0", "title="+tasktitle+"&assignee="+userid+"&progress=0&inline=1&parent="+projectid);
-    task = eval(answer)[0];
-    position = oiTree.nodes[projectid].children.length;
-    setTaskName(oiTree.addChild(projectid, task.pk, 0, position), task.pk, task.fields.title, viewname);
+    if(answer) {
+        task = eval(answer)[0];
+        position = oiTree.nodes[projectid].children.length;
+        setTaskName(oiTree.addChild(projectid, task.pk, 0, position), task.pk, task.fields.title, viewname);
+    }
     return false;
 }
 function showChildren(projectid) {
     var i, afterid = projectid, children = oiTree.nodes[projectid].children;
     for(var child=children[i=0]; i<children.length; child=children[++i]) {
-        gantt.showBar(child.id, afterid);
-        if(oiTree.nodes[child.id].selected) gantt.addSpace(child.id);
+        oiTable.showLine(child.id, afterid);
         if(oiTree.nodes[child.id].open && oiTree.nodes[child.id].children.length) afterid = showChildren(child.id);
         else afterid = child.id;
     }
@@ -21,41 +23,40 @@ function showChildren(projectid) {
 function hideChildren(projectid) {
     var i, children = oiTree.nodes[projectid].children;
     for(var child=children[i=0]; i<children.length; child=children[++i]) {
-        gantt.hideBar(child.id, oiTree.nodes[child.id].selected);
+        oiTable.hideLine(child.id, oiTree.selected==child.id);
         if(oiTree.nodes[child.id].open) if(oiTree.nodes[child.id].children.length) hideChildren(child.id);
     }
 }
 function onExpandNode(projectid) {
     if(oiTree.nodes[projectid].children.length) {
-        if(typeof(gantt)!="undefined") {
-            showChildren(projectid);
-            gantt.redraw()
-        }
+        if(projectid == oiTree.selected) oiTable.bars.splice(oiTable.bars.indexOf(oiTable.barids[projectid]) + 1, 1);
+        if(oiTable) showChildren(projectid);
     } else {
         tasks = eval(OIajaxCall("/project/listtasks/"+projectid));
         var i, afterid = projectid;
         for(var task=tasks[i=0]; i<tasks.length; task=tasks[++i]) {
             setTaskName(oiTree.addChild(projectid, task.pk, task.fields.state, i), task.pk, task.fields.title, viewname);
-            if(typeof(gantt)!="undefined") {
-                gantt.addBar(task.pk, [parseDate(task.fields.created),parseDate(task.fields.start_date),parseDate(task.fields.due_date)], afterid);
-                afterid = task.pk;
-            }
+            if(oiTable) oiTable.addFromTask(task, afterid, i%2);
+            afterid = task.pk;
         }
     }
+    if(oiTree.selected) oiTable.addSpace(oiTree.selected);
+    if(oiTable) oiTable.redraw();
 }
 function onShrinkNode(projectid) {
-    if(typeof(gantt)!="undefined") {
+    if(oiTable) {
         hideChildren(projectid);
-        gantt.redraw()
+        oiTable.redraw();
     }
 }
 function setActiveTask(projectid) {
     form = document.getElementById("newtask_"+projectid);
-    form.onclick = function(){addTask(getValue("newtask_title_"+projectid, true),projectid,username);return false;};
+    form.onsubmit = function(){return addTask(getValue("newtask_title_"+projectid, true),projectid,username);};
     form.innerHTML = '<input type="image" src="/img/icons/addtask.png" alt="'+gettext("New task")+'" title="'+gettext("New task")+'" />'+
-        '<input type="text" id="newtask_title_'+projectid+'" class="newtask_title" value="'+gettext("New task")+'"/>';
-    oiTree.nodes[projectid].selected = true;
-    if(typeof(gantt)!="undefined") gantt.addSpace(projectid);
+        '<input type="text" id="newtask_title_'+projectid+'" class="newtask_title" value="'+gettext("New task")+'" '+
+        'onclick="this.value=\'\'" onblur="this.value=\'New task\'"/>';
+    oiTree.selected = projectid;
+    if(oiTable) oiTable.addSpace(projectid);
 }
 
 function copyTask(taskid, tasktitle) {

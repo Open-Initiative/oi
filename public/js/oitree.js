@@ -4,7 +4,6 @@ function OITreeNode(id, tree, parent, color, bgClass) {
     this.parent = parent;
     this.color = color || 1;
     this.children = [];
-    this.selected = false;
     this.open = true;
     
     if(parent) this.div = document.getElementById(newDiv(this.parent.childDiv.id));
@@ -20,10 +19,10 @@ OITreeNode.prototype.setContent = function() {
     this.btn.style.cssFloat = "left";
     this.div.appendChild(this.btn);
     this.titleDiv = document.getElementById(newDiv(this.div.id));
-    this.titleDiv.className = "treeelt" + this.color;
+    this.titleDiv.className = "treeelt state" + this.color;
     this.titleDiv.node = this;
-    this.titleDiv.onmouseover = function() {if(this.node.tree.gantt) this.node.tree.gantt.highlight(this.node.id)};
-    this.titleDiv.onmouseout = function() {if(this.node.tree.gantt) this.node.tree.gantt.unhighlight(this.node.id)};
+    this.titleDiv.onmouseover = function() {if(oiTable) oiTable.highlight(this.node.id)};
+    this.titleDiv.onmouseout = function() {if(oiTable) oiTable.unhighlight(this.node.id)};
     this.childDiv = document.getElementById(newDiv(this.div.id));
     this.childDiv.className = "treelist";
 }
@@ -50,6 +49,7 @@ OITreeNode.prototype.shrink = function() {
 function OITree(divid, expandCallback, shrinkCallback) {
     this.div = document.getElementById(divid);
     this.nodes = {};
+    this.selected = null;
     this.expandCallback = expandCallback;
     this.shrinkCallback = shrinkCallback;
 }

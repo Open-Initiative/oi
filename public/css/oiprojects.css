@@ -1,17 +1,9 @@
 div.prjbody {
     width: 680px;
-    padding: 1px 10px;
+    padding: 10px;
+    margin: 2px;
     background: #FFFFFF;
     clear: left;
-}
-div.prjtop {
-    margin-top: 30px;
-    background: #E1F3FA;
-    height: 30px;
-    width: 700px;
-    float: left;
-    font-family: "Interstate";
-    color: white;
 }
 div.prjbtm {
     width: 600px;
@@ -22,7 +14,7 @@ div.prjtitle {
     position: relative;
     top: -30px;
     height: 30px;
-    max-width: 300px;
+    max-width: 600px;
     background: #D0574C;
     font-size: 2.5em;
     padding: 15px 25px;
@@ -44,13 +36,19 @@ div.prjstatebtn {
     font-size: 1.5em;
     color: #A8DCF4;
 }
+div.prjinfo {
+    float: right;
+    padding: 5px;
+    font-size: 1.5em;
+    color: #0094B5;
+}
 input.newtask_title {
     width: 195px;
     height: 17px;
     border: 1px solid #0094B5;
     font-size: .8em;
     font-style: italic;
-    color: #0094B5;
+    color: #81D3DA;
 }
 #projecttree {
     padding-top: 20px;
@@ -60,32 +58,20 @@ div.treelist {
     border-bottom: solid 1px #D0574C;
     display: none;
 }
-div.treeelt1{
+div.treeelt {
     padding: 2px;
     min-height: 16px;
 }
-div.treeelt2{
-    padding: 2px;
-    min-height: 16px;
-}
-div.treeelt3{
-    padding: 2px;
-    min-height: 16px;
-}
-div.treeelt4{
-    padding: 2px;
-    min-height: 16px;
-}
-div.treeelt1 a {
+.state1 a {
     color: #0094B5;
 }
-div.treeelt2 a {
+.state2 a {
     color: #D0574C;
 }
-div.treeelt3 a {
+.state3 a {
     color: #68274E;
 }
-div.treeelt4 a {
+.state4 a {
     color: #6C6D6E;
 }
 div.treebg0 {
@@ -95,14 +81,22 @@ div.treebg1 {
     background: #E1F3FA;
 }
 #ganttdiv {
-    background: white;
     overflow: auto;
+}
+div.ganttbg {
+    z-index: 0;
+    background: white;
     position: relative;
 }
 div.ganttperiod {
     height: 100%;
     border-right: solid gray 1px;
     float: left;
+}
+div.ganttbg0 {
+    width: 100%;
+    background: #E8E8E8;
+    z-index: -1;
 }
 div.ganttbar1 {
     float: left;
@@ -123,24 +117,12 @@ div.gantthighlight {
     border: solid 5px red;
     margin: -5px;
 }
-/*div.smallprj {*/
-/*    width: 280px;*/
-/*    height: 80px;*/
-/*    padding: 10px;*/
-/*    margin-left: 12px;*/
-/*    background: url('/img/project.png');*/
-/*    color: #778e9c;*/
-/*    position: relative;*/
-/*    overflow: hidden;*/
-/*}*/
-/*.viewtaskalign {*/
-/*    position:relative;*/
-/*    top:5px;*/
-/*}*/
-/*.viewtask {*/
-/*    position:absolute;*/
-/*    height:5px;*/
-/*}*/
+tr.tablebg0 {
+    background: #E8E8E8;
+}
+.tablecheckbox {
+    margin: -3px 5px;
+}
 .specauthor {
     font-weight: bold;
 }
@@ -185,25 +167,43 @@ div.sepspecfooter {
     border:0;
     padding:0;
 }
-.taskcolumn {
-    float: left;
-    width:180px;
-}
-.copyicon {
-    float: left;
-    margin-top: 20px;
-}
-.viewprjalign {
-    position:relative;
-    top:-6px;
-}
-.viewprj {
-    position:absolute;
-    left:20em;
-    height:8px;
-    border:gray solid;
-    border-width: 2px 2px 0 2px;
-}
+/*div.smallprj {*/
+/*    width: 280px;*/
+/*    height: 80px;*/
+/*    padding: 10px;*/
+/*    margin-left: 12px;*/
+/*    background: url('/img/project.png');*/
+/*    color: #778e9c;*/
+/*    position: relative;*/
+/*    overflow: hidden;*/
+/*}*/
+/*.viewtaskalign {*/
+/*    position:relative;*/
+/*    top:5px;*/
+/*}*/
+/*.viewtask {*/
+/*    position:absolute;*/
+/*    height:5px;*/
+/*}*/
+/*.taskcolumn {*/
+/*    float: left;*/
+/*    width:180px;*/
+/*}*/
+/*.copyicon {*/
+/*    float: left;*/
+/*    margin-top: 20px;*/
+/*}*/
+/*.viewprjalign {*/
+/*    position:relative;*/
+/*    top:-6px;*/
+/*}*/
+/*.viewprj {*/
+/*    position:absolute;*/
+/*    left:20em;*/
+/*    height:8px;*/
+/*    border:gray solid;*/
+/*    border-width: 2px 2px 0 2px;*/
+/*}*/
 /*.gantt {*/
 /*    position:relative;*/
 /*    border:solid .1em;*/

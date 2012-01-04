@@ -23,6 +23,7 @@ class Project(models.Model):
     commission = models.DecimalField(max_digits= 12,decimal_places=2,default=0)
 #    message = models.ForeignKey(Message)
     parent = models.ForeignKey('self', blank=True, null=True, related_name='tasks')
+    ancestors = models.ManyToManyField('self',symmetrical=False, related_name='descendants', blank=True)
     master = models.ForeignKey('self', blank=True, null=True, related_name='subprojects')
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
@@ -37,13 +38,15 @@ class Project(models.Model):
     # overloads save to compute master project
     def save(self, *args, **kwargs):
         super(Project, self).save(*args, **kwargs)
-        if not self.master:
-            parent = self
-            while parent.parent:
-                parent = parent.parent
-            self.master = parent
-            super(Project, self).save(*args, **kwargs)
-
+        ancestors = []
+        parent = self
+        while parent.parent:
+            parent = parent.parent
+            ancestors += [parent]
+        self.master = parent
+        self.ancestors = ancestors
+        super(Project, self).save(*args, **kwargs)
+    
     def get_max_order(self):
         """Returns the position of the last spec of the project"""
         return self.spec_set.aggregate(maxorder=models.Max('order'))['maxorder'] or 0
@@ -89,13 +92,13 @@ class Project(models.Model):
     def is_bidder(self, user):
         return user.is_authenticated() and self.bid_set.filter(user=user).filter(rating=None).count() > 0
 
-    def tasksbid_sum(self):
+    def allbid_sum(self):
         """sums up all bids on the project's tasks"""
-        return self.tasks.aggregate(models.Sum("bid__amount"))["bid__amount__sum"] or 0
+        return self.descendants.aggregate(models.Sum("bid__amount"))["bid__amount__sum"] or 0
         
-    def tasksoffer_sum(self):
+    def alloffer_sum(self):
         """sums up all offers on the project's tasks"""
-        return self.tasks.aggregate(models.Sum("offer"))["offer__sum"] or 0
+        return self.descendants.aggregate(models.Sum("offer"))["offer__sum"] or 0
         
     def bid_sum(self):
         """returns the sum of all bids on this project"""

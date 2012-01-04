@@ -25,6 +25,7 @@
     <script type="text/javascript" src="/js/oiproject.js"></script>
     <script type="text/javascript" src="/js/oiuser.js"></script>
     <script type="text/javascript" src="/js/oitree.js"></script>
+    <script type="text/javascript" src="/js/oitable.js"></script>
     <script type="text/javascript" src="/js/oigantt.js"></script>
     <title>{% block title %}{% endblock %} - Open Initiative</title>
 </head>
@@ -120,8 +121,8 @@
         </div>
         {% endblock %}
     </div>
-    <div>{% block pagetitle %}{% endblock %}</div>
     <div class="center">
+        <div class="pagetop">{% block pagetitle %}{% endblock %}</div>
         <div id="nav">
             {% block nav %}
             {% comment %}

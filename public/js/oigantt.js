@@ -1,32 +1,40 @@
 var one_day = 1000*60*60*24;
 
-function GanttBar(gantt) {
+function GanttBar(gantt, dates, bgClass) {
     this.gantt = gantt;
-    this.bardiv = document.getElementById(newDiv(this.gantt.div.id));
+    this.bardiv = null;
+    this.bgdiv = null;
+    this.bgClass = bgClass;
+    this.dates = dates;
 }
 GanttBar.prototype.addPhase = function(bardiv, begin, end, className) {
-    div = document.getElementById(newDiv(this.bardiv.id));
+    var div = document.getElementById(newDiv(this.bardiv.id));
     div.style.width = ((end - begin) / this.gantt.scale) + "px";
     div.className = className;
     return div;
 }
 GanttBar.prototype.draw = function() {
+    if(this.bgdiv) this.gantt.div.removeChild(this.bgdiv);
     if(this.bardiv) this.gantt.div.removeChild(this.bardiv);
-    this.bardiv = document.getElementById(newDiv(this.gantt.div.id));
-    this.bardiv.style.position = "absolute";
-    this.bardiv.style.left = ((this.creationDate - this.gantt.startDate) / this.gantt.scale) + "px";
-    this.bardiv.style.top = (this.gantt.bars.indexOf(this) * this.gantt.rowHeight + this.gantt.headerHeight) + "px";
-    this.bardiv.style.width = ((this.deliverDate - this.creationDate) / this.gantt.scale) + "px";
     
-    this.addPhase(this.bardiv, this.creationDate, this.startDate, "ganttbar1");
-    this.addPhase(this.bardiv, this.startDate, this.deliverDate, "ganttbar2");
-    this.addPhase(this.bardiv, this.deliverDate, this.validationDate, "ganttbar3");
-}
-GanttBar.prototype.setDates = function(dates) {
-    this.creationDate = dates[0];
-    this.startDate = dates[1];
-    this.deliverDate = dates[2];
-    this.validationDate =dates[3];
+    this.bgdiv = document.createElement("div");
+    this.bgdiv.style.position = "absolute";
+    this.bgdiv.style.top = (this.gantt.bars.indexOf(this) * this.gantt.rowHeight + this.gantt.headerHeight) + "px";
+    this.bgdiv.style.height = this.gantt.rowHeight + "px";
+    this.bgdiv.className = "ganttbg"+this.bgClass;
+    this.gantt.div.appendChild(this.bgdiv);
+    
+    if(this.dates.length) {
+        this.bardiv = document.getElementById(newDiv(this.gantt.div.id));
+        this.bardiv.style.position = "absolute";
+        this.bardiv.style.left = ((this.dates[0] - this.gantt.startDate) / this.gantt.scale) + "px";
+        this.bardiv.style.top = (this.gantt.bars.indexOf(this) * this.gantt.rowHeight + this.gantt.headerHeight) + "px";
+        this.bardiv.style.width = ((this.deliverDate - this.creationDate) / this.gantt.scale) + "px";
+        
+        var i;
+        for(i=0; i < this.dates.length-1; i++)
+            this.addPhase(this.bardiv, this.dates[i], this.dates[i+1], "ganttbar"+(i+1));
+    }
 }
 
 function OIGantt(divid, startDate, endDate) {
@@ -34,17 +42,20 @@ function OIGantt(divid, startDate, endDate) {
     this.scale = 1000*60*60;
     this.period = 1000*60*60*24;
     this.rowHeight = 20;
-    this.headerHeight = 35;
-
-    this.div = document.getElementById(divid);
-    this.header = document.getElementById(newDiv(divid));
-    this.graph = document.getElementById(newDiv(divid));
-    this.header.style.height = this.headerHeight + "px";
+    this.headerHeight = 20;
     
+    parentdiv = document.getElementById(divid);
     this.startDate = startDate || new Date();
-    this.endDate = new Date(Math.max(endDate, new Date(this.scale*this.div.style.width+(this.startDate.getTime()))));;
+    this.endDate = new Date(Math.max(endDate, new Date(this.scale*parentdiv.style.width+(this.startDate.getTime()))));;
     this.bars = [];
     this.barids = {};
+
+    this.div = document.getElementById(newDiv(divid));
+    this.header = document.getElementById(newDiv(this.div.id));
+    this.graph = document.getElementById(newDiv(this.div.id));
+    this.div.className = "ganttbg";
+    this.div.style.width = ((this.endDate - this.startDate) / this.scale) + "px";
+    this.header.style.height = this.headerHeight + "px";
     
     this.drawTimeline();
 }
@@ -60,29 +71,36 @@ OIGantt.prototype.drawTimeline = function() {
 OIGantt.prototype.redraw = function(barNb) {
     this.graph.style.height = (this.rowHeight * this.bars.length + this.headerHeight)+"px";
     if(!barNb || barNb==-1) barNb = 0;
-    for(var i=barNb||0; i<this.bars.length; i++) 
-        if(this.bars[i]) this.bars[i].draw();
+    for(var i=barNb; i<this.bars.length; i++) 
+        this.bars[i].draw();
 }
-OIGantt.prototype.addBar = function(id, dates, afterid) {
-    var newBar = new GanttBar(this)
-    var afterNb = this.bars.indexOf(this.barids[afterid])
-    this.bars.splice(afterNb+1, 0, newBar);
+OIGantt.prototype.addBar = function(id, dates, afterid, bgClass) {
+    var newBar = new GanttBar(this, dates, bgClass || 0);
+    var pos = this.bars.indexOf(this.barids[afterid]) + 1;
+    this.bars.splice(pos, 0, newBar);
     this.barids[id] = newBar;
-    newBar.setDates(dates);
+}
+OIGantt.prototype.addFromTask = function(task, afterid, bgClass) {
+    this.addBar(task.pk, [parseDate(task.fields.created),parseDate(task.fields.start_date),parseDate(task.fields.due_date)], afterid, bgClass);
 }
 OIGantt.prototype.addSpace = function(afterid) {
-    pos = this.bars.indexOf(this.barids[afterid]) + 1;
-    this.bars.splice(pos, 0, null);
+    var pos = this.bars.indexOf(this.barids[afterid]) + 1;
+    if(this.bars[pos].dates.length) {
+        this.bars.splice(pos, 0, new GanttBar(this, [], this.barids[afterid].bgClass));
+        this.redraw();
+    }
 }
-OIGantt.prototype.hideBar = function(id, nbnext) {
-    bar = this.barids[id];
-    pos = this.bars.indexOf(bar);
+OIGantt.prototype.hideLine = function(id, nbnext) {
+    var bar = this.barids[id];
+    var pos = this.bars.indexOf(bar);
     this.div.removeChild(bar.bardiv);
+    this.div.removeChild(bar.bgdiv);
     bar.bardiv = null;
+    bar.bgdiv = null;
     this.bars.splice(pos, 1 + nbnext);
 }
-OIGantt.prototype.showBar = function(id, afterid) {
-    pos = this.bars.indexOf(this.barids[afterid]) + 1;
+OIGantt.prototype.showLine = function(id, afterid) {
+    var pos = this.bars.indexOf(this.barids[afterid]) + 1;
     this.bars.splice(pos, 0, this.barids[id]);
 }
 OIGantt.prototype.highlight = function(id) {

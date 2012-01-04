@@ -12,6 +12,7 @@ from django.core.files import File
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response
 from django.utils.translation import ugettext as _
@@ -27,11 +28,11 @@ from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape
 
 OIPrjActions = [
-    OIAction(func="startProject", icon="startprj.png", show=lambda project, user:project.state == 1 and project.assignee == user, title=_("Start the project")),
-    OIAction(func="deliverProject", icon="okprj.png", show=lambda project, user:project.state == 2 and project.assignee == user, title=_("Mark the project as done")),
-    OIAction(func="validateProject", icon="okprj.png", show=lambda project, user:project.state == 3 and project.is_bidder(user), title=_("Confirm the project end")),
-    OIAction(func="evalProject", icon="evalprj.png", show=lambda project, user:project.state == 4 and project.is_bidder(user), title=_("Evaluate the project")),
-    OIAction(func="hideProject", icon="privateprj.png", show=lambda project, user:project.has_perm(user, OI_WRITE) and project.public, title=_("Make the project private")),
+#    OIAction(func="startProject", icon="startprj.png", show=lambda project, user:project.state == 1 and project.assignee == user, title=_("Start the project")),
+#    OIAction(func="deliverProject", icon="okprj.png", show=lambda project, user:project.state == 2 and project.assignee == user, title=_("Mark the project as done")),
+#    OIAction(func="validateProject", icon="okprj.png", show=lambda project, user:project.state == 3 and project.is_bidder(user), title=_("Confirm the project end")),
+#    OIAction(func="evalProject", icon="evalprj.png", show=lambda project, user:project.state == 4 and project.is_bidder(user), title=_("Evaluate the project")),
+#    OIAction(func="hideProject", icon="privateprj.png", show=lambda project, user:project.has_perm(user, OI_WRITE) and project.public, title=_("Make the project private")),
     OIAction(func="shareProject", icon="shareprj.png", show=lambda project, user:project.has_perm(user, OI_WRITE) and not project.public, title=_("Share the project")),
     OIAction(func="deleteProject", icon="delprj.png", show=lambda project, user:project.has_perm(user, OI_WRITE) and project.bid_set.count()==0 and project.tasks.count()==0, title=_("Delete the project")),
     OIAction(func="moveProject", icon="moveprj.png", show=lambda project, user:project.has_perm(user, OI_WRITE) and project.bid_set.count()==0, title=_("Move the project")),
@@ -65,7 +66,8 @@ def getproject(request, id, view="description"):
 @OINeedsPrjPerms(OI_READ)
 def listtasks(request, id):
     tasks = Project.objects.get(id=id).tasks.order_by('state')
-    return HttpResponse(serializers.serialize("json", tasks))
+    return HttpResponse(serializers.oiserialize("json", tasks,
+        extra_fields=("assignee.get_profile.get_display_name", "alloffer_sum","allbid_sum","bid_sum","bid_set.count")))
 
 @login_required
 def editproject(request, id):
@@ -269,7 +271,7 @@ def answerdelay(request, id):
     project = Project.objects.get(id=id)
     answer = request.POST["answer"]
     if project.delay == None:
-        return HttpResponse(_("No delay was requested"))
+        return HttpResponse(_("No delay was requested"), status=531)
 
     # notifies the assignee
     notification.send([project.assignee], "answerdelay", {'project':project, 'answer':answer}, True, request.user)
@@ -289,7 +291,7 @@ def answerdelay(request, id):
         return HttpResponse(_("The date has been changed"))
 
     #if neither true nor false
-    return HttpResponse(_("No reply received"))
+    return HttpResponse(_("No reply received"), status=531)
 
 @OINeedsPrjPerms(OI_READ)
 @ajax_login_required
@@ -326,7 +328,7 @@ def bidproject(request, id):
 def startproject(request, id):
     """Starts the project"""
     project = Project.objects.get(id=id)
-    if project.state == OI_ACCEPTED:
+    if project.is_ready_to_start():
         # only the assignee can start the project
         if project.assignee == request.user:
             project.state = OI_STARTED
@@ -335,8 +337,12 @@ def startproject(request, id):
             project.save()
             #notify users about this state change
             request.user.get_profile().notify_all(project, "project_state", OI_PRJ_STATES[project.state][1])
-    messages.info(request, _("Project started"))
-    return HttpResponse('', status=332)
+            messages.info(request, _("Project started"))
+            return HttpResponse('', status=332)
+        else:
+            return HttpResponseForbidden(_("Only the assignee can start the project"))
+    else:
+        return HttpResponse(_("The project is not ready to start"), status=531)
 
 @OINeedsPrjPerms(OI_WRITE)
 def deliverproject(request, id):
@@ -441,7 +447,7 @@ def answercancelbid(request, id):
         logging.getLogger("oi.alerts").error("Project %s has entered contentious state : http://www.openinitiative.com/project/get/%s"%(project.title, project.id))
         return HttpResponse(_("Cancelation refused. Awaiting decision"))
     #if neither true nor false
-    return HttpResponse(_("No reply received"))
+    return HttpResponse(_("No reply received"), status=531)
 
 @OINeedsPrjPerms(OI_WRITE)
 def cancelproject(request, id):
@@ -477,7 +483,7 @@ def answercancelproject(request, id):
         logging.getLogger("oi.alerts").error("Project %s has entered contentious state : http://www.openinitiative.com/project/get/%s"%(project.title, project.id))
         return HttpResponse(_("Cancelation refused. Awaiting decision"))
     #if neither true nor false
-    return HttpResponse(_("No reply received"))
+    return HttpResponse(_("No reply received"), status=531)
 
 @OINeedsPrjPerms(OI_WRITE)
 def deleteproject(request, id):
