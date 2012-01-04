@@ -3,6 +3,7 @@ function OITable(divid, columns) {
     this.table = document.createElement("table");
     this.header = document.createElement("tr");
     this.lineheight = 20;
+    this.space = null;
     
     var i;
     for(var column=columns[i=0]; i<columns.length; column=columns[++i]) {
@@ -15,7 +16,8 @@ function OITable(divid, columns) {
     this.lineids = {};
 }
 OITable.prototype.addSpace = function(afterid) {
-    this.addLine(0, [""], afterid);
+    if(this.space) this.lines.splice(this.lines.indexOf(this.space), 1);
+    this.space = this.addLine(0, [""], afterid, " "+this.lineids[afterid].className);
     this.redraw();
 }
 OITable.prototype.hideLine = function(id, nbnext) {
@@ -42,6 +44,7 @@ OITable.prototype.addLine = function(id, cells, afterid, bgClass) {
     this.lineids[id] = line;
     pos = this.lines.indexOf(this.lineids[afterid]) + 1;
     this.lines.splice(pos, 0, line);
+    return line;
 }
 OITable.prototype.addFromTask = function(task, afterid, bgClass) {
     if(this.div.id == "budget") this.addLine(task.pk, [(task.fields.offer || task.fields.offer_sum) + " €", (task.fields.allbid_sum || task.fields.bid_sum) + " €", "<input type='checkbox' class='tablecheckbox'/>"], afterid, bgClass);

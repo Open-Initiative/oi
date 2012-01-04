@@ -1009,7 +1009,7 @@ msgstr "manque"
 #: templates/projects/project_budget.html:29
 #: templates/projects/project_budget.html:66
 msgid "Bid_verb"
-msgstr "Souscrire :"
+msgstr "Souscrire"
 
 #: templates/projects/project_budget.html:36
 msgid "wants to cancel his"

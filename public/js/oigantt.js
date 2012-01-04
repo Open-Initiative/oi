@@ -43,6 +43,7 @@ function OIGantt(divid, startDate, endDate) {
     this.period = 1000*60*60*24;
     this.rowHeight = 20;
     this.headerHeight = 20;
+    this.space = null;
     
     parentdiv = document.getElementById(divid);
     this.startDate = startDate || new Date();
@@ -84,11 +85,11 @@ OIGantt.prototype.addFromTask = function(task, afterid, bgClass) {
     this.addBar(task.pk, [parseDate(task.fields.created),parseDate(task.fields.start_date),parseDate(task.fields.due_date)], afterid, bgClass);
 }
 OIGantt.prototype.addSpace = function(afterid) {
+    if(this.space) this.bars.splice(this.bars.indexOf(this.space), 1);
     var pos = this.bars.indexOf(this.barids[afterid]) + 1;
-    if(this.bars[pos].dates.length) {
-        this.bars.splice(pos, 0, new GanttBar(this, [], this.barids[afterid].bgClass));
-        this.redraw();
-    }
+    this.bars.splice(pos, 0, new GanttBar(this, [], this.barids[afterid].bgClass));
+    this.redraw();
+    this.space = this.bars[pos];
 }
 OIGantt.prototype.hideLine = function(id, nbnext) {
     var bar = this.barids[id];

@@ -29,7 +29,6 @@ function hideChildren(projectid) {
 }
 function onExpandNode(projectid) {
     if(oiTree.nodes[projectid].children.length) {
-        if(projectid == oiTree.selected) oiTable.bars.splice(oiTable.bars.indexOf(oiTable.barids[projectid]) + 1, 1);
         if(oiTable) showChildren(projectid);
     } else {
         tasks = eval(OIajaxCall("/project/listtasks/"+projectid));
