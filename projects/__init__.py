@@ -51,10 +51,13 @@ base.Serializer._oiserialize = _oiserialize
 
 def handle_extra_field(self, obj, field_name):
     value = obj
-    for field in field_name.split("."):
-        value = value.__getattribute__(field)
-        if callable(value):
-            value = value()
+    try:
+        for field in field_name.split("."):
+            value = value.__getattribute__(field)
+            if callable(value):
+                value = value()
+    except AttributeError:
+        return None
     # Protected types (i.e., primitives like None, numbers, dates,
     # and Decimals) are passed through as is. All other values are
     # converted to string first.
