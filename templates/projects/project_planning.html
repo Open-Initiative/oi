@@ -28,8 +28,8 @@
     {% with "due_date" as field_name %}{% with project.due_date as date %}{% include "projects/edit_date.html" %}{% endwith %}{% endwith %}
 </div>
 <script>
-    oiTable = new OIGantt("ganttdiv", new Date({{project.master.created|date:"Y,m,d"}}), new Date({{project.master.due_date|date:"Y,m,d"}}));
-    oiTable.addBar({{project.master.id}}, [new Date({{project.master.created|date:"Y,m,d"}}),new Date({{project.master.start_date|date:"Y,m,d"}}),new Date({{project.master.due_date|date:"Y,m,d"}})]);
+    oiTable = new OIGantt("ganttdiv", new Date({{project.master.created|date:"Y,m-1,d"}}), new Date({{project.master.due_date|date:"Y,m-1,d"}}));
+    oiTable.addBar({{project.master.id}}, [new Date({{project.master.created|date:"Y,m-1,d"}}),new Date({{project.master.start_date|date:"Y,m-1,d"}}),new Date({{project.master.due_date|date:"Y,m-1,d"}})]);
 </script>
 {% comment %}
 <div id="prjview_{{project.id}}">
