@@ -125,10 +125,11 @@ div.gantttoday {
     top: 0;
     z-index: 1;
 }
-div.ganttspace {
+#ganttspace {
     background: white;
     z-index: 0;
-    width: 100%;
+    width: 680px;
+    position: absolute;
 }
 tr.tablebg0 {
     background: #E8E8E8;

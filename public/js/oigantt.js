@@ -94,7 +94,7 @@ OIGantt.prototype.addSpace = function(afterid) {
     this.bars.splice(pos, 0, new GanttBar(this, [], "ganttspace"));
     this.redraw();
     this.space = this.bars[pos];
-    this.space.bgdiv.appendChild(document.getElementById("ganttspace"));
+    document.getElementById("ganttspace").style.top = (this.space.bgdiv.offsetTop+this.div.offsetTop) + "px";
 }
 OIGantt.prototype.hideLine = function(id, nbnext) {
     var bar = this.barids[id];
