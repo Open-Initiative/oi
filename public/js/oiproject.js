@@ -3,7 +3,10 @@ function setTaskName(div, id, title, view) {
     div.innerHTML = '<a href="/project/get/'+id+'/'+view+'">'+title+'</a> <form id="newtask_'+id+'"></form>';
 }
 function addTask(tasktitle, projectid, userid) {
-    answer = OIajaxCall("/project/save/0", "title="+tasktitle+"&assignee="+userid+"&progress=0&inline=1&parent="+projectid);
+    var params = "title="+tasktitle+"&inline=1&progress=0";
+    if(userid) params += "&assignee="+userid;
+    if(projectid) params += "&parent="+projectid;
+    answer = OIajaxCall("/project/save/0", params)
     if(answer) {
         task = eval(answer)[0];
         position = oiTree.nodes[projectid].children.length;

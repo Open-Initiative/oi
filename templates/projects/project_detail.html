@@ -5,16 +5,16 @@
 {% block spacetitle %}{{object.master.title}}{% endblock %}
 {% block tabs %}
 <div class="{% ifequal view "description" %}selectedtab{% else %}tab{% endifequal %}">
-    <a href="description"><img class="tabicon" src="/img/icons/spec.png"/> description</a>
+    <a href="description"><img class="tabicon" src="/img/icons/spec.png"/> {% trans "description" %}</a>
 </div>
 <div class="{% ifequal view "budget" %}selectedtab{% else %}tab{% endifequal %}">
-    <a href="budget"><img class="tabicon" src="/img/icons/budget.png"/> budget</a>
+    <a href="budget"><img class="tabicon" src="/img/icons/budget.png"/> {% trans "budget" %}</a>
 </div>
 <div class="{% ifequal view "team" %}selectedtab{% else %}tab{% endifequal %}">
-    <a href="team"><img class="tabicon" src="/img/icons/team.png"/> team</a>
+    <a href="team"><img class="tabicon" src="/img/icons/team.png"/> {% trans "team" %}</a>
 </div>
 <div class="{% ifequal view "planning" %}selectedtab{% else %}tab{% endifequal %}">
-    <a href="planning"><img class="tabicon" src="/img/icons/planning.png"/> planning</a>
+    <a href="planning"><img class="tabicon" src="/img/icons/planning.png"/> {% trans "planning" %}</a>
 </div>
 {% endblock %}
 {% block pagetitle %}
@@ -29,13 +29,6 @@
 {% endblock %}
 {% block nav %}
 <div id="projecttree"></div>
-{%comment%}
-<div class="navtitle" onmouseover="gantt.barids[{{object.master.id}}].bardiv.style.border='solid 5px red'" onmouseout="gantt.barids[{{object.master.id}}].bardiv.style.border='none'">
-    <img id="treebtn_{{object.master.id}}" src="/img/icons/treebtn{{object.master.state}}-closed.png" onclick="listTasks({{object.master.id}})"/><a href="/project/get/{{object.master.id}}">{{object.master.title}}</a>
-    <div><form id="newtask_{{object.master.id}}"></form></div>
-</div>
-<div class="tasklist" id="tasks_{{object.master.id}}"></div>
-{% endcomment %}
 {% endblock %}
 {% block content %}
 {% if object|can_read:user %}

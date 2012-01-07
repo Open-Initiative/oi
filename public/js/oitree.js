@@ -14,7 +14,7 @@ function OITreeNode(id, tree, parent, color, bgClass) {
 }
 OITreeNode.prototype.setContent = function() {
     this.btn = document.createElement("img");
-    this.btn.src = "/img/icons/treebtn"+this.color+"-closed.png";
+    this.btn.src = "/img/icons/tree"+(this.parent?"btn":"root")+this.color+"-closed.png";
     this.btn.id = "treebtn_"+this.id;
     this.btn.style.cssFloat = "left";
     this.div.appendChild(this.btn);
@@ -32,14 +32,14 @@ OITreeNode.prototype.resetBtn = function() {
     this.btn.onclick = function(){this.node.expand();};
 }
 OITreeNode.prototype.expand = function() {
-    this.btn.src = "/img/icons/treebtn"+this.color+"-open.png";
+    this.btn.src = "/img/icons/tree"+(this.parent?"btn":"root")+this.color+"-open.png";
     this.btn.onclick = function(){this.node.shrink();};
     this.childDiv.style.display = "block";
     this.open = true;
     if(onExpandNode) onExpandNode(this.id);
 }
 OITreeNode.prototype.shrink = function() {
-    this.btn.src = "/img/icons/treebtn"+this.color+"-closed.png";
+    this.btn.src = "/img/icons/tree"+(this.parent?"btn":"root")+this.color+"-closed.png";
     this.btn.onclick = function(){this.node.expand();};
     this.childDiv.style.display = "none";
     this.open = false;

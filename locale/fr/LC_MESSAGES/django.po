@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-04 20:55+0100\n"
+"POT-Creation-Date: 2012-01-07 23:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -206,7 +206,7 @@ msgstr "Les spécifications d'un projet que vous suivez ont été modifiées"
 
 #: messages/models.py:173 messages/views.py:89 messages/views.py:107
 #: projects/models.py:167 projects/views.py:79 projects/views.py:106
-#: templates/projects/project_detail.html:65
+#: templates/projects/project_detail.html:56
 msgid "Forbidden"
 msgstr "Permissions insuffisantes"
 
@@ -254,7 +254,7 @@ msgstr "étiquette"
 msgid "display"
 msgstr "affichage"
 
-#: notification/models.py:31
+#: notification/models.py:31 templates/projects/project_detail.html:8
 msgid "description"
 msgstr "description"
 
@@ -650,7 +650,7 @@ msgid "Dashboard"
 msgstr "Tableau de bord"
 
 #: templates/base.html:78 templates/notification/notices.html:8
-#: templates/users/dashboard.html:37
+#: templates/users/dashboard.html:41
 msgid "Notices"
 msgstr "Notifications"
 
@@ -805,7 +805,7 @@ msgstr "Bonjour"
 msgid "You have received the following notice from"
 msgstr "Vous avez reçu la notification suivante de"
 
-#: templates/notification/email_body.html:19 templates/users/dashboard.html:45
+#: templates/notification/email_body.html:19 templates/users/dashboard.html:49
 msgid "See all notices"
 msgstr "Voir toutes les notifications"
 
@@ -960,6 +960,7 @@ msgstr "est maintenant en l'état"
 
 #: templates/projects/editproject-deprecated.html:12
 #: templates/projects/project_detail.html:4
+#: templates/projects/project_state.html:19
 msgid "Project"
 msgstr "Projet"
 
@@ -1072,6 +1073,18 @@ msgstr "Priorité :"
 msgid "Add a discussion"
 msgstr "Ajouter une discussion"
 
+#: templates/projects/project_detail.html:11
+msgid "budget"
+msgstr "Budget"
+
+#: templates/projects/project_detail.html:14
+msgid "team"
+msgstr "Equipe"
+
+#: templates/projects/project_detail.html:17
+msgid "planning"
+msgstr "Planning"
+
 #: templates/projects/project_nav.html:3
 msgid "Clipboard"
 msgstr "Presse-papier"
@@ -1095,6 +1108,35 @@ msgstr "Planning"
 #: templates/projects/project_nav.html:38
 msgid "Team"
 msgstr "Equipe"
+
+#: templates/projects/project_planning.html:24
+msgid "Created on:"
+msgstr "Créé le :"
+
+#: templates/projects/project_planning.html:25
+msgid "Start on:"
+msgstr "Date de démarrage :"
+
+#: templates/projects/project_planning.html:27
+#: templates/projects/projectsum-deprecated.html:12
+msgid "Due on:"
+msgstr "Date de livraison :"
+
+#: templates/projects/project_state.html:5
+msgid "Start the project"
+msgstr "Démarrer le projet"
+
+#: templates/projects/project_state.html:8
+msgid "Deliver the project"
+msgstr "Livrer le projet"
+
+#: templates/projects/project_state.html:13
+msgid "Validate the project"
+msgstr "Valider le projet"
+
+#: templates/projects/project_state.html:16
+msgid "Evaluate the project"
+msgstr "Evaluer le projet"
 
 #: templates/projects/project_team.html:5
 #: templates/projects/project_team.html:39
@@ -1133,17 +1175,13 @@ msgid "In charge"
 msgstr "Responsable"
 
 #: templates/projects/projectsum-deprecated.html:10
-#: templates/projects/task.html:20 templates/projects/gantt/tasknames.html:3
+#: templates/projects/task.html:20
 msgid "Not assigned"
 msgstr "Pas encore assigné"
 
 #: templates/projects/projectsum-deprecated.html:11
 msgid "Started on:"
 msgstr "Date de démarrage :"
-
-#: templates/projects/projectsum-deprecated.html:12
-msgid "Due on:"
-msgstr "Date de livraison :"
 
 #: templates/projects/projectsum-deprecated.html:22
 msgid "Project proposed by"
@@ -1171,26 +1209,6 @@ msgstr "à"
 #: templates/projects/dialogue/offer.html:4 templates/users/register.html:35
 msgid "I have read and accepted the"
 msgstr "J'ai lu et j'accepte les"
-
-#: templates/projects/gantt/prjview.html:10
-msgid "Overview of"
-msgstr "Vue d'ensemble de"
-
-#: templates/projects/gantt/prjview.html:12
-msgid "Tasks"
-msgstr "Tâches"
-
-#: templates/projects/gantt/prjview.html:14
-msgid "Month"
-msgstr "Mois"
-
-#: templates/projects/gantt/prjview.html:15
-msgid "day"
-msgstr "jour"
-
-#: templates/projects/gantt/prjview.html:19
-msgid "No task in the project"
-msgstr "Pas de tâche dans le projet"
 
 #: templates/projects/spec/edit_type2.html:6
 #: templates/projects/spec/edit_type5.html:6
@@ -1376,20 +1394,24 @@ msgstr "Mes contacts"
 msgid "My projects"
 msgstr "Mes projets"
 
-#: templates/users/dashboard.html:36
+#: templates/users/dashboard.html:37
+msgid "Create a new project:"
+msgstr "Déposer un nouveau projet"
+
+#: templates/users/dashboard.html:40
 msgid "See all projects"
 msgstr "Voir tous les projets"
 
-#: templates/users/dashboard.html:46 templates/users/discussions.html:4
+#: templates/users/dashboard.html:50 templates/users/discussions.html:4
 #: templates/users/discussions.html.py:6 templates/users/usermessages.html:3
 msgid "Personal messages"
 msgstr "Messages personnels"
 
-#: templates/users/dashboard.html:56
+#: templates/users/dashboard.html:60
 msgid "See all personal messages"
 msgstr "Voir tous les messages personnels"
 
-#: templates/users/dashboard.html:60 templates/users/preferences.html:25
+#: templates/users/dashboard.html:64 templates/users/preferences.html:25
 msgid "Followed messages"
 msgstr "Messages suivis"
 
@@ -1714,124 +1736,128 @@ msgstr "Message envoyé"
 msgid "Notice archived"
 msgstr "Notification archivée"
 
-#~ msgid "Message is now private"
-#~ msgstr "Le message est maintenant confidentiel"
+msgid "Overview of"
+msgstr "Vue d'ensemble de"
 
-#~ msgid "Message shared"
-#~ msgstr "Message partagé"
+msgid "Tasks"
+msgstr "Tâches"
 
-#~ msgid "Stopped following"
-#~ msgstr "Arrêt du suivi"
+msgid "Month"
+msgstr "Mois"
 
-#~ msgid "Following the message"
-#~ msgstr "Message suivi"
+msgid "day"
+msgstr "jour"
 
-#~ msgid "Start the project"
-#~ msgstr "Démarrer le projet"
+msgid "No task in the project"
+msgstr "Pas de tâche dans le projet"
 
-#~ msgid "Mark the project as done"
-#~ msgstr "Marquer le projet comme terminé"
+msgid "Message is now private"
+msgstr "Le message est maintenant confidentiel"
 
-#~ msgid "Confirm the project end"
-#~ msgstr "Confirmer la fin du projet"
+msgid "Message shared"
+msgstr "Message partagé"
 
-#~ msgid "Evaluate the project"
-#~ msgstr "Evaluer le projet"
+msgid "Stopped following"
+msgstr "Arrêt du suivi"
 
-#~ msgid "Make the project private"
-#~ msgstr "Rendre ce projet confidentiel"
+msgid "Following the message"
+msgstr "Message suivi"
 
-#~ msgid "Submit"
-#~ msgstr "Déposer"
+msgid "Mark the project as done"
+msgstr "Marquer le projet comme terminé"
 
-#~ msgid "a project"
-#~ msgstr "un projet"
+msgid "Confirm the project end"
+msgstr "Confirmer la fin du projet"
 
-#~ msgid "Learn More"
-#~ msgstr "En savoir plus"
+msgid "Make the project private"
+msgstr "Rendre ce projet confidentiel"
 
-#~ msgid "Why Agile development"
-#~ msgstr "Pourquoi la méthodologie Agile"
+msgid "Submit"
+msgstr "Déposer"
 
-#~ msgid "Specifications"
-#~ msgstr "Spécifications"
+msgid "a project"
+msgstr "un projet"
 
-#~ msgid "tasks done out of"
-#~ msgstr "tâches terminées sur"
+msgid "Learn More"
+msgstr "En savoir plus"
 
-#~ msgid "New task"
-#~ msgstr "Nouvelle tâche"
+msgid "Why Agile development"
+msgstr "Pourquoi la méthodologie Agile"
 
-#~ msgid "Paste tasks"
-#~ msgstr "Coller les tâches"
+msgid "Specifications"
+msgstr "Spécifications"
 
-#~ msgid "tasks"
-#~ msgstr "tâches"
+msgid "tasks done out of"
+msgstr "tâches terminées sur"
 
-#~ msgid "past_fem_plur"
-#~ msgstr "es"
+msgid "New task"
+msgstr "Nouvelle tâche"
 
-#~ msgid "Awaiting for bidders"
-#~ msgstr "En attente de souscripteurs"
+msgid "Paste tasks"
+msgstr "Coller les tâches"
 
-#~ msgid "Awaiting validation"
-#~ msgstr "En attente de validation"
+msgid "tasks"
+msgstr "tâches"
 
-#~ msgid "Bid on this project"
-#~ msgstr "Miser sur ce projet"
+msgid "past_fem_plur"
+msgstr "es"
 
-#~ msgid "Published by"
-#~ msgstr "Publié par"
+msgid "Awaiting for bidders"
+msgstr "En attente de souscripteurs"
 
-#~ msgid "Project proposal"
-#~ msgstr "Propositions de projet"
+msgid "Awaiting validation"
+msgstr "En attente de validation"
 
-#~ msgid "Propose a new project"
-#~ msgstr "Proposer un nouveau projet"
+msgid "Bid on this project"
+msgstr "Miser sur ce projet"
 
-#~ msgid ""
-#~ "You have received the following notice from %(current_site)s:\n"
-#~ "\n"
-#~ "%(message)s\n"
-#~ "\n"
-#~ "To see other notices or change how you receive notifications, please go "
-#~ "to %(notices_url)s.\n"
-#~ msgstr ""
-#~ "Vous avez reçu une notification de %(current_site)s:\n"
-#~ "\n"
-#~ "%(message)s\n"
-#~ "\n"
-#~ "Pour voir toutes vos notifications, rendez-vous sur : %(notices_url)s.\n"
+msgid "Published by"
+msgstr "Publié par"
 
-#~ msgid "Sent messages"
-#~ msgstr "Messages envoyés"
+msgid "Project proposal"
+msgstr "Propositions de projet"
 
-#~ msgid "Projects"
-#~ msgstr "Projets"
+msgid ""
+"You have received the following notice from %(current_site)s:\n"
+"\n"
+"%(message)s\n"
+"\n"
+"To see other notices or change how you receive notifications, please go "
+"to %(notices_url)s.\n"
+msgstr ""
+"Vous avez reçu une notification de %(current_site)s:\n"
+"\n"
+"%(message)s\n"
+"\n"
+"Pour voir toutes vos notifications, rendez-vous sur : %(notices_url)s.\n"
 
-#~ msgid "Members"
-#~ msgstr "Membres"
+msgid "Sent messages"
+msgstr "Messages envoyés"
 
-#~ msgid "Validate the project"
-#~ msgstr "Valider le projet"
+msgid "Projects"
+msgstr "Projets"
 
-#~ msgid "empty"
-#~ msgstr "vide"
+msgid "Members"
+msgstr "Membres"
 
-#~ msgid "News in discussions"
-#~ msgstr "Nouveautés dans les discussions"
+msgid "empty"
+msgstr "vide"
 
-#~ msgid "See more news"
-#~ msgstr "Voir plus de nouveautés"
+msgid "News in discussions"
+msgstr "Nouveautés dans les discussions"
 
-#~ msgid "News in projects"
-#~ msgstr "Nouveautés dans les projets"
+msgid "See more news"
+msgstr "Voir plus de nouveautés"
 
-#~ msgid "My messages"
-#~ msgstr "Mes messages"
+msgid "News in projects"
+msgstr "Nouveautés dans les projets"
 
-#~ msgid "My evaluations"
-#~ msgstr "Mes évaluations"
+msgid "My messages"
+msgstr "Mes messages"
 
-#~ msgid "Evaluation"
-#~ msgstr "Evaluation"
+msgid "My evaluations"
+msgstr "Mes évaluations"
+
+msgid "Evaluation"
+msgstr "Evaluation"
+

@@ -28,11 +28,15 @@
 {% block content %}
 <div class="usercontent">
     <h3>{% trans "My projects" %}</h3>
-    {% for project in user.get_profile.observed_projects.all|slice:":3" %}
+    {% for project in user.get_profile.observed_projects.all %}
     <a  href="/project/get/{{project.id}}">
-        {% include "projects/projectsmall.html" %}
+        <div>{{project.title}}</div>
     </a>
     {% endfor %}
+    <form onclick="addTask(getValue('newproject_title'))">
+        {% trans "Create a new project:" %} <input id="newproject_title" />
+        <input type="image" src="/img/icons/add.png" />
+    </form>
 <!--    <a href="/message/getrfp"><img src="/img/link.png" /> {% trans "See all projects" %}</a>-->
     <h3>{% trans "Notices" %}</h3>
     {% for notice in user.recieved_notices.all|slice:":3" %}

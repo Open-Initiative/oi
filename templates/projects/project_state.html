@@ -34,7 +34,7 @@
     </h3>
     <div>
         {% if project.assignee %}
-            {% trans "In charge" %} : {{project.assignee}} : {{project.offer}} €
+            {% trans "In charge" %} : {{project.assignee}} : {{project.offer}} eur
             {% ifequal user project.assignee %}
             {% if project.state < 2 %}<img class="clickable" src="/img/icons/edit.png" onclick="offerProject({{project.id}})" />{% endif %}
             {% if project.state < 3 %}
@@ -62,13 +62,13 @@
         {% for bid in project.bid_set.all %}
         {{bid.user}}
         {% ifequal user bid.user %}
-        ({{bid.amount}} €)
+        ({{bid.amount}} eur)
         {% if project.state < 2 %}<img class="clickable" src="/img/icons/add.png" onclick="bidProject({{project.id}})" />{% endif %}
         <img class="clickable" src="/img/icons/delprj.png" onclick="cancelBid({{project.id}}, {% if project.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "Cancel your bid on this project" %}" title="{% trans "Cancel your bid on this project" %}" />
         {% endifequal %}
         {% endfor %}
         <div>
-            <h3>{% if project.missing_bid > 0 %}{% trans "missing" %} {{project.missing_bid|floatformat:2}} €{% endif %}</h3>
+            <h3>{% if project.missing_bid > 0 %}{% trans "missing" %} {{project.missing_bid|floatformat:2}} eur{% endif %}</h3>
             {% if project.state < 3 %}{% if project|can_read:user %}{% if not project|is_bidder:user %}
             <div onclick="bidProject({{project.id}})" class="clickable slidermore">{% trans "Bid on this project" %}</div>
             {% endif %}{% endif %}{% endif %}
