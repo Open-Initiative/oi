@@ -1,46 +1,61 @@
 div.prjbody {
-    width: 680px;
     padding: 10px;
-    margin: 2px;
     background: #FFFFFF;
     clear: left;
+}
+div.prjauthor {
+    float: right;
+    color: #0094B5;
+}
+.prjtitle {
+    float: left;
+    font-family: "Interstate";
+    text-transform: uppercase;
+    font-size: 1.3em;
+    color: #0094B5;
 }
 div.prjbtm {
     width: 600px;
     height:17px;
     background: url('/img/prjbtm.png');
 }
-div.prjtitle {
-    position: relative;
-    top: -30px;
-    height: 30px;
-    max-width: 600px;
+.state1 a {
+    color: #0094B5;
+}
+.statebg1 {
+    background: #0094B5;
+}
+.state2 a {
+    color: #D0574C;
+}
+.statebg2 {
     background: #D0574C;
-    font-size: 2.5em;
-    padding: 15px 25px;
-    float: left;
+}
+.state3 a {
+    color: #68274E;
+}
+.statebg3 {
+    background: #68274E;
+}
+.state4 a {
+    color: #6C6D6E;
+}
+.statebg4 {
+    background: #6C6D6E;
 }
 div.prjstate {
     float: right;
     padding: 5px;
     font-size: 1.5em;
     text-align: right;
-    color: #0094B5;
 }
 div.prjstatebtn {
     height: 24px;
     width: 184px;
     padding: 3px;
     float: right;
-    background: #0094B5;
     font-size: 1.5em;
     color: #A8DCF4;
-}
-div.prjinfo {
-    float: right;
-    padding: 5px;
-    font-size: 1.5em;
-    color: #0094B5;
 }
 input.newtask_title {
     width: 195px;
@@ -50,29 +65,19 @@ input.newtask_title {
     font-style: italic;
     color: #81D3DA;
 }
-#projecttree {
-    padding-top: 20px;
-}
 div.treelist {
     padding-left: 20px;
     border-bottom: solid 1px #D0574C;
     display: none;
 }
+div.treeroot {
+    font-family: "Interstate";
+    text-transform: uppercase;
+    font-size: 1.2em;
+}
 div.treeelt {
     padding: 2px;
     min-height: 16px;
-}
-.state1 a {
-    color: #0094B5;
-}
-.state2 a {
-    color: #D0574C;
-}
-.state3 a {
-    color: #68274E;
-}
-.state4 a {
-    color: #6C6D6E;
 }
 div.treebg0 {
     background: #C8DBE1;
@@ -126,16 +131,27 @@ div.gantttoday {
     z-index: 1;
 }
 #ganttspace {
-    background: white;
-    z-index: 0;
-    width: 680px;
     position: absolute;
+    width: 710px;
+    z-index: 0;
+    background: #6C6D6E;
+    color: white;
+}
+.ganttdate {
+    font-weight: bold;
+}
+div.prjtable {
+    float: left;
+    padding-right: 40px;
+    margin-right: 20px;
+    border-right: solid 1px #0094B5;
+}
+th.tableheader {
+    text-transform: uppercase;
+    padding: 6px;
 }
 tr.tablebg0 {
     background: #E8E8E8;
-}
-.tablecheckbox {
-    margin: -3px 5px;
 }
 .specauthor {
     font-weight: bold;

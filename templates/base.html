@@ -115,46 +115,53 @@
         {% block headersep %}
         <div class="center">
             <div id="spacetitle">{% block spacetitle %}Open Initiative{% endblock %}</div>
-            <div id="tabs">
-                {% block tabs %}{% endblock %}
-            </div>
+            
         </div>
         {% endblock %}
     </div>
     <div class="center">
-        <div class="pagetop">{% block pagetitle %}{% endblock %}</div>
-        <div id="nav">
-            {% block nav %}
-            {% comment %}
-            <a href="/message/getall">
-                <div class="navitem">
-                    <div class="navicon"><img src="/img/icons/msg32.png"/></div>
-                    {% trans "Discussion" %}
-                </div>
-            </a>
-            <div class="sep"></div>
-    <!--                <a href="/message/getrfp">-->
-    <!--                    <div class="navitem">-->
-    <!--                        <div class="navicon"><img src="/img/icons/prj32.png" /></div>-->
-    <!--                        {% trans "Projects" %}-->
-    <!--                    </div>-->
-    <!--                </a>-->
-            <div class="sep"></div>
-            <a href="">
-                <div class="navitem">
-                    <div class="navicon"><img src="/img/icons/usr32.png" /></div>
-                    {% trans "Members" %}
-                </div>
-            </a>
-            {% endcomment %}
-            <a href="/">
-                <div class="navitem">
-                    Préinscription
-                </div>
-            </a>
-            {% endblock %}
+        <div class="column">
+            <div id="usermenu"></div>
+            <div id="nav">
+                {% block nav %}
+                {% comment %}
+                <a href="/message/getall">
+                    <div class="navitem">
+                        <div class="navicon"><img src="/img/icons/msg32.png"/></div>
+                        {% trans "Discussion" %}
+                    </div>
+                </a>
+                <div class="sep"></div>
+        <!--                <a href="/message/getrfp">-->
+        <!--                    <div class="navitem">-->
+        <!--                        <div class="navicon"><img src="/img/icons/prj32.png" /></div>-->
+        <!--                        {% trans "Projects" %}-->
+        <!--                    </div>-->
+        <!--                </a>-->
+                <div class="sep"></div>
+                <a href="">
+                    <div class="navitem">
+                        <div class="navicon"><img src="/img/icons/usr32.png" /></div>
+                        {% trans "Members" %}
+                    </div>
+                </a>
+                {% endcomment %}
+                <a href="/">
+                    <div class="navitem">
+                        Préinscription
+                    </div>
+                </a>
+                {% endblock %}
+            </div>
         </div>
         <div id="content">
+            <div class="pagetop">
+                {% block pagetitle %}{% endblock %}
+                <div id="tabs">
+                    {% block tabs %}{% endblock %}
+                </div>
+                <div id="tools">{% block tools %}{% endblock %}</div>
+            </div>
             {% block content %}{% endblock %}
         </div>
         <div class="cleared"></div>

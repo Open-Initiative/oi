@@ -180,6 +180,11 @@ div.center{
     text-transform: uppercase;
     color: #6c6d6e;
 }
+#usermenu {
+    height: 80px;
+    width: 275px;
+    background: #E8E8E9;
+}
 #messageoutput {
     position: fixed;
     width: 100%;
@@ -199,47 +204,52 @@ div.column {
     border-top:1px solid #D0574C;
     height:15px;
 }
-#spacetitle {
-    color: #0094B5;
-    float: left;
+/*#spacetitle {*/
+/*    color: #0094B5;*/
+/*    float: left;*/
+/*    font-family: "Interstate";*/
+/*    font-size: 2em;*/
+/*    padding: 0 15px;*/
+/*    text-transform: uppercase;*/
+/*    padding-top: 20px;*/
+/*}*/
+div.pagetop {
+    background: #E1F3FA;
     font-family: "Interstate";
-    font-size: 2em;
-    padding: 0 15px;
-    text-transform: uppercase;
-    padding-top: 20px;
+    color: #0094B5;
+}
+div.pagetitle {
+    font-size: 1.5em;
+    color: #D0574C;
+    float: left;
+    width: 165px;
+    height: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 #tabs {
-    background: #0094B5;
     float: right;
     height: 30px;
-    margin-top: 20px;
+    font-size: 1.2em;
 }
 div.tab {
-    background: #0094B5;
-    border-right: 1px solid;
-    color: white;
+    border-left: 1px solid;
     float: left;
-    font-family: "Interstate";
-    font-size: 1.2em;
     padding: 5px;
     text-transform: uppercase;
-    height: 20px;
-    width: 120px;
+    width: 130px;
 }
 div.selectedtab {
-    background: #D0574C;
-    border-right: 1px solid;
-    color: white;
-    float: left;
-    font-family: "Interstate";
-    font-size: 1.2em;
-    padding: 5px;
-    text-transform: uppercase;
-    height: 20px;
-     width: 120px;
+    background: #0094B5;
 }
-#tabs div a {
-    color: #A8DCF4;;
+div.selectedtab a {
+    color: white;
+}
+#tools {
+    height: 30px;
+    clear: both;
+    background: #0094B5;
+    color: white;
 }
 img.tabicon {
     float: left;
@@ -249,21 +259,10 @@ img.tabicon {
     background:url('/img/sep.png');
     height:1px;
 }
-div.pagetop {
-    margin-top: 30px;
-    background: #E1F3FA;
-    height: 30px;
-    width: 1010px;
-    font-family: "Interstate";
-    color: white;
-    float: left;
-}
 #nav {
     background:#E1F3FA;
-    width:300px;
-    padding:2px;
+    width:275px;
     margin-top: 15px;
-    float: left;
 }
 div.navtitle {
     padding-top: 20px;
@@ -281,8 +280,8 @@ div.navtitle {
     width:40px;
 }
 #content {
-    width: 700px;
-    padding: 5px 0 0 10px;
+    width: 730px;
+    padding-top: 5px;
     float: left;
 }
 #breadcrumb {
@@ -344,7 +343,6 @@ div.navtitle {
     background: #E1F3FA;
     border-top: 3px solid #C8DBE1;
     border-bottom: 3px solid #D0574C;
-    height: 50px;
     clear: left;
 }
 .agilearrow {

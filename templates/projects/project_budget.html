@@ -1,26 +1,33 @@
 {% load oifilters %}
 {% load i18n %}
 <div id="prjdialogue_{{project.id}}" class="popup invisible"></div>
-<div class="prjinfo">
+<div id="budget" class="prjtable"></div>
+<div class="column">
     <div>
-        {% if project.assignee %}
-            <img class="contactpicture" src="/user/getpicture/{{project.assignee.username}}">{% trans "Offer" %}: {{project.offer}} €
-            {% if project.assignee == user and project.state < 2 %}<img class="clickable" src="/img/icons/edit.png" onclick="offerProject({{project.id}})" />{% endif %}
+        {% if project.offer %}
+            <h3>{% trans "Offer" %}</h3>
+            <img class="contactpicture" src="/user/getpicture/{{project.assignee.username}}">
+            <div>{{project.assignee}}</div>
+            <div>{{project.offer}} € {% if project.assignee == user and project.state < 2 %}<img class="clickable" src="/img/icons/edit.png" onclick="offerProject({{project.id}})" />{% endif %}</div>
+            <div class="cleared">{% trans "Commission" %} 5% : {{project.commission}} €</div>
         {% else %}
-            {% trans "No one is in charge of this project" %}
+            {% trans "No offer was made for this project" %}
             <img class="clickable" src="/img/icons/assignprj.png" onclick="offerProject({{project.id}})" title="{% trans "Make an offer" %}" alt="{% trans "Take on this project" %}" />
         {% endif %}
     </div>
     <div class="cleared"></div>
     <div id="bids_{{project.id}}">
-        <h3>{% trans "Bids:" %} {{project.bid_sum}} €</h3>
+        <h3>{% trans "Bids" %}</h3>
         {% for bid in project.bid_set.all %}
         <div>
-        {{bid.user}} : {{bid.amount}} €
-        {% ifequal user bid.user %}
-        {% if project.state < 2 %}<img class="clickable" src="/img/icons/add.png" onclick="bidProject({{project.id}})" />{% endif %}
-        <img class="clickable" src="/img/icons/delete.png" onclick="cancelBid({{project.id}}, {% if project.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "Cancel your bid on this project" %}" title="{% trans "Cancel your bid on this project" %}" />
-        {% endifequal %}
+            <img class="contactpicture" src="/user/getpicture/{{project.assignee.username}}">
+            <div>{{bid.user}}</div>
+            <div>{{bid.amount}} €
+            {% ifequal user bid.user %}
+            {% if project.state < 2 %}<img class="clickable" src="/img/icons/add.png" onclick="bidProject({{project.id}})" />{% endif %}
+            <img class="clickable" src="/img/icons/delete.png" onclick="cancelBid({{project.id}}, {% if project.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "Cancel your bid on this project" %}" title="{% trans "Cancel your bid on this project" %}" />
+            {% endifequal %}</div>
+            <div class="cleared"></div>
         </div>
         {% endfor %}
         <div>
@@ -61,8 +68,7 @@
     {% endif %}
     {% endif %}
 </div>
-<div id="budget" class="prjtable"></div>
 <script>
-    oiTable = new OITable("budget", ["{% trans 'Budget' %}","{% trans 'Engaged' %}","{% trans 'Bid_verb' %}"]);
-    oiTable.addLine({{project.master.id}}, ["{{project.master.alloffer_sum}} €", "{{project.master.allbid_sum}} €", "<input type='checkbox' class='tablecheckbox'/>"])
+    oiTable = new OITable("budget", ["{% trans 'Budget' %}","{% trans 'Engaged' %}"]);
+    oiTable.addLine({{project.master.id}}, ["{{project.master.alloffer_sum}} €", "{{project.master.allbid_sum}} €"])
 </script>

@@ -1,11 +1,13 @@
 {% load i18n %}
-<div class="prjinfo">
+<div id="team" class="prjtable"></div>
+<div class="column">
     <div>
     {% if project.assignee %}
         <h3>{% trans "Assignee" %}</h3>
         <img class="contactpicture" src="/user/getpicture/{{project.assignee.username}}">{{project.assignee}}
         {% if project.assignee == user and project.state < 3 %}
-        <div><img class="clickable" src="/img/icons/delegateprj.png" onclick="delegateProject({{project.id}})" title="{% trans "Delegate this project" %}" alt="{% trans "Delegate this project" %}" /> {% trans "Delegate this project" %}</div>
+        <div class="cleared">{% trans "You are in charge of this project" %}</div>
+        <div>{% trans "Delegate" %}</div>
         {% endif %}
         {% if project.delegate_to %}
             {% ifequal user project.delegate_to %}
@@ -25,16 +27,20 @@
     {% endif %}
     </div>
     <div>
-        <h3>{% trans "Bidders" %}</h3>
+        <h3>{{project.bid_set.count}} {% trans "Bidders" %}</h3>
         {% for bid in project.bid_set.all %}
         <img class="contactpicture" src="/user/getpicture/{{bid.user.username}}">{{bid.user}}
         {% empty %}
         {% trans "No bidder on this project" %}
         {% endfor %}
     </div>
-    <div class="cleared"><input type="checkbox" checked /> {% trans "This project is public" %}</div>
 </div>
-<div id="team" class="prjtable"></div>
+<div class="column">
+    <h3>{% trans "This project is" %} {% if project.public %}{% trans "public" %}{% else %}{% trans "private" %}{% endif %}</h3>
+    {% trans "Make this project" %} {% if project.public %}{% trans "private" %}{% else %}{% trans "public" %}{% endif %}
+    <h3>{% trans "Guests" %}</h3>
+    <img class="clickable" src="/img/icons/add.png"> {% trans "Invite members" %}
+</div>
 <script>
     oiTable = new OITable("team", ["{% trans 'Assignee' %}", "{% trans 'Bidders' %}"]);
     oiTable.addLine({{project.master.id}}, ["{{project.master.assignee.get_profile.get_display_name}}", "{{project.master.bid_set.count}}"])

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-07 23:46+0100\n"
+"POT-Creation-Date: 2012-01-11 18:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -206,7 +206,7 @@ msgstr "Les spécifications d'un projet que vous suivez ont été modifiées"
 
 #: messages/models.py:173 messages/views.py:89 messages/views.py:107
 #: projects/models.py:167 projects/views.py:79 projects/views.py:106
-#: templates/projects/project_detail.html:56
+#: templates/projects/project_detail.html:55
 msgid "Forbidden"
 msgstr "Permissions insuffisantes"
 
@@ -500,6 +500,7 @@ msgid "Payment"
 msgstr "Paiement"
 
 #: projects/views.py:383 projects/views.py:463
+#: templates/projects/project_budget.html:12
 msgid "Commission"
 msgstr "Commission"
 
@@ -691,16 +692,16 @@ msgstr "S'inscrire"
 msgid "Forgot your password?"
 msgstr "Mot de passe oublié ?"
 
-#: templates/base.html:166 templates/projects/dialogue/bid.html:4
+#: templates/base.html:173 templates/projects/dialogue/bid.html:4
 #: templates/projects/dialogue/offer.html:4 templates/users/register.html:35
 msgid "Terms of Use"
 msgstr "Conditions Générales d'Utilisation"
 
-#: templates/base.html:167 templates/contact.html:3
+#: templates/base.html:174 templates/contact.html:3
 msgid "Legal notice"
 msgstr "Mentions légales"
 
-#: templates/base.html:168
+#: templates/base.html:175
 msgid "Contact"
 msgstr "Contact"
 
@@ -960,7 +961,7 @@ msgstr "est maintenant en l'état"
 
 #: templates/projects/editproject-deprecated.html:12
 #: templates/projects/project_detail.html:4
-#: templates/projects/project_state.html:19
+#: templates/projects/project_state.html:20
 msgid "Project"
 msgstr "Projet"
 
@@ -973,117 +974,119 @@ msgid "Due date"
 msgstr "Date de livraison"
 
 #: templates/projects/editproject-deprecated.html:29
-#: templates/projects/project_description.html:16
+#: templates/projects/project_description.html:21
 msgid "Add a specification"
 msgstr "Ajouter une spécification"
 
-#: templates/projects/project_budget.html:7
+#: templates/projects/project_budget.html:8
 msgid "Offer"
-msgstr "Proposition"
+msgstr "Devis"
 
-#: templates/projects/project_budget.html:10
-#: templates/projects/project_team.html:23
-msgid "No one is in charge of this project"
-msgstr "Personne n'est responsable de ce projet"
+#: templates/projects/project_budget.html:14
+msgid "No offer was made for this project"
+msgstr "Aucun devis n'a été fait pour ce projet"
 
-#: templates/projects/project_budget.html:11
+#: templates/projects/project_budget.html:15
 msgid "Make an offer"
 msgstr "Déposer une proposition"
 
-#: templates/projects/project_budget.html:11
-#: templates/projects/project_team.html:24
+#: templates/projects/project_budget.html:15
+#: templates/projects/project_team.html:26
 msgid "Take on this project"
 msgstr "Prendre en charge ce projet"
 
-#: templates/projects/project_budget.html:16
-msgid "Bids:"
-msgstr "Souscriptions :"
+#: templates/projects/project_budget.html:20
+msgid "Bids"
+msgstr "Souscriptions"
 
-#: templates/projects/project_budget.html:22
+#: templates/projects/project_budget.html:28
 msgid "Cancel your bid on this project"
 msgstr "Annuler votre participation au projet"
 
-#: templates/projects/project_budget.html:27
+#: templates/projects/project_budget.html:34
 msgid "missing"
 msgstr "manque"
 
-#: templates/projects/project_budget.html:29
-#: templates/projects/project_budget.html:66
+#: templates/projects/project_budget.html:36
 msgid "Bid_verb"
 msgstr "Souscrire"
 
-#: templates/projects/project_budget.html:36
+#: templates/projects/project_budget.html:43
 msgid "wants to cancel his"
 msgstr "veut annuler sa"
 
-#: templates/projects/project_budget.html:36
+#: templates/projects/project_budget.html:43
 msgid "bid on this project"
 msgstr "participation au projet"
 
-#: templates/projects/project_budget.html:37
+#: templates/projects/project_budget.html:44
 msgid "Your offer will be reduced of"
 msgstr "Votre offre sera réduite de"
 
-#: templates/projects/project_budget.html:38
-#: templates/projects/project_budget.html:49
-#: templates/projects/project_budget.html:57
-#: templates/projects/project_team.html:14
+#: templates/projects/project_budget.html:45
+#: templates/projects/project_budget.html:56
+#: templates/projects/project_budget.html:64
+#: templates/projects/project_team.html:16
 msgid "Do you accept it?"
 msgstr "Acceptez-vous ?"
 
-#: templates/projects/project_budget.html:39
-#: templates/projects/project_budget.html:50
-#: templates/projects/project_budget.html:58
-#: templates/projects/project_team.html:15
+#: templates/projects/project_budget.html:46
+#: templates/projects/project_budget.html:57
+#: templates/projects/project_budget.html:65
+#: templates/projects/project_team.html:17
 msgid "Accept"
 msgstr "Accepter"
 
-#: templates/projects/project_budget.html:40
-#: templates/projects/project_budget.html:51
-#: templates/projects/project_budget.html:59
-#: templates/projects/project_team.html:16
+#: templates/projects/project_budget.html:47
+#: templates/projects/project_budget.html:58
+#: templates/projects/project_budget.html:66
+#: templates/projects/project_team.html:18
 msgid "Refuse"
 msgstr "Refuser"
 
-#: templates/projects/project_budget.html:47
+#: templates/projects/project_budget.html:54
 msgid "wants to cancel this project."
 msgstr "veut annuler ce projet"
 
-#: templates/projects/project_budget.html:48
+#: templates/projects/project_budget.html:55
 msgid "You will be reimbursed in full."
 msgstr "Vous serez intégralement remboursé."
 
-#: templates/projects/project_budget.html:56
+#: templates/projects/project_budget.html:63
 msgid "wants to change this project due date to"
 msgstr "veut modifier la date de livraison de ce projet au"
 
-#: templates/projects/project_budget.html:66
+#: templates/projects/project_budget.html:72
 msgid "Budget"
 msgstr "Budget"
 
-#: templates/projects/project_budget.html:66
+#: templates/projects/project_budget.html:72
 msgid "Engaged"
 msgstr "Engagé"
 
-#: templates/projects/project_description.html:5
+#: templates/projects/project_description.html:4
+msgid "Project created by"
+msgstr "Projet proposé par"
+
+#: templates/projects/project_description.html:10
 msgid "Priority:"
 msgstr "Priorité :"
 
-#: templates/projects/project_description.html:23
+#: templates/projects/project_description.html:28
 msgid "Add a discussion"
 msgstr "Ajouter une discussion"
 
 #: templates/projects/project_detail.html:11
+msgid "planning"
+msgstr "Planning"
+
+#: templates/projects/project_detail.html:14
 msgid "budget"
 msgstr "Budget"
 
-#: templates/projects/project_detail.html:14
+#: templates/projects/project_detail.html:17
 msgid "team"
 msgstr "Equipe"
-
-#: templates/projects/project_detail.html:17
-msgid "planning"
-msgstr "Planning"
 
 #: templates/projects/project_nav.html:3
 msgid "Clipboard"
@@ -1138,31 +1141,61 @@ msgstr "Valider le projet"
 msgid "Evaluate the project"
 msgstr "Evaluer le projet"
 
-#: templates/projects/project_team.html:5
-#: templates/projects/project_team.html:39
+#: templates/projects/project_team.html:6
+#: templates/projects/project_team.html:45
 msgid "Assignee"
 msgstr "Responsable"
 
-#: templates/projects/project_team.html:8
-msgid "Delegate this project"
-msgstr "Déléguer ce projet"
+#: templates/projects/project_team.html:9
+msgid "You are in charge of this project"
+msgstr "Vous êtes responsable de ce projet"
 
-#: templates/projects/project_team.html:19
+#: templates/projects/project_team.html:10
+msgid "Delegate"
+msgstr "Déléguer"
+
+#: templates/projects/project_team.html:21
 msgid "Delegation offer sent to"
 msgstr "Proposition de délégation envoyée à"
 
-#: templates/projects/project_team.html:28
-#: templates/projects/project_team.html:39
+#: templates/projects/project_team.html:25
+msgid "No one is in charge of this project"
+msgstr "Personne n'est responsable de ce projet"
+
+#: templates/projects/project_team.html:30
+#: templates/projects/project_team.html:45
 msgid "Bidders"
 msgstr "Souscripteurs"
 
-#: templates/projects/project_team.html:32
+#: templates/projects/project_team.html:34
 msgid "No bidder on this project"
 msgstr "Aucune souscription sur ce projet"
 
-#: templates/projects/project_team.html:35
-msgid "This project is public"
-msgstr "Le projet est public"
+#: templates/projects/project_team.html:39
+msgid "This project is"
+msgstr "Le projet est"
+
+#: templates/projects/project_team.html:39
+#: templates/projects/project_team.html:40
+msgid "public"
+msgstr "public"
+
+#: templates/projects/project_team.html:39
+#: templates/projects/project_team.html:40
+msgid "private"
+msgstr "privé"
+
+#: templates/projects/project_team.html:40
+msgid "Make this project"
+msgstr "Rendre ce projet"
+
+#: templates/projects/project_team.html:41
+msgid "Guests"
+msgstr "Invités"
+
+#: templates/projects/project_team.html:42
+msgid "Invite members"
+msgstr "Inviter des membres"
 
 #: templates/projects/projectsmall.html:3
 #: templates/projects/projectsum-deprecated.html:21
@@ -1735,6 +1768,9 @@ msgstr "Message envoyé"
 #: users/views.py:256
 msgid "Notice archived"
 msgstr "Notification archivée"
+
+msgid "Delegate this project"
+msgstr "Déléguer ce projet"
 
 msgid "Overview of"
 msgstr "Vue d'ensemble de"

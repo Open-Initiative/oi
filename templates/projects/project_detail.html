@@ -4,27 +4,24 @@
 {% block title %}{{object.title|default:_("Project")}}{% endblock %}
 {% block spacetitle %}{{object.master.title}}{% endblock %}
 {% block tabs %}
-<div class="{% ifequal view "description" %}selectedtab{% else %}tab{% endifequal %}">
+<div class="{% ifequal view "description" %}selectedtab {% endifequal %}tab">
     <a href="description"><img class="tabicon" src="/img/icons/spec.png"/> {% trans "description" %}</a>
 </div>
-<div class="{% ifequal view "budget" %}selectedtab{% else %}tab{% endifequal %}">
+<div class="{% ifequal view "planning" %}selectedtab {% endifequal %}tab">
+    <a href="planning"><img class="tabicon" src="/img/icons/planning.png"/> {% trans "planning" %}</a>
+</div>
+<div class="{% ifequal view "budget" %}selectedtab {% endifequal %}tab">
     <a href="budget"><img class="tabicon" src="/img/icons/budget.png"/> {% trans "budget" %}</a>
 </div>
-<div class="{% ifequal view "team" %}selectedtab{% else %}tab{% endifequal %}">
+<div class="{% ifequal view "team" %}selectedtab {% endifequal %}tab">
     <a href="team"><img class="tabicon" src="/img/icons/team.png"/> {% trans "team" %}</a>
-</div>
-<div class="{% ifequal view "planning" %}selectedtab{% else %}tab{% endifequal %}">
-    <a href="planning"><img class="tabicon" src="/img/icons/planning.png"/> {% trans "planning" %}</a>
 </div>
 {% endblock %}
 {% block pagetitle %}
-<div id="prjtitle_{{object.id}}" class="prjtitle">
+<div class="pagetitle">{{object.title}}</div>
+{% endblock %}
+{% block tools %}
     <img class="clickable" title="Suivre le projet" alt="Suivre le projet" src="/img/icons/starTrue.png" onclick="observeProject(84)">
-    {{object.title}}
-    {% if object|can_write:user %}{% if object.state < 2 %}
-    <img onclick="editProjectTitle({{object.id}})" class="clickable" src="/img/icons/edit.png" />
-    {% endif %}{% endif %}
-</div>
 {% include 'projects/project_state.html' %}
 {% endblock %}
 {% block nav %}
@@ -46,7 +43,9 @@
     username = '{{user.username}}';
     viewname = '{{view}}';
     oiTree = new OITree("projecttree");
-    setTaskName(oiTree.setRoot({{object.master.id}}, {{object.master.state}}, 0), {{object.master.id}}, "{{object.master.title}}", "{{view}}");
+    var rootdiv = oiTree.setRoot({{object.master.id}}, {{object.master.state}}, 0);
+    setTaskName(rootdiv, {{object.master.id}}, "{{object.master.title}}", "{{view}}");
+    rootdiv.className += " treeroot";
     {% for ancestor in object.get_path %}
     oiTree.nodes[{{ancestor.id}}].expand();
     {% endfor %}
