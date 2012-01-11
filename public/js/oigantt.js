@@ -42,7 +42,7 @@ function OIGantt(divid, startDate, endDate) {
     this.scale = 1000*60*60;
     this.period = 1000*60*60*24;
     this.rowHeight = 20;
-    this.headerHeight = 30;
+    this.headerHeight = 31;
     this.space = null;
     
     parentdiv = document.getElementById(divid);
@@ -61,34 +61,38 @@ function OIGantt(divid, startDate, endDate) {
     
     this.drawTimeline();
 }
-OIGantt.prototype.drawTimeline = function() {
+OIGantt.prototype.drawTimeline = function drawTimeline() {
     this.header.innerHTML = this.startDate.dateFormat("d/m/Y");
     this.graph.style.width = (this.endDate - this.startDate + this.period) / this.scale+"px";
     
     for(var day = new Date(this.startDate); day<this.endDate; day.setDate(day.getDate()+1)) {
         if(day.getDate()==1) this.graph.innerHTML += '<div style="float: left;position: relative;top: -'+this.headerHeight+'px;width:0">'+day.dateFormat("d/m/Y")+'</div>';
-        this.graph.innerHTML += '<div style="width:'+(one_day/this.scale-1)+'px" class="ganttperiod">'+day.getDate()+'</div>';
+        var daydiv = document.createElement("div");
+        daydiv.className = "ganttperiod";
+        daydiv.style.width = (one_day/this.scale-1)+"px";
+        daydiv.innerHTML = day.getDate();
+        this.graph.appendChild(daydiv);
     }
     var today = document.getElementById(newDiv(this.graph.id));
     today.className = "gantttoday";
     today.style.left = (new Date() - this.startDate) / this.scale + "px";
 }
-OIGantt.prototype.redraw = function(barNb) {
+OIGantt.prototype.redraw = function redraw(barNb) {
     this.graph.style.height = (this.rowHeight * this.bars.length + this.headerHeight)+"px";
     if(!barNb || barNb==-1) barNb = 0;
     for(var i=barNb; i<this.bars.length; i++) 
         this.bars[i].draw();
 }
-OIGantt.prototype.addBar = function(id, dates, afterid, bgClass) {
+OIGantt.prototype.addBar = function addBar(id, dates, afterid, bgClass) {
     var newBar = new GanttBar(this, dates, "ganttbg"+(bgClass || 0));
     var pos = this.bars.indexOf(this.barids[afterid]) + 1;
     this.bars.splice(pos, 0, newBar);
     this.barids[id] = newBar;
 }
-OIGantt.prototype.addFromTask = function(task, afterid, bgClass) {
+OIGantt.prototype.addFromTask = function addFromTask(task, afterid, bgClass) {
     this.addBar(task.pk, [parseDate(task.fields.created),parseDate(task.fields.start_date),parseDate(task.fields.due_date)], afterid, bgClass);
 }
-OIGantt.prototype.addSpace = function(afterid) {
+OIGantt.prototype.addSpace = function addSpace(afterid) {
     if(this.space) this.bars.splice(this.bars.indexOf(this.space), 1);
     var pos = this.bars.indexOf(this.barids[afterid]) + 1
     this.bars.splice(pos, 0, new GanttBar(this, [], "ganttspace"));
@@ -96,7 +100,7 @@ OIGantt.prototype.addSpace = function(afterid) {
     this.space = this.bars[pos];
     document.getElementById("ganttspace").style.top = (this.space.bgdiv.offsetTop+this.div.offsetTop) + "px";
 }
-OIGantt.prototype.hideLine = function(id, nbnext) {
+OIGantt.prototype.hideLine = function hideLine(id, nbnext) {
     var bar = this.barids[id];
     var pos = this.bars.indexOf(bar);
     this.div.removeChild(bar.bardiv);
@@ -105,13 +109,13 @@ OIGantt.prototype.hideLine = function(id, nbnext) {
     bar.bgdiv = null;
     this.bars.splice(pos, 1 + nbnext);
 }
-OIGantt.prototype.showLine = function(id, afterid) {
+OIGantt.prototype.showLine = function showLine(id, afterid) {
     var pos = this.bars.indexOf(this.barids[afterid]) + 1;
     this.bars.splice(pos, 0, this.barids[id]);
 }
-OIGantt.prototype.highlight = function(id) {
+OIGantt.prototype.highlight = function highlight(id) {
     this.barids[id].bardiv.className = "gantthighlight";
 }
-OIGantt.prototype.unhighlight = function(id) {
+OIGantt.prototype.unhighlight = function unhighlight(id) {
     this.barids[id].bardiv.className = "";
 }

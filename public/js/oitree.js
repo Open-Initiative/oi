@@ -12,12 +12,14 @@ function OITreeNode(id, tree, parent, color, bgClass) {
     this.setContent(color);
     this.resetBtn(); //No idea why it is necessary to put this in a different method
 }
-OITreeNode.prototype.setContent = function() {
-    this.btn = document.createElement("img");
-    this.btn.src = "/img/icons/tree"+(this.parent?"btn":"root")+this.color+"-closed.png";
-    this.btn.id = "treebtn_"+this.id;
-    this.btn.style.cssFloat = "left";
-    this.div.appendChild(this.btn);
+OITreeNode.prototype.setContent = function setContent() {
+    if(this.parent) {
+        this.btn = document.createElement("img");
+        this.btn.src = "/img/icons/treebtn"+this.color+"-closed.png";
+        this.btn.id = "treebtn_"+this.id;
+        this.btn.style.cssFloat = "left";
+        this.div.appendChild(this.btn);
+    }
     this.titleDiv = document.getElementById(newDiv(this.div.id));
     this.titleDiv.className = "treeelt state" + this.color;
     this.titleDiv.node = this;
@@ -26,19 +28,23 @@ OITreeNode.prototype.setContent = function() {
     this.childDiv = document.getElementById(newDiv(this.div.id));
     this.childDiv.className = "treelist";
 }
-OITreeNode.prototype.resetBtn = function() {
-    this.btn = document.getElementById(this.btn.id);
-    this.btn.node = this;
-    this.btn.onclick = function(){this.node.expand();};
+OITreeNode.prototype.resetBtn = function resetBtn() {
+    if(this.parent) {
+        this.btn = document.getElementById(this.btn.id);
+        this.btn.node = this;
+        this.btn.onclick = function(){this.node.expand();};
+    }
 }
-OITreeNode.prototype.expand = function() {
-    this.btn.src = "/img/icons/tree"+(this.parent?"btn":"root")+this.color+"-open.png";
-    this.btn.onclick = function(){this.node.shrink();};
+OITreeNode.prototype.expand = function expand() {
+    if(this.parent) {
+        this.btn.src = "/img/icons/treebtn"+this.color+"-open.png";
+        this.btn.onclick = function(){this.node.shrink();};
+    }
     this.childDiv.style.display = "block";
     this.open = true;
     if(onExpandNode) onExpandNode(this.id);
 }
-OITreeNode.prototype.shrink = function() {
+OITreeNode.prototype.shrink = function shrink() {
     this.btn.src = "/img/icons/tree"+(this.parent?"btn":"root")+this.color+"-closed.png";
     this.btn.onclick = function(){this.node.expand();};
     this.childDiv.style.display = "none";
@@ -53,12 +59,12 @@ function OITree(divid, expandCallback, shrinkCallback) {
     this.expandCallback = expandCallback;
     this.shrinkCallback = shrinkCallback;
 }
-OITree.prototype.setRoot = function(rootid, color, bgClass) {
+OITree.prototype.setRoot = function setRoot(rootid, color, bgClass) {
     this.root = new OITreeNode(rootid, this, null, color, bgClass);
     this.nodes[rootid] = this.root;
     return this.root.titleDiv;
 }
-OITree.prototype.addChild = function(parentid, childid, color, bgClass) {
+OITree.prototype.addChild = function addChild(parentid, childid, color, bgClass) {
     parent = this.nodes[parentid];
     node = new OITreeNode(childid, this, parent, color, bgClass);
     parent.children.push(node);
