@@ -1,24 +1,26 @@
 {% load i18n %}
 <div id="team" class="prjtable"></div>
-<div class="column">
-    <div>
+<div class="smallcolumn">
+    <div class="assignee">
     {% if project.assignee %}
-        <h3>{% trans "Assignee" %}</h3>
-        <img class="contactpicture" src="/user/getpicture/{{project.assignee.username}}">{{project.assignee}}
+        <h3 class="assignee">{% trans "Assignee" %}</h3>
+        <img class="contactpicture" src="/user/getpicture/{{project.assignee.username}}">
+        <div class="username">{{project.assignee}}</div>
+        <div class="cleared"></div>
         {% if project.assignee == user and project.state < 3 %}
-        <div class="cleared">{% trans "You are in charge of this project" %}</div>
-        <div>{% trans "Delegate" %}</div>
+        <div>{% trans "You are in charge of this project" %}</div>
+        <div class="bidaction clickable" onclick="delegateProject({{project.id}})">{% trans "Delegate" %}</div>
         {% endif %}
         {% if project.delegate_to %}
             {% ifequal user project.delegate_to %}
-            <div id="question_delegate_{{project.id}}" class="smalltext">
-                {{project.assignee}} {trans "wants to delegate this project to you." %}
+            <div id="question_delegate_{{project.id}}">
+                {{project.assignee}} {% trans "wants to delegate this project to you." %}
                 {% trans "Do you accept it?" %}
                 <img class="clickable" src="/img/icons/ok.png" onclick="answerDelegate({{project.id}}, true, 'question_delegate_{{project.id}}')" title="{% trans "Accept" %}" alt="{% trans "Accept" %}"/>
                 <img class="clickable" src="/img/icons/delete.png" onclick="answerDelegate({{project.id}}, false, 'question_delegate_{{project.id}}')" title="{%trans "Refuse" %}" alt="{%trans "Refuse" %}"/>
             </div>
             {% else %}
-            <div class="smalltext">{% trans "Delegation offer sent to" %} {{project.delegate_to}}</div>
+            <div class="cleared">{% trans "Delegation offer sent to" %} {{project.delegate_to}}</div>
             {% endifequal %}
         {% endif %}
     {% else %}
@@ -26,16 +28,17 @@
         <img class="clickable" src="/img/icons/assignprj.png" onclick="offerProject({{project.id}})" title="{% trans "Take on this project" %}" alt="{% trans "Take on this project" %}" />
     {% endif %}
     </div>
-    <div>
+    <div class="participant">
         <h3>{{project.bid_set.count}} {% trans "Bidders" %}</h3>
         {% for bid in project.bid_set.all %}
-        <img class="contactpicture" src="/user/getpicture/{{bid.user.username}}">{{bid.user}}
+        <img class="contactpicture" src="/user/getpicture/{{bid.user.username}}">
+        <div class="username">{{bid.user}}</div>
         {% empty %}
         {% trans "No bidder on this project" %}
         {% endfor %}
     </div>
 </div>
-<div class="column">
+<div class="smallcolumn">
     <h3>{% trans "This project is" %} {% if project.public %}{% trans "public" %}{% else %}{% trans "private" %}{% endif %}</h3>
     {% trans "Make this project" %} {% if project.public %}{% trans "private" %}{% else %}{% trans "public" %}{% endif %}
     <h3>{% trans "Guests" %}</h3>

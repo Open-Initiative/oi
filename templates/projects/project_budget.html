@@ -1,39 +1,37 @@
 {% load oifilters %}
 {% load i18n %}
-<div id="prjdialogue_{{project.id}}" class="popup invisible"></div>
 <div id="budget" class="prjtable"></div>
-<div class="column">
-    <div>
-        {% if project.offer %}
-            <h3>{% trans "Offer" %}</h3>
-            <img class="contactpicture" src="/user/getpicture/{{project.assignee.username}}">
-            <div>{{project.assignee}}</div>
-            <div>{{project.offer}} € {% if project.assignee == user and project.state < 2 %}<img class="clickable" src="/img/icons/edit.png" onclick="offerProject({{project.id}})" />{% endif %}</div>
-            <div class="cleared">{% trans "Commission" %} 5% : {{project.commission}} €</div>
-        {% else %}
-            {% trans "No offer was made for this project" %}
-            <img class="clickable" src="/img/icons/assignprj.png" onclick="offerProject({{project.id}})" title="{% trans "Make an offer" %}" alt="{% trans "Take on this project" %}" />
-        {% endif %}
-    </div>
+<div class="smallcolumn">
+    <div class="assignee">{% if project.assignee %}
+        <h3 class="assignee">{% trans "Offer" %}</h3>
+        <img class="contactpicture" src="/user/getpicture/{{project.assignee.username}}" />
+        <div class="username">{{project.assignee}}</div>
+        <div>{{project.offer}} €</div>
+        {% if project.assignee == user and project.state < 2 %}<div><img class="clickable" src="/img/icons/edit.png" onclick="offerProject({{project.id}})" /> {% trans "Change my offer" %}</div>{% endif %}
+        <div class="cleared">{% trans "Commission" %} 5% : {{project.commission}} €</div>
+    {% else %}
+        {% trans "No offer was made for this project" %}
+        {% trans "Take on" %}
+    {% endif %}</div>
     <div class="cleared"></div>
-    <div id="bids_{{project.id}}">
+    <div id="bids_{{project.id}}" class="participant">
         <h3>{% trans "Bids" %}</h3>
         {% for bid in project.bid_set.all %}
         <div>
-            <img class="contactpicture" src="/user/getpicture/{{project.assignee.username}}">
-            <div>{{bid.user}}</div>
-            <div>{{bid.amount}} €
-            {% ifequal user bid.user %}
-            {% if project.state < 2 %}<img class="clickable" src="/img/icons/add.png" onclick="bidProject({{project.id}})" />{% endif %}
-            <img class="clickable" src="/img/icons/delete.png" onclick="cancelBid({{project.id}}, {% if project.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "Cancel your bid on this project" %}" title="{% trans "Cancel your bid on this project" %}" />
-            {% endifequal %}</div>
+            <img class="contactpicture" src="/user/getpicture/{{bid.user.username}}">
+            <div class="username">{{bid.user}}</div>
+            <div>{{bid.amount}} €</div>
+            {% if user == bid.user and project.state < 3 %}
+                <div><img class="clickable" src="/img/icons/add.png" onclick="bidProject({{project.id}})" /> {% trans "Add a new bid" %}</div>
+                <div><img class="clickable" src="/img/icons/delete.png" onclick="cancelBid({{project.id}}, {% if project.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "Cancel your bid on this project" %}" title="{% trans "Cancel your bid on this project" %}" /> {% trans "Cancel my bid" %}</div>
+            {% endif %}
             <div class="cleared"></div>
         </div>
         {% endfor %}
         <div>
             <h3>{% if project.missing_bid > 0 %}{% trans "missing" %} {{project.missing_bid|floatformat:2}} €{% endif %}</h3>
             {% if project.state < 3 %}{% if project|can_read:user %}{% if not project|is_bidder:user %}
-            <div onclick="bidProject({{project.id}})" class="clickable slidermore">{% trans "Bid_verb" %}</div>
+            <div onclick="bidProject({{project.id}})" class="clickable bidaction">{% trans "Bid_verb" %}</div>
             {% endif %}{% endif %}{% endif %}
         </div>
     </div>

@@ -2,7 +2,6 @@
 ﻿﻿{% load oifilters %}
 {% load i18n %}
 {% block title %}{{object.title|default:_("Project")}}{% endblock %}
-{% block spacetitle %}{{object.master.title}}{% endblock %}
 {% block tabs %}
 <div class="{% ifequal view "description" %}selectedtab {% endifequal %}tab">
     <a href="description"><img class="tabicon" src="/img/icons/spec.png"/> {% trans "description" %}</a>
@@ -31,6 +30,7 @@
 {% if object|can_read:user %}
 {% with object as project %}
 <div id="project_{{project.id}}" class="project">
+    <div id="prjdialogue_{{project.id}}" class="popup invisible"></div>
     <div class="prjbody">
     {% with "projects/project_"|add:view|add:".html" as template_name %}
     {% include template_name %}

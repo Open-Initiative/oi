@@ -199,20 +199,16 @@ div.column {
     float: left;
     margin: 5px;
 }
+div.smallcolumn {
+    float: left;
+    width: 200px;
+    margin: 2px;
+}
 #sepheader {
     background:url('/img/agilebg.png');
     border-top:1px solid #D0574C;
     height:15px;
 }
-/*#spacetitle {*/
-/*    color: #0094B5;*/
-/*    float: left;*/
-/*    font-family: "Interstate";*/
-/*    font-size: 2em;*/
-/*    padding: 0 15px;*/
-/*    text-transform: uppercase;*/
-/*    padding-top: 20px;*/
-/*}*/
 div.pagetop {
     background: #E1F3FA;
     font-family: "Interstate";
@@ -373,6 +369,9 @@ div.actions {
 .overlap {  
     margin-top: -60px;
 }
+.username {
+    font-weight: bold;
+}
 div.pile {
     padding-top: 50px
 }
@@ -390,6 +389,13 @@ div.morelink {
 }
 .cleared {
     clear: both;
+}
+.hiddenfield {
+    visibility:hidden;
+    height:0;
+    width:0;
+    border:0;
+    padding:0;
 }
 .filedest {
     visibility: hidden;

@@ -1,6 +1,5 @@
 {% load oifilters %}
 {% load i18n %}
-<div id="prjdialogue_{{project.id}}" class="popup invisible"></div>
 <div class="prjauthor">{% trans "Project created by" %} <a href="/user/profile/{{object.author.username}}">{{object.author}}</a></div>
 <div class="prjtitle" id="prjtitle_{{object.id}}">{{object.title}}</div>
 {% if object|can_write:user and object.state < 2 %}
