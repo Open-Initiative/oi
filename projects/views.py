@@ -544,17 +544,6 @@ def observeproject(request, id):
         request.user.get_profile().observed_projects.add(project.master)
         return HttpResponse(_("Project followed"))
     
-@OINeedsPrjPerms(OI_READ)
-def projectview(request, id):
-    """Shows the project summary"""
-    project = Project.objects.get(id=id)
-    #list the days covered by the project, for display
-    days = []
-    width = int(request.GET.get("width", "1"))
-    if project.start_date and project.due_date:
-        days = [project.start_date+timedelta(n*width) for n in range((project.due_date-project.start_date).days/width+1)]
-    return render_to_response('projects/gantt/prjview.html',{'user':request.user, 'project':project, 'days':days, 'day_length':1./width})
-
 @OINeedsPrjPerms(OI_WRITE)
 def editspec(request, id, specid):
     """Edit template of a spec contains a spec details edit template"""

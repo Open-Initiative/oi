@@ -220,7 +220,6 @@ class PersonalMessage(models.Model):
 def set_profile(sender, instance, created, **kwargs):
     if created==True:
         instance.userprofile_set.add(UserProfile(blog=Message.objects.create(author=instance, relevance=1, title=_("%s's blog")%instance.username)))
-#        instance.get_profile().observed_messages.add(instance.get_profile().blog)
 
 # Sets the profile on user creation
 post_save.connect(set_profile, sender=User)
