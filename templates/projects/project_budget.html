@@ -2,8 +2,9 @@
 {% load i18n %}
 <div id="budget" class="prjtable"></div>
 <div class="smallcolumn">
-    <div class="assignee">{% if project.assignee %}
+    <div class="assignee">
         <h3 class="assignee">{% trans "Offer" %}</h3>
+    {% if project.assignee %}
         <img class="contactpicture" src="/user/getpicture/{{project.assignee.username}}" />
         <div class="username">{{project.assignee}}</div>
         <div>{{project.offer}} €</div>
@@ -11,8 +12,9 @@
         <div class="cleared">{% trans "Commission" %} 5% : {{project.commission}} €</div>
     {% else %}
         {% trans "No offer was made for this project" %}
-        {% trans "Take on" %}
-    {% endif %}</div>
+        <div class="bidaction clickable" onclick="offerProject({{project.id}})">{% trans "Make an offer" %}</div>
+    {% endif %}
+    </div>
     <div class="cleared"></div>
     <div id="bids_{{project.id}}" class="participant">
         <h3>{% trans "Bids" %}</h3>
@@ -27,6 +29,8 @@
             {% endif %}
             <div class="cleared"></div>
         </div>
+        {% empty %}
+            {% trans "No bid on this project" %}
         {% endfor %}
         <div>
             <h3>{% if project.missing_bid > 0 %}{% trans "missing" %} {{project.missing_bid|floatformat:2}} €{% endif %}</h3>
@@ -36,7 +40,7 @@
         </div>
     </div>
     {% ifequal user project.assignee %}
-    {% for bid in project.canceled_bids %}
+    {% for bid in project.cancelled_bids %}
     <div id="question_{{project.id}}_{{bid.id}}" class="smalltext">
         {{bid.user.username}} {% trans "wants to cancel his" %} <br /> {% trans "bid on this project" %}<br />
         {% trans "Your offer will be reduced of" %} {{bid.amount}}.<br />

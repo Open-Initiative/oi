@@ -7,10 +7,11 @@ function GanttBar(gantt, dates, bgClass) {
     this.bgClass = bgClass;
     this.dates = dates;
 }
-GanttBar.prototype.addPhase = function(bardiv, begin, end, className) {
+GanttBar.prototype.addPhase = function(bardiv, begin, end, className, title) {
     var div = document.getElementById(newDiv(this.bardiv.id));
     div.style.width = ((end - begin) / this.gantt.scale) + "px";
     div.className = className;
+    div.title = title;
     return div;
 }
 GanttBar.prototype.draw = function() {
@@ -33,7 +34,8 @@ GanttBar.prototype.draw = function() {
         
         var i;
         for(i=0; i < this.dates.length-1; i++)
-            this.addPhase(this.bardiv, this.dates[i], this.dates[i+1], "ganttbar"+(i+1));
+            this.addPhase(this.bardiv, this.dates[i], this.dates[i+1], "ganttbar"+(i+1),
+                gettext("Phase"+i));
     }
 }
 

@@ -1,10 +1,12 @@
 {% load oifilters %}
 {% load i18n %}
 <div class="prjauthor">{% trans "Project created by" %} <a href="/user/profile/{{object.author.username}}">{{object.author}}</a></div>
-<div class="prjtitle" id="prjtitle_{{object.id}}">{{object.title}}</div>
-{% if object|can_write:user and object.state < 2 %}
-<img onclick="editProjectTitle({{object.id}})" class="clickable" src="/img/icons/edit.png" />
-{% endif %}
+<div class="prjtitle" id="prjtitle_{{object.id}}">
+    {{object.title}}
+    {% if object|can_write:user and object.state < 2 %}
+    <img onclick="editProjectTitle({{object.id}})" class="clickable" src="/img/icons/edit.png" alt="{% trans "Edit the title" %}" title="{% trans "Edit the title" %}" />
+    {% endif %}
+</div>
 <div style="clear:both" onclick="setPriority({{project.id}})">
 {% trans "Priority:" %}{% if project|can_write:user and project.state < 2 %}
 {% with project.id|stringformat:"s"|add:"_priority" as dest %}{% show_stars project.priority dest %}{% endwith %}

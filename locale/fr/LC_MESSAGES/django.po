@@ -559,6 +559,10 @@ msgstr "Projet déplacé"
 msgid "The project is now private"
 msgstr "Le projet est maintenant confidentiel"
 
+#: projects/views.py:522
+msgid "The project is now public"
+msgstr "Le projet est maintenant public"
+
 #: projects/views.py:530
 msgid "Project shared"
 msgstr "Projet partagé"
@@ -984,11 +988,11 @@ msgstr "Devis"
 
 #: templates/projects/project_budget.html:14
 msgid "No offer was made for this project"
-msgstr "Aucun devis n'a été fait pour ce projet"
+msgstr "Aucun devis n'a été proposé pour ce projet"
 
 #: templates/projects/project_budget.html:15
 msgid "Make an offer"
-msgstr "Déposer une proposition"
+msgstr "Faire une offre"
 
 #: templates/projects/project_budget.html:15
 #: templates/projects/project_team.html:26

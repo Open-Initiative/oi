@@ -67,7 +67,7 @@ div.bidaction {
     margin: 5px;
     border-radius: 4px;
 }
-.assignee {
+.assignee, .assignee a{
     color: #D0574C;
 }
 .participant {

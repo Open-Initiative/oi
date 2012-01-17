@@ -21,7 +21,6 @@ class Project(models.Model):
     delegate_to = models.ForeignKey(User, related_name='delegated_projects', null=True, blank=True)
     offer = models.DecimalField(max_digits= 12,decimal_places=2,default=0)
     commission = models.DecimalField(max_digits= 12,decimal_places=2,default=0)
-#    message = models.ForeignKey(Message)
     parent = models.ForeignKey('self', blank=True, null=True, related_name='tasks')
     ancestors = models.ManyToManyField('self',symmetrical=False, related_name='descendants', blank=True)
     master = models.ForeignKey('self', blank=True, null=True, related_name='subprojects')
@@ -108,13 +107,13 @@ class Project(models.Model):
         """returns how much the project still needs to be started"""
         return max((self.offer*OI_COMMISSION) - self.bid_sum(), Decimal("0"))
     
+    def list_guests(self):
+        """returns the list of all users who have permissions on the project but are neither bidders nor assignee"""
+        return User.objects.filter(projectacl__project=self).exclude(assigned_projects=self).exclude(bid_projects__project=self).distinct()
+    
     def finished_tasks(self):
         """gets all the tasks which state is at least delivered"""
         return self.tasks.filter(state__gte = OI_DELIVERED)
-
-#    def get_ancestors(self):
-#        """get message ancestors of the project"""
-#        return self.message.get_ancestors()
 
     def get_path(self):
         """get the location of the task inside the project"""
@@ -123,9 +122,6 @@ class Project(models.Model):
         else:
             return [self]
 
-#    def get_categories(self):
-#        return self.message.ancestors.filter(category=True)
-    
     def is_ready_to_start(self):
         """returns True if the project is not started yet, has an assignee and enough bids"""
         if self.assignee is None:

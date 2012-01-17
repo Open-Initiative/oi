@@ -28,18 +28,10 @@ from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape
 
 OIPrjActions = [
-#    OIAction(func="startProject", icon="startprj.png", show=lambda project, user:project.state == 1 and project.assignee == user, title=_("Start the project")),
-#    OIAction(func="deliverProject", icon="okprj.png", show=lambda project, user:project.state == 2 and project.assignee == user, title=_("Mark the project as done")),
-#    OIAction(func="validateProject", icon="okprj.png", show=lambda project, user:project.state == 3 and project.is_bidder(user), title=_("Confirm the project end")),
-#    OIAction(func="evalProject", icon="evalprj.png", show=lambda project, user:project.state == 4 and project.is_bidder(user), title=_("Evaluate the project")),
-#    OIAction(func="hideProject", icon="privateprj.png", show=lambda project, user:project.has_perm(user, OI_WRITE) and project.public, title=_("Make the project private")),
-    OIAction(func="shareProject", icon="shareprj.png", show=lambda project, user:project.has_perm(user, OI_WRITE) and not project.public, title=_("Share the project")),
     OIAction(func="deleteProject", icon="delprj.png", show=lambda project, user:project.has_perm(user, OI_WRITE) and project.bid_set.count()==0 and project.tasks.count()==0, title=_("Delete the project")),
     OIAction(func="moveProject", icon="moveprj.png", show=lambda project, user:project.has_perm(user, OI_WRITE) and project.bid_set.count()==0, title=_("Move the project")),
     OIAction(func="cancelProject", icon="delprj.png", show=lambda project, user:project.has_perm(user, OI_WRITE) and project.bid_set.count()>0 and project.state <= 1 and user==project.assignee, extra_param="false", title=_("Cancel the project")),
-    OIAction(func="cancelProject", icon="delprj.png", show=lambda project, user:project.has_perm(user, OI_WRITE) and project.bid_set.count()>0 and (project.state == 2 or project.state == 3) and user==project.assignee, extra_param="true", title=_("Cancel the project")),
-
-    OIAction(func="observeProject", icon="favprj.png", title=_("Follow the projet"))]
+    OIAction(func="cancelProject", icon="delprj.png", show=lambda project, user:project.has_perm(user, OI_WRITE) and project.bid_set.count()>0 and (project.state == 2 or project.state == 3) and user==project.assignee, extra_param="true", title=_("Cancel the project")),]
 
 def getprojects(request):
     """Apply filter to project list"""
@@ -86,19 +78,10 @@ def saveproject(request, id='0'):
     author=request.user
     
     if id=='0': #new project
-        #gets message from parent
-#        if request.POST.has_key("parent"):
         if not request.POST["title"]:
             return HttpResponse(_("Please enter a title"), status=531)
         parent = Project.objects.get(id=request.POST["parent"]) if request.POST.get("parent") else None
-#            message = parent.message
-        #or from query
-#        else:
-#            message = Message.objects.get(id=request.POST["message"])
-#        if not message.has_perm(request.user, OI_ANSWER):
-#            return HttpResponseForbidden(_("Forbidden"))
         project = Project(title = request.POST["title"], author=author, parent=parent, public=True, state=OI_PROPOSED)
-#        , message=message
         
     else: #existing project ####DEPRECATED?
         project = Project.objects.get(id=id)
@@ -121,7 +104,8 @@ def saveproject(request, id='0'):
         project.set_perm(project.assignee, OI_ALL_PERMS)
         
     #notify users about this project
-#    request.user.get_profile().msg_notify_all(project.message, "new_project", project)
+    if project.parent:
+        request.user.get_profile().prj_notify_all(project.master, "new_project", project)
     #adds the project to user's observation
     request.user.get_profile().observed_projects.add(project.master)
     if request.POST.get("inline","0") == "1":
@@ -514,12 +498,12 @@ def moveproject(request, id):
     return HttpResponse('', status=332)
 
 @OINeedsPrjPerms(OI_WRITE)
-def hideproject(request, id):
-    """Makes the project private and outputs a message"""
+def togglehideproject(request, id):
+    """Makes the project private or public and outputs a message"""
     project = Project.objects.get(id=id)
-    project.public = False
+    project.public = not project.public
     project.save()
-    return HttpResponse(_("The project is now private"))
+    return HttpResponse(_("The project is now %s"%("public" if project.public else "private")))
 
 @OINeedsPrjPerms(OI_WRITE)
 def shareproject(request, id):

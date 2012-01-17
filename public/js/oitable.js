@@ -48,7 +48,7 @@ OITable.prototype.addLine = function(id, cells, afterid, bgClass) {
     return line;
 }
 OITable.prototype.addFromTask = function(task, afterid, bgClass) {
-    if(this.div.id == "budget") this.addLine(task.pk, [(task.fields.offer || task.fields.offer_sum) + " €", (task.fields.allbid_sum || task.fields.bid_sum) + " €"], afterid, bgClass);
+    if(this.div.id == "budget") this.addLine(task.pk, [(parseFloat(task.fields.offer) || parseFloat(task.fields.alloffer_sum)) + " €", (parseFloat(task.fields.bid_sum) || parseFloat(task.fields.allbid_sum)) + " €"], afterid, bgClass);
     if(this.div.id == "team") this.addLine(task.pk, [task.fields.assignee_get_profile_get_display_name, task.fields.bid_set_count], afterid, bgClass);
 }
 OITable.prototype.redraw = function() {

@@ -53,10 +53,10 @@ function onShrinkNode(projectid) {
 }
 function setActiveTask(projectid) {
     form = document.getElementById("newtask_"+projectid);
-    form.onsubmit = function(){return addTask(getValue("newtask_title_"+projectid, true),projectid,username);};
+    form.onsubmit = function(){return addTask(getValue("newtask_title_"+projectid, true),projectid);};
     form.innerHTML = '<input type="image" src="/img/icons/addtask.png" alt="'+gettext("New task")+'" title="'+gettext("New task")+'" />'+
         '<input type="text" id="newtask_title_'+projectid+'" class="newtask_title" value="'+gettext("New task")+'" '+
-        'onclick="this.value=\'\'" onblur="this.value=\'New task\'"/>';
+        'onclick="if(this.value==\''+gettext("New task")+'\')this.value=\'\'" onblur="if(!this.value)this.value=\''+gettext("New task")+'\'"/>';
     oiTree.selected = projectid;
     if(oiTable) oiTable.addSpace(projectid);
 }
@@ -160,8 +160,8 @@ function confirmEvalProject(projectid) {
     OIajaxCall("/project/confirmeval/"+projectid, "rating="+getValue(projectid+"_eval")+"&comment="+getValue("eval_comment_"+projectid), "output");
     hide("prjdialogue_"+projectid);
 }
-function hideProject(projectid) {
-    OIajaxCall("/project/hide/"+projectid, null, "output");
+function toggleHideProject(projectid) {
+    OIajaxCall("/project/togglehide/"+projectid, null, "output");
 }
 function shareProject(projectid) {
     divid = newDiv("prjdialogue_"+projectid);

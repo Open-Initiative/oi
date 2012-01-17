@@ -81,3 +81,16 @@ msgstr ""
 #: public/js/oiproject.js:264
 msgid "Are you sure you want to delete this attachment permanently?"
 msgstr "Etes vous sûr de vouloir supprimer définitivement cette pièce jointe ?"
+
+#oigantt.js
+msgid "Phase0"
+msgstr "Phase de conception"
+
+#oigantt.js
+msgid "Phase1"
+msgstr "Phase de réalisation"
+
+#oigantt.js
+msgid "Phase2"
+msgstr "Phase de validation"
+
