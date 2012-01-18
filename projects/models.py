@@ -1,6 +1,6 @@
 # coding: utf-8
 # Modèles des projets
-from datetime import datetime
+from datetime import datetime, timedelta
 from decimal import Decimal
 from django.db import models
 from django.contrib.auth.models import User
@@ -10,7 +10,7 @@ from django.utils.translation import ugettext as _
 from oi.settings import MEDIA_ROOT
 from oi.helpers import OI_ALL_PERMS, OI_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_ANSWER, OI_COMMISSION, OI_COM_ON_BID
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS
-from oi.helpers import SPEC_TYPES, TEXT_TYPE
+from oi.helpers import SPEC_TYPES, TEXT_TYPE, to_date
 #from oi.messages.models import Message
 
 # A project can contain subprojects and/or specs. Without them it is only a task
@@ -28,6 +28,7 @@ class Project(models.Model):
     modified = models.DateTimeField(auto_now=True)
     start_date = models.DateTimeField(blank=True, null=True)
     due_date = models.DateTimeField(blank=True, null=True)
+    validation = models.DateTimeField(blank=True, null=True)
     delay = models.DateTimeField(blank=True, null=True)
     progress = models.FloatField(default=0.0)
     priority = models.IntegerField(default=0)
@@ -45,6 +46,15 @@ class Project(models.Model):
         self.master = parent
         self.ancestors = ancestors
         super(Project, self).save(*args, **kwargs)
+    
+    def check_dates(self):
+        """Fixes incorrect dates : the dates should be in the right order"""
+        if to_date(self.created) > to_date(self.start_date):
+            self.start_date = self.created
+        if to_date(self.start_date) >to_date( self.due_date):
+            self.due_date = self.start_date
+        if to_date(self.due_date) > to_date(self.validation):
+            self.validation = to_date(self.due_date) + timedelta(15)
     
     def get_max_order(self):
         """Returns the position of the last spec of the project"""

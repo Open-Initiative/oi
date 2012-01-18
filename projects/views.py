@@ -12,6 +12,7 @@ from django.core.files import File
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib.syndication.views import Feed
 from django.db.models import Sum
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response
@@ -25,7 +26,7 @@ from oi.helpers import OI_PRJ_DONE, OI_NO_EVAL, OI_ACCEPT_DELAY, OI_READ, OI_ANS
 from oi.helpers import SPEC_TYPES, OIAction, ajax_login_required
 from oi.projects.models import Project, Spec, Bid, PromotedProject, OINeedsPrjPerms
 from oi.messages.models import Message
-from oi.messages.templatetags.oifilters import oiescape
+from oi.messages.templatetags.oifilters import oiescape, summarize
 
 OIPrjActions = [
     OIAction(func="deleteProject", icon="delprj.png", show=lambda project, user:project.has_perm(user, OI_WRITE) and project.bid_set.count()==0 and project.tasks.count()==0, title=_("Delete the project")),
@@ -95,8 +96,11 @@ def saveproject(request, id='0'):
         project.start_date = request.POST["start_date"]
     if request.POST.has_key("due_date") and len(request.POST["due_date"])>0:
         project.due_date = request.POST["due_date"]
+    if request.POST.has_key("validaton") and len(request.POST["validation"])>0:
+        project.validation = request.POST["validation"]
     if request.POST.has_key("progress") and len(request.POST["progress"])>0:
         project.progress = request.POST["progress"]
+    project.check_dates()
 
     project.save()
     project.set_perm(author, OI_ALL_PERMS)
@@ -155,12 +159,14 @@ def editdate(request, id):
             return HttpResponse(_("Request for delay awaiting validation"))
         else:
             project.due_date = request.POST["date"]
+            project.check_dates()
             project.save()
             return HttpResponse(_("Date updated"))
     if project.state > OI_ACCEPTED:
         return HttpResponse(_("Can not change a project already started"))
 
     project.__setattr__(request.POST["field_name"],request.POST["date"])
+    project.check_dates()
     project.save()
     
     #notify users about this project
@@ -318,6 +324,7 @@ def startproject(request, id):
             project.state = OI_STARTED
             project.start_date = datetime.now()
             project.delegate_to = None
+            project.check_dates()
             project.save()
             #notify users about this state change
             request.user.get_profile().notify_all(project, "project_state", OI_PRJ_STATES[project.state][1])
@@ -341,6 +348,7 @@ def deliverproject(request, id):
         project.state = OI_VALIDATED
 
     project.due_date = datetime.now()
+    project.check_dates()
     project.save()
     #resets any delay demand
     project.reset_delay_request()
@@ -365,6 +373,8 @@ def validateproject(request, id):
             # pays the assignee, deducts the commission
             project.assignee.get_profile().make_payment(project.bid_sum(), _("Payment"), project)
             project.assignee.get_profile().make_payment(-project.commission, _("Commission"), project)
+            project.validation = datetime.now()
+            project.check_dates()
             project.save()
 
             #notify users about this state change
@@ -641,3 +651,41 @@ def getfile(request, id, filename):
     except OSError:
         raise Http404
     return response
+    
+class OIFeed(Feed):
+    """generates RSS feed"""
+    title = "Open Initiative"
+    link = "http://openinitiative.com/"
+    description = _(u"Latest updates of Open Initiative ")
+    id = None
+    
+    def __new__(cls, request, id):
+        obj = super(Feed, cls).__new__(cls)
+        obj.id=id
+        if id != '0':
+            obj.description += " - " + Project.objects.get(id=id).title
+        return obj(request)
+
+    def get_object(self, request, *args, **kwargs):
+        if self.id=='0':
+            return None
+        else:
+            return Project.objects.get(id=self.id)
+
+    def items(self, obj):
+        if obj:
+            return obj.descendants.order_by('-created')[:20]
+        else:
+            return Project.objects.order_by('-created')[:20]
+
+    def item_title(self, item):
+        return item.title
+
+    def item_description(self, item):
+        desc = ""
+        for spec in item.spec_set.all():
+            desc += "\n- " + summarize(spec.text)
+        return desc
+        
+    def item_link(self, item):
+        return "/project/get/%s"%item.id

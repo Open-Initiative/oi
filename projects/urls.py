@@ -51,4 +51,5 @@ urlpatterns = patterns('oi.projects.views',
     (r'^(?P<id>\d+)/deletespec/(?P<specid>\d+)$', 'deletespec'),
     (r'^(?P<id>\d+)/deltmp$', 'deltmpfile'),
     (r'^(?P<id>\d+)/(?P<filename>.+)$', 'getfile'),
+    (r'^rss/(?P<id>\d+)$', 'OIFeed'),
 )

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-11 18:43+0100\n"
+"POT-Creation-Date: 2012-01-18 17:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,12 +15,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
+# oigantt.js
+#: public/js/oigantt.js:38
+msgid "Phase0"
+msgstr "Phase de conception"
+
+# oigantt.js
+msgid "Phase1"
+msgstr "Phase de réalisation"
+
+# oigantt.js
+msgid "Phase2"
+msgstr "Phase de validation"
+
 # oimessage.js
 #: public/js/oimessage.js:70
 msgid "Are you sure you want to delete this message permanently?"
 msgstr "Etes-vous sûr de vouloir supprimer définitivement ce message ?"
 
 #: public/js/oiproject.js:57 public/js/oiproject.js.py:58
+#: public/js/oiproject.js:59
 msgid "New task"
 msgstr "Nouvelle tâche"
 
@@ -82,15 +96,4 @@ msgstr ""
 msgid "Are you sure you want to delete this attachment permanently?"
 msgstr "Etes vous sûr de vouloir supprimer définitivement cette pièce jointe ?"
 
-#oigantt.js
-msgid "Phase0"
-msgstr "Phase de conception"
-
-#oigantt.js
-msgid "Phase1"
-msgstr "Phase de réalisation"
-
-#oigantt.js
-msgid "Phase2"
-msgstr "Phase de validation"
 

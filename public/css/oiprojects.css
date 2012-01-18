@@ -148,7 +148,7 @@ div.gantttoday {
 }
 #ganttspace {
     position: absolute;
-    width: 710px;
+    width: 750px;
     z-index: 0;
     background: #6C6D6E;
     color: white;
@@ -194,15 +194,15 @@ div.sepspecfooter {
 }
 .progressbar {
     float:left;
-    height:.8em;
+    font-size:.3em;
     width:10em;
     border:solid 1px;
+    color: #6C6D6E;
+    position: absolute;
+    width: 150px;
 }
 .progress {
     float:left;
-    height:.8em;
     background:green;
+    height: 1em;
 }
-/*.smalltext {*/
-/*    font-size:.7em;*/
-/*}*/

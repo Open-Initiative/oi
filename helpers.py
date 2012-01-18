@@ -1,11 +1,13 @@
 ﻿# coding: utf-8
 import cStringIO as StringIO
 from functools import wraps
+from datetime import datetime
 from decimal import Decimal
 from hashlib import sha256
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.db.models import DateTimeField
 from django.template.loader import render_to_string
 from django.utils.decorators import available_attrs
 from django.utils.http import urlquote
@@ -61,6 +63,11 @@ class OIAction:
     extra_param = None
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
+
+def to_date(value):
+    if value:
+        return DateTimeField.to_python(DateTimeField(), value)
+    return datetime(2000,1,1)
 
 def ajax_login_required(function):
     """Similar decorator as login_required, using 333 as redirect Http code to be captured by javascript"""

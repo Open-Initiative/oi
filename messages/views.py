@@ -20,29 +20,6 @@ from oi.projects.models import Project
 from oi.messages.models import Message, PromotedMessage, OINeedsMsgPerms
 from oi.messages.templatetags.oifilters import oiescape, summarize
 
-#OIMsgActions = [
-#    OIAction(func="vote", icon="relevantmsg.png", show=lambda message,user: not message|ip_has_voted:request.META.REMOTE_ADDR and user.is_anonymous or not message|has_voted:user and user.is_authenticated,extra_param=1,  title=_("Message relevant")),
-#    OIAction(func="vote", icon="irrelevantmsg.png", show=lambda message,user: not message|ip_has_voted:request.META.REMOTE_ADDR and user.is_anonymous or not message|has_voted:user and user.is_authenticated, extra_param=-1, title=_("Message irrelevant")),
-#    OIAction(func="addMessage", icon="answermsg.png", show=lambda message,user: message|can_answer:user, title=_("Answer this message")),
-#    OIAction(func="hideMessage", icon="privatemsg.png", show=lambda message,user: message|can_write:user and message.public, title=_("Make this message private")),
-#    OIAction(func="shareMessage", icon="sharemsg.png",show=lambda message,user: message|can_write:user and not message.public,  title=_("Share this message")),
-#    OIAction(func="deleteMessage", icon="delmsg.png", show=lambda message,user: message|can_write:user, title=_("Delete this message")),
-#    OIAction(func="editMessage", icon="editmsg.png", show=lambda message,user: message|can_write:user, title=_("Correct this message")),
-#    OIAction(func="observeMessage", icon="favmsg.png", title=_("Follow this message"))]
-
-#def getmessages(request):
-#    """Apply filter to message list"""
-#    datemin = datetime.strptime(request.GET.get("datemin","2000,1,1"),"%Y,%m,%d")
-#    datemax = datetime.strptime(request.GET.get("datemax","2100,1,1"),"%Y,%m,%d")
-#    messages = Message.objects.filter(created__gte=datemin, created__lte=datemax, category=False, public=True)
-#    promotedmsg = PromotedMessage.objects.filter(location="index")
-
-#    ancestors = [id for id in request.GET.get("categs","").split(",") if id!=""] #ancestors separated by a comma in the parameters
-#    if ancestors:
-#        messages = messages.filter(ancestors__in=ancestors).distinct()
-#        
-#    return object_list(request, queryset=messages.order_by("-relevance")[:10], extra_context={'promotedmsg': promotedmsg})
-
 @OINeedsMsgPerms(OI_READ)
 def getmessage(request, id):
     """Message given by id"""
@@ -50,16 +27,10 @@ def getmessage(request, id):
     depth = request.GET.get('depth',OI_PAGE_SIZE)
     mode = request.GET.get("mode","")
     
-#    if message.category:
-#        return HttpResponseRedirect("/index/%s"%id)
     if mode == "small":
         return render_to_response('messages/messagesmall.html',{'message':message, 'depth':depth})
     extra_context={'object':message, 'depth':depth, 'is_ajax':request.GET.get("mode")}
     return direct_to_template(request, template="messages/message_detail.html", extra_context=extra_context)
-
-#def newmessage(request):
-#    """Shows the new message form"""
-#    return direct_to_template(request, template='messages/newmessage.html',extra_context={'categs':request.GET.get("categs","").split(",")})
 
 def editmessage(request, id):
     """Edit form of the message"""
@@ -89,18 +60,12 @@ def savemessage(request, id):
             return HttpResponseForbidden(_("Forbidden"))
         message.title = request.POST["title"]
         message.text = text
-#        if request.POST.get("rfp") == "True":
-#            if request.user.is_anonymous():
-#                return HttpResponseRedirect('/login?next=%s'%request.META['HTTP_REFERER'])
-#            message.rfp = True
         message.save()
     
     else: #new message
         parent = None
         if request.POST.get("parent"): #Checking parent rights
             parent = Message.objects.get(id=request.POST["parent"])
-#            if not parent.has_perm(request.user, OI_ANSWER):
-#                return HttpResponseForbidden(_("Forbidden"))
         project = Project.objects.get(id=request.POST["project"]) if request.POST.get("project") else None
         if project:
             if not project.has_perm(request.user, OI_WRITE):
@@ -112,13 +77,7 @@ def savemessage(request, id):
         else:
             relevance = parent.get_expertise(request.user) * OI_EXPERTISE_TO_MESSAGE
         message = Message(title = request.POST["title"], text = text, author=author, parent=parent, project=project, relevance=relevance)
-#        , public=True
-#        if request.POST.get("rfp") == "True":
-#            if request.user.is_anonymous():
-#                return HttpResponse('/login?next=%s'%request.META['HTTP_REFERER'], status=333)
-#            message.rfp = True
         message.save()
-#        message.set_perm(author, OI_ALL_PERMS)
         
         #Adding expertise to user and parent's author
         if parent:
@@ -143,64 +102,17 @@ def deletemessage(request, id):
     Message.objects.get(id=id).delete()
     return HttpResponse(_(u"Message deleted"))
 
-#@OINeedsMsgPerms(OI_WRITE)
-#def hidemessage(request, id):
-#    """Makes the message private and outputs a message"""
-#    message = Message.objects.get(id=id)
-#    message.public = False
-#    message.save()
-#    return HttpResponse(_(u"Message is now private"))
-
-#@OINeedsMsgPerms(OI_WRITE)
-#def sharemessage(request, id):
-#    """Shares the message with a user and outputs a message"""
-#    message = Message.objects.get(id=id)
-#    user = User.objects.get(username=request.POST["username"])
-#    message.set_perm(user, OI_ALL_PERMS)
-#    return HttpResponse(_(u"Message shared"))
-
-#@ajax_login_required
-#@OINeedsMsgPerms(OI_READ)
-#def observemessage(request, id):
-#    """adds the message in the observe list of the user"""
-#    message = Message.objects.get(id=id)
-#    if request.POST.has_key("stop"):
-#        request.user.get_profile().observed_messages.remove(message)
-#        return HttpResponse(_("Stopped following"))
-#    else:
-#        request.user.get_profile().observed_messages.add(message)
-#        return HttpResponse(_("Following the message"))
-    
 @OINeedsMsgPerms(OI_WRITE)
 def movemessage(request, id):
     """Adds a parent to the message"""
     message = Message.objects.get(id=id)
     parent = Message.objects.get(id=request.POST["parentid"])
-#    if not parent.has_perm(request.user, OI_ANSWER):
-#        return HttpResponseForbidden(_("Forbidden"))
 
     if message in parent.ancestors.all():
         return HttpResponse(_(u"Can not move a message to its answer"))
     message.parent = parent
     message.save() # to recompute ancestors
-
-    #notify users about this message
-#    request.user.get_profile().notify_all(parent, "answer", message.title)
-
     return HttpResponse(_(u"Message moved"))
-
-#@OINeedsMsgPerms(OI_WRITE)
-#def orphanmessage(request, id):
-#    """Removes a parent of the message"""
-#    message = Message.objects.get(id=id)
-#    parent = Message.objects.get(id=request.POST["parentid"])
-#    if parent not in message.parents.all():
-#        return HttpResponse(u"Ce n'est pas une réponse du message")
-#    if message.parents.count() < 2:
-#        return HttpResponse(u"Ne peut pas laisser ce message orphelin")
-#    message.parents.remove(parent)
-#    message.save() # to recompute ancestors
-#    return HttpResponse(u"Réponse retirée")
 
 @OINeedsMsgPerms(OI_READ)
 def vote(request, id):
@@ -232,14 +144,6 @@ def getFile(request, filename):
     response['Content-Length'] = os.path.getsize("%s%s"%(MEDIA_ROOT,filename))
     return response
 
-#def listcategories(request, id='0'):
-#    """List all the category messages"""
-#    if id=='0':
-#        categories = Message.objects.filter(category=True, parent=None)
-#    else:
-#        categories = Message.objects.filter(category=True, parent=id)
-#    return render_to_response('messages/arbo.html',{'categories': categories.order_by("-relevance"), 'dest': request.GET.get("dest")}, context_instance=RequestContext(request))
-    
 def listancestors(request, id):
     """lists ancestors of the message in a string"""
     message = Message.objects.get(id=id)
