@@ -1,5 +1,4 @@
-<input id="{{field_name}}_{{project.id}}_box" class="hiddenfield" value="{{date|date:"Y-m-d"}}"/>
-<img class="clickable" src="/img/icons/edit.png" onclick="JsDatePick.getCalInstanceById(document.getElementById('{{field_name}}_{{project.id}}_box').getAttribute('globalNumber')).showCalendar()" />
+<input id="{{field_name}}_{{project.id}}_box" class="hiddenfield" value="{{date|date:"Y-m-d"}}"/><img class="clickable" src="/img/icons/edit2.png" onclick="JsDatePick.getCalInstanceById(document.getElementById('{{field_name}}_{{project.id}}_box').getAttribute('globalNumber')).showCalendar()" />
 <script>
     cal_{{field_name}} = new JsDatePick({useMode:2,target:"{{field_name}}_{{project.id}}_box",dateFormat:"%Y-%m-%d"});
     cal_{{field_name}}.setOnSelectedDelegate(function(){

@@ -2,18 +2,18 @@
 {% load i18n %}
 {% if object.assignee == user %}
     {% if object.state < 2 and object.is_ready_to_start %}
-    <div class="prjstatebtn clickable" onclick="startProject({{object.id}})">{% trans "Start the project" %} <img src="/img/icons/treebtn4-closed.png" /></div>
+    <div class="prjstatebtn clickable" onclick="startProject({{object.id}})">{% trans "Start the project" %} <img src="/img/icons/bluebtn.png" /></div>
     {% endif %}
     {% if object.state == 2 %}
-    <div class="prjstatebtn clickable" onclick="deliverProject({{object.id}})">{% trans "Deliver the project" %} <img src="/img/icons/treebtn4-closed.png" /></div>
+    <div class="prjstatebtn clickable" onclick="deliverProject({{object.id}})">{% trans "Deliver the project" %} <img src="/img/icons/bluebtn.png" /></div>
     {% endif %}
 {% endif %}
 {% if object|is_bidder:user %}
     {% if object.state == 3 %}
-    <div class="prjstatebtn clickable" onclick="validateProject({{object.id}})">{% trans "Validate the project" %} <img src="/img/icons/treebtn4-closed.png" /></div>
+    <div class="prjstatebtn clickable" onclick="validateProject({{object.id}})">{% trans "Validate the project" %} <img src="/img/icons/bluebtn.png" /></div>
     {% endif %}
     {% if object.state == 4 %}
-    <div class="prjstatebtn clickable" onclick="evalProject({{object.id}})">{% trans "Evaluate the project" %} <img src="/img/icons/treebtn4-closed.png" /></div>
+    <div class="prjstatebtn clickable" onclick="evalProject({{object.id}})">{% trans "Evaluate the project" %} <img src="/img/icons/bluebtn.png" /></div>
     {% endif %}
 {% endif %}
 <div class="prjstate statebg{{object.state}}">
