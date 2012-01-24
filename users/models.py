@@ -37,7 +37,6 @@ class UserProfile(models.Model):
     blog = models.ForeignKey(Message, unique=True)
     rss_feed = models.URLField(verify_exists=False, blank=True)
     last_feed = models.DateTimeField(null=True, blank=True)
-#    observed_messages = models.ManyToManyField(Message, related_name="followers", blank=True)
     observed_projects = models.ManyToManyField(Project, related_name="followers", blank=True)
     
     def get_titles(self):

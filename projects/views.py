@@ -109,7 +109,7 @@ def saveproject(request, id='0'):
         
     #notify users about this project
     if project.parent:
-        request.user.get_profile().prj_notify_all(project.master, "new_project", project)
+        request.user.get_profile().notify_all(project.master, "new_project", project)
     #adds the project to user's observation
     request.user.get_profile().observed_projects.add(project.master)
     if request.POST.get("inline","0") == "1":
