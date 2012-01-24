@@ -205,9 +205,15 @@ div.sepspecfooter {
     color: #6C6D6E;
     position: absolute;
     width: 150px;
+    margin-top: 5px;
 }
 .progress {
     float:left;
     background:green;
     height: 1em;
+}
+.progresstitle {
+    font-size: 1.5em;
+    margin: -2px 2px;
+    position: absolute;
 }

@@ -220,7 +220,7 @@ function confirmMoveProject(projectid) {
     hide("prjdialogue_"+projectid);
 }
 function updateProgress(projectid, progress) {
-    progress = Math.round(progress*100);
+    progress = Math.min(Math.round(progress*100), 100);
     OIajaxCall("/project/editprogress/"+projectid, "progress="+progress, "output");
     document.getElementById("progressbar_"+projectid).style.width = progress+"%";
     document.getElementById("progresslabel_"+projectid).innerHTML = progress+"%";
