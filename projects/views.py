@@ -15,7 +15,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.syndication.views import Feed
 from django.db.models import Sum
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect, Http404
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.views.generic.list_detail import object_detail, object_list
 from django.views.generic.simple import direct_to_template
@@ -616,7 +616,7 @@ def savespec(request, id, specid='0'):
 @OINeedsPrjPerms(OI_WRITE)
 def deletespec(request, id, specid):
     """deletes the spec"""
-    spec = Spec.objects.get(id=specid)
+    spec = get_object_or_404(Spec, id=specid)
     if spec.project.state > OI_ACCEPTED:
         return HttpResponse(_("Can not change a project already started"))
     spec.delete()
