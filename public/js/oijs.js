@@ -36,6 +36,10 @@ function OIajaxCall(url, params, divid) {
         document.getElementById("output").innerHTML = 'ERROR : ' +gettext('Unkown server error');
         return;
     }
+    if(xmlhttp.status >= 404){
+        document.getElementById("output").innerHTML = 'ERROR : ' +gettext('Could not find object');
+        return;
+    }
     if(xmlhttp.status == 332) document.location.reload();
     if(xmlhttp.status == 333) document.location = xmlhttp.responseText;
     else {
