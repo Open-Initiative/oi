@@ -4,16 +4,16 @@
 {% block title %}{{object.title|default:_("Project")}}{% endblock %}
 {% block tabs %}
 <div class="{% ifequal view "description" %}selectedtab {% endifequal %}tab">
-    <a href="description"><img class="tabicon" src="/img/icons/spec.png"/> {% trans "description" %}</a>
+    <a href="description"><img class="tabicon" src="/img/icons/spec{% ifequal view "description" %}white{% endifequal %}.png"/> {% trans "description" %}</a>
 </div>
 <div class="{% ifequal view "planning" %}selectedtab {% endifequal %}tab">
-    <a href="planning"><img class="tabicon" src="/img/icons/planning.png"/> {% trans "planning" %}</a>
+    <a href="planning"><img class="tabicon" src="/img/icons/planning{% ifequal view "planning" %}white{% endifequal %}.png"/> {% trans "planning" %}</a>
 </div>
 <div class="{% ifequal view "budget" %}selectedtab {% endifequal %}tab">
-    <a href="budget"><img class="tabicon" src="/img/icons/budget.png"/> {% trans "budget" %}</a>
+    <a href="budget"><img class="tabicon" src="/img/icons/budget{% ifequal view "budget" %}white{% endifequal %}.png"/> {% trans "budget" %}</a>
 </div>
 <div class="{% ifequal view "team" %}selectedtab {% endifequal %}tab">
-    <a href="team"><img class="tabicon" src="/img/icons/team.png"/> {% trans "team" %}</a>
+    <a href="team"><img class="tabicon" src="/img/icons/team{% ifequal view "team" %}white{% endifequal %}.png"/> {% trans "team" %}</a>
 </div>
 {% endblock %}
 {% block pagetitle %}
