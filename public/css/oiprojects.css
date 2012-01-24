@@ -95,6 +95,11 @@ div.treeelt {
     padding: 2px;
     min-height: 16px;
 }
+div.treetitle {
+    height: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 div.treebg0 {
     background: #C8DBE1;
 }

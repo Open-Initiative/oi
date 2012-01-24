@@ -1,6 +1,12 @@
 oiTable = null;
 function setTaskName(div, id, title, view) {
-    div.innerHTML = '<a href="/project/get/'+id+'/'+view+'">'+title+'</a> <form id="newtask_'+id+'"></form>';
+    var titleDiv = document.createElement('div');
+    titleDiv.className = "treetitle";
+    div.appendChild(titleDiv);
+    titleDiv.innerHTML = '<a href="/project/get/'+id+'/'+view+'">'+title+'</a>';
+    var newTaskForm = document.createElement("form");
+    newTaskForm.id = "newtask_"+id;
+    div.appendChild(newTaskForm);
 }
 function addTask(tasktitle, projectid, userid) {
     var params = "title="+tasktitle+"&inline=1&progress=0";
