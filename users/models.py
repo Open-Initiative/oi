@@ -127,14 +127,9 @@ class UserProfile(models.Model):
         """Returns comments made in evals on the user"""
         return Bid.objects.filter(project__assignee=self.user).exclude(comment="")
 
-#    def msg_notify_all(self, msg, notice_type, param):
-#        """sends a notification to all users about this message"""
-#        recipients = User.objects.filter(userprofile__observed_messages__descendants = msg).exclude(userprofile=self).distinct()
-#        notification.send(recipients, notice_type, {'message':msg, 'param':param}, True, self.user)
-
     def notify_all(self, prj, notice_type, param):
         """sends a notification to all users about this project"""
-        recipients = User.objects.filter(userprofile__observed_projects__subprojects = prj).exclude(userprofile=self).distinct()
+        recipients = User.objects.filter(userprofile__observed_projects__descendants = prj).exclude(userprofile=self).distinct()
         notification.send(recipients, notice_type, {'project':prj, 'param':param}, True, self.user)
 
     def __unicode__(self):
