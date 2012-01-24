@@ -261,10 +261,8 @@ function deleteSpec(projectid, specorder) {
     }
 }
 function deltmp(projectid,filename,ts,divid) {
-    if(confirm(gettext("Are you sure you want to delete this attachment permanently?"))) {
-        OIajaxCall("/project/"+projectid+"/deltmp", "filename="+filename+"&ts="+ts+"&divid="+divid, "output");
-        changeFile(divid);
-    }
+    OIajaxCall("/project/"+projectid+"/deltmp", "filename="+filename+"&ts="+ts+"&divid="+divid, "output");
+    changeFile(divid);
 }
 
 function changeFile(divid) {

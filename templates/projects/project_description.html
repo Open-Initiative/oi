@@ -19,11 +19,11 @@
     {%include 'projects/spec/spec.html'%}
     {%endfor%}
 </div>
-{% if project|can_write:user %}{% if project.state < 4 %}<img class="clickable" src="/img/icons/add.png" onclick="addSpec({{project.id}}, -1)" alt="{% trans "Add a specification" %}" title="{% trans "Add a specification" %}"/> {% trans "Add a specification" %}{% endif %}{% endif %}
+{% if project|can_write:user and project.state < 4 %}<a class="clickable" onclick="addSpec({{project.id}}, -1)"><img src="/img/icons/add.png" alt="{% trans "Add a specification" %}" title="{% trans "Add a specification" %}"/> {% trans "Add a specification" %}</a>{% endif %}
 <h1>Discussions</h1>
 <div id="discussions_{{project.id}}">
     {% for message in project.message_set.all %}
     {% include 'messages/message.html' %}
     {% endfor %}
 </div>
-{% if project|can_write:user %}<img class="clickable" src="/img/icons/add.png" onclick="addMessage(null, {{project.id}})" alt="{% trans "Add a discussion" %}" title="{% trans "Add a discussion" %}"/> {% trans "Add a discussion" %}{% endif %}
+{% if project|can_write:user %}<a class="clickable" onclick="addMessage(null, {{project.id}})"><img src="/img/icons/add.png" alt="{% trans "Add a discussion" %}" title="{% trans "Add a discussion" %}"/> {% trans "Add a discussion" %}</a>{% endif %}
