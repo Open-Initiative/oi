@@ -3,6 +3,7 @@
 from datetime import datetime, timedelta
 from decimal import Decimal
 from django.db import models
+from django.db.transaction import commit_on_success
 from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
@@ -93,6 +94,11 @@ class Project(models.Model):
                     self.projectacl_set.get_or_create(user=user, permission=right)
             else:
                 self.projectacl_set.get_or_create(user=user, permission=perm)
+
+    @commit_on_success
+    def apply_perm(self, user, perm):
+        for descendant in self.descendants.all():
+            descendant.set_perm(user, perm)
 
     def canceled_bids(self):
         """gets all the bids marked as canceled"""

@@ -105,7 +105,7 @@ def saveproject(request, id='0'):
     project.save()
     project.set_perm(author, OI_ALL_PERMS)
     if project.assignee:
-        project.set_perm(project.assignee, OI_ALL_PERMS)
+        project.apply_perm(project.assignee, OI_ALL_PERMS)
         
     #notify users about this project
     if project.parent:
@@ -208,7 +208,7 @@ def offerproject(request, id):
     project.assignee = request.user
     project.offer = Decimal("0"+request.POST.get("offer","0").replace(",","."))
     project.save()
-    project.set_perm(project.assignee, OI_ALL_PERMS)
+    project.apply_perm(project.assignee, OI_ALL_PERMS)
 
     if project.is_ready_to_start():
         project.state = OI_ACCEPTED
@@ -301,7 +301,7 @@ def bidproject(request, id):
     bid, created = Bid.objects.get_or_create(project=project, user=request.user)
     bid.amount += amount
     bid.save()
-    project.set_perm(bid.user, OI_ALL_PERMS)
+    project.apply_perm(bid.user, OI_ALL_PERMS)
     if project.is_ready_to_start():
         project.state = OI_ACCEPTED
     project.commission += bid.amount * OI_COM_ON_BID #computes project commission from bids
@@ -520,7 +520,7 @@ def shareproject(request, id):
     """Shares the project with a user and outputs a message"""
     project = Project.objects.get(id=id)
     user = User.objects.get(username=request.POST["username"])
-    project.set_perm(user, OI_ALL_PERMS)
+    project.apply_perm(user, OI_ALL_PERMS)
     user.get_profile().observed_projects.add(project)
     messages.info(request, _("Project shared"))
     return HttpResponse('', status=332)
