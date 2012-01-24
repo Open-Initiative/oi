@@ -521,6 +521,7 @@ def shareproject(request, id):
     project = Project.objects.get(id=id)
     user = User.objects.get(username=request.POST["username"])
     project.set_perm(user, OI_ALL_PERMS)
+    user.get_profile().observed_projects.add(project)
     messages.info(request, _("Project shared"))
     return HttpResponse('', status=332)
 
@@ -548,10 +549,10 @@ def observeproject(request, id):
     """adds the project in the observe list of the user"""
     project = Project.objects.get(id=id)
     if request.POST.has_key("stop"):
-        request.user.get_profile().observed_projects.remove(project.master)
+        request.user.get_profile().observed_projects.remove(project)
         return HttpResponse(_("Stopped following the project"))
     else:
-        request.user.get_profile().observed_projects.add(project.master)
+        request.user.get_profile().observed_projects.add(project)
         return HttpResponse(_("Project followed"))
     
 @OINeedsPrjPerms(OI_WRITE)
