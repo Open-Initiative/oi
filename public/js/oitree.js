@@ -65,9 +65,9 @@ OITree.prototype.setRoot = function setRoot(rootid, color, bgClass) {
     return this.root.titleDiv;
 }
 OITree.prototype.addChild = function addChild(parentid, childid, color, bgClass) {
-    parent = this.nodes[parentid];
-    node = new OITreeNode(childid, this, parent, color, bgClass);
-    parent.children.push(node);
+    var parentNode = this.nodes[parentid];
+    var node = new OITreeNode(childid, this, parentNode, color, bgClass);
+    parentNode.children.push(node);
     this.nodes[childid] = node;
     return node.titleDiv;
 }

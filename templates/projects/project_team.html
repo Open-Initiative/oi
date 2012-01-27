@@ -48,7 +48,7 @@
 </div>
 <div class="smallcolumn">
     <h3>{% trans "This project is" %} {% if project.public %}{% trans "public" %}{% else %}{% trans "private" %}{% endif %}</h3>
-    <a class="clickable" onclick="toggleHideProject({{project.id}})">{% trans "Make this project" %} {% if project.public %}{% trans "private" %}{% else %}{% trans "public" %}{% endif %} <img src="/img/icons/treebtn4-closed.png" /></a>
+    <a class="clickable" onclick="toggleHideProject({{project.id}})">{% trans "Make this project" %} {% if project.public %}{% trans "private" %}{% else %}{% trans "public" %}{% endif %} <img src="/img/icons/bluebtn.png" /></a>
     <div>
         <h3>{% trans "Guests" %}</h3>
         {% for guest in project.list_guests %}

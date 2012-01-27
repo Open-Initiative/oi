@@ -1,24 +1,24 @@
 @font-face {
     font-family: "ProximaNova";
-    src: url('/fonts/ProximaNova-Light.otf');
+    src: url('/fonts/proximanova-light-webfont.eot?') format('eot'), url('/fonts/ProximaNova-Light.otf') format('opentype');
 }
 @font-face {
     font-family: "ProximaNova";
     font-weight: bold;
-    src: url('/fonts/ProximaNova-Bold.otf');
+    src: url('/fonts/proximanova-bold-webfont.eot?') format('eot'), url('/fonts/ProximaNova-Bold.otf') format('opentype');
 }
 @font-face {
     font-family: "ProximaNova";
     font-weight: 900;
-    src: url('/fonts/ProximaNova-Extrabold.otf');
+    src: url('/fonts/proximanova-extrabold-webfont.eot?') format('eot'), url('/fonts/ProximaNova-Extrabold.otf') format('opentype');
 }
 @font-face {
     font-family: "Interstate";
-    src: url('/fonts/Interstate-BoldCondensed.ttf');
+    src: url('/fonts/Interstate-boldcondensed-webfont.eot?') format('eot'), url('/fonts/Interstate-BoldCondensed.ttf') format('opentype');
 }
 @font-face {
     font-family: "CCRA";
-    src: url('/fonts/CCRA.ttf');
+    src: url('/fonts/CCRA.eot?') format('eot'), url('/fonts/CCRA.ttf') format('opentype');
 }
 body {
     margin:0;

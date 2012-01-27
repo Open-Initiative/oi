@@ -9,7 +9,7 @@ function GanttBar(gantt, dates, bgClass) {
 }
 GanttBar.prototype.addPhase = function(bardiv, begin, end, className, title) {
     var div = document.getElementById(newDiv(this.bardiv.id));
-    div.style.width = ((end - begin) / this.gantt.scale) + "px";
+    div.style.width = (((isNaN(end) || isNaN(begin))?0:(end - begin)) / this.gantt.scale) + "px";
     div.className = className;
     div.title = title;
     return div;
@@ -28,9 +28,8 @@ GanttBar.prototype.draw = function() {
     if(this.dates.length) {
         this.bardiv = document.getElementById(newDiv(this.gantt.div.id));
         this.bardiv.style.position = "absolute";
-        this.bardiv.style.left = ((this.dates[0] - this.gantt.startDate) / this.gantt.scale) + "px";
+        this.bardiv.style.left = ((isNaN(this.dates[0])?0:(this.dates[0] - this.gantt.startDate)) / this.gantt.scale) + "px";
         this.bardiv.style.top = (this.gantt.bars.indexOf(this) * this.gantt.rowHeight + this.gantt.headerHeight) + "px";
-        this.bardiv.style.width = ((this.deliverDate - this.creationDate) / this.gantt.scale) + "px";
         
         var i;
         for(i=0; i < this.dates.length-1; i++)

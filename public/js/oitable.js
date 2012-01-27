@@ -52,7 +52,9 @@ OITable.prototype.addFromTask = function(task, afterid, bgClass) {
     if(this.div.id == "team") this.addLine(task.pk, [task.fields.assignee_get_profile_get_display_name, task.fields.bid_set_count], afterid, bgClass);
 }
 OITable.prototype.redraw = function() {
-    this.table.innerHTML = "";
+    this.div.removeChild(this.table);
+    this.table = document.createElement("table");
+    this.div.appendChild(this.table);
     this.table.appendChild(this.header);
     for(var i=0; i < this.lines.length; i++)
         if(this.lines[i]) this.table.appendChild(this.lines[i]);

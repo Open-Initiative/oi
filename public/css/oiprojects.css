@@ -106,6 +106,7 @@ div.treebg1 {
 }
 #ganttdiv {
     overflow-y: hidden;
+    overflow-x: scroll;
 }
 div.ganttbg {
     z-index: 0;
@@ -151,7 +152,7 @@ div.gantttoday {
 }
 #ganttspace {
     position: absolute;
-    width: 750px;
+    width: 800px;
     z-index: 0;
     background: #6C6D6E;
     color: white;

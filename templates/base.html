@@ -7,12 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="shortcut icon" href="/favicons.ico" />
     <link rel="stylesheet" type="text/css" media="all" href="/css/jsDatePick_ltr.min.css" />
-    <!--[if IE]>
-            <link rel="stylesheet" type="text/css" href="/css/oiie.css" />
-    <![endif]-->
-    <!--[if !IE]><!-->
-            <link rel="stylesheet" type="text/css" href="/css/oi.css" />
-     <!--<![endif]-->
+    <link rel="stylesheet" type="text/css" href="/css/oi.css" />
     <link rel="stylesheet" type="text/css" media="all" href="/css/oimessages.css" />
     <link rel="stylesheet" type="text/css" media="all" href="/css/oiprojects.css" />
     <link rel="stylesheet" type="text/css" media="all" href="/css/oiusers.css" />
@@ -83,7 +78,7 @@
                 <img src="/img/sep1.png" />
                 <span id="loginbox">{% trans "Login" %}</span>
                 <img src="/img/sep2.png" />
-                <form method="post" action="{% url django.contrib.auth.views.login %}">{% csrf_token %}
+                <form method="post" action="{% url django.contrib.auth.views.login %}" style="margin:0">{% csrf_token %}
                     <div id="loginarea"><table>
                         <tr>
                             <td><label for="id_username">{% trans "username" %}</label></td>
