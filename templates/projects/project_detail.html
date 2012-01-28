@@ -20,7 +20,7 @@
 <div class="pagetitle">{{object.title}}</div>
 {% endblock %}
 {% block tools %}
-    <img class="clickable" title="Suivre le projet" alt="Suivre le projet" src="/img/icons/starTrue.png" onclick="observeProject(84)">
+    <img class="clickable" title="Suivre le projet" alt="Suivre le projet" src="/img/icons/starTrue.png" onclick="observeProject({{object.id}})">
 {% include 'projects/project_state.html' %}
 {% endblock %}
 {% block nav %}
