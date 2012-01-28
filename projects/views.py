@@ -163,7 +163,7 @@ def editdate(request, id):
             project.save()
             return HttpResponse(_("Date updated"))
     if project.state > OI_ACCEPTED:
-        return HttpResponse(_("Can not change a project already started"))
+        return HttpResponse(_("Can not change a project already started"), status=431)
 
     project.__setattr__(request.POST["field_name"],request.POST["date"])
     project.check_dates()
@@ -178,7 +178,7 @@ def setpriority(request, id):
     """Sets the priority of the project"""
     project = Project.objects.get(id=id)
     if project.state > OI_ACCEPTED:
-        return HttpResponse(_("Can not change a project already started"))
+        return HttpResponse(_("Can not change a project already started"), status=431)
     project.priority = request.POST["priority"]
     project.save()
     return HttpResponse(_("Priority changed"))
@@ -188,7 +188,7 @@ def edittitle(request, id):
     """Modifies the title of the project"""
     project = Project.objects.get(id=id)
     if project.state > OI_ACCEPTED:
-        return HttpResponse(_("Can not change a project already started"))
+        return HttpResponse(_("Can not change a project already started"), status=431)
 
     project.title = request.POST["title"]
     project.save()
@@ -204,6 +204,8 @@ def offerproject(request, id):
     project = Project.objects.get(id=id)
     if project.assignee and project.assignee != request.user:
         return HttpResponse(_("Project already assigned"))
+    if project.state > OI_STARTED:
+        return HttpResponse(_("Can not change a project already started"), status=431)
 
     project.assignee = request.user
     project.offer = Decimal("0"+request.POST.get("offer","0").replace(",","."))
@@ -226,7 +228,7 @@ def delegateproject(request, id):
     """Offers delegation of the project to the specified user"""
     project = Project.objects.get(id=id)
     if project.state > OI_ACCEPTED:
-        return HttpResponse(_("Can not change a project already started"))
+        return HttpResponse(_("Can not change a project already started"), status=431)
     if project.assignee != request.user:
         return HttpResponse(_("Only the user in charge of the project can delegate it"))
     try:
@@ -501,7 +503,7 @@ def moveproject(request, id):
     """Changes the parent of the project given by id"""
     project = Project.objects.get(id=id)
     if project.state > OI_ACCEPTED:
-        return HttpResponse(_("Can not change a project already started"))
+        return HttpResponse(_("Can not change a project already started"), status=431)
     project.parent = Project.objects.get(id=request.POST["parent"])
     project.save()
     messages.info(request, _("Project moved"))
@@ -573,7 +575,7 @@ def editspecdetails(request, id, specid):
     spec=None
     if specid!='0':
         if project.state > OI_ACCEPTED:
-            return HttpResponse(_("Can not change a project already started"))
+            return HttpResponse(_("Can not change a project already started"), status=431)
         spec = Spec.objects.get(id=specid)
     return direct_to_template(request, template='projects/spec/edit_type%s.html'%(type), extra_context={'user': request.user, 'divid': divid, 'project':project, 'spec':spec})
 
@@ -589,7 +591,7 @@ def savespec(request, id, specid='0'):
         order = project.get_max_order()+1
     else:
         if project.state > OI_ACCEPTED:
-            return HttpResponse(_("Can not change a project already started"))
+            return HttpResponse(_("Can not change a project already started"), status=431)
         project.insert_spec(order)
     
     if specid=='0': #new spec
@@ -618,7 +620,7 @@ def deletespec(request, id, specid):
     """deletes the spec"""
     spec = get_object_or_404(Spec, id=specid)
     if spec.project.state > OI_ACCEPTED:
-        return HttpResponse(_("Can not change a project already started"))
+        return HttpResponse(_("Can not change a project already started"), status=431)
     spec.delete()
     return HttpResponse(_("Specification deleted"))
     

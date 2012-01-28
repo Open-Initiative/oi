@@ -29,9 +29,10 @@
         {% endif %}
     {% else %}
         {% trans "No one is in charge of this project" %}
+        {% if project.state < 2 and if project|can_read:user %}
         <div class="bidaction clickable" onclick="offerProject({{project.id}})">
             {% trans "Take on" %} <img src="/img/icons/whitebtn.png" />
-        </div>
+        </div>{% endif %}
     {% endif %}
     </div>
     <div class="participant">

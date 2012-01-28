@@ -12,9 +12,11 @@
         <div class="cleared">{% trans "Commission" %} 5% : {{project.commission}} €</div>
     {% else %}
         {% trans "No offer was made for this project" %}
+        {% if project.state < 2 and if project|can_read:user %}
         <div class="bidaction clickable" onclick="offerProject({{project.id}})">
             {% trans "Make an offer" %} <img src="/img/icons/whitebtn.png" />
         </div>
+        {% endif %}
     {% endif %}
     </div>
     <div class="cleared"></div>
