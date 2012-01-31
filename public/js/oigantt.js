@@ -90,10 +90,6 @@ OIGantt.prototype.addBar = function addBar(id, dates, afterid, bgClass) {
     this.bars.splice(pos, 0, newBar);
     this.barids[id] = newBar;
 }
-OIGantt.prototype.addFromTask = function addFromTask(task, afterid, bgClass) {
-    this.addBar(task.pk, [parseDate(task.fields.created), parseDate(task.fields.start_date),
-        parseDate(task.fields.due_date), parseDate(task.fields.validation)], afterid, bgClass);
-}
 OIGantt.prototype.addSpace = function addSpace(afterid) {
     if(this.space) this.bars.splice(this.bars.indexOf(this.space), 1);
     var pos = this.bars.indexOf(this.barids[afterid]) + 1

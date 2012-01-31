@@ -31,4 +31,8 @@
 <script>
     oiTable = new OIGantt("ganttdiv", new Date({{project.master.created|date:"Y,m-1,d"}}), new Date({{project.master.due_date|date:"Y,m-1,d"}}));
     oiTable.addBar({{project.master.id}}, [new Date({{project.master.created|date:"Y,m-1,d"}}),new Date({{project.master.start_date|date:"Y,m-1,d"}}),new Date({{project.master.due_date|date:"Y,m-1,d"}}),new Date({{project.master.validation|date:"Y,m-1,d"}})]);
+    oiTable.addFromTask = function addFromTask(task, afterid, bgClass) {
+        oiTable.addBar(task.pk, [parseDate(task.fields.created), parseDate(task.fields.start_date),
+        parseDate(task.fields.due_date), parseDate(task.fields.validation)], afterid, bgClass);
+    }
 </script>
