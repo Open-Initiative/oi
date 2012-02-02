@@ -57,14 +57,16 @@ function onShrinkNode(projectid) {
         oiTable.redraw();
     }
 }
-function setActiveTask(projectid) {
-    form = document.getElementById("newtask_"+projectid);
-    form.onsubmit = function(){return addTask(getValue("newtask_title_"+projectid, true),projectid);};
-    form.innerHTML = '<input type="image" src="/img/icons/addtask.png" alt="'+gettext("New task")+'" title="'+gettext("New task")+'" />'+
-        '<input type="text" id="newtask_title_'+projectid+'" class="newtask_title" value="'+gettext("New task")+'" '+
-        'onclick="if(this.value==\''+gettext("New task")+'\')this.value=\'\'" onblur="if(!this.value)this.value=\''+gettext("New task")+'\'"/>';
-    oiTree.selected = projectid;
-    if(oiTable) oiTable.addSpace(projectid);
+function setActiveTask(projectid, canAdd) {
+    if(canAdd) {
+        form = document.getElementById("newtask_"+projectid);
+        form.onsubmit = function(){return addTask(getValue("newtask_title_"+projectid, true),projectid);};
+        form.innerHTML = '<input type="image" src="/img/icons/addtask.png" alt="'+gettext("New task")+'" title="'+gettext("New task")+'" />'+
+            '<input type="text" id="newtask_title_'+projectid+'" class="newtask_title" value="'+gettext("New task")+'" '+
+            'onclick="if(this.value==\''+gettext("New task")+'\')this.value=\'\'" onblur="if(!this.value)this.value=\''+gettext("New task")+'\'"/>';
+        oiTree.selected = projectid;
+        if(oiTable) oiTable.addSpace(projectid);
+    }
 }
 
 function copyTask(taskid, tasktitle) {

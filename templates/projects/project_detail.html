@@ -49,7 +49,7 @@
     {% for ancestor in object.get_path %}
     oiTree.nodes[{{ancestor.id}}].expand();
     {% endfor %}
-    setActiveTask({{object.id}});
+    setActiveTask({{object.id}}{% if object.state < 4 %}, true{% endif %});
 </script>
 {% else %}
 {% trans "Forbidden" %}

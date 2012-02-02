@@ -90,6 +90,9 @@ def saveproject(request, id='0'):
             return HttpResponseForbidden(_("Forbidden"))
         project.title = request.POST["title"]
 
+    if (parent and parent.state==OI_VALIDATED) or (project.state == OI_VALIDATED):
+        return HttpResponse(_("Can not change a project already started"), status=431)
+
     if request.POST.get("assignee") and len(request.POST["assignee"])>0:
         project.assignee = User.objects.get(username=request.POST["assignee"])
     if request.POST.has_key("start_date") and len(request.POST["start_date"])>0:

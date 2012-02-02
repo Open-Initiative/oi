@@ -29,15 +29,19 @@ function OIajaxCall(url, params, divid) {
     xmlhttp.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
     xmlhttp.send(params);
     if(xmlhttp.status == 531){
-        document.getElementById("output").innerHTML = 'ERROR : ' + xmlhttp.responseText;
+        document.getElementById("output").innerHTML = gettext('ERROR : ') + xmlhttp.responseText;
         return;
     }
     if(xmlhttp.status >= 500){
-        document.getElementById("output").innerHTML = 'ERROR : ' +gettext('Unkown server error');
+        document.getElementById("output").innerHTML = gettext('ERROR : ') +gettext('Unkown server error');
+        return;
+    }
+    if(xmlhttp.status >= 431){
+        document.getElementById("output").innerHTML = gettext('Forbidden : ') + xmlhttp.responseText;
         return;
     }
     if(xmlhttp.status >= 404){
-        document.getElementById("output").innerHTML = 'ERROR : ' +gettext('Could not find object');
+        document.getElementById("output").innerHTML = gettext('ERROR : ') +gettext('Could not find object');
         return;
     }
     if(xmlhttp.status == 332) document.location.reload();
