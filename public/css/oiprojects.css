@@ -180,6 +180,7 @@ div.sepspec {
     background: url('/img/sepspec.png');
     height: 1px;
     margin: 20px;
+    clear: both;
 }
 div.specfooter {
     height: 19px;
