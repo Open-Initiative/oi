@@ -275,9 +275,10 @@ function deleteSpec(projectid, specorder) {
     }
 }
 
-function OISpot(specDiv, projectid, specid, x, y, type, title, linkid) {
+function OISpot(specDiv, projectid, specid, spotid, x, y, type, title, linkid) {
     this.projectid = projectid;
     this.specid = specid;
+    this.spotid = spotid;
     this.x = x;
     this.y = y;
     this.type = type;
@@ -292,6 +293,7 @@ function OISpot(specDiv, projectid, specid, x, y, type, title, linkid) {
     this.div.style.display = 'none';
     this.div.spot = this;
     this.fillDiv();
+    this.div.onclick = function(evt) {evt.stopPropagation();return false;};
     
     this.img = document.createElement("img");
     this.img.src = "/img/spot1.png";
@@ -299,7 +301,7 @@ function OISpot(specDiv, projectid, specid, x, y, type, title, linkid) {
     this.img.style.left = this.x+"px";
     this.img.style.top = this.y+"px";
     this.img.spot = this;
-    this.img.onclick = function() {this.spot.show();return false;};
+    this.img.onclick = function(evt) {this.spot.show();evt.stopPropagation();return false;};
     specDiv.appendChild(this.img);
 }
 OISpot.prototype.edit = function edit() {
@@ -315,7 +317,7 @@ OISpot.prototype.fillDiv = function fillDiv() {
     content += this.title;
     if(this.type==2 || this.type==3) content += "</a>";
     content += " <img src='/img/icons/edit.png' class='clickable' onclick='this.parentElement.spot.edit()'/>";
-    content += " <img src='/img/icons/delete.png' />";
+    content += " <img src='/img/icons/delete.png' class='clickable' onclick='this.parentElement.spot.delete()'/>";
     this.div.innerHTML = content;
 }
 OISpot.prototype.save = function save() {
@@ -342,10 +344,14 @@ OISpot.prototype.save = function save() {
 }
 OISpot.prototype.show = function show() {
     this.div.style.display = "block";
-//    addEvent(document, "click", this.hide);
+    addPopup(this.div);
 }
-OISpot.prototype.hide = function hide() {
-    this.div.style.display = "none";
+OISpot.prototype.delete = function delete() {
+    if(confirm(gettext("Are you sure you want to permanently delete this annotation?"))) {
+        OIajaxCall('/project/'+this.projectid+'/deletespot/'+this.specid+'/'+this.spotid, null, 'output');
+        this.img.parentElement.removeChild(this.img);
+        this.div.parentElement.removeChild(this.div);
+    }
 }
 
 function deltmp(projectid,filename,ts,divid) {

@@ -645,6 +645,15 @@ def savespot(request, id, specid, spotid):
     return HttpResponse(_("Specification annotated"))
 
 @OINeedsPrjPerms(OI_WRITE)
+def deleteSpot(request, id, specid, spotid):
+    spot = Spot.objects.get(id=spotid)
+    if spot.spec == Spec.objects.get(id=specid) and spot.spec.project == Project.objects.get(id=id):
+        spot.delete()
+        return HttpResponse(_("Annotation removed"))
+    else:
+        return HttpResponse(_("Wrong arguments"), status=531)
+
+@OINeedsPrjPerms(OI_WRITE)
 def uploadfile(request, id, specid='0'):
     """temporarily stores a file to be used in a spec"""
     uploadedfile = request.FILES['file']

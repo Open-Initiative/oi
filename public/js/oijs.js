@@ -79,7 +79,15 @@ function show(divid) {
 function hide(divid) {
     document.getElementById(divid).style.display="none";
 }
-
+function hidePopups() {
+    var i, popup;
+    for(popup=document.popups[i=0]; i<document.popups.length; popup=document.popups[++i])
+        popup.style.display = "none";
+}
+function addPopup(popup) {
+    document.popups = (document.popups || []).concat(popup);
+    addEvent(document, "click", hidePopups);
+}
 function parseDate(dateString) {
     if(dateString) {
         date = dateString.split(" ")[0].split("-");
