@@ -80,6 +80,10 @@ function hide(divid) {
     document.getElementById(divid).style.display="none";
 }
 function hidePopups() {
+    if(document.ignoreClosePopups) {
+        document.ignoreClosePopups = false;
+        return;
+    }
     var i, popup;
     for(popup=document.popups[i=0]; i<document.popups.length; popup=document.popups[++i])
         popup.style.display = "none";

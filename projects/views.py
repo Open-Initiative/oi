@@ -631,6 +631,8 @@ def savespot(request, id, specid, spotid):
     if spotid=="0":
         spot = Spot(spec = Spec.objects.get(id=specid))
     else:
+        if spot.spec.project.id != int(id):
+            return HttpResponse(_("Wrong arguments"), status=531)
         spot = Spot.objects.get(id=spotid)
     spot.offsetX = request.POST['x']
     spot.offsetY = request.POST['y']
@@ -642,12 +644,12 @@ def savespot(request, id, specid, spotid):
     if spot.type == MESSAGE_TYPE:
         spot.message = Message.objects.get(id=request.POST['messageid'])
     spot.save()
-    return HttpResponse(_("Specification annotated"))
+    return HttpResponse(spot.id)
 
 @OINeedsPrjPerms(OI_WRITE)
 def deleteSpot(request, id, specid, spotid):
     spot = Spot.objects.get(id=spotid)
-    if spot.spec == Spec.objects.get(id=specid) and spot.spec.project == Project.objects.get(id=id):
+    if spot.spec.id == int(specid) and spot.spec.project.id == int(id):
         spot.delete()
         return HttpResponse(_("Annotation removed"))
     else:

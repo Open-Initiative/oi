@@ -293,7 +293,7 @@ function OISpot(specDiv, projectid, specid, spotid, x, y, type, title, linkid) {
     this.div.style.display = 'none';
     this.div.spot = this;
     this.fillDiv();
-    this.div.onclick = function(evt) {evt.stopPropagation();return false;};
+    this.div.onclick = function(evt) {document.ignoreClosePopups = true};
     
     this.img = document.createElement("img");
     this.img.src = "/img/spot1.png";
@@ -301,7 +301,7 @@ function OISpot(specDiv, projectid, specid, spotid, x, y, type, title, linkid) {
     this.img.style.left = this.x+"px";
     this.img.style.top = this.y+"px";
     this.img.spot = this;
-    this.img.onclick = function(evt) {this.spot.show();evt.stopPropagation();return false;};
+    this.img.onclick = function(evt) {this.spot.show();document.ignoreClosePopups = true;return false;};
     specDiv.appendChild(this.img);
 }
 OISpot.prototype.edit = function edit() {
@@ -338,7 +338,7 @@ OISpot.prototype.save = function save() {
         this.title = form.messagetitle.value;
         this.linkid = form.messageid.value;
     }
-    OIajaxCall('/project/'+this.projectid+'/savespot/'+this.specid+'/0', prepareForm('spotform'), 'output');
+    this.spotid = OIajaxCall('/project/'+this.projectid+'/savespot/'+this.specid+'/0', prepareForm('spotform'));
     this.fillDiv();
     return false;
 }
