@@ -11,8 +11,7 @@ from django.utils.translation import ugettext as _
 from oi.settings import MEDIA_ROOT
 from oi.helpers import OI_ALL_PERMS, OI_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_ANSWER, OI_COMMISSION, OI_COM_ON_BID
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS
-from oi.helpers import SPEC_TYPES, TEXT_TYPE, to_date
-#from oi.messages.models import Message
+from oi.helpers import SPEC_TYPES, SPOT_TYPES, TEXT_TYPE, NOTE_TYPE, to_date
 
 # A project can contain subprojects and/or specs. Without them it is only a task
 class Project(models.Model):
@@ -33,7 +32,7 @@ class Project(models.Model):
     delay = models.DateTimeField(blank=True, null=True)
     progress = models.FloatField(default=0.0)
     priority = models.IntegerField(default=0)
-    state = models.IntegerField(choices=OI_PRJ_STATES)
+    state = models.IntegerField(choices=OI_PRJ_STATES, default=OI_PROPOSED)
     public = models.BooleanField(default=True)
     
     # overloads save to compute master project
@@ -97,6 +96,7 @@ class Project(models.Model):
 
     @commit_on_success
     def apply_perm(self, user, perm):
+        p.set_perm(user, perm)
         for descendant in self.descendants.all():
             descendant.set_perm(user, perm)
 
@@ -200,7 +200,19 @@ class Spec(models.Model):
     #saves project as well
     def save(self):
         self.project.save()
-        super(Spec, self).save()   
+        super(Spec, self).save()
+
+class Spot(models.Model):
+    author = models.ForeignKey(User, null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    spec = models.ForeignKey(Spec)
+    offsetX = models.IntegerField(default=0)
+    offsetY = models.IntegerField(default=0)
+    type = models.IntegerField(choices=SPOT_TYPES.items(), default=NOTE_TYPE)
+    note = models.TextField(null=True, blank=True)
+    task = models.ForeignKey(Project, null=True, blank=True)
+    message = models.ForeignKey('messages.Message', null=True, blank=True)
 
 # Offer of users on projets
 class Bid(models.Model):

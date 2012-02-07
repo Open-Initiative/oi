@@ -1,5 +1,5 @@
 {% load i18n %}
-﻿{% load oifilters %}
+{% load oifilters %}
 {% with request.GET.divid|default:"newmessage" as divid %}
 <div class="message">
     <div class="column">
@@ -24,12 +24,6 @@
             <input id="project_{{divid}}"type="hidden"  value="{{request.GET.project}}" />
             <img class="clickable" src="/img/icons/ok-32.png" onclick="saveMessage('{{divid}}',{{message.id|default:0}})" />
             <img class="clickable" src="/img/icons/del-32.png" onclick="cancelMessage('{{divid}}',{{message.id|default:0}})" />
-<!--            {% if user.is_authenticated %}-->
-<!--            <input type="checkbox" id="rfp" {% if request.GET.rfp = "true" or message.rfp %}checked{% endif %}>-->
-<!--            {% else %}-->
-<!--            <input type="checkbox" id="rfp" onclick="document.location = '/login?next='+document.location">-->
-<!--            {% endif %}-->
-<!--            <label for="rfp">{% trans "Request for proposal" %}<img src="/img/askoi.png" alt="{% trans "By checking this box, you invite members to make formal project proposals in which you will be able to select the one that suits your needs." %}" title="{% trans "By checking this box, you invite members to make formal project proposals in which you will be able to select the one that suits your needs." %}"/></label>-->
         </div>
         <div class="msgbtm"></div>
     </div>

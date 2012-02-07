@@ -57,6 +57,12 @@ VIDEO_TYPE = 4
 DOC_TYPE = 5
 SPEC_TYPES =  {TEXT_TYPE:_("Text"), IMAGE_TYPE:_("Image"), URL_TYPE:_("url link"), VIDEO_TYPE:_("Video"), DOC_TYPE:_("Attachment")}
 
+#Spot types
+NOTE_TYPE = 1
+TASK_TYPE = 2
+MESSAGE_TYPE = 3
+SPOT_TYPES =  {NOTE_TYPE:_("Note"), TASK_TYPE:_("Task"), MESSAGE_TYPE:_("Discussion")}
+
 class OIAction:
     def show(self, project, user):
         return True

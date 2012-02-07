@@ -4,6 +4,7 @@ function setTaskName(div, id, title, view) {
     titleDiv.className = "treetitle";
     div.appendChild(titleDiv);
     titleDiv.innerHTML = '<a href="/project/get/'+id+'/'+view+'">'+title+'</a>';
+    titleDiv.title = title;
     var newTaskForm = document.createElement("form");
     newTaskForm.id = "newtask_"+id;
     div.appendChild(newTaskForm);
@@ -15,10 +16,12 @@ function addTask(tasktitle, projectid, userid) {
     answer = OIajaxCall("/project/save/0", params)
     if(answer) {
         task = eval(answer)[0];
-        position = oiTree.nodes[projectid].children.length;
-        setTaskName(oiTree.addChild(projectid, task.pk, 0, position), task.pk, task.fields.title, viewname);
+        if(window.oiTree) {
+            position = oiTree.nodes[projectid].children.length;
+            setTaskName(oiTree.addChild(projectid, task.pk, 0, position), task.pk, task.fields.title, viewname);
+        }
     }
-    return false;
+    return task.pk;
 }
 function showChildren(projectid) {
     var i, afterid = projectid, children = oiTree.nodes[projectid].children;
@@ -48,8 +51,10 @@ function onExpandNode(projectid) {
             afterid = task.pk;
         }
     }
-    if(oiTree.selected) oiTable.addSpace(oiTree.selected);
-    if(oiTable) oiTable.redraw();
+    if(window.oiTable) {
+        if(oiTree.selected) oiTable.addSpace(oiTree.selected);
+        if(oiTable) oiTable.redraw();
+    }
 }
 function onShrinkNode(projectid) {
     if(oiTable) {
@@ -60,7 +65,7 @@ function onShrinkNode(projectid) {
 function setActiveTask(projectid, canAdd) {
     if(canAdd) {
         form = document.getElementById("newtask_"+projectid);
-        form.onsubmit = function(){return addTask(getValue("newtask_title_"+projectid, true),projectid);};
+        form.onsubmit = function(){addTask(getValue("newtask_title_"+projectid, true),projectid);return false};
         form.innerHTML = '<input type="image" src="/img/icons/addtask.png" alt="'+gettext("New task")+'" title="'+gettext("New task")+'" />'+
             '<input type="text" id="newtask_title_'+projectid+'" class="newtask_title" value="'+gettext("New task")+'" '+
             'onclick="if(this.value==\''+gettext("New task")+'\')this.value=\'\'" onblur="if(!this.value)this.value=\''+gettext("New task")+'\'"/>';
@@ -230,6 +235,7 @@ function updateProgress(projectid, progress) {
 function observeProject(prjid, param){
     OIajaxCall("/project/observe/"+prjid, param, "output");
 }
+
 function addSpec(projectid, specorder) {
     if(specorder==-1) divid = newDiv("specs_"+projectid);
     else divid = newDivTop("spec_"+projectid+"_"+specorder);
@@ -243,11 +249,11 @@ function editSpec(projectid, specorder) {
     OIajaxCall("/project/"+projectid+"/editspec/"+specid+"?divid="+divid, null, divid);
     changeSpecType(divid);
 }
-function changeSpecType(divid){
+function changeSpecType(divid) {
     tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
-    type=getValue("type_"+divid);
-    projectid=getValue("projectid_"+divid);
-    specid=getValue("specid_"+divid);
+    type = getValue("type_"+divid);
+    projectid = getValue("projectid_"+divid);
+    specid = getValue("specid_"+divid);
     url = "/project/"+projectid+"/editspecdetails/"+specid+"?divid="+divid+"&type="+type;
     OIajaxCall(url, null, "spec_"+divid);
     tinyMCE.execCommand('mceAddControl', false, 'text_'+divid);
@@ -268,6 +274,80 @@ function deleteSpec(projectid, specorder) {
         clearDiv("spec_"+projectid+"_"+specorder);
     }
 }
+
+function OISpot(specDiv, projectid, specid, x, y, type, title, linkid) {
+    this.projectid = projectid;
+    this.specid = specid;
+    this.x = x;
+    this.y = y;
+    this.type = type;
+    this.title = title;
+    this.linkid = linkid;
+    
+    this.div = document.getElementById(newDiv(specDiv.id));
+    this.div.className = 'popup';
+    this.div.style.position= "absolute";
+    this.div.style.left = this.x+"px";
+    this.div.style.top = this.y+"px";
+    this.div.style.display = 'none';
+    this.div.spot = this;
+    this.fillDiv();
+    
+    this.img = document.createElement("img");
+    this.img.src = "/img/spot1.png";
+    this.img.style.position= "absolute";
+    this.img.style.left = this.x+"px";
+    this.img.style.top = this.y+"px";
+    this.img.spot = this;
+    this.img.onclick = function() {this.spot.show();return false;};
+    specDiv.appendChild(this.img);
+}
+OISpot.prototype.edit = function edit() {
+    OIajaxCall('/project/'+this.projectid+'/editspot/'+this.specid+"/"+this.x+"/"+this.y, null, this.div.id);
+    this.show();
+}
+OISpot.prototype.fillDiv = function fillDiv() {
+    this.div.innerHTML = "";
+    if(!this.type) return;
+    var content = "";
+    if(this.type == 2) content += "<a href='/project/get/"+this.linkid+"'>";
+    if(this.type == 3) content += "<a href='#message_"+this.linkid+"_box'>";
+    content += this.title;
+    if(this.type==2 || this.type==3) content += "</a>";
+    content += " <img src='/img/icons/edit.png' class='clickable' onclick='this.parentElement.spot.edit()'/>";
+    content += " <img src='/img/icons/delete.png' />";
+    this.div.innerHTML = content;
+}
+OISpot.prototype.save = function save() {
+    var form = this.div.firstElementChild;
+    this.type = form.spottype.value;
+    if(this.type == 1) this.title = form.note.value;
+    if(this.type == 2) {
+        this.title = form.tasktitle.value;
+        form.taskid.value = addTask(this.title, this.projectid);
+        this.linkid = form.taskid.value;
+    }
+    if(this.type == 3) {
+        var divid = newDiv("discussions_"+this.projectid);
+        var params = "message="+form.messagebody.value.replace(/\+/gi,"%2B")+
+        "&title="+form.messagetitle.value.replace(/\+/gi,"%2B")+"&project="+this.projectid;
+        OIajaxCall("/message/save/0", params, divid);
+        form.messageid.value = document.getElementById(divid).firstElementChild.id.split('_')[1];
+        this.title = form.messagetitle.value;
+        this.linkid = form.messageid.value;
+    }
+    OIajaxCall('/project/'+this.projectid+'/savespot/'+this.specid+'/0', prepareForm('spotform'), 'output');
+    this.fillDiv();
+    return false;
+}
+OISpot.prototype.show = function show() {
+    this.div.style.display = "block";
+//    addEvent(document, "click", this.hide);
+}
+OISpot.prototype.hide = function hide() {
+    this.div.style.display = "none";
+}
+
 function deltmp(projectid,filename,ts,divid) {
     OIajaxCall("/project/"+projectid+"/deltmp", "filename="+filename+"&ts="+ts+"&divid="+divid, "output");
     changeFile(divid);

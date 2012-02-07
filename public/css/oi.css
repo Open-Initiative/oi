@@ -358,7 +358,6 @@ div.popup {
     left: 300px;
     position: fixed;
     top: 150px;
-    width: 210px;
     z-index: 1;
 }
 div.actions {

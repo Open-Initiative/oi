@@ -60,7 +60,6 @@ function getValue(eltid, erase){
 }
 function newDiv(parentid) {
     divid = "oi" + (""+Math.random()).slice(5);
-//    document.getElementById(parentid).innerHTML+='<div id="'+divid+'"></div>';
     var newdiv = document.createElement('div');
     newdiv.setAttribute('id',divid);
     document.getElementById(parentid).appendChild(newdiv);
@@ -236,5 +235,16 @@ if (!Array.prototype.indexOf)
     }
     return -1;
   };
+}
+function addEvent(obj, evType, fn) {
+    if (obj.addEventListener) {
+        obj.addEventListener(evType, fn, false);
+        return true;
+    } else if (obj.attachEvent) {
+        var r = obj.attachEvent("on" + evType, fn);
+        return r;
+    } else {
+        alert("Handler could not be attached");
+    }
 }
 

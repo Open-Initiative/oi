@@ -1,0 +1,33 @@
+{% load i18n %}
+{% load oifilters %}
+<form id="spotform" onsubmit="return this.parentElement.spot.save()">
+    {% trans "Add a " %}
+    <input type="hidden" name="x" value="{{params.x}}" />
+    <input type="hidden" name="y" value="{{params.y}}" />
+    <select name="spottype">
+        <option value="1" onclick="hide('spottask');hide('spotmessage');show('spotnote');">{% trans "note" %}</option>
+        <option value="2" onclick="show('spottask');hide('spotmessage');hide('spotnote');">{% trans "task" %}</option>
+        <option value="3" onclick="hide('spottask');show('spotmessage');hide('spotnote');">{% trans "discussion" %}</option>
+    </select>
+    <div id="spotnote">
+        <textarea name="note" rows="4" cols="40"></textarea>
+    </div>
+    <div class="invisible" id="spottask">
+        <input name="tasktitle" type="text" id="newtask_title_{{params.id}}'" class="newtask_title" value="{% trans 'New task' %}"
+            onclick="if(this.value=='{% trans 'New task' %}')this.value=''" onblur="if(!this.value)this.value='{% trans 'New task' %}'"/>
+        <input type="hidden" name="taskid" />
+    </div>
+    <div class="invisible" id="spotmessage">
+        <div class="msgtop">
+            <input name="messagetitle" id="title_{{divid}}" class="msgfield" type="text" value="{{message.title}}" maxlength=100 />
+        </div>
+        <div class="msgbody">
+            <textarea name="messagebody" id="text_{{divid}}" rows="15" class="msgfield">{{message.text|oiunescape}}</textarea>
+            <input id="project_{{divid}}"type="hidden" value="{{params.id}}" />
+        </div>
+        <div class="msgbtm"></div>
+        <input type="hidden" name="messageid" />
+    </div>
+    <input type="image" src="/img/icons/ok-32.png" alt="{% trans "Add" %}" />
+    <img class="clickable" src="/img/icons/del-32.png" alt="{% trans "Cancel" %}" onclick="hide(this.parentElement.parentElement.id)"/>
+</form>

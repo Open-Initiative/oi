@@ -3,7 +3,7 @@
 from django.conf.urls.defaults import *
 from django.views.generic.list_detail import object_detail
 from django.views.generic.simple import direct_to_template
-from oi.projects.models import Project, OINeedsPrjPerms, OI_READ, OI_WRITE
+from oi.projects.models import Project, Spec, OINeedsPrjPerms, OI_READ, OI_WRITE
 
 urlpatterns = patterns('oi.projects.views',
     (r'^get/(?P<id>\d+)/(?P<view>\w*)$', 'getproject'),
@@ -49,6 +49,8 @@ urlpatterns = patterns('oi.projects.views',
     (r'^(?P<id>\d+)/uploadfile/(?P<specid>\d+)$', 'uploadfile'),
     (r'^(?P<id>\d+)/savespec/(?P<specid>\d+)$', 'savespec'),
     (r'^(?P<id>\d+)/deletespec/(?P<specid>\d+)$', 'deletespec'),
+    (r'^(?P<id>\d+)/editspot/(?P<specid>\d+)/(?P<x>\d+)/(?P<y>\d+)$', direct_to_template, {'template': 'projects/spec/edit_spot.html'}),
+    (r'^(?P<id>\d+)/savespot/(?P<specid>\d+)/(?P<spotid>\d+)$', 'savespot'),
     (r'^(?P<id>\d+)/deltmp$', 'deltmpfile'),
     (r'^(?P<id>\d+)/(?P<filename>.+)$', 'getfile'),
     (r'^rss/(?P<id>\d+)$', 'OIFeed'),

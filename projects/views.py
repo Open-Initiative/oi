@@ -23,8 +23,8 @@ from oi.notification import models as notification
 from oi.settings import MEDIA_ROOT, TEMP_DIR
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS
 from oi.helpers import OI_PRJ_DONE, OI_NO_EVAL, OI_ACCEPT_DELAY, OI_READ, OI_ANSWER, OI_WRITE, OI_ALL_PERMS, OI_CANCELLED_BID, OI_COM_ON_BID
-from oi.helpers import SPEC_TYPES, OIAction, ajax_login_required
-from oi.projects.models import Project, Spec, Bid, PromotedProject, OINeedsPrjPerms
+from oi.helpers import SPEC_TYPES, SPOT_TYPES, NOTE_TYPE, TASK_TYPE, MESSAGE_TYPE, OIAction, ajax_login_required
+from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeedsPrjPerms
 from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
 
@@ -71,7 +71,6 @@ def editproject(request, id):
         if not project.has_perm(request.user, OI_WRITE):
             return HttpResponseForbidden(_("Forbidden"))
     return direct_to_template(request, template='projects/editproject.html', extra_context={'user': request.user, 'parent':request.GET.get("parent"), 'project':project})
-    # 'message':request.GET.get("message"),
 
 @login_required
 def saveproject(request, id='0'):
@@ -626,7 +625,25 @@ def deletespec(request, id, specid):
         return HttpResponse(_("Can not change a project already started"), status=431)
     spec.delete()
     return HttpResponse(_("Specification deleted"))
-    
+
+@OINeedsPrjPerms(OI_WRITE)
+def savespot(request, id, specid, spotid):
+    if spotid=="0":
+        spot = Spot(spec = Spec.objects.get(id=specid))
+    else:
+        spot = Spot.objects.get(id=spotid)
+    spot.offsetX = request.POST['x']
+    spot.offsetY = request.POST['y']
+    spot.type = int(request.POST['spottype'])
+    if spot.type == NOTE_TYPE:
+        spot.note = request.POST['note']
+    if spot.type == TASK_TYPE:
+        spot.task = Project.objects.get(id=request.POST['taskid'])
+    if spot.type == MESSAGE_TYPE:
+        spot.message = Message.objects.get(id=request.POST['messageid'])
+    spot.save()
+    return HttpResponse(_("Specification annotated"))
+
 @OINeedsPrjPerms(OI_WRITE)
 def uploadfile(request, id, specid='0'):
     """temporarily stores a file to be used in a spec"""

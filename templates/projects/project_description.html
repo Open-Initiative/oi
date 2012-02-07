@@ -23,7 +23,7 @@
 <h1>Discussions</h1>
 <div id="discussions_{{project.id}}">
     {% for message in project.message_set.all %}
-    {% include 'messages/message.html' %}
+    <div id="message_{{message.id}}_box">{% include 'messages/message.html' %}</div>
     {% endfor %}
 </div>
 {% if project|can_write:user %}<a class="clickable" onclick="addMessage(null, {{project.id}})"><img src="/img/icons/add.png" alt="{% trans "Add a discussion" %}" title="{% trans "Add a discussion" %}"/> {% trans "Add a discussion" %}</a>{% endif %}
