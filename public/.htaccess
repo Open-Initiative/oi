@@ -1,4 +1,4 @@
-AddHandler fastcgi-script .fcgi
+AddHandler fcgid-script .fcgi
 XSendFile On
 XSendFileAllowAbove on
 RewriteEngine On
