@@ -14,3 +14,8 @@ def deploy_pp():
     local("git push pp")
     with cd("oi"):
         run("git merge devel")
+        
+def deploy_PROD():
+    local("git push prod")
+    with cd("oi"):
+        run("git merge master")
