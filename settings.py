@@ -133,10 +133,11 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'django.contrib.messages',
+#    'south',
     'haystack',
     'oi.messages',
     'oi.projects',
     'oi.users',
     'oi.notification',
+    'django.contrib.messages',
 )
