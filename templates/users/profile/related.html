@@ -12,19 +12,15 @@
     <h3>{% trans "My latest posts" %}</h3>
     <div>
         {% for message in selected_user.get_profile.blog.children.all|slice:":5" %}
-        <a  href="/message/get/{{message.id}}">
-            {% include "messages/messagesmall.html" %}
-        </a>
+        <a  href="/message/get/{{message.id}}">{{message.title}}</a>
         {% empty %}
         {% trans "No publication" %}
         {%endfor%}
         {% if selected_user.get_profile.blog.children.all %}<a href="/user/blog/{{selected_user.id}}">{% trans "See all publications" %}</a>{% endif %}
     </div>
     <h3>{% trans "My latest projects" %}</h3>
-    <div class="pile">
         {% for project in selected_user.ownprojects.all|dictsortreversed:"modified"|slice:":5" %}
-        {% include "projects/projectsmall.html" %}
+        <div><a  href="/project/get/{{project.id}}">{{project.title}}</a></div>
         {% endfor %}
-    </div>
 </div>
 
