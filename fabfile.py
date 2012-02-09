@@ -13,4 +13,4 @@ def init_south():
 def deploy_pp():
     local("git push pp")
     with cd("oi"):
-        run("git merge origin/devel")
+        run("git merge devel")
