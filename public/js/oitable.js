@@ -2,7 +2,7 @@ function OITable(divid, columns) {
     this.div = document.getElementById(divid);
     this.table = document.createElement("table");
     this.header = document.createElement("tr");
-    this.lineheight = 20;
+    this.lineheight = 25;
     this.space = null;
     
     var i;
