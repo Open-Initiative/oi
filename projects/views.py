@@ -659,7 +659,7 @@ def savespot(request, id, specid, spotid):
     return HttpResponse(spot.id)
 
 @OINeedsPrjPerms(OI_WRITE)
-def deleteSpot(request, id, specid, spotid):
+def removeSpot(request, id, specid, spotid):
     spot = Spot.objects.get(id=spotid)
     if spot.spec.id == int(specid) and spot.spec.project.id == int(id):
         spot.delete()

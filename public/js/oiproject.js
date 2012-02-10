@@ -317,7 +317,7 @@ OISpot.prototype.fillDiv = function fillDiv() {
     content += this.title;
     if(this.type==2 || this.type==3) content += "</a>";
     content += " <img src='/img/icons/edit.png' class='clickable' onclick='this.parentElement.spot.edit()'/>";
-    content += " <img src='/img/icons/delete.png' class='clickable' onclick='this.parentElement.spot.delete()'/>";
+    content += " <img src='/img/icons/delete.png' class='clickable' onclick='this.parentElement.spot.remove()'/>";
     this.div.innerHTML = content;
 }
 OISpot.prototype.save = function save() {
@@ -346,9 +346,9 @@ OISpot.prototype.show = function show() {
     this.div.style.display = "block";
     addPopup(this.div);
 }
-OISpot.prototype.delete = function delete() {
-    if(confirm(gettext("Are you sure you want to permanently delete this annotation?"))) {
-        OIajaxCall('/project/'+this.projectid+'/deletespot/'+this.specid+'/'+this.spotid, null, 'output');
+OISpot.prototype.remove = function remove() {
+    if(confirm(gettext("Are you sure you want to permanently remove this annotation?"))) {
+        OIajaxCall('/project/'+this.projectid+'/removespot/'+this.specid+'/'+this.spotid, null, 'output');
         this.img.parentElement.removeChild(this.img);
         this.div.parentElement.removeChild(this.div);
     }
