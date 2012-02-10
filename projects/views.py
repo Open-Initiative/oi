@@ -6,6 +6,7 @@ from time import time
 from datetime import datetime,timedelta
 from decimal import Decimal, InvalidOperation
 from urllib import quote
+from unicodedata import normalize
 from django.core import serializers
 from django.core.urlresolvers import reverse
 from django.core.files import File
@@ -210,7 +211,10 @@ def offerproject(request, id):
         return HttpResponse(_("Can not change a project already started"), status=431)
 
     project.assignee = request.user
-    project.offer = Decimal("0"+request.POST.get("offer","0").replace(",","."))
+    try:
+        project.offer = Decimal("0"+request.POST.get("offer","0").replace(",","."))
+    except InvalidOperation:
+        return HttpResponse(_('Please enter a valid number'), status=531)
     project.save()
     project.apply_perm(project.assignee, OI_ALL_PERMS)
 
@@ -585,7 +589,6 @@ def editspecdetails(request, id, specid):
 @OINeedsPrjPerms(OI_WRITE)
 def savespec(request, id, specid='0'):
     """saves the spec"""
-    author=request.user
     project = Project.objects.get(id=id)
     
     order = int(request.POST["order"])
@@ -597,7 +600,7 @@ def savespec(request, id, specid='0'):
         project.insert_spec(order)
     
     if specid=='0': #new spec
-        spec = Spec(text = oiescape(request.POST["text"]), author=author, project=project, order=order, type=int(request.POST["type"]))
+        spec = Spec(text = oiescape(request.POST["text"]), author=request.user, project=project, order=order, type=int(request.POST["type"]))
     else: #edit existing spec
         spec = Spec.objects.get(id=specid)
         spec.text = oiescape(request.POST["text"])
@@ -605,11 +608,20 @@ def savespec(request, id, specid='0'):
     if request.POST.has_key("url"):
         spec.url = request.POST["url"]
         
-    filename = request.POST.get("filename")
+    filename = normalize("NFC", request.POST.get("filename"))
+#    from django.utils._os import safe_join
+#    from oi import settings
+#    path = ("%s%s_%s_%s"%(TEMP_DIR,request.user.id,request.POST["ts"],filename)).encode("utf-8")
+#    f=File(open(path))
+#    name=("%s%s"%(settings.MEDIA_ROOT,filename.encode("utf-8")))
+#    name2=safe_join(settings.MEDIA_ROOT,filename.encode("utf-8"))
+#    os.stat(name)
+##    spec.file.save(filename, File(open(path)), False)
+#    return HttpResponse(path)
     if filename:
         spec.file.delete()
-        path = "%s%s_%s_%s"%(TEMP_DIR,request.user.id,request.POST["ts"],filename)
-        spec.file.save(filename, File(open(path)), False)
+        path = ("%s%s_%s_%s"%(TEMP_DIR,request.user.id,request.POST["ts"],filename)).encode("utf-8")
+        spec.file.save(filename.encode("utf-8"), File(open(path)), False)
         os.remove(path)
     spec.save()
 
@@ -661,7 +673,8 @@ def uploadfile(request, id, specid='0'):
     uploadedfile = request.FILES['file']
     divid = request.POST['divid']
     ts = int(time())
-    tempfile = open("%s%s_%s_%s"%(TEMP_DIR,request.user.id,ts,uploadedfile.name), 'wb+')
+    filename = normalize("NFC", uploadedfile.name).encode('utf-8')
+    tempfile = open("%s%s_%s_%s"%(TEMP_DIR,request.user.id,ts,filename), 'wb+')
     for chunk in uploadedfile.chunks():
         tempfile.write(chunk)
     tempfile.close()
