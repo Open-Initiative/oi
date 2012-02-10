@@ -96,7 +96,7 @@ class Project(models.Model):
 
     @commit_on_success
     def apply_perm(self, user, perm):
-        p.set_perm(user, perm)
+        self.set_perm(user, perm)
         for descendant in self.descendants.all():
             descendant.set_perm(user, perm)
 
@@ -166,7 +166,7 @@ class ProjectACL(models.Model):
     class Meta:
         unique_together = (("project", "user", "permission"),)
     def __unicode__(self):
-        return "%s on %s: %s"%(self.user, self.project, self.permission)
+        return "%s on %s: %s"%(self.user, self.project.title, self.permission)
 
 #Décorateur de vérification de permissions
 def OINeedsPrjPerms(*required_perms):

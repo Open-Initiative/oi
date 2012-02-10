@@ -29,7 +29,7 @@ def create_notice_types(app, created_models, verbosity, **kwargs):
     notification.create_notice_type("project_bid", _(u"Bid on the project"), _(u"A project you follow has been bid on"))
     notification.create_notice_type("project_state", _(u"Project progress"), _(u"A project you follow has changed state"))
     notification.create_notice_type("project_eval", _(u"Project evaluation"), _(u"A user has evaluated your project"))
-    notification.create_notice_type("project__bid_cancel", _(u"Bid cancelled"), _(u"A user has cancelled his bis on a project"))
+    notification.create_notice_type("project_bid_cancel", _(u"Bid cancelled"), _(u"A user has cancelled his bis on a project"))
     notification.create_notice_type("project_cancel", _(u"Project cancelled"), _(u"A user has requested the project to be cancelled"))
     notification.create_notice_type("project_spec", _(u"Specification changed"), _(u"The specification of a project you follow has been changed"))
 

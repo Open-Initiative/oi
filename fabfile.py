@@ -19,3 +19,13 @@ def deploy_PROD():
     local("git push prod")
     with cd("oi"):
         run("git merge master")
+
+def maintenance_PROD():
+    run("mv www www.off;mv wwwtmp www")
+    
+def unmaintenance_PROD():
+    run("mv www wwwtmp;mv www.off www")
+
+def update():
+    with cd("oi"):
+        run("python update.py")
