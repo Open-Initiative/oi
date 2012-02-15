@@ -304,7 +304,9 @@ function OISpot(specDiv, projectid, specid, spotid, x, y, title, linkid, number)
     this.positionelt(this.number);
     this.number.style.color = "white";
     this.number.style.fontWeight = "bold";
-    this.number.style.padding = "2px";
+    this.number.style.padding = "2px 6px";
+    this.number.spot = this;
+    this.number.onclick = function(evt) {this.spot.show();document.ignoreClosePopups = true;return false;};
     specDiv.appendChild(this.number);
 }
 OISpot.prototype.positionelt = function positionelt(elt) {
@@ -334,7 +336,14 @@ OISpot.prototype.save = function save() {
 }
 OISpot.prototype.show = function show() {
     this.div.style.display = "block";
-    addPopup(this.div);
+    addPopup(this);
+}
+OISpot.prototype.hide = function show() {
+    this.div.style.display = "none";
+    if(!this.linkid) {
+        this.img.style.display = "none";
+        this.number.style.display = "none";
+    }
 }
 OISpot.prototype.remove = function remove() {
     if(confirm(gettext("Are you sure you want to permanently remove this annotation?"))) {

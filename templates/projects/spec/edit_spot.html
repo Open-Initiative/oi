@@ -1,6 +1,6 @@
 {% load i18n %}
 {% load oifilters %}
-<form id="spotform" onsubmit="return this.parentElement.spot.save()">
+<form id="spotform" onsubmit="return this.parentElement.spot.save()" onclick="event.stopPropagation();">
     <input type="hidden" name="x" value="{{params.x}}" />
     <input type="hidden" name="y" value="{{params.y}}" />
     <div id="spottask">
