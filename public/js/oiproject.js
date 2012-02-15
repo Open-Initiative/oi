@@ -275,7 +275,7 @@ function deleteSpec(projectid, specorder) {
     }
 }
 
-function OISpot(specDiv, projectid, specid, spotid, x, y, type, title, linkid) {
+function OISpot(specDiv, projectid, specid, spotid, x, y, title, linkid, number) {
     this.projectid = projectid;
     this.specid = specid;
     this.spotid = spotid;
@@ -286,9 +286,7 @@ function OISpot(specDiv, projectid, specid, spotid, x, y, type, title, linkid) {
 
     this.div = document.getElementById(newDiv(specDiv.id));
     this.div.className = 'popup';
-    this.div.style.position= "absolute";
-    this.div.style.left = this.x+"px";
-    this.div.style.top = this.y+"px";
+    this.positionelt(this.div);
     this.div.style.display = 'none';
     this.div.spot = this;
     this.fillDiv();
@@ -296,12 +294,23 @@ function OISpot(specDiv, projectid, specid, spotid, x, y, type, title, linkid) {
     
     this.img = document.createElement("img");
     this.img.src = "/img/spot1.png";
-    this.img.style.position= "absolute";
-    this.img.style.left = this.x+"px";
-    this.img.style.top = this.y+"px";
+    this.positionelt(this.img);
     this.img.spot = this;
     this.img.onclick = function(evt) {this.spot.show();document.ignoreClosePopups = true;return false;};
     specDiv.appendChild(this.img);
+    
+    this.number = document.createElement("span");
+    this.number.innerHTML = number;
+    this.positionelt(this.number);
+    this.number.style.color = "white";
+    this.number.style.fontWeight = "bold";
+    this.number.style.padding = "2px";
+    specDiv.appendChild(this.number);
+}
+OISpot.prototype.positionelt = function positionelt(elt) {
+    elt.style.position= "absolute";
+    elt.style.left = this.x+"px";
+    elt.style.top = this.y+"px";
 }
 OISpot.prototype.edit = function edit() {
     OIajaxCall('/project/'+this.projectid+'/editspot/'+this.specid+"/"+this.x+"/"+this.y, null, this.div.id);
@@ -315,7 +324,7 @@ OISpot.prototype.fillDiv = function fillDiv() {
     this.div.innerHTML = content;
 }
 OISpot.prototype.save = function save() {
-    var form = this.div.firstElementChild;
+    var form = (this.div.firstElementChild || this.div.children[0]);
     this.title = form.tasktitle.value;
     form.taskid.value = addTask(this.title, this.projectid);
     this.linkid = form.taskid.value;

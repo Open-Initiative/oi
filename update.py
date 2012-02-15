@@ -12,5 +12,3 @@ from oi.notification.models import NoticeType
 n = NoticeType.objects.get(label="project__bid_cancel")
 n.label = "project_bid_cancel"
 n.save()
-
-

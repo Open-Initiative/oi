@@ -640,6 +640,7 @@ def deletespec(request, id, specid):
 
 @OINeedsPrjPerms(OI_WRITE)
 def savespot(request, id, specid, spotid):
+    """saves an annotation spot linked to a spec"""
     if spotid=="0":
         spot = Spot(spec = Spec.objects.get(id=specid))
     else:
@@ -650,7 +651,7 @@ def savespot(request, id, specid, spotid):
     spot.offsetY = request.POST['y']
     spot.task = Project.objects.get(id=request.POST['taskid'])
     spot.save()
-    return HttpResponse(spot.id)
+    return HttpResponse('/project/get/%s'%(spot.task.id),status=333)
 
 @OINeedsPrjPerms(OI_WRITE)
 def removeSpot(request, id, specid, spotid):

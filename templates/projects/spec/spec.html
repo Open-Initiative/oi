@@ -27,5 +27,5 @@
     <div class="sepspec"></div>
 </div>
 {% for spot in spec.spot_set.all %}{% if forloop.first %}<script>{% endif %}
-    new OISpot(document.getElementById("spec_{{project.id}}_{{spec.order}}"), {{project.id}}, {{spec.id}}, {{spot.id}}, {{spot.offsetX}}, {{spot.offsetY}}, {{spot.type}}, {% if spot.type == 1 %}'{{spot.note}}'{% else %}{% if spot.type == 2 %}'{{spot.task.title}}', {{spot.task.id}}{% else %}{% if spot.type == 3 %}'{{spot.message.title}}', {{spot.message.id}}{% endif %}{% endif %}{% endif %});
+    new OISpot(document.getElementById("spec_{{project.id}}_{{spec.order}}"), {{project.id}}, {{spec.id}}, {{spot.id}}, {{spot.offsetX}}, {{spot.offsetY}}, '{{spot.task.title}}', {{spot.task.id}}, {{spot.number}});
 {% if forloop.last %}</script>{% endif %}{% endfor %}

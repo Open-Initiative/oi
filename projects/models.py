@@ -210,6 +210,12 @@ class Spot(models.Model):
     offsetX = models.IntegerField(default=0)
     offsetY = models.IntegerField(default=0)
     task = models.ForeignKey(Project, null=True, blank=True)
+    number = models.IntegerField()
+    
+    def save(self):
+        """puts last number for spec if none is provided"""
+        self.number = (self.spec.spot_set.aggregate(maxnumber=models.Max('number'))['maxnumber'] or 0) + 1
+        super(Spot, self).save()
 
 # Offer of users on projets
 class Bid(models.Model):
