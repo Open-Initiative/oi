@@ -14,11 +14,13 @@ def deploy_pp():
     local("git push pp")
     with cd("oi"):
         run("git merge devel")
+        run("./manage.py migrate")
         
 def deploy_PROD():
     local("git push prod")
     with cd("oi"):
         run("git merge master")
+        run("./manage.py migrate")
 
 def maintenance_PROD():
     run("mv www www.off;mv wwwtmp www")

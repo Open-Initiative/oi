@@ -209,10 +209,7 @@ class Spot(models.Model):
     spec = models.ForeignKey(Spec)
     offsetX = models.IntegerField(default=0)
     offsetY = models.IntegerField(default=0)
-    type = models.IntegerField(choices=SPOT_TYPES.items(), default=NOTE_TYPE)
-    note = models.TextField(null=True, blank=True)
     task = models.ForeignKey(Project, null=True, blank=True)
-    message = models.ForeignKey('messages.Message', null=True, blank=True)
 
 # Offer of users on projets
 class Bid(models.Model):

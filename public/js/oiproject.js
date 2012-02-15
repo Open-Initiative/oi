@@ -281,7 +281,6 @@ function OISpot(specDiv, projectid, specid, spotid, x, y, type, title, linkid) {
     this.spotid = spotid;
     this.x = x;
     this.y = y;
-    this.type = type;
     this.title = title;
     this.linkid = linkid;
 
@@ -310,34 +309,16 @@ OISpot.prototype.edit = function edit() {
 }
 OISpot.prototype.fillDiv = function fillDiv() {
     this.div.innerHTML = "";
-    if(!this.type) return;
-    var content = "";
-    if(this.type == 2) content += "<a href='/project/get/"+this.linkid+"'>";
-    if(this.type == 3) content += "<a href='#message_"+this.linkid+"_box'>";
-    content += this.title;
-    if(this.type==2 || this.type==3) content += "</a>";
+    var content = "<a href='/project/get/"+this.linkid+"'>"+ this.title + "</a>";
     content += " <img src='/img/icons/edit.png' class='clickable' onclick='this.parentElement.spot.edit()'/>";
     content += " <img src='/img/icons/delete.png' class='clickable' onclick='this.parentElement.spot.remove()'/>";
     this.div.innerHTML = content;
 }
 OISpot.prototype.save = function save() {
     var form = this.div.firstElementChild;
-    this.type = form.spottype.value;
-    if(this.type == 1) this.title = form.note.value;
-    if(this.type == 2) {
-        this.title = form.tasktitle.value;
-        form.taskid.value = addTask(this.title, this.projectid);
-        this.linkid = form.taskid.value;
-    }
-    if(this.type == 3) {
-        var divid = newDiv("discussions_"+this.projectid);
-        var params = "message="+form.messagebody.value.replace(/\+/gi,"%2B")+
-        "&title="+form.messagetitle.value.replace(/\+/gi,"%2B")+"&project="+this.projectid;
-        OIajaxCall("/message/save/0", params, divid);
-        form.messageid.value = document.getElementById(divid).firstElementChild.id.split('_')[1];
-        this.title = form.messagetitle.value;
-        this.linkid = form.messageid.value;
-    }
+    this.title = form.tasktitle.value;
+    form.taskid.value = addTask(this.title, this.projectid);
+    this.linkid = form.taskid.value;
     this.spotid = OIajaxCall('/project/'+this.projectid+'/savespot/'+this.specid+'/0', prepareForm('spotform'));
     this.fillDiv();
     return false;

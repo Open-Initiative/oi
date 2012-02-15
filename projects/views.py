@@ -648,13 +648,7 @@ def savespot(request, id, specid, spotid):
         spot = Spot.objects.get(id=spotid)
     spot.offsetX = request.POST['x']
     spot.offsetY = request.POST['y']
-    spot.type = int(request.POST['spottype'])
-    if spot.type == NOTE_TYPE:
-        spot.note = request.POST['note']
-    if spot.type == TASK_TYPE:
-        spot.task = Project.objects.get(id=request.POST['taskid'])
-    if spot.type == MESSAGE_TYPE:
-        spot.message = Message.objects.get(id=request.POST['messageid'])
+    spot.task = Project.objects.get(id=request.POST['taskid'])
     spot.save()
     return HttpResponse(spot.id)
 
