@@ -43,8 +43,8 @@ function OIGantt(divid, startDate, endDate) {
     this.periods = [1000*60*5, 1000*60*60, 1000*60*60*24, 1000*60*60*24*7, "month", "year"];
     this.scale = 1000*60*60;
     this.period = 1000*60*60*24;
-    this.rowHeight = 25;
-    this.headerHeight = 31;
+    this.rowHeight = 30;
+    this.headerHeight = 25;
     this.space = null;
     
     parentdiv = document.getElementById(divid);

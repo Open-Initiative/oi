@@ -24,6 +24,7 @@
     {% trans "Created on:" %} <span class="ganttdate" id="created_{{project.id}}">{{project.created|date:"d/m/Y"}}</span>
     {% trans "Start on:" %} <span class="ganttdate" id="start_date_{{project.id}}">{{project.start_date|date:"d/m/Y"}}</span>
     {% if project|can_write:user and project.state < 2 %}{% with "start_date" as field_name %}{% with project.start_date as date %}{% include "projects/edit_date.html" %}{% endwith %}{% endwith %}{% endif %}
+    <br />
     {% trans "Due on:" %} <span class="ganttdate" id="due_date_{{project.id}}">{{project.due_date|date:"d/m/Y"}}</span>
     {% if project|can_write:user and project.state < 2 %}{% with "due_date" as field_name %}{% with project.due_date as date %}{% include "projects/edit_date.html" %}{% endwith %}{% endwith %}{% endif %}
     {% trans "Validation on:" %} <span class="ganttdate" id="validation_{{project.id}}">{{project.validation|date:"d/m/Y"}}</span>

@@ -19,6 +19,7 @@ OITreeNode.prototype.setContent = function setContent() {
         this.btn.id = "treebtn_"+this.id;
         this.btn.style.cssFloat = "left";
         this.btn.style.styleFloat = "left";
+        this.btn.style.margin = "5px 0";
         this.div.appendChild(this.btn);
     }
     this.titleDiv = document.getElementById(newDiv(this.div.id));

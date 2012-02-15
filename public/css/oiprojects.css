@@ -90,6 +90,7 @@ input.newtask_title {
 div.treelist {
     padding-left: 20px;
     border-bottom: solid 1px #D0574C;
+    margin-top: -1px;
     display: none;
 }
 div.treeroot {
@@ -97,14 +98,11 @@ div.treeroot {
     text-transform: uppercase;
     font-size: 1.2em;
 }
-div.treeelt {
-    padding: 2px;
-    min-height: 16px;
-}
 div.treetitle {
-    height: 25px;
+    height: 20px;
     overflow: hidden;
     text-overflow: ellipsis;
+    padding: 5px;
 }
 div.treebg0 {
     background: #E8E8E9;
@@ -135,16 +133,18 @@ div.ganttbg0 {
 div.ganttbar1 {
     float: left;
     height: 2px;
+    margin-top: 3px;
     background: #0094B5;
 }
 div.ganttbar2 {
     float: left;
-    height: 5px;
+    height: 8px;
     background: #D0574C;
 }
 div.ganttbar3 {
     float: left;
     height: 2px;
+    margin-top: 3px;
     background: #68274E;
 }
 div.gantthighlight {
@@ -160,13 +160,15 @@ div.gantttoday {
 }
 #ganttspace {
     position: absolute;
-    width: 800px;
+    width: 728px;
+    height: 30px;
     z-index: 0;
     background: #6C6D6E;
     color: white;
+    font-weight: bold;
 }
 .ganttdate {
-    font-weight: bold;
+    font-weight: normal;
 }
 div.prjtable {
     float: left;
@@ -176,7 +178,7 @@ div.prjtable {
 }
 th.tableheader {
     text-transform: uppercase;
-    padding: 6px;
+    padding: 3px;
 }
 tr.tablebg0 {
     background: #E8E8E8;
