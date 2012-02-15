@@ -284,7 +284,7 @@ function OISpot(specDiv, projectid, specid, spotid, x, y, type, title, linkid) {
     this.type = type;
     this.title = title;
     this.linkid = linkid;
-    
+
     this.div = document.getElementById(newDiv(specDiv.id));
     this.div.className = 'popup';
     this.div.style.position= "absolute";

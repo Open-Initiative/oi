@@ -228,13 +228,14 @@ tinyMCE.init({
 //IE compatibility
 if (!Array.prototype.indexOf)
 {
-  Array.prototype.indexOf = function(elt /*, from*/)
+  Array.prototype.indexOf = function indexOf(elt /*, from*/)
   {
     var len = this.length >>> 0;
 
     var from = Number(arguments[1]) || 0;
     from = (from < 0)
          ? Math.ceil(from)
+
          : Math.floor(from);
     if (from < 0)
       from += len;
@@ -248,6 +249,8 @@ if (!Array.prototype.indexOf)
     return -1;
   };
 }
+if (!Event.prototype.stopPropagation)
+    Event.prototype.stopPropagation = function stopPropagation(){this.cancelBubble=true};
 function addEvent(obj, evType, fn) {
     if (obj.addEventListener) {
         obj.addEventListener(evType, fn, false);

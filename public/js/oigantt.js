@@ -8,6 +8,7 @@ function GanttBar(gantt, dates, bgClass) {
     this.dates = dates;
 }
 GanttBar.prototype.addPhase = function(bardiv, begin, end, className, title) {
+    if(end < begin) return null;
     var div = document.getElementById(newDiv(this.bardiv.id));
     div.style.width = (((isNaN(end) || isNaN(begin))?0:(end - begin)) / this.gantt.scale) + "px";
     div.className = className;
