@@ -608,7 +608,7 @@ def savespec(request, id, specid='0'):
     if request.POST.has_key("url"):
         spec.url = request.POST["url"]
         
-    filename = normalize("NFC", request.POST.get("filename"))
+    filename = request.POST.get("filename")
 #    from django.utils._os import safe_join
 #    from oi import settings
 #    path = ("%s%s_%s_%s"%(TEMP_DIR,request.user.id,request.POST["ts"],filename)).encode("utf-8")
@@ -619,6 +619,7 @@ def savespec(request, id, specid='0'):
 ##    spec.file.save(filename, File(open(path)), False)
 #    return HttpResponse(path)
     if filename:
+        filename = normalize("NFC", filename)
         spec.file.delete()
         path = ("%s%s_%s_%s"%(TEMP_DIR,request.user.id,request.POST["ts"],filename)).encode("utf-8")
         spec.file.save(filename.encode("utf-8"), File(open(path)), False)

@@ -1,9 +1,9 @@
 {% load i18n %}
 {% load oifilters %}
-{% if spec.type == 5 %}
-<a href="{{spec.file.url}}"><img src="/img/icons/dlspec.png" alt="Download the specification" title="Download the specification"/></a>
-{% endif %}
 <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared">
+    {% if spec.type == 5 %}
+    <a href="{{spec.file.url}}"><img src="/img/icons/dlspec.png" alt="Download the specification" title="Download the specification"/></a>
+    {% endif %}
     <div id="spec_{{project.id}}_{{spec.order}}_content"{% if project|can_write:user and project.state < 2 %} class="clickable" onclick="(new OISpot(this, {{project.id}}, {{spec.id}}, 0, (event.pageX|(event.clientX + document.documentElement.scrollLeft))-this.parentElement.offsetLeft, (event.pageY|(event.clientY + document.documentElement.scrollTop))-this.parentElement.offsetTop)).edit();event.stopPropagation();"{% endif %}>
         <input type="hidden" id="specid_{{spec.order}}" value="{{spec.id}}" />
         {% if spec.type == 2 %}<img width="680" src="{{spec.file.url}}" />{% endif %}
