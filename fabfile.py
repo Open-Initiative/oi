@@ -1,4 +1,4 @@
-from fabric.api import local, run, cd
+from fabric.api import hosts, local, run, cd
 
 def test():
     local("./manage.py test")
@@ -10,12 +10,14 @@ def init_south():
     run("oi/manage.py migrate users --fake")
     run("oi/manage.py migrate notification --fake")
 
+@hosts('sylvain-lebon@ssh.alwaysdata.com')
 def deploy_pp():
     local("git push pp")
     with cd("oi"):
         run("git merge devel")
         run("./manage.py migrate")
         
+@hosts('open-initiative@ssh.alwaysdata.com')
 def deploy_PROD():
     local("git push prod")
     with cd("oi"):
