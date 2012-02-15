@@ -63,6 +63,7 @@ function onShrinkNode(projectid) {
     }
 }
 function setActiveTask(projectid, canAdd) {
+    oiTree.nodes[projectid].titleDiv.children[0].id = "selected";
     if(canAdd) {
         form = document.getElementById("newtask_"+projectid);
         form.onsubmit = function(){addTask(getValue("newtask_title_"+projectid, true),projectid);return false};

@@ -43,6 +43,14 @@ div.prjbtm {
 .statebg4 {
     background: #6C6D6E;
 }
+#selected {
+    background: #0094B5;
+    color: white;
+    font-weight: bold;
+}
+#selected a {
+    color: white;
+}
 div.prjstate {
     float: right;
     padding: 2px;
