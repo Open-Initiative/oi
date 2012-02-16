@@ -33,3 +33,8 @@ def unmaintenance_PROD():
 def update():
     with cd("oi"):
         run("python update.py")
+
+def merge():
+    local("git checkout master")
+    local("git merge devel")
+    local("git checkout devel")
