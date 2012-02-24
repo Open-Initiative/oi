@@ -183,6 +183,29 @@ th.tableheader {
 tr.tablebg0 {
     background: #E8E8E8;
 }
+div.spectypes {
+    position: relative;
+    top: 1px;
+}
+div.spectype {
+    height: 60px;
+    width: 60px;
+    float: left;
+    background: #F5F5F5;
+    border: solid 1px;
+    border-radius: 3px;
+}
+div.spectypeselected {
+    background: white;
+    border-bottom: white 1px solid;
+}
+div.specedit {
+    border: solid 1px;
+}
+.speclegend {
+    height: 50px;
+    width: 500px;
+}
 .specauthor {
     font-weight: bold;
 }

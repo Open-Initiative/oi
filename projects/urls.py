@@ -7,7 +7,7 @@ from oi.projects.models import Project, Spec, OINeedsPrjPerms, OI_READ, OI_WRITE
 
 urlpatterns = patterns('oi.projects.views',
     (r'^get/(?P<id>\d+)/(?P<view>\w*)$', 'getproject'),
-    (r'^gettask/(?P<object_id>\d+)$', object_detail,{'template_name': 'projects/task.html','queryset': Project.objects.all(),'template_object_name':"task"}),
+    (r'^(?P<object_id>\d+)/summarize$', object_detail, {'template_name': 'projects/project_sum.html', 'queryset': Project.objects.all()}),
     (r'^listtasks/(?P<id>\d+)$', 'listtasks'),
     (r'^getall$', 'getprojects'),
     (r'^edit/(?P<id>\d+)$', 'editproject'),

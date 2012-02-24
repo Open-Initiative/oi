@@ -238,31 +238,35 @@ function observeProject(prjid, param){
     OIajaxCall("/project/observe/"+prjid, param, "output");
 }
 
-function addSpec(projectid, specorder) {
-    if(specorder==-1) divid = newDiv("specs_"+projectid);
-    else divid = newDivTop("spec_"+projectid+"_"+specorder);
-    OIajaxCall("/project/"+projectid+"/editspec/0?divid="+divid+"&specorder="+specorder, null, divid);
-    document.getElementById(divid).scrollIntoView();
-    changeSpecType(divid);
-}
+//function addSpec(projectid, specorder) {
+//    if(specorder==-1) divid = newDiv("specs_"+projectid);
+//    else divid = newDivTop("spec_"+projectid+"_"+specorder);
+//    OIajaxCall("/project/"+projectid+"/editspec/0?divid="+divid+"&specorder="+specorder, null, divid);
+//    document.getElementById(divid).scrollIntoView();
+//    changeSpecType(divid, 1);
+//}
 function editSpec(projectid, specorder) {
     specid = getValue("specid_"+specorder);
     divid = "spec_"+projectid+"_"+specorder;
     OIajaxCall("/project/"+projectid+"/editspec/"+specid+"?divid="+divid, null, divid);
-    changeSpecType(divid);
+    changeSpecType(divid, getValue("type_"+divid));
 }
-function changeSpecType(divid) {
+function changeSpecType(divid, type) {
     tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
-    type = getValue("type_"+divid);
     projectid = getValue("projectid_"+divid);
     specid = getValue("specid_"+divid);
+    document.getElementById("type"+getValue("type_"+divid)+"_"+divid).className = "spectype";
+    document.getElementById("type"+type+"_"+divid).className = "spectype spectypeselected";
+    document.getElementById("type_"+divid).value = type;
     url = "/project/"+projectid+"/editspecdetails/"+specid+"?divid="+divid+"&type="+type;
     OIajaxCall(url, null, "spec_"+divid);
     tinyMCE.execCommand('mceAddControl', false, 'text_'+divid);
 }
-function saveSpec(divid, projectid, order, specid){
+function saveSpec(divid, projectid, order, specid) {
     tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
-    params = "text="+getValue("text_"+divid).replace(/\+/gi,"%2B")+"&order="+order+"&type="+getValue("type_"+divid);
+    if(getValue("text_"+divid)) params = "text="+getValue("text_"+divid).replace(/\+/gi,"%2B")
+    else params = "text="+getValue("legend_"+divid).replace(/\+/gi,"%2B");
+    params += "&order="+order+"&type="+getValue("type_"+divid);
     if(getValue("url_"+divid)) params+="&url="+getValue("url_"+divid);
     if(getValue("filename_"+divid)) params+="&filename="+getValue("filename_"+divid);
     if(getValue("ts_"+divid)) params+="&ts="+getValue("ts_"+divid);
@@ -298,7 +302,7 @@ function OISpot(specDiv, projectid, specid, spotid, x, y, title, linkid, number)
     this.img.src = "/img/spot1.png";
     this.positionelt(this.img);
     this.img.spot = this;
-    this.img.onclick = function(evt) {this.spot.show();document.ignoreClosePopups = true;return false;};
+    this.img.onmouseover = function(evt) {this.spot.show();return false;};
     specDiv.appendChild(this.img);
     
     this.number = document.createElement("span");
@@ -308,7 +312,7 @@ function OISpot(specDiv, projectid, specid, spotid, x, y, title, linkid, number)
     this.number.style.fontWeight = "bold";
     this.number.style.padding = "2px 6px";
     this.number.spot = this;
-    this.number.onclick = function(evt) {this.spot.show();document.ignoreClosePopups = true;return false;};
+    this.number.onmouseover = function(evt) {this.spot.show();return false;};
     specDiv.appendChild(this.number);
 }
 OISpot.prototype.positionelt = function positionelt(elt) {
@@ -339,6 +343,7 @@ OISpot.prototype.save = function save() {
 OISpot.prototype.show = function show() {
     this.div.style.display = "block";
     addPopup(this);
+    OIajaxCall('/project/'+this.linkid+'/summarize', null, newDiv(this.div.id));
 }
 OISpot.prototype.hide = function show() {
     this.div.style.display = "none";

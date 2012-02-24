@@ -1,13 +1,10 @@
-<select id="type_{{divid}}" value="{{spec.type}}" onchange="changeSpecType('{{divid}}')">
-    {% for elttype in types.items %}
-    <option value={{elttype.0}} {% ifequal elttype.0 spec.type %}selected {% endifequal %}>{{elttype.1}}</option>
-    {% endfor %}
-</select>
-<input type="hidden" id="specid_{{divid}}" value="{{spec.id|default:0}}" />
-<input type="hidden" id="projectid_{{divid}}" value="{{project.id}}" />
-<div id="spec_{{divid}}"></div>
-<div id="validspec_{{divid}}">
-    <img class="clickable" src="/img/icons/ok-32.png" onclick="saveSpec('{{divid}}',{{project.id}},{{specorder|default:0}},{{spec.id|default:0}})" />
-    <img class="clickable" src="/img/icons/del-32.png" onclick="clearDiv('{{divid}}')" />
-</div>
-
+{% load i18n %}
+<div class="cleared">{% trans "Add" %}</div>
+<div class="spectypes">{% for elttype in types.items %}
+<div id="type{{elttype.0}}_{{divid}}" onclick="changeSpecType('{{divid}}', {{elttype.0}})" class="spectype {% ifequal elttype.0 spec.type %}spectypeselected {% endifequal %}"><img src="" alt="{{elttype.1}}" title="{{elttype.1}}" /></div>
+{% endfor %}</div>
+<input name="spectype" id="type_{{divid}}" value="{{spec.type|default:1}}" type="hidden"/>
+<input name="specid" id="specid_{{divid}}" value="{{spec.id|default:0}}" type="hidden"/>
+<input name="projectid" id="projectid_{{divid}}" value="{{project.id}}" type="hidden"/>
+<div id="spec_{{divid}}" class="cleared specedit"></div>
+<div id="validspec_{{divid}}" style="float:right"><img class="clickable" src="/img/icons/ok-32.png" onclick="saveSpec('{{divid}}',{{project.id}},{{specorder|default:0}},{{spec.id|default:0}})"/></div>

@@ -16,9 +16,6 @@
     <a href="team"><img class="tabicon" src="/img/icons/team{% ifequal view "team" %}white{% endifequal %}.png"/> {% trans "team" %}</a>
 </div>
 {% endblock %}
-{% block pagetitle %}
-<div class="pagetitle">{{object.title}}</div>
-{% endblock %}
 {% block tools %}
     <img class="clickable" title="Suivre le projet" alt="Suivre le projet" src="/img/icons/starTrue.png" onclick="observeProject({{object.id}})">
 {% include 'projects/project_state.html' %}

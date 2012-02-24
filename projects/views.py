@@ -55,7 +55,7 @@ def getproject(request, id, view="description"):
     if not view: view = "description"
     project = Project.objects.get(id=id)
     actions = filter(lambda a:a.show(project, request.user), OIPrjActions)
-    return direct_to_template(request, template="projects/project_detail.html", extra_context={'object': project, 'actions': actions, 'view':view})
+    return direct_to_template(request, template="projects/project_detail.html", extra_context={'object': project, 'actions': actions, 'view':view, 'types':SPEC_TYPES, })
 
 @OINeedsPrjPerms(OI_READ)
 def listtasks(request, id):
@@ -603,26 +603,18 @@ def savespec(request, id, specid='0'):
         spec = Spec(text = oiescape(request.POST["text"]), author=request.user, project=project, order=order, type=int(request.POST["type"]))
     else: #edit existing spec
         spec = Spec.objects.get(id=specid)
-        spec.text = oiescape(request.POST["text"])
+        spec.text = request.POST.get("legend") or oiescape(request.POST["text"])
         
     if request.POST.has_key("url"):
         spec.url = request.POST["url"]
         
     filename = request.POST.get("filename")
-#    from django.utils._os import safe_join
-#    from oi import settings
-#    path = ("%s%s_%s_%s"%(TEMP_DIR,request.user.id,request.POST["ts"],filename)).encode("utf-8")
-#    f=File(open(path))
-#    name=("%s%s"%(settings.MEDIA_ROOT,filename.encode("utf-8")))
-#    name2=safe_join(settings.MEDIA_ROOT,filename.encode("utf-8"))
-#    os.stat(name)
-##    spec.file.save(filename, File(open(path)), False)
-#    return HttpResponse(path)
     if filename:
-        filename = normalize("NFC", filename)
+#        filename = normalize("NFC", filename)
+        filename = normalize("NFKD", filename).encode('ascii', 'ignore')
         spec.file.delete()
-        path = ("%s%s_%s_%s"%(TEMP_DIR,request.user.id,request.POST["ts"],filename)).encode("utf-8")
-        spec.file.save(filename.encode("utf-8"), File(open(path)), False)
+        path = ("%s%s_%s_%s"%(TEMP_DIR,request.user.id,request.POST["ts"],filename))
+        spec.file.save(filename, File(open(path)), False)
         os.remove(path)
     spec.save()
 
@@ -669,12 +661,13 @@ def uploadfile(request, id, specid='0'):
     uploadedfile = request.FILES['file']
     divid = request.POST['divid']
     ts = int(time())
-    filename = normalize("NFC", uploadedfile.name).encode('utf-8')
+#    filename = normalize("NFC", uploadedfile.name).encode('utf-8').
+    filename = normalize("NFKD", uploadedfile.name).encode('ascii', 'ignore')
     tempfile = open("%s%s_%s_%s"%(TEMP_DIR,request.user.id,ts,filename), 'wb+')
     for chunk in uploadedfile.chunks():
         tempfile.write(chunk)
     tempfile.close()
-    return render_to_response('projects/spec/fileframe.html',{'divid':divid,'filename':uploadedfile.name,'ts':ts,'projectid':id})
+    return render_to_response('projects/spec/fileframe.html',{'divid':divid,'filename':filename,'ts':ts,'projectid':id})
 
 @OINeedsPrjPerms(OI_WRITE)
 def deltmpfile(request, id):
@@ -687,8 +680,9 @@ def deltmpfile(request, id):
 def getfile(request, id, filename):
     """gets a file in the FS for download"""
     response = HttpResponse(mimetype='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename=%s'%filename
-    response['X-Sendfile'] = "%sproject/%s/%s"%(MEDIA_ROOT,id,filename)
+    response['Content-Disposition'] = 'attachment; '
+#    response['X-Sendfile'] = "%sproject/%s/%s"%(MEDIA_ROOT,id,quote(filename.encode('utf8')))
+    response['X-Sendfile'] = "%sproject/%s/%s"%(MEDIA_ROOT,id,filename.encode('utf8'))
     try:
         response['Content-Length'] = os.path.getsize("%sproject/%s/%s"%(MEDIA_ROOT,id,filename))
     except OSError:
