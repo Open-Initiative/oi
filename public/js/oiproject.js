@@ -187,9 +187,9 @@ function confirmShareProject(projectid, divid) {
     OIajaxCall("/project/confirmshare/"+projectid, "username="+getValue("usershare_"+divid), "output");
     hide("prjdialogue_"+projectid);
 }
-function cancelProject(projectid, started) {
+function cancelProject(projectid, state) {
     question = gettext("Are you sure you want to cancel this project?");
-    if(started) question += gettext(" You will still pay the commission, other amounts will be reimbursed if clients accept cancellation.");
+    if(state > 1) question += gettext(" You will still pay the commission, other amounts will be reimbursed if clients accept cancellation.");
     if(confirm(question))
         OIajaxCall("/project/cancel/"+projectid, null, "output");
 }
@@ -215,7 +215,7 @@ function answerCancelBid(projectid, bidid, answer, divid) {
     OIajaxCall("/project/answercancelbid/"+projectid, "answer="+answer+"&bid="+bidid, "output");
     clearDiv(divid);
 }
-function deleteProject(projectid, messageid) {
+function deleteProject(projectid) {
     if(confirm(gettext("Are you sure you want to delete this project permanently?"))) {
         OIajaxCall("/project/delete/"+projectid, null, "output");
     }

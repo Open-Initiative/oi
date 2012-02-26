@@ -1,5 +1,11 @@
 {% load oifilters %}
 {% load i18n %}
+{% if object|can_write:user and object.state < 1 and object.bid_set.count == 0 and object.tasks.count == 0 %}
+<img src="/img/icons/del-32.png" class="clickable" style="float:right" alt="{% trans "Delete the project" %}" title="{% trans "Delete the project" %}" onclick="deleteProject({{object.id}})" />
+{% endif %}
+{% if object.state < 4 and object.state > 0 and user == object.assignee %}
+<img src="/img/icons/del-32.png" class="clickable" style="float:right" alt="{% trans "Cancel the project" %}" title="{% trans "Cancel the project" %}" onclick="cancelProject({{object.id}}, {{object.state}})" />
+{% endif %}
 {% if object.assignee == user %}
     {% if object.state < 2 and object.is_ready_to_start %}
     <div class="prjstatebtn clickable" onclick="startProject({{object.id}})">{% trans "Start the project" %} <img src="/img/icons/bluebtn.png" /></div>
