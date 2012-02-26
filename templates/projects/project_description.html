@@ -1,10 +1,14 @@
 {% load oifilters %}
 {% load i18n %}
 <div class="prjauthor">{% trans "Project created by" %} <a href="/user/profile/{{object.author.username}}">{{object.author}}</a></div>
+{% if object.spot_set.all %}
 <div style="float: right;clear: right">
     {% trans "linked to" %}
-    <div>{% with object.spot_set.all.0.spec as spec%}{% include 'projects/spec/minispec.html' %}{% endwith %}</div>
+    {% with object.spot_set.all.0.spec as spec%}
+    <a href="/project/get/{{spec.project.id}}"><div>{% include 'projects/spec/minispec.html' %}</div></a>
+    {% endwith %}
 </div>
+{% endif %}
 <div class="prjtitle" id="prjtitle_{{object.id}}">
     {{object.title}}
     {% if object|can_write:user and object.state < 2 %}
@@ -13,16 +17,15 @@
 </div>
 <div id="specs_{{project.id}}">
     {%for spec in project.spec_set.all|dictsort:"order"%}{%include 'projects/spec/spec.html'%}{% endfor %}
-    {% if project|can_write:user and project.state < 4 %}
-    {% with "newspec" as divid %}
+    {% if project|can_write:user and project.state < 4 %}{% with "newspec" as divid %}
     <div id="{{divid}}">{% include 'projects/spec/editspec.html' %}</div>
     {% endwith %}{% endif %}
 </div>
-<div class="sepspec"></div>
+<div class="cleared"></div>
 <script>changeSpecType("newspec", 1);</script>
 <div id="discussions_{{project.id}}">
     {% for message in project.message_set.all %}
     <div id="message_{{message.id}}_box">{% include 'messages/message.html' %}</div>
     {% endfor %}
 </div>
-{% if project|can_write:user %}{% include 'messages/editmessage.html' %}{% endif %}
+{% if project|can_write:user %}{% with "Re: "|add:object.title as title %}{% include 'messages/editmessage.html' %}{% endwith %}{% endif %}

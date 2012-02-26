@@ -238,13 +238,14 @@ function observeProject(prjid, param){
     OIajaxCall("/project/observe/"+prjid, param, "output");
 }
 
-//function addSpec(projectid, specorder) {
-//    if(specorder==-1) divid = newDiv("specs_"+projectid);
-//    else divid = newDivTop("spec_"+projectid+"_"+specorder);
-//    OIajaxCall("/project/"+projectid+"/editspec/0?divid="+divid+"&specorder="+specorder, null, divid);
-//    document.getElementById(divid).scrollIntoView();
-//    changeSpecType(divid, 1);
-//}
+function addSpec(projectid, specorder) {
+    if(!specorder) specorder = -1;
+    if(specorder==-1) divid = newDiv("specs_"+projectid);
+    else divid = newDivTop("spec_"+projectid+"_"+specorder);
+    OIajaxCall("/project/"+projectid+"/editspec/0?divid="+divid+"&specorder="+specorder, null, divid);
+    document.getElementById(divid).scrollIntoView();
+    changeSpecType(divid, 1);
+}
 function editSpec(projectid, specorder) {
     specid = getValue("specid_"+specorder);
     divid = "spec_"+projectid+"_"+specorder;
@@ -252,7 +253,7 @@ function editSpec(projectid, specorder) {
     changeSpecType(divid, getValue("type_"+divid));
 }
 function changeSpecType(divid, type) {
-    tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
+    if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
     projectid = getValue("projectid_"+divid);
     specid = getValue("specid_"+divid);
     document.getElementById("type"+getValue("type_"+divid)+"_"+divid).className = "spectype";
@@ -260,18 +261,17 @@ function changeSpecType(divid, type) {
     document.getElementById("type_"+divid).value = type;
     url = "/project/"+projectid+"/editspecdetails/"+specid+"?divid="+divid+"&type="+type;
     OIajaxCall(url, null, "spec_"+divid);
-    tinyMCE.execCommand('mceAddControl', false, 'text_'+divid);
+    if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceAddControl', false, 'text_'+divid);
 }
 function saveSpec(divid, projectid, order, specid) {
     tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
-    if(getValue("text_"+divid)) params = "text="+getValue("text_"+divid).replace(/\+/gi,"%2B")
-    else params = "text="+getValue("legend_"+divid).replace(/\+/gi,"%2B");
-    params += "&order="+order+"&type="+getValue("type_"+divid);
+    params = "text="+getValue("text_"+divid).replace(/\+/gi,"%2B") + "&order="+order + "&type="+getValue("type_"+divid);
     if(getValue("url_"+divid)) params+="&url="+getValue("url_"+divid);
     if(getValue("filename_"+divid)) params+="&filename="+getValue("filename_"+divid);
     if(getValue("ts_"+divid)) params+="&ts="+getValue("ts_"+divid);
     if(getValue("image_"+divid)) params+="&image="+getValue("image_"+divid);
     OIajaxCall("/project/"+projectid+"/savespec/"+specid, params, divid);
+    addSpec(projectid);
 }
 function deleteSpec(projectid, specorder) {
     if(confirm(gettext("Are you sure you want to delete this specification permanently?"))) {

@@ -1,6 +1,7 @@
 {% load i18n %}
 {% load oifilters %}
 {% with request.GET.divid|default:"newmessage" as divid %}
+{% with message.title|default:title as msgtitle %}
 <div class="message">
     <div class="column">
         <img class="contactpicture" src="/user/getpicture/{{user.username}}" />
@@ -9,12 +10,12 @@
     <div class="msgbubble">
         <div class="msgtop">
             <div id="msgtitle_{{divid}}" class="msgtitle">
-                {% if "Re: " in message.title %}
-                {{message.title}}
-                <input id="title_{{divid}}" class="msgfield" type="hidden" value="{{message.title}}"/>
-                <img class="clickable" src="/img/icons/edit.png" title="Modifier le titre" onclick="editMessageTitle('{{divid}}','{{message.title|addslashes}}')" />
+                {% if "Re: " in msgtitle %}
+                {{msgtitle}}
+                <input id="title_{{divid}}" class="msgfield" type="hidden" value="{{msgtitle}}"/>
+                <img class="clickable" src="/img/icons/edit.png" title="Modifier le titre" onclick="editMessageTitle('{{divid}}','{{msgtitle|addslashes}}')" />
                 {% else %}
-                <input id="title_{{divid}}" class="msgfield" type="text" value="{{message.title}}" maxlength=100 />            
+                <input id="title_{{divid}}" class="msgfield" type="text" value="{{msgtitle}}" maxlength=100 />            
                 {% endif %}
             </div>
         </div>
@@ -22,10 +23,11 @@
             <textarea id="text_{{divid}}" rows="15" class="msgfield">{{message.text|oiunescape}}</textarea>
             <input id="parent_{{divid}}"type="hidden"  value="{{request.GET.parent}}" />
             <input id="project_{{divid}}"type="hidden"  value="{{request.GET.project}}" />
-            <img class="clickable" src="/img/icons/ok-32.png" onclick="saveMessage('{{divid}}',{{message.id|default:0}})" />
-            <img class="clickable" src="/img/icons/del-32.png" onclick="cancelMessage('{{divid}}',{{message.id|default:0}})" />
+            <img class="clickable" src="/img/icons/ok-32.png" onclick="saveMessage('{{divid}}',{{message.id|default:0}})" style="float:right"/>
+            <div class="cleared"></div>
         </div>
         <div class="msgbtm"></div>
     </div>
 </div>
+{% endwith %}
 {% endwith %}

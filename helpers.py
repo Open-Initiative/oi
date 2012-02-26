@@ -28,7 +28,7 @@ OI_EXPERTISE_FROM_ANSWER = .002 #Fraction transmise par une réponse
 
 # States of project workflow
 [OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED,  OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS] = [0,1,2,3,4,11,12,99]
-OI_PRJ_STATES = ((OI_PROPOSED, _("Proposed")), (OI_ACCEPTED, _("Accepted")), (OI_STARTED, _("Started")), (OI_DELIVERED, _("Delivered")), (OI_VALIDATED, _("Validated")), (OI_CANCELLED, _("Cancelled")), (OI_POSTPONED, _("Delayed")), (OI_CONTENTIOUS, _("Contentious")),)
+OI_PRJ_STATES = ((OI_PROPOSED, _("Proposed")), (OI_ACCEPTED, _("Accepted")), (OI_STARTED, _("Started")), (OI_DELIVERED, _("Delivered")), (OI_VALIDATED, _("Done")), (OI_CANCELLED, _("Cancelled")), (OI_POSTPONED, _("Delayed")), (OI_CONTENTIOUS, _("Contentious")),)
 
 # Project constants
 OI_PRJ_DONE = 1.
