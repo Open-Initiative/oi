@@ -100,17 +100,9 @@ class UserProfile(models.Model):
             logger.warning("Paiement %s non validé : %s"%(payment.id,info['STATUS'].__str__()))
         payment.save()
 
-#    def followed_rfp(self):
-#        """returns all rfp followed by the user"""
-#        return self.observed_messages.filter(rfp=True)
-    
     def get_message_updates(self):
         """gets modified messages descendants of user's best expertised messages"""
         return Message.objects.filter(ancestors__expert__user=self.user).filter(category=False).distinct().order_by("-modified")
-        
-#    def get_project_updates(self):
-#        """gets modified projects inside user's user's best expertised messages"""
-#        return Project.objects.filter(message__ancestors__expert__user=self.user).distinct().order_by("-modified")
         
     def get_categories(self):
         """returns the categories in which the user has most expertise"""
@@ -128,8 +120,9 @@ class UserProfile(models.Model):
 
     def notify_all(self, prj, notice_type, param):
         """sends a notification to all users about this project"""
-        recipients = User.objects.filter(userprofile__observed_projects__descendants = prj).exclude(userprofile=self).distinct()
-        notification.send(recipients, notice_type, {'project':prj, 'param':param}, True, self.user)
+        if prj:
+            recipients = User.objects.filter(userprofile__observed_projects__descendants = prj).exclude(userprofile=self).distinct()
+            notification.send(recipients, notice_type, {'project':prj, 'param':param}, True, self.user)
 
     def __unicode__(self):
         return self.get_display_name()

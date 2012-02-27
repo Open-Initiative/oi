@@ -28,7 +28,7 @@
 {% block content %}
 <div class="usercontent">
     <h3>{% trans "My projects" %}</h3>
-    {% for project in user.get_profile.observed_projects.all %}
+    {% for project in user.get_profile.observed_projects.distinct %}
     <a  href="/project/get/{{project.id}}">
         <div>{{project.title}}</div>
     </a>

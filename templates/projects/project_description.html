@@ -19,13 +19,15 @@
     {%for spec in project.spec_set.all|dictsort:"order"%}{%include 'projects/spec/spec.html'%}{% endfor %}
     {% if project|can_write:user and project.state < 4 %}{% with "newspec" as divid %}
     <div id="{{divid}}">{% include 'projects/spec/editspec.html' %}</div>
+    <script>changeSpecType("newspec", 1);</script>
     {% endwith %}{% endif %}
 </div>
 <div class="cleared"></div>
-<script>changeSpecType("newspec", 1);</script>
 <div id="discussions_{{project.id}}">
     {% for message in project.message_set.all %}
     <div id="message_{{message.id}}_box">{% include 'messages/message.html' %}</div>
     {% endfor %}
 </div>
-{% if project|can_write:user %}{% with "Re: "|add:object.title as title %}{% include 'messages/editmessage.html' %}{% endwith %}{% endif %}
+{% if project|can_write:user %}{% with "Re: "|add:object.title as title %}
+<div id="newmessage">{% include 'messages/editmessage.html' %}</div>
+{% endwith %}{% endif %}
