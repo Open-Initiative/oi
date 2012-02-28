@@ -1,12 +1,12 @@
 function expandMessage(msgid, depth) {
-    if(document.getElementById("message_"+msgid+"_box").expanded != 1)
-        OIajaxCall("/message/get/"+msgid+"?mode=ajax&depth="+depth, null, "message_"+msgid+"_box");
-    document.getElementById("message_"+msgid+"_box").expanded=1;
+    if(document.getElementById("message_"+msgid).expanded != 1)
+        OIajaxCall("/message/get/"+msgid+"?mode=ajax&depth="+depth, null, "message_"+msgid);
+    document.getElementById("message_"+msgid).expanded=1;
 }
 function shrinkMessage(msgid, depth) {
-    OIajaxCall("/message/get/"+msgid+"?mode=small&depth="+depth, null, "message_"+msgid+"_box");
-    document.getElementById("message_"+msgid+"_box").expanded=0;
-    document.getElementById("message_"+msgid+"_box").style.top="0";
+    OIajaxCall("/message/get/"+msgid+"?mode=small&depth="+depth, null, "message_"+msgid);
+    document.getElementById("message_"+msgid).expanded=0;
+    document.getElementById("message_"+msgid).style.top="0";
 }
 function addMessage(parentid, projectid) {
     if(parentid==null && projectid==null) {

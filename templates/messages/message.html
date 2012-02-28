@@ -1,4 +1,4 @@
-﻿{% load oifilters %}
+{% load oifilters %}
 {% load i18n %}
 <div id="message_{{message.id}}" class="msgblue">
     <a href="/user/profile/{{message.author.username}}"><div class="column">
@@ -8,7 +8,6 @@
     </a></div>
     <div class="msgbubble">
         <div class="msgtop">
-            {% include "messages/message_actions.html" %}
             <div class="clickable msgtitle" onclick="shrinkMessage({{message.id}}, {{depth|default:0}})">
                 {{message.title}}
             </div>
@@ -18,37 +17,27 @@
             <div class="msgtext">
                 {{message.text|oiunescape}}
             </div>
-        {% if message.project and message.project|can_write:user %}
-        <a class="clickable" onclick="addMessage({{message.id}})"><img src="/img/icons/answermsg.png" alt="{% trans "Answer this message" %}" title="{% trans "Answer this message" %}" /> {% trans "Answer this message" %}</a>
-        {% endif %}
+        {% include "messages/message_actions.html" %}
         </div>
         <div class="msgbtm"></div>
     </div>
     <div id="children_{{message.id}}" {%if message.children.all%}class="childrenlist"{%endif%}>
-        {% if message.children.all|length == 1 %}
+        {% with depth|default:10 as depth %}{% if message.children.all|length == 1 %}
         {% with message.children.all|first as message %}
-        <div id="message_{{message.id}}_box">
-            {% if depth > 1 %}
-            {% with depth|add:-1 as depth %}
-            {% with "messages/message.html" as templatename %}
+        <div id="message_{{message.id}}">
+            {% if depth > 1 %}{% with depth|add:-1 as depth %}{% with "messages/message.html" as templatename %}
                 {% include templatename %}
-            {% endwith %}
-            {% endwith %}
-            {% else %}    
-            {% with "messages/messagesum.html" as templatename %}
+            {% endwith %}{% endwith %}
+            {% else %}{% with "messages/messagesum.html" as templatename %}
                 {% include templatename %}
-            {% endwith %}
-            {% endif %}
+            {% endwith %}{% endif %}
         </div>
         {% endwith %}
-        {% else %}
-        {% for child in message.children.all|dictsortreversed:"relevance" %}
-        {% if child|can_read:user %}
-        <div id="message_{{child.id}}_box">
+        {% else %}{% for child in message.children.all|dictsortreversed:"relevance" %}{% if child|can_read:user %}
+        <div id="message_{{child.id}}">
             {% with child as message %}{% include "messages/messagesmall.html" %}{% endwith %}
         </div>
-        {% endif %}
-        {% endfor %}
-        {% endif %}
+        {% endif %}{% endfor %}{% endif %}
+        {% endwith %}
     </div>
 </div>

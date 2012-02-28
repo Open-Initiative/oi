@@ -47,17 +47,6 @@ div.moreblue {
     padding:3px 9px;
     float:right;
     color:white;
-    margin:0 -10px;
-    font-weight:900;
-}
-div.morered {
-    background:url('/img/discred.png');
-    height:17px;
-    width:8px;
-    padding:3px 9px;
-    float:right;
-    color:white;
-    margin:0 -10px;
     font-weight:900;
 }
 .moreicon {
@@ -65,10 +54,11 @@ div.morered {
 }
 div.smallmsg {
     position: relative;
-    height: 30px;
+    height: 42px;
     width: 300px;
     overflow: hidden;
-    padding: 10px;
+    padding: 0 20px;
+    margin-bottom: 10px;
     clear:left;
 }
 .msgtitle {

@@ -13,7 +13,7 @@
 <div class="column">
     {% with "newmessage" as divid %}
     <div id="newmessage">
-        {% include "messages/editmessage.html" %}
+        {% with message.title as title %}{% include "messages/editmessage.html" %}{% endwith %}
     </div>
     {% endwith %}
 </div>

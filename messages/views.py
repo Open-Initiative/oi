@@ -45,7 +45,7 @@ def editmessage(request, id):
         message = Message.objects.get(id=id)
         if not message.has_perm(request.user, OI_WRITE):
             return HttpResponseForbidden('Forbidden')
-    return direct_to_template(request, template='messages/editmessage.html',extra_context={'message':message})
+    return direct_to_template(request, template='messages/editmessage.html',extra_context={'message':message, 'title':message.title})
 
 def savemessage(request, id):
     """Saves the edited message and redirects to its view"""
@@ -88,7 +88,8 @@ def savemessage(request, id):
         #notify users about this message
         request.user.get_profile().notify_all(message.project, "answer", message.title)
         #adds the message to user's observation
-        request.user.get_profile().observed_projects.add(message.project)
+        if message.project:
+            request.user.get_profile().observed_projects.add(message.project)
     else: #notification from anonymous
         recipients = User.objects.filter(userprofile__observed_projects__subprojects__message__descendants = message).distinct()
         notification.send(recipients, "answer", {'message':message, 'param':message.title}, True, None)
