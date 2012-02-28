@@ -83,6 +83,8 @@ def saveproject(request, id='0'):
             return HttpResponse(_("Please enter a title"), status=531)
         parent = Project.objects.get(id=request.POST["parent"]) if request.POST.get("parent") else None
         project = Project(title = request.POST["title"], author=author, parent=parent, public=True, state=OI_PROPOSED)
+        project.save()
+        project.inherit_perms()
         
     else: #existing project ####DEPRECATED?
         project = Project.objects.get(id=id)
@@ -519,7 +521,7 @@ def moveproject(request, id):
 def togglehideproject(request, id):
     """Makes the project private or public and outputs a message"""
     project = Project.objects.get(id=id)
-    project.public = not project.public
+    project.apply_public(not project.public)
     project.save()
     return HttpResponse(_("The project is now %s"%("public" if project.public else "private")))
 

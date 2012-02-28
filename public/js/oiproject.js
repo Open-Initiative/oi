@@ -179,8 +179,7 @@ function toggleHideProject(projectid) {
     OIajaxCall("/project/togglehide/"+projectid, null, "output");
 }
 function shareProject(projectid) {
-    divid = newDiv("prjdialogue_"+projectid);
-    OIajaxCall("/project/share/"+projectid+"/"+divid, null, divid);
+    OIajaxCall("/project/share/"+projectid+"/"+divid, null, "prjdialogue_"+projectid);
     show("prjdialogue_"+projectid);
 }
 function confirmShareProject(projectid, divid) {

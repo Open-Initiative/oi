@@ -61,7 +61,7 @@
         {% empty %}
         {% trans "No guest on this project" %}
         {% endfor %}
-        <div class="cleared"><a class="clickable" onclick="shareProject({{project.id}})"><img class="clickable" src="/img/icons/add.png"> {% trans "Invite members" %}</a></div>
+        {% if project|can_write:user %}<div class="cleared"><a class="clickable" onclick="shareProject({{project.id}})"><img class="clickable" src="/img/icons/add.png"> {% trans "Invite members" %}</a></div>{% endif %}
     </div>
 </div>
 <script>

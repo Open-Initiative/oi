@@ -96,9 +96,26 @@ class Project(models.Model):
 
     @commit_on_success
     def apply_perm(self, user, perm):
+        """sets perm on project and descendants"""
         self.set_perm(user, perm)
         for descendant in self.descendants.all():
             descendant.set_perm(user, perm)
+
+    @commit_on_success
+    def apply_public(self, public):
+        """sets public on project and descendants"""
+        self.public = public
+        for descendant in self.descendants.all():
+            descendant.public = public
+            descendant.save()
+
+    @commit_on_success
+    def inherit_perms(self):
+        """gets all perms from parent and sets them to the project"""
+        if self.parent:
+            self.public = self.parent.public
+            for perm in self.parent.projectacl_set.all():
+                self.set_perm(perm.user, perm.permission)
 
     def canceled_bids(self):
         """gets all the bids marked as canceled"""
