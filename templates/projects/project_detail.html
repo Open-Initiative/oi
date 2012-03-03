@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 ﻿﻿{% load oifilters %}
 {% load i18n %}
-{% block title %}{{object.title|default:_("Project")}}{% endblock %}
+{% block pagetitle %}{{object.title|default:_("Project")}}{% endblock %}
 {% block tabs %}
 <div class="{% ifequal view "description" %}selectedtab {% endifequal %}tab">
     <a href="description"><img class="tabicon" src="/img/icons/spec{% ifequal view "description" %}white{% endifequal %}.png"/> {% trans "description" %}</a>

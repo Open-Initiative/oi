@@ -646,7 +646,7 @@ def savespot(request, id, specid, spotid):
     spot.offsetY = request.POST['y']
     spot.task = Project.objects.get(id=request.POST['taskid'])
     spot.save()
-    return HttpResponse('/project/get/%s'%(spot.task.id),status=333)
+    return HttpResponse(spot.id)
 
 @OINeedsPrjPerms(OI_WRITE)
 def removeSpot(request, id, specid, spotid):

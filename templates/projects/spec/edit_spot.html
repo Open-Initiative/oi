@@ -9,5 +9,5 @@
         <input type="hidden" name="taskid" />
     </div>
     <input type="image" src="/img/icons/ok-32.png" alt="{% trans "Add" %}" />
-    <img class="clickable" src="/img/icons/del-32.png" alt="{% trans "Cancel" %}" onclick="hide(this.parentElement.parentElement.id)"/>
+    <img class="clickable" src="/img/icons/del-32.png" alt="{% trans "Cancel" %}" onclick="return this.parentElement.parentElement.spot.hide()"/>
 </form>

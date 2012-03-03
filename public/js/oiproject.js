@@ -329,6 +329,7 @@ OISpot.prototype.fillDiv = function fillDiv() {
     content += " <img src='/img/icons/edit.png' class='clickable' onclick='this.parentElement.spot.edit()'/>";
     content += " <img src='/img/icons/delete.png' class='clickable' onclick='this.parentElement.spot.remove()'/>";
     this.div.innerHTML = content;
+    if(this.linkid) OIajaxCall('/project/'+this.linkid+'/summarize', null, newDiv(this.div.id));
 }
 OISpot.prototype.save = function save() {
     var form = (this.div.firstElementChild || this.div.children[0]);
@@ -342,9 +343,8 @@ OISpot.prototype.save = function save() {
 OISpot.prototype.show = function show() {
     this.div.style.display = "block";
     addPopup(this);
-    OIajaxCall('/project/'+this.linkid+'/summarize', null, newDiv(this.div.id));
 }
-OISpot.prototype.hide = function show() {
+OISpot.prototype.hide = function hide() {
     this.div.style.display = "none";
     if(!this.linkid) {
         this.img.style.display = "none";

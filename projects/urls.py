@@ -1,13 +1,16 @@
 #coding: utf-8
 # Url handlers des projets
+from random import choice
+from string import letters
 from django.conf.urls.defaults import *
 from django.views.generic.list_detail import object_detail
 from django.views.generic.simple import direct_to_template
 from oi.projects.models import Project, Spec, OINeedsPrjPerms, OI_READ, OI_WRITE
+from oi.helpers import SPEC_TYPES
 
 urlpatterns = patterns('oi.projects.views',
     (r'^get/(?P<id>\d+)/(?P<view>\w*)$', 'getproject'),
-    (r'^(?P<object_id>\d+)/summarize$', object_detail, {'template_name': 'projects/project_sum.html', 'queryset': Project.objects.all()}),
+    (r'^(?P<object_id>\d+)/summarize$', object_detail, {'template_name': 'projects/project_sum.html', 'queryset': Project.objects.all(), 'extra_context': {'types': SPEC_TYPES}}),
     (r'^listtasks/(?P<id>\d+)$', 'listtasks'),
     (r'^getall$', 'getprojects'),
     (r'^edit/(?P<id>\d+)$', 'editproject'),

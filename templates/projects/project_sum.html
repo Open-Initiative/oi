@@ -1,3 +1,8 @@
 {% for spec in object.spec_set.all %}
 {% include 'projects/spec/minispec.html' %}
 {% endfor %}
+{% with object.id as divid %}
+{% with object as project %}
+{% include 'projects/spec/editspec.html' %}
+{% endwith %}
+{% endwith %}

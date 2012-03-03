@@ -55,7 +55,7 @@ IMAGE_TYPE = 2
 URL_TYPE = 3
 VIDEO_TYPE = 4
 DOC_TYPE = 5
-SPEC_TYPES =  {TEXT_TYPE:_("Text"), IMAGE_TYPE:_("Image"), URL_TYPE:_("url link"), VIDEO_TYPE:_("Video"), DOC_TYPE:_("Attachment")}
+SPEC_TYPES =  {TEXT_TYPE:_("Text"), IMAGE_TYPE:_("Image"), URL_TYPE:_("url link"), VIDEO_TYPE:_("Video"), DOC_TYPE:_("Document")}
 
 #Spot types
 NOTE_TYPE = 1

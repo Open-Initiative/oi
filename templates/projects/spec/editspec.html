@@ -1,7 +1,7 @@
 {% load i18n %}
 <div class="cleared">{% trans "Add" %}</div>
 <div class="spectypes">{% for elttype in types.items %}
-<div id="type{{elttype.0}}_{{divid}}" onclick="changeSpecType('{{divid}}', {{elttype.0}})" class="spectype {% ifequal elttype.0 spec.type %}spectypeselected {% endifequal %}"><img src="" alt="{{elttype.1}}" title="{{elttype.1}}" /></div>
+<div id="type{{elttype.0}}_{{divid}}" onclick="changeSpecType('{{divid}}', {{elttype.0}})" class="spectype clickable {% ifequal elttype.0 spec.type %}spectypeselected {% endifequal %}"><img src="" alt="{{elttype.1}}" title="{{elttype.1}}" /></div>
 {% endfor %}</div>
 <input name="spectype" id="type_{{divid}}" value="{{spec.type|default:1}}" type="hidden"/>
 <input name="specid" id="specid_{{divid}}" value="{{spec.id|default:0}}" type="hidden"/>

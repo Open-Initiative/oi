@@ -114,7 +114,7 @@
     </div>
     <div class="center">
         <div class="column">
-            <div id="usermenu"></div>
+            <div id="pagetitle">{% block pagetitle %}{% endblock %}</div>
             <div id="nav">
                 {% block nav %}
                 {% comment %}
@@ -149,7 +149,6 @@
         </div>
         <div id="content">
             <div class="pagetop">
-                {% block pagetitle %}{% endblock %}
                 <div id="tabs">
                     {% block tabs %}{% endblock %}
                 </div>

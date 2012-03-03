@@ -180,10 +180,9 @@ div.center{
     text-transform: uppercase;
     color: #6c6d6e;
 }
-#usermenu {
+#pagetitle {
     height: 80px;
     width: 275px;
-    background: #E8E8E9;
 }
 #messageoutput {
     position: fixed;
