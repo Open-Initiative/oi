@@ -29,33 +29,29 @@ from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeed
 from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
 
-OIPrjActions = [
-    OIAction(func="deleteProject", icon="delprj.png", show=lambda project, user:project.has_perm(user, OI_WRITE) and project.bid_set.count()==0 and project.tasks.count()==0, title=_("Delete the project")),
-    OIAction(func="moveProject", icon="moveprj.png", show=lambda project, user:project.has_perm(user, OI_WRITE) and project.bid_set.count()==0, title=_("Move the project")),
-    OIAction(func="cancelProject", icon="delprj.png", show=lambda project, user:project.has_perm(user, OI_WRITE) and project.bid_set.count()>0 and project.state <= 1 and user==project.assignee, extra_param="false", title=_("Cancel the project")),
-    OIAction(func="cancelProject", icon="delprj.png", show=lambda project, user:project.has_perm(user, OI_WRITE) and project.bid_set.count()>0 and (project.state == 2 or project.state == 3) and user==project.assignee, extra_param="true", title=_("Cancel the project")),]
+#    OIAction(func="moveProject", icon="moveprj.png", show=lambda project, user:project.has_perm(user, OI_WRITE) and project.bid_set.count()==0, title=_("Move the project")),
 
-def getprojects(request):
-    """Apply filter to project list"""
-    datemin = datetime.strptime(request.GET.get("datemin","2000,1,1"),"%Y,%m,%d")
-    datemax = datetime.strptime(request.GET.get("datemax","2100,1,1"),"%Y,%m,%d")
-    projects = Project.objects.filter(created__gte=datemin, created__lte=datemax, parent=None, public=True)
-    if request.GET.has_key("state"):
-        projects = projects.filter(state=request.GET["state"])
+#def getprojects(request):
+#    """Apply filter to project list"""
+#    datemin = datetime.strptime(request.GET.get("datemin","2000,1,1"),"%Y,%m,%d")
+#    datemax = datetime.strptime(request.GET.get("datemax","2100,1,1"),"%Y,%m,%d")
+#    projects = Project.objects.filter(created__gte=datemin, created__lte=datemax, parent=None, public=True)
+#    if request.GET.has_key("state"):
+#        projects = projects.filter(state=request.GET["state"])
 
-    ancestors = [id for id in request.GET.get("categs","").split(",") if id!=""]
-    if ancestors:
-        projects = projects.filter(message__ancestors__in=ancestors)
+#    ancestors = [id for id in request.GET.get("categs","").split(",") if id!=""]
+#    if ancestors:
+#        projects = projects.filter(message__ancestors__in=ancestors)
 
-    promotedprj = PromotedProject.objects.filter(location="index")
-    return object_list(request, queryset=projects[:10], extra_context={'promotedprj': promotedprj})
+#    promotedprj = PromotedProject.objects.filter(location="index")
+#    return object_list(request, queryset=projects[:10], extra_context={'promotedprj': promotedprj})
 
 @OINeedsPrjPerms(OI_READ)
 def getproject(request, id, view="description"):
     if not view: view = "description"
     project = Project.objects.get(id=id)
-    actions = filter(lambda a:a.show(project, request.user), OIPrjActions)
-    return direct_to_template(request, template="projects/project_detail.html", extra_context={'object': project, 'actions': actions, 'view':view, 'types':SPEC_TYPES, })
+#    actions = filter(lambda a:a.show(project, request.user), OIPrjActions)
+    return direct_to_template(request, template="projects/project_detail.html", extra_context={'object': project, 'view':view, 'types':SPEC_TYPES, })
 
 @OINeedsPrjPerms(OI_READ)
 def listtasks(request, id):
@@ -77,38 +73,41 @@ def editproject(request, id):
 def saveproject(request, id='0'):
     """Saves the edited project and redirects to it"""
     author=request.user
-    
-    if id=='0': #new project
-        if not request.POST["title"]:
-            return HttpResponse(_("Please enter a title"), status=531)
-        parent = Project.objects.get(id=request.POST["parent"]) if request.POST.get("parent") else None
-        project = Project(title = request.POST["title"], author=author, parent=parent, public=True, state=OI_PROPOSED)
-        project.save()
-        project.inherit_perms()
-        
-    else: #existing project ####DEPRECATED?
-        project = Project.objects.get(id=id)
-        if not project.has_perm(request.user, OI_WRITE):
-            return HttpResponseForbidden(_("Forbidden"))
-        project.title = request.POST["title"]
-
-    if (parent and parent.state==OI_VALIDATED) or (project.state == OI_VALIDATED):
+    parent = Project.objects.get(id=request.POST["parent"]) if request.POST.get("parent") else None
+    if (parent and parent.state==OI_VALIDATED):
         return HttpResponse(_("Can not change a project already started"), status=431)
+    
+#    if id=='0': #new project
+    if not request.POST["title"]:
+        return HttpResponse(_("Please enter a title"), status=531)
+    project = Project(title = request.POST["title"], author=author, parent=parent)
+#    project.save()
+#    project.inherit_perms()
+#    else: #existing project ####DEPRECATED?
+#        project = Project.objects.get(id=id)
+#        if not project.has_perm(request.user, OI_WRITE):
+#            return HttpResponseForbidden(_("Forbidden"))
+#        project.title = request.POST["title"]
 
     if request.POST.get("assignee") and len(request.POST["assignee"])>0:
         project.assignee = User.objects.get(username=request.POST["assignee"])
-    if request.POST.has_key("start_date") and len(request.POST["start_date"])>0:
-        project.start_date = request.POST["start_date"]
-    if request.POST.has_key("due_date") and len(request.POST["due_date"])>0:
-        project.due_date = request.POST["due_date"]
-    if request.POST.has_key("validaton") and len(request.POST["validation"])>0:
-        project.validation = request.POST["validation"]
-    if request.POST.has_key("progress") and len(request.POST["progress"])>0:
-        project.progress = request.POST["progress"]
+    for field in ["start_date","due_date","validaton","progress"]:
+        if request.POST.has_key(field) and len(request.POST[field])>0:
+            project.__setattr__(field, request.POST[field])
+#    if request.POST.has_key("start_date") and len(request.POST["start_date"])>0:
+#        project.start_date = request.POST["start_date"]
+#    if request.POST.has_key("due_date") and len(request.POST["due_date"])>0:
+#        project.due_date = request.POST["due_date"]
+#    if request.POST.has_key("validaton") and len(request.POST["validation"])>0:
+#        project.validation = request.POST["validation"]
+#    if request.POST.has_key("progress") and len(request.POST["progress"])>0:
+#        project.progress = request.POST["progress"]
+    project.state = OI_ACCEPTED if project.is_ready_to_start() else OI_PROPOSED
     project.check_dates()
 
     project.save()
     project.set_perm(author, OI_ALL_PERMS)
+    project.inherit_perms()
     if project.assignee:
         project.apply_perm(project.assignee, OI_ALL_PERMS)
         
@@ -156,7 +155,7 @@ def editdate(request, id):
     """Modifies a date of the project"""
     project = Project.objects.get(id=id)
     if project.state == OI_STARTED and request.user == project.assignee and request.POST["field_name"]=="due_date": #The user is asking for more delay
-        if project.bid_set.filter(rating__isnull=True): #needs validation
+        if project.bid_set.filter(rating__isnull=True): #if bidders, needs validation
             project.delay = request.POST["date"]
             project.save()
             #notify users about this project
@@ -166,6 +165,7 @@ def editdate(request, id):
             project.due_date = request.POST["date"]
             project.check_dates()
             project.save()
+            project.update_tree()
             return HttpResponse(_("Date updated"))
     if project.state > OI_ACCEPTED:
         return HttpResponse(_("Can not change a project already started"), status=431)
@@ -173,6 +173,7 @@ def editdate(request, id):
     project.__setattr__(request.POST["field_name"],request.POST["date"])
     project.check_dates()
     project.save()
+    project.update_tree()
     
     #notify users about this project
     request.user.get_profile().notify_all(project, "project_modified", request.POST["date"])
@@ -219,15 +220,10 @@ def offerproject(request, id):
         return HttpResponse(_('Please enter a valid number'), status=531)
     project.save()
     project.apply_perm(project.assignee, OI_ALL_PERMS)
-
-    if project.is_ready_to_start():
-        project.state = OI_ACCEPTED
-        project.save()
-    
     #adds the project to user's observation
     request.user.get_profile().observed_projects.add(project.master)
-    #notify users about this project
-    request.user.get_profile().notify_all(project, "project_modified", project.state)
+
+    project.switch_to(OI_ACCEPTED, request.user)
     messages.info(request, _("Project taken on"))
     return HttpResponse('', status=332)
 
@@ -302,25 +298,24 @@ def bidproject(request, id):
         amount = Decimal("0"+request.POST.get("bid","0").replace(",","."))
     except InvalidOperation:
         return HttpResponse(_("Invalid amount"))
-    #checks that the user can afford the bid
+    #checks that the user can afford the bid ; if not, redirects to the deposit page
     if amount > request.user.get_profile().balance:
         return HttpResponse('/user/myaccount#deposit/%s'%((amount-request.user.get_profile().balance).to_eng_string()),status=333)
+        
     #updates user account
     request.user.get_profile().make_payment(-amount, _("Bid"), project)
     #and creates the bid
     bid, created = Bid.objects.get_or_create(project=project, user=request.user)
     bid.amount += amount
     bid.save()
-    project.apply_perm(bid.user, OI_ALL_PERMS)
-    if project.is_ready_to_start():
-        project.state = OI_ACCEPTED
     project.commission += bid.amount * OI_COM_ON_BID #computes project commission from bids
     project.save()
     
+    project.apply_perm(bid.user, OI_ALL_PERMS)
     #adds the project to user's observation
     request.user.get_profile().observed_projects.add(project.master)
-    #notify users about this new bid
-    request.user.get_profile().notify_all(project, "project_bid", bid)
+    
+    project.switch_to(OI_ACCEPTED, request.user)
     messages.info(request, ("Bid saved"))
     return HttpResponse('', status=332)
 
@@ -328,42 +323,23 @@ def bidproject(request, id):
 def startproject(request, id):
     """Starts the project"""
     project = Project.objects.get(id=id)
-    if project.is_ready_to_start():
-        # only the assignee can start the project
-        if project.assignee == request.user:
-            project.state = OI_STARTED
-            project.start_date = datetime.now()
-            project.delegate_to = None
-            project.check_dates()
-            project.save()
-            #notify users about this state change
-            request.user.get_profile().notify_all(project, "project_state", OI_PRJ_STATES[project.state][1])
-            messages.info(request, _("Project started"))
-            return HttpResponse('', status=332)
-        else:
-            return HttpResponseForbidden(_("Only the assignee can start the project"))
-    else:
-        return HttpResponse(_("The project is not ready to start"), status=531)
+    if not project.switch_to(OI_STARTED, request.user):
+        return HttpResponseForbidden(_("Only the assignee can start the project if it has enough bids"))
+
+    project.delegate_to = None
+    messages.info(request, _("Project started"))
+    return HttpResponse('', status=332)
 
 @OINeedsPrjPerms(OI_WRITE)
 def deliverproject(request, id):
     """Marks the project as delivered"""
     project = Project.objects.get(id=id)
-    if project.state != OI_STARTED or project.assignee != request.user:
-        return HttpResponse(_("only the assignee can deliver the project!"))
-    project.progress = OI_PRJ_DONE
-    if project.bid_set.all():
-        project.state = OI_DELIVERED
-    else: #if there aren't any bids, then the project is VALIDATED
-        project.state = OI_VALIDATED
+    if not project.switch_to(OI_DELIVERED, request.user):
+        return HttpResponseForbidden(_("only the assignee can deliver the project!"))
 
-    project.due_date = datetime.now()
-    project.check_dates()
-    project.save()
+    project.progress = OI_PRJ_DONE
     #resets any delay demand
     project.reset_delay_request()
-    #notify users about this state change
-    request.user.get_profile().notify_all(project, "project_state", OI_PRJ_STATES[project.state][1])
     messages.info(request, _("Project done!"))
     return HttpResponse('', status=332)
 
@@ -372,23 +348,17 @@ def validateproject(request, id):
     """Validates the project by the user"""
     project = Project.objects.get(id=id)
     if project.state == OI_DELIVERED:
-        for bid in project.bid_set.filter(user=request.user):
+        for bid in project.bid_set.filter(user=request.user): #update user's bid
             bid.validated = True
             if request.user==project.assignee:
                 bid.rating = OI_NO_EVAL # the assignee doesn't evaluates himself
             bid.save()
-        # If there are no more users waiting for validation
-        if project.bid_set.filter(validated=False).count()==0:
-            project.state = OI_VALIDATED
-            # pays the assignee, deducts the commission
-            project.assignee.get_profile().make_payment(project.bid_sum(), _("Payment"), project)
-            project.assignee.get_profile().make_payment(-project.commission, _("Commission"), project)
-            project.validation = datetime.now()
-            project.check_dates()
-            project.save()
-
-            #notify users about this state change
-            request.user.get_profile().notify_all(project, "project_state", OI_PRJ_STATES[project.state][1])
+    if not project.switch_to(OI_VALIDATED):
+        return HttpResponse(_("only bidders can validate the project!"))
+    
+    # pays the assignee, deducts the commission
+    project.assignee.get_profile().make_payment(project.bid_sum(), _("Payment"), project)
+    project.assignee.get_profile().make_payment(-project.commission, _("Commission"), project)
     messages.info(request, _("Validation saved"))
     return HttpResponse('', status=332)
 
@@ -421,6 +391,7 @@ def cancelbid(request, id):
         #If the project has not started, simply remove the bid and reimburses the user
         if project.state < OI_STARTED:
             project.commission -= bid.amount*OI_COM_ON_BID #also reduce commission
+            project.state = OI_ACCEPTED if project.is_ready_to_start() else OI_PROPOSED
             project.save()
             request.user.get_profile().make_payment(bid.amount, _("Bid cancelled"), bid.project)
             bid.delete()  

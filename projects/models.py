@@ -35,7 +35,7 @@ class Project(models.Model):
     state = models.IntegerField(choices=OI_PRJ_STATES, default=OI_PROPOSED)
     public = models.BooleanField(default=True)
     
-    # overloads save to compute master project
+    # overloads save to compute master project and ancestors
     def save(self, *args, **kwargs):
         super(Project, self).save(*args, **kwargs)
         ancestors = []
@@ -56,6 +56,96 @@ class Project(models.Model):
         if to_date(self.due_date) > to_date(self.validation):
             self.validation = to_date(self.due_date) + timedelta(15)
     
+    def update_tree(self):
+        """checks if ancestors and descendants states and dates are consistent with the task"""
+        if self.state == OI_STARTED:
+            for ancestor in self.ancestors.filter(state__lt = OI_STARTED):
+                #start all ancestors not yet started if task is started
+                if not ancestor.switch_to(OI_STARTED, None):
+                    return False
+        if self.state == OI_DELIVERED:
+            for descendant in self.descendants.filter(state__lt = OI_DELIVERED):
+                #update all descendants not yet delivered if project is delivered
+                if not descendant.switch_to(OI_DELIVERED, None):
+                    return False
+        if self.state == OI_VALIDATED:
+            for descendant in self.descendants.filter(state__lt = OI_VALIDATED):
+                #update all descendants not yet delivered if project is delivered
+                if not descendant.switch_to(OI_VALIDATED, None):
+                    return False
+
+        for ancestor in self.ancestors.filter(start_date__gt = self.start_date):
+            #ancestor start date should be before task start date
+            ancestor.start_date = self.start_date
+            ancestor.check_dates()
+            ancestor.save()
+        for ancestor in self.ancestors.filter(due_date__lt = self.due_date):
+            #ancestor due date should be after task due date
+            ancestor.due_date = self.due_date
+            ancestor.check_dates()
+            ancestor.save()
+
+        for descendant in self.descendants.filter(start_date__lt = self.start_date):
+            #descendant start date should be after project start date
+            descendant.start_date = self.start_date
+            descendant.check_dates()
+            descendant.save()
+        for descendant in self.descendants.filter(due_date__gt = self.due_date):
+            #descendant due date should be before project due date
+            descendant.due_date = self.due_date
+            descendant.check_dates()
+            descendant.save()
+        return True
+    
+    def switch_to(self, newstate, user):
+        """Changes the state of the project, if allowed, and """
+        #check state
+        if user:
+            if self.state+1 != newstate: 
+                if not (self.state==newstate==OI_ACCEPTED): #accepts same state if it is OI_ACCEPTED
+                    return False
+        #check user
+        if user:
+            if user == self.assignee: #the assignee can not switch to validated
+                if newstate == OI_VALIDATED:
+                    return False
+            elif self.is_bidder(user): #bidders can not switch to started nor delivered
+                if newstate == OI_STARTED or newstate == OI_DELIVERED:
+                    return False
+            else: #other users can not change state
+                return False
+    
+        #update state
+        if newstate < OI_STARTED: #before start, project is accepted iff bids complete the offer
+            newstate = OI_ACCEPTED if self.is_ready_to_start() else OI_PROPOSED
+        elif newstate == OI_STARTED:
+            if not self.is_ready_to_start():
+                return False
+        elif newstate >= OI_DELIVERED: #validate the project iff all bidders validated
+            newstate = OI_VALIDATED if self.bid_set.filter(validated=False).count()==0 else OI_DELIVERED
+            
+        if self.state != newstate: #state needs to be updated
+            self.state = newstate
+        
+            #update dates
+            if newstate == self.state == OI_STARTED:
+                self.start_date = datetime.now()
+            elif newstate == self.state == OI_DELIVERED:
+                self.due_date = datetime.now()
+            elif newstate == self.state == OI_VALIDATED:
+                self.validation = datetime.now()
+            self.check_dates()
+            
+            #update tree states
+            if user:
+                if not self.update_tree():
+                    return False
+            self.save()
+            #notify users of state change
+            if user:
+                user.get_profile().notify_all(self, "project_state", OI_PRJ_STATES[self.state][1])
+        return True
+
     def get_max_order(self):
         """Returns the position of the last spec of the project"""
         return self.spec_set.aggregate(maxorder=models.Max('order'))['maxorder'] or 0

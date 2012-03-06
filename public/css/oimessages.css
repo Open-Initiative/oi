@@ -1,9 +1,9 @@
 div.msgbody {
     background: #E1F3FA;
     margin-left: 17px;
-    width: 555px;
+    width: 585px;
     margin: 0 17px;
-    padding: 0 20px;
+    padding: 0 5px;
 }
 div.msgbubble {
     padding-left: 70px;
@@ -38,7 +38,7 @@ div.author {
     clear:left;
     font-variant:small-caps;
     font-weight:bold;
-    width:100px;
+    width:80px;
 }
 div.moreblue {
     background:url('/img/discblue.png');
@@ -74,7 +74,4 @@ div.prjlist {
 div.childrenlist {
     clear: left;
     padding-left: 20px;
-}
-.msgfield {
-    width:100%;
 }

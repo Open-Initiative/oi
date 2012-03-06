@@ -181,8 +181,13 @@ div.center{
     color: #6c6d6e;
 }
 #pagetitle {
-    height: 80px;
-    width: 275px;
+    height: 70px;
+    width: 265px;
+    padding: 5px;
+    font-family: "Interstate";
+    text-transform: uppercase;
+    font-size: 2em;
+    color: #D0574C;
 }
 #messageoutput {
     position: fixed;
@@ -359,7 +364,7 @@ div.popup {
     top: 150px;
     z-index: 1;
 }
-div.actions {
+.actions {
     clear: right;
     float: right;
     margin: 5px;
@@ -402,6 +407,10 @@ div.morelink {
 }
 .nobold {
     font-weight:normal;
+}
+.norich {
+    width: 500px;
+    height: 200px;
 }
 .askoi {
     vertical-align: sub;

@@ -7,5 +7,5 @@
 <input name="specid" id="specid_{{divid}}" value="{{spec.id|default:0}}" type="hidden"/>
 <input name="projectid" id="projectid_{{divid}}" value="{{project.id}}" type="hidden"/>
 <div id="spec_{{divid}}" class="cleared specedit"></div>
-<div id="validspec_{{divid}}" style="float:right"><img class="clickable" src="/img/icons/ok-32.png" onclick="saveSpec('{{divid}}',{{project.id}},{{specorder|default:-1}},{{spec.id|default:0}})"/></div>
+<div id="validspec_{{divid}}" class="actions"><img class="clickable" src="/img/icons/ok-32.png" onclick="saveSpec('{{divid}}',{{project.id}},{{specorder|default:-1}},{{spec.id|default:0}})"/></div>
 <div class="sepspec"></div>
