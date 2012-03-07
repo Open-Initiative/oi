@@ -587,7 +587,7 @@ def savespec(request, id, specid='0'):
     filename = request.POST.get("filename")
     if filename:
 #        filename = normalize("NFC", filename)
-        filename = normalize("NFKD", filename).encode('ascii', 'ignore')
+        filename = normalize("NFKD", filename).encode('ascii', 'ignore').replace('"', '')
         spec.file.delete()
         path = ("%s%s_%s_%s"%(TEMP_DIR,request.user.id,request.POST["ts"],filename))
         spec.file.save(filename, File(open(path)), False)
@@ -638,7 +638,7 @@ def uploadfile(request, id, specid='0'):
     divid = request.POST['divid']
     ts = int(time())
 #    filename = normalize("NFC", uploadedfile.name).encode('utf-8').
-    filename = normalize("NFKD", uploadedfile.name).encode('ascii', 'ignore')
+    filename = normalize("NFKD", uploadedfile.name).encode('ascii', 'ignore').replace('"', '')
     tempfile = open("%s%s_%s_%s"%(TEMP_DIR,request.user.id,ts,filename), 'wb+')
     for chunk in uploadedfile.chunks():
         tempfile.write(chunk)

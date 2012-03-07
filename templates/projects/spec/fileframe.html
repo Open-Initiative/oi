@@ -2,7 +2,7 @@
 <html>
 <head>
 <script>
-window.parent.document.getElementById("filename_{{divid}}").value="{{filename}}";
+window.parent.document.getElementById("filename_{{divid}}").value= unescape("{{filename|safe}}");
 window.parent.document.getElementById("ts_{{divid}}").value="{{ts}}";
 window.parent.document.getElementById("filespan_{{divid}}").innerHTML="<img src='/img/icons/delete.png' alt='{% trans "Delete" %}' title='{% trans "Delete" %}' onclick='deltmp({{projectid}},\"{{filename}}\",\"{{ts}}\",\"{{divid}}\")' /> {{filename}}";
 window.parent.document.getElementById("filediv_{{divid}}").style.display="none";
