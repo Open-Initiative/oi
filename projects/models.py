@@ -246,11 +246,7 @@ class Project(models.Model):
             return [self]
 
     def is_ready_to_start(self):
-        """returns True if the project is not started yet, has an assignee and enough bids"""
-        if self.assignee is None:
-            return False
-        if self.state > OI_ACCEPTED:
-            return False
+        """returns True iff the project has enough bids"""
         missing_bid = self.missing_bid()
         return missing_bid.is_signed() or missing_bid.is_zero()
     
