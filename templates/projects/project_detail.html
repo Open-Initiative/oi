@@ -3,28 +3,30 @@
 {% load i18n %}
 {% block title %}{{object.title|default:_("Project")}}{% endblock %}
 {% block pagetitle %}{{object.title|default:_("Project")}}{% endblock %}
-{% block tabs %}
-<div class="{% ifequal view "description" %}selectedtab {% endifequal %}tab">
-    <a href="description"><img class="tabicon" src="/img/icons/spec{% ifequal view "description" %}white{% endifequal %}.png"/> {% trans "description" %}</a>
-</div>
-<div class="{% ifequal view "planning" %}selectedtab {% endifequal %}tab">
-    <a href="planning"><img class="tabicon" src="/img/icons/planning{% ifequal view "planning" %}white{% endifequal %}.png"/> {% trans "planning" %}</a>
-</div>
-<div class="{% ifequal view "budget" %}selectedtab {% endifequal %}tab">
-    <a href="budget"><img class="tabicon" src="/img/icons/budget{% ifequal view "budget" %}white{% endifequal %}.png"/> {% trans "budget" %}</a>
-</div>
-<div class="{% ifequal view "team" %}selectedtab {% endifequal %}tab">
-    <a href="team"><img class="tabicon" src="/img/icons/team{% ifequal view "team" %}white{% endifequal %}.png"/> {% trans "team" %}</a>
-</div>
-{% endblock %}
-{% block tools %}
-    <img class="clickable" title="Suivre le projet" alt="Suivre le projet" src="/img/icons/starTrue.png" onclick="observeProject({{object.id}})">
-{% include 'projects/project_state.html' %}
-{% endblock %}
 {% block nav %}
 <div id="projecttree"></div>
 {% endblock %}
 {% block content %}
+<div class="pagetop">
+    <div id="tabs">
+        <div class="{% ifequal view "description" %}selectedtab {% endifequal %}tab">
+            <a href="description"><img class="tabicon" src="/img/icons/spec{% ifequal view "description" %}white{% endifequal %}.png"/> {% trans "description" %}</a>
+        </div>
+        <div class="{% ifequal view "planning" %}selectedtab {% endifequal %}tab">
+            <a href="planning"><img class="tabicon" src="/img/icons/planning{% ifequal view "planning" %}white{% endifequal %}.png"/> {% trans "planning" %}</a>
+        </div>
+        <div class="{% ifequal view "budget" %}selectedtab {% endifequal %}tab">
+            <a href="budget"><img class="tabicon" src="/img/icons/budget{% ifequal view "budget" %}white{% endifequal %}.png"/> {% trans "budget" %}</a>
+        </div>
+        <div class="{% ifequal view "team" %}selectedtab {% endifequal %}tab">
+            <a href="team"><img class="tabicon" src="/img/icons/team{% ifequal view "team" %}white{% endifequal %}.png"/> {% trans "team" %}</a>
+        </div>
+    </div>
+    <div id="tools">
+        <img class="clickable" title="Suivre le projet" alt="Suivre le projet" src="/img/icons/starTrue.png" onclick="observeProject({{object.id}})">
+        {% include 'projects/project_state.html' %}
+    </div>
+</div>
 {% if object|can_read:user %}
 {% with object as project %}
 <div id="project_{{project.id}}" class="project">

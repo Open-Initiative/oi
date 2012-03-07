@@ -19,6 +19,10 @@ function addTask(tasktitle, projectid, userid) {
         if(window.oiTree) {
             position = oiTree.nodes[projectid].children.length;
             setTaskName(oiTree.addChild(projectid, task.pk, 0, position), task.pk, task.fields.title, viewname);
+            if(oiTable) {
+                oiTable.addFromTask(task, oiTree.nodes[projectid].children[position-1].id);
+                oiTable.redraw();
+            }
         }
     }
     return task.pk;

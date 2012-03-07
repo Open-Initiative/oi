@@ -3,7 +3,7 @@
 {% load oifilters %}
 {% block title %}{% trans "The IT community dedicated to your business" %}{% endblock %}
 {% block announcement %}
-    <div id="catcherbg">
+    {% comment %}<div id="catcherbg">
         <div id="catcher">
             <div class="catcherleft">
                 <a href="/message/new"><div class="catchericon" onmouseover="show('slider2');hide('slider1');" onmouseout="show('slider1');hide('slider2');">
@@ -16,13 +16,7 @@
 <!--                    <div>{% trans "Submit" %}</div><div class="catchercomment">{% trans "a project" %}</div>-->
 <!--                </div></a>-->
             </div>
-            <div id="slider1" class="slider">
-                <div class="slidertext">Avec Open Initiative accédez aux conseils de professionnels, précisez et définissez avec eux votre projet ainsi que les solutions envisageables.</div>
-                <div class="slidericon"><img src="/img/icons/user.png" /></div>
-                <a href="/presentation"><div class="slidermore" onmouseover="this.style.color='#D0574C'" onmouseout="this.style.color='white'">
-                    {% trans "Learn More" %}
-                </div></a>
-            </div>
+
             <div id="slider2" class="slider invisible">
                 <div class="slidertext">Échangez gratuitement avec la communauté informatique et obtenez des propositions parfaitement adaptées à vos objectifs et à vos contraintes.</div>
                 <div class="slidericon"><img src="/img/icons/message.png" /></div>
@@ -32,20 +26,36 @@
                 <div class="slidericon"><img src="/img/icons/project.png" /></div>
             </div>
         </div>
-    </div>
-{% endblock %}
-{% block headersep %}
-<div style="background:url('/img/agilebg.png');repeat-x:repeat;">
-    <a href="/presentation#methodology">
-        <div class="agiletext">
-            <img src="/img/agilearrow.png" class="agilearrow" />
-            {% trans "Why Agile development" %} <img class="askoi" src="/img/askoi.png" />
-            <img src="/img/agilearrow2.png" class="agilearrow" />
+    </div>{% endcomment %}
+<div id="catcherbg">
+    <div id="catcher">
+        <div id="slider1" class="slider">
+            <div class="slidertext">Avec Open Initiative accédez aux conseils de professionnels, précisez et définissez avec eux votre projet ainsi que les solutions envisageables.</div>
+<!--        <div class="slidericon"><img src="/img/icons/user.png" /></div>-->
         </div>
-    </a>
+        <a href="/presentation"><div class="slidermore" onmouseover="this.style.color='#D0574C'" onmouseout="this.style.color='white'">
+            {% trans "Learn More" %}
+        </div></a>
+    </div>
 </div>
 {% endblock %}
-{% block nav %}<span style="font-size:1.2em;color:#0094B5">Messages</span>{% endblock %}
+{% block headersep %}
+<div class="registerline">
+    <div id="registerarea">
+        <a href="/user/register"><div id="registerbtn" onmouseover="this.style.color='white'" onmouseout="this.style.color='#A8DCF4'">
+            {% trans "Register" %}
+        </div></a>
+    </div>
+<!--    <a href="/presentation#methodology">-->
+<!--        <div class="agiletext">-->
+<!--            <img src="/img/agilearrow.png" class="agilearrow" />-->
+<!--            {% trans "Why Agile development" %} <img class="askoi" src="/img/askoi.png" />-->
+<!--            <img src="/img/agilearrow2.png" class="agilearrow" />-->
+<!--        </div>-->
+<!--    </a>-->
+</div>
+{% endblock %}
+{% block nav %}{% endblock %}
 {% block content %}
     {% with "True" as is_ajax %}
     <div id="messages" class="column" style="padding-left:20px">{% include "messages/message_list.html" %}</div>

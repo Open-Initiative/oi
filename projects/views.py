@@ -91,6 +91,9 @@ def saveproject(request, id='0'):
 
     if request.POST.get("assignee") and len(request.POST["assignee"])>0:
         project.assignee = User.objects.get(username=request.POST["assignee"])
+    else:
+        if parent:
+            project.assignee = parent.assignee
     for field in ["start_date","due_date","validaton","progress"]:
         if request.POST.has_key(field) and len(request.POST[field])>0:
             project.__setattr__(field, request.POST[field])

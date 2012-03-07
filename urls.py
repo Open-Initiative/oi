@@ -13,10 +13,15 @@ def oi_search_view_factory(view_class=SearchView, *args, **kwargs):
         return view_class(searchqueryset=SearchQuerySet().filter(public=True).filter_or(perms=request.user) , *args, **kwargs)(request)
     return search_view
 
+def index(request):
+    if request.user.is_authenticated():
+        return direct_to_template(request, "users/dashboard.html")
+    else:
+        return ListView.as_view(queryset=Message.objects.filter(promotedmessage__location='index'), template_name='index.html')(request)
+
 urlpatterns = patterns('',
     # Page d'accueil
-    (r'^$',  ListView.as_view(queryset=Message.objects.filter(promotedmessage__location='index'), template_name='index.html')),
-    (r'^index/(?P<id>\d+)$', direct_to_template, {'template': "index.html"}),
+    (r'^$', index),
     # contenu statique
     (r'^cgu$', direct_to_template, {'template': "cgu.html"}),    
     (r'^contact$', direct_to_template, {'template': "contact.html"}),

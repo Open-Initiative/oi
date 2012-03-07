@@ -62,31 +62,32 @@ div.center{
 }
 #topline {
     background:#68274E;
-    height:19px;
+    height:3px;
     padding: 3px;
     color: #0094B5;
 }
 #toptext {
-    width:1020px;
+    background:#68274E;
+    height:20px;
+    border-radius: 5px;
     margin:auto;
-    text-align:right;
+    float:right;
+    padding: 0 3px;
 }
 #header {
-    height: 114px;
-    background:#F5F5F5;
+    height: 75px;
+    background: white;
 }
 #logo {
-    width:220px;
-    padding:10px;
+    width:200px;
     float:left
 }
 #searchdiv {
     border-right: 1px solid #0094B5;
     float: left;
-    margin: 10px 20px 0 0;
-    padding-top: 5px;
+    margin: 5px 20px 0 0;
     width: 250px;
-    height: 90px;
+    height: 50px;
 }
 #baseline {
     width:150px;
@@ -115,17 +116,10 @@ div.center{
     top:1px;
 }
 #userheader {
-    width:480px;
+    margin-top: 5px;
     float:left;
-    margin-top: 10px;
-}
-#userlinks {
-    text-transform: uppercase;
-    font-weight:bold;
-    font-size: .9em;
 }
 .usertitle {
-    height:70px;
     color:#D0574C;
     text-transform: uppercase;
     font-weight:bold;
@@ -139,8 +133,8 @@ div.center{
 }
 #loginarea {
     float: left;
-    width: 250px;
-    margin: 5px;
+    width: 400px;
+    margin: 2px;
     letter-spacing: -1px;
     color: #68274E;
 }
@@ -150,6 +144,8 @@ div.center{
     font-size: .8em;
 }
 #loginbtn {
+    font-size: 0.9em;
+    height: 20px;
     letter-spacing: -1px;
 }
 #registerarea {
@@ -292,7 +288,7 @@ div.navtitle {
 }
 #catcher {
     background:url('/img/catcher.jpg') repeat-y;
-    height:320px;
+    height:160px;
     width:1020px;
     margin:auto;
     clear: left;
@@ -311,39 +307,45 @@ div.navtitle {
     text-transform: uppercase;
     font-family:'Interstate';
     font-size:1.8em;
-    color:#0094B5;
+    color: #0094B5;
     padding: 10px 0;
 }
 .slider {
-    padding:20px 0 0 20px;
+    padding: 15px;
     float: left;
     width: 600px;
 }
 .slidertext {
     color: #D0574C;
     font-size: 2.2em;
-    line-height: 1.2em;
     width: 580px;
 }
 .slidermore {
-    background:url('/img/learnmore.png');
-    width:144px;
-    height:15px;
-    color:white;
-    text-transform:uppercase;
-    font-weight:bold;
-    font-size:1.1em;
-    padding:5px 12px;
-    margin-top:-10px;
+    background: url('/img/learnmore.png');
+    width: 144px;
+    height: 15px;
+    float: left;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.1em;
+    padding: 5px 12px;
+    margin-top: 100px;
 }
 .slidericon {
     text-align: right;
 }
 .headersep {
-    background: #E1F3FA;
+    background: url('/img/headersep.png');
     border-top: 3px solid #C8DBE1;
     border-bottom: 3px solid #D0574C;
     clear: left;
+}
+.registerline {
+    repeat-x:repeat;
+    height: 35px;
+    margin: auto;
+    width: 1020px;
 }
 .agilearrow {
     vertical-align: -2px;
@@ -358,7 +360,7 @@ div.navtitle {
 }
 div.popup {
     background: white;
-    border: solid;
+    border: solid 1px;
     left: 300px;
     position: fixed;
     top: 150px;
