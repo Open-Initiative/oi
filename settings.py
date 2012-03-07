@@ -134,7 +134,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'south',
-    'haystack',
+#    'haystack',
     'oi.messages',
     'oi.projects',
     'oi.users',
