@@ -55,7 +55,7 @@ def getproject(request, id, view="description"):
 
 @OINeedsPrjPerms(OI_READ)
 def listtasks(request, id):
-    tasks = Project.objects.get(id=id).tasks.order_by('state')
+    tasks = Project.objects.get(id=id).tasks.order_by('state', '-priority')
     return HttpResponse(serializers.oiserialize("json", tasks,
         extra_fields=("assignee.get_profile.get_display_name", "alloffer_sum","allbid_sum","bid_sum","bid_set.count")))
 
