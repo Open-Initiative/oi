@@ -177,13 +177,14 @@ div.center{
     color: #6c6d6e;
 }
 #pagetitle {
-    height: 70px;
+    height: 85px;
     width: 265px;
     padding: 5px;
     font-family: "Interstate";
     text-transform: uppercase;
     font-size: 2em;
     color: #D0574C;
+    overflow: hidden;
 }
 #messageoutput {
     position: fixed;
@@ -258,7 +259,6 @@ img.tabicon {
 #nav {
     background:#E1F3FA;
     width:275px;
-    margin-top: 15px;
 }
 div.navtitle {
     padding-top: 20px;
