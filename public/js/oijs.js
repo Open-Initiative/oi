@@ -51,6 +51,9 @@ function OIajaxCall(url, params, divid) {
         document.getElementById(divid).innerHTML = xmlhttp.responseText;
     }
 }
+function randid() {
+    return "oi" + (""+Math.random()).slice(5);
+}
 function getValue(eltid, erase){
     elt = document.getElementById(eltid);
     if(elt==null) return null;
@@ -59,7 +62,7 @@ function getValue(eltid, erase){
     return value;
 }
 function newDiv(parentid) {
-    divid = "oi" + (""+Math.random()).slice(5);
+    divid = randid();
     var newdiv = document.createElement('div');
     newdiv.setAttribute('id',divid);
     document.getElementById(parentid).appendChild(newdiv);

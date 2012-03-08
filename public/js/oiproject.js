@@ -299,7 +299,7 @@ function OISpot(specDiv, projectid, specid, spotid, x, y, title, linkid, number)
     this.div.style.display = 'none';
     this.div.spot = this;
     this.fillDiv();
-    this.div.onclick = function(evt) {document.ignoreClosePopups = true};
+    this.div.onclick = function(evt) {document.ignoreClosePopups = true;evt.stopPropagation();return false;};
     
     this.img = document.createElement("img");
     this.img.src = "/img/spot1.png";
@@ -330,7 +330,6 @@ OISpot.prototype.edit = function edit() {
 OISpot.prototype.fillDiv = function fillDiv() {
     this.div.innerHTML = "";
     var content = "<a href='/project/get/"+this.linkid+"'>"+ this.title + "</a>";
-    content += " <img src='/img/icons/edit.png' class='clickable' onclick='this.parentElement.spot.edit()'/>";
     content += " <img src='/img/icons/delete.png' class='clickable' onclick='this.parentElement.spot.remove()'/>";
     this.div.innerHTML = content;
     if(this.linkid) OIajaxCall('/project/'+this.linkid+'/summarize', null, newDiv(this.div.id));
@@ -340,7 +339,7 @@ OISpot.prototype.save = function save() {
     this.title = form.tasktitle.value;
     form.taskid.value = addTask(this.title, this.projectid);
     this.linkid = form.taskid.value;
-    var spot = eval(OIajaxCall('/project/'+this.projectid+'/savespot/'+this.specid+'/0', prepareForm('spotform')))[0];
+    var spot = eval(OIajaxCall('/project/'+this.projectid+'/savespot/'+this.specid+'/0', prepareForm(form.id)))[0];
     this.spotid = spot.pk;
     this.number.innerHTML = spot.fields.number;
     this.fillDiv();
@@ -360,6 +359,7 @@ OISpot.prototype.hide = function hide() {
 OISpot.prototype.remove = function remove() {
     if(confirm(gettext("Are you sure you want to permanently remove this annotation?"))) {
         OIajaxCall('/project/'+this.projectid+'/removespot/'+this.specid+'/'+this.spotid, null, 'output');
+        OIajaxCall('/project/delete/'+this.linkid, null, 'output');
         this.img.parentElement.removeChild(this.img);
         this.div.parentElement.removeChild(this.div);
         this.number.parentElement.removeChild(this.number);

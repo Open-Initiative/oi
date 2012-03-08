@@ -20,6 +20,7 @@
     {% if project|can_write:user and project.state < 4 %}{% with "newspec" as divid %}
     <div id="{{divid}}">{% include 'projects/spec/editspec.html' %}</div>
     <script>changeSpecType("newspec", 1);</script>
+    <div class="sepspec"></div>
     {% endwith %}{% endif %}
 </div>
 <div class="cleared"></div>
