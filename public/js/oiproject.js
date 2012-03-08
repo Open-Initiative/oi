@@ -340,7 +340,9 @@ OISpot.prototype.save = function save() {
     this.title = form.tasktitle.value;
     form.taskid.value = addTask(this.title, this.projectid);
     this.linkid = form.taskid.value;
-    this.spotid = OIajaxCall('/project/'+this.projectid+'/savespot/'+this.specid+'/0', prepareForm('spotform'));
+    var spot = eval(OIajaxCall('/project/'+this.projectid+'/savespot/'+this.specid+'/0', prepareForm('spotform')))[0];
+    this.spotid = spot.pk;
+    this.number.innerHTML = spot.fields.number;
     this.fillDiv();
     return false;
 }
