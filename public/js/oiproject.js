@@ -360,6 +360,7 @@ OISpot.prototype.remove = function remove() {
         OIajaxCall('/project/'+this.projectid+'/removespot/'+this.specid+'/'+this.spotid, null, 'output');
         this.img.parentElement.removeChild(this.img);
         this.div.parentElement.removeChild(this.div);
+        this.number.parentElement.removeChild(this.number);
     }
 }
 
