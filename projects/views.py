@@ -503,7 +503,10 @@ def togglehideproject(request, id):
 def shareproject(request, id):
     """Shares the project with a user and outputs a message"""
     project = Project.objects.get(id=id)
-    user = User.objects.get(username=request.POST["username"])
+    try:
+        user = User.objects.get(username=request.POST["username"])
+    except (KeyError, User.DoesNotExist):
+        return HttpResponse(_("Cannot find user"), status=531)
     project.apply_perm(user, OI_ALL_PERMS)
     user.get_profile().observed_projects.add(project)
     messages.info(request, _("Project shared"))
