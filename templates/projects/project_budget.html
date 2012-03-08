@@ -78,7 +78,7 @@
 </div>
 <script>
     oiTable = new OITable("budget", ["{% trans 'Budget' %}","{% trans 'Engaged' %}"]);
-    oiTable.addLine({{project.master.id}}, ["{{project.get_budget}} €", "{{project.master.allbid_sum}} €"])
+    oiTable.addLine({{project.master.id}}, ["{{project.master.get_budget}} €", "{{project.master.allbid_sum}} €"])
     oiTable.addFromTask = function addFromTask(task, afterid, bgClass) {
         oiTable.addLine(task.pk, [parseFloat(task.fields.get_budget) + " €", parseFloat(task.fields.allbid_sum) + " €"], afterid, bgClass);
     }
