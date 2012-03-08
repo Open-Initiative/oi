@@ -67,4 +67,7 @@
 <script>
     oiTable = new OITable("team", ["{% trans 'Assignee' %}", "{% trans 'Bidders' %}"]);
     oiTable.addLine({{project.master.id}}, ["{{project.master.assignee.get_profile.get_display_name}}", "{{project.master.bid_set.count}}"])
+    oiTable.addFromTask = function addFromTask(task, afterid, bgClass) {
+        oiTable.addLine(task.pk, [task.fields.assignee_get_profile_get_display_name, task.fields.bid_set_count], afterid, bgClass);
+    }
 </script>

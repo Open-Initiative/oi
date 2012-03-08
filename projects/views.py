@@ -23,7 +23,7 @@ from django.views.generic.simple import direct_to_template
 from oi.notification import models as notification
 from oi.settings import MEDIA_ROOT, TEMP_DIR
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS
-from oi.helpers import OI_PRJ_DONE, OI_NO_EVAL, OI_ACCEPT_DELAY, OI_READ, OI_ANSWER, OI_WRITE, OI_ALL_PERMS, OI_CANCELLED_BID, OI_COM_ON_BID
+from oi.helpers import OI_PRJ_DONE, OI_NO_EVAL, OI_ACCEPT_DELAY, OI_READ, OI_ANSWER, OI_WRITE, OI_ALL_PERMS, OI_CANCELLED_BID, OI_COM_ON_BID, OI_COMMISSION
 from oi.helpers import SPEC_TYPES, SPOT_TYPES, NOTE_TYPE, TASK_TYPE, MESSAGE_TYPE, OIAction, ajax_login_required
 from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeedsPrjPerms
 from oi.messages.models import Message
@@ -57,7 +57,7 @@ def getproject(request, id, view="description"):
 def listtasks(request, id):
     tasks = Project.objects.get(id=id).tasks.order_by('state', '-priority')
     return HttpResponse(serializers.oiserialize("json", tasks,
-        extra_fields=("assignee.get_profile.get_display_name", "alloffer_sum","allbid_sum","bid_sum","bid_set.count")))
+        extra_fields=("assignee.get_profile.get_display_name", "get_budget","allbid_sum","bid_set.count")))
 
 @login_required
 def editproject(request, id):
@@ -77,17 +77,17 @@ def saveproject(request, id='0'):
     if (parent and parent.state==OI_VALIDATED):
         return HttpResponse(_("Can not change a project already started"), status=431)
     
-#    if id=='0': #new project
-    if not request.POST["title"]:
-        return HttpResponse(_("Please enter a title"), status=531)
-    project = Project(title = request.POST["title"], author=author, parent=parent)
+    if id=='0': #new project
+        if not request.POST["title"]:
+            return HttpResponse(_("Please enter a title"), status=531)
+        project = Project(title = request.POST["title"], author=author, parent=parent)
 #    project.save()
 #    project.inherit_perms()
-#    else: #existing project ####DEPRECATED?
-#        project = Project.objects.get(id=id)
-#        if not project.has_perm(request.user, OI_WRITE):
-#            return HttpResponseForbidden(_("Forbidden"))
-#        project.title = request.POST["title"]
+    else: #existing project ####DEPRECATED?
+        project = Project.objects.get(id=id)
+        if not project.has_perm(request.user, OI_WRITE):
+            return HttpResponseForbidden(_("Forbidden"))
+        project.title = request.POST["title"]
 
     if request.POST.get("assignee") and len(request.POST["assignee"])>0:
         project.assignee = User.objects.get(username=request.POST["assignee"])
@@ -105,10 +105,13 @@ def saveproject(request, id='0'):
 #        project.validation = request.POST["validation"]
 #    if request.POST.has_key("progress") and len(request.POST["progress"])>0:
 #        project.progress = request.POST["progress"]
-    project.state = OI_ACCEPTED if project.is_ready_to_start() else OI_PROPOSED
+    project.state = OI_PROPOSED
     project.check_dates()
 
     project.save()
+    if project.is_ready_to_start():
+        project.state = OI_ACCEPTED
+        project.save()
     project.set_perm(author, OI_ALL_PERMS)
     project.inherit_perms()
     if project.assignee:
@@ -221,6 +224,7 @@ def offerproject(request, id):
         project.offer = Decimal("0"+request.POST.get("offer","0").replace(",","."))
     except InvalidOperation:
         return HttpResponse(_('Please enter a valid number'), status=531)
+    project.commission += project.offer * OI_COMMISSION #computes project commission
     project.save()
     project.apply_perm(project.assignee, OI_ALL_PERMS)
     #adds the project to user's observation
@@ -304,16 +308,17 @@ def bidproject(request, id):
     #checks that the user can afford the bid ; if not, redirects to the deposit page
     if amount > request.user.get_profile().balance:
         return HttpResponse('/user/myaccount#deposit/%s'%((amount-request.user.get_profile().balance).to_eng_string()),status=333)
-        
-    #updates user account
-    request.user.get_profile().make_payment(-amount, _("Bid"), project)
+    
     #and creates the bid
     bid, created = Bid.objects.get_or_create(project=project, user=request.user)
+    bid.commission += amount * OI_COM_ON_BID #computes bid commission included in amount
     bid.amount += amount
     bid.save()
-    project.commission += bid.amount * OI_COM_ON_BID #computes project commission from bids
-    project.save()
     
+    #updates user account
+    request.user.get_profile().make_payment(-(amount-bid.commission), _("Bid"), project)
+    request.user.get_profile().make_payment(-bid.commission, _("Commission"), project)
+
     project.apply_perm(bid.user, OI_ALL_PERMS)
     #adds the project to user's observation
     request.user.get_profile().observed_projects.add(project.master)
@@ -326,10 +331,16 @@ def bidproject(request, id):
 def startproject(request, id):
     """Starts the project"""
     project = Project.objects.get(id=id)
+    if not project.is_ready_to_start():
+        return HttpResponse(_("Not enough bids"), status=531)
     if not project.switch_to(OI_STARTED, request.user):
-        return HttpResponseForbidden(_("Only the assignee can start the project if it has enough bids"))
+        return HttpResponseForbidden(_("Only the assignee can start the project"))
 
+    if not project.offer:
+        project.offer = project.alloffer_sum() #sums up tasks offers if the project doesn't has one
+        project.commission = project.allcommission_sum()
     project.delegate_to = None
+    project.save()
     messages.info(request, _("Project started"))
     return HttpResponse('', status=332)
 
@@ -356,12 +367,12 @@ def validateproject(request, id):
             if request.user==project.assignee:
                 bid.rating = OI_NO_EVAL # the assignee doesn't evaluates himself
             bid.save()
-    if not project.switch_to(OI_VALIDATED):
+    if not project.switch_to(OI_VALIDATED, request.user):
         return HttpResponse(_("only bidders can validate the project!"))
     
-    # pays the assignee, deducts the commission
-    project.assignee.get_profile().make_payment(project.bid_sum(), _("Payment"), project)
-    project.assignee.get_profile().make_payment(-project.commission, _("Commission"), project)
+    # pays the assignee
+    project.assignee.get_profile().make_payment(project.offer or project.alloffer_sum(), _("Payment"), project)
+#    request.user.get_profile().make_payment(-bid.commission, _("Commission"), project)
     messages.info(request, _("Validation saved"))
     return HttpResponse('', status=332)
 
@@ -393,7 +404,7 @@ def cancelbid(request, id):
     for bid in bids:
         #If the project has not started, simply remove the bid and reimburses the user
         if project.state < OI_STARTED:
-            project.commission -= bid.amount*OI_COM_ON_BID #also reduce commission
+#            project.commission -= bid.amount*OI_COM_ON_BID #also reduce commission
             project.state = OI_ACCEPTED if project.is_ready_to_start() else OI_PROPOSED
             project.save()
             request.user.get_profile().make_payment(bid.amount, _("Bid cancelled"), bid.project)
@@ -435,11 +446,11 @@ def cancelproject(request, id):
         return HttpResponse(_("The project is already over"))
     if request.user != project.assignee:
         return HttpResponse(_("Only the user in charge of the project can cancel it"))
-    project.state = OI_CANCELLED
     #The assignee canceling the project after its start pays for the commission
-    if project.state > OI_STARTED:
+    if project.state >= OI_STARTED:
         request.user.get_profile().make_payment(-project.commission, _("Commission"), project)
-        project.commission = 0
+#        project.commission = 0
+    project.state = OI_CANCELLED
     project.save()
     #notify users about this cancellation
     request.user.get_profile().notify_all(project, "project_cancel", project.title)

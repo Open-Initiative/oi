@@ -9,7 +9,7 @@ from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext as _
 from oi.settings import MEDIA_ROOT
-from oi.helpers import OI_ALL_PERMS, OI_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_ANSWER, OI_COMMISSION, OI_COM_ON_BID
+from oi.helpers import OI_ALL_PERMS, OI_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_ANSWER, OI_COMMISSION, OI_COM_ON_BID, OI_CANCELLED_BID
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS
 from oi.helpers import SPEC_TYPES, SPOT_TYPES, TEXT_TYPE, NOTE_TYPE, to_date
 
@@ -118,9 +118,6 @@ class Project(models.Model):
         #update state
         if newstate < OI_STARTED: #before start, project is accepted iff bids complete the offer
             newstate = OI_ACCEPTED if self.is_ready_to_start() else OI_PROPOSED
-        elif newstate == OI_STARTED:
-            if not self.is_ready_to_start():
-                return False
         elif newstate >= OI_DELIVERED: #validate the project iff all bidders validated
             newstate = OI_VALIDATED if self.bid_set.filter(validated=False).count()==0 else OI_DELIVERED
             
@@ -195,9 +192,7 @@ class Project(models.Model):
     def apply_public(self, public):
         """sets public on project and descendants"""
         self.public = public
-        for descendant in self.descendants.all():
-            descendant.public = public
-            descendant.save()
+        self.descendants.all().update(public=public)
 
     @commit_on_success
     def inherit_perms(self):
@@ -209,26 +204,34 @@ class Project(models.Model):
 
     def canceled_bids(self):
         """gets all the bids marked as canceled"""
-        return self.bid_set.filter(rating=-1)
+        return self.bid_set.filter(rating=OI_CANCELLED_BID)
     
     def is_bidder(self, user):
-        return user.is_authenticated() and self.bid_set.filter(user=user).filter(rating=None).count() > 0
+        return user.is_authenticated() and self.bid_set.filter(user=user).filter(rating=None).count() > Decimal("0")
 
     def allbid_sum(self):
         """sums up all bids on the project's tasks"""
-        return self.descendants.aggregate(models.Sum("bid__amount"))["bid__amount__sum"] or 0
+        return (self.descendants.aggregate(models.Sum("bid__amount"))["bid__amount__sum"] or Decimal("0")) + self.bid_sum()
         
     def alloffer_sum(self):
         """sums up all offers on the project's tasks"""
-        return self.descendants.aggregate(models.Sum("offer"))["offer__sum"] or 0
+        return self.descendants.aggregate(models.Sum("offer"))["offer__sum"] or Decimal("0")
         
+    def allcommission_sum(self):
+        """sums up all commissions on the project's tasks"""
+        return self.descendants.aggregate(models.Sum("commission"))["commission__sum"] or Decimal("0")
+    
+    def get_budget(self):
+        """return the total budget of the project, either itself or summing its tasks, and including commission"""
+        return (self.offer + self.commission) or (self.alloffer_sum() + self.allcommission_sum())
+    
     def bid_sum(self):
         """returns the sum of all bids on this project"""
         return self.bid_set.aggregate(models.Sum("amount"))["amount__sum"] or 0
     
     def missing_bid(self):
         """returns how much the project still needs to be started"""
-        return max((self.offer*OI_COMMISSION) - self.bid_sum(), Decimal("0"))
+        return max(self.get_budget() - self.bid_sum(), Decimal("0"))
     
     def list_guests(self):
         """returns the list of all users who have permissions on the project but are neither bidders nor assignee"""
@@ -248,7 +251,7 @@ class Project(models.Model):
     def is_ready_to_start(self):
         """returns True iff the project has enough bids"""
         missing_bid = self.missing_bid()
-        return missing_bid.is_signed() or missing_bid.is_zero()
+        return (missing_bid.is_signed() or missing_bid.is_zero())
     
     def reset_delay_request(self):
         """Remove the delay and resets user ratings"""    
@@ -325,14 +328,16 @@ class Bid(models.Model):
     project = models.ForeignKey(Project)
     user = models.ForeignKey(User, related_name='bid_projects')
     amount = models.DecimalField(max_digits=12,decimal_places=2,default=0)
+    commission = models.DecimalField(max_digits=12,decimal_places=2,default=0)
     validated = models.BooleanField(default=False)
     rating = models.IntegerField(null=True)
     comment = models.TextField()
 
     def cancel(self):
         """Cancels the bid : reimburses the bidder, reduces project offer, and deletes the bid"""
-        amount = self.amount - self.amount*OI_COM_ON_BID #don't reimburse the commission part of the bid
+        amount = self.amount - self.commission #don't reimburse the commission part of the bid
         self.project.offer -= amount
+        self.project.commission -= self.commission
         self.project.save()
         self.user.get_profile().make_payment(amount, _("Refund of bid"), self.project)
         self.delete()

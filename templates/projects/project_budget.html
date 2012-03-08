@@ -7,9 +7,9 @@
     {% if project.assignee %}
         <img class="contactpicture" src="/user/getpicture/{{project.assignee.username}}" />
         <div class="username">{{project.assignee}}</div>
-        <div>{{project.offer}} €</div>
+        <div>{{project.offer|default:project.alloffer_sum}} €</div>
         {% if project.assignee == user and project.state < 2 %}<div><img class="clickable" src="/img/icons/edit2.png" onclick="offerProject({{project.id}})" /> {% trans "Change my offer" %}</div>{% endif %}
-        <div class="cleared">{% trans "Commission" %} 5% : {{project.commission}} €</div>
+        <div class="cleared">{% trans "Commission" %} 5% : {{project.commission|default:project.allcommission_sum}} €</div>
     {% else %}
         {% trans "No offer was made for this project" %}
         {% if project.state < 2 and project|can_read:user %}
@@ -37,7 +37,7 @@
             {% trans "No bid on this project" %}
         {% endfor %}
         <div>
-            <h3>{% if project.missing_bid > 0 %}{% trans "missing" %} {{project.missing_bid|floatformat:2}} €{% endif %}</h3>
+            <h3>{% if project.missing_bid > 0 %}{% trans "Payment awaiting:" %} {{project.missing_bid|floatformat:2}} €{% endif %}</h3>
             {% if project.state < 3 %}{% if project|can_read:user %}{% if not project|is_bidder:user %}
             <div onclick="bidProject({{project.id}})" class="clickable bidaction">
                 {% trans "Bid_verb" %} <img src="/img/icons/whitebtn.png" />
@@ -46,7 +46,7 @@
         </div>
     </div>
     {% ifequal user project.assignee %}
-    {% for bid in project.cancelled_bids %}
+    {% for bid in project.canceled_bids %}
     <div id="question_{{project.id}}_{{bid.id}}" class="smalltext">
         {{bid.user.username}} {% trans "wants to cancel his" %} <br /> {% trans "bid on this project" %}<br />
         {% trans "Your offer will be reduced of" %} {{bid.amount}}.<br />
@@ -78,5 +78,8 @@
 </div>
 <script>
     oiTable = new OITable("budget", ["{% trans 'Budget' %}","{% trans 'Engaged' %}"]);
-    oiTable.addLine({{project.master.id}}, ["{{project.master.alloffer_sum}} €", "{{project.master.allbid_sum}} €"])
+    oiTable.addLine({{project.master.id}}, ["{{project.get_budget}} €", "{{project.master.allbid_sum}} €"])
+    oiTable.addFromTask = function addFromTask(task, afterid, bgClass) {
+        oiTable.addLine(task.pk, [parseFloat(task.fields.get_budget) + " €", parseFloat(task.fields.allbid_sum) + " €"], afterid, bgClass);
+    }
 </script>
