@@ -33,7 +33,7 @@
         <div>{{project.title}}</div>
     </a>
     {% endfor %}
-    <form onsubmit="document.location = '/project/get/'+addTask(getValue('newproject_title'));return false">
+    <form onsubmit="document.location = '/project/get/'+addTask(getValue('newproject_title'), null, '{{request.user.username}}');return false">
         {% trans "Create a new project:" %} <input id="newproject_title" />
         <input type="image" src="/img/icons/add.png" />
     </form>
