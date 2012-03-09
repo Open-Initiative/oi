@@ -211,7 +211,7 @@ def offerproject(request, id):
         project.offer = Decimal("0"+request.POST.get("offer","0").replace(",","."))
     except InvalidOperation:
         return HttpResponse(_('Please enter a valid number'), status=531)
-    project.commission += project.offer * OI_COMMISSION #computes project commission
+    project.commission = project.offer * OI_COMMISSION #computes project commission
     project.save()
     project.apply_perm(project.assignee, OI_ALL_PERMS)
     #adds the project to user's observation
