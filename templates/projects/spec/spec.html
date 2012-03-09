@@ -8,8 +8,9 @@
         <input type="hidden" id="specid_{{spec.order}}" value="{{spec.id}}" />
         {% if spec.type == 2 %}<img style="max-width:700px" src="{{spec.file.url}}" />{% endif %}
         {% if spec.type == 3 or spec.type == 4 %}<a href="{{spec.url}}" >{% endif %}
-        {{spec.text|oiunescape}}
-        {% if spec.type == 3 or spec.type == 4 %}</a>{% endif %}
+        {{spec.text|oiunescape|default:spec.url}}
+        {% if spec.type == 3 or spec.type == 4 %}</a>
+        {% else %}{{spec.text|oiunescape}}{% endif %}
     </div>
     <div class="specfooter">
         {% if spec.author %}
