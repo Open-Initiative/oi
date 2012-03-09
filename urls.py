@@ -1,17 +1,17 @@
 from django.conf.urls.defaults import *
 from django.views.generic.simple import direct_to_template
 from django.views.generic import ListView
-from haystack.views import SearchView
-from haystack.query import SearchQuerySet
+#from haystack.views import SearchView
+#from haystack.query import SearchQuerySet
 from oi.messages.models import Message
 # Activation de l'admin
 from django.contrib import admin
 admin.autodiscover()
 
-def oi_search_view_factory(view_class=SearchView, *args, **kwargs):
-    def search_view(request):
-        return view_class(searchqueryset=SearchQuerySet().filter(public=True).filter_or(perms=request.user) , *args, **kwargs)(request)
-    return search_view
+#def oi_search_view_factory(view_class=SearchView, *args, **kwargs):
+#    def search_view(request):
+#        return view_class(searchqueryset=SearchQuerySet().filter(public=True).filter_or(perms=request.user) , *args, **kwargs)(request)
+#    return search_view
 
 def index(request):
     if request.user.is_authenticated():
@@ -43,7 +43,7 @@ urlpatterns = patterns('',
     # Page d'administration
     (r'^admin/', include(admin.site.urls)),
     # Moteur de recherche
-    (r'^search/', oi_search_view_factory()),
+#    (r'^search/', oi_search_view_factory()),
     # Js translation
     (r'^jsi18n/$', 'django.views.i18n.javascript_catalog',),
     (r'^i18n/', include('django.conf.urls.i18n')),
