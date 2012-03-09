@@ -7,7 +7,7 @@
     {% if project.assignee %}
         <a href="/user/profile/{{project.assignee.username}}">
             <img class="contactpicture" src="/user/getpicture/{{project.assignee.username}}">
-            <div class="username">{{project.assignee}}</div>
+            <div class="username">{{project.assignee.get_profile}}</div>
         </a>
         <div class="cleared"></div>
         {% if project.assignee == user and project.state < 3 %}
@@ -41,7 +41,7 @@
         {% for bid in project.bid_set.all %}
         <a href="/user/profile/{{bid.user.username}}"><div class="cleared">
             <img class="contactpicture" src="/user/getpicture/{{bid.user.username}}">
-            <div class="username">{{bid.user}}</div>
+            <div class="username">{{bid.user.get_profile}}</div>
         </div></a>
         {% empty %}
         {% trans "No bidder on this project" %}
@@ -56,7 +56,7 @@
         {% for guest in project.list_guests %}
         <a href="/user/profile/{{guest.username}}"><div class="cleared">
             <img class="contactpicture" src="/user/getpicture/{{guest.username}}">
-            <div class="username">{{guest}}</div>
+            <div class="username">{{guest.get_profile}}</div>
         </div></a>
         {% empty %}
         {% trans "No guest on this project" %}
