@@ -64,6 +64,6 @@ def handle_extra_field(self, obj, field_name):
     if is_protected_type(value):
         self._current[field_name.replace(".","_")] = value
     else:
-        self._current[field_name.replace(".","_")] = str(value)
+        self._current[field_name.replace(".","_")] = unicode(value)
 
 python.Serializer.handle_extra_field = handle_extra_field
