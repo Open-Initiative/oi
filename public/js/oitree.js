@@ -47,8 +47,10 @@ OITreeNode.prototype.expand = function expand() {
     if(onExpandNode) onExpandNode(this.id);
 }
 OITreeNode.prototype.shrink = function shrink() {
-    this.btn.src = "/img/icons/tree"+(this.parent?"btn":"root")+this.color+"-closed.png";
-    this.btn.onclick = function(){this.node.expand();};
+    if(this.parent) {
+        this.btn.src = "/img/icons/tree"+(this.parent?"btn":"root")+this.color+"-closed.png";
+        this.btn.onclick = function(){this.node.expand();};
+    }
     this.childDiv.style.display = "none";
     this.open = false;
     if(onShrinkNode) onShrinkNode(this.id);

@@ -47,19 +47,22 @@
     setTaskName(rootdiv, {{object.master.id}}, "{{object.master.title}}", "{{view}}");
     rootdiv.className += " treeroot";
     {% for ancestor in object.get_path %}
-    {% if not ancestor|can_read:user %}
-    setTaskName(oiTree.addChild({{ancestor.parent.id}},{{ancestor.id}},4,0),{{ancestor.id}},"...", "{{view}}");
-    if(oiTable) oiTable.addFromTask({pk:{{ancestor.id}},fields:{}}, {{ancestor.parent.id}}, 0);
-    {% endif %}
-    {% if not ancestor.parent|can_read:user %}
-    setTaskName(oiTree.addChild({{ancestor.parent.id}},{{ancestor.id}},{{ancestor.state}},0),{{ancestor.id}},"{{ancestor.title}}", "{{view}}");
-    if(oiTable) oiTable.addFromTask({pk:{{ancestor.id}},fields:{}}, {{ancestor.parent.id}}, 0);
-    oiTree.nodes[{{ancestor.parent.id}}].shrink();
-    oiTree.nodes[{{ancestor.parent.id}}].expand();
-    {% endif %}
-    {% if ancestor|can_read:user %}
-    oiTree.nodes[{{ancestor.id}}].expand();
-    {% endif %}
+        {% if not ancestor|can_read:user %}
+            {% if ancestor.parent %}
+                setTaskName(oiTree.addChild({{ancestor.parent.id}},{{ancestor.id}},4,0),{{ancestor.id}},"...", "{{view}}");
+                if(oiTable) oiTable.addFromTask({pk:{{ancestor.id}},fields:{}}, {{ancestor.parent.id}}, 0);
+                    oiTree.nodes[{{ancestor.parent.id}}].shrink();
+                    oiTree.nodes[{{ancestor.parent.id}}].expand();
+            {% endif %}
+        {% else %}
+            {% if not ancestor.parent|can_read:user %}
+                    setTaskName(oiTree.addChild({{ancestor.parent.id}},{{ancestor.id}},{{ancestor.state}},0),{{ancestor.id}},"{{ancestor.title}}", "{{view}}");
+                    if(oiTable) oiTable.addFromTask({pk:{{ancestor.id}},fields:{}}, {{ancestor.parent.id}}, 0);
+                    oiTree.nodes[{{ancestor.parent.id}}].shrink();
+                    oiTree.nodes[{{ancestor.parent.id}}].expand();
+            {% endif %}
+            oiTree.nodes[{{ancestor.id}}].expand();
+        {% endif %}
     {% endfor %}
     setActiveTask({{object.id}}{% if object.state < 4 and object|can_write:user %}, true{% endif %});
 </script>
