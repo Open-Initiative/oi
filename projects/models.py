@@ -99,13 +99,13 @@ class Project(models.Model):
     
     def switch_to(self, newstate, user):
         """Changes the state of the project, if allowed, and """
-        #check state
         if user:
+            #check state
             if self.state+1 != newstate: 
                 if not (self.state==newstate==OI_ACCEPTED): #accepts same state if it is OI_ACCEPTED
-                    return False
-        #check user
-        if user:
+                    if not (newstate==OI_STARTED and self.state==OI_PROPOSED): #accepts to switch from proposed to started
+                        return False
+            #check user
             if user == self.assignee: #the assignee can not switch to validated
                 if newstate == OI_VALIDATED:
                     return False
