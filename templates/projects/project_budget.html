@@ -29,12 +29,12 @@
             <div>{{bid.amount}} €</div>
             {% if user == bid.user and project.state < 3 %}
                 <div><img class="clickable" src="/img/icons/add.png" onclick="bidProject({{project.id}})" /> {% trans "Add a new bid" %}</div>
-                <div><img class="clickable" src="/img/icons/delete.png" onclick="cancelBid({{project.id}}, {% if project.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "Cancel your bid on this project" %}" title="{% trans "Cancel your bid on this project" %}" /> {% trans "Cancel my bid" %}</div>
+                <div><img class="clickable" src="/img/icons/delete.png" onclick="cancelBid({{project.id}}, {% if project.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "Cancel your bid on this task" %}" title="{% trans "Cancel your bid on this task" %}" /> {% trans "Cancel my bid" %}</div>
             {% endif %}
             <div class="cleared"></div>
         </div>
         {% empty %}
-            {% trans "No bid on this project" %}
+            {% trans "No bid on this task" %}
         {% endfor %}
         <div>
             <h3>{% if project.missing_bid > 0 %}{% trans "Payment awaiting:" %} {{project.missing_bid|floatformat:2}} €{% endif %}</h3>
@@ -48,7 +48,7 @@
     {% ifequal user project.assignee %}
     {% for bid in project.canceled_bids %}
     <div id="question_{{project.id}}_{{bid.id}}" class="smalltext">
-        {{bid.user.username}} {% trans "wants to cancel his" %} <br /> {% trans "bid on this project" %}<br />
+        {{bid.user.username}} {% trans "wants to cancel his" %} <br /> {% trans "bid on this task" %}<br />
         {% trans "Your offer will be reduced of" %} {{bid.amount}}.<br />
         {% trans "Do you accept it?" %}
         <img class="clickable" src="/img/icons/ok.png" onclick="answerCancelBid({{project.id}}, {{bid.id}}, true, 'question_{{project.id}}_{{bid.id}}')" title="{% trans "Accept" %}" alt="{% trans "Accept" %}"/>
@@ -59,7 +59,7 @@
     {% if project|is_bidder:user %}
     {% ifequal project.state 11 %}
     <div id="question_{{project.id}}_{{bid.id}}" class="smalltext">
-        {{project.assignee.username}} {% trans "wants to cancel this project." %}<br />
+        {{project.assignee.username}} {% trans "wants to cancel this task." %}<br />
         {% trans "You will be reimbursed in full." %}<br />
         {% trans "Do you accept it?" %}
         <img class="clickable" src="/img/icons/ok.png" onclick="answerCancelProject({{project.id}}, true, 'question_{{project.id}}')" title="{% trans "Accept" %}" alt="{% trans "Accept" %}"/>
@@ -68,7 +68,7 @@
     {% endifequal %}
     {% if project.delay %}
     <div id="question_{{project.id}}_{{bid.id}}" class="smalltext">
-        {{project.assignee.username}} {% trans "wants to change this project due date to" %} {{project.delay|date:"d/m/Y"}}<br />
+        {{project.assignee.username}} {% trans "wants to change this task due date to" %} {{project.delay|date:"d/m/Y"}}<br />
         {% trans "Do you accept it?" %}
         <img class="clickable" src="/img/icons/ok.png" onclick="answerDelayProject({{project.id}}, true, 'question_delay_{{project.id}}')" title="{% trans "Accept" %}" alt="{% trans "Accept" %}"/>
         <img class="clickable" src="/img/icons/delete.png" onclick="answerDelayProject({{project.id}}, false, 'question_delay_{{project.id}}')" title="{%trans "Refuse" %}" alt="{%trans "Refuse" %}"/>

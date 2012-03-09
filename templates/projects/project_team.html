@@ -11,7 +11,7 @@
         </a>
         <div class="cleared"></div>
         {% if project.assignee == user and project.state < 3 %}
-        <div>{% trans "You are in charge of this project" %}</div>
+        <div>{% trans "You are in charge of this task" %}</div>
         <div class="bidaction clickable" onclick="delegateProject({{project.id}})">
             {% trans "Delegate" %} <img src="/img/icons/whitebtn.png" />
         </div>
@@ -19,7 +19,7 @@
         {% if project.delegate_to %}
             {% ifequal user project.delegate_to %}
             <div id="question_delegate_{{project.id}}">
-                {{project.assignee}} {% trans "wants to delegate this project to you." %}
+                {{project.assignee}} {% trans "wants to delegate this task to you." %}
                 {% trans "Do you accept it?" %}
                 <img class="clickable" src="/img/icons/ok.png" onclick="answerDelegate({{project.id}}, true, 'question_delegate_{{project.id}}')" title="{% trans "Accept" %}" alt="{% trans "Accept" %}"/>
                 <img class="clickable" src="/img/icons/delete.png" onclick="answerDelegate({{project.id}}, false, 'question_delegate_{{project.id}}')" title="{%trans "Refuse" %}" alt="{%trans "Refuse" %}"/>
@@ -29,7 +29,7 @@
             {% endifequal %}
         {% endif %}
     {% else %}
-        {% trans "No one is in charge of this project" %}
+        {% trans "No one is in charge of this task" %}
         {% if project.state < 2 and project|can_read:user %}
         <div class="bidaction clickable" onclick="offerProject({{project.id}})">
             {% trans "Take on" %} <img src="/img/icons/whitebtn.png" />
@@ -49,8 +49,8 @@
     </div>
 </div>
 <div class="smallcolumn">
-    <h3>{% trans "This project is" %} {% if project.public %}{% trans "public" %}{% else %}{% trans "private" %}{% endif %}</h3>
-    <a class="clickable" onclick="toggleHideProject({{project.id}})">{% trans "Make this project" %} {% if project.public %}{% trans "private" %}{% else %}{% trans "public" %}{% endif %} <img src="/img/icons/bluebtn.png" /></a>
+    <h3>{% trans "This task is" %} {% if project.public %}{% trans "public" %}{% else %}{% trans "private" %}{% endif %}</h3>
+    <a class="clickable" onclick="toggleHideProject({{project.id}})">{% trans "Make this task" %} {% if project.public %}{% trans "private" %}{% else %}{% trans "public" %}{% endif %} <img src="/img/icons/bluebtn.png" /></a>
     <div>
         <h3>{% trans "Guests" %}</h3>
         {% for guest in project.list_guests %}
@@ -59,7 +59,7 @@
             <div class="username">{{guest.get_profile}}</div>
         </div></a>
         {% empty %}
-        {% trans "No guest on this project" %}
+        {% trans "No guest on this task" %}
         {% endfor %}
         {% if project|can_write:user %}<div class="cleared"><a class="clickable" onclick="shareProject({{project.id}})"><img class="clickable" src="/img/icons/add.png"> {% trans "Invite members" %}</a></div>{% endif %}
     </div>

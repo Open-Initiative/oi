@@ -146,7 +146,7 @@ function confirmDelegateProject(projectid) {
     hide("prjdialogue_"+projectid);
 }
 function startProject(projectid) {
-    if(confirm(gettext("Are you sure you want to start this project?")))
+    if(confirm(gettext("Are you sure you want to start this task?")))
         OIajaxCall("/project/start/"+projectid, null, "output");
 }
 function deliverProject(projectid) {
@@ -219,7 +219,7 @@ function answerCancelBid(projectid, bidid, answer, divid) {
     clearDiv(divid);
 }
 function deleteProject(projectid) {
-    if(confirm(gettext("Are you sure you want to delete this project permanently?"))) {
+    if(confirm(gettext("Are you sure you want to delete this task permanently?"))) {
         OIajaxCall("/project/delete/"+projectid, null, "output");
     }
 }
@@ -299,7 +299,7 @@ function OISpot(specDiv, projectid, specid, spotid, x, y, title, linkid, number)
     this.div.style.display = 'none';
     this.div.spot = this;
     this.fillDiv();
-    this.div.onclick = function(evt) {document.ignoreClosePopups = true;evt.stopPropagation();return false;};
+    this.div.onclick = function(evt) {document.ignoreClosePopups = true;evt.stopPropagation();};
     
     this.img = document.createElement("img");
     this.img.src = "/img/spot1.png";

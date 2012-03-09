@@ -1,29 +1,29 @@
 {% load oifilters %}
 {% load i18n %}
 {% if object|can_write:user and object.state < 2 and object.bid_set.count == 0 and object.tasks.count == 0 %}
-<img src="/img/icons/del-32.png" class="clickable actions" alt="{% trans "Delete the project" %}" title="{% trans "Delete the project" %}" onclick="deleteProject({{object.id}})" />
+<img src="/img/icons/del-32.png" class="clickable actions" alt="{% trans "Delete the task" %}" title="{% trans "Delete the task" %}" onclick="deleteProject({{object.id}})" />
 {% endif %}
 {% if object.state < 4 and object.bid_set.count > 0 and user == object.assignee %}
-<img src="/img/icons/del-32.png" class="clickable" style="float:right" alt="{% trans "Cancel the project" %}" title="{% trans "Cancel the project" %}" onclick="cancelProject({{object.id}}, {{object.state}})" />
+<img src="/img/icons/del-32.png" class="clickable" style="float:right" alt="{% trans "Cancel" %}" title="{% trans "Cancel" %}" onclick="cancelProject({{object.id}}, {{object.state}})" />
 {% endif %}
 {% if object.assignee == user %}
     {% if object.state < 2 and object.is_ready_to_start %}
-    <div class="prjstatebtn clickable" onclick="startProject({{object.id}})">{% trans "Start the project" %} <img src="/img/icons/bluebtn.png" /></div>
+    <div class="prjstatebtn clickable" onclick="startProject({{object.id}})">{% trans "Start" %} <img src="/img/icons/bluebtn.png" /></div>
     {% endif %}
     {% if object.state == 2 %}
-    <div class="prjstatebtn clickable" onclick="deliverProject({{object.id}})">{% trans "Deliver the project" %} <img src="/img/icons/bluebtn.png" /></div>
+    <div class="prjstatebtn clickable" onclick="deliverProject({{object.id}})">{% trans "Deliver" %} <img src="/img/icons/bluebtn.png" /></div>
     {% endif %}
 {% endif %}
 {% if object|is_bidder:user %}
     {% if object.state == 3 %}
-    <div class="prjstatebtn clickable" onclick="validateProject({{object.id}})">{% trans "Validate the project" %} <img src="/img/icons/bluebtn.png" /></div>
+    <div class="prjstatebtn clickable" onclick="validateProject({{object.id}})">{% trans "Validate" %} <img src="/img/icons/bluebtn.png" /></div>
     {% endif %}
     {% if object.state == 4 %}
-    <div class="prjstatebtn clickable" onclick="evalProject({{object.id}})">{% trans "Evaluate the project" %} <img src="/img/icons/bluebtn.png" /></div>
+    <div class="prjstatebtn clickable" onclick="evalProject({{object.id}})">{% trans "Evaluate" %} <img src="/img/icons/bluebtn.png" /></div>
     {% endif %}
 {% endif %}
 <div class="prjstate statebg{{object.state}}">
-    {% trans "Project" %} {{OI_PRJ_STATES|get:object.state}}
+    {% if object.parent %}{% trans "Task" %}{% else %}{% trans "Project" %}{% endif %} {{OI_PRJ_STATES|get:object.state}}
     <img src="/img/icons/state0.png" />
     {% ifequal object.state 2 %}
     <div class="progressbar" {% ifequal object.assignee user %}onclick="updateProgress({{object.id}},(event.clientX-this.offsetLeft)/this.offsetWidth)"{% endifequal %}>
