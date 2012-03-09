@@ -43,7 +43,7 @@ urlpatterns = patterns('',
     # Page d'administration
     (r'^admin/', include(admin.site.urls)),
     # Moteur de recherche
-    (r'^search/', oi_search_view_factory()),
+#    (r'^search/', oi_search_view_factory()),
     # Js translation
     (r'^jsi18n/$', 'django.views.i18n.javascript_catalog',),
     (r'^i18n/', include('django.conf.urls.i18n')),
