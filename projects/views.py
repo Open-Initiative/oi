@@ -14,7 +14,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.syndication.views import Feed
-from django.db.models import Sum
+from django.db.models import Q, Sum
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response, get_object_or_404
 from django.utils.translation import ugettext as _
@@ -50,12 +50,11 @@ from oi.messages.templatetags.oifilters import oiescape, summarize
 def getproject(request, id, view="description"):
     if not view: view = "description"
     project = Project.objects.get(id=id)
-#    actions = filter(lambda a:a.show(project, request.user), OIPrjActions)
     return direct_to_template(request, template="projects/project_detail.html", extra_context={'object': project, 'view':view, 'types':SPEC_TYPES, })
 
 @OINeedsPrjPerms(OI_READ)
 def listtasks(request, id):
-    tasks = Project.objects.get(id=id).tasks.order_by('state', '-priority')
+    tasks = Project.objects.get(id=id).tasks.filter(Q(public=True)|Q(projectacl__user=request.user, projectacl__permission=OI_READ)).distinct().order_by('state', '-priority')
     return HttpResponse(serializers.oiserialize("json", tasks,
         extra_fields=("assignee.get_profile.get_display_name", "get_budget","allbid_sum","bid_set.count")))
 
@@ -81,9 +80,7 @@ def saveproject(request, id='0'):
         if not request.POST["title"]:
             return HttpResponse(_("Please enter a title"), status=531)
         project = Project(title = request.POST["title"], author=author, parent=parent)
-#    project.save()
-#    project.inherit_perms()
-    else: #existing project ####DEPRECATED?
+    else: #existing project
         project = Project.objects.get(id=id)
         if not project.has_perm(request.user, OI_WRITE):
             return HttpResponseForbidden(_("Forbidden"))
@@ -91,27 +88,17 @@ def saveproject(request, id='0'):
 
     if request.POST.get("assignee") and len(request.POST["assignee"])>0:
         project.assignee = User.objects.get(username=request.POST["assignee"])
-    else:
+    else: #parent assignee by default
         if parent:
             project.assignee = parent.assignee
     for field in ["start_date","due_date","validaton","progress"]:
         if request.POST.has_key(field) and len(request.POST[field])>0:
             project.__setattr__(field, request.POST[field])
-#    if request.POST.has_key("start_date") and len(request.POST["start_date"])>0:
-#        project.start_date = request.POST["start_date"]
-#    if request.POST.has_key("due_date") and len(request.POST["due_date"])>0:
-#        project.due_date = request.POST["due_date"]
-#    if request.POST.has_key("validaton") and len(request.POST["validation"])>0:
-#        project.validation = request.POST["validation"]
-#    if request.POST.has_key("progress") and len(request.POST["progress"])>0:
-#        project.progress = request.POST["progress"]
     project.state = OI_PROPOSED
     project.check_dates()
-
     project.save()
-    if project.is_ready_to_start():
-        project.state = OI_ACCEPTED
-        project.save()
+    
+    # permission handling
     project.set_perm(author, OI_ALL_PERMS)
     project.inherit_perms()
     if project.assignee:
