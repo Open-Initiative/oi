@@ -93,6 +93,7 @@
                             <td><a href="/user/resetpassword" class="forgotpwd">{% trans "Forgot your password?" %}</a></td>
                         </tr>
                     </table></div>
+                    <input type="hidden" name="next" value="{{request.get_full_path}}" />
                 </form>
                 {%endif%}
             </div>

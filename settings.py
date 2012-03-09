@@ -80,7 +80,7 @@ SECRET_KEY = '-bue#^ex11(nq3d%&9+w0cvdvuq*&=3=s7m-%$b57qh5@&xpy)'
 
 # Auth urls
 LOGIN_URL = "/login"
-LOGIN_REDIRECT_URL = "/user/dashboard"
+LOGIN_REDIRECT_URL = "/"
 LOGOUT_URL = "/logout"
 
 # Haystack configuration
