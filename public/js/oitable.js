@@ -7,7 +7,7 @@ function OITable(divid, columns) {
     
     var i;
     for(var column=columns[i=0]; i<columns.length; column=columns[++i]) {
-        th = document.createElement("th");
+        var th = document.createElement("th");
         th.className = "tableheader";
         th.innerHTML = column;
         this.header.appendChild(th);
@@ -22,12 +22,12 @@ OITable.prototype.addSpace = function(afterid) {
     this.redraw();
 }
 OITable.prototype.hideLine = function(id, nbnext) {
-    line = this.lineids[id];
-    pos = this.lines.indexOf(line);
+    var line = this.lineids[id];
+    var pos = this.lines.indexOf(line);
     this.lines.splice(pos, 1 + nbnext);
 }
 OITable.prototype.showLine = function(id, afterid) {
-    pos = this.lines.indexOf(this.lineids[afterid]) + 1;
+    var pos = this.lines.indexOf(this.lineids[afterid]) + 1;
     this.lines.splice(pos, 0, this.lineids[id]);
 }
 OITable.prototype.addLine = function(id, cells, afterid, bgClass) {
@@ -43,7 +43,7 @@ OITable.prototype.addLine = function(id, cells, afterid, bgClass) {
     line.style.height = (this.lineheight-2) + "px";
     line.style.padding = "0";
     this.lineids[id] = line;
-    pos = this.lines.indexOf(this.lineids[afterid]) + 1;
+    var pos = this.lines.indexOf(this.lineids[afterid]) + 1;
     this.lines.splice(pos, 0, line);
     return line;
 }
