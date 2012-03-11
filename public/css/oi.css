@@ -163,6 +163,20 @@ div.center{
     font-size: 1.1em;
     color: #A8DCF4;
 }
+.registerline {
+    repeat-x:repeat;
+    height: 35px;
+    margin: auto;
+    width: 1020px;
+}
+.registertext {
+    padding: 7px;
+    font-size: 1.4em;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+    float: left;
+}
 .forgotpwd {
     letter-spacing: -1px;
 }
@@ -288,7 +302,7 @@ div.navtitle {
 }
 #catcher {
     background:url('/img/catcher.jpg') repeat-y;
-    height:160px;
+    height:275px;
     width:1020px;
     margin:auto;
     clear: left;
@@ -311,14 +325,11 @@ div.navtitle {
     padding: 10px 0;
 }
 .slider {
-    padding: 15px;
     float: left;
     width: 600px;
-}
-.slidertext {
     color: #D0574C;
-    font-size: 2.2em;
-    width: 580px;
+    width: 700px;
+    font-size: 1.4em;
 }
 .slidermore {
     background: url('/img/learnmore.png');
@@ -330,21 +341,20 @@ div.navtitle {
     font-weight: bold;
     font-size: 1.1em;
     padding: 5px 12px;
-    margin-top: 100px;
+    margin-top: 240px;
 }
 .slidericon {
     text-align: right;
+}
+.slider dt {
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 10px;
 }
 .headersep {
     background: url('/img/headersep.png');
     border-top: 3px solid #C8DBE1;
     clear: left;
-}
-.registerline {
-    repeat-x:repeat;
-    height: 35px;
-    margin: auto;
-    width: 1020px;
 }
 .agilearrow {
     vertical-align: -2px;
@@ -414,5 +424,5 @@ div.morelink {
     height: 200px;
 }
 .askoi {
-    vertical-align: sub;
+    margin: -11px 0;
 }

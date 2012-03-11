@@ -3,30 +3,20 @@
 {% load oifilters %}
 {% block title %}{% trans "The IT community dedicated to your business" %}{% endblock %}
 {% block announcement %}
-    {% comment %}<div id="catcherbg">
-        <div id="catcher">
-            <div class="catcherleft">
-                <a href="/message/new"><div class="catchericon" onmouseover="show('slider2');hide('slider1');" onmouseout="show('slider1');hide('slider2');">
-                    <img src="/img/icons/msg100.png" />
-                    <div>{% trans "Talk" %}</div><div class="catchercomment">{% trans "to the community" %}</div>
-                </div></a>
-                <div class="sep"></div>
-            </div>
-
-            <div id="slider2" class="slider invisible">
-                <div class="slidertext">Échangez gratuitement avec la communauté informatique et obtenez des propositions parfaitement adaptées à vos objectifs et à vos contraintes.</div>
-                <div class="slidericon"><img src="/img/icons/message.png" /></div>
-            </div>
-            <div id="slider3" class="slider invisible">
-                <div class="slidertext">Choisissez parmi les offres qui vous sont faites et suivez l'avancement de votre projet en ligne. Adaptez votre projet à votre rythme et votre budget !</div>
-                <div class="slidericon"><img src="/img/icons/project.png" /></div>
-            </div>
-        </div>
-    </div>{% endcomment %}
 <div id="catcherbg">
     <div id="catcher">
-        <div id="slider1" class="slider">
-            <div class="slidertext">Avec Open Initiative accédez aux conseils de professionnels, précisez et définissez avec eux votre projet ainsi que les solutions envisageables.</div>
+        <div class="slider">
+            <div class="slidertext">
+                <dl>
+                    <dt>La communauté</dt><dd>trouver des prestataires</dd>
+                    <dt>Outils</dt><dd>communiquer et co-construire le projet avec les prestataires</dd>
+                    <dt>Gestion de projet</dt><dd>suivre l'avancement des réalisations tout au long du projet avec une philosophie agile <a href="/presentation#methodology">
+                    <img class="askoi" src="/img/askoi.png" />
+                        </a>
+                        </dd>
+                    <dt>Garanties</dt><dd>facilitant les relations et garantissant les paiements</dd>
+                </dl>
+<!--Avec Open Initiative accédez aux conseils de professionnels, précisez et définissez avec eux votre projet ainsi que les solutions envisageables.</div>--></div>
         </div>
         <a href="/presentation"><div class="slidermore" onmouseover="this.style.color='#D0574C'" onmouseout="this.style.color='white'">
             {% trans "Learn More" %}
@@ -36,18 +26,12 @@
 {% endblock %}
 {% block headersep %}
 <div class="registerline">
+    <div class="registertext">{% trans "Register to create a new project" %}</div>
     <div id="registerarea">
         <a href="/user/register"><div id="registerbtn" onmouseover="this.style.color='white'" onmouseout="this.style.color='#A8DCF4'">
             {% trans "Register" %}
         </div></a>
     </div>
-<!--    <a href="/presentation#methodology">-->
-<!--        <div class="agiletext">-->
-<!--            <img src="/img/agilearrow.png" class="agilearrow" />-->
-<!--            {% trans "Why Agile development" %} <img class="askoi" src="/img/askoi.png" />-->
-<!--            <img src="/img/agilearrow2.png" class="agilearrow" />-->
-<!--        </div>-->
-<!--    </a>-->
 </div>
 {% endblock %}
 {% block nav %}{% endblock %}
