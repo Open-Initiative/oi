@@ -3,7 +3,7 @@ from django.views.generic.simple import direct_to_template
 from django.views.generic import ListView
 #from haystack.views import SearchView
 #from haystack.query import SearchQuerySet
-from oi.messages.models import Message
+from oi.projects.models import Project
 # Activation de l'admin
 from django.contrib import admin
 admin.autodiscover()
@@ -17,7 +17,7 @@ def index(request):
     if request.user.is_authenticated():
         return direct_to_template(request, "users/dashboard.html")
     else:
-        return ListView.as_view(queryset=Message.objects.filter(promotedmessage__location='index'), template_name='index.html')(request)
+        return ListView.as_view(queryset=Project.objects.filter(promotedproject__location='index'), template_name='index.html')(request)
 
 urlpatterns = patterns('',
     # Page d'accueil

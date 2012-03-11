@@ -1,71 +1,28 @@
 {% extends "base.html" %}
 ﻿{% load i18n %}
 {% load oifilters %}
-{% block title %}{% trans "Dashboard" %}{% endblock %}
+{% block pagetitle %}{% trans "My projects" %}{% endblock %}
+{% block title %}{% trans "My projects" %}{% endblock %}
 {% block nav %}
-<!--    <div class="navitem"><img src="/img/fleche2.png" /> {% trans "My specialties" %}</div>-->
-<!--    <div id="arbo" class="subcateg"></div>-->
-    <a href="/user/myblog">
-        <div class="blogicon">!</div> {% trans "My publications" %}
-    </a>
-    <div class="cleared"><a href="/user/myaccount"><img src="/img/money.png" class="accounticon"/>{% trans "My account" %}: {{user.get_profile.balance|default:0}} €</a></div>
-    <div>
-        <h3>{% trans "My contacts" %} ({{user.get_profile.contacts.count}})</h3>
-        {% for contact in user.get_profile.contacts.all %}
-        <div class="contactinfo">
-            <img class="contactpicture" src="/user/getpicture/{{contact.user.username}}" />
-            <a href="/user/profile/{{contact.user.username}}">{{contact.user}}</a><br />
-            {% if contact.title %}
-            {{contact.title}}
-            {% else %}
-            {{contact.get_titles|first}}
-            {% endif %}
-        </div>
-        {% endfor %}
-        <div class="cleared"></div>
-    </div>
-{% endblock %}
-{% block content %}
-<div class="usercontent">
-    <h3>{% trans "My projects" %}</h3>
-    {% for project in user.get_profile.observed_projects.distinct %}
-    <a  href="/project/get/{{project.id}}">
-        <div>{{project.title}}</div>
-    </a>
+{% regroup user.get_profile.observed_projects.distinct|dictsort:"state" by state as user_projects %}
+    {% for stategroup in user_projects %}
+    <div class="prjtitle"><a href="#usrprj{{stategroup.grouper}}">{{OI_PRJ_STATES|get:stategroup.grouper}}{% trans "_adj_plur" %}</a></div>
     {% endfor %}
     <form onsubmit="document.location = '/project/get/'+addTask(getValue('newproject_title'), null, '{{request.user.username}}');return false">
-        {% trans "Create a new project:" %} <input id="newproject_title" />
-        <input type="image" src="/img/icons/add.png" />
+        <div class="bidaction">{% trans "Create a new project:" %}</div>
+        <input type="image" src="/img/icons/add.png" /> <input id="newproject_title" />
     </form>
-    <h3>{% trans "Notices" %}</h3>
-    {% for notice in user.recieved_notices.all|slice:":3" %}
-    <div class="contactinfo">
-        <img class="contactpicture" src="/user/getpicture/{{notice.sender.username}}" />
-        <h3>{{notice.notice_type.display}}</h3>
-        {{notice|safe}}
-    </div>
-    {% endfor %}
-    <div class="contactinfo"><a href="/notification"><img src="/img/link.png" /> {% trans "See all notices" %}</a></div>
-    <h3>{% trans "Personal messages" %}</h3>
-    {% for pm in user.get_profile.get_discussions %}
-    <div class="contactinfo">
-        <img class="contactpicture" src="/user/getpicture/{{pm.from_user.username}}" />
-        <a href="/user/messageswith/{{pm.from_user.username}}">
-            {{pm.from_user.username}} : {{pm.subject}}
-            <div>{{pm.text|summarize}}</div>
-        </a>
-    </div>
-    {% endfor %}
-    <div class="contactinfo"><a href="/user/discussions"><img src="/img/link.png" /> {% trans "See all personal messages" %}</a></div>
-<!--    <h3>Mon réseau</h3>-->
-</div>
-<div class="usercontent">
-    <h3>{% trans "Followed messages" %}</h3>
-    {% for message in user.get_profile.observed_messages.all %}
-    <div id="followmsg_{{message.id}}">
-        <a href="/message/get/{{message.id}}">{{message.title}}</a>
-        <img class="clickable" src="/img/icons/delete.png" onclick="observeMessage({{message.id}}, 'stop=True');clearDiv('followmsg_{{message.id}}')"/>
-    </div>
-    {% endfor %}
-<div>
+{% endblock %}
+{% comment %}contacts, network updates, blog, finance, notification!, mp!{% endcomment %}
+{% block content %}
+{% regroup user.get_profile.observed_projects.distinct|dictsort:"state" by state as user_projects %}
+{% with 1 as readonly %}
+{% for stategroup in user_projects %}
+<h1 id="usrprj{{stategroup.grouper}}">{{OI_PRJ_STATES|get:stategroup.grouper}}{% trans "_adj_plur" %}</h1>
+<div>{% for object in stategroup.list %}
+<div class="prjcard">{% include 'projects/project_sum.html' %}</div>
+{% endfor %}</div>
+<div class="cleared"></div>
+{% endfor %}
+{% endwith %}
 {% endblock %}

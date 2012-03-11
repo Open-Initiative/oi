@@ -328,10 +328,6 @@ OISpot.prototype.edit = function edit() {
     this.show();
 }
 OISpot.prototype.fillDiv = function fillDiv() {
-    this.div.innerHTML = "";
-    var content = "<a href='/project/get/"+this.linkid+"'>"+ this.title + "</a>";
-    content += " <img src='/img/icons/delete.png' class='clickable' onclick='this.parentElement.spot.remove()'/>";
-    this.div.innerHTML = content;
     if(this.linkid) OIajaxCall('/project/'+this.linkid+'/summarize', null, newDiv(this.div.id));
 }
 OISpot.prototype.save = function save() {

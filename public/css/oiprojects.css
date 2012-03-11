@@ -8,7 +8,6 @@ div.prjauthor {
     color: #0094B5;
 }
 .prjtitle {
-    float: left;
     font-family: "Interstate";
     text-transform: uppercase;
     font-size: 1.5em;
@@ -18,6 +17,16 @@ div.prjbtm {
     width: 600px;
     height:17px;
     background: url('/img/prjbtm.png');
+}
+div.prjcard {
+    width: 330px;
+    height: 400px;
+    margin: 5px;
+    padding: 10px;
+    float: left;
+    background: #E1F3FA;
+    overflow: hidden;
+    border-radius: 4px;
 }
 .state1 a {
     color: #0094B5;
