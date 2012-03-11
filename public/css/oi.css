@@ -338,7 +338,6 @@ div.navtitle {
 .headersep {
     background: url('/img/headersep.png');
     border-top: 3px solid #C8DBE1;
-    border-bottom: 3px solid #D0574C;
     clear: left;
 }
 .registerline {
