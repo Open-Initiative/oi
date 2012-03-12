@@ -328,7 +328,7 @@ div.navtitle {
     float: left;
     width: 600px;
     color: #D0574C;
-    width: 700px;
+    width: 730px;
     font-size: 1.4em;
 }
 .slidermore {
@@ -350,6 +350,9 @@ div.navtitle {
     text-transform: uppercase;
     font-weight: bold;
     margin-top: 10px;
+}
+.slider dl {
+    margin-bottom: 0;
 }
 .headersep {
     background: url('/img/headersep.png');
