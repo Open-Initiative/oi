@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-18 18:45+0200\n"
+"POT-Creation-Date: 2012-03-11 23:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,72 +16,88 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: helpers.py:29
+#: helpers.py:31
 msgid "Proposed"
 msgstr ""
 
-#: helpers.py:29
+#: helpers.py:31
 msgid "Accepted"
 msgstr ""
 
-#: helpers.py:29
+#: helpers.py:31
 msgid "Started"
 msgstr ""
 
-#: helpers.py:29
+#: helpers.py:31
 msgid "Delivered"
 msgstr ""
 
-#: helpers.py:29
-msgid "Validated"
+#: helpers.py:31
+msgid "Done"
 msgstr ""
 
-#: helpers.py:29
+#: helpers.py:31
 msgid "Cancelled"
 msgstr ""
 
-#: helpers.py:29
+#: helpers.py:31
 msgid "Delayed"
 msgstr ""
 
-#: helpers.py:29
+#: helpers.py:31
 msgid "Contentious"
 msgstr ""
 
-#: helpers.py:47
+#: helpers.py:50
 msgid "Reading"
 msgstr ""
 
-#: helpers.py:47
+#: helpers.py:50
 msgid "Writing"
 msgstr ""
 
-#: helpers.py:47
+#: helpers.py:50
 msgid "Answering"
 msgstr ""
 
-#: helpers.py:55
+#: helpers.py:58
 msgid "Text"
 msgstr ""
 
-#: helpers.py:55
+#: helpers.py:58
 msgid "Image"
 msgstr ""
 
-#: helpers.py:55
+#: helpers.py:58
 msgid "url link"
 msgstr ""
 
-#: helpers.py:55
+#: helpers.py:58
 msgid "Video"
 msgstr ""
 
-#: helpers.py:55
-msgid "Attachment"
+#: helpers.py:58
+msgid "Document"
 msgstr ""
 
-#: helpers.py:89
+#: helpers.py:64
+msgid "Note"
+msgstr ""
+
+#: helpers.py:64 templates/projects/project_state.html:26
+msgid "Task"
+msgstr ""
+
+#: helpers.py:64
+msgid "Discussion"
+msgstr ""
+
+#: helpers.py:103
 msgid "PDF Transformation Error"
+msgstr ""
+
+#: updateRSS.py:50
+msgid "Published on"
 msgstr ""
 
 #: messages/management.py:20
@@ -180,66 +196,58 @@ msgstr ""
 msgid "A user has evaluated your project"
 msgstr ""
 
+#: messages/management.py:32 projects/views.py:397 projects/views.py:405
+#: projects/views.py:416 projects/views.py:454
+msgid "Bid cancelled"
+msgstr ""
+
 #: messages/management.py:32
+msgid "A user has cancelled his bis on a project"
+msgstr ""
+
+#: messages/management.py:33
 msgid "Project cancelled"
 msgstr ""
 
-#: messages/management.py:32
+#: messages/management.py:33
 msgid "A user has requested the project to be cancelled"
 msgstr ""
 
-#: messages/management.py:33
+#: messages/management.py:34
 msgid "Specification changed"
 msgstr ""
 
-#: messages/management.py:33
+#: messages/management.py:34
 msgid "The specification of a project you follow has been changed"
 msgstr ""
 
-#: messages/models.py:160 messages/views.py:87 messages/views.py:97
-#: messages/views.py:161 projects/models.py:163 projects/views.py:67
-#: projects/views.py:85 projects/views.py:91
-#: templates/projects/project_detail.html:120
+#: messages/models.py:140 messages/views.py:60 messages/views.py:72
+#: projects/models.py:285 projects/views.py:68 projects/views.py:86
+#: templates/projects/project_detail.html:70
 msgid "Forbidden"
 msgstr ""
 
-#: messages/views.py:125
+#: messages/views.py:104
 msgid "Message deleted"
 msgstr ""
 
-#: messages/views.py:133
-msgid "Message is now private"
-msgstr ""
-
-#: messages/views.py:141
-msgid "Message shared"
-msgstr ""
-
-#: messages/views.py:150
-msgid "Stopped following"
-msgstr ""
-
-#: messages/views.py:153
-msgid "Following the message"
-msgstr ""
-
-#: messages/views.py:164
+#: messages/views.py:113
 msgid "Can not move a message to its answer"
 msgstr ""
 
-#: messages/views.py:171
+#: messages/views.py:116
 msgid "Message moved"
 msgstr ""
 
-#: messages/views.py:191
+#: messages/views.py:123
 msgid "already voted!"
 msgstr ""
 
-#: messages/views.py:196
+#: messages/views.py:128
 msgid "voted"
 msgstr ""
 
-#: messages/views.py:234
+#: messages/views.py:158 projects/views.py:673
 msgid "Latest updates of Open Initiative "
 msgstr ""
 
@@ -263,7 +271,7 @@ msgstr ""
 msgid "display"
 msgstr ""
 
-#: notification/models.py:31
+#: notification/models.py:31 templates/projects/project_detail.html:13
 msgid "description"
 msgstr ""
 
@@ -292,7 +300,7 @@ msgstr ""
 msgid "medium"
 msgstr ""
 
-#: notification/models.py:63
+#: notification/models.py:63 templates/users/writemp.html:4
 msgid "send"
 msgstr ""
 
@@ -358,48 +366,19 @@ msgstr ""
 msgid "%(notice)s"
 msgstr ""
 
-#: projects/models.py:202
+#: projects/models.py:342
 msgid "Refund of bid"
 msgstr ""
 
-#: projects/views.py:28
-msgid "Start the project"
+#: projects/views.py:77 projects/views.py:164 projects/views.py:180
+#: projects/views.py:190 projects/views.py:207 projects/views.py:229
+#: projects/views.py:486 projects/views.py:561 projects/views.py:576
+#: projects/views.py:607
+msgid "Can not change a project already started"
 msgstr ""
 
-#: projects/views.py:29
-msgid "Mark the project as done"
-msgstr ""
-
-#: projects/views.py:30
-msgid "Validate the project"
-msgstr ""
-
-#: projects/views.py:31
-msgid "Evaluate the project"
-msgstr ""
-
-#: projects/views.py:32
-msgid "Make the project private"
-msgstr ""
-
-#: projects/views.py:33
-msgid "Share the project"
-msgstr ""
-
-#: projects/views.py:34
-msgid "Delete the project"
-msgstr ""
-
-#: projects/views.py:35
-msgid "Move the project"
-msgstr ""
-
-#: projects/views.py:36
-msgid "Cancel the projet"
-msgstr ""
-
-#: projects/views.py:37
-msgid "Follow the projet"
+#: projects/views.py:81
+msgid "Please enter a title"
 msgstr ""
 
 #: projects/views.py:123
@@ -414,7 +393,7 @@ msgstr ""
 msgid "Project removed from clipboard"
 msgstr ""
 
-#: projects/views.py:144
+#: projects/views.py:143
 msgid "Projects pasted"
 msgstr ""
 
@@ -426,227 +405,307 @@ msgstr ""
 msgid "Request for delay awaiting validation"
 msgstr ""
 
-#: projects/views.py:160 projects/views.py:169
+#: projects/views.py:162 projects/views.py:173
 msgid "Date updated"
 msgstr ""
 
-#: projects/views.py:162 projects/views.py:176 projects/views.py:186
-#: projects/views.py:224 projects/views.py:464 projects/views.py:544
-#: projects/views.py:560 projects/views.py:590
-msgid "Can not change a project already started"
-msgstr ""
-
-#: projects/views.py:179
+#: projects/views.py:183
 msgid "Priority changed"
 msgstr ""
 
-#: projects/views.py:193
+#: projects/views.py:197
 msgid "Title updated"
 msgstr ""
 
-#: projects/views.py:201
+#: projects/views.py:205
 msgid "Project already assigned"
 msgstr ""
 
-#: projects/views.py:217
+#: projects/views.py:213
+msgid "Please enter a valid number"
+msgstr ""
+
+#: projects/views.py:221
 msgid "Project taken on"
 msgstr ""
 
-#: projects/views.py:226
+#: projects/views.py:231
 msgid "Only the user in charge of the project can delegate it"
 msgstr ""
 
-#: projects/views.py:230
-msgid "Sent delegation offer"
+#: projects/views.py:235 projects/views.py:507
+msgid "Cannot find user"
 msgstr ""
 
 #: projects/views.py:238
+msgid "Sent delegation offer"
+msgstr ""
+
+#: projects/views.py:246
 msgid "The project was not delegated to you"
 msgstr ""
 
-#: projects/views.py:248
+#: projects/views.py:256
 msgid "reply sent"
 msgstr ""
 
-#: projects/views.py:256
+#: projects/views.py:264
 msgid "No delay was requested"
 msgstr ""
 
-#: projects/views.py:262
+#: projects/views.py:270
 msgid "The date was not changed"
 msgstr ""
 
-#: projects/views.py:268
+#: projects/views.py:276
 msgid "Awaiting other users' validation"
 msgstr ""
 
-#: projects/views.py:273
+#: projects/views.py:281
 msgid "The date has been changed"
 msgstr ""
 
-#: projects/views.py:276 projects/views.py:414 projects/views.py:448
+#: projects/views.py:284 projects/views.py:426 projects/views.py:462
 msgid "No reply received"
 msgstr ""
 
-#: projects/views.py:286
+#: projects/views.py:294
 msgid "Invalid amount"
 msgstr ""
 
-#: projects/views.py:291
+#: projects/views.py:306
 msgid "Bid"
 msgstr ""
 
-#: projects/views.py:305
-msgid "Bid saved"
-msgstr ""
-
-#: projects/views.py:320
-msgid "Project started"
-msgstr ""
-
-#: projects/views.py:327
-msgid "only the assignee can deliver the project !"
-msgstr ""
-
-#: projects/views.py:338
-msgid "Project done !"
-msgstr ""
-
-#: projects/views.py:354
-msgid "Payment"
-msgstr ""
-
-#: projects/views.py:359
-msgid "Validation saved"
-msgstr ""
-
-#: projects/views.py:374
-msgid "Evaluation saved"
-msgstr ""
-
-#: projects/views.py:381 projects/views.py:421
-msgid "The project is already over"
-msgstr ""
-
-#: projects/views.py:384
-msgid "You're not participating on this project"
-msgstr ""
-
-#: projects/views.py:388 projects/views.py:396 projects/views.py:406
-#: projects/views.py:442
-msgid "Bid cancelled"
-msgstr ""
-
-#: projects/views.py:412 projects/views.py:446
-msgid "Cancelation refused. Awaiting decision"
-msgstr ""
-
-#: projects/views.py:423
-msgid "Only the user in charge of the project can cancel it"
-msgstr ""
-
-#: projects/views.py:427
+#: projects/views.py:307 projects/views.py:438
+#: templates/projects/project_budget.html:12
 msgid "Commission"
 msgstr ""
 
-#: projects/views.py:432
+#: projects/views.py:322
+msgid "Not enough bids"
+msgstr ""
+
+#: projects/views.py:324
+msgid "Only the assignee can start the project"
+msgstr ""
+
+#: projects/views.py:331
+msgid "Project started"
+msgstr ""
+
+#: projects/views.py:339
+msgid "only the assignee can deliver the project!"
+msgstr ""
+
+#: projects/views.py:344
+msgid "Project done!"
+msgstr ""
+
+#: projects/views.py:358
+msgid "only bidders can validate the project!"
+msgstr ""
+
+#: projects/views.py:361
+msgid "Payment"
+msgstr ""
+
+#: projects/views.py:363
+msgid "Validation saved"
+msgstr ""
+
+#: projects/views.py:379
+msgid "Evaluation saved"
+msgstr ""
+
+#: projects/views.py:387 projects/views.py:433
+msgid "The project is already over"
+msgstr ""
+
+#: projects/views.py:390
+msgid "You're not participating on this project"
+msgstr ""
+
+#: projects/views.py:424 projects/views.py:460
+msgid "Cancelation refused. Awaiting decision"
+msgstr ""
+
+#: projects/views.py:435
+msgid "Only the user in charge of the project can cancel it"
+msgstr ""
+
+#: projects/views.py:444
 msgid "Project cancelled. Awaiting confirmation from other users"
 msgstr ""
 
-#: projects/views.py:455
-msgid "Can not delete a started project. Please delete it first."
+#: projects/views.py:469
+msgid "Can not delete a started project. Please stop it first."
 msgstr ""
 
-#: projects/views.py:467
-msgid "Project moved"
+#: projects/views.py:471
+msgid ""
+"Can not delete a project containing tasks. Please delete all its tasks first."
 msgstr ""
 
 #: projects/views.py:475
-msgid "The project is now private"
+msgid "The task has been deleted."
 msgstr ""
 
-#: projects/views.py:483
-msgid "Project shared"
+#: projects/views.py:478
+msgid "The project has been deleted."
 msgstr ""
 
-#: projects/views.py:490
-msgid "The project has to be started for the progress to be updated"
+#: projects/views.py:489
+msgid "Project moved"
 msgstr ""
 
-#: projects/views.py:492
-msgid "Only the user in charge of can update its progress"
-msgstr ""
-
-#: projects/views.py:496
-msgid "Invalid value"
-msgstr ""
-
-#: projects/views.py:501
-msgid "Progress updated"
+#: projects/views.py:498
+#, python-format
+msgid "The project is now %s"
 msgstr ""
 
 #: projects/views.py:510
+msgid "Project shared"
+msgstr ""
+
+#: projects/views.py:518
+msgid "The project has to be started for the progress to be updated"
+msgstr ""
+
+#: projects/views.py:520
+msgid "Only the user in charge of can update its progress"
+msgstr ""
+
+#: projects/views.py:524
+msgid "Invalid value"
+msgstr ""
+
+#: projects/views.py:529
+msgid "Progress updated"
+msgstr ""
+
+#: projects/views.py:538
 msgid "Stopped following the project"
 msgstr ""
 
-#: projects/views.py:513
+#: projects/views.py:541
 msgid "Project followed"
 msgstr ""
 
-#: projects/views.py:592
+#: projects/views.py:609
 msgid "Specification deleted"
 msgstr ""
 
-#: projects/views.py:611
+#: projects/views.py:618 projects/views.py:633
+msgid "Wrong arguments"
+msgstr ""
+
+#: projects/views.py:631
+msgid "Annotation removed"
+msgstr ""
+
+#: projects/views.py:654
 msgid "File deleted"
 msgstr ""
 
-#: templates/base.html:34
-msgid "My dashboard"
+#: templates/404.html:3 templates/404.html.py:5
+msgid "not found"
 msgstr ""
 
-#: templates/base.html:35
-msgid "My profile"
+#: templates/404.html:5 templates/messages/message_list.html:16
+#: templates/messages/message_list.html:28
+msgid "Page"
 msgstr ""
 
-#: templates/base.html:36
-msgid "My settings"
+#: templates/404.html:6 templates/500.html:6
+msgid "You can"
 msgstr ""
 
-#: templates/base.html:37
-msgid "Disconnect"
+#: templates/404.html:6 templates/500.html:6
+msgid "go back to"
 msgstr ""
 
-#: templates/base.html:39
-msgid "login"
+#: templates/404.html:6 templates/500.html:6
+msgid "the homepage"
+msgstr ""
+
+#: templates/500.html:3
+msgid "Server Error"
+msgstr ""
+
+#: templates/500.html:5
+msgid ""
+"There has been an error on the server. Admins have been notified about it. "
+"They will try to correct it as soon as they can. Sorry !"
 msgstr ""
 
 #: templates/base.html:40
-msgid "register"
+msgid "My profile"
 msgstr ""
 
-#: templates/base.html:49
+#: templates/base.html:41
+msgid "Settings"
+msgstr ""
+
+#: templates/base.html:42
+msgid "Disconnect"
+msgstr ""
+
+#: templates/base.html:57 templates/index.html:4
+#: templates/notification/email_body.html:13
 msgid "The IT community dedicated to your business"
 msgstr ""
 
-#: templates/base.html:59
-msgid "Start a discussion"
+#: templates/base.html:74
+msgid "Dashboard"
 msgstr ""
 
-#: templates/base.html:62
-msgid "all domains"
+#: templates/base.html:75 templates/notification/notices.html:8
+msgid "Notices"
 msgstr ""
 
-#: templates/base.html:77 templates/projects/dialogue/bid.html:3
-#: templates/projects/dialogue/offer.html:3 templates/users/register.html:32
+#: templates/base.html:76
+msgid "Personal Messages"
+msgstr ""
+
+#: templates/base.html:77
+msgid "Publications"
+msgstr ""
+
+#: templates/base.html:78
+msgid "Transactions"
+msgstr ""
+
+#: templates/base.html:82
+msgid "Login"
+msgstr ""
+
+#: templates/base.html:87 templates/users/register.html:18
+msgid "username"
+msgstr ""
+
+#: templates/base.html:89 templates/registration/login.html:21
+msgid "login"
+msgstr ""
+
+#: templates/base.html:92
+msgid "password"
+msgstr ""
+
+#: templates/base.html:94 templates/registration/login.html:27
+msgid "Forgot your password?"
+msgstr ""
+
+#: templates/base.html:126 templates/projects/dialogue/bid.html:4
+#: templates/projects/dialogue/offer.html:4 templates/users/register.html:35
 msgid "Terms of Use"
 msgstr ""
 
-#: templates/base.html:78 templates/contact.html:3
+#: templates/base.html:127 templates/contact.html:3
 msgid "Legal notice"
 msgstr ""
 
-#: templates/base.html:79
+#: templates/base.html:128
 msgid "Contact"
 msgstr ""
 
@@ -654,77 +713,146 @@ msgstr ""
 msgid "site hosted by"
 msgstr ""
 
-#: templates/messages/message.html:14
-msgid "Published by"
+#: templates/contact.html:11
+msgid "design by"
 msgstr ""
 
-#: templates/messages/message.html:17 templates/messages/messagesum.html:13
+#: templates/index.html:11
+msgid "build"
+msgstr ""
+
+#: templates/index.html:11
+msgid "your project with all contributors"
+msgstr ""
+
+#: templates/index.html:12
+msgid "find"
+msgstr ""
+
+#: templates/index.html:12
+msgid "transparently skilled service providers"
+msgstr ""
+
+#: templates/index.html:13
+msgid "follow"
+msgstr ""
+
+#: templates/index.html:13
+msgid "real time the progress of your project with agile methodology"
+msgstr ""
+
+#: templates/index.html:17
+msgid "control"
+msgstr ""
+
+#: templates/index.html:17
+msgid "your budget by paying tasks as they are completed"
+msgstr ""
+
+#: templates/index.html:18
+msgid "breathe"
+msgstr ""
+
+#: templates/index.html:18
+msgid "with the payment guarantee"
+msgstr ""
+
+#: templates/index.html:23
+msgid "Learn More"
+msgstr ""
+
+#: templates/index.html:30
+msgid "Register to create a new project"
+msgstr ""
+
+#: templates/index.html:33 templates/registration/login.html:25
+#: templates/users/register.html:3 templates/users/register.html.py:36
+msgid "Register"
+msgstr ""
+
+#: templates/messages/message.html:6 templates/notification/answer/full.html:4
+#: templates/notification/answer/notice.html:4
 msgid "guest"
 msgstr ""
 
-#: templates/messages/message.html:21
-msgid "Project proposal"
-msgstr ""
-
-#: templates/messages/message_actions.html:5
-msgid "Message relevant"
-msgstr ""
-
-#: templates/messages/message_actions.html:6
-msgid "Message irrelevant"
-msgstr ""
-
 #: templates/messages/message_actions.html:10
-msgid "Propose a new project"
+msgid "Delete this message"
+msgstr ""
+
+#: templates/messages/message_actions.html:11
+msgid "Correct this message"
 msgstr ""
 
 #: templates/messages/message_actions.html:12
 msgid "Answer this message"
 msgstr ""
 
-#: templates/messages/message_actions.html:16
-msgid "Make this message private"
+#: templates/messages/message_list.html:4
+msgid "All messages"
 msgstr ""
 
-#: templates/messages/message_actions.html:18
-msgid "Share this message"
+#: templates/messages/message_list.html:10
+msgid "Talk"
 msgstr ""
 
-#: templates/messages/message_actions.html:20
-msgid "Delete this message"
+#: templates/messages/message_list.html:10
+msgid "to the community"
 msgstr ""
 
-#: templates/messages/message_actions.html:21
-msgid "Correct this message"
+#: templates/messages/message_list.html:13
+msgid "messages"
 msgstr ""
 
-#: templates/messages/message_actions.html:23
-msgid "Follow this message"
+#: templates/messages/message_list.html:15
+#: templates/messages/message_list.html:27
+msgid "older"
 msgstr ""
 
-#: templates/messages/messagesmall.html:4
-#: templates/messages/messagesum.html:12
-msgid "Read more"
+#: templates/messages/message_list.html:16
+#: templates/messages/message_list.html:28
+msgid "of"
+msgstr ""
+
+#: templates/messages/message_list.html:17
+#: templates/messages/message_list.html:29
+msgid "newer"
 msgstr ""
 
 #: templates/messages/newmessage.html:5
 msgid "Create in"
 msgstr ""
 
-#: templates/notification/email_body.html:1
-#, python-format
-msgid ""
-"You have received the following notice from %(current_site)s:\n"
-"\n"
-"%(message)s\n"
-"\n"
-"To see other notices or change how you receive notifications, please go to %"
-"(notices_url)s.\n"
+#: templates/notification/email_body.html:16
+msgid "Hello"
 msgstr ""
 
-#: templates/notification/answer/full.html:3
-#: templates/notification/answer/notice.html:3
-msgid " has published a message on a subject you follow:"
+#: templates/notification/email_body.html:17
+msgid "You have received the following notice from"
+msgstr ""
+
+#: templates/notification/email_body.html:19
+msgid "See all notices"
+msgstr ""
+
+#: templates/notification/notices.html:6
+msgid "Don't show archived notices"
+msgstr ""
+
+#: templates/notification/notices.html:7
+msgid "Show archived notices"
+msgstr ""
+
+#: templates/notification/notices.html:12
+msgid "Archived"
+msgstr ""
+
+#: templates/notification/notices.html:13
+msgid "Archive"
+msgstr ""
+
+#: templates/notification/answer/full.html:5
+#: templates/notification/answer/notice.html:5
+msgid " has published a message on a project you follow:"
 msgstr ""
 
 #: templates/notification/answerdelay/full.html:2
@@ -759,6 +887,12 @@ msgid "to take on project"
 msgstr ""
 
 #: templates/notification/delegate/full.html:3
+#, python-format
+msgid ""
+"wants to delegate project <a href=\"%(current_site)s/project/get/%(id)s\">%"
+"(title)s</a> to you."
+msgstr ""
+
 #: templates/notification/delegate/notice.html:3
 #, python-format
 msgid ""
@@ -768,27 +902,7 @@ msgstr ""
 
 #: templates/notification/invitation/full.html:3
 #: templates/notification/invitation/notice.html:3
-msgid "wants to add you to his contacts."
-msgstr ""
-
-#: templates/notification/invitation/full.html:4
-#: templates/notification/invitation/notice.html:4
-msgid "You can"
-msgstr ""
-
-#: templates/notification/invitation/full.html:4
-#: templates/notification/invitation/notice.html:4
-msgid "accept"
-msgstr ""
-
-#: templates/notification/invitation/full.html:4
-#: templates/notification/invitation/notice.html:4
-msgid "or"
-msgstr ""
-
-#: templates/notification/invitation/full.html:4
-#: templates/notification/invitation/notice.html:4
-msgid "refuser"
+msgid "has added you to his contacts."
 msgstr ""
 
 #: templates/notification/invitation_accepted/full.html:3
@@ -816,6 +930,11 @@ msgstr ""
 msgid "has added a bid on a project you follow:"
 msgstr ""
 
+#: templates/notification/project_bid_cancel/full.html:3
+#: templates/notification/project_bid_cancel/notice.html:3
+msgid "has cancelled his bid on a project you follow:"
+msgstr ""
+
 #: templates/notification/project_cancel/full.html:3
 #: templates/notification/project_cancel/notice.html:3
 msgid "has cancelled a project you follow:"
@@ -838,7 +957,7 @@ msgstr ""
 
 #: templates/notification/project_state/full.html:3
 #: templates/notification/project_state/notice.html:3
-msgid "has changed state of a project you follow:"
+msgid "has changed the state of a project you follow:"
 msgstr ""
 
 #: templates/notification/project_state/full.html:4
@@ -846,209 +965,297 @@ msgstr ""
 msgid "is now in state"
 msgstr ""
 
-#: templates/projects/editproject.html:10
-#: templates/projects/project_state.html:10
-msgid "Project"
+#: templates/projects/project_budget.html:6
+msgid "Offer"
 msgstr ""
 
-#: templates/projects/editproject.html:13
-msgid "Start date"
+#: templates/projects/project_budget.html:11
+msgid "Change my offer"
 msgstr ""
 
-#: templates/projects/editproject.html:16
-msgid "Due date"
+#: templates/projects/project_budget.html:14
+msgid "No offer was made for this project"
 msgstr ""
 
-#: templates/projects/editproject.html:27
-#: templates/projects/project_detail.html:77
-msgid "Add a specification"
+#: templates/projects/project_budget.html:17
+msgid "Make an offer"
 msgstr ""
 
-#: templates/projects/fileframe.html:6 templates/projects/spec/editFichier
-#: joint.html:5 templates/projects/spec/editImage.html:5
-msgid "Delete"
+#: templates/projects/project_budget.html:24
+msgid "Bids"
 msgstr ""
 
-#: templates/projects/project_detail.html:6
-msgid "Clipboard"
+#: templates/projects/project_budget.html:31
+msgid "Add a new bid"
 msgstr ""
 
-#: templates/projects/project_detail.html:10
-msgid "remove from clipboard"
+#: templates/projects/project_budget.html:32
+msgid "Cancel your bid on this task"
 msgstr ""
 
-#: templates/projects/project_detail.html:35
-msgid "Overview"
+#: templates/projects/project_budget.html:32
+msgid "Cancel my bid"
 msgstr ""
 
-#: templates/projects/project_detail.html:50
-#: templates/projects/projectsum.html:11 templates/projects/task.html:14
-msgid "Started on:"
+#: templates/projects/project_budget.html:37
+msgid "No bid on this task"
 msgstr ""
 
-#: templates/projects/project_detail.html:56
-#: templates/projects/projectsum.html:12 templates/projects/task.html:15
-msgid "Due on:"
+#: templates/projects/project_budget.html:40
+msgid "Payment awaiting:"
 msgstr ""
 
-#: templates/projects/project_detail.html:71
-msgid "Specifications"
+#: templates/projects/project_budget.html:43
+msgid "Bid_verb"
 msgstr ""
 
-#: templates/projects/project_detail.html:79
-#: templates/projects/projectsum.html:22
-msgid "Project proposed by"
-msgstr ""
-
-#: templates/projects/project_detail.html:82
-msgid "Guest"
-msgstr ""
-
-#: templates/projects/project_detail.html:83
-#: templates/projects/projectsum.html:22
-#: templates/users/profile/related.html:25
-msgid "on"
-msgstr ""
-
-#: templates/projects/project_detail.html:89
-#: templates/projects/gantt/prjview.html:9
-msgid "Tasks"
-msgstr ""
-
-#: templates/projects/project_detail.html:93
-msgid "New task"
-msgstr ""
-
-#: templates/projects/project_detail.html:95
-msgid "Paste tasks"
-msgstr ""
-
-#: templates/projects/project_detail.html:103
-msgid "tasks"
-msgstr ""
-
-#: templates/projects/project_detail.html:103
-msgid "past_fem_plur"
-msgstr "ed"
-
-#: templates/projects/project_state.html:18
-msgid "Awaiting validation"
-msgstr ""
-
-#: templates/projects/project_state.html:22
-msgid "tasks done out of"
-msgstr ""
-
-#: templates/projects/project_state.html:28
-#: templates/projects/projectsum.html:10
-msgid "In charge"
-msgstr ""
-
-#: templates/projects/project_state.html:30
-msgid "Delegate this project"
-msgstr ""
-
-#: templates/projects/project_state.html:36
-#: templates/projects/project_state.html:68
-#: templates/projects/project_state.html:79
-#: templates/projects/project_state.html:89
-msgid "Do you accept it?"
-msgstr ""
-
-#: templates/projects/project_state.html:37
-#: templates/projects/project_state.html:69
-#: templates/projects/project_state.html:80
-#: templates/projects/project_state.html:90
-msgid "Accept"
-msgstr ""
-
-#: templates/projects/project_state.html:38
-#: templates/projects/project_state.html:70
-#: templates/projects/project_state.html:81
-#: templates/projects/project_state.html:91
-msgid "Refuse"
-msgstr ""
-
-#: templates/projects/project_state.html:41
-msgid "Delegation offer sent to"
-msgstr ""
-
-#: templates/projects/project_state.html:45
-msgid "No one is in charge of this project"
-msgstr ""
-
-#: templates/projects/project_state.html:47
-msgid "Take on this project"
-msgstr ""
-
-#: templates/projects/project_state.html:52
-msgid "Bidders:"
-msgstr ""
-
-#: templates/projects/project_state.html:56
-msgid "Cancel your bid on this project"
-msgstr ""
-
-#: templates/projects/project_state.html:60
-msgid "Bid on this project"
-msgstr ""
-
-#: templates/projects/project_state.html:66
+#: templates/projects/project_budget.html:51
 msgid "wants to cancel his"
 msgstr ""
 
-#: templates/projects/project_state.html:66
-msgid "bid on this project"
+#: templates/projects/project_budget.html:51
+msgid "bid on this task"
 msgstr ""
 
-#: templates/projects/project_state.html:67
+#: templates/projects/project_budget.html:52
 msgid "Your offer will be reduced of"
 msgstr ""
 
-#: templates/projects/project_state.html:77
-msgid "wants to cancel this project."
+#: templates/projects/project_budget.html:53
+#: templates/projects/project_budget.html:64
+#: templates/projects/project_budget.html:72
+#: templates/projects/project_team.html:23
+msgid "Do you accept it?"
 msgstr ""
 
-#: templates/projects/project_state.html:78
+#: templates/projects/project_budget.html:54
+#: templates/projects/project_budget.html:65
+#: templates/projects/project_budget.html:73
+#: templates/projects/project_team.html:24
+msgid "Accept"
+msgstr ""
+
+#: templates/projects/project_budget.html:55
+#: templates/projects/project_budget.html:66
+#: templates/projects/project_budget.html:74
+#: templates/projects/project_team.html:25
+msgid "Refuse"
+msgstr ""
+
+#: templates/projects/project_budget.html:62
+msgid "wants to cancel this task."
+msgstr ""
+
+#: templates/projects/project_budget.html:63
 msgid "You will be reimbursed in full."
 msgstr ""
 
-#: templates/projects/project_state.html:88
-msgid "wants to change this project due date to"
+#: templates/projects/project_budget.html:71
+msgid "wants to change this task due date to"
 msgstr ""
 
-#: templates/projects/projectsmall.html:3
-#: templates/projects/projectsum.html:21 templates/projects/task.html:6
-msgid "See more"
+#: templates/projects/project_budget.html:80
+msgid "Budget"
 msgstr ""
 
-#: templates/projects/task.html:3
-msgid "Copy to clipboard"
+#: templates/projects/project_budget.html:80
+msgid "Engaged"
 msgstr ""
 
-#: templates/projects/task.html:13
-msgid "Assigned to:"
+#: templates/projects/project_description.html:3
+msgid "Project created by"
 msgstr ""
 
-#: templates/projects/dialogue/bid.html:3
-#: templates/projects/dialogue/offer.html:3 templates/users/register.html:32
+#: templates/projects/project_description.html:6
+msgid "linked to"
+msgstr ""
+
+#: templates/projects/project_description.html:15
+msgid "Edit the title"
+msgstr ""
+
+#: templates/projects/project_description.html:34
+msgid "Add a discussion"
+msgstr ""
+
+#: templates/projects/project_detail.html:4
+#: templates/projects/project_detail.html:5
+#: templates/projects/project_state.html:26
+msgid "Project"
+msgstr ""
+
+#: templates/projects/project_detail.html:16
+msgid "planning"
+msgstr ""
+
+#: templates/projects/project_detail.html:19
+msgid "budget"
+msgstr ""
+
+#: templates/projects/project_detail.html:22
+msgid "team"
+msgstr ""
+
+#: templates/projects/project_planning.html:24
+msgid "Created on:"
+msgstr ""
+
+#: templates/projects/project_planning.html:25
+msgid "Start on:"
+msgstr ""
+
+#: templates/projects/project_planning.html:28
+msgid "Due on:"
+msgstr ""
+
+#: templates/projects/project_planning.html:30
+msgid "Validation on:"
+msgstr ""
+
+#: templates/projects/project_state.html:4
+msgid "Delete the task"
+msgstr ""
+
+#: templates/projects/project_state.html:7
+#: templates/projects/spec/edit_spot.html:12
+msgid "Cancel"
+msgstr ""
+
+#: templates/projects/project_state.html:11
+msgid "Start"
+msgstr ""
+
+#: templates/projects/project_state.html:14
+msgid "Deliver"
+msgstr ""
+
+#: templates/projects/project_state.html:19
+msgid "Validate"
+msgstr ""
+
+#: templates/projects/project_state.html:22
+msgid "Evaluate"
+msgstr ""
+
+#: templates/projects/project_state.html:26
+msgid "adj_fem"
+msgstr " "
+
+#: templates/projects/project_sum.html:2
+msgid "delete this task"
+msgstr ""
+
+#: templates/projects/project_team.html:6
+#: templates/projects/project_team.html:68
+msgid "Assignee"
+msgstr ""
+
+#: templates/projects/project_team.html:14
+msgid "You are in charge of this task"
+msgstr ""
+
+#: templates/projects/project_team.html:16
+msgid "Delegate"
+msgstr ""
+
+#: templates/projects/project_team.html:22
+msgid "wants to delegate this task to you."
+msgstr ""
+
+#: templates/projects/project_team.html:28
+msgid "Delegation offer sent to"
+msgstr ""
+
+#: templates/projects/project_team.html:32
+msgid "No one is in charge of this task"
+msgstr ""
+
+#: templates/projects/project_team.html:35
+msgid "Take on"
+msgstr ""
+
+#: templates/projects/project_team.html:40
+#: templates/projects/project_team.html:68
+msgid "Bidders"
+msgstr ""
+
+#: templates/projects/project_team.html:47
+msgid "No bidder on this project"
+msgstr ""
+
+#: templates/projects/project_team.html:52
+msgid "This task is"
+msgstr ""
+
+#: templates/projects/project_team.html:52
+#: templates/projects/project_team.html:53
+msgid "public"
+msgstr ""
+
+#: templates/projects/project_team.html:52
+#: templates/projects/project_team.html:53
+msgid "private"
+msgstr ""
+
+#: templates/projects/project_team.html:53
+msgid "Make this task"
+msgstr ""
+
+#: templates/projects/project_team.html:55
+msgid "Guests"
+msgstr ""
+
+#: templates/projects/project_team.html:62
+msgid "No guest on this task"
+msgstr ""
+
+#: templates/projects/project_team.html:64
+msgid "Invite members"
+msgstr ""
+
+#: templates/projects/dialogue/bid.html:4
+#: templates/projects/dialogue/offer.html:4 templates/users/register.html:35
 msgid "I have read and accepted the"
 msgstr ""
 
-#: templates/projects/gantt/prjview.html:7
-msgid "Overview of"
+#: templates/projects/spec/edit_spot.html:7
+#: templates/projects/spec/edit_spot.html:8
+msgid "New task"
 msgstr ""
 
-#: templates/projects/gantt/prjview.html:11
-msgid "Month"
+#: templates/projects/spec/edit_spot.html:11
+#: templates/projects/spec/editspec.html:2
+msgid "Add"
 msgstr ""
 
-#: templates/projects/gantt/prjview.html:12
-msgid "day"
+#: templates/projects/spec/edit_type1.html:3
+msgid "A description, an explanation..."
 msgstr ""
 
-#: templates/projects/gantt/prjview.html:16
-msgid "No task in the project"
+#: templates/projects/spec/edit_type2.html:3
+msgid "A design, a scheme, a picture..."
+msgstr ""
+
+#: templates/projects/spec/edit_type2.html:7
+#: templates/projects/spec/edit_type5.html:7
+#: templates/projects/spec/fileframe.html:7
+msgid "Delete"
+msgstr ""
+
+#: templates/projects/spec/edit_type3.html:3
+msgid "A link to another task or a web page..."
+msgstr ""
+
+#: templates/projects/spec/edit_type4.html:3
+msgid "Comming soon..."
+msgstr ""
+
+#: templates/projects/spec/edit_type5.html:3
+msgid "A file describing the job..."
+msgstr ""
+
+#: templates/projects/spec/spec.html:18
+msgid "Guest"
 msgstr ""
 
 #: templates/registration/login.html:3
@@ -1059,14 +1266,6 @@ msgstr ""
 msgid "Your username and password didn't match. Please try again."
 msgstr ""
 
-#: templates/registration/login.html:24 templates/users/register.html:33
-msgid "Register"
-msgstr ""
-
-#: templates/registration/login.html:26
-msgid "Forgot your password?"
-msgstr ""
-
 #: templates/search/search.html:4
 msgid "Results for"
 msgstr ""
@@ -1075,119 +1274,164 @@ msgstr ""
 msgid "No results found."
 msgstr ""
 
-#: templates/users/account.html:3 templates/users/account.html.py:6
-#: templates/users/dashboard.html:25
+#: templates/users/account.html:3 templates/users/account.html.py:22
 msgid "My account"
 msgstr ""
 
-#: templates/users/account.html:7
-msgid "Fund you account"
-msgstr ""
-
-#: templates/users/account.html:10
-msgid "Amount"
-msgstr ""
-
-#: templates/users/account.html:15
-msgid "History"
-msgstr ""
-
-#: templates/users/account.html:21 templates/users/pdf/invoice.html:7
-msgid "on project"
-msgstr ""
-
-#: templates/users/account.html:26 templates/users/pdf/invoice.html:12
+#: templates/users/account.html:5 templates/users/account.html.py:34
+#: templates/users/pdf/invoice.html:12
 msgid "Balance:"
 msgstr ""
 
-#: templates/users/account.html:29
-msgid "My invoice"
+#: templates/users/account.html:6
+msgid "Fund my account"
 msgstr ""
 
-#: templates/users/account.html:30
+#: templates/users/account.html:9
+msgid ""
+"You don't have enough money on your account. Please indicate below how much "
+"you want to add:"
+msgstr ""
+
+#: templates/users/account.html:18
+msgid "Go back to my dashboard"
+msgstr ""
+
+#: templates/users/account.html:23
+msgid "History"
+msgstr ""
+
+#: templates/users/account.html:29 templates/users/pdf/invoice.html:7
+msgid "on project"
+msgstr ""
+
+#: templates/users/account.html:37
+msgid "My invoices"
+msgstr ""
+
+#: templates/users/account.html:38
 msgid "Download current period history"
+msgstr ""
+
+#: templates/users/blog.html:4
+msgid "My Publications"
+msgstr ""
+
+#: templates/users/blog.html:8
+#, python-format
+msgid "%(username)s's blog"
+msgstr ""
+
+#: templates/users/blog.html:11
+msgid "Add a publication"
+msgstr ""
+
+#: templates/users/blog.html:14
+msgid "Subscribe to a RSS feed"
+msgstr ""
+
+#: templates/users/blog.html:21
+#, python-format
+msgid "%(username)s's profile"
+msgstr ""
+
+#: templates/users/blog.html:28
+msgid "Posts"
+msgstr ""
+
+#: templates/users/blog.html:35 templates/users/profile/related.html:17
+msgid "No publication"
+msgstr ""
+
+#: templates/users/changeemail.html:3 templates/users/preferences.html:21
+msgid "Change your e-mail address"
+msgstr ""
+
+#: templates/users/changeemail.html:9
+msgid "Former e-mail address"
+msgstr ""
+
+#: templates/users/changeemail.html:13
+msgid "New e-mail address"
+msgstr ""
+
+#: templates/users/changeemail.html:17
+msgid "Confirm new address"
+msgstr ""
+
+#: templates/users/changeemail.html:21
+msgid "Set new address"
 msgstr ""
 
 #: templates/users/changepwd.html:3 templates/users/preferences.html:17
 msgid "Change your password"
 msgstr ""
 
-#: templates/users/changepwd.html:8
+#: templates/users/changepwd.html:9
 msgid "Former password"
 msgstr ""
 
-#: templates/users/changepwd.html:12 users/views.py:89
+#: templates/users/changepwd.html:13 users/views.py:102
 msgid "New password"
 msgstr ""
 
-#: templates/users/changepwd.html:16
+#: templates/users/changepwd.html:17
 msgid "Confirm new password"
 msgstr ""
 
-#: templates/users/changepwd.html:20
+#: templates/users/changepwd.html:21
 msgid "Set new password"
 msgstr ""
 
-#: templates/users/confirmpayment.html:3 templates/users/confirmpayment.html:5
+#: templates/users/confirmpayment.html:3
 msgid "Payment confirmation"
 msgstr ""
 
+#: templates/users/confirmpayment.html:4
+msgid "Former balance:"
+msgstr ""
+
 #: templates/users/confirmpayment.html:6
+msgid "Do you confirm the deposit?"
+msgstr ""
+
+#: templates/users/confirmpayment.html:7
 msgid ""
 "You are about to be redirected to our payment service provider who will "
 "confirm transaction."
 msgstr ""
 
-#: templates/users/confirmpayment.html:7
+#: templates/users/confirmpayment.html:8
 msgid "This will add"
 msgstr ""
 
-#: templates/users/confirmpayment.html:7
+#: templates/users/confirmpayment.html:8
 msgid "to your account. Do you confirm?"
 msgstr ""
 
-#: templates/users/dashboard.html:6
-msgid "My Specialties"
+#: templates/users/dashboard.html:4 templates/users/dashboard.html.py:5
+msgid "My projects"
 msgstr ""
 
-#: templates/users/dashboard.html:9
-msgid "My contacts"
+#: templates/users/dashboard.html:9 templates/users/dashboard.html.py:22
+msgid "_adj_plur"
+msgstr " "
+
+#: templates/users/dashboard.html:12
+msgid "Create a new project:"
 msgstr ""
 
-#: templates/users/dashboard.html:26
-msgid "News in discussions"
-msgstr ""
-
-#: templates/users/dashboard.html:33 templates/users/dashboard.html.py:40
-msgid "See more news"
-msgstr ""
-
-#: templates/users/dashboard.html:35
-msgid "News in projects"
-msgstr ""
-
-#: templates/users/dashboard.html:44
-msgid "Notifications"
-msgstr ""
-
-#: templates/users/dashboard.html:52
-msgid "See all notifications"
-msgstr ""
-
-#: templates/users/dashboard.html:53
-msgid "My messages"
-msgstr ""
-
-#: templates/users/dashboard.html:63
-msgid "See all personal messages"
-msgstr ""
-
-#: templates/users/discussions.html:3 templates/users/usermessages.html:3
+#: templates/users/discussions.html:4 templates/users/discussions.html.py:6
+#: templates/users/usermessages.html:3
 msgid "Personal messages"
 msgstr ""
 
-#: templates/users/discussions.html:6
+#: templates/users/discussions.html:10
 msgid "Received messages"
+msgstr ""
+
+#: templates/users/discussions.html:20
+msgid "No message received"
 msgstr ""
 
 #: templates/users/preferences.html:3
@@ -1198,52 +1442,52 @@ msgstr ""
 msgid "Contact information"
 msgstr ""
 
-#: templates/users/preferences.html:20
+#: templates/users/preferences.html:24
 msgid "Notification settings"
 msgstr ""
 
-#: templates/users/preferences.html:21
+#: templates/users/preferences.html:25
 msgid "Followed messages"
 msgstr ""
 
-#: templates/users/preferences.html:28
+#: templates/users/preferences.html:32
 msgid "Followed projects"
 msgstr ""
 
-#: templates/users/preferences.html:35
+#: templates/users/preferences.html:39
 msgid "E-mail notification"
 msgstr ""
 
-#: templates/users/register.html:8
+#: templates/users/register.html:10
 msgid "Last name"
 msgstr ""
 
-#: templates/users/register.html:12
+#: templates/users/register.html:14
 msgid "First name"
 msgstr ""
 
-#: templates/users/register.html:16
-msgid "username"
-msgstr ""
-
-#: templates/users/register.html:20
+#: templates/users/register.html:22
 msgid "Password"
 msgstr ""
 
-#: templates/users/register.html:24
+#: templates/users/register.html:26
 msgid "Confirm password"
 msgstr ""
 
-#: templates/users/register.html:28 templates/users/resetpwd.html:12
+#: templates/users/register.html:30 templates/users/resetpwd.html:13
 msgid "E-mail address"
 msgstr ""
 
-#: templates/users/resetpwd.html:3 templates/users/resetpwd.html.py:15
+#: templates/users/resetpwd.html:3 templates/users/resetpwd.html.py:16
 msgid "Reset password"
 msgstr ""
 
-#: templates/users/resetpwd.html:8
+#: templates/users/resetpwd.html:9
 msgid "Username"
+msgstr ""
+
+#: templates/users/usermessages.html:4
+msgid "Send a personal message to"
 msgstr ""
 
 #: templates/users/usermessages.html:20
@@ -1256,164 +1500,260 @@ msgstr ""
 msgid "to"
 msgstr ""
 
+#: templates/users/profile/experience.html:4
+#: templates/users/profile/training.html:4
+msgid "Today"
+msgstr ""
+
 #: templates/users/profile/experience.html:5
 msgid "at"
 msgstr ""
 
-#: templates/users/profile/profile.html:6
-msgid "My specialties"
-msgstr ""
-
-#: templates/users/profile/profile.html:9
+#: templates/users/profile/profile.html:7
 msgid "My Contacts"
 msgstr ""
 
-#: templates/users/profile/profile.html:28
+#: templates/users/profile/profile.html:27
 msgid "Send a message"
 msgstr ""
 
-#: templates/users/profile/profile.html:30
+#: templates/users/profile/profile.html:29
 msgid "Add to my contacts"
 msgstr ""
 
-#: templates/users/profile/profile.html:33
+#: templates/users/profile/profile.html:32
 msgid "Export this resume"
 msgstr ""
 
-#: templates/users/profile/related.html:6
-msgid "My latest posts"
-msgstr ""
-
-#: templates/users/profile/related.html:14
-msgid "My latest projects"
-msgstr ""
-
-#: templates/users/profile/related.html:20
-msgid "My evaluations"
-msgstr ""
-
-#: templates/users/profile/related.html:21
-msgid "Evaluation"
-msgstr ""
-
-#: templates/users/profile/related.html:21
+#: templates/users/profile/related.html:4
 msgid "evaluations"
 msgstr ""
 
-#: templates/users/profile/resume.html:41
+#: templates/users/profile/related.html:8
+msgid "on "
+msgstr ""
+
+#: templates/users/profile/related.html:12
+msgid "My latest posts"
+msgstr ""
+
+#: templates/users/profile/related.html:19
+msgid "See all publications"
+msgstr ""
+
+#: templates/users/profile/related.html:21
+msgid "My latest projects"
+msgstr ""
+
+#: templates/users/profile/resume.html:37
+msgid "location unknown"
+msgstr ""
+
+#: templates/users/profile/resume.html:42
 msgid "Birth date:"
 msgstr ""
 
-#: templates/users/profile/resume.html:49
+#: templates/users/profile/resume.html:50
 msgid "Add a skill"
 msgstr ""
 
-#: templates/users/profile/resume.html:51
+#: templates/users/profile/resume.html:52
 msgid "Skills"
 msgstr ""
 
-#: templates/users/profile/resume.html:58
+#: templates/users/profile/resume.html:59
 msgid "Add an experience"
 msgstr ""
 
-#: templates/users/profile/resume.html:60
+#: templates/users/profile/resume.html:61
 msgid "Experience"
 msgstr ""
 
-#: templates/users/profile/resume.html:67
+#: templates/users/profile/resume.html:68
 msgid "Add a training"
 msgstr ""
 
-#: templates/users/profile/resume.html:69
+#: templates/users/profile/resume.html:70
 msgid "Training"
 msgstr ""
 
-#: users/models.py:43
+#: users/models.py:24
+msgid "Birthdate"
+msgstr ""
+
+#: users/models.py:25
+msgid "Address"
+msgstr ""
+
+#: users/models.py:26
+msgid "Post Code"
+msgstr ""
+
+#: users/models.py:27
+msgid "City"
+msgstr ""
+
+#: users/models.py:28
+msgid "Country"
+msgstr ""
+
+#: users/models.py:29
+msgid "Mobile"
+msgstr ""
+
+#: users/models.py:30
+msgid "Phone Number"
+msgstr ""
+
+#: users/models.py:45
 #, python-format
 msgid "%(job)s at %(company)s"
 msgstr ""
 
-#: users/models.py:51
+#: users/models.py:53
 #, python-format
 msgid "Studying %(degree)s in %(university)s"
 msgstr ""
 
-#: users/models.py:54
+#: users/models.py:56
 #, python-format
 msgid "Expert in %(skill)s"
 msgstr ""
 
-#: users/models.py:94
+#: users/models.py:96
 msgid "online payment"
 msgstr ""
 
-#: users/models.py:95
+#: users/models.py:97
 #, python-format
 msgid "Paiement %s validated"
 msgstr ""
 
-#: users/models.py:217
+#: users/models.py:132
+msgid "Title"
+msgstr ""
+
+#: users/models.py:133
+msgid "Main skill"
+msgstr ""
+
+#: users/models.py:134 users/models.py:154
+msgid "Comment"
+msgstr ""
+
+#: users/models.py:140 users/models.py:150
+msgid "Begining"
+msgstr ""
+
+#: users/models.py:141 users/models.py:151
+msgid "End"
+msgstr ""
+
+#: users/models.py:142
+msgid "Company"
+msgstr ""
+
+#: users/models.py:143
+msgid "Job"
+msgstr ""
+
+#: users/models.py:144
+msgid "Description"
+msgstr ""
+
+#: users/models.py:152
+msgid "Degree"
+msgstr ""
+
+#: users/models.py:153
+msgid "University"
+msgstr ""
+
+#: users/models.py:209
 #, python-format
 msgid "%s's blog"
 msgstr ""
 
-#: users/views.py:62
+#: users/views.py:67
 msgid "Setting saved"
 msgstr ""
 
-#: users/views.py:69
+#: users/views.py:74
 msgid "Information saved"
 msgstr ""
 
-#: users/views.py:76
+#: users/views.py:89
 msgid "Invitation sent"
 msgstr ""
 
-#: users/views.py:83
-msgid "The username doesn't exist"
+#: users/views.py:96
+msgid "The user doesn't exist"
 msgstr ""
 
-#: users/views.py:85
+#: users/views.py:98
 msgid "E-mail address did not match"
 msgstr ""
 
-#: users/views.py:89
+#: users/views.py:102
 #, python-format
-msgid "Your password has been reset. Your new password is : %s"
+msgid "Your password has been reset. Your new password is: %s"
 msgstr ""
 
-#: users/views.py:90
+#: users/views.py:103
 msgid "The new password has been sent to you by e-mail"
 msgstr ""
 
-#: users/views.py:96
+#: users/views.py:109
 msgid "Old password did not match"
 msgstr ""
 
-#: users/views.py:106
+#: users/views.py:114
+msgid "Your password has been updated"
+msgstr ""
+
+#: users/views.py:124
+msgid "Your email has been updated"
+msgstr ""
+
+#: users/views.py:130
 msgid "Please accept the terms of use"
 msgstr ""
 
-#: users/views.py:108
+#: users/views.py:132
+msgid "Invalid username. Please use only letters, digits, - and _."
+msgstr ""
+
+#: users/views.py:134
 msgid "Please enter a password"
 msgstr ""
 
-#: users/views.py:110
+#: users/views.py:136
 msgid "Passwords did not match"
 msgstr ""
 
-#: users/views.py:157
+#: users/views.py:140
+msgid "This username is already used"
+msgstr ""
+
+#: users/views.py:173
+msgid "Incorrect data"
+msgstr ""
+
+#: users/views.py:186
 msgid "Can not change other users' profiles"
 msgstr ""
 
-#: users/views.py:159 users/views.py:166 users/views.py:179 users/views.py:186
+#: users/views.py:188 users/views.py:195 users/views.py:208 users/views.py:215
 msgid "Modification saved"
 msgstr ""
 
-#: users/views.py:218
+#: users/views.py:247
 msgid "Message sent"
 msgstr ""
 
-#: users/views.py:227
-msgid "Notifice archived"
+#: users/views.py:256
+msgid "Notice archived"
 msgstr ""
+
+#~ msgid "past_fem_plur"
+#~ msgstr "ed"
