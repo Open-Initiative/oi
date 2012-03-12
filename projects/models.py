@@ -5,7 +5,7 @@ from decimal import Decimal
 from django.db import models
 from django.db.transaction import commit_on_success
 from django.contrib.auth.models import User
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, Http404
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext as _
 from oi.settings import MEDIA_ROOT
@@ -275,14 +275,16 @@ class ProjectACL(models.Model):
         return "%s on %s: %s"%(self.user, self.project.title, self.permission)
 
 #Décorateur de vérification de permissions
-def OINeedsPrjPerms(*required_perms):
+def OINeedsPrjPerms(perm, isajax=True):
     def decorate(f):
         def new_f(request, id, *args, **kwargs):
             #Vérification de toutes les permissions
             prj = get_object_or_404(Project,id=id)
-            for perm in required_perms:
-                if not prj.has_perm(request.user, perm):
+            if not prj.has_perm(request.user, perm):
+                if isajax:
                     return HttpResponseForbidden(_("Forbidden"))
+                else:
+                    raise Http404
             return f(request, id, *args, **kwargs)
         return new_f
     return decorate 

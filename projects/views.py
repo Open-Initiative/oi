@@ -46,7 +46,7 @@ from oi.messages.templatetags.oifilters import oiescape, summarize
 #    promotedprj = PromotedProject.objects.filter(location="index")
 #    return object_list(request, queryset=projects[:10], extra_context={'promotedprj': promotedprj})
 
-@OINeedsPrjPerms(OI_READ)
+@OINeedsPrjPerms(OI_READ, isajax=False)
 def getproject(request, id, view="description"):
     if not view: view = "description"
     project = Project.objects.get(id=id)
