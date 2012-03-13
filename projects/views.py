@@ -106,6 +106,7 @@ def saveproject(request, id='0'):
     project.inherit_perms()
     if project.assignee:
         project.apply_perm(project.assignee, OI_ALL_PERMS)
+    project.save()
         
     #notify users about this project
     if project.parent:
