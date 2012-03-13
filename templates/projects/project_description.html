@@ -1,14 +1,6 @@
 {% load oifilters %}
 {% load i18n %}
 <div class="prjauthor">{% trans "Project created by" %} <a href="/user/profile/{{object.author.username}}">{{object.author}}</a></div>
-{% if object.spot_set.all %}
-<div style="float: right;clear: right">
-    {% trans "linked to" %}
-    {% with object.spot_set.all.0.spec as spec%}
-    <a href="/project/get/{{spec.project.id}}"><div>{% include 'projects/spec/minispec.html' %}</div></a>
-    {% endwith %}
-</div>
-{% endif %}
 <div class="prjtitle" id="prjtitle_{{object.id}}">
     {{object.title}}
     {% if object|can_write:user and object.state < 2 %}
@@ -25,6 +17,13 @@
     {% endif %}{% endwith %}{% endif %}
 </div>
 {% if project|can_write:user and project.state < 4 %}<a class="clickable" onclick="addSpec({{project.id}})"><img src="/img/icons/add.png" /> {% trans "Add a description" %}</a>{% endif %}
+{% if object.spot_set.all %}
+<div style="float: right;clear: right">
+    {% trans "linked to" %}
+    {% for spot in object.spot_set.all %} {% with spot.spec as spec %}<a href="/project/get/{{spot.spec.project.id}}">{{spot.spec.project.title|truncatewords:4}}<div>{% include 'projects/spec/minispec.html' %}</div></a>
+    {% endwith %}{% endfor %}
+</div>
+{% endif %}
 <div class="cleared"></div>
 <div id="discussions_{{project.id}}">
     {% for message in project.message_set.all %}
