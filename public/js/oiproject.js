@@ -259,7 +259,6 @@ function saveSpec(divid, projectid, order, specid) {
     if(getValue("ts_"+divid)) params+="&ts="+getValue("ts_"+divid);
     if(getValue("image_"+divid)) params+="&image="+getValue("image_"+divid);
     OIajaxCall("/project/"+projectid+"/savespec/"+specid, params, divid);
-    addSpec(projectid);
 }
 function deleteSpec(projectid, specorder) {
     if(confirm(gettext("Are you sure you want to delete this specification permanently?"))) {

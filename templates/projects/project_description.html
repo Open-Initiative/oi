@@ -17,12 +17,14 @@
 </div>
 <div id="specs_{{project.id}}">
     {%for spec in project.spec_set.all|dictsort:"order"%}{%include 'projects/spec/spec.html'%}{% endfor %}
-    {% if project|can_write:user and project.state < 4 %}{% with "newspec" as divid %}
+    {% if project|can_write:user and project.state < 4 %}
+    {% with "newspec" as divid %}{% if not project.spec_set.all %}
     <div id="{{divid}}">{% include 'projects/spec/editspec.html' %}</div>
     <script>changeSpecType("newspec", 1);</script>
     <div class="sepspec"></div>
-    {% endwith %}{% endif %}
+    {% endif %}{% endwith %}{% endif %}
 </div>
+{% if project|can_write:user and project.state < 4 %}<a class="clickable" onclick="addSpec({{project.id}})"><img src="/img/icons/add.png" /> {% trans "Add a description" %}</a>{% endif %}
 <div class="cleared"></div>
 <div id="discussions_{{project.id}}">
     {% for message in project.message_set.all %}
