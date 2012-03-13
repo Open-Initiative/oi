@@ -23,7 +23,7 @@
     {% endif %}
 {% endif %}
 <div class="prjstate statebg{{object.state}}">
-    {% if object.parent %}{% trans "Task" %}{% else %}{% trans "Project" %}{% endif %} {{OI_PRJ_STATES|get:object.state}}{% trans "adj_fem" %}
+    {% if object.parent %}{% trans "Task" %}{% else %}{% trans "Project" %}{% endif %} {{OI_PRJ_STATES|get:object.state}}{% if object.parent %}{% trans "adj_fem" %}{% endif %}
     <img src="/img/icons/state0.png" />
     {% ifequal object.state 2 %}
     <div class="progressbar" {% ifequal object.assignee user %}onclick="updateProgress({{object.id}},(event.clientX-this.offsetLeft)/this.offsetWidth)"{% endifequal %}>
