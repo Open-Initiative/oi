@@ -3,10 +3,10 @@
 <div>{% trans "A design, a scheme, a picture..." %}</div>
 <input id="filename_{{divid}}" name="filename" type="hidden" />
 <input id="ts_{{divid}}" name="ts" type="hidden" />
-<span id="filespan_{{divid}}" {% if not spec %}class="invisible" {% endif %}>
+<span id="filespan_{{divid}}" {% if not spec.file %}class="invisible" {% endif %}>
     <img src='/img/icons/delete.png' alt='{% trans "Delete" %}' title='{% trans "Delete" %}' onclick='changeFile("{{divid}}")' /> {{spec.file.name|cleanfilename}}
 </span>
-<div id="filediv_{{divid}}" {% if spec %}class="invisible" {% endif %}style="float: left;">
+<div id="filediv_{{divid}}" {% if spec.file %}class="invisible" {% endif %}style="float: left;">
     <form id="form_{{divid}}" method="post" enctype="multipart/form-data" action="/project/{{project.id}}/uploadfile/{{spec.id|default:0}}" target="filedest_{{divid}}">
         {% csrf_token %}
         <input id="divid_{{divid}}" name="divid" type="hidden" value="{{divid}}" />

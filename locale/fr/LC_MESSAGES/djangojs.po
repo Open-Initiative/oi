@@ -22,11 +22,11 @@ msgstr "Phase de conception"
 
 #: public/js/oijs.js:32 public/js/oijs.js.py:36 public/js/oijs.js.py:44
 msgid "ERROR : "
-msgstr "ERREUR"
+msgstr "ERREUR : "
 
 #: public/js/oijs.js:36
 msgid "Unkown server error"
-msgstr "Erreur du serveur inconnue"
+msgstr "Erreur inconnue"
 
 #: public/js/oijs.js:40
 msgid "Forbidden : "

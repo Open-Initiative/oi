@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-11 23:24+0100\n"
+"POT-Creation-Date: 2012-03-13 14:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -191,8 +191,8 @@ msgstr "Evaluation du projet"
 msgid "A user has evaluated your project"
 msgstr "Un utilisateur a évalué votre projet"
 
-#: messages/management.py:32 projects/views.py:397 projects/views.py:405
-#: projects/views.py:416 projects/views.py:454
+#: messages/management.py:32 projects/views.py:401 projects/views.py:409
+#: projects/views.py:420 projects/views.py:458
 msgid "Bid cancelled"
 msgstr "Participation annulée"
 
@@ -217,7 +217,7 @@ msgid "The specification of a project you follow has been changed"
 msgstr "Les spécifications d'un projet que vous suivez ont été modifiées"
 
 #: messages/models.py:140 messages/views.py:60 messages/views.py:72
-#: projects/models.py:285 projects/views.py:68 projects/views.py:86
+#: projects/models.py:285 projects/views.py:71 projects/views.py:89
 #: templates/projects/project_detail.html:70
 msgid "Forbidden"
 msgstr "Permissions insuffisantes"
@@ -242,7 +242,7 @@ msgstr "Déjà voté !"
 msgid "voted"
 msgstr "A voté"
 
-#: messages/views.py:158 projects/views.py:673
+#: messages/views.py:158 projects/views.py:682
 msgid "Latest updates of Open Initiative "
 msgstr "L'activité la plus récente d'Open Initiative "
 
@@ -361,247 +361,246 @@ msgstr "éléments observés"
 msgid "%(notice)s"
 msgstr "%(notice)s"
 
-#: projects/models.py:342
+#: projects/models.py:344
 msgid "Refund of bid"
 msgstr "Remboursement de la participation"
 
-#: projects/views.py:77 projects/views.py:164 projects/views.py:180
-#: projects/views.py:190 projects/views.py:207 projects/views.py:229
-#: projects/views.py:486 projects/views.py:561 projects/views.py:576
-#: projects/views.py:607
-msgid "Can not change a project already started"
-msgstr "Impossible de modifier un projet démarré"
+#: projects/views.py:80 projects/views.py:168 projects/views.py:184
+#: projects/views.py:194 projects/views.py:211 projects/views.py:233
+#: projects/views.py:490 projects/views.py:567 projects/views.py:582
+#: projects/views.py:616
+msgid "Can not change a task already started"
+msgstr "Impossible de modifier une tâche démarré"
 
-#: projects/views.py:81
+#: projects/views.py:84
 msgid "Please enter a title"
 msgstr "Merci d'entrer un titre"
 
-#: projects/views.py:123
+#: projects/views.py:127
 msgid "Project copied"
 msgstr "Projet copié"
 
-#: projects/views.py:131
+#: projects/views.py:135
 msgid "The project was not in the clipboard!"
 msgstr "Le projet n'était pas dans le presse-papier"
 
-#: projects/views.py:133
+#: projects/views.py:137
 msgid "Project removed from clipboard"
 msgstr "Projet retiré du presse-papier"
 
-#: projects/views.py:143
+#: projects/views.py:147
 msgid "Projects pasted"
 msgstr "Projets colés"
 
-#: projects/views.py:155
+#: projects/views.py:159
 msgid "Request for delay"
 msgstr "Demande de délai"
 
-#: projects/views.py:156
+#: projects/views.py:160
 msgid "Request for delay awaiting validation"
 msgstr "Demande de délai en attente de validation"
 
-#: projects/views.py:162 projects/views.py:173
+#: projects/views.py:166 projects/views.py:177
 msgid "Date updated"
 msgstr "Date mise-à-jour"
 
-#: projects/views.py:183
+#: projects/views.py:187
 msgid "Priority changed"
 msgstr "Priorité modifiée"
 
-#: projects/views.py:197
+#: projects/views.py:201
 msgid "Title updated"
 msgstr "Titre mis-à-jour"
 
-#: projects/views.py:205
-msgid "Project already assigned"
-msgstr "Projet déjà assigné"
+#: projects/views.py:209
+msgid "Task already assigned"
+msgstr "Tâche déjà assignée"
 
-#: projects/views.py:213
+#: projects/views.py:217
 msgid "Please enter a valid number"
 msgstr "Merci d'entrer un nombre correct"
 
-#: projects/views.py:221
-msgid "Project taken on"
-msgstr "Projet pris en charge"
+#: projects/views.py:225
+msgid "Task taken on"
+msgstr "Tâche assignée"
 
-#: projects/views.py:231
+#: projects/views.py:235
 msgid "Only the user in charge of the project can delegate it"
 msgstr "Seul l'utilisateur responsable du projet peut le déléguer"
 
-#: projects/views.py:235 projects/views.py:507
+#: projects/views.py:239 projects/views.py:511
 msgid "Cannot find user"
 msgstr "Utilisateur introuvable"
 
-#: projects/views.py:238
+#: projects/views.py:242
 msgid "Sent delegation offer"
 msgstr "Proposition de délégation envoyée"
 
-#: projects/views.py:246
+#: projects/views.py:250
 msgid "The project was not delegated to you"
 msgstr "Le projet ne vous a pas été délégué"
 
-#: projects/views.py:256
+#: projects/views.py:260
 msgid "reply sent"
 msgstr "réponse envoyée"
 
-#: projects/views.py:264
+#: projects/views.py:268
 msgid "No delay was requested"
 msgstr "Aucune demande de délai n'a été envoyée"
 
-#: projects/views.py:270
+#: projects/views.py:274
 msgid "The date was not changed"
 msgstr "La date n'a pas été modifiée"
 
-#: projects/views.py:276
+#: projects/views.py:280
 msgid "Awaiting other users' validation"
 msgstr "En attente de la validation des autres utilisateurs"
 
-#: projects/views.py:281
+#: projects/views.py:285
 msgid "The date has been changed"
 msgstr "Un projet que vous suivez a été modifié"
 
-#: projects/views.py:284 projects/views.py:426 projects/views.py:462
+#: projects/views.py:288 projects/views.py:430 projects/views.py:466
 msgid "No reply received"
 msgstr "Aucune réponse reçue"
 
-#: projects/views.py:294
+#: projects/views.py:298
 msgid "Invalid amount"
 msgstr "Montant invalide"
 
-#: projects/views.py:306
+#: projects/views.py:310
 msgid "Bid"
 msgstr "Participation"
 
-#: projects/views.py:307 projects/views.py:438
+#: projects/views.py:311 projects/views.py:442
 #: templates/projects/project_budget.html:12
 msgid "Commission"
 msgstr "Commission"
 
-#: projects/views.py:322
+#: projects/views.py:326
 msgid "Not enough bids"
 msgstr "Financement insuffisant"
 
-#: projects/views.py:324
+#: projects/views.py:328
 msgid "Only the assignee can start the project"
 msgstr "Seul le responsable du projet peut le démarrer"
 
-#: projects/views.py:331
-msgid "Project started"
-msgstr "Projet démarré"
+#: projects/views.py:335
+msgid "Task started"
+msgstr "Tâche démarrée"
 
-#: projects/views.py:339
+#: projects/views.py:343
 msgid "only the assignee can deliver the project!"
 msgstr "Seul le responsable du projet peut le livrer !"
 
-#: projects/views.py:344
-msgid "Project done!"
-msgstr "Projet terminé !"
+#: projects/views.py:348
+msgid "Task done!"
+msgstr "Tâche terminée"
 
-#: projects/views.py:358
+#: projects/views.py:362
 msgid "only bidders can validate the project!"
 msgstr "Seuls les souscripteurs du projet peut le valider !"
 
-#: projects/views.py:361
+#: projects/views.py:365
 msgid "Payment"
 msgstr "Paiement"
 
-#: projects/views.py:363
+#: projects/views.py:367
 msgid "Validation saved"
 msgstr "Validation enregistrée"
 
-#: projects/views.py:379
+#: projects/views.py:383
 msgid "Evaluation saved"
 msgstr "Evaluation enregistrée"
 
-#: projects/views.py:387 projects/views.py:433
+#: projects/views.py:391 projects/views.py:437
 msgid "The project is already over"
 msgstr "Le projet est déjà terminé"
 
-#: projects/views.py:390
+#: projects/views.py:394
 msgid "You're not participating on this project"
 msgstr "Vous ne participez pas à ce projet"
 
-#: projects/views.py:424 projects/views.py:460
+#: projects/views.py:428 projects/views.py:464
 msgid "Cancelation refused. Awaiting decision"
 msgstr "Annulation refusée. En attente d'arbitrage"
 
-#: projects/views.py:435
+#: projects/views.py:439
 msgid "Only the user in charge of the project can cancel it"
 msgstr "Seul l'utilisateur responsable du projet peut l'annuler"
 
-#: projects/views.py:444
-msgid "Project cancelled. Awaiting confirmation from other users"
-msgstr "Projet annulé. En attente de confirmation des autres utilisateurs"
+#: projects/views.py:448
+msgid "Task cancelled. Awaiting confirmation from other users"
+msgstr "Tâche annulée. En attente de confirmation des autres utilisateurs"
 
-#: projects/views.py:469
+#: projects/views.py:473
 msgid "Can not delete a started project. Please stop it first."
 msgstr "Impossible de supprimer un projet démarré. Arrêtez le d'abord."
 
-#: projects/views.py:471
+#: projects/views.py:475
 msgid ""
 "Can not delete a project containing tasks. Please delete all its tasks first."
 msgstr ""
 "Impossible de supprimer un projet contenant des tâches. Veuillez supprimer "
 "ses tâches d'abord."
 
-#: projects/views.py:475
+#: projects/views.py:479
 msgid "The task has been deleted."
 msgstr "La tâche a été supprimée."
 
-#: projects/views.py:478
+#: projects/views.py:482
 msgid "The project has been deleted."
 msgstr "Le projet a été supprimé."
 
-#: projects/views.py:489
-msgid "Project moved"
-msgstr "Projet déplacé"
+#: projects/views.py:493
+msgid "Task moved"
+msgstr "Tâche déplacé"
 
-#: projects/views.py:498
-#, python-format
-msgid "The project is now %s"
-msgstr "Le projet est maintenant %s"
+#: projects/views.py:502
+msgid "The task is now %s"
+msgstr "La tâche est maintenant passée à %s"
 
-#: projects/views.py:510
-msgid "Project shared"
-msgstr "Projet partagé"
+#: projects/views.py:514
+msgid "Task shared"
+msgstr "Tableau de bord"
 
-#: projects/views.py:518
+#: projects/views.py:522
 msgid "The project has to be started for the progress to be updated"
 msgstr "Le projet doit être démarré pour que l'avancement soit mis à jour"
 
-#: projects/views.py:520
+#: projects/views.py:524
 msgid "Only the user in charge of can update its progress"
 msgstr "Seul le responsable du projet peut mettre à jour son avancement"
 
-#: projects/views.py:524
+#: projects/views.py:528
 msgid "Invalid value"
 msgstr "Valeur incorrecte"
 
-#: projects/views.py:529
+#: projects/views.py:533
 msgid "Progress updated"
 msgstr "Avancement mis à jour"
 
-#: projects/views.py:538
+#: projects/views.py:542
 msgid "Stopped following the project"
 msgstr "Arrêt du suivi"
 
-#: projects/views.py:541
-msgid "Project followed"
-msgstr "Projet suivi"
+#: projects/views.py:545
+msgid "Task followed"
+msgstr "Tâche suivie"
 
-#: projects/views.py:609
+#: projects/views.py:618
 msgid "Specification deleted"
 msgstr "Spécification supprimée"
 
-#: projects/views.py:618 projects/views.py:633
+#: projects/views.py:627 projects/views.py:642
 msgid "Wrong arguments"
 msgstr "Arguments incorrects"
 
-#: projects/views.py:631
+#: projects/views.py:640
 msgid "Annotation removed"
 msgstr "Annotation supprimée"
 
-#: projects/views.py:654
+#: projects/views.py:663
 msgid "File deleted"
 msgstr "Fichier supprimé"
 
