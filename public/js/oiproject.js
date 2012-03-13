@@ -191,7 +191,7 @@ function confirmShareProject(projectid, divid) {
     hide("prjdialogue_"+projectid);
 }
 function cancelProject(projectid, state) {
-    question = gettext("Are you sure you want to cancel this project?");
+    question = gettext("Are you sure you want to cancel this task?");
     if(state > 1) question += gettext(" You will still pay the commission, other amounts will be reimbursed if clients accept cancellation.");
     if(confirm(question))
         OIajaxCall("/project/cancel/"+projectid, null, "output");

@@ -77,7 +77,7 @@ def saveproject(request, id='0'):
     author=request.user
     parent = Project.objects.get(id=request.POST["parent"]) if request.POST.get("parent") else None
     if (parent and parent.state==OI_VALIDATED):
-        return HttpResponse(_("Can not change a project already started"), status=431)
+        return HttpResponse(_("Can not change a task already started"), status=431)
     
     if id=='0': #new project
         if not request.POST["title"]:
@@ -164,7 +164,7 @@ def editdate(request, id):
             project.update_tree()
             return HttpResponse(_("Date updated"))
     if project.state > OI_ACCEPTED:
-        return HttpResponse(_("Can not change a project already started"), status=431)
+        return HttpResponse(_("Can not change a task already started"), status=431)
 
     project.__setattr__(request.POST["field_name"],request.POST["date"])
     project.check_dates()
@@ -180,7 +180,7 @@ def setpriority(request, id):
     """Sets the priority of the project"""
     project = Project.objects.get(id=id)
     if project.state > OI_ACCEPTED:
-        return HttpResponse(_("Can not change a project already started"), status=431)
+        return HttpResponse(_("Can not change a task already started"), status=431)
     project.priority = request.POST["priority"]
     project.save()
     return HttpResponse(_("Priority changed"))
@@ -190,7 +190,7 @@ def edittitle(request, id):
     """Modifies the title of the project"""
     project = Project.objects.get(id=id)
     if project.state > OI_ACCEPTED:
-        return HttpResponse(_("Can not change a project already started"), status=431)
+        return HttpResponse(_("Can not change a task already started"), status=431)
 
     project.title = request.POST["title"]
     project.save()
@@ -205,9 +205,9 @@ def offerproject(request, id):
     """Makes the current user assignee of the project"""
     project = Project.objects.get(id=id)
     if project.assignee and project.assignee != request.user:
-        return HttpResponse(_("Project already assigned"))
+        return HttpResponse(_("Task already assigned"))
     if project.state > OI_STARTED:
-        return HttpResponse(_("Can not change a project already started"), status=431)
+        return HttpResponse(_("Can not change a task already started"), status=431)
 
     project.assignee = request.user
     try:
@@ -221,7 +221,7 @@ def offerproject(request, id):
     request.user.get_profile().observed_projects.add(project.master)
 
     project.switch_to(OI_ACCEPTED, request.user)
-    messages.info(request, _("Project taken on"))
+    messages.info(request, _("Task taken on"))
     return HttpResponse('', status=332)
 
 @ajax_login_required
@@ -229,7 +229,7 @@ def delegateproject(request, id):
     """Offers delegation of the project to the specified user"""
     project = Project.objects.get(id=id)
     if project.state > OI_ACCEPTED:
-        return HttpResponse(_("Can not change a project already started"), status=431)
+        return HttpResponse(_("Can not change a task already started"), status=431)
     if project.assignee != request.user:
         return HttpResponse(_("Only the user in charge of the project can delegate it"))
     try:
@@ -331,7 +331,7 @@ def startproject(request, id):
         project.commission = project.allcommission_sum()
     project.delegate_to = None
     project.save()
-    messages.info(request, _("Project started"))
+    messages.info(request, _("Task started"))
     return HttpResponse('', status=332)
 
 @OINeedsPrjPerms(OI_WRITE)
@@ -344,7 +344,7 @@ def deliverproject(request, id):
     project.progress = OI_PRJ_DONE
     #resets any delay demand
     project.reset_delay_request()
-    messages.info(request, _("Project done!"))
+    messages.info(request, _("Task done!"))
     return HttpResponse('', status=332)
 
 @OINeedsPrjPerms(OI_READ)
@@ -423,7 +423,7 @@ def answercancelbid(request, id):
         project.state = OI_CONTENTIOUS
         project.save()
         #alerts admins
-        logging.getLogger("oi.alerts").error("Project %s has entered contentious state : http://www.openinitiative.com/project/get/%s"%(project.title, project.id))
+        logging.getLogger("oi.alerts").error("Task %s has entered contentious state : http://www.openinitiative.com/project/get/%s"%(project.title, project.id))
         return HttpResponse(_("Cancelation refused. Awaiting decision"))
     #if neither true nor false
     return HttpResponse(_("No reply received"), status=531)
@@ -444,7 +444,7 @@ def cancelproject(request, id):
     project.save()
     #notify users about this cancellation
     request.user.get_profile().notify_all(project, "project_cancel", project.title)
-    return HttpResponse(_("Project cancelled. Awaiting confirmation from other users"))
+    return HttpResponse(_("Task cancelled. Awaiting confirmation from other users"))
 
 @OINeedsPrjPerms(OI_READ)
 def answercancelproject(request, id):
@@ -459,7 +459,7 @@ def answercancelproject(request, id):
         project.state = OI_CONTENTIOUS
         project.save()
         #alerts admins
-        logging.getLogger("oi.alerts").error("Project %s has entered contentious state : http://www.openinitiative.com/project/get/%s"%(project.title, project.id))
+        logging.getLogger("oi.alerts").error("Task %s has entered contentious state : http://www.openinitiative.com/project/get/%s"%(project.title, project.id))
         return HttpResponse(_("Cancelation refused. Awaiting decision"))
     #if neither true nor false
     return HttpResponse(_("No reply received"), status=531)
@@ -486,10 +486,10 @@ def moveproject(request, id):
     """Changes the parent of the project given by id"""
     project = Project.objects.get(id=id)
     if project.state > OI_ACCEPTED:
-        return HttpResponse(_("Can not change a project already started"), status=431)
+        return HttpResponse(_("Can not change a task already started"), status=431)
     project.parent = Project.objects.get(id=request.POST["parent"])
     project.save()
-    messages.info(request, _("Project moved"))
+    messages.info(request, _("Task moved"))
     return HttpResponse('', status=332)
 
 @OINeedsPrjPerms(OI_WRITE)
@@ -498,7 +498,7 @@ def togglehideproject(request, id):
     project = Project.objects.get(id=id)
     project.apply_public(not project.public)
     project.save()
-    return HttpResponse(_("The project is now %s"%("public" if project.public else "private")))
+    return HttpResponse(_("The task is now %s"%("public" if project.public else "private")))
 
 @OINeedsPrjPerms(OI_WRITE)
 def shareproject(request, id):
@@ -510,7 +510,7 @@ def shareproject(request, id):
         return HttpResponse(_("Cannot find user"), status=531)
     project.apply_perm(user, OI_ALL_PERMS)
     user.get_profile().observed_projects.add(project)
-    messages.info(request, _("Project shared"))
+    messages.info(request, _("Task shared"))
     return HttpResponse('', status=332)
 
 @OINeedsPrjPerms(OI_WRITE)
@@ -541,7 +541,7 @@ def observeproject(request, id):
         return HttpResponse(_("Stopped following the project"))
     else:
         request.user.get_profile().observed_projects.add(project)
-        return HttpResponse(_("Project followed"))
+        return HttpResponse(_("Task followed"))
     
 @OINeedsPrjPerms(OI_WRITE)
 def editspec(request, id, specid):
@@ -561,7 +561,7 @@ def editspecdetails(request, id, specid):
     spec=None
     if specid!='0':
         if project.state > OI_ACCEPTED:
-            return HttpResponse(_("Can not change a project already started"), status=431)
+            return HttpResponse(_("Can not change a task already started"), status=431)
         spec = Spec.objects.get(id=specid)
     return direct_to_template(request, template='projects/spec/edit_type%s.html'%(type), extra_context={'user': request.user, 'divid': divid, 'project':project, 'spec':spec})
 
@@ -576,7 +576,7 @@ def savespec(request, id, specid='0'):
         order = project.get_max_order()+1
     else:
         if project.state > OI_ACCEPTED:
-            return HttpResponse(_("Can not change a project already started"), status=431)
+            return HttpResponse(_("Can not change a task already started"), status=431)
         project.insert_spec(order)
     
     if specid=='0': #new spec
@@ -607,7 +607,7 @@ def deletespec(request, id, specid):
     """deletes the spec"""
     spec = get_object_or_404(Spec, id=specid)
     if spec.project.state > OI_ACCEPTED:
-        return HttpResponse(_("Can not change a project already started"), status=431)
+        return HttpResponse(_("Can not change a task already started"), status=431)
     spec.delete()
     return HttpResponse(_("Specification deleted"))
 
