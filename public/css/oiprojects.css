@@ -118,6 +118,7 @@ div.treetitle {
     overflow: hidden;
     text-overflow: ellipsis;
     padding: 5px;
+    line-height: 1.4em;
 }
 div.treebg0 {
     background: #E8E8E9;
