@@ -30,25 +30,26 @@ function OIajaxCall(url, params, divid) {
     xmlhttp.send(params);
     if(xmlhttp.status == 531){
         document.getElementById("output").innerHTML = gettext('ERROR : ') + xmlhttp.responseText;
-        return;
+        return false;
     }
     if(xmlhttp.status >= 500){
         document.getElementById("output").innerHTML = gettext('ERROR : ') +gettext('Unkown server error');
-        return;
+        return false;
     }
-    if(xmlhttp.status >= 431){
+    if(xmlhttp.status >= 431 || xmlhttp.status == 403){
         document.getElementById("output").innerHTML = gettext('Forbidden : ') + xmlhttp.responseText;
-        return;
+        return false;
     }
     if(xmlhttp.status >= 404){
         document.getElementById("output").innerHTML = gettext('ERROR : ') +gettext('Could not find object');
-        return;
+        return false;
     }
     if(xmlhttp.status == 332) document.location.reload();
     if(xmlhttp.status == 333) document.location = xmlhttp.responseText;
     else {
         if(!divid) return xmlhttp.responseText;
         document.getElementById(divid).innerHTML = xmlhttp.responseText;
+        return true;
     }
 }
 function randid() {
