@@ -13,6 +13,10 @@ function OITreeNode(id, tree, parent, color) {
     this.titleDiv.onmousedown = function(){
             window.draggedNode=this.node;
             document.onmouseup=window.draggedNode.drop;
+            window.draggedDiv=this.node.titleDiv.cloneNode(true);
+            window.draggedDiv.style.position="absolute";
+            document.body.appendChild(window.draggedDiv);
+            document.onmousemove= function(evt){window.draggedDiv.style.top=(evt.clientY+window.pageYOffset+3)+"px"; window.draggedDiv.style.left=(evt.clientX+window.pageXOffset+3)+"px";}
             document.body.style.cursor = "pointer";
             return false;
         };
@@ -44,11 +48,14 @@ OITreeNode.prototype.setColor = function setColor() {
     this.div.className = "treebg" + (this.parent?this.parent.children.indexOf(this):0)%2;
 }
 OITreeNode.prototype.drop = function drop(evt) {
-    var target = evt.originalTarget || evt.target;
+    var target = evt.target;
     while(target && !target.receiveNode) target = target.parentNode;
     if(target) target.receiveNode(window.draggedNode.id, evt);
     window.draggedNode = null;
+    document.body.removeChild(window.draggedDiv);
+    window.draggedDiv = null;
     document.onmouseup = null;
+    document.onmousemove = null;
     document.body.style.cursor = "default";
 }
 OITreeNode.prototype.addChild = function addChild(childid, color) {
