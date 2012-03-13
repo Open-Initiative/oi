@@ -548,9 +548,11 @@ def observeproject(request, id):
 def editspec(request, id, specid):
     """Edit template of a spec contains a spec details edit template"""
     spec=None
+    order = request.GET.get("specorder")
     if specid!='0':
         spec = Spec.objects.get(id=specid)
-    extra_context = {'divid': request.GET["divid"], 'spec':spec, 'types':SPEC_TYPES, 'specorder':request.GET.get("specorder")}
+        order = spec.order
+    extra_context = {'divid': request.GET["divid"], 'spec':spec, 'types':SPEC_TYPES, 'specorder':order}
     return object_detail(request, queryset=Project.objects, object_id=id, template_object_name='project', template_name='projects/spec/editspec.html', extra_context=extra_context)
 
 @OINeedsPrjPerms(OI_WRITE)
@@ -581,19 +583,22 @@ def savespec(request, id, specid='0'):
         project.insert_spec(order)
     
     if specid=='0': #new spec
-        spec = Spec(text = oiescape(request.POST["text"]), author=request.user, project=project, order=order, type=int(request.POST["type"]))
+        spec = Spec(text = oiescape(request.POST["text"]), author=request.user, project=project, order=order, type=1)
     else: #edit existing spec
         spec = Spec.objects.get(id=specid)
         spec.text = request.POST.get("legend") or oiescape(request.POST["text"])
         
     if request.POST.has_key("url"):
         spec.url = request.POST["url"]
-        
+    if request.POST.has_key("type"):
+        spec.type = int(request.POST["type"])
+    
     filename = request.POST.get("filename")
     if filename:
 #        filename = normalize("NFC", filename)
         filename = normalize("NFKD", filename).encode('ascii', 'ignore').replace('"', '')
-        spec.file.delete()
+        if spec.file:
+            spec.file.delete()
         path = ("%s%s_%s_%s"%(TEMP_DIR,request.user.id,request.POST["ts"],filename))
         spec.file.save(filename, File(open(path)), False)
         os.remove(path)
