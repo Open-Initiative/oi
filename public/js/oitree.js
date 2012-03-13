@@ -1,4 +1,4 @@
-function OITreeNode(id, tree, parent, color, bgClass) {
+function OITreeNode(id, tree, parent, color) {
     this.id = id;
     this.tree = tree;
     this.parent = parent;
@@ -8,9 +8,19 @@ function OITreeNode(id, tree, parent, color, bgClass) {
     
     if(parent) this.div = document.getElementById(newDiv(this.parent.childDiv.id));
     else this.div = document.getElementById(newDiv(this.tree.div.id));
-    this.div.className = "treebg"+bgClass%2;
     this.setContent(color);
     this.resetBtn(); //No idea why it is necessary to put this in a different method
+    this.titleDiv.onmousedown = function(){
+            window.draggedNode=this.node;
+            document.onmouseup=window.draggedNode.drop;
+            document.body.style.cursor = "pointer";
+            return false;
+        };
+    this.titleDiv.receiveNode = function receiveNode(id) {
+            if(id!=this.node.id)
+                if(onMoveNode && onMoveNode(id, this.node.id))
+                    this.node.addChild(id);
+        }
 }
 OITreeNode.prototype.setContent = function setContent() {
     if(this.parent) {
@@ -29,6 +39,35 @@ OITreeNode.prototype.setContent = function setContent() {
     this.titleDiv.onmouseout = function() {if(oiTable) oiTable.unhighlight(this.node.id)};
     this.childDiv = document.getElementById(newDiv(this.div.id));
     this.childDiv.className = "treelist";
+}
+OITreeNode.prototype.setColor = function setColor() {
+    this.div.className = "treebg" + (this.parent?this.parent.children.indexOf(this):0)%2;
+}
+OITreeNode.prototype.drop = function drop(evt) {
+    var target = evt.originalTarget || evt.target;
+    while(target && !target.receiveNode) target = target.parentNode;
+    if(target) target.receiveNode(window.draggedNode.id, evt);
+    window.draggedNode = null;
+    document.onmouseup = null;
+    document.body.style.cursor = "default";
+}
+OITreeNode.prototype.addChild = function addChild(childid, color) {
+    var node = this.tree.nodes[childid];
+    if(node) {
+        node.parent.children.splice(node.parent.children.indexOf(node), 1);
+        node.parent.childDiv.removeChild(node.div);
+        if(this.children.length) {
+            node.parent = this;
+            this.childDiv.appendChild(node.div);
+            this.children.push(node);
+        } else this.tree.nodes[childid] = null;
+    } else {
+        node = new OITreeNode(childid, this.tree, this, color);
+        this.tree.nodes[childid] = node;
+        this.children.push(node);
+    }
+    node.setColor();
+    return node.titleDiv;
 }
 OITreeNode.prototype.resetBtn = function resetBtn() {
     if(this.parent) {
@@ -54,6 +93,10 @@ OITreeNode.prototype.shrink = function shrink() {
     this.childDiv.style.display = "none";
     this.open = false;
     if(onShrinkNode) onShrinkNode(this.id);
+}
+OITreeNode.prototype.getLastChild = function getLastChild() {
+    if(this.children.length) return this.children[this.children.length-1].id;
+    else return this.id;
 }
 
 function OITree(divid, expandCallback, shrinkCallback) {

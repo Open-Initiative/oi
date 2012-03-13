@@ -1,4 +1,4 @@
-#coding: utf-8
+##coding: utf-8
 # Url handlers des projets
 from random import choice
 from string import letters
@@ -15,9 +15,6 @@ urlpatterns = patterns('oi.projects.views',
 #    (r'^getall$', 'getprojects'),
     (r'^edit/(?P<id>\d+)$', 'editproject'),
     (r'^save/(?P<id>\d+)$', 'saveproject'),
-    (r'^copy/(?P<id>\d+)$', 'copyproject'),
-    (r'^uncopy/(?P<id>\d+)$', 'uncopyproject'),
-    (r'^paste/(?P<id>\d+)$', 'pasteproject'),
     (r'^editdate/(?P<id>\d+)$', 'editdate'),
     (r'^setpriority/(?P<id>\d+)$', 'setpriority'),
     (r'^edittitle/(?P<object_id>\d+)$', object_detail, {'template_name': 'projects/dialogue/edittitle.html','queryset': Project.objects.all()}),
@@ -40,8 +37,7 @@ urlpatterns = patterns('oi.projects.views',
     (r'^cancel/(?P<id>\d+)$', 'cancelproject'),
     (r'^answercancelproject/(?P<id>\d+)$', 'answercancelproject'),
     (r'^delete/(?P<id>\d+)$', 'deleteproject'),
-    (r'^move/(?P<object_id>\d+)$', object_detail, {'template_name': 'projects/dialogue/move.html','queryset': Project.objects.all()}),
-    (r'^confirmmove/(?P<id>\d+)$', 'moveproject'),    
+    (r'^move/(?P<id>\d+)$', 'moveproject'),    
     (r'^togglehide/(?P<id>\d+)$', 'togglehideproject'),
     (r'^share/(?P<id>\d+)/(?P<divid>\w+)$', direct_to_template, {'template': "projects/dialogue/share.html"}),
     (r'^confirmshare/(?P<id>\d+)$', 'shareproject'),

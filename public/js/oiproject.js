@@ -17,10 +17,9 @@ function addTask(tasktitle, projectid, userid) {
     if(answer) {
         task = eval(answer)[0];
         if(window.oiTree) {
-            position = oiTree.nodes[projectid].children.length;
-            setTaskName(oiTree.addChild(projectid, task.pk, 0, position), task.pk, task.fields.title, viewname);
+            setTaskName(oiTree.nodes[projectid].addChild(task.pk, 0), task.pk, task.fields.title, viewname);
             if(oiTable) {
-                oiTable.addFromTask(task, position?oiTree.nodes[projectid].children[position-1].id:projectid);
+                oiTable.addFromTask(task, oiTree.nodes[projectid].getLastChild());
                 oiTable.redraw();
             }
         }
@@ -50,7 +49,7 @@ function onExpandNode(projectid) {
         tasks = eval(OIajaxCall("/project/listtasks/"+projectid));
         var i, afterid = projectid;
         for(var task=tasks[i=0]; i<tasks.length; task=tasks[++i]) {
-            setTaskName(oiTree.addChild(projectid, task.pk, task.fields.state, i), task.pk, task.fields.title, viewname);
+            setTaskName(oiTree.nodes[projectid].addChild(task.pk, task.fields.state), task.pk, task.fields.title, viewname);
             if(oiTable) oiTable.addFromTask(task, afterid, i%2);
             afterid = task.pk;
         }
@@ -66,6 +65,16 @@ function onShrinkNode(projectid) {
         oiTable.redraw();
     }
 }
+function onMoveNode(taskid, newParentid) {
+    if(OIajaxCall("/project/move/"+taskid, "parent="+newParentid, "output")) {
+        if(oiTable) {
+            oiTable.hideLine(taskid);
+            if(oiTree.nodes[newParentid].open) oiTable.showLine(taskid, oiTree.nodes[newParentid].getLastChild());
+            oiTable.redraw();
+        }
+        return true;
+    } else return false;
+}
 function setActiveTask(projectid, canAdd) {
     oiTree.nodes[projectid].titleDiv.children[0].id = "selected";
     if(canAdd) {
@@ -80,22 +89,6 @@ function setActiveTask(projectid, canAdd) {
     }
 }
 
-function copyTask(taskid, tasktitle) {
-    OIajaxCall("/project/copy/"+taskid, null, "output");
-    div = document.getElementById("project_clipboard");
-    div.innerHTML += '<div id="project_clipboard_'+taskid+'">' +
-        '<img class="clickable" src="/img/icons/delete.png" title="'+gettext('remove from clipboard')+'" onclick="uncopyTask('+taskid+')"/> ' +
-        tasktitle + '</div>';
-}
-function uncopyTask(taskid) {
-    OIajaxCall("/project/uncopy/"+taskid, null, "output");
-    clearDiv("project_clipboard_"+taskid);
-}
-function pasteTasks(projectid) {
-    if(confirm(gettext("Do you want to empty the clipboard and move all tasks it contains to this project?"))) {
-        OIajaxCall("/project/paste/"+projectid, null, "output");
-    }
-}
 function editDate(projectid, field_name, date) {
     OIajaxCall("/project/editdate/"+projectid, "field_name="+field_name+"&date="+date.dateFormat("Y-m-d"), "output");
 }
@@ -223,14 +216,6 @@ function deleteProject(projectid) {
         OIajaxCall("/project/delete/"+projectid, null, "output");
     }
 }
-function moveProject(projectid) {
-    OIajaxCall("/project/move/"+projectid, null, "prjdialogue_"+projectid);
-    show("prjdialogue_"+projectid);
-}
-function confirmMoveProject(projectid) {
-    OIajaxCall("/project/confirmmove/"+projectid, "parent="+getValue("parent_"+projectid), "output");
-    hide("prjdialogue_"+projectid);
-}
 function updateProgress(projectid, progress) {
     progress = Math.min(Math.round(progress*100), 100);
     OIajaxCall("/project/editprogress/"+projectid, "progress="+progress, "output");
@@ -328,14 +313,15 @@ OISpot.prototype.edit = function edit() {
     this.show();
 }
 OISpot.prototype.fillDiv = function fillDiv() {
-    if(this.linkid) OIajaxCall('/project/'+this.linkid+'/summarize', null, newDiv(this.div.id));
+    if(this.linkid) OIajaxCall('/project/'+this.linkid+'/summarize', null, this.div.id);
 }
-OISpot.prototype.save = function save() {
-    var form = (this.div.firstElementChild || this.div.children[0]);
-    this.title = form.tasktitle.value;
-    form.taskid.value = addTask(this.title, this.projectid);
-    this.linkid = form.taskid.value;
-    var spot = eval(OIajaxCall('/project/'+this.projectid+'/savespot/'+this.specid+'/0', prepareForm(form.id)))[0];
+OISpot.prototype.save = function save(linkid) {
+    if(linkid) this.linkid=linkid;
+    else {
+        var form = (this.div.firstElementChild || this.div.children[0]);
+        this.linkid = addTask(form.tasktitle.value, this.projectid);
+    }
+    var spot = eval(OIajaxCall('/project/'+this.projectid+'/savespot/'+this.specid+'/0', "taskid="+this.linkid+ "&x="+this.x + "&y="+this.y))[0];
     this.spotid = spot.pk;
     this.number.innerHTML = spot.fields.number;
     this.fillDiv();

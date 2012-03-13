@@ -24,7 +24,7 @@ OITable.prototype.addSpace = function(afterid) {
 OITable.prototype.hideLine = function(id, nbnext) {
     var line = this.lineids[id];
     var pos = this.lines.indexOf(line);
-    this.lines.splice(pos, 1 + nbnext);
+    this.lines.splice(pos, 1 + (nbnext||0));
 }
 OITable.prototype.showLine = function(id, afterid) {
     var pos = this.lines.indexOf(this.lineids[afterid]) + 1;

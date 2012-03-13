@@ -82,6 +82,8 @@ def saveproject(request, id='0'):
     if id=='0': #new project
         if not request.POST["title"]:
             return HttpResponse(_("Please enter a title"), status=531)
+        if parent:
+            parent.inc_tasks_priority()
         project = Project(title = request.POST["title"], author=author, parent=parent)
     else: #existing project
         project = Project.objects.get(id=id)
@@ -117,35 +119,6 @@ def saveproject(request, id='0'):
         return HttpResponse(serializers.serialize("json", [project]))
     else:
         return HttpResponseRedirect('/project/get/%s'%project.id)
-
-@OINeedsPrjPerms(OI_WRITE)
-def copyproject(request, id):
-    """adds the given id to the project clipboard"""
-    clipboard = request.session.get('project_clipboard',{})
-    clipboard[id] = Project.objects.get(id=id).title
-    request.session['project_clipboard'] = clipboard
-    return HttpResponse(_("Project copied"))
-
-def uncopyproject(request, id):
-    """removes the given id from the project clipboard"""
-    clipboard = request.session.get('project_clipboard',{})
-    try:
-        clipboard.pop(id)
-    except KeyError:
-        return HttpResponse(_("The project was not in the clipboard!"))
-    request.session['project_clipboard'] = clipboard
-    return HttpResponse(_("Project removed from clipboard"))
-
-@OINeedsPrjPerms(OI_WRITE)
-def pasteproject(request, id):
-    """moves all task in clipboard as children of given project"""
-    for taskid in request.session.get('project_clipboard',{}):
-        task = Project.objects.get(id=taskid)
-        task.parent_id = id
-        task.save()
-    request.session['project_clipboard'] = {}
-    messages.info(request, _("Projects pasted"))
-    return HttpResponse('', status=332)
 
 @OINeedsPrjPerms(OI_WRITE)
 def editdate(request, id):
@@ -486,12 +459,16 @@ def deleteproject(request, id):
 def moveproject(request, id):
     """Changes the parent of the project given by id"""
     project = Project.objects.get(id=id)
-    if project.state > OI_ACCEPTED:
+    parent = Project.objects.get(id=request.POST["parent"])
+    if project.state > OI_ACCEPTED or parent.state > OI_ACCEPTED:
         return HttpResponse(_("Can not change a task already started"), status=431)
-    project.parent = Project.objects.get(id=request.POST["parent"])
+    if project==parent or project in parent.ancestors.all():
+        return HttpResponse(_("Can not move a task inside itself"), status=531)
+    project.parent = parent
+    parent.inc_tasks_priority()
+    project.priority = 0
     project.save()
-    messages.info(request, _("Task moved"))
-    return HttpResponse('', status=332)
+    return HttpResponse(_("Task moved"))
 
 @OINeedsPrjPerms(OI_WRITE)
 def togglehideproject(request, id):

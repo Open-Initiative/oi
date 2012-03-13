@@ -143,6 +143,13 @@ class Project(models.Model):
                 user.get_profile().notify_all(self, "project_state", OI_PRJ_STATES[self.state][1])
         return True
 
+    @commit_on_success
+    def inc_tasks_priority(self):
+        """increases the priority of all tasks to insert a less prioritary one"""
+        for task in self.tasks.all():
+            task.priority = task.priority+1
+            task.save()
+
     def get_max_order(self):
         """Returns the position of the last spec of the project"""
         return self.spec_set.aggregate(maxorder=models.Max('order'))['maxorder'] or 0

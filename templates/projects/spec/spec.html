@@ -26,6 +26,14 @@
     </div>
     <div class="sepspec"></div>
 </div>
-{% for spot in spec.spot_set.all %}{% if forloop.first %}<script>{% endif %}
+<script>
+{% for spot in spec.spot_set.all %}
     new OISpot(document.getElementById("spec_{{project.id}}_{{spec.order}}"), {{project.id}}, {{spec.id}}, {{spot.id}}, {{spot.offsetX}}, {{spot.offsetY}}, '{{spot.task.title}}', {{spot.task.id}}, {{spot.number}});
-{% if forloop.last %}</script>{% endif %}{% endfor %}
+{% endfor %}
+{% if project|can_write:user and project.state < 2 %}
+    document.getElementById("spec_{{project.id}}_{{spec.order}}_content").receiveNode = function receiveNode(id, event) {
+        var spot = new OISpot(document.getElementById("spec_{{project.id}}_{{spec.order}}"), {{project.id}}, {{spec.id}}, 0, (event.pageX|(event.clientX + document.documentElement.scrollLeft))-this.parentElement.offsetLeft, (event.pageY|(event.clientY + document.documentElement.scrollTop))-this.parentElement.offsetTop);
+        spot.save(id);
+    }
+{% endif %}
+</script>

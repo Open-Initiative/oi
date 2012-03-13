@@ -30,7 +30,7 @@ msgstr "Erreur inconnue"
 
 #: public/js/oijs.js:40
 msgid "Forbidden : "
-msgstr "Interdit"
+msgstr "Interdit : "
 
 #: public/js/oijs.js:44
 msgid "Could not find object"

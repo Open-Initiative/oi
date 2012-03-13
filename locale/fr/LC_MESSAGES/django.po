@@ -554,7 +554,7 @@ msgstr "Le projet a été supprimé."
 
 #: projects/views.py:493
 msgid "Task moved"
-msgstr "Tâche déplacé"
+msgstr "Tâche déplacée"
 
 #: projects/views.py:502
 msgid "The task is now %s"
