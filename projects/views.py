@@ -81,7 +81,7 @@ def saveproject(request, id='0'):
         if not request.POST["title"]:
             return HttpResponse(_("Please enter a title"), status=531)
         if parent:
-            parent.inc_tasks_priority()
+            parent.inc_tasks_priority(0)
         project = Project(title = request.POST["title"], author=author, parent=parent)
     else: #existing project
         project = Project.objects.get(id=id)
