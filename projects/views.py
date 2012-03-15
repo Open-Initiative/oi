@@ -29,8 +29,6 @@ from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeed
 from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
 
-#    OIAction(func="moveProject", icon="moveprj.png", show=lambda project, user:project.has_perm(user, OI_WRITE) and project.bid_set.count()==0, title=_("Move the project")),
-
 #def getprojects(request):
 #    """Apply filter to project list"""
 #    datemin = datetime.strptime(request.GET.get("datemin","2000,1,1"),"%Y,%m,%d")
@@ -469,6 +467,8 @@ def moveproject(request, id):
     parent.inc_tasks_priority(priority)
     project.priority = priority
     project.save()
+    for task in project.descendants.all():
+        task.save() #recompute ancestors
     return HttpResponse(_("Task moved"))
 
 @OINeedsPrjPerms(OI_WRITE)
