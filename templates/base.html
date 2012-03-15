@@ -51,7 +51,7 @@
     <div id="header">
         <div class="center">
             {% block header %}
-            <div style="position:relative;top:60px;left:110px;width:5px;font-size:16px;font-weight:bold;float:left">BETA</div>
+            <div style='width:0;float: left;font-family: "Interstate";font-size: 12px;font-weight: bold;left: 185px;padding: 1px;position: relative;top: 56px;'>BETA</div>
             <div id="logo"><a href="/"><img style="height:75px" src="/img/logo.png" /></a></div>
             <div id="searchdiv">
                 <div id="baseline">{% trans "The IT community dedicated to your business" %}</div>
@@ -62,7 +62,7 @@
                     <input id="searchbtn" type="image" src="/img/icons/search.png" />
                 </form></div>{% endcomment %}
             </div>
-                {%if user.is_authenticated%}<img class="contactpicture" src="/user/getpicture/{{user.username}}" />{% endif %}
+                {%if user.is_authenticated%}<div style="float:left;margin-top:5px"><img class="contactpicture" src="/user/getpicture/{{user.username}}" /></div>{% endif %}
             <div id="userheader">
                 {%if user.is_authenticated%}
                 <div class="usertitle"><a href="/user/myprofile" style="color:#D0574C;">

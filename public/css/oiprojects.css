@@ -7,6 +7,9 @@ div.prjauthor {
     float: right;
     color: #0094B5;
 }
+div.prjdesc {
+    padding-left: 5px;
+}
 .prjtitle {
     font-family: "Interstate";
     text-transform: uppercase;
@@ -24,7 +27,7 @@ div.prjcard {
     margin: 5px;
     padding: 10px;
     float: left;
-    background: #E1F3FA;
+    background: #D7E7F0;
     overflow: hidden;
     border-radius: 4px;
 }
@@ -97,14 +100,15 @@ div.bidaction {
 input.newtask_title {
     width: 195px;
     height: 17px;
-    border: 1px solid #0094B5;
+    border: none;
     font-size: .8em;
     font-style: italic;
     color: #81D3DA;
+    margin-left: 3px;
 }
 div.treelist {
     padding-left: 20px;
-    border-bottom: solid 1px #D0574C;
+    border-bottom: solid 1px #0094B5;
     margin-top: -1px;
     display: none;
 }
@@ -121,13 +125,13 @@ div.treetitle {
     line-height: 1.4em;
 }
 div.treebg0 {
-    background: #E8E8E9;
+    background: #D7E7F0;
 }
 div.treebg1 {
-    background: #E1F3FA;
+    background: #E4EFF5;
 }
 div.treenext {
-    border: solid red 2px;
+    border: solid #0094B5 2px;
     height: 5px;
 }
 #ganttdiv {
@@ -192,8 +196,8 @@ div.gantttoday {
 }
 div.prjtable {
     float: left;
-    padding-right: 40px;
-    margin-right: 20px;
+    padding-right: 30px;
+    margin-right: 30px;
     border-right: solid 1px #0094B5;
 }
 th.tableheader {
@@ -201,18 +205,19 @@ th.tableheader {
     padding: 3px;
 }
 tr.tablebg0 {
-    background: #E8E8E8;
+    background: #D7E7F0;
 }
 div.spectypes {
     position: relative;
     top: 1px;
 }
 div.spectype {
-    height: 20px;
-    width: 70px;
+    height: 15px;
+    padding: 2px;
+    width: 65px;
     float: left;
-    background: #F5F5F5;
-    border: solid 1px;
+    background: #F9F9F9;
+    border: solid 1px #0094B5;
     border-radius: 3px;
 }
 div.spectypeselected {
@@ -220,7 +225,7 @@ div.spectypeselected {
     border-bottom: white 1px solid;
 }
 div.specedit {
-    border: solid 1px;
+    border-top: solid 1px #0094B5;
 }
 .speclegend {
     height: 50px;
@@ -240,7 +245,7 @@ div.specfooter {
     width: 300px;
     float: right;
     text-align: right;
-    background: #E1F3FA;
+    background: #D7E7F0;
     color: #D0574C;
     padding: 3px;
 }

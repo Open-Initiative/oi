@@ -1,40 +1,42 @@
 {% load oifilters %}
 {% load i18n %}
-<div class="prjauthor">{% trans "Project created by" %} <a href="/user/profile/{{object.author.username}}">{{object.author}}</a></div>
-<div class="prjtitle" id="prjtitle_{{object.id}}">
-    {{object.title}}
-    {% if object|can_write:user and object.state < 2 %}
-    <img onclick="editProjectTitle({{object.id}})" class="clickable" src="/img/icons/edit.png" alt="{% trans "Edit the title" %}" title="{% trans "Edit the title" %}" />
+<div class="prjdesc">
+    <div class="prjauthor">{% trans "Project created by" %} <a href="/user/profile/{{object.author.username}}">{{object.author}}</a></div>
+    <div class="prjtitle" id="prjtitle_{{object.id}}">
+        {{object.title}}
+        {% if object|can_write:user and object.state < 2 %}
+        <img onclick="editProjectTitle({{object.id}})" class="clickable" src="/img/icons/edit.png" alt="{% trans "Edit the title" %}" title="{% trans "Edit the title" %}" />
+        {% endif %}
+    </div>
+    <div id="specs_{{project.id}}">
+        {%for spec in project.spec_set.all|dictsort:"order"%}{%include 'projects/spec/spec.html'%}{% endfor %}
+        {% if project|can_write:user and project.state < 4 %}
+        {% with "newspec" as divid %}{% if not project.spec_set.all %}
+        <div id="{{divid}}">{% include 'projects/spec/editspec.html' %}</div>
+        <script>changeSpecType("newspec", 1);</script>
+        <div class="sepspec"></div>
+        {% endif %}{% endwith %}{% endif %}
+    </div>
+    {% if project|can_write:user and project.state < 4 %}<a class="clickable" onclick="addSpec({{project.id}})"><img src="/img/icons/add.png" /> {% trans "Add a description" %}</a>{% endif %}
+    {% if object.spot_set.all %}
+    <div style="float: right;clear: right">
+        {% trans "linked to" %}
+        {% for spot in object.spot_set.all %} {% with spot.spec as spec %}<a href="/project/get/{{spot.spec.project.id}}">{{spot.spec.project.title|truncatewords:4}}<div>{% include 'projects/spec/minispec.html' %}</div></a>
+        {% endwith %}{% endfor %}
+    </div>
     {% endif %}
+    <div class="cleared"></div>
+    <div id="discussions_{{project.id}}">
+        {% for message in project.message_set.all %}
+        <div id="message_{{message.id}}_box">{% include 'messages/message.html' %}</div>
+        {% endfor %}
+    </div>
+    {% if project|can_write:user %}
+    {% if project.message_set.all %}
+    <a class="actions clickable" onclick="addMessage(null, {{project.id}})">
+        <div class="moreblue" alt="{% trans "Add a discussion" %}" title="{% trans "Add a discussion" %}">+</div> {% trans "Add a discussion" %}
+    </a>
+    {% else %}{% with "Re: "|add:object.title as title %}
+    <div id="newmessage">{% include 'messages/editmessage.html' %}</div>
+    {% endwith %}{% endif %}{% endif %}
 </div>
-<div id="specs_{{project.id}}">
-    {%for spec in project.spec_set.all|dictsort:"order"%}{%include 'projects/spec/spec.html'%}{% endfor %}
-    {% if project|can_write:user and project.state < 4 %}
-    {% with "newspec" as divid %}{% if not project.spec_set.all %}
-    <div id="{{divid}}">{% include 'projects/spec/editspec.html' %}</div>
-    <script>changeSpecType("newspec", 1);</script>
-    <div class="sepspec"></div>
-    {% endif %}{% endwith %}{% endif %}
-</div>
-{% if project|can_write:user and project.state < 4 %}<a class="clickable" onclick="addSpec({{project.id}})"><img src="/img/icons/add.png" /> {% trans "Add a description" %}</a>{% endif %}
-{% if object.spot_set.all %}
-<div style="float: right;clear: right">
-    {% trans "linked to" %}
-    {% for spot in object.spot_set.all %} {% with spot.spec as spec %}<a href="/project/get/{{spot.spec.project.id}}">{{spot.spec.project.title|truncatewords:4}}<div>{% include 'projects/spec/minispec.html' %}</div></a>
-    {% endwith %}{% endfor %}
-</div>
-{% endif %}
-<div class="cleared"></div>
-<div id="discussions_{{project.id}}">
-    {% for message in project.message_set.all %}
-    <div id="message_{{message.id}}_box">{% include 'messages/message.html' %}</div>
-    {% endfor %}
-</div>
-{% if project|can_write:user %}
-{% if project.message_set.all %}
-<a class="actions clickable" onclick="addMessage(null, {{project.id}})">
-    <div class="moreblue" alt="{% trans "Add a discussion" %}" title="{% trans "Add a discussion" %}">+</div> {% trans "Add a discussion" %}
-</a>
-{% else %}{% with "Re: "|add:object.title as title %}
-<div id="newmessage">{% include 'messages/editmessage.html' %}</div>
-{% endwith %}{% endif %}{% endif %}

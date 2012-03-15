@@ -25,7 +25,7 @@ body {
     font-family: "ProximaNova",Verdana,Arial,Helvetica,sans-serif;
     font-size: 14px;
     color: #778e9c;
-    background: #F5F5F5;
+    background: #F9F9F9;
 }
 img {
     border: None;
@@ -49,6 +49,10 @@ a {
 a:hover {
     text-decoration: underline;
 }
+td
+{
+    padding: 5px;
+}
 div.center{
     margin: auto;
     width: 1020px;
@@ -63,7 +67,6 @@ div.center{
 #topline {
     background:#68274E;
     height:3px;
-    padding: 3px;
     color: #0094B5;
 }
 #toptext {
@@ -72,11 +75,13 @@ div.center{
     border-radius: 5px;
     margin:auto;
     float:right;
-    padding: 0 3px;
+    padding: 0 10px;
 }
 #header {
     height: 75px;
+    padding: 3px 0;
     background: white;
+    box-shadow: 0 1px 2px #C6C7C8;
 }
 #logo {
     width:200px;
@@ -87,7 +92,7 @@ div.center{
     float: left;
     margin: 5px 20px 0 0;
     width: 250px;
-    height: 50px;
+    height: 60px;
 }
 #baseline {
     width:150px;
@@ -123,6 +128,7 @@ div.center{
     color:#D0574C;
     text-transform: uppercase;
     font-weight:bold;
+    width: 480px;
 }
 #loginbox {
     text-transform: uppercase;
@@ -182,6 +188,7 @@ div.center{
 }
 .toplink{
     color: #A8DCF4;
+    padding: 0 2px;
 }
 .homelink{
     color: #0094B5;
@@ -191,9 +198,9 @@ div.center{
     color: #6c6d6e;
 }
 #pagetitle {
-    height: 85px;
+    height: 95px;
     width: 265px;
-    padding: 5px;
+    padding: 0 5px;
     font-family: "Interstate";
     text-transform: uppercase;
     font-size: 2em;
@@ -226,7 +233,6 @@ div.smallcolumn {
     height:15px;
 }
 div.pagetop {
-    background: #E1F3FA;
     font-family: "Interstate";
     color: #0094B5;
 }
@@ -272,7 +278,7 @@ img.tabicon {
     height:1px;
 }
 #nav {
-    background:#E1F3FA;
+    background:#D7E7F0;
     width:275px;
 }
 div.navtitle {
@@ -357,8 +363,8 @@ div.navtitle {
 }
 .headersep {
     background: url('/img/headersep.png');
-    border-top: 3px solid #C8DBE1;
     clear: left;
+    margin-bottom: 7px;
 }
 .agilearrow {
     vertical-align: -2px;
