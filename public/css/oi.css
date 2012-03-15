@@ -204,6 +204,7 @@ div.center{
     position: fixed;
     width: 100%;
     text-align: center;
+    z-index: 5;
 }
 .info {
     background: #D0574C;

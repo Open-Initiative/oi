@@ -34,18 +34,23 @@ def getmessage(request, id):
 
 def editmessage(request, id):
     """Edit form of the message"""
+    title=""
     message=None
     parentid = request.GET.get("parent","")
+    if request.GET.get("project"):
+        title = "Re: %s"%Project.objects.get(id=request.GET["project"]).title
     if parentid:
         title = Message.objects.get(id=parentid).title
         while title[:4] == "Re: ":
             title = title[4:]
-        message = Message(title = "Re: %s"%title)
+        title = "Re: %s"%title
+        message = Message(title=title)
     if id!='0':
         message = Message.objects.get(id=id)
         if not message.has_perm(request.user, OI_WRITE):
             return HttpResponseForbidden('Forbidden')
-    return direct_to_template(request, template='messages/editmessage.html',extra_context={'message':message, 'title':message.title})
+        title = message.title
+    return direct_to_template(request, template='messages/editmessage.html',extra_context={'message':message, 'title':title})
 
 def savemessage(request, id):
     """Saves the edited message and redirects to its view"""
