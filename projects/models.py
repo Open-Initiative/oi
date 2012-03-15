@@ -144,9 +144,9 @@ class Project(models.Model):
         return True
 
     @commit_on_success
-    def inc_tasks_priority(self):
+    def inc_tasks_priority(self, priority):
         """increases the priority of all tasks to insert a less prioritary one"""
-        for task in self.tasks.all():
+        for task in self.tasks.filter(priority__gte=priority):
             task.priority = task.priority+1
             task.save()
 

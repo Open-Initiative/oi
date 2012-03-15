@@ -126,6 +126,10 @@ div.treebg0 {
 div.treebg1 {
     background: #E1F3FA;
 }
+div.treenext {
+    border: solid red 2px;
+    height: 5px;
+}
 #ganttdiv {
     overflow-y: hidden;
     overflow-x: scroll;

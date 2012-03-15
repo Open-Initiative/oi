@@ -7,7 +7,7 @@ function setTaskName(div, id, title, view) {
     titleDiv.title = title;
     var newTaskForm = document.createElement("form");
     newTaskForm.id = "newtask_"+id;
-    div.appendChild(newTaskForm);
+    div.parentNode.insertBefore(newTaskForm,div.nextSibling);
 }
 function addTask(tasktitle, projectid, userid) {
     var params = "title="+tasktitle+"&inline=1&progress=0";
@@ -65,11 +65,14 @@ function onShrinkNode(projectid) {
         oiTable.redraw();
     }
 }
-function onMoveNode(taskid, newParentid) {
-    if(OIajaxCall("/project/move/"+taskid, "parent="+newParentid, "output")) {
+function onMoveNode(taskid, newParentid, afterid) {
+    var params = "parent="+newParentid;
+    if(afterid) params += "&after="+afterid;
+    if(OIajaxCall("/project/move/"+taskid, params, "output")) {
         if(oiTable) {
             oiTable.hideLine(taskid);
             if(oiTree.nodes[newParentid].open) oiTable.showLine(taskid, oiTree.nodes[newParentid].getLastChild());
+
             oiTable.redraw();
         }
         return true;
@@ -253,7 +256,7 @@ function changeSpecType(divid, type) {
 }
 function saveSpec(divid, projectid, order, specid) {
     tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
-    params = "text="+getValue("text_"+divid).replace(/\+/gi,"%2B") + "&order="+order + "&type="+getValue("type_"+divid);
+    var params = "text="+getValue("text_"+divid).replace(/\+/gi,"%2B") + "&order="+order + "&type="+getValue("type_"+divid);
     if(getValue("url_"+divid)) params+="&url="+getValue("url_"+divid);
     if(getValue("filename_"+divid)) params+="&filename="+getValue("filename_"+divid);
     if(getValue("ts_"+divid)) params+="&ts="+getValue("ts_"+divid);
