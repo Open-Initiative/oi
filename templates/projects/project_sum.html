@@ -6,6 +6,6 @@
 {% endfor %}
 {% if not readonly %}{% with object.id as divid %}
 {% with object as project %}
-{% include 'projects/spec/editspec.html' %}
+<div id="{{divid}}">{% include 'projects/spec/editspec.html' %}</div>
 {% endwith %}
 {% endwith %}{% endif %}
