@@ -90,7 +90,7 @@ def saveproject(request, id='0'):
         project.title = request.POST["title"]
 
     if request.POST.get("assignee") and len(request.POST["assignee"])>0:
-        project.assignee = User.objects.get(username=request.POST["assignee"])
+        project.assign_to(User.objects.get(username=request.POST["assignee"]))
     else: #parent assignee by default
         if parent:
             project.assignee = parent.assignee
@@ -181,7 +181,7 @@ def offerproject(request, id):
     if project.state > OI_STARTED:
         return HttpResponse(_("Can not change a task already started"), status=431)
 
-    project.assignee = request.user
+    project.assign_to(request.user)
     try:
         project.offer = Decimal("0"+request.POST.get("offer","0").replace(",","."))
     except InvalidOperation:
@@ -224,7 +224,7 @@ def answerdelegate(request, id):
     project.delegate_to = None
 
     if answer == "true":
-        project.assignee = request.user
+        project.assign_to(request.user)
         #adds the project to user's observation
         request.user.get_profile().observed_projects.add(project.master)
     project.save()

@@ -209,6 +209,13 @@ class Project(models.Model):
             for perm in self.parent.projectacl_set.all():
                 self.set_perm(perm.user, perm.permission)
 
+    @commit_on_success
+    def assign_to(self, user):
+        """sets project and descendants' assignee"""
+        self.assignee = user
+        self.save()
+        self.descendants.update(assignee=user)
+
     def canceled_bids(self):
         """gets all the bids marked as canceled"""
         return self.bid_set.filter(rating=OI_CANCELLED_BID)
