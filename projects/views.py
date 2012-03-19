@@ -459,7 +459,7 @@ def moveproject(request, id):
     project = Project.objects.get(id=id)
     parent = Project.objects.get(id=request.POST["parent"])
     priority = Project.objects.get(id=request.POST["after"]).priority if request.POST.has_key("after") else 0
-    if project.state > OI_ACCEPTED or parent.state > OI_ACCEPTED:
+    if project.state > OI_ACCEPTED or parent.state > OI_STARTED:
         return HttpResponse(_("Can not change a task already started"), status=431)
     if project==parent or project in parent.ancestors.all():
         return HttpResponse(_("Can not move a task inside itself"), status=531)
