@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 {% block title %}Présentation d'Open Initiative{% endblock %}
+{% block pagetitle %}Présentation d'Open Initiative{% endblock %}
 {% block nav %}
-<a href="#about">Qui sommes-nous ?</a><br />
-<a href="#commitment">Nos engagements</a><br />
-<a href="#guaranty">Nos garanties</a><br />
-<a href="#methodology">Notre méthodologie</a><br />
+<a href="#about"><div class="navitem">Qui sommes-nous ?</a></div>
+<a href="#commitment"><div class="navitem">Nos engagements</a></div>
+<a href="#guaranty"><div class="navitem">Nos garanties</a></div>
+<a href="#methodology"><div class="navitem">Notre méthodologie</a></div>
 {% endblock %}
 {% block content %}
-<h1>Présentation d'Open Initiative</h1>
+<div id="textcontent">
 <div class="userpicture">Sylvain Le Bon<br />Fondateur d'Open Initiative<br /><br /></div>
 <h2 id="about">Qui sommes-nous ?</h2>
 <p>Open Initiative, la communauté informatique au service des entreprises.</p>
@@ -39,4 +40,5 @@ L’accès à la plateforme est entièrement gratuit pour l’entreprise comme p
 <p>Le client paye le prestataire auquel il recourt à chaque étape validée, ce qui donne une vraie souplesse à la proposition de départ, puisque des tâches peuvent être supprimées ou ajoutées à tout moment sans impacter le projet dans sa globalité.</p>
 <p>Open Initiative encourage ses clients à rendre leur projet public, afin de favoriser l’aspect collaboratif inhérent la méthodologie Agile. Toutefois, s’ils le désirent, ils peuvent également choisir de le rendre confidentiel.</p>
 <p>Enfin, la méthodologie Agile offre la possibilité de faire entrer, à tout moment, un nouveau prestataire sur le projet, permettant ainsi d’élargir très facilement les compétences des équipes déjà en place.</p>
+</div>
 {% endblock %}

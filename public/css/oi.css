@@ -65,14 +65,14 @@ div.center{
     padding: 10px;
 }
 #topline {
-    background:#68274E;
-    height:3px;
+    background: #68274E;
+    height: 2px;
     color: #0094B5;
 }
 #toptext {
     background:#68274E;
     height:20px;
-    border-radius: 5px;
+    border-radius: 0 0 5px 5px;
     margin:auto;
     float:right;
     padding: 0 10px;
@@ -300,6 +300,10 @@ div.navtitle {
     width: 730px;
     padding-top: 5px;
     float: left;
+}
+#textcontent {
+    padding: 5px;
+    background: white;
 }
 #breadcrumb {
     height:20px;
