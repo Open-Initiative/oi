@@ -226,6 +226,8 @@ div.spectypeselected {
 }
 div.specedit {
     border-top: solid 1px #0094B5;
+    margin-left: -10px;
+    padding-left: 10px;
 }
 .speclegend {
     height: 50px;
