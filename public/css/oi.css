@@ -301,7 +301,7 @@ div.navtitle {
     padding-top: 5px;
     float: left;
 }
-#textcontent {
+.presslide {
     padding: 5px;
     background: white;
 }

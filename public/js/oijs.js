@@ -136,6 +136,11 @@ function uploadFile(field_name, url, type, win) {
     {window : win,input : field_name});
 }
 
+function slidePres(id) {
+    jQuery('.presslide').slideUp();
+    jQuery(id).slideDown();
+}
+
 function expandCateg(img, categid, dest){
     if(img.down != 1){
         img.down = 1;

@@ -2,20 +2,22 @@
 {% block title %}Présentation d'Open Initiative{% endblock %}
 {% block pagetitle %}Présentation d'Open Initiative{% endblock %}
 {% block nav %}
-<a href="#about"><div class="navitem">Qui sommes-nous ?</a></div>
-<a href="#commitment"><div class="navitem">Nos engagements</a></div>
-<a href="#guaranty"><div class="navitem">Nos garanties</a></div>
-<a href="#methodology"><div class="navitem">Notre méthodologie</a></div>
+<a class="clickable" onclick="slidePres('#about')"><div class="navitem">Qui sommes-nous ?</a></div>
+<a class="clickable" onclick="slidePres('#commitment')"><div class="navitem">Nos engagements</a></div>
+<a class="clickable" onclick="slidePres('#guaranty')"><div class="navitem">Nos garanties</a></div>
+<a class="clickable" onclick="slidePres('#methodology')"><div class="navitem">Notre méthodologie</a></div>
 {% endblock %}
 {% block content %}
-<div id="textcontent">
+<div class="presslide" id="about">
 <div class="userpicture">Sylvain Le Bon<br />Fondateur d'Open Initiative<br /><br /></div>
-<h2 id="about">Qui sommes-nous ?</h2>
+<h2>Qui sommes-nous ?</h2>
 <p>Open Initiative, la communauté informatique au service des entreprises.</p>
 Open Initiative se pose en intermédiaire crédible entre les entreprises qui recherchent des prestataires informatiques compétents et les développeurs indépendants qui souhaitent mener des projets individuellement ou en équipe.</p>
 <p>Basée sur l’esprit communautaire et l’entraide, Open Initiative entend ainsi répondre aux enjeux du secteur informatique indépendant, souvent soumis au dumping financier, mais aussi aider les entreprises, plus particulièrement les PME et les TPE, à réaliser leur projet dans les meilleures conditions.</p>
 <p>Cette place de marché virtuelle propose ainsi des outils méthodologiques et technologiques performants, ainsi que des garanties financières et l’assistance de toute une communauté professionnelle, fédérée autour d’un objectif commun : donner vie à vos projets.</p>
-<h2 id="commitment">Nos engagements</h2>
+</div>
+<div class="presslide invisible" id="commitment">
+<h2>Nos engagements</h2>
 La communauté au service de tous</p>
 Open initiative s’engage sur la qualité de son offre auprès des entreprises qui recourent à ses services et des prestataires qui choisissent de participer aux projets qui leur sont soumis. Pour cela, elle se base sur :
 <ul>
@@ -26,14 +28,18 @@ Open initiative s’engage sur la qualité de son offre auprès des entreprises 
 <li><b>L’indépendance</b>, Open Initiative n’intervient à aucun moment dans la gestion des projets sauf en cas de litige(s) entre les parties. Les prestataires décident, en concertation avec l’entreprise, de la somme exigée pour une mission donnée.</li>
 <li><b>L’accompagnement</b>, Open Initiative entreprend des démarches afin de favoriser le développement commercial de la plateforme et assurer ainsi aux prestataires l’accès récurrent à des projets qualifiés.</li>
 </ul></p>
-<h2 id="guaranty">Nos garanties</h2>
+</div>
+<div class="presslide invisible" id="guaranty">
+<h2>Nos garanties</h2>
 <h3>Votre intermédiaire financier</h3>
 Open initiative agit avant tout comme un intermédiaire financier entre les deux parties (entreprise et prestataire) grâce à un système de gestion de compte sécurisé et responsabilisant. Nous garantissons d’une part aux entrepreneurs l’aboutissement de leur projet et, d’autre part, aux informaticiens le paiement de leurs prestations une fois celles-ci réalisées. 
 <h3>Un arbitrage rassurant</h3>
 En établissant un système d’arbitrage, Open Initiative assure au client l’aboutissement de son projet. Le règlement n'est effectué qu’en cas de succès de l’action engagée par le prestataire, conduisant ce-dernier à tout mettre en œuvre pour la mener à terme.
 <h3>Un mode de rémunération transparent</h3>
 L’accès à la plateforme est entièrement gratuit pour l’entreprise comme pour le prestataire. La rémunération d’Open Initiative passe par une commission commerciale limitée à 5% et déduite du montant versé au prestataire une fois la mission achevée.
-<h2 id="methodology">Notre méthodologie</h2>
+</div>
+<div class="presslide invisible" id="methodology">
+<h2>Notre méthodologie</h2>
 <h3>La méthodologie Agile, c’est quoi ?</h3>
 <p>Tous nos projets sont traités suivant la méthodologie Agile. Il s’agit d’une procédure de développement informatique, qui offre une grande souplesse au projet et implique le client au maximum, tout au long du développement. Très pragmatique, cette méthode a pour objectifs la rapidité de réalisation et la satisfaction réelle du besoin. Open Initiative facilite et encourage ainsi la conversation entre les différents protagonistes.</p>
 <p>Sur le site, chaque projet est soumis à une discussion entre un ou plusieurs prestataires et le client final. Cet échange se poursuit tout au long des actions menées, offrant la possibilité de rediscuter des postulats de départ en fonction des avancées effectives.</p>
