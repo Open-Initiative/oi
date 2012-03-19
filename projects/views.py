@@ -200,7 +200,7 @@ def offerproject(request, id):
 def delegateproject(request, id):
     """Offers delegation of the project to the specified user"""
     project = Project.objects.get(id=id)
-    if project.state > OI_ACCEPTED:
+    if project.state > OI_STARTED:
         return HttpResponse(_("Can not change a task already started"), status=431)
     if project.assignee != request.user:
         return HttpResponse(_("Only the user in charge of the project can delegate it"))
