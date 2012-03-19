@@ -11,7 +11,14 @@ function OITreeNode(id, tree, parent, color) {
     this.div.node = this;
     this.setContent(color);
     this.resetBtn(); //No idea why it is necessary to put this in a different method
-    this.div.onmouseenter = this.over;
+    if('onmouseenter' in this.div) //test browser support for onmouseenter
+        this.div.onmouseenter = this.over;
+    else
+        this.div.onmouseover = function(evt){
+            target=evt.relatedTarget;
+            while(target){if(this===target)return;target=target.parentNode;}
+            this.node.over.call(this, evt);
+        };
     this.titleDiv.onmousedown = this.drag;
     this.titleDiv.receiveNode = function receiveNode(id) {
             if(id!=this.node.id) if(onMoveNode && onMoveNode(id,this.node.id)) this.node.addChild(id);
@@ -39,7 +46,7 @@ OITreeNode.prototype.setColor = function setColor() {
     this.div.className = "treebg" + (this.parent?this.parent.children.indexOf(this):0)%2;
 }
 OITreeNode.prototype.over = function over() {
-    if(window.draggedNode) {
+    if(window.draggedNode && this.lastChild.className!="treenext") {
         var next = document.createElement("div");
         next.className = "treenext";
         next.receiveNode = function receiveNode(id){
@@ -48,7 +55,15 @@ OITreeNode.prototype.over = function over() {
                 node.parent.addChild(id, 0, node.id);
         };
         this.appendChild(next);
-        this.onmouseleave = function() {this.removeChild(this.lastChild);this.onmouseleave = null;};
+        if('onmouseleave' in this) //test browser support for onmouseleave
+            this.onmouseleave = function() {this.removeChild(this.lastChild);this.onmouseleave = null;};
+        else 
+            this.onmouseout = function(evt){
+                target=evt.relatedTarget;
+                while(target){if(this===target)return;target=target.parentNode;}
+                this.removeChild(this.lastChild);this.onmouseout = null;
+                return false;
+            };
     }
 }
 OITreeNode.prototype.drag = function drag() {
