@@ -71,8 +71,8 @@ function onMoveNode(taskid, newParentid, afterid) {
     if(OIajaxCall("/project/move/"+taskid, params, "output")) {
         if(oiTable) {
             oiTable.hideLine(taskid);
-            if(oiTree.nodes[newParentid].open) oiTable.showLine(taskid, oiTree.nodes[newParentid].getLastChild());
-
+            if(afterid) oiTable.showLine(taskid, afterid)
+            else if(oiTree.nodes[newParentid].open) oiTable.showLine(taskid, oiTree.nodes[newParentid].getLastChild());
             oiTable.redraw();
         }
         return true;
