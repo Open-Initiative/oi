@@ -8,18 +8,21 @@
         <div class="slider">
             <div class="slidertext">
                 <dl>
-                    <dt>{% trans "build" %}</dt><dd>{% trans "your project with all contributors" %}</dd>
-                    <dt>{% trans "find" %}</dt><dd>{% trans "transparently skilled service providers" %}</dd>
-                    <dt>{% trans "follow" %}</dt><dd>{% trans "real time the progress of your project with agile methodology" %} <a href="/presentation#methodology">
+                    <div class="indexslide"><dt>{% trans "build" %}</dt><dd>{% trans "your project with all contributors" %}</dd></div>
+                    <div class="indexslide invisible"><dt>{% trans "find" %}</dt><dd>{% trans "transparently skilled service providers" %}</dd></div>
+                    <div class="indexslide invisible"><dt>{% trans "follow" %}</dt><dd>{% trans "real time the progress of your project with agile methodology" %} <a href="{%trans "/presentation" %}#methodology">
                     <img class="askoi" src="/img/askoi.png" />
                         </a>
-                        </dd>
-                    <dt>{% trans "control" %}</dt><dd>{% trans "your budget by paying tasks as they are completed" %}</dd>
-                    <dt>{% trans "breathe" %}</dt><dd>{% trans "with the payment guarantee" %}</dd>
+                        </dd></div>
+                    <div class="indexslide invisible"><dt>{% trans "control" %}</dt><dd>{% trans "your budget by paying tasks as they are completed" %}</dd></div>
+                    <div class="indexslide invisible"><dt>{% trans "breathe" %}</dt><dd>{% trans "with the payment guarantee" %}</dd></div>
                 </dl>
             </div>
         </div>
-        <a href="/presentation"><div class="slidermore" onmouseover="this.style.color='#D0574C'" onmouseout="this.style.color='white'">
+        <script type="text/javascript">
+            window.setInterval(function test(){jQuery('.indexslide').fadeOut();e=jQuery('.indexslide:visible').next();(e.length?e:jQuery('.indexslide').first()).delay(500).fadeIn();}, 2000);
+        </script>
+        <a href="{%trans "/presentation" %}"><div class="slidermore" onmouseover="this.style.color='#D0574C'" onmouseout="this.style.color='white'">
             {% trans "Learn More" %}
         </div></a>
     </div>

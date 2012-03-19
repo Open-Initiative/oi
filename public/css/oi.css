@@ -313,7 +313,7 @@ div.navtitle {
 }
 #catcher {
     background:url('/img/catcher.jpg') repeat-y;
-    height:275px;
+    height:170px;
     width:1020px;
     margin:auto;
     clear: left;
@@ -352,7 +352,7 @@ div.navtitle {
     font-weight: bold;
     font-size: 1.1em;
     padding: 5px 12px;
-    margin-top: 240px;
+    margin-top: 100px;
 }
 .slidericon {
     text-align: right;
@@ -361,9 +361,15 @@ div.navtitle {
     text-transform: uppercase;
     font-weight: bold;
     margin-top: 10px;
+    color: #0094B5;
+    font-size: 2em;
+    margin: 0.5em;
 }
 .slider dl {
     margin-bottom: 0;
+    color: #6C6D6E;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 .headersep {
     background: url('/img/headersep.png');
