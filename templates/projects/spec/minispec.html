@@ -1,6 +1,6 @@
 {% load oifilters %}
 <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared">
-    {% if spec.type == 2 %}<img style="max-width:360px" src="{% if spec.file %}{{spec.file.url}}{% endif %}" />{% else %}
+    {% if spec.type == 2 %}<img style="max-width:100%" src="{% if spec.file %}{{spec.file.url}}{% endif %}" />{% else %}
     {{spec.text|oiunescape}}
     {% endif %}
 </div>

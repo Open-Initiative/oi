@@ -22,7 +22,7 @@ div.prjbtm {
     background: url('/img/prjbtm.png');
 }
 div.prjcard {
-    width: 330px;
+    width: 270px;
     height: 400px;
     margin: 5px;
     padding: 10px;
@@ -30,6 +30,9 @@ div.prjcard {
     background: #D7E7F0;
     overflow: hidden;
     border-radius: 4px;
+}
+div.cardspec {
+    margin: 20px 0;
 }
 .state1 a {
     color: #0094B5;

@@ -4,25 +4,17 @@
 {% block pagetitle %}{% trans "My projects" %}{% endblock %}
 {% block title %}{% trans "My projects" %}{% endblock %}
 {% block nav %}
-{% regroup user.get_profile.observed_projects.distinct|dictsort:"state" by state as user_projects %}
-    {% for stategroup in user_projects %}
-    <div class="prjtitle"><a href="#usrprj{{stategroup.grouper}}">{{OI_PRJ_STATES|get:stategroup.grouper}}{% trans "_adj_plur" %}</a></div>
-    {% endfor %}
-    <form onsubmit="document.location = '/project/'+addTask(getValue('newproject_title'), null, '{{request.user.username}}');return false">
-        <div class="bidaction">{% trans "Create a new project:" %}</div>
-        <input type="image" src="/img/icons/add.png" /> <input id="newproject_title" />
-    </form>
+{% for project in user.get_profile.observed_projects.distinct|dictsort:"state" %}
+<div>{{project.title}}</div>
+{% endfor %}
+<form onsubmit="document.location = '/project/'+addTask(getValue('newproject_title'), null, '{{request.user.username}}');return false">
+    <div class="bidaction">{% trans "Create a new project:" %}</div>
+    <input type="image" src="/img/icons/add.png" /> <input id="newproject_title" />
+</form>
 {% endblock %}
 {% comment %}contacts, network updates, blog, finance, notification!, mp!{% endcomment %}
 {% block content %}
-{% regroup user.get_profile.observed_projects.distinct|dictsort:"state" by state as user_projects %}
-{% with 1 as readonly %}
-{% for stategroup in user_projects %}
-<h1 id="usrprj{{stategroup.grouper}}">{{OI_PRJ_STATES|get:stategroup.grouper}}{% trans "_adj_plur" %}</h1>
-<div>{% for object in stategroup.list %}
-<div class="prjcard">{% include 'projects/project_sum.html' %}</div>
-{% endfor %}</div>
-<div class="cleared"></div>
+{% for project in user.get_profile.observed_projects.distinct|dictsort:"state" %}
+{% if project.state < 4 %}{% include 'projects/project_card.html' %}{% endif %}
 {% endfor %}
-{% endwith %}
 {% endblock %}
