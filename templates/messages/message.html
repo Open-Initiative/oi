@@ -21,7 +21,7 @@
         </div>
         <div class="msgbtm"></div>
     </div>
-    <div id="children_{{message.id}}" {%if message.children.all%}class="childrenlist"{%endif%}>
+    <div id="children_{{message.id}}" class="childrenlist">
         {% with depth|default:10 as depth %}{% if message.children.all|length == 1 %}
         {% with message.children.all|first as message %}
         <div id="message_{{message.id}}">
