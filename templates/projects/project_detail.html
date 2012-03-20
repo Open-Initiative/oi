@@ -10,16 +10,16 @@
 <div class="pagetop">
     <div id="tabs">
         <div class="{% ifequal view "description" %}selectedtab {% endifequal %}tab">
-            <a href="view/description"><img class="tabicon" src="/img/icons/spec{% ifequal view "description" %}white{% endifequal %}.png"/> {% trans "description" %}</a>
+            <a href="/project/{{object.id}}/view/description"><img class="tabicon" src="/img/icons/spec{% ifequal view "description" %}white{% endifequal %}.png"/> {% trans "description" %}</a>
         </div>
         <div class="{% ifequal view "planning" %}selectedtab {% endifequal %}tab">
-            <a href="view/planning"><img class="tabicon" src="/img/icons/planning{% ifequal view "planning" %}white{% endifequal %}.png"/> {% trans "planning" %}</a>
+            <a href="/project/{{object.id}}/view/planning"><img class="tabicon" src="/img/icons/planning{% ifequal view "planning" %}white{% endifequal %}.png"/> {% trans "planning" %}</a>
         </div>
         <div class="{% ifequal view "budget" %}selectedtab {% endifequal %}tab">
-            <a href="view/budget"><img class="tabicon" src="/img/icons/budget{% ifequal view "budget" %}white{% endifequal %}.png"/> {% trans "budget" %}</a>
+            <a href="/project/{{object.id}}/view/budget"><img class="tabicon" src="/img/icons/budget{% ifequal view "budget" %}white{% endifequal %}.png"/> {% trans "budget" %}</a>
         </div>
         <div class="{% ifequal view "team" %}selectedtab {% endifequal %}tab">
-            <a href="view/team"><img class="tabicon" src="/img/icons/team{% ifequal view "team" %}white{% endifequal %}.png"/> {% trans "team" %}</a>
+            <a href="/project/{{object.id}}/view/team"><img class="tabicon" src="/img/icons/team{% ifequal view "team" %}white{% endifequal %}.png"/> {% trans "team" %}</a>
         </div>
     </div>
     <div id="tools">
