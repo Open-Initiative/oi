@@ -104,6 +104,10 @@ def is_bidder(prj, user):
     return user.is_authenticated() and prj.bid_set.filter(user=user).filter(rating=None).count() > 0
 
 @register.filter
+def is_following(prj, user):
+    return user.is_authenticated() and user.get_profile() in prj.followers.all()
+
+@register.filter
 def ip_has_voted(obj,ip_address):
     return obj.has_voted(AnonymousUser(),ip_address)
 

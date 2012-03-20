@@ -225,8 +225,10 @@ function updateProgress(projectid, progress) {
     document.getElementById("progressbar_"+projectid).style.width = progress+"%";
     document.getElementById("progresslabel_"+projectid).innerHTML = progress+"%";
 }
-function observeProject(prjid, param){
-    OIajaxCall("/project/observe/"+prjid, param, "output");
+function favProject(projectid, param){
+    follow = OIajaxCall("/project/"+projectid+"/fav", param);
+    if(document.getElementById("fav_"+projectid))
+        document.getElementById("fav_"+projectid).src = "/img/icons/star"+follow+".png";
 }
 
 function addSpec(projectid, specorder) {

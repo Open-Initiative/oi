@@ -512,15 +512,15 @@ def editprogress(request, id):
 
 @ajax_login_required
 @OINeedsPrjPerms(OI_READ)
-def observeproject(request, id):
+def favproject(request, id):
     """adds the project in the observe list of the user"""
     project = Project.objects.get(id=id)
     if request.POST.has_key("stop"):
         request.user.get_profile().observed_projects.remove(project)
-        return HttpResponse(_("Stopped following the project"))
+        return HttpResponse(False)
     else:
         request.user.get_profile().observed_projects.add(project)
-        return HttpResponse(_("Task followed"))
+        return HttpResponse(True)
     
 @OINeedsPrjPerms(OI_WRITE)
 def editspec(request, id, specid):
