@@ -1,13 +1,18 @@
 {% load i18n %}
 {% load oifilters %}
-<form id="spotform{{params.x}}{{params.y}}" onsubmit="return this.parentElement.spot.save()" onclick="event.stopPropagation();">
-    <input type="hidden" name="x" value="{{params.x}}" />
-    <input type="hidden" name="y" value="{{params.y}}" />
-    <div id="spottask">
-        <input name="tasktitle" type="text" id="newtask_title_{{params.id}}'" class="newtask_title" value="{% trans 'New task' %}"
-            onclick="if(this.value=='{% trans 'New task' %}')this.value=''" onblur="if(!this.value)this.value='{% trans 'New task' %}'"/>
-        <input type="hidden" name="taskid" />
-    </div>
-    <input type="image" src="/img/icons/ok-32.png" alt="{% trans "Add" %}" />
-    <img class="clickable" src="/img/icons/del-32.png" alt="{% trans "Cancel" %}" onclick="return this.parentElement.parentElement.spot.hide()"/>
-</form>
+<div class="newspot">
+    <form id="spotform{{params.x}}{{params.y}}" onsubmit="return this.parentElement.spot.save()" onclick="event.stopPropagation();">
+        <input type="hidden" name="x" value="{{params.x}}" />
+        <input type="hidden" name="y" value="{{params.y}}" />
+        <div id="spottask">
+            <input name="tasktitle" type="text" id="newtask_title_{{params.id}}'" class="newtask_title" value="{% trans 'New task' %}"
+                onclick="if(this.value=='{% trans 'New task' %}')this.value=''" onblur="if(!this.value)this.value='{% trans 'New task' %}'"/>
+            <input type="hidden" name="taskid" />
+        </div>
+        <div class="actions">
+            <input type="image" src="/img/icons/ok-32.png" alt="{% trans "Add" %}" />
+            <img class="clickable" src="/img/icons/del-32.png" alt="{% trans "Cancel" %}" onclick="return this.parentElement.parentElement.spot.hide()"/>
+        </div>
+    </form>
+    <div class="cleared"></div>
+</div>

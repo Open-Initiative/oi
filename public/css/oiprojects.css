@@ -100,6 +100,10 @@ div.bidaction {
 .participant {
     color: #0094B5;
 }
+.newspot {
+    padding: 2px;
+    background: #E4EFF5;
+}
 input.newtask_title {
     width: 195px;
     height: 17px;
