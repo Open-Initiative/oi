@@ -553,8 +553,7 @@ def editspecdetails(request, id, specid):
 def savespec(request, id, specid='0'):
     """saves the spec"""
     project = Project.objects.get(id=id)
-    
-    order = int(request.POST["order"])
+    order = int(request.POST.get("order", -1))
     if order==-1:
         order = project.get_max_order()+1
     else:

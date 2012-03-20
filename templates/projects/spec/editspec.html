@@ -6,5 +6,5 @@
 <input name="spectype" id="type_{{divid}}" value="{{spec.type|default:1}}" type="hidden"/>
 <input name="specid" id="specid_{{divid}}" value="{{spec.id|default:0}}" type="hidden"/>
 <input name="projectid" id="projectid_{{divid}}" value="{{project.id}}" type="hidden"/>
-<input name="specorder" id="specorder_{{divid}}" value="{{specorder}}" type="hidden"/>
+<input name="specorder" id="specorder_{{divid}}" value="{{specorder|default:"-1"}}" type="hidden"/>
 <div id="spec_{{divid}}" class="cleared specedit"></div>
