@@ -38,7 +38,7 @@
         {% endfor %}
         <div>
             <h3>{% if project.missing_bid > 0 %}{% trans "Payment awaiting:" %} {{project.missing_bid|floatformat:2}} €{% endif %}</h3>
-            {% if project.state < 3 %}{% if project|can_read:user %}{% if not project|is_bidder:user %}
+            {% if project.state < 3 %}{% if project|can_read:user %}{% if not project|bids:user %}
             <div onclick="bidProject({{project.id}})" class="clickable bidaction">
                 {% trans "Bid_verb" %} <img src="/img/icons/whitebtn.png" />
             </div>
@@ -56,7 +56,7 @@
     </div>
     {% endfor %}
     {% endifequal %}
-    {% if project|is_bidder:user %}
+    {% if project|bids:user %}
     {% ifequal project.state 11 %}
     <div id="question_{{project.id}}_{{bid.id}}" class="smalltext">
         {{project.assignee.username}} {% trans "wants to cancel this task." %}<br />

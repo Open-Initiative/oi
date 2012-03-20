@@ -14,14 +14,14 @@
     <div class="prjstatebtn clickable" onclick="deliverProject({{object.id}})">{% trans "Deliver" %} <img src="/img/icons/bluebtn.png" /></div>
     {% endif %}
 {% endif %}
-{% if object|is_bidder:user %}
-    {% if object.state == 3 %}
+{% with object|bids:user as bids %}{% if bids %}
+    {% if object.state == 3 and not bids.0.validated %}
     <div class="prjstatebtn clickable" onclick="validateProject({{object.id}})">{% trans "Validate" %} <img src="/img/icons/bluebtn.png" /></div>
     {% endif %}
     {% if object.state == 4 %}
     <div class="prjstatebtn clickable" onclick="evalProject({{object.id}})">{% trans "Evaluate" %} <img src="/img/icons/bluebtn.png" /></div>
     {% endif %}
-{% endif %}
+{% endif %}{% endwith %}
 <div class="prjstate statebg{{object.state}}">
     {% if object.parent %}{% trans "Task" %}{% else %}{% trans "Project" %}{% endif %} {{OI_PRJ_STATES|get:object.state}}{% if object.parent %}{% trans "adj_fem" %}{% endif %}
     <img src="/img/icons/state0.png" />

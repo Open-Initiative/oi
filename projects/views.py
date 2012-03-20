@@ -325,6 +325,8 @@ def validateproject(request, id):
     project = Project.objects.get(id=id)
     if project.state == OI_DELIVERED:
         for bid in project.bid_set.filter(user=request.user): #update user's bid
+            if bid.validated:
+                return HttpResponseForbidden(_("already validated!"))
             bid.validated = True
             if request.user==project.assignee:
                 bid.rating = OI_NO_EVAL # the assignee doesn't evaluates himself
@@ -333,7 +335,7 @@ def validateproject(request, id):
         return HttpResponse(_("only bidders can validate the project!"))
     
     # pays the assignee
-    project.assignee.get_profile().make_payment(project.offer or project.alloffer_sum(), _("Payment"), project)
+    project.assignee.get_profile().make_payment(bid.amount - bid.commission, _("Payment"), project)
 #    request.user.get_profile().make_payment(-bid.commission, _("Commission"), project)
     messages.info(request, _("Validation saved"))
     return HttpResponse('', status=332)

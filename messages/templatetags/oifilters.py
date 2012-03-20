@@ -99,8 +99,8 @@ def can_answer(obj, user):
     return can_answer
 
 @register.filter
-def is_bidder(prj, user):
-    return user.is_authenticated() and prj.bid_set.filter(user=user).filter(rating=None).count() > 0
+def bids(prj, user):
+    return user.is_authenticated() and prj.bid_set.filter(user=user)
 
 @register.filter
 def is_following(prj, user):
