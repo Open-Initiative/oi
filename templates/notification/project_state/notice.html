@@ -1,4 +1,4 @@
 {% load i18n %}
 <a href="/user/profile/{{sender.username}}">{{sender}}</a>
 {% trans "has changed the state of a project you follow:" %}<br />
-<a href="/project/get/{{project.id}}">{{project.title}}</a> {% trans "is now in state" %} {{param}}
+<a href="/project/{{project.id}}">{{project.title}}</a> {% trans "is now in state" %} {{param}}

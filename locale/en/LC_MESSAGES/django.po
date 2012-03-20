@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -889,14 +888,14 @@ msgstr ""
 #: templates/notification/delegate/full.html:3
 #, python-format
 msgid ""
-"wants to delegate project <a href=\"%(current_site)s/project/get/%(id)s\">%"
+"wants to delegate project <a href=\"%(current_site)s/project/%(id)s\">%"
 "(title)s</a> to you."
 msgstr ""
 
 #: templates/notification/delegate/notice.html:3
 #, python-format
 msgid ""
-"wants to delegate project <a href=\"/project/get/%(id)s\">%(title)s</a> to "
+"wants to delegate project <a href=\"/project/%(id)s\">%(title)s</a> to "
 "you."
 msgstr ""
 

@@ -32,7 +32,7 @@
         <h3>{% trans "Followed projects" %}</h3>
         {% for project in user.get_profile.observed_projects.all %}
         <div id="followprj_{{project.id}}">    
-            <a href="/project/get/{{project.id}}">{{project.title}}</a>
+            <a href="/project/{{project.id}}">{{project.title}}</a>
             <img class="clickable" src="/img/icons/delete.png" onclick="observeProject({{project.id}}, 'stop=True');clearDiv('followprj_{{project.id}}')"/>
         </div>
         {% endfor %}

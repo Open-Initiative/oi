@@ -26,7 +26,7 @@
         <tr>
             <td>{{payment.transaction_date|date:"d/m/y H:i:s"}}</td>
             <td>{{payment.reason}}
-            {% if payment.project %}{% trans "on project" %} <a href="/project/get/{{payment.project.id}}">{{payment.project.title}}</a></td>{% endif %}
+            {% if payment.project %}{% trans "on project" %} <a href="/project/{{payment.project.id}}">{{payment.project.title}}</a></td>{% endif %}
             <td>{{payment.amount}} €</td>
         </tr>
         {% endfor %}

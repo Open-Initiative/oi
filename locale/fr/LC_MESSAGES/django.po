@@ -878,19 +878,19 @@ msgstr "de prendre en charge le projet"
 #: templates/notification/delegate/full.html:3
 #, python-format
 msgid ""
-"wants to delegate project <a href=\"%(current_site)s/project/get/%(id)s\">%"
+"wants to delegate project <a href=\"%(current_site)s/project/%(id)s\">%"
 "(title)s</a> to you."
 msgstr ""
-"veut vous déléguer le projet <a href=\"%(current_site)s/project/get/%(id)s\">"
+"veut vous déléguer le projet <a href=\"%(current_site)s/project/%(id)s\">"
 "%(title)s</a>."
 
 #: templates/notification/delegate/notice.html:3
 #, python-format
 msgid ""
-"wants to delegate project <a href=\"/project/get/%(id)s\">%(title)s</a> to "
+"wants to delegate project <a href=\"/project/%(id)s\">%(title)s</a> to "
 "you."
 msgstr ""
-"veut vous déléguer le projet <a href=\"/project/get/%(id)s\">%(title)s</a>."
+"veut vous déléguer le projet <a href=\"/project/%(id)s\">%(title)s</a>."
 
 #: templates/notification/invitation/full.html:3
 #: templates/notification/invitation/notice.html:3

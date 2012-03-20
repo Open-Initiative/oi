@@ -2,4 +2,4 @@
 <a href="/user/profile/{{sender.username}}">{{sender}}</a> {% trans "has" %}
 {% ifequal answer "true" %}{% trans "accepted" %}{% else %}{% trans "refused" %}{% endifequal %}
 {% trans "to take on project" %}
-<a href="/project/get/{{project.id}}">{{project.title}}</a>
+<a href="/project/{{project.id}}">{{project.title}}</a>

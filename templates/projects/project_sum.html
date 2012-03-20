@@ -1,6 +1,6 @@
 {% load i18n %}
 {% if not readonly %}<img src='/img/icons/delete.png' class="clickable actions" alt="{% trans 'delete this task' %}" title="{% trans 'delete this task' %}" onclick='this.parentElement.spot.remove()'/>{% endif %}
-<div class="prjtitle"><a href="/project/get/{{object.id}}">{{object.title}}</a></div>
+<div class="prjtitle"><a href="/project/{{object.id}}">{{object.title}}</a></div>
 {% for spec in object.spec_set.all %}
 {% include 'projects/spec/minispec.html' %}
 {% endfor %}

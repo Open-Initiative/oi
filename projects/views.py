@@ -116,7 +116,7 @@ def saveproject(request, id='0'):
     if request.POST.get("inline","0") == "1":
         return HttpResponse(serializers.serialize("json", [project]))
     else:
-        return HttpResponseRedirect('/project/get/%s'%project.id)
+        return HttpResponseRedirect('/project/%s'%project.id)
 
 @OINeedsPrjPerms(OI_WRITE)
 def editdate(request, id):
@@ -395,7 +395,7 @@ def answercancelbid(request, id):
         project.state = OI_CONTENTIOUS
         project.save()
         #alerts admins
-        logging.getLogger("oi.alerts").error("Task %s has entered contentious state : http://www.openinitiative.com/project/get/%s"%(project.title, project.id))
+        logging.getLogger("oi.alerts").error("Task %s has entered contentious state : http://www.openinitiative.com/project/%s"%(project.title, project.id))
         return HttpResponse(_("Cancelation refused. Awaiting decision"))
     #if neither true nor false
     return HttpResponse(_("No reply received"), status=531)
@@ -431,7 +431,7 @@ def answercancelproject(request, id):
         project.state = OI_CONTENTIOUS
         project.save()
         #alerts admins
-        logging.getLogger("oi.alerts").error("Task %s has entered contentious state : http://www.openinitiative.com/project/get/%s"%(project.title, project.id))
+        logging.getLogger("oi.alerts").error("Task %s has entered contentious state : http://www.openinitiative.com/project/%s"%(project.title, project.id))
         return HttpResponse(_("Cancelation refused. Awaiting decision"))
     #if neither true nor false
     return HttpResponse(_("No reply received"), status=531)
@@ -448,7 +448,7 @@ def deleteproject(request, id):
     project.delete()
     if project.parent:
         messages.info(request, _("The task has been deleted."))
-        return HttpResponse('/project/get/%s'%(project.parent.id),status=333)
+        return HttpResponse('/project/%s'%(project.parent.id),status=333)
     else:
         messages.info(request, _("The project has been deleted."))
         return HttpResponse('/',status=333)
@@ -689,4 +689,4 @@ class OIFeed(Feed):
         return desc
         
     def item_link(self, item):
-        return "/project/get/%s"%item.id
+        return "/project/%s"%item.id

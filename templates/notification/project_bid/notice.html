@@ -1,4 +1,4 @@
 {% load i18n %}
 <a href="/user/profile/{{sender.username}}">{{sender}}</a>
 {% trans "has added a bid on a project you follow:" %}
-<a href="/project/get/{{project.id}}">{{project.title}}</a>
+<a href="/project/{{project.id}}">{{project.title}}</a>

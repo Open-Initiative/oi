@@ -5,7 +5,7 @@
     {% for eval in selected_user.get_profile.get_comments %}
     <div class="contactinfo">
         <img class="contactpicture" src="/user/getpicture/{{eval.user.username}}" />
-        {{eval.user}} {% trans "on " %} <a href="/project/get/{{eval.project.id}}">{{eval.project.title}}</a> :<br />
+        {{eval.user}} {% trans "on " %} <a href="/project/{{eval.project.id}}">{{eval.project.title}}</a> :<br />
         "{{eval.comment}}"<br />{% show_stars eval.rating %} 
     </div>
     {% endfor %}
@@ -20,7 +20,7 @@
     </div>
     <h3>{% trans "My latest projects" %}</h3>
         {% for project in selected_user.ownprojects.all|dictsortreversed:"modified"|slice:":5" %}
-        <div><a  href="/project/get/{{project.id}}">{{project.title}}</a></div>
+        <div><a  href="/project/{{project.id}}">{{project.title}}</a></div>
         {% endfor %}
 </div>
 
