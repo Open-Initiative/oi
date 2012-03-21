@@ -34,6 +34,9 @@ div.prjcard {
 div.cardspec {
     margin: 20px 0;
 }
+.cardspec img{
+    max-width:100%
+}
 .state1 a {
     color: #0094B5;
 }
