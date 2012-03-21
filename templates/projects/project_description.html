@@ -1,7 +1,7 @@
 {% load oifilters %}
 {% load i18n %}
 <div class="prjdesc">
-    <div class="prjauthor">{% trans "Project created by" %} <a href="/user/profile/{{object.author.username}}">{{object.author}}</a></div>
+    <div class="prjauthor">{% trans "Project created by" %} <a href="/user/profile/{{object.author.username}}">{{object.author.get_profile}}</a></div>
     <div class="prjtitle" id="prjtitle_{{object.id}}">
         {{object.title}}
         {% if object|can_write:user and object.state < 2 %}
