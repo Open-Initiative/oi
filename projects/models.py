@@ -311,7 +311,7 @@ class Spec(models.Model):
     author = models.ForeignKey(User, null=True, blank=True)
     project = models.ForeignKey(Project)
     type = models.IntegerField(choices=SPEC_TYPES.items(), default=TEXT_TYPE)
-    text = models.TextField()
+    text = models.TextField(blank=True)
     url = models.URLField(null=True, blank=True)
     file = models.FileField(upload_to=getpath,null=True, blank=True)
     image = models.ImageField(upload_to=getpath,null=True, blank=True)
