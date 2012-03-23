@@ -314,7 +314,9 @@ OISpot.prototype.positionelt = function positionelt(elt) {
     elt.style.top = this.y+"px";
 }
 OISpot.prototype.edit = function edit() {
-    OIajaxCall('/project/'+this.projectid+'/editspot/'+this.specid+"/"+this.x+"/"+this.y, null, this.div.id);
+    var formdiv = document.getElementById("newspot").cloneNode(true);
+    formdiv.style.display = "block";
+    this.div.appendChild(formdiv);
     this.show();
 }
 OISpot.prototype.fillDiv = function fillDiv() {
@@ -322,10 +324,8 @@ OISpot.prototype.fillDiv = function fillDiv() {
 }
 OISpot.prototype.save = function save(linkid) {
     if(linkid) this.linkid=linkid;
-    else {
-        var form = (this.div.firstElementChild || this.div.children[0]);
-        this.linkid = addTask(form.tasktitle.value, this.projectid);
-    }
+    else this.linkid = addTask(jQuery('#'+this.div.id+' .newtask_title')[0].value, this.projectid);
+    
     var spot = eval(OIajaxCall('/project/'+this.projectid+'/savespot/'+this.specid+'/0', "taskid="+this.linkid+ "&x="+this.x + "&y="+this.y))[0];
     this.spotid = spot.pk;
     this.number.innerHTML = spot.fields.number;
@@ -352,7 +352,13 @@ OISpot.prototype.remove = function remove() {
         this.number.parentElement.removeChild(this.number);
     }
 }
-
+function getSpot(element) {
+    while(element) {
+        if(element.spot) return element.spot;
+        element = element.parentNode;
+    }
+    return null;
+}
 function deltmp(projectid,filename,ts,divid) {
     OIajaxCall("/project/"+projectid+"/deltmp", "filename="+filename+"&ts="+ts+"&divid="+divid, "output");
     changeFile(divid);

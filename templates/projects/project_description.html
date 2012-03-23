@@ -19,11 +19,10 @@
     </div>
     {% if project|can_write:user and project.state < 4 %}<a class="clickable" onclick="addSpec({{project.id}})"><img src="/img/icons/add.png" /> {% trans "Add a description" %}</a>{% endif %}
     {% if object.spot_set.all %}
-    <div style="float: right;clear: right">
-        {% trans "linked to" %}
-        {% for spot in object.spot_set.all %} {% with spot.spec as spec %}<a href="/project/{{spot.spec.project.id}}">{{spot.spec.project.title|truncatewords:4}}<div>{% include 'projects/spec/minispec.html' %}</div></a>
-        {% endwith %}{% endfor %}
-    </div>
+    <div class="actions cleared">{% trans "linked to" %}</div>
+    <div class="cleared"></div>
+    {% for spot in object.spot_set.all %} {% with spot.spec as spec %}<div class="minispec"><a href="/project/{{spot.spec.project.id}}">{{spot.spec.project.title|truncatewords:4}}{% include 'projects/spec/minispec.html' %}</a></div>
+    {% endwith %}{% endfor %}
     {% endif %}
     <div class="cleared"></div>
     <div id="discussions_{{project.id}}">
