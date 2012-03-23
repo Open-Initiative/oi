@@ -615,6 +615,8 @@ def savespot(request, id, specid, spotid):
 def removeSpot(request, id, specid, spotid):
     spot = Spot.objects.get(id=spotid)
     if spot.spec.id == int(specid) and spot.spec.project.id == int(id):
+        if spot.task and spot.task.spot_set.count()==1:
+            spot.task.delete()
         spot.delete()
         return HttpResponse(_("Annotation removed"))
     else:

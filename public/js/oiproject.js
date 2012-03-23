@@ -346,7 +346,6 @@ OISpot.prototype.hide = function hide() {
 OISpot.prototype.remove = function remove() {
     if(confirm(gettext("Are you sure you want to permanently remove this annotation?"))) {
         OIajaxCall('/project/'+this.projectid+'/removespot/'+this.specid+'/'+this.spotid, null, 'output');
-        OIajaxCall('/project/delete/'+this.linkid, null, 'output');
         this.img.parentElement.removeChild(this.img);
         this.div.parentElement.removeChild(this.div);
         this.number.parentElement.removeChild(this.number);
