@@ -284,17 +284,8 @@ img.tabicon {
 div.navtitle {
     padding-top: 20px;
 }
-.navitem {
-    padding: 10px 0;
-    text-transform: uppercase;
-    font-family:'Interstate';
-    font-size:1.2em;
-    color:#D0574C;
-    text-align:center
-}
-.navicon {
-    margin:auto;
-    width:40px;
+div.navcontent {
+    padding: 5px;
 }
 #content {
     width: 730px;
