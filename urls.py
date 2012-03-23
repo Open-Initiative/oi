@@ -26,6 +26,7 @@ urlpatterns = patterns('',
     (r'^cgu$', direct_to_template, {'template': "cgu.html"}),    
     (r'^contact$', direct_to_template, {'template': "contact.html"}),
     (r'^presentation$', direct_to_template, {'template': "presentation.html"}),
+    (r'^presentation-fr$', direct_to_template, {'template': "presentation-fr.html"}),
     # Pages des messages
     (r'^message/', include('oi.messages.urls')),
     # Pages des projets
