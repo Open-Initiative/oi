@@ -726,7 +726,7 @@ msgstr "trouvez"
 
 #: templates/index.html:13
 msgid "skilled service providers transparently"
-msgstr "des prestataires compétents en toute transprence"
+msgstr "des prestataires compétents en toute transparence"
 
 #: templates/index.html:14
 msgid "follow"
