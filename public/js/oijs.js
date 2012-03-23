@@ -98,8 +98,8 @@ function addPopup(popup) {
 }
 function parseDate(dateString) {
     if(dateString) {
-        date = dateString.split(" ")[0].split("-");
-        return new Date(parseInt(date[0]), parseInt(date[1]) - 1, parseInt(date[2]));
+        var date = dateString.split(" ")[0].split("-");
+        return new Date(parseInt(date[0],10), parseInt(date[1],10) - 1, parseInt(date[2],10));
     }
 }
 
