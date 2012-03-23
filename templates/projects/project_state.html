@@ -4,7 +4,7 @@
 <img src="/img/icons/del-32.png" class="clickable actions" alt="{% trans "Delete the task" %}" title="{% trans "Delete the task" %}" onclick="deleteProject({{object.id}})" />
 {% endif %}
 {% if object.state < 4 and object.bid_set.count > 0 and user == object.assignee %}
-<img src="/img/icons/del-32.png" class="clickable" style="float:right" alt="{% trans "Cancel" %}" title="{% trans "Cancel" %}" onclick="cancelProject({{object.id}}, {{object.state}})" />
+<img src="/img/icons/del-32.png" class="clickable" class="actions" alt="{% trans "Cancel" %}" title="{% trans "Cancel" %}" onclick="cancelProject({{object.id}}, {{object.state}})" />
 {% endif %}
 {% if object.assignee == user %}
     {% if object.state < 2 and object.is_ready_to_start %}
