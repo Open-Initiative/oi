@@ -105,14 +105,15 @@ class Project(models.Model):
                 if not (self.state==newstate==OI_ACCEPTED): #accepts same state if it is OI_ACCEPTED
                     if not (newstate==OI_STARTED and self.state==OI_PROPOSED): #accepts to switch from proposed to started
                         return False
+            
             #check user
-            if user == self.assignee: #the assignee can not switch to validated
+            if not (self.is_bidder(user)): #only bidders can switch to validated
                 if newstate == OI_VALIDATED:
                     return False
-            elif self.is_bidder(user): #bidders can not switch to started nor delivered
+            elif not (user == self.assignee): #only the assignee can switch to started or delivered
                 if newstate == OI_STARTED or newstate == OI_DELIVERED:
                     return False
-            else: #other users can not change state
+            elif not (self.is_bidder(user)) and not (user == self.assignee): #other users can not change state
                 return False
     
         #update state
@@ -221,7 +222,7 @@ class Project(models.Model):
         return self.bid_set.filter(rating=OI_CANCELLED_BID)
     
     def is_bidder(self, user):
-        return user.is_authenticated() and self.bid_set.filter(user=user).filter(rating=None).count() > Decimal("0")
+        return user.is_authenticated() and self.bid_set.filter(user=user).filter(rating=None).count() > 0
 
     def allbid_sum(self):
         """sums up all bids on the project's tasks"""
@@ -346,8 +347,8 @@ class Bid(models.Model):
     amount = models.DecimalField(max_digits=12,decimal_places=2,default=0)
     commission = models.DecimalField(max_digits=12,decimal_places=2,default=0)
     validated = models.BooleanField(default=False)
-    rating = models.IntegerField(null=True)
-    comment = models.TextField()
+    rating = models.IntegerField(null=True,blank=True)
+    comment = models.TextField(blank=True)
 
     def cancel(self):
         """Cancels the bid : reimburses the bidder, reduces project offer, and deletes the bid"""

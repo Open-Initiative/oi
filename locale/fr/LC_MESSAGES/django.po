@@ -491,7 +491,7 @@ msgstr "Déjà validé !"
 
 #: projects/views.py:335
 msgid "only bidders can validate the project!"
-msgstr "Seuls les souscripteurs du projet peut le valider !"
+msgstr "Seuls les souscripteurs du projet peuvent le valider !"
 
 #: projects/views.py:338
 msgid "Payment"

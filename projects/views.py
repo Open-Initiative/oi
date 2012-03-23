@@ -328,12 +328,13 @@ def validateproject(request, id):
             if bid.validated:
                 return HttpResponseForbidden(_("already validated!"))
             bid.validated = True
-            if request.user==project.assignee:
-                bid.rating = OI_NO_EVAL # the assignee doesn't evaluates himself
             bid.save()
     if not project.switch_to(OI_VALIDATED, request.user):
         return HttpResponse(_("only bidders can validate the project!"))
     
+    if request.user==project.assignee:
+        bid.rating = OI_NO_EVAL # the assignee doesn't evaluates himself
+        bid.save()
     # pays the assignee
     project.assignee.get_profile().make_payment(bid.amount - bid.commission, _("Payment"), project)
 #    request.user.get_profile().make_payment(-bid.commission, _("Commission"), project)
