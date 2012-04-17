@@ -1,7 +1,7 @@
 {% load oifilters %}
 {% load i18n %}
 {% if object|can_read:user %}
-{% with level|default:1|add:1 as level %}
+{% with level|default:0|add:1 as level %}
 </div>
     {% if level < 5 %}<h{{level}}>{% else %}<li>{% endif %}{{object.title}}{% if level < 5 %}</h{{level}}>{% else %}</li>{% endif %}
     {% if object.spec_set.all %}<div id="specs_{{object.id}}">
