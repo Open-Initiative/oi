@@ -1,4 +1,5 @@
 {% load oifilters %}
+{% if object.get_budget %}
 {% with level|default:0 as level %}
 <tr>
     <td style="max-width:200px;padding-left:{{level|multiply:3}}px;">{{object.title}}</td>
@@ -11,3 +12,4 @@
     {% endif %}
 </tr>
 {% endwith %}
+{% endif %}
