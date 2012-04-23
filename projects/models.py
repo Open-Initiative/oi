@@ -255,6 +255,10 @@ class Project(models.Model):
     def finished_tasks(self):
         """gets all the tasks which state is at least delivered"""
         return self.tasks.filter(state__gte = OI_DELIVERED)
+    
+    def offered_descendants(self):
+        """gets all the descendants which received an offer"""
+        return self.descendants.filter(models.Q(offer__gt=0)|models.Q(descendants__offer__gt=0)).distinct()
 
     def get_path(self):
         """get the location of the task inside the project"""

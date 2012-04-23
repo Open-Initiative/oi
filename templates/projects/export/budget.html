@@ -2,9 +2,9 @@
 {% if object.get_budget %}
 {% with level|default:0 as level %}
 <tr>
-    <td style="max-width:200px;padding-left:{{level|multiply:3}}px;">{{object.title}}</td>
-    {% if forloop.first %}<td style="border-right:solid 1px" rowspan={{object.parent.descendants.count}}> </td>{% endif %}
-    <td colspan=10 >{{object.get_budget}} €</td></tr>
+    <td style="max-width:300px;padding-left:{{level|multiply:20|floatformat}}px;">{{object.title}}</td>
+    {% if forloop.first %}<td style="border-right:solid 1px;width:2px" rowspan={{object.parent.offered_descendants.count}}></td>{% endif %}
+    <td colspan=5 >{{object.get_budget}} €</td></tr>
     {% if object.tasks.all %}
     {% for task in object.tasks.all|dictsortreversed:"priority" %}{% with task as object %}{% with level|add:1 as level %}
     {% with "projects/export/budget.html" as template_name %}{% include template_name %}{% endwith %}
