@@ -341,8 +341,17 @@ class Spot(models.Model):
     
     def save(self):
         """puts last number for spec if none is provided"""
-        self.number = (self.spec.spot_set.aggregate(maxnumber=models.Max('number'))['maxnumber'] or 0) + 1
+        if not self.number:
+            self.number = (self.spec.spot_set.aggregate(maxnumber=models.Max('number'))['maxnumber'] or 0) + 1
         super(Spot, self).save()
+
+    def delete(self):
+        """renumbers other spots of same spec when a spot is deleted"""
+        spec = self.spec
+        super(Spot, self).delete()
+        for i, spot in enumerate(spec.spot_set.order_by("number")):
+            spot.number=i+1
+            spot.save()
 
 # Offer of users on projets
 class Bid(models.Model):

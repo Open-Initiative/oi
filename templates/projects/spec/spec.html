@@ -36,5 +36,8 @@
         var spot = new OISpot(document.getElementById("spec_{{project.id}}_{{spec.order}}"), {{project.id}}, {{spec.id}}, 0, (event.pageX|(event.clientX + document.documentElement.scrollLeft))-this.parentElement.offsetLeft, (event.pageY|(event.clientY + document.documentElement.scrollTop))-this.parentElement.offsetTop);
         spot.save(id);
     }
+    document.getElementById("spec_{{project.id}}_{{spec.order}}").receiveSpot = function receiveSpot(spot, event) {
+        spot.move((event.pageX|(event.clientX + document.documentElement.scrollLeft))-this.parentElement.offsetLeft-10, (event.pageY|(event.clientY + document.documentElement.scrollTop))-this.parentElement.offsetTop-10);
+    }
 {% endif %}
 </script>

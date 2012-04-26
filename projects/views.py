@@ -603,9 +603,10 @@ def savespot(request, id, specid, spotid):
     if spotid=="0":
         spot = Spot(spec = Spec.objects.get(id=specid))
     else:
+        spot = Spot.objects.get(id=spotid)
         if spot.spec.project.id != int(id):
             return HttpResponse(_("Wrong arguments"), status=531)
-        spot = Spot.objects.get(id=spotid)
+    
     spot.offsetX = request.POST['x']
     spot.offsetY = request.POST['y']
     spot.task = Project.objects.get(id=request.POST['taskid'])
