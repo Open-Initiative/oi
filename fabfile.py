@@ -10,9 +10,9 @@ def init_south():
     run("oi/manage.py migrate users --fake")
     run("oi/manage.py migrate notification --fake")
 
-@hosts('sylvain-lebon@ssh.alwaysdata.com')
+@hosts('pp.open-initiative@ssh.alwaysdata.com')
 def deploy_pp():
-    local("git push pp")
+    local("git push")
     with cd("oi"):
         run("git merge devel")
         run("./manage.py migrate")
