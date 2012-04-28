@@ -203,6 +203,8 @@ def listnamedisplays(request):
 @login_required
 def setnamedisplay(request):
     """changes user full name display type"""
+    if not request.POST.has_key("display"):
+        return HttpResponse(_("Wrong arguments"), status=531)
     request.user.get_profile().display_name = request.POST["display"]
     request.user.get_profile().save()
     return HttpResponse(_("Modification saved"))
