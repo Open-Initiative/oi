@@ -291,33 +291,50 @@ function OISpot(specDiv, projectid, specid, spotid, x, y, title, linkid, number)
 
     this.div = document.getElementById(newDiv(specDiv.id));
     this.div.className = 'popup';
-    this.positionelt(this.div);
+    this.positionelt(this.div, 20);
     this.div.style.display = 'none';
     this.div.spot = this;
     this.fillDiv();
     this.div.onclick = function(evt) {document.ignoreClosePopups = true;evt.stopPropagation();};
     
-    this.img = document.createElement("img");
-    this.img.src = "/img/spot1.png";
-    this.positionelt(this.img);
-    this.img.spot = this;
-    this.img.onmouseover = function(evt) {this.spot.show();return false;};
-    specDiv.appendChild(this.img);
-    
     this.number = document.createElement("span");
-    this.number.innerHTML = number;
+    this.number.innerHTML = number||"";
     this.positionelt(this.number);
-    this.number.style.color = "white";
-    this.number.style.fontWeight = "bold";
-    this.number.style.padding = "2px 6px";
+    this.number.className = "spotnumber";
     this.number.spot = this;
-    this.number.onmouseover = function(evt) {this.spot.show();return false;};
+    this.number.onmouseover = function(evt) {if(!window.draggedDiv)this.spot.show();return false;};
+    this.number.onmousedown = this.drag;
     specDiv.appendChild(this.number);
 }
-OISpot.prototype.positionelt = function positionelt(elt) {
+OISpot.prototype.drag = function drag(evt) {
+    this.spot.hide();
+    document.body.style.cursor = "pointer";
+    window.draggedDiv = this.spot.number;
+    document.onmouseup = window.draggedDiv.spot.drop;
+    document.body.appendChild(window.draggedDiv);
+    window.draggedDiv.style.top=(evt.clientY+window.pageYOffset-10)+"px";
+    window.draggedDiv.style.left=(evt.clientX+window.pageXOffset-10)+"px";
+    document.onmousemove= function(evt){
+        window.draggedDiv.style.top=(evt.clientY+window.pageYOffset-10)+"px";
+        window.draggedDiv.style.left=(evt.clientX+window.pageXOffset-10)+"px";
+    }
+    return false;
+}
+OISpot.prototype.drop = function drop(evt) {
+    window.draggedDiv.spot.div.parentElement.appendChild(window.draggedDiv);
+    var target = evt.target;
+    while(target && !target.receiveSpot) target = target.parentNode;
+    if(target) target.receiveSpot(window.draggedDiv.spot, evt);
+    window.draggedDiv = null;
+    document.onmouseup = null;
+    document.onmousemove = null;
+    document.body.style.cursor = "default";
+    return false;
+}
+OISpot.prototype.positionelt = function positionelt(elt, delta) {
     elt.style.position= "absolute";
-    elt.style.left = this.x+"px";
-    elt.style.top = this.y+"px";
+    elt.style.left = this.x+(delta||0)+"px";
+    elt.style.top = this.y+(delta||0)+"px";
 }
 OISpot.prototype.edit = function edit() {
     var formdiv = document.getElementById("newspot").cloneNode(true);
@@ -350,14 +367,20 @@ OISpot.prototype.show = function show() {
 OISpot.prototype.hide = function hide() {
     this.div.style.display = "none";
     if(!this.linkid) {
-        this.img.style.display = "none";
         this.number.style.display = "none";
     }
+}
+OISpot.prototype.move = function move(x,y) {
+    this.x = x;
+    this.y = y;
+    this.positionelt(this.div, 20);
+    this.positionelt(this.number);
+    OIajaxCall('/project/'+this.projectid+'/savespot/'+this.specid+'/'+this.spotid, "taskid="+this.linkid+ "&x="+this.x + "&y="+this.y)
 }
 OISpot.prototype.remove = function remove() {
     if(confirm(gettext("Are you sure you want to permanently remove this annotation?"))) {
         OIajaxCall('/project/'+this.projectid+'/removespot/'+this.specid+'/'+this.spotid, null, 'output',
-            function(){this.img.parentElement.removeChild(this.img);
+            function(){
             this.div.parentElement.removeChild(this.div);
             this.number.parentElement.removeChild(this.number);});
     }

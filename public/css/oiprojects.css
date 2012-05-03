@@ -273,6 +273,14 @@ div.sepspecfooter {
     background: white;
     display: inline-block;
 }
+.spotnumber {
+    height: 16px;
+    width: 8px;
+    color: white;
+    font-weight: bold;
+    padding: 2px 6px;
+    background: url("/img/spot1.png");
+}
 .progressbar {
     float:left;
     font-size:.3em;
