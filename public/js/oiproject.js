@@ -380,9 +380,9 @@ OISpot.prototype.move = function move(x,y) {
 OISpot.prototype.remove = function remove() {
     if(confirm(gettext("Are you sure you want to permanently remove this annotation?"))) {
         OIajaxCall('/project/'+this.projectid+'/removespot/'+this.specid+'/'+this.spotid, null, 'output',
-            function(){
+            makeObjectCallback(function(){
             this.div.parentElement.removeChild(this.div);
-            this.number.parentElement.removeChild(this.number);});
+            this.number.parentElement.removeChild(this.number);}, this));
     }
 }
 function getSpot(element) {
