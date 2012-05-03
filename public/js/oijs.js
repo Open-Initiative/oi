@@ -17,40 +17,37 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-
-function OIajaxCall(url, params, divid) {
-    xmlhttp = new XMLHttpRequest();
+function OIajaxCall(url, params, divid, callBack) {
+    if(divid) document.getElementById(divid).innerHTML = gettext('loading...');
+    var xmlhttp = new XMLHttpRequest();
     if(params==null) {
         method="GET";
     } else {
         method="POST";
     }
-    xmlhttp.open(method, url, false);
+    xmlhttp.onreadystatechange=function() {
+        if(xmlhttp.readyState < 4) return;
+        if(xmlhttp.status == 531)
+            document.getElementById("output").innerHTML = gettext('ERROR : ') + xmlhttp.responseText;
+        if(xmlhttp.status >= 500)
+            document.getElementById("output").innerHTML = gettext('ERROR : ') +gettext('Unkown server error');
+        if(xmlhttp.status >= 431 || xmlhttp.status == 403)
+            document.getElementById("output").innerHTML = gettext('Forbidden : ') + xmlhttp.responseText;
+        if(xmlhttp.status >= 404)
+            document.getElementById("output").innerHTML = gettext('ERROR : ') +gettext('Could not find object');
+        if(xmlhttp.status == 332) document.location.reload();
+        if(xmlhttp.status == 333) document.location = xmlhttp.responseText;
+        if(xmlhttp.status == 200){
+            if(divid)document.getElementById(divid).innerHTML = xmlhttp.responseText;
+            if(callBack)callBack(xmlhttp.responseText);
+        }
+    }
+    xmlhttp.open(method, url, true);
     xmlhttp.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
     xmlhttp.send(params);
-    if(xmlhttp.status == 531){
-        document.getElementById("output").innerHTML = gettext('ERROR : ') + xmlhttp.responseText;
-        return false;
-    }
-    if(xmlhttp.status >= 500){
-        document.getElementById("output").innerHTML = gettext('ERROR : ') +gettext('Unkown server error');
-        return false;
-    }
-    if(xmlhttp.status >= 431 || xmlhttp.status == 403){
-        document.getElementById("output").innerHTML = gettext('Forbidden : ') + xmlhttp.responseText;
-        return false;
-    }
-    if(xmlhttp.status >= 404){
-        document.getElementById("output").innerHTML = gettext('ERROR : ') +gettext('Could not find object');
-        return false;
-    }
-    if(xmlhttp.status == 332) document.location.reload();
-    if(xmlhttp.status == 333) document.location = xmlhttp.responseText;
-    else {
-        if(!divid) return xmlhttp.responseText;
-        document.getElementById(divid).innerHTML = xmlhttp.responseText;
-        return true;
-    }
+}
+function makeObjectCallback(method, object) {
+    return function() {method.apply(object, arguments)};
 }
 function randid() {
     return "oi" + (""+Math.random()).slice(5);

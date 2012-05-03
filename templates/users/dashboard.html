@@ -7,7 +7,7 @@
 {% for project in user.get_profile.observed_projects.distinct|dictsort:"state" %}
 <div>{{project.title}}</div>
 {% endfor %}
-<form onsubmit="document.location = '/project/'+addTask(getValue('newproject_title'), null, '{{request.user.username}}');return false">
+<form onsubmit="addTask(getValue('newproject_title'), null, '{{request.user.username}}',function(taskid){document.location = '/project/'+taskid});return false">
     <div class="bidaction">{% trans "Create a new project:" %}</div>
     <input type="image" src="/img/icons/add.png" /> <input id="newproject_title" />
 </form>

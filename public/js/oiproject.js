@@ -9,22 +9,22 @@ function setTaskName(div, id, title, view) {
     newTaskForm.id = "newtask_"+id;
     div.parentNode.insertBefore(newTaskForm,div.nextSibling);
 }
-function addTask(tasktitle, projectid, userid) {
+function addTask(tasktitle, projectid, userid, callBack) {
     var params = "title="+tasktitle+"&inline=1&progress=0";
     if(userid) params += "&assignee="+userid;
     if(projectid) params += "&parent="+projectid;
-    answer = OIajaxCall("/project/save/0", params)
-    if(answer) {
-        task = eval(answer)[0];
-        if(window.oiTree) {
-            setTaskName(oiTree.nodes[projectid].addChild(task.pk, 0), task.pk, task.fields.title, viewname);
-            if(oiTable) {
-                oiTable.addFromTask(task, oiTree.nodes[projectid].getLastChild());
-                oiTable.redraw();
+    OIajaxCall("/project/save/0", params, null, 
+        function(response){
+            task = eval(response)[0];
+            if(window.oiTree) {
+                setTaskName(oiTree.nodes[projectid].addChild(task.pk, 0), task.pk, task.fields.title, viewname);
+                if(oiTable) {
+                    oiTable.addFromTask(task, oiTree.nodes[projectid].getLastChild());
+                    oiTable.redraw();
+                }
             }
-        }
-    }
-    return task.pk;
+            if(callBack) callBack(task.pk);
+        }); 
 }
 function showChildren(projectid) {
     var i, afterid = projectid, children = oiTree.nodes[projectid].children;
@@ -45,16 +45,18 @@ function hideChildren(projectid) {
 function onExpandNode(projectid) {
     if(oiTree.nodes[projectid].children.length) {
         if(oiTable) showChildren(projectid);
-    } else {
-        tasks = eval(OIajaxCall("/project/listtasks/"+projectid));
-        var i, afterid = projectid;
-        for(var task=tasks[i=0]; i<tasks.length; task=tasks[++i]) {
-            setTaskName(oiTree.nodes[projectid].addChild(task.pk, task.fields.state), task.pk, task.fields.title, viewname);
-            if(oiTable) oiTable.addFromTask(task, afterid, i%2);
-            afterid = task.pk;
-        }
-    }
-    if(window.oiTable) {
+    }else{
+	    OIajaxCall("/project/listtasks/"+projectid, null, null, function(response){
+            var tasks = eval(response);
+            var i, afterid = projectid;
+            for(var task=tasks[i=0]; i<tasks.length; task=tasks[++i]) {
+                setTaskName(oiTree.nodes[projectid].addChild(task.pk, task.fields.state), task.pk, task.fields.title, viewname);
+                if(oiTable) oiTable.addFromTask(task, afterid, i%2);
+               	afterid = task.pk;
+       	    }
+    	});
+	}
+    if(window.oiTable){
         if(oiTree.selected) oiTable.addSpace(oiTree.selected);
         if(oiTable) oiTable.redraw();
     }
@@ -101,46 +103,46 @@ function editProjectTitle(projectid) {
 }
 function confirmEditTitle(projectid) {
     title = getValue("title_"+projectid);
-    OIajaxCall("/project/confirmedittitle/"+projectid, "title="+title, "output");
-    resetProjectTitle(projectid, title);
+    OIajaxCall("/project/confirmedittitle/"+projectid, "title="+title, "output", 
+        function(){resetProjectTitle(projectid, title);});
 }
 function resetProjectTitle(projectid, title) {
     document.getElementById("prjtitle_"+projectid).innerHTML = title;
     document.getElementById("prjtitle_"+projectid).innerHTML += ' <img onclick="editProjectTitle('+projectid+')" class="clickable" src="/img/icons/edit.png" />';
 }
 function bidProject(projectid, rating) {
-    OIajaxCall("/project/bid/"+projectid, null, "prjdialogue_"+projectid);
-    show("prjdialogue_"+projectid);
-    document.getElementById('bid_'+projectid).focus();
+    OIajaxCall("/project/bid/"+projectid, null, "prjdialogue_"+projectid,
+        function(){show("prjdialogue_"+projectid);
+        document.getElementById('bid_'+projectid).focus();});
 }
 function confirmBidProject(projectid) {
     if(document.getElementById("acceptcgu").checked){
-        OIajaxCall("/project/confirmbid/"+projectid, "bid="+getValue("bid_"+projectid), "output");
-        hide("prjdialogue_"+projectid);
+        OIajaxCall("/project/confirmbid/"+projectid, "bid="+getValue("bid_"+projectid), "output", 
+            function(){hide("prjdialogue_"+projectid);});
     } else {
         alert(gettext("Please accept the Terms of Use"));
     }
 }
 function offerProject(projectid) {
-    OIajaxCall("/project/offer/"+projectid, null, "prjdialogue_"+projectid);
-    show("prjdialogue_"+projectid);
-    document.getElementById('offer_'+projectid).focus();
+    OIajaxCall("/project/offer/"+projectid, null, "prjdialogue_"+projectid, 
+        function(){show("prjdialogue_"+projectid);
+        document.getElementById('offer_'+projectid).focus();});
 }
 function confirmOfferProject(projectid) {
     if(document.getElementById("acceptcgu").checked){
-        OIajaxCall("/project/confirmoffer/"+projectid, "offer="+getValue("offer_"+projectid), "output");
-        hide("prjdialogue_"+projectid);
+        OIajaxCall("/project/confirmoffer/"+projectid, "offer="+getValue("offer_"+projectid), "output", 
+        function(){hide("prjdialogue_"+projectid);});  
     } else {
         alert(gettext("Please accept the Terms of Use"));
     }
 }
 function delegateProject(projectid) {
-    OIajaxCall("/project/delegate/"+projectid, null, "prjdialogue_"+projectid);
-    show("prjdialogue_"+projectid);
+    OIajaxCall("/project/delegate/"+projectid, null, "prjdialogue_"+projectid, 
+        function(){show("prjdialogue_"+projectid);});
 }
 function confirmDelegateProject(projectid) {
-    OIajaxCall("/project/confirmdelegate/"+projectid, "delegate_to="+getValue("delegate_to_"+projectid), "output");
-    hide("prjdialogue_"+projectid);
+    OIajaxCall("/project/confirmdelegate/"+projectid, "delegate_to="+getValue("delegate_to_"+projectid), "output",
+        function(){hide("prjdialogue_"+projectid);});
 }
 function startProject(projectid) {
     if(confirm(gettext("Are you sure you want to start this task?")))
@@ -169,23 +171,23 @@ function setPriority(projectid) {
     OIajaxCall("/project/setpriority/"+projectid, "priority="+getValue(projectid+"_priority"), "output");
 }
 function evalProject(projectid, rating) {
-    OIajaxCall("/project/eval/"+projectid, null, "prjdialogue_"+projectid);
-    show("prjdialogue_"+projectid);
+    OIajaxCall("/project/eval/"+projectid, null, "prjdialogue_"+projectid, 
+        function(){show("prjdialogue_"+projectid);});
 }
 function confirmEvalProject(projectid) {
-    OIajaxCall("/project/confirmeval/"+projectid, "rating="+getValue(projectid+"_eval")+"&comment="+getValue("eval_comment_"+projectid), "output");
-    hide("prjdialogue_"+projectid);
+    OIajaxCall("/project/confirmeval/"+projectid, "rating="+getValue(projectid+"_eval")+"&comment="+getValue("eval_comment_"+projectid), "output", 
+        function(){hide("prjdialogue_"+projectid);});
 }
 function toggleHideProject(projectid) {
     OIajaxCall("/project/togglehide/"+projectid, null, "output");
 }
 function shareProject(projectid) {
-    OIajaxCall("/project/share/"+projectid+"/"+divid, null, "prjdialogue_"+projectid);
-    show("prjdialogue_"+projectid);
+    OIajaxCall("/project/share/"+projectid+"/"+divid, null, "prjdialogue_"+projectid, 
+        function(){show("prjdialogue_"+projectid);});
 }
 function confirmShareProject(projectid, divid) {
-    OIajaxCall("/project/confirmshare/"+projectid, "username="+getValue("usershare_"+divid), "output");
-    hide("prjdialogue_"+projectid);
+    OIajaxCall("/project/confirmshare/"+projectid, "username="+getValue("usershare_"+divid), "output", 
+        function(){hide("prjdialogue_"+projectid);});
 }
 function cancelProject(projectid, state) {
     question = gettext("Are you sure you want to cancel this task?");
@@ -194,16 +196,16 @@ function cancelProject(projectid, state) {
         OIajaxCall("/project/cancel/"+projectid, null, "output");
 }
 function answerDelegate(projectid, answer, divid) {
-    OIajaxCall("/project/answerdelegate/"+projectid, "answer="+answer, "output");
-    clearDiv(divid);
+    OIajaxCall("/project/answerdelegate/"+projectid, "answer="+answer, "output", 
+        function(){clearDiv(divid);});
 }
 function answerCancelProject(projectid, answer, divid) {
-    OIajaxCall("/project/answercancelproject/"+projectid, "answer="+answer, "output");
-    clearDiv(divid);
+    OIajaxCall("/project/answercancelproject/"+projectid, "answer="+answer, "output",
+        function(){clearDiv(divid);});
 }
 function answerDelayProject(projectid, answer, divid) {
-    OIajaxCall("/project/answerdelay/"+projectid, "answer="+answer, "output");
-    clearDiv(divid);
+    OIajaxCall("/project/answerdelay/"+projectid, "answer="+answer, "output", 
+        function(){clearDiv(divid);});
 }
 function cancelBid(projectid, started) {
     question = gettext("Are you sure you want to cancel your bid?");
@@ -212,8 +214,8 @@ function cancelBid(projectid, started) {
         OIajaxCall("/project/cancelbid/"+projectid, null, "output");
 }
 function answerCancelBid(projectid, bidid, answer, divid) {
-    OIajaxCall("/project/answercancelbid/"+projectid, "answer="+answer+"&bid="+bidid, "output");
-    clearDiv(divid);
+    OIajaxCall("/project/answercancelbid/"+projectid, "answer="+answer+"&bid="+bidid, "output", 
+        function(){clearDiv(divid);});
 }
 function deleteProject(projectid) {
     if(confirm(gettext("Are you sure you want to delete this task permanently?"))) {
@@ -222,29 +224,33 @@ function deleteProject(projectid) {
 }
 function updateProgress(projectid, progress) {
     progress = Math.min(Math.round(progress*100), 100);
-    OIajaxCall("/project/editprogress/"+projectid, "progress="+progress, "output");
-    document.getElementById("progressbar_"+projectid).style.width = progress+"%";
-    document.getElementById("progresslabel_"+projectid).innerHTML = progress+"%";
+    OIajaxCall("/project/editprogress/"+projectid, "progress="+progress, "output", 
+        function(){document.getElementById("progressbar_"+projectid).style.width = progress+"%";
+        document.getElementById("progresslabel_"+projectid).innerHTML = progress+"%";});
 }
 function favProject(projectid, param){
-    follow = OIajaxCall("/project/"+projectid+"/fav", param);
-    if(document.getElementById("fav_"+projectid))
-        document.getElementById("fav_"+projectid).src = "/img/icons/star"+follow+".png";
+    OIajaxCall("/project/"+projectid+"/fav", param, null, 
+        function(follow){
+            if(document.getElementById("fav_"+projectid)){
+            document.getElementById("fav_"+projectid).src = "/img/icons/star"+follow+".png";
+            }
+        });
 }
 
 function addSpec(projectid, specorder) {
+    var divid;
     if(!specorder) specorder = -1;
     if(specorder==-1) divid = newDiv("specs_"+projectid);
     else divid = newDivTop("spec_"+projectid+"_"+specorder);
-    OIajaxCall("/project/"+projectid+"/editspec/0?divid="+divid+"&specorder="+specorder, null, divid);
-    document.getElementById(divid).scrollIntoView();
-    changeSpecType(divid, 1);
+    OIajaxCall("/project/"+projectid+"/editspec/0?divid="+divid+"&specorder="+specorder, null, divid, 
+        function(){changeSpecType(divid, 1);});
+        document.getElementById(divid).scrollIntoView();
 }
 function editSpec(projectid, specorder) {
     specid = getValue("specid_"+specorder);
     divid = "spec_"+projectid+"_"+specorder;
-    OIajaxCall("/project/"+projectid+"/editspec/"+specid+"?divid="+divid, null, divid);
-    changeSpecType(divid, getValue("type_"+divid));
+    OIajaxCall("/project/"+projectid+"/editspec/"+specid+"?divid="+divid, null, divid,
+        function(){changeSpecType(divid, getValue("type_"+divid));});
 }
 function changeSpecType(divid, type) {
     if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
@@ -254,8 +260,8 @@ function changeSpecType(divid, type) {
     document.getElementById("type"+type+"_"+divid).className = "spectype spectypeselected";
     document.getElementById("type_"+divid).value = type;
     url = "/project/"+projectid+"/editspecdetails/"+specid+"?divid="+divid+"&type="+type;
-    OIajaxCall(url, null, "spec_"+divid);
-    if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceAddControl', false, 'text_'+divid);
+    OIajaxCall(url, null, "spec_"+divid, 
+        function(){if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceAddControl', false, 'text_'+divid);});
 }
 function saveSpec(divid, projectid, order, specid) {
     tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
@@ -269,8 +275,8 @@ function saveSpec(divid, projectid, order, specid) {
 function deleteSpec(projectid, specorder) {
     if(confirm(gettext("Are you sure you want to delete this specification permanently?"))) {
         specid = getValue("specid_"+specorder);
-        OIajaxCall("/project/"+projectid+"/deletespec/"+specid, null, "output");
-        clearDiv("spec_"+projectid+"_"+specorder);
+        OIajaxCall("/project/"+projectid+"/deletespec/"+specid, null, "output", 
+            function(){clearDiv("spec_"+projectid+"_"+specorder);});
     }
 }
 
@@ -322,14 +328,19 @@ OISpot.prototype.edit = function edit() {
 OISpot.prototype.fillDiv = function fillDiv() {
     if(this.linkid) OIajaxCall('/project/'+this.linkid+'/summarize', null, this.div.id);
 }
-OISpot.prototype.save = function save(linkid) {
-    if(linkid) this.linkid=linkid;
-    else this.linkid = addTask(jQuery('#'+this.div.id+' .newtask_title')[0].value, this.projectid);
-    
-    var spot = eval(OIajaxCall('/project/'+this.projectid+'/savespot/'+this.specid+'/0', "taskid="+this.linkid+ "&x="+this.x + "&y="+this.y))[0];
-    this.spotid = spot.pk;
-    this.number.innerHTML = spot.fields.number;
-    this.fillDiv();
+OISpot.prototype.saveTask = function saveTask() {
+    addTask(jQuery('#'+this.div.id+' .newtask_title')[0].value, this.projectid, null, 
+        makeObjectCallback(this.save, this));
+    return false;
+}
+OISpot.prototype.save = function save(taskid) {
+    this.linkid = taskid;
+    OIajaxCall('/project/'+this.projectid+'/savespot/'+this.specid+'/0', "taskid="+this.linkid+ "&x="+this.x + "&y="+this.y, null, makeObjectCallback(function(response){
+            var spot = eval(response)[0];
+            this.spotid = spot.pk;
+            this.number.innerHTML = spot.fields.number;
+            this.fillDiv();
+        }, this));
     return false;
 }
 OISpot.prototype.show = function show() {
@@ -345,10 +356,10 @@ OISpot.prototype.hide = function hide() {
 }
 OISpot.prototype.remove = function remove() {
     if(confirm(gettext("Are you sure you want to permanently remove this annotation?"))) {
-        OIajaxCall('/project/'+this.projectid+'/removespot/'+this.specid+'/'+this.spotid, null, 'output');
-        this.img.parentElement.removeChild(this.img);
-        this.div.parentElement.removeChild(this.div);
-        this.number.parentElement.removeChild(this.number);
+        OIajaxCall('/project/'+this.projectid+'/removespot/'+this.specid+'/'+this.spotid, null, 'output',
+            function(){this.img.parentElement.removeChild(this.img);
+            this.div.parentElement.removeChild(this.div);
+            this.number.parentElement.removeChild(this.number);});
     }
 }
 function getSpot(element) {
@@ -359,8 +370,8 @@ function getSpot(element) {
     return null;
 }
 function deltmp(projectid,filename,ts,divid) {
-    OIajaxCall("/project/"+projectid+"/deltmp", "filename="+filename+"&ts="+ts+"&divid="+divid, "output");
-    changeFile(divid);
+    OIajaxCall("/project/"+projectid+"/deltmp", "filename="+filename+"&ts="+ts+"&divid="+divid, "output", 
+        function(){changeFile(divid);});
 }
 
 function changeFile(divid) {
