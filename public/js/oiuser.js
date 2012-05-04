@@ -2,10 +2,10 @@ function editDetail(type, divid, id) {
     if(!divid) divid = newDiv(type);
     if(!id) id=0;
     
-    OIajaxCall("/user/editdetail/"+id+"?divid="+divid+"&type="+type, null, divid);
-    new JsDatePick({useMode:2,target:"id_"+divid+"-begining",dateFormat:"%Y-%m-%d"});
-    new JsDatePick({useMode:2,target:"id_"+divid+"-end",dateFormat:"%Y-%m-%d"});
-    document.getElementById(divid).scrollIntoView();
+    OIajaxCall("/user/editdetail/"+id+"?divid="+divid+"&type="+type, null, divid, 
+        function(){new JsDatePick({useMode:2,target:"id_"+divid+"-begining",dateFormat:"%Y-%m-%d"});
+        new JsDatePick({useMode:2,target:"id_"+divid+"-end",dateFormat:"%Y-%m-%d"});
+        document.getElementById(divid).scrollIntoView();});
 }
 function saveDetail(divid, id) {
     OIajaxCall("/user/savedetail/"+id, prepareForm("form_"+divid), divid);
@@ -21,8 +21,8 @@ function resetUserTitle(title) {
 }
 function setUserTitle() {
     title = getValue("select_title");
-    OIajaxCall("/user/settitle","title=" + title, "output");
-    resetUserTitle(title);
+    OIajaxCall("/user/settitle","title=" + title, "output", 
+        function(){resetUserTitle(title);});
 }
 function selectNameDisplay() {
     OIajaxCall("/user/selectnamedisplay", null, "fullname");
@@ -33,15 +33,15 @@ function resetFullName(fullname) {
 function setNameDisplay() {
     displaytype = getValue("select_display");
     display = document.getElementById("select_display").options[displaytype].innerHTML;
-    OIajaxCall("/user/setnamedisplay","display=" + displaytype, "output");
-    resetFullName(display);
+    OIajaxCall("/user/setnamedisplay","display=" + displaytype, "output", 
+        function(){resetFullName(display);});
 }
 function setBirthdate(date) {
     OIajaxCall("/user/setbirthdate", "date="+date.dateFormat("Y-m-d"), "output");
 }
 function deleteDetail(id, type) {
-    OIajaxCall("/user/deletedetail/"+id, "type="+type, "output");
-    clearDiv(type+"_"+id);
+    OIajaxCall("/user/deletedetail/"+id, "type="+type, "output", 
+        function(){clearDiv(type+"_"+id);});
 }
 function addContact(userid) {
     OIajaxCall("/user/invite/"+userid, null, "output");
@@ -53,14 +53,14 @@ function saveContactInfo() {
     OIajaxCall("/user/savecontactinfo", prepareForm("contact_form"), "output");
 }
 function writeMP(userid) {
-    OIajaxCall("/user/writemp/"+userid, null, "sendmp");
-    show("sendmp");
+    OIajaxCall("/user/writemp/"+userid, null, "sendmp", 
+        function(){show("sendmp");});
 }
 function sendMP(userid) {
-    OIajaxCall("/user/sendmp/"+userid, "message="+getValue("MPmessage")+"&subject="+getValue("MPsubject"), "output");
-    hide("sendmp");
+    OIajaxCall("/user/sendmp/"+userid, "message="+getValue("MPmessage")+"&subject="+getValue("MPsubject"), "output",
+        function(){hide("sendmp");});
 }
 function archiveNotice(noticeid) {
-    OIajaxCall("/user/archivenotice", "notice="+noticeid, "output");
-    clearDiv("notice_"+noticeid);
+    OIajaxCall("/user/archivenotice", "notice="+noticeid, "output", 
+        function(){clearDiv("notice_"+noticeid);});
 }
