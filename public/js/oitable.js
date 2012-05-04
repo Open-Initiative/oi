@@ -27,6 +27,7 @@ OITable.prototype.hideLine = function(id, nbnext) {
     this.lines.splice(pos, 1 + (nbnext||0));
 }
 OITable.prototype.showLine = function(id, afterid) {
+    if(this.lines.indexOf(this.lineids[id])) this.lines.splice(this.lines.indexOf(this.lineids[id]), 1);
     var pos = this.lines.indexOf(this.lineids[afterid]) + 1;
     this.lines.splice(pos, 0, this.lineids[id]);
 }

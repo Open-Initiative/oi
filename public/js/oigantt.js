@@ -111,6 +111,7 @@ OIGantt.prototype.hideLine = function hideLine(id, nbnext) {
     this.bars.splice(pos, 1 + (nbnext||0));
 }
 OIGantt.prototype.showLine = function showLine(id, afterid) {
+    if(this.bars.indexOf(this.barids[id])) this.bars.splice(this.bars.indexOf(this.barids[id]), 1);
     var pos = this.bars.indexOf(this.barids[afterid]) + 1;
     this.bars.splice(pos, 0, this.barids[id]);
 }
