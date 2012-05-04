@@ -42,20 +42,24 @@ function hideChildren(projectid) {
         if(oiTree.nodes[child.id].open) if(oiTree.nodes[child.id].children.length) hideChildren(child.id);
     }
 }
+function populateTaskList(taskLists) {
+    for(var projectid in taskLists) {
+        var i, afterid = projectid;
+        tasks = eval(taskLists[projectid]);
+        for(var task=tasks[i=0]; i<tasks.length; task=tasks[++i]) {
+            setTaskName(oiTree.nodes[String(projectid).replace(".","")].addChild(task.pk, task.fields.state), task.pk, task.fields.title, viewname);
+            if(oiTable) oiTable.addFromTask(task, afterid, i%2);
+            afterid = task.pk;
+        }
+    }
+}
 function onExpandNode(projectid) {
     if(oiTree.nodes[projectid].children.length) {
         if(oiTable) showChildren(projectid);
     }else{
-	    OIajaxCall("/project/listtasks/"+projectid, null, null, function(response){
-            var tasks = eval(response);
-            var i, afterid = projectid;
-            for(var task=tasks[i=0]; i<tasks.length; task=tasks[++i]) {
-                setTaskName(oiTree.nodes[projectid].addChild(task.pk, task.fields.state), task.pk, task.fields.title, viewname);
-                if(oiTable) oiTable.addFromTask(task, afterid, i%2);
-               	afterid = task.pk;
-       	    }
-    	});
-	}
+        OIajaxCall("/project/"+projectid+"/listtasks", null, null,
+            function(response){populateTaskList(eval('('+response+')'));});
+    }
     if(window.oiTable){
         if(oiTree.selected) oiTable.addSpace(oiTree.selected);
         if(oiTable) oiTable.redraw();

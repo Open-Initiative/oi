@@ -46,25 +46,13 @@
     var rootdiv = oiTree.setRoot({{object.master.id}}, {{object.master.state}}, 0);
     setTaskName(rootdiv, {{object.master.id}}, "{{object.master.title}}", "{{view}}");
     rootdiv.className += " treeroot";
-    {% for ancestor in object.get_path %}
-        {% if not ancestor|can_read:user %}
-            {% if ancestor.parent %}
-                setTaskName(oiTree.nodes[{{ancestor.parent.id}}].addChild({{ancestor.id}},4),{{ancestor.id}},"...", "{{view}}");
-                if(oiTable) oiTable.addFromTask({pk:{{ancestor.id}},fields:{}}, {{ancestor.parent.id}}, 0);
-                    oiTree.nodes[{{ancestor.parent.id}}].shrink();
-                    oiTree.nodes[{{ancestor.parent.id}}].expand();
-            {% endif %}
-        {% else %}
-            {% if not ancestor.parent|can_read:user %}
-                    setTaskName(oiTree.nodes[{{ancestor.parent.id}}].addChild({{ancestor.id}},{{ancestor.state}}),{{ancestor.id}},"{{ancestor.title}}", "{{view}}");
-                    if(oiTable) oiTable.addFromTask({pk:{{ancestor.id}},fields:{}}, {{ancestor.parent.id}}, 0);
-                    oiTree.nodes[{{ancestor.parent.id}}].shrink();
-                    oiTree.nodes[{{ancestor.parent.id}}].expand();
-            {% endif %}
-            oiTree.nodes[{{ancestor.id}}].expand();
-        {% endif %}
-    {% endfor %}
-    setActiveTask({{object.id}}{% if object.state < 4 and object|can_write:user %}, true{% endif %});
+    OIajaxCall("/project/{{object.id}}/listtasks?expand={% for ancestor in object.get_path %}{{ancestor.id}},{% endfor %}", null, null,  function(response){
+        populateTaskList(eval('('+response+')'));
+        {% for ancestor in object.get_path %}
+        oiTree.nodes[{{ancestor.id}}].expand();
+        {% endfor %}
+        setActiveTask({{object.id}}{% if object.state < 4 and object|can_write:user %}, true{% endif %});
+    });
 </script>
 {% else %}
 {% trans "Forbidden" %}
