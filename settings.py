@@ -138,6 +138,6 @@ INSTALLED_APPS = (
     'oi.messages',
     'oi.projects',
     'oi.users',
-    'oi.notification',
+    'oi.project_notification',
     'django.contrib.messages',
 )

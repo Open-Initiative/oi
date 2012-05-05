@@ -166,7 +166,7 @@ class Project(models.Model):
         return self.tasks.count() == 0
     
     def is_late(self):
-        """A simple task is a project with no spec and no subproject"""
+        """A task is late when its due date is passed but it is not completely done"""
         return self.progress < 1.0 and self.due_date < datetime.now()
     
     def has_perm(self, user, perm):
@@ -216,6 +216,11 @@ class Project(models.Model):
         self.assignee = user
         self.save()
         self.descendants.update(assignee=user)
+
+    def notify_all(self, sender, notice_type, param):
+        """sends a notification to all users about this project"""
+        recipients = User.objects.filter(userprofile__observed_projects__descendants = self).exclude(userprofile=sender).distinct()
+        notification.send(recipients, notice_type, self, {'param':param}, True, sender)
 
     def canceled_bids(self):
         """gets all the bids marked as canceled"""

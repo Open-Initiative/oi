@@ -9,7 +9,6 @@ from django.db.models.signals import post_save
 from django.forms import ModelForm, DateField
 from django.forms.extras.widgets import SelectDateWidget
 from django.utils.translation import ugettext_lazy, ugettext as _
-from oi.notification import models as notification
 from oi.settings import SHASIGN_NAME
 from oi.helpers import OI_DISPLAYNAME_TYPES, computeSHA
 from oi.messages.models import Message, Expert
@@ -117,12 +116,6 @@ class UserProfile(models.Model):
     def get_comments(self):
         """Returns comments made in evals on the user"""
         return Bid.objects.filter(project__assignee=self.user).exclude(comment="")
-
-    def notify_all(self, prj, notice_type, param):
-        """sends a notification to all users about this project"""
-        if prj:
-            recipients = User.objects.filter(userprofile__observed_projects__descendants = prj).exclude(userprofile=self).distinct()
-            notification.send(recipients, notice_type, {'project':prj, 'param':param}, True, self.user)
 
     def __unicode__(self):
         return self.get_display_name()

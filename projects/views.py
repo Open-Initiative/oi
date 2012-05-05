@@ -22,7 +22,7 @@ from django.utils.simplejson.encoder import JSONEncoder
 from django.utils.translation import ugettext as _
 from django.views.generic.list_detail import object_detail, object_list
 from django.views.generic.simple import direct_to_template
-from oi.notification import models as notification
+from oi.notification.models import notify
 from oi.settings import MEDIA_ROOT, TEMP_DIR
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS
 from oi.helpers import OI_PRJ_DONE, OI_NO_EVAL, OI_ACCEPT_DELAY, OI_READ, OI_ANSWER, OI_WRITE, OI_ALL_PERMS, OI_CANCELLED_BID, OI_COM_ON_BID, OI_COMMISSION
@@ -604,6 +604,20 @@ def savespec(request, id, specid='0'):
     #notify users about this spec change
     request.user.get_profile().notify_all(project, "project_spec", spec)
     return render_to_response('projects/spec/spec.html',{'user': request.user, 'project' : project, 'spec' : spec})
+
+@OINeedsPrjPerms(OI_WRITE)
+def movespec(request, id, specid):
+    """Move template of an oderspec to an other spec order"""
+    spec = Spec.objects.get(id=specid)
+    if not request.POST.get("target"):
+        return HttpResponse(_("Wrong arguments"), status=531)
+    target = Spec.objects.get(id=request.POST["target"]) 
+    if not (target.project.id == int(id) and spec.project.id == int(id)):
+        return HttpResponse(_("Wrong arguments"), status=531)
+    spec.order,target.order = target.order,spec.order
+    spec.save()
+    target.save()
+    return HttpResponse(_("Spec moved"))
 
 @OINeedsPrjPerms(OI_WRITE)
 def deletespec(request, id, specid):
