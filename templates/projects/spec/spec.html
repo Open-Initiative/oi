@@ -2,7 +2,7 @@
 {% load oifilters %}
 <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared">
     {% if spec.type == 5 %}
-    <a href="{{spec.file.url}}"><img src="/img/icons/dlspec.png" alt="Download the specification" title="Download the specification"/></a>
+    <a href="{{spec.file.url}}"><img src="/img/icons/dlspec.png" alt="{% trans 'Download the desciption' %}" title="{% trans 'Download the desciption' %}"/></a>
     {% endif %}
     <div id="spec_{{project.id}}_{{spec.order}}_content"{% if project|can_write:user and project.state < 2 %} class="clickable" onclick="(new OISpot(this, {{project.id}}, {{spec.id}}, 0, (event.pageX||(event.clientX + document.documentElement.scrollLeft))-this.parentNode.offsetLeft, (event.pageY||(event.clientY + document.documentElement.scrollTop))-this.parentNode.offsetTop)).edit();event.stopPropagation();"{% endif %}>
         <input type="hidden" id="specid_{{spec.order}}" value="{{spec.id}}" />
@@ -19,9 +19,10 @@
         {% endif %} {{spec.created|date:"d/m/Y H:i:s"}}
         <div class="sepspecfooter"></div>
         {% if project|can_write:user and project.state < 2 %}
-        <img class="clickable" src="/img/icons/delete.png" onclick="deleteSpec({{project.id}}, {{spec.order}})" alt="Delete the specification" title="Delete the specification"/>
-        <img class="clickable" src="/img/icons/edit.png" onclick="editSpec({{project.id}}, {{spec.order}})" alt="Correct the specification" title="Correct the specification"/>
-        <img class="clickable" src="/img/icons/add.png" onclick="addSpec({{project.id}}, {{spec.order}})" alt="Add a specification" title="Add a specification"/>
+        <img class="clickable" src="/img/icons/delete.png" onclick="deleteSpec({{project.id}}, {{spec.order}})" alt="{% trans 'Delete the description' %}" title="{% trans 'Delete the description' %}"/>
+        <img class="clickable" src="/img/icons/edit.png" onclick="editSpec({{project.id}}, {{spec.order}})" alt="{% trans 'Correct the description' %}" title="{% trans 'Correct the description' %}"/>
+        <img class="clickable" src="/img/icons/moveUp.png" onclick="moveSpec({{project.id}}, {{spec.order}}, true)" alt="{% trans 'Move the description up'%}" title="{% trans 'Move the description up'%}"/>
+        <img class="clickable" src="/img/icons/moveDown.png" onclick="moveSpec({{project.id}}, {{spec.order}}, false)" alt="{% trans 'Move the description down'%}" title="{% trans 'Move the desciption down'%}"/>        
         {% endif %}
     </div>
     <div class="sepspec"></div>

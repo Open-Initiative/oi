@@ -606,6 +606,20 @@ def savespec(request, id, specid='0'):
     return render_to_response('projects/spec/spec.html',{'user': request.user, 'project' : project, 'spec' : spec})
 
 @OINeedsPrjPerms(OI_WRITE)
+def movespec(request, id, specid):
+    """Move template of an oderspec to an other spec order"""
+    spec = Spec.objects.get(id=specid)
+    if not request.POST.get("target"):
+        return HttpResponse(_("Wrong arguments"), status=531)
+    target = Spec.objects.get(id=request.POST["target"]) 
+    if not (target.project.id == int(id) and spec.project.id == int(id)):
+        return HttpResponse(_("Wrong arguments"), status=531)
+    spec.order,target.order = target.order,spec.order
+    spec.save()
+    target.save()
+    return HttpResponse(_("Spec moved"))
+
+@OINeedsPrjPerms(OI_WRITE)
 def deletespec(request, id, specid):
     """deletes the spec"""
     spec = get_object_or_404(Spec, id=specid)

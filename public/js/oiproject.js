@@ -153,10 +153,12 @@ function startProject(projectid) {
         OIajaxCall("/project/start/"+projectid, null, "output");
 }
 function deliverProject(projectid) {
-    OIajaxCall("/project/deliver/"+projectid, null, "output");
+    if(confirm(gettext("Are you sure you want to deliver this task?")))
+        OIajaxCall("/project/deliver/"+projectid, null, "output");
 }
 function validateProject(projectid) {
-    OIajaxCall("/project/validate/"+projectid, null, "output");
+    if(confirm(gettext("Are you sure you want to validate this task?")))
+        OIajaxCall("/project/validate/"+projectid, null, "output");
 }
 function showStar(id, number) {
     for(var i=1;i<=5;i++)
@@ -249,6 +251,20 @@ function addSpec(projectid, specorder) {
     OIajaxCall("/project/"+projectid+"/editspec/0?divid="+divid+"&specorder="+specorder, null, divid, 
         function(){changeSpecType(divid, 1);});
         document.getElementById(divid).scrollIntoView();
+}
+function moveSpec(projectid, specorder, moveUp){
+    var div = jQuery("#spec_"+projectid+"_"+specorder);
+    var specid = div.find("input").first().val();
+    var targetDiv = moveUp?div.prevAll("div").first():div.nextAll("div").first();
+    var targetspecid = targetDiv.find("input").first().val();
+    OIajaxCall("/project/"+projectid+"/movespec/"+specid,"target="+targetspecid, "output",
+        function (){
+            if(moveUp){
+                div.prevAll("div").first().before(div);
+            }else{
+                div.nextAll("div").first().after(div);
+            }
+        });  
 }
 function editSpec(projectid, specorder) {
     specid = getValue("specid_"+specorder);
