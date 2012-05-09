@@ -591,6 +591,8 @@ def savespec(request, id, specid='0'):
         spec.type = int(request.POST["type"])
     
     filename = request.POST.get("filename")
+    if not filename and spec.type in (2,5):
+        return HttpResponse(_("Wrong arguments"), status=531)
     if filename:
 #        filename = normalize("NFC", filename)
         filename = normalize("NFKD", filename).encode('ascii', 'ignore').replace('"', '')
