@@ -254,14 +254,15 @@ function moveSpec(projectid, specorder, moveUp){
     var specid = div.find("input").first().val();
     var targetDiv = moveUp?div.prevAll("div").first():div.nextAll("div").first();
     var targetspecid = targetDiv.find("input").first().val();
-    OIajaxCall("/project/"+projectid+"/movespec/"+specid,"target="+targetspecid, "output",
-        function (){
-            if(moveUp){
-                div.prevAll("div").first().before(div);
-            }else{
-                div.nextAll("div").first().after(div);
-            }
-        });  
+    if(targetspecid)
+        OIajaxCall("/project/"+projectid+"/movespec/"+specid,"target="+targetspecid, "output",
+            function (){
+                if(moveUp){
+                    div.prevAll("div").first().before(div);
+                }else{
+                    div.nextAll("div").first().after(div);
+                }
+            });  
 }
 function editSpec(projectid, specorder) {
     specid = getValue("specid_"+specorder);
