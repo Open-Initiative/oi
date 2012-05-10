@@ -300,7 +300,7 @@ function deleteSpec(projectid, specorder) {
     }
 }
 function receiveSpot(spot, event) {
-        this.appendChild(spot.div);
+        this.appendChild(spot.number);
         spot.move((event.pageX|(event.clientX + document.documentElement.scrollLeft))
             -this.parentElement.offsetLeft-10, (event.pageY|(event.clientY + document.documentElement.scrollTop))
             -this.parentElement.offsetTop-10);
@@ -346,6 +346,7 @@ OISpot.prototype.drag = function drag(evt) {
     return false;
 }
 OISpot.prototype.drop = function drop(evt) {
+    //window.draggedDiv.spot.div.parentNode.receiveSpot(window.draggedDiv.spot, evt);
     var target = evt.target;
     while(target && !target.receiveSpot) target = target.parentNode;
     if(target) target.receiveSpot(window.draggedDiv.spot, evt);
