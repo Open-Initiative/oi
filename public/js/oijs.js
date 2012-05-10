@@ -66,11 +66,7 @@ function newDiv(parentid) {
     document.getElementById(parentid).appendChild(newdiv);
     return divid;
 }
-function newDivTop(parentid) {
-    divid = "oi" + (""+Math.random()).slice(5);
-    document.getElementById(parentid).innerHTML='<div id="'+divid+'"></div>' + document.getElementById(parentid).innerHTML;
-    return divid;
-}
+
 function clearDiv(divid) {
     document.getElementById(divid).innerHTML="";
 }

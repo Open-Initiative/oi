@@ -243,12 +243,9 @@ function favProject(projectid, param){
         });
 }
 
-function addSpec(projectid, specorder) {
-    var divid;
-    if(!specorder) specorder = -1;
-    if(specorder==-1) divid = newDiv("specs_"+projectid);
-    else divid = newDivTop("spec_"+projectid+"_"+specorder);
-    OIajaxCall("/project/"+projectid+"/editspec/0?divid="+divid+"&specorder="+specorder, null, divid, 
+function addSpec(projectid) {
+    var divid = newDiv("specs_"+projectid);
+    OIajaxCall("/project/"+projectid+"/editspec/0?divid="+divid+"&specorder=-1", null, divid, 
         function(){changeSpecType(divid, 1);});
         document.getElementById(divid).scrollIntoView();
 }
@@ -296,10 +293,17 @@ function deleteSpec(projectid, specorder) {
     if(confirm(gettext("Are you sure you want to delete this specification permanently?"))) {
         specid = getValue("specid_"+specorder);
         OIajaxCall("/project/"+projectid+"/deletespec/"+specid, null, "output", 
-            function(){clearDiv("spec_"+projectid+"_"+specorder);});
+            function(){
+                var div = document.getElementById("spec_"+projectid+"_"+specorder);
+                div.parentNode.removeChild(div);});
     }
 }
-
+function receiveSpot(spot, event) {
+        this.appendChild(spot.div);
+        spot.move((event.pageX|(event.clientX + document.documentElement.scrollLeft))
+            -this.parentElement.offsetLeft-10, (event.pageY|(event.clientY + document.documentElement.scrollTop))
+            -this.parentElement.offsetTop-10);
+    }
 function OISpot(specDiv, projectid, specid, spotid, x, y, title, linkid, number) {
     this.projectid = projectid;
     this.specid = specid;
@@ -341,7 +345,6 @@ OISpot.prototype.drag = function drag(evt) {
     return false;
 }
 OISpot.prototype.drop = function drop(evt) {
-    window.draggedDiv.spot.div.parentElement.appendChild(window.draggedDiv);
     var target = evt.target;
     while(target && !target.receiveSpot) target = target.parentNode;
     if(target) target.receiveSpot(window.draggedDiv.spot, evt);
@@ -349,6 +352,7 @@ OISpot.prototype.drop = function drop(evt) {
     document.onmouseup = null;
     document.onmousemove = null;
     document.body.style.cursor = "default";
+    evt.stopPropagation();
     return false;
 }
 OISpot.prototype.positionelt = function positionelt(elt, delta) {
