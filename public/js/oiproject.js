@@ -45,12 +45,12 @@ function hideChildren(projectid) {
 function populateTaskList(taskLists) {
     var j;
     for(var list=taskLists[j=0]; j<taskLists.length; list=taskLists[++j]) {
-        var i;
-        tasks = eval(list);
+        var i, afterid=0;
+        var tasks = eval(list);
         for(var task=tasks[i=0]; i<tasks.length; task=tasks[++i]) {
-            parentid = task.fields.parent;
+            var parentid = task.fields.parent;
             setTaskName(oiTree.nodes[String(parentid).replace(".","")].addChild(task.pk, task.fields.state), task.pk, task.fields.title, viewname);
-            if(oiTable) oiTable.addFromTask(task, afterid, i%2);
+            if(oiTable) oiTable.addFromTask(task, afterid||parentid, i%2);
             afterid = task.pk;
         }
     }
@@ -108,8 +108,7 @@ function editProjectTitle(projectid) {
     OIajaxCall("/project/edittitle/"+projectid, null, "prjtitle_"+projectid);
 }
 function confirmEditTitle(projectid) {
-    title = getValue("title_"+projectid);
-    OIajaxCall("/project/confirmedittitle/"+projectid, "title="+title, "output", 
+    OIajaxCall("/project/confirmedittitle/"+projectid, "title="+getValue("title_"+projectid), "output", 
         function(){resetProjectTitle(projectid, title);});
 }
 function resetProjectTitle(projectid, title) {
@@ -172,8 +171,7 @@ function setStar(id, dest, number) {
     document.getElementById(dest).value = number;
 }
 function resetStar(id, dest) {
-    number = parseInt(getValue(dest));
-    showStar(id, number);
+    showStar(id, parseInt(getValue(dest)));
 }
 function setPriority(projectid) {
     OIajaxCall("/project/setpriority/"+projectid, "priority="+getValue(projectid+"_priority"), "output");
