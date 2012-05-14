@@ -307,12 +307,6 @@ function deleteSpec(projectid, specorder) {
                 div.parentNode.removeChild(div);});
     }
 }
-function receiveSpot(spot, event) {
-        this.appendChild(spot.number);
-        spot.move(
-            (event.pageX|(event.clientX + document.documentElement.scrollLeft))-this.parentElement.offsetLeft-10,
-            (event.pageY|(event.clientY + document.documentElement.scrollTop))-this.parentElement.offsetTop-10);
-    }
 function OISpot(specDiv, projectid, specid, spotid, x, y, title, linkid, number) {
     this.projectid = projectid;
     this.specid = specid;
@@ -326,42 +320,41 @@ function OISpot(specDiv, projectid, specid, spotid, x, y, title, linkid, number)
     this.div.className = 'popup';
     this.positionelt(this.div, 20);
     this.div.style.display = 'none';
-    this.div.spot = this;
     this.fillDiv();
+    this.div.spot = this;
     this.div.onclick = function(evt) {document.ignoreClosePopups = true;evt.stopPropagation();};
     
     this.number = document.createElement("span");
     this.number.innerHTML = number||"";
     this.positionelt(this.number);
     this.number.className = "spotnumber";
-    this.number.spot = this;
-    this.number.onmouseover = function(evt) {if(!window.draggedDiv)this.spot.show();return false;};
-    this.number.onmousedown = this.drag;
+    this.number.onmouseover = makeObjectCallback(function(evt) {if(!window.draggedSpot)this.show();return false;}, this);
+    this.number.onmousedown = makeObjectCallback(this.drag, this);
     specDiv.appendChild(this.number);
 }
 OISpot.prototype.drag = function drag(evt) {
-    this.spot.hide();
+    this.hide();
     document.body.style.cursor = "pointer";
-    window.draggedDiv = this.spot.number;
-    document.onmouseup = window.draggedDiv.spot.drop;
-    document.body.appendChild(window.draggedDiv);
-    window.draggedDiv.style.top=(evt.clientY+window.pageYOffset-10)+"px";
-    window.draggedDiv.style.left=(evt.clientX+window.pageXOffset-10)+"px";
+    document.onmouseup = makeObjectCallback(window.draggedDiv.spot.drop, this);
+    document.body.appendChild(this.number);
+    this.number.style.top = (evt.clientY+window.pageYOffset-10)+"px";
+    this.number.style.left = (evt.clientX+window.pageXOffset-10)+"px";
     document.onmousemove= function(evt){
-        window.draggedDiv.style.top=(evt.clientY+window.pageYOffset-10)+"px";
-        window.draggedDiv.style.left=(evt.clientX+window.pageXOffset-10)+"px";
+        this.number.style.top = (evt.clientY+window.pageYOffset-10)+"px";
+        this.number.style.left = (evt.clientX+window.pageXOffset-10)+"px";
     }
+    window.draggedSpot = this;
     return false;
 }
 OISpot.prototype.drop = function drop(evt) {
-    window.draggedDiv.spot.div.parentNode.receiveSpot(window.draggedDiv.spot, evt);
-    /*var target = evt.target;
-    while(target && !target.receiveSpot) target = target.parentNode;
-    if(target) target.receiveSpot(window.draggedDiv.spot, evt);*/
-    window.draggedDiv = null;
+    this.div.parentNode.appendChild(spot.number);
+    this.move(
+        (event.pageX|(event.clientX + document.documentElement.scrollLeft))-this.div.parentElement.offsetLeft-10,
+        (event.pageY|(event.clientY + document.documentElement.scrollTop))-this.div.parentElement.offsetTop-10);
     document.onmouseup = null;
     document.onmousemove = null;
     document.body.style.cursor = "default";
+    window.draggedSpot = null;
     evt.stopPropagation();
     return false;
 }
