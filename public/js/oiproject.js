@@ -323,31 +323,38 @@ function OISpot(specDiv, projectid, specid, spotid, x, y, title, linkid, number)
     this.fillDiv();
     this.div.spot = this;
     this.div.onclick = function(evt) {document.ignoreClosePopups = true;evt.stopPropagation();};
+    this.div.style.zIndex = 2;
     
     this.number = document.createElement("span");
     this.number.innerHTML = number||"";
     this.positionelt(this.number);
     this.number.className = "spotnumber";
+    this.number.style.zIndex = 1;
     this.number.onmouseover = makeObjectCallback(function(evt) {if(!window.draggedSpot)this.show();return false;}, this);
     this.number.onmousedown = makeObjectCallback(this.drag, this);
     specDiv.appendChild(this.number);
 }
+OISpot.prototype.positionelt = function positionelt(elt, delta) {
+    elt.style.position= "absolute";
+    elt.style.left = this.x+(delta||0)+"px";
+    elt.style.top = this.y+(delta||0)+"px";
+}
 OISpot.prototype.drag = function drag(evt) {
     this.hide();
     document.body.style.cursor = "pointer";
-    document.onmouseup = makeObjectCallback(window.draggedDiv.spot.drop, this);
+    document.onmouseup = makeObjectCallback(this.drop, this);
     document.body.appendChild(this.number);
     this.number.style.top = (evt.clientY+window.pageYOffset-10)+"px";
     this.number.style.left = (evt.clientX+window.pageXOffset-10)+"px";
-    document.onmousemove= function(evt){
+    document.onmousemove= makeObjectCallback(function(evt){
         this.number.style.top = (evt.clientY+window.pageYOffset-10)+"px";
         this.number.style.left = (evt.clientX+window.pageXOffset-10)+"px";
-    }
+    }, this);
     window.draggedSpot = this;
     return false;
 }
-OISpot.prototype.drop = function drop(evt) {
-    this.div.parentNode.appendChild(spot.number);
+OISpot.prototype.drop = function drop(event) {
+    this.div.parentNode.appendChild(this.number);
     this.move(
         (event.pageX|(event.clientX + document.documentElement.scrollLeft))-this.div.parentElement.offsetLeft-10,
         (event.pageY|(event.clientY + document.documentElement.scrollTop))-this.div.parentElement.offsetTop-10);
@@ -355,13 +362,8 @@ OISpot.prototype.drop = function drop(evt) {
     document.onmousemove = null;
     document.body.style.cursor = "default";
     window.draggedSpot = null;
-    evt.stopPropagation();
+    event.stopPropagation();
     return false;
-}
-OISpot.prototype.positionelt = function positionelt(elt, delta) {
-    elt.style.position= "absolute";
-    elt.style.left = this.x+(delta||0)+"px";
-    elt.style.top = this.y+(delta||0)+"px";
 }
 OISpot.prototype.edit = function edit() {
     var formdiv = document.getElementById("newspot").cloneNode(true);
