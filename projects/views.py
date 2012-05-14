@@ -17,7 +17,6 @@ from django.contrib.syndication.views import Feed
 from django.db.models import Q, Sum
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response, get_object_or_404
-from django.utils.datastructures import SortedDict
 from django.utils.simplejson.encoder import JSONEncoder
 from django.utils.translation import ugettext as _
 from django.views.generic.list_detail import object_detail, object_list
@@ -55,7 +54,7 @@ def getproject(request, id, view="description"):
 @OINeedsPrjPerms(OI_READ)
 def listtasks(request, id):
     """list tasks of requested projects in id or optionnal url parameter expand. Takes care of permissions and order"""
-    lists = SortedDict()
+    lists = []
     #takes the given id as default if expand is not provided
     idlist = [id] if not request.GET.has_key("expand") else request.GET["expand"].split(",")
     for taskid in idlist:
@@ -72,8 +71,8 @@ def listtasks(request, id):
             tasks = tasks.distinct().order_by('-priority')
             
             #appends the serialized task list to the global list
-            lists[str(taskid)]=serializers.oiserialize("json", tasks,
-                extra_fields=("assignee.get_profile.get_display_name", "get_budget","allbid_sum","bid_set.count"))
+            lists.append(serializers.oiserialize("json", tasks,
+                extra_fields=("assignee.get_profile.get_display_name", "get_budget","allbid_sum","bid_set.count")))
     return HttpResponse(JSONEncoder().encode(lists)) #serializes the whole thing
 
 @login_required

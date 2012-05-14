@@ -43,11 +43,13 @@ function hideChildren(projectid) {
     }
 }
 function populateTaskList(taskLists) {
-    for(var projectid in taskLists) {
-        var i, afterid = projectid;
-        tasks = eval(taskLists[projectid]);
+    var j;
+    for(var list=taskLists[j=0]; j<taskLists.length; list=taskLists[++j]) {
+        var i;
+        tasks = eval(list);
         for(var task=tasks[i=0]; i<tasks.length; task=tasks[++i]) {
-            setTaskName(oiTree.nodes[String(projectid).replace(".","")].addChild(task.pk, task.fields.state), task.pk, task.fields.title, viewname);
+            parentid = task.fields.parent;
+            setTaskName(oiTree.nodes[String(parentid).replace(".","")].addChild(task.pk, task.fields.state), task.pk, task.fields.title, viewname);
             if(oiTable) oiTable.addFromTask(task, afterid, i%2);
             afterid = task.pk;
         }
