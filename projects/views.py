@@ -61,9 +61,9 @@ def listtasks(request, id):
         if taskid:
             project = Project.objects.get(id=taskid)
             #if user doesn't have permission to see the project, add it as '...'
-            if not project.has_perm(request.user, OI_READ):
-                #the '.' enables to have 2 lists with the same id
-                lists[str(project.parent.id)+"."] = '[{"pk": %s, "fields": {"state": 4, "title": "..."}}]'%project.id
+            if project.parent and not project.has_perm(request.user, OI_READ):
+                #adding the task if the user has no right on it, but with no infZo
+                lists.append('[{"pk": %s, "fields": {"state": 4, "parent": "%s", "title": "..."}}]'%(project.id,project.parent.id))
         
             tasks = project.tasks
             if not request.user.is_superuser: #filters on user permissions
