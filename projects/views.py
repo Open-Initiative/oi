@@ -22,7 +22,6 @@ from django.utils.simplejson.encoder import JSONEncoder
 from django.utils.translation import ugettext as _
 from django.views.generic.list_detail import object_detail, object_list
 from django.views.generic.simple import direct_to_template
-from oi.notification.models import notify
 from oi.settings import MEDIA_ROOT, TEMP_DIR
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS
 from oi.helpers import OI_PRJ_DONE, OI_NO_EVAL, OI_ACCEPT_DELAY, OI_READ, OI_ANSWER, OI_WRITE, OI_ALL_PERMS, OI_CANCELLED_BID, OI_COM_ON_BID, OI_COMMISSION
@@ -127,7 +126,7 @@ def saveproject(request, id='0'):
         
     #notify users about this project
     if project.parent:
-        request.user.get_profile().notify_all(project.master, "new_project", project)
+        project.master.notify_all(request.user, "new_project", project)
     #adds the project to user's observation
     request.user.get_profile().observed_projects.add(project.master)
     if request.POST.get("inline","0") == "1":
@@ -144,7 +143,7 @@ def editdate(request, id):
             project.delay = request.POST["date"]
             project.save()
             #notify users about this project
-            request.user.get_profile().notify_all(project, "project_modified", _("Request for delay"))            
+            project.notify_all(request.user, "project_modified", _("Request for delay"))
             return HttpResponse(_("Request for delay awaiting validation"))
         else:
             project.due_date = request.POST["date"]
@@ -161,7 +160,7 @@ def editdate(request, id):
     project.update_tree()
     
     #notify users about this project
-    request.user.get_profile().notify_all(project, "project_modified", request.POST["date"])
+    project.notify_all(request.user, "project_modified", request.POST["date"])
     return HttpResponse(_("Date updated"))
 
 @OINeedsPrjPerms(OI_WRITE)
@@ -185,7 +184,7 @@ def edittitle(request, id):
     project.save()
     
     #notify users about this project
-    request.user.get_profile().notify_all(project, "project_modified", project.title)
+    project.notify_all(request.user, "project_modified", project.title)
     return HttpResponse(_("Title updated"))
 
 @OINeedsPrjPerms(OI_READ)
@@ -226,7 +225,7 @@ def delegateproject(request, id):
     except (KeyError, User.DoesNotExist):
         return HttpResponse(_("Cannot find user"), status=531)
     project.save()
-    notification.send([project.delegate_to], "delegate", {'project':project}, True, request.user)
+    notify([project.delegate_to], "delegate", project=this, extra_context={'project':project}, sender=request.user)
     return HttpResponse(_("Sent delegation offer"))
 
 @ajax_login_required
@@ -237,7 +236,7 @@ def answerdelegate(request, id):
     if project.delegate_to != request.user:
         return HttpResponse(_("The project was not delegated to you"))
     #notifies former assignee of the answer of the user
-    notification.send([project.assignee], "answerdelegate", {'project':project, 'answer':answer}, True, request.user)
+    notify([project.assignee], "answerdelegate", project=this, extra_context={'project':project, 'answer':answer}, sender=request.user)
     project.delegate_to = None
 
     if answer == "true":
@@ -256,7 +255,7 @@ def answerdelay(request, id):
         return HttpResponse(_("No delay was requested"), status=531)
 
     # notifies the assignee
-    notification.send([project.assignee], "answerdelay", {'project':project, 'answer':answer}, True, request.user)
+    notify([project.assignee], "answerdelay", project=this, extra_context={'project':project, 'answer':answer}, sender=request.user)
     if answer == "false":
         project.reset_delay_request()
         return HttpResponse(_("The date was not changed"))
@@ -370,7 +369,7 @@ def evaluateproject(request, id):
             bid.comment = comment
             bid.save()
         #notify assignee that he has an evaluation
-        notification.send([project.assignee], "project_eval", {'project':project, 'rating':rating}, True, request.user)
+        notify([project.assignee], "project_eval", project=this, extra_context={'project':project, 'rating':rating}, sender=request.user)
     messages.info(request, _("Evaluation saved"))
     return HttpResponse('', status=332)
 
@@ -396,7 +395,7 @@ def cancelbid(request, id):
             bid.validated = True #We won't ask for user's validation anymore
             bid.save()
     #notify users about this bid cancellation
-    request.user.get_profile().notify_all(project, "project_bid_cancel", bid)
+    project.notify_all(request.user, "project_bid_cancel", bid)
     messages.info(request, _("Bid cancelled"))
     return HttpResponse('', status=332)
 
@@ -435,7 +434,7 @@ def cancelproject(request, id):
     project.state = OI_CANCELLED
     project.save()
     #notify users about this cancellation
-    request.user.get_profile().notify_all(project, "project_cancel", project.title)
+    project.notify_all(request.user, "project_cancel", project.title)
     return HttpResponse(_("Task cancelled. Awaiting confirmation from other users"))
 
 @OINeedsPrjPerms(OI_READ)
@@ -527,7 +526,7 @@ def editprogress(request, id):
     project.progress = Decimal(progress) / 100
     project.save()
     #notify users about this state change
-    request.user.get_profile().notify_all(project, "project_state", "%s %%"%project.progress)
+    project.notify_all(request.user, "project_state", "%s %%"%project.progress)
     return HttpResponse(_("Progress updated"))
 
 @ajax_login_required
@@ -602,7 +601,7 @@ def savespec(request, id, specid='0'):
     spec.save()
 
     #notify users about this spec change
-    request.user.get_profile().notify_all(project, "project_spec", spec)
+    project.notify_all(request.user, "project_spec", spec)
     return render_to_response('projects/spec/spec.html',{'user': request.user, 'project' : project, 'spec' : spec})
 
 @OINeedsPrjPerms(OI_WRITE)

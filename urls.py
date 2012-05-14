@@ -34,7 +34,7 @@ urlpatterns = patterns('',
     # Pages des utilisateurs
     (r'^user/', include('oi.users.urls')),
     # notifications
-    (r'^notification/', include('oi.notification.urls')),
+    (r'^notification/', include('oi.prjnotify.urls')),
     # Authentification par defaut
     (r'^login/$', 'django.contrib.auth.views.login'),
     (r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': "/"}),

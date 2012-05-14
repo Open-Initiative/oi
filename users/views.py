@@ -16,7 +16,7 @@ from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render_to_response
 from django.utils.translation import ugettext as _
 from django.views.generic.simple import direct_to_template
-from oi.notification.models import NoticeType, get_notification_setting
+from oi.prjnotify.models import Notice, NoticeType, get_notification_setting, notify
 from oi.settings import MEDIA_ROOT, MEDIA_URL, PAYMENT_ACTION
 from oi.helpers import render_to_pdf, OI_DISPLAYNAME_TYPES, computeSHA
 from oi.users.models import User, UserProfile, UserProfileForm, PersonalMessage, Payment
@@ -84,7 +84,7 @@ def setrss(request):
 def invite(request, id):
     """adds a user as a contact of the current user"""
     request.user.get_profile().contacts.add(id)
-    notification.send( [ User.objects.get(id=id) ], 'invitation', {}, True, request.user )
+    notify( [ User.objects.get(id=id) ], 'invitation', sender=request.user )
     return HttpResponse(_("Invitation sent"))
 
 def resetpassword(request):
@@ -244,13 +244,13 @@ def sendMP(request, id):
     """sends a private to the selected user, from the current user"""
     mp = PersonalMessage(from_user=request.user, to_user=User.objects.get(id=id), text=request.POST['message'], subject=request.POST['subject'])
     mp.save()
-    notification.send([mp.to_user], 'personal_message', {'message':mp.text, 'subject':mp.subject}, True, mp.from_user)
+    notify([mp.to_user], 'personal_message',  extra_context={'message':mp.text, 'subject':mp.subject}, sender=mp.from_user)
     return HttpResponse(_("Message sent"))
 
 @login_required
 def archivenotice(request):
     """Sets the notice as archived, so that it doesn't appear in the user report anymore"""
-    notice = notification.Notice.objects.get(id=request.POST["notice"])
+    notice = Notice.objects.get(id=request.POST["notice"])
     if notice.recipient != request.user:
         raise Http404
     notice.archive()

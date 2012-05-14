@@ -15,7 +15,6 @@ from django.views.generic.simple import direct_to_template
 from oi.helpers import OI_PAGE_SIZE, OI_ALL_PERMS, OI_READ, OI_WRITE, ajax_login_required
 from oi.helpers import OI_SCORE_ADD, OI_SCORE_DEFAULT_RELEVANCE, OI_EXPERTISE_FROM_ANSWER, OI_EXPERTISE_TO_MESSAGE
 from oi.settings import MEDIA_ROOT, MEDIA_URL
-from oi.notification.models import notify
 from oi.projects.models import Project
 from oi.messages.models import Message, PromotedMessage, OINeedsMsgPerms
 from oi.messages.templatetags.oifilters import oiescape, summarize
@@ -88,9 +87,14 @@ def savemessage(request, id):
         if parent:
             parent.add_expertise(parent.author, message.get_expertise(request.user)*OI_EXPERTISE_FROM_ANSWER, False)
         message.add_expertise(request.user, OI_SCORE_ADD, True)
-
+    
     #notify users about this message
-    message.project.notify_all(request.user, "answer", message.title)
+    try:
+        project = project or message.ancestors.exclude(project=None).get().project
+    except Project.DoesNotExist:
+        project = None
+    if project:
+        project.notify_all(request.user, "answer", message.title)
     #adds the message to user's observation
     if author and message.project:
             request.user.get_profile().observed_projects.add(message.project)

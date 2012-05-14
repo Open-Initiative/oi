@@ -8,7 +8,7 @@ sys.path.insert(0, _ROOT_DIR)
 sys.path.insert(0, _MODULES_DIR)
 os.environ['DJANGO_SETTINGS_MODULE'] = "%s.settings" % _PROJECT_NAME
 
-from oi.notification.models import NoticeType
-n = NoticeType.objects.get(label="project__bid_cancel")
-n.label = "project_bid_cancel"
-n.save()
+#from oi.notification.models import NoticeType
+#n = NoticeType.objects.get(label="project__bid_cancel")
+#n.label = "project_bid_cancel"
+#n.save()
