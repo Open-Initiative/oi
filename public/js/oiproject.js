@@ -288,7 +288,15 @@ function saveSpec(divid, projectid, order, specid) {
     if(getValue("filename_"+divid)) params+="&filename="+getValue("filename_"+divid);
     if(getValue("ts_"+divid)) params+="&ts="+getValue("ts_"+divid);
     if(getValue("image_"+divid)) params+="&image="+getValue("image_"+divid);
-    OIajaxCall("/project/"+projectid+"/savespec/"+specid, params, divid);
+    OIajaxCall("/project/"+projectid+"/savespec/"+specid, params, divid,
+        function(divid){
+            return function(){
+                     var div = document.getElementById(divid);
+                     while(div.childNodes.length)
+                         div.parentNode.appendChild(div.firstChild);
+                     div.parentNode.removeChild(div);
+                   }
+        }(divid));
 }
 function deleteSpec(projectid, specorder) {
     if(confirm(gettext("Are you sure you want to delete this specification permanently?"))) {
@@ -301,9 +309,9 @@ function deleteSpec(projectid, specorder) {
 }
 function receiveSpot(spot, event) {
         this.appendChild(spot.number);
-        spot.move((event.pageX|(event.clientX + document.documentElement.scrollLeft))
-            -this.parentElement.offsetLeft-10, (event.pageY|(event.clientY + document.documentElement.scrollTop))
-            -this.parentElement.offsetTop-10);
+        spot.move(
+            (event.pageX|(event.clientX + document.documentElement.scrollLeft))-this.parentElement.offsetLeft-10,
+            (event.pageY|(event.clientY + document.documentElement.scrollTop))-this.parentElement.offsetTop-10);
     }
 function OISpot(specDiv, projectid, specid, spotid, x, y, title, linkid, number) {
     this.projectid = projectid;
@@ -346,10 +354,10 @@ OISpot.prototype.drag = function drag(evt) {
     return false;
 }
 OISpot.prototype.drop = function drop(evt) {
-    //window.draggedDiv.spot.div.parentNode.receiveSpot(window.draggedDiv.spot, evt);
-    var target = evt.target;
+    window.draggedDiv.spot.div.parentNode.receiveSpot(window.draggedDiv.spot, evt);
+    /*var target = evt.target;
     while(target && !target.receiveSpot) target = target.parentNode;
-    if(target) target.receiveSpot(window.draggedDiv.spot, evt);
+    if(target) target.receiveSpot(window.draggedDiv.spot, evt);*/
     window.draggedDiv = null;
     document.onmouseup = null;
     document.onmousemove = null;
