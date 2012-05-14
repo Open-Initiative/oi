@@ -37,6 +37,5 @@
         var spot = new OISpot(document.getElementById("spec_{{project.id}}_{{spec.order}}"), {{project.id}}, {{spec.id}}, 0, (event.pageX|(event.clientX + document.documentElement.scrollLeft))-this.parentElement.offsetLeft, (event.pageY|(event.clientY + document.documentElement.scrollTop))-this.parentElement.offsetTop);
         spot.save(id);
     }
-    document.getElementById("spec_{{project.id}}_{{spec.order}}").receiveSpot = receiveSpot;
 {% endif %}
 </script>
