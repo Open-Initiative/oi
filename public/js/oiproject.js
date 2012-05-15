@@ -229,7 +229,7 @@ function deleteProject(projectid) {
     }
 }
 function updateProgress(projectid, progress) {
-    progress = Math.min(Math.round(progress*100), 100);
+    var progress = Math.min(Math.round(progress*100), 100);
     OIajaxCall("/project/editprogress/"+projectid, "progress="+progress, "output", 
         function(){document.getElementById("progressbar_"+projectid).style.width = progress+"%";
         document.getElementById("progresslabel_"+projectid).innerHTML = progress+"%";});
@@ -265,19 +265,19 @@ function moveSpec(projectid, specorder, moveUp){
             });  
 }
 function editSpec(projectid, specorder) {
-    specid = getValue("specid_"+specorder);
-    divid = "spec_"+projectid+"_"+specorder;
+    var specid = getValue("specid_"+specorder);
+    var divid = "spec_"+projectid+"_"+specorder;
     OIajaxCall("/project/"+projectid+"/editspec/"+specid+"?divid="+divid, null, divid,
         function(){changeSpecType(divid, getValue("type_"+divid));});
 }
 function changeSpecType(divid, type) {
     if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
-    projectid = getValue("projectid_"+divid);
-    specid = getValue("specid_"+divid);
+    var projectid = getValue("projectid_"+divid);
+    var specid = getValue("specid_"+divid);
     document.getElementById("type"+getValue("type_"+divid)+"_"+divid).className = "spectype";
     document.getElementById("type"+type+"_"+divid).className = "spectype spectypeselected";
     document.getElementById("type_"+divid).value = type;
-    url = "/project/"+projectid+"/editspecdetails/"+specid+"?divid="+divid+"&type="+type;
+    var url = "/project/"+projectid+"/editspecdetails/"+specid+"?divid="+divid+"&type="+type;
     OIajaxCall(url, null, "spec_"+divid, 
         function(){if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceAddControl', false, 'text_'+divid);});
 }
@@ -322,7 +322,7 @@ function OISpot(specDiv, projectid, specid, spotid, x, y, title, linkid, number)
     this.div.style.display = 'none';
     this.fillDiv();
     this.div.spot = this;
-    this.div.onclick = function(evt) {document.ignoreClosePopups = true;evt.stopPropagation();};
+    this.div.onclick = function(evt) {document.ignoreClosePopups = true;(evt||window.event).stopPropagation();};
     this.div.style.zIndex = 2;
     
     this.number = document.createElement("span");
@@ -334,30 +334,32 @@ function OISpot(specDiv, projectid, specid, spotid, x, y, title, linkid, number)
     this.number.onmousedown = makeObjectCallback(this.drag, this);
     specDiv.appendChild(this.number);
 }
-OISpot.prototype.positionelt = function positionelt(elt, delta) {
+OISpot.prototype.positionelt = function positioneltSpot(elt, delta) {
     elt.style.position= "absolute";
     elt.style.left = this.x+(delta||0)+"px";
     elt.style.top = this.y+(delta||0)+"px";
 }
-OISpot.prototype.drag = function drag(evt) {
+OISpot.prototype.drag = function dragSpot(evt) {
+    var event = evt||window.event;
     this.hide();
     document.body.style.cursor = "pointer";
     document.onmouseup = makeObjectCallback(this.drop, this);
     document.body.appendChild(this.number);
-    this.number.style.top = (evt.clientY+window.pageYOffset-10)+"px";
-    this.number.style.left = (evt.clientX+window.pageXOffset-10)+"px";
+    this.number.style.top = (event.clientY+document.documentElement.scrollTop-10)+"px";
+    this.number.style.left = (event.clientX+document.documentElement.scrollLeft-10)+"px";
     document.onmousemove= makeObjectCallback(function(evt){
-        this.number.style.top = (evt.clientY+window.pageYOffset-10)+"px";
-        this.number.style.left = (evt.clientX+window.pageXOffset-10)+"px";
+        this.number.style.top = (event.clientY+document.documentElement.scrollTop-10)+"px";
+        this.number.style.left = (event.clientX+document.documentElement.scrollLeft-10)+"px";
     }, this);
     window.draggedSpot = this;
     return false;
 }
-OISpot.prototype.drop = function drop(event) {
+OISpot.prototype.drop = function dropSpot(evt) {
+    var event = evt||window.event;
     this.div.parentNode.appendChild(this.number);
     this.move(
-        (event.pageX|(event.clientX + document.documentElement.scrollLeft))-this.div.parentElement.offsetLeft-10,
-        (event.pageY|(event.clientY + document.documentElement.scrollTop))-this.div.parentElement.offsetTop-10);
+        (event.pageX||(event.clientX + document.documentElement.scrollLeft))-this.div.parentElement.offsetLeft-10,
+        (event.pageY||(event.clientY + document.documentElement.scrollTop))-this.div.parentElement.offsetTop-10);
     document.onmouseup = null;
     document.onmousemove = null;
     document.body.style.cursor = "default";
@@ -365,7 +367,7 @@ OISpot.prototype.drop = function drop(event) {
     event.stopPropagation();
     return false;
 }
-OISpot.prototype.edit = function edit() {
+OISpot.prototype.edit = function editSpot() {
     var formdiv = document.getElementById("newspot").cloneNode(true);
     formdiv.style.display = "block";
     this.div.appendChild(formdiv);
@@ -374,12 +376,12 @@ OISpot.prototype.edit = function edit() {
 OISpot.prototype.fillDiv = function fillDiv() {
     if(this.linkid) OIajaxCall('/project/'+this.linkid+'/summarize', null, this.div.id);
 }
-OISpot.prototype.saveTask = function saveTask() {
+OISpot.prototype.saveTask = function saveTaskSpot() {
     addTask(jQuery('#'+this.div.id+' .newtask_title')[0].value, this.projectid, null, 
         makeObjectCallback(this.save, this));
     return false;
 }
-OISpot.prototype.save = function save(taskid) {
+OISpot.prototype.save = function saveSpot(taskid) {
     this.linkid = taskid;
     OIajaxCall('/project/'+this.projectid+'/savespot/'+this.specid+'/0', "taskid="+this.linkid+ "&x="+this.x + "&y="+this.y, null, makeObjectCallback(function(response){
             var spot = eval(response)[0];
@@ -389,24 +391,24 @@ OISpot.prototype.save = function save(taskid) {
         }, this));
     return false;
 }
-OISpot.prototype.show = function show() {
+OISpot.prototype.show = function showSpot() {
     this.div.style.display = "block";
     addPopup(this);
 }
-OISpot.prototype.hide = function hide() {
+OISpot.prototype.hide = function hideSpot() {
     this.div.style.display = "none";
     if(!this.linkid) {
         this.number.style.display = "none";
     }
 }
-OISpot.prototype.move = function move(x,y) {
+OISpot.prototype.move = function moveSpot(x,y) {
     this.x = x;
     this.y = y;
     this.positionelt(this.div, 20);
     this.positionelt(this.number);
     OIajaxCall('/project/'+this.projectid+'/savespot/'+this.specid+'/'+this.spotid, "taskid="+this.linkid+ "&x="+this.x + "&y="+this.y)
 }
-OISpot.prototype.remove = function remove() {
+OISpot.prototype.remove = function removeSpot() {
     if(confirm(gettext("Are you sure you want to permanently remove this annotation?"))) {
         OIajaxCall('/project/'+this.projectid+'/removespot/'+this.specid+'/'+this.spotid, null, 'output',
             makeObjectCallback(function(){
