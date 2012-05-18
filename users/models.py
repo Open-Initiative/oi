@@ -138,7 +138,7 @@ class UserProfile(models.Model):
             self.observed_projects.remove(ancestors)
         self.observed_projects.remove(project)
 
-        def __unicode__(self):
+    def __unicode__(self):
             return self.get_display_name()
 
 class Skill(models.Model):

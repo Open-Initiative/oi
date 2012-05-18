@@ -21,7 +21,7 @@ function OITreeNode(id, tree, parent, color) {
         };
     this.titleDiv.onmousedown = this.drag;
     this.titleDiv.receiveNode = function receiveNode(id) {
-            if(id!=this.node.id) if(onMoveNode && onMoveNode(id,this.node.id)) this.node.addChild(id);
+            if(id!=this.node.id) onMoveNode(id,this.node.id);
         };
 }
 OITreeNode.prototype.setContent = function setContent() {
@@ -51,8 +51,7 @@ OITreeNode.prototype.over = function over() {
         next.className = "treenext";
         next.receiveNode = function receiveNode(id){
             var node = this.parentNode.node;
-            if(id!=node.id) if(onMoveNode && onMoveNode(id, node.parent.id, node.id))
-                node.parent.addChild(id, 0, node.id);
+            if(id!=node.id) onMoveNode(id,node.parent.id, node.id);
         };
         this.appendChild(next);
         if('onmouseleave' in this) //test browser support for onmouseleave

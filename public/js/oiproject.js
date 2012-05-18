@@ -73,18 +73,24 @@ function onShrinkNode(projectid) {
         oiTable.redraw();
     }
 }
-function onMoveNode(taskid, newParentid, afterid) {
+function onMoveNode(taskid, newParentid, afterid){
     var params = "parent="+newParentid;
     if(afterid) params += "&after="+afterid;
-    if(OIajaxCall("/project/move/"+taskid, params, "output")) {
-        if(oiTable) {
-            oiTable.hideLine(taskid);
-            if(afterid) oiTable.showLine(taskid, afterid)
-            else if(oiTree.nodes[newParentid].open) oiTable.showLine(taskid, oiTree.nodes[newParentid].getLastChild());
-            oiTable.redraw();
+    OIajaxCall("/project/move/"+taskid, params, "output", 
+        function(taskid, newParentid, afterid){
+            return function(){
+                oiTree.nodes[newParentid].addChild(taskid, 0, afterid);
+                if(oiTable) {
+                    oiTable.hideLine(taskid);
+                    if(afterid){ 
+                        oiTable.showLine(taskid, oiTree.nodes[newParentid].getLastChild());
+                    }
+                    else if(oiTree.nodes[newParentid].open){ oiTable.showLine(taskid, oiTree.nodes[newParentid].getLastChild());
+                        oiTable.redraw();
+                    }
+                }
         }
-        return true;
-    } else return false;
+    }(taskid, newParentid, afterid));
 }
 function setActiveTask(projectid, canAdd) {
     oiTree.nodes[projectid].titleDiv.children[0].id = "selected";
@@ -348,6 +354,7 @@ OISpot.prototype.drag = function dragSpot(evt) {
     this.number.style.top = (event.clientY+document.documentElement.scrollTop-10)+"px";
     this.number.style.left = (event.clientX+document.documentElement.scrollLeft-10)+"px";
     document.onmousemove= makeObjectCallback(function(evt){
+        var event = evt||window.event;
         this.number.style.top = (event.clientY+document.documentElement.scrollTop-10)+"px";
         this.number.style.left = (event.clientX+document.documentElement.scrollLeft-10)+"px";
     }, this);
