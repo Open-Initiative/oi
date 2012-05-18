@@ -72,14 +72,18 @@ OITreeNode.prototype.drag = function drag() {
     window.draggedDiv=this.node.titleDiv.cloneNode(true);
     window.draggedDiv.style.position="absolute";
     document.body.appendChild(window.draggedDiv);
-    document.onmousemove= function(evt){window.draggedDiv.style.top=(evt.clientY+window.pageYOffset+3)+"px"; window.draggedDiv.style.left=(evt.clientX+window.pageXOffset+3)+"px";}
+    document.onmousemove= function(evt){
+        var event = evt||window.event;
+        window.draggedDiv.style.top=(event.clientY+document.documentElement.scrollTop+3)+"px";
+        window.draggedDiv.style.left=(event.clientX+document.documentElement.scrollLeft+3)+"px";
+    }
     document.body.style.cursor = "pointer";
     return false;
 }
 OITreeNode.prototype.drop = function drop(evt) {
-    var target = evt.target;
+    var target = (evt||window.event).target;
     while(target && !target.receiveNode) target = target.parentNode;
-    if(target) target.receiveNode(window.draggedNode.id, evt);
+    if(target) target.receiveNode(window.draggedNode.id, evt||window.event);
     window.draggedNode = null;
     document.body.removeChild(window.draggedDiv);
     window.draggedDiv = null;

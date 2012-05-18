@@ -10,10 +10,10 @@ function shrinkMessage(msgid, depth) {
 }
 function addMessage(parentid, projectid) {
     if(parentid==null && projectid==null) {
-        location = "/message/new?categs="+getSelectedCategs(selectedcateg);
+        var location = "/message/new?categs="+getSelectedCategs(selectedcateg);
     } else {
-        divid = parentid?newDiv("children_"+parentid):newDiv("discussions_"+projectid);
-        url = "/message/edit/0?divid="+divid+"&parent="+(parentid || '');
+        var divid = parentid?newDiv("children_"+parentid):newDiv("discussions_"+projectid);
+        var url = "/message/edit/0?divid="+divid+"&parent="+(parentid || '');
         if(projectid) url += "&project="+projectid;
     }
     OIajaxCall(url, null, divid, 
@@ -23,7 +23,7 @@ function addMessage(parentid, projectid) {
 }
 function saveMessage(divid, msgid){
     tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
-    params = "message="+getValue("text_"+divid).replace(/\+/gi,"%2B")+
+    var params = "message="+getValue("text_"+divid).replace(/\+/gi,"%2B")+
         "&title="+getValue("title_"+divid).replace(/\+/gi,"%2B")+
         "&parent="+getValue("parent_"+divid)+"&project="+getValue("project_"+divid);
     OIajaxCall("/message/save/"+msgid, params, divid);
@@ -39,7 +39,7 @@ function cancelMessage(divid, msgid){
     }
 }
 function editMessage(msgid) {
-    divid = "message_"+msgid;
+    var divid = "message_"+msgid;
     OIajaxCall("/message/edit/"+msgid+"?divid="+divid, null, divid, 
         function(){tinyMCE.execCommand('mceAddControl', false, "text_"+divid);});
 }
@@ -50,7 +50,7 @@ function hideMessage(msgid) {
     OIajaxCall("/message/hide/"+msgid, null, "output");
 }
 function shareMessage(msgid) {
-    divid = newDiv("msgdialogue_"+msgid);
+    var divid = newDiv("msgdialogue_"+msgid);
     OIajaxCall("/message/share/"+msgid+"/"+divid, null, divid);
 }
 function confirmShareMessage(msgid, divid) {

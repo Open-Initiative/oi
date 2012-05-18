@@ -43,12 +43,14 @@ function hideChildren(projectid) {
     }
 }
 function populateTaskList(taskLists) {
-    for(var projectid in taskLists) {
-        var i, afterid = projectid;
-        tasks = eval(taskLists[projectid]);
+    var j;
+    for(var list=taskLists[j=0]; j<taskLists.length; list=taskLists[++j]) {
+        var i, afterid=0;
+        var tasks = eval(list);
         for(var task=tasks[i=0]; i<tasks.length; task=tasks[++i]) {
-            setTaskName(oiTree.nodes[String(projectid).replace(".","")].addChild(task.pk, task.fields.state), task.pk, task.fields.title, viewname);
-            if(oiTable) oiTable.addFromTask(task, afterid, i%2);
+            var parentid = task.fields.parent;
+            setTaskName(oiTree.nodes[String(parentid).replace(".","")].addChild(task.pk, task.fields.state), task.pk, task.fields.title, viewname);
+            if(oiTable) oiTable.addFromTask(task, afterid||parentid, i%2);
             afterid = task.pk;
         }
     }
@@ -106,8 +108,7 @@ function editProjectTitle(projectid) {
     OIajaxCall("/project/edittitle/"+projectid, null, "prjtitle_"+projectid);
 }
 function confirmEditTitle(projectid) {
-    title = getValue("title_"+projectid);
-    OIajaxCall("/project/confirmedittitle/"+projectid, "title="+title, "output", 
+    OIajaxCall("/project/confirmedittitle/"+projectid, "title="+getValue("title_"+projectid), "output", 
         function(){resetProjectTitle(projectid, title);});
 }
 function resetProjectTitle(projectid, title) {
@@ -153,10 +154,12 @@ function startProject(projectid) {
         OIajaxCall("/project/start/"+projectid, null, "output");
 }
 function deliverProject(projectid) {
-    OIajaxCall("/project/deliver/"+projectid, null, "output");
+    if(confirm(gettext("Are you sure you want to deliver this task?")))
+        OIajaxCall("/project/deliver/"+projectid, null, "output");
 }
 function validateProject(projectid) {
-    OIajaxCall("/project/validate/"+projectid, null, "output");
+    if(confirm(gettext("Are you sure you want to validate this task?")))
+        OIajaxCall("/project/validate/"+projectid, null, "output");
 }
 function showStar(id, number) {
     for(var i=1;i<=5;i++)
@@ -168,8 +171,7 @@ function setStar(id, dest, number) {
     document.getElementById(dest).value = number;
 }
 function resetStar(id, dest) {
-    number = parseInt(getValue(dest));
-    showStar(id, number);
+    showStar(id, parseInt(getValue(dest)));
 }
 function setPriority(projectid) {
     OIajaxCall("/project/setpriority/"+projectid, "priority="+getValue(projectid+"_priority"), "output");
@@ -227,7 +229,7 @@ function deleteProject(projectid) {
     }
 }
 function updateProgress(projectid, progress) {
-    progress = Math.min(Math.round(progress*100), 100);
+    var progress = Math.min(Math.round(progress*100), 100);
     OIajaxCall("/project/editprogress/"+projectid, "progress="+progress, "output", 
         function(){document.getElementById("progressbar_"+projectid).style.width = progress+"%";
         document.getElementById("progresslabel_"+projectid).innerHTML = progress+"%";});
@@ -241,29 +243,41 @@ function favProject(projectid, param){
         });
 }
 
-function addSpec(projectid, specorder) {
-    var divid;
-    if(!specorder) specorder = -1;
-    if(specorder==-1) divid = newDiv("specs_"+projectid);
-    else divid = newDivTop("spec_"+projectid+"_"+specorder);
-    OIajaxCall("/project/"+projectid+"/editspec/0?divid="+divid+"&specorder="+specorder, null, divid, 
+function addSpec(projectid) {
+    var divid = newDiv("specs_"+projectid);
+    OIajaxCall("/project/"+projectid+"/editspec/0?divid="+divid+"&specorder=-1", null, divid, 
         function(){changeSpecType(divid, 1);});
         document.getElementById(divid).scrollIntoView();
 }
+function moveSpec(projectid, specorder, moveUp){
+    var div = jQuery("#spec_"+projectid+"_"+specorder);
+    var specid = div.find("input").first().val();
+    var targetDiv = moveUp?div.prevAll("div").first():div.nextAll("div").first();
+    var targetspecid = targetDiv.find("input").first().val();
+    if(targetspecid)
+        OIajaxCall("/project/"+projectid+"/movespec/"+specid,"target="+targetspecid, "output",
+            function (){
+                if(moveUp){
+                    div.prevAll("div").first().before(div);
+                }else{
+                    div.nextAll("div").first().after(div);
+                }
+            });  
+}
 function editSpec(projectid, specorder) {
-    specid = getValue("specid_"+specorder);
-    divid = "spec_"+projectid+"_"+specorder;
+    var specid = getValue("specid_"+specorder);
+    var divid = "spec_"+projectid+"_"+specorder;
     OIajaxCall("/project/"+projectid+"/editspec/"+specid+"?divid="+divid, null, divid,
         function(){changeSpecType(divid, getValue("type_"+divid));});
 }
 function changeSpecType(divid, type) {
     if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
-    projectid = getValue("projectid_"+divid);
-    specid = getValue("specid_"+divid);
+    var projectid = getValue("projectid_"+divid);
+    var specid = getValue("specid_"+divid);
     document.getElementById("type"+getValue("type_"+divid)+"_"+divid).className = "spectype";
     document.getElementById("type"+type+"_"+divid).className = "spectype spectypeselected";
     document.getElementById("type_"+divid).value = type;
-    url = "/project/"+projectid+"/editspecdetails/"+specid+"?divid="+divid+"&type="+type;
+    var url = "/project/"+projectid+"/editspecdetails/"+specid+"?divid="+divid+"&type="+type;
     OIajaxCall(url, null, "spec_"+divid, 
         function(){if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceAddControl', false, 'text_'+divid);});
 }
@@ -274,16 +288,25 @@ function saveSpec(divid, projectid, order, specid) {
     if(getValue("filename_"+divid)) params+="&filename="+getValue("filename_"+divid);
     if(getValue("ts_"+divid)) params+="&ts="+getValue("ts_"+divid);
     if(getValue("image_"+divid)) params+="&image="+getValue("image_"+divid);
-    OIajaxCall("/project/"+projectid+"/savespec/"+specid, params, divid);
+    OIajaxCall("/project/"+projectid+"/savespec/"+specid, params, divid,
+        function(divid){
+            return function(){
+                     var div = document.getElementById(divid);
+                     while(div.childNodes.length)
+                         div.parentNode.appendChild(div.firstChild);
+                     div.parentNode.removeChild(div);
+                   }
+        }(divid));
 }
 function deleteSpec(projectid, specorder) {
     if(confirm(gettext("Are you sure you want to delete this specification permanently?"))) {
         specid = getValue("specid_"+specorder);
         OIajaxCall("/project/"+projectid+"/deletespec/"+specid, null, "output", 
-            function(){clearDiv("spec_"+projectid+"_"+specorder);});
+            function(){
+                var div = document.getElementById("spec_"+projectid+"_"+specorder);
+                div.parentNode.removeChild(div);});
     }
 }
-
 function OISpot(specDiv, projectid, specid, spotid, x, y, title, linkid, number) {
     this.projectid = projectid;
     this.specid = specid;
@@ -297,50 +320,54 @@ function OISpot(specDiv, projectid, specid, spotid, x, y, title, linkid, number)
     this.div.className = 'popup';
     this.positionelt(this.div, 20);
     this.div.style.display = 'none';
-    this.div.spot = this;
     this.fillDiv();
-    this.div.onclick = function(evt) {document.ignoreClosePopups = true;evt.stopPropagation();};
+    this.div.spot = this;
+    this.div.onclick = function(evt) {document.ignoreClosePopups = true;(evt||window.event).stopPropagation();};
+    this.div.style.zIndex = 2;
     
     this.number = document.createElement("span");
     this.number.innerHTML = number||"";
     this.positionelt(this.number);
     this.number.className = "spotnumber";
-    this.number.spot = this;
-    this.number.onmouseover = function(evt) {if(!window.draggedDiv)this.spot.show();return false;};
-    this.number.onmousedown = this.drag;
+    this.number.style.zIndex = 1;
+    this.number.onmouseover = makeObjectCallback(function(evt) {if(!window.draggedSpot)this.show();return false;}, this);
+    this.number.onmousedown = makeObjectCallback(this.drag, this);
     specDiv.appendChild(this.number);
 }
-OISpot.prototype.drag = function drag(evt) {
-    this.spot.hide();
-    document.body.style.cursor = "pointer";
-    window.draggedDiv = this.spot.number;
-    document.onmouseup = window.draggedDiv.spot.drop;
-    document.body.appendChild(window.draggedDiv);
-    window.draggedDiv.style.top=(evt.clientY+window.pageYOffset-10)+"px";
-    window.draggedDiv.style.left=(evt.clientX+window.pageXOffset-10)+"px";
-    document.onmousemove= function(evt){
-        window.draggedDiv.style.top=(evt.clientY+window.pageYOffset-10)+"px";
-        window.draggedDiv.style.left=(evt.clientX+window.pageXOffset-10)+"px";
-    }
-    return false;
-}
-OISpot.prototype.drop = function drop(evt) {
-    window.draggedDiv.spot.div.parentElement.appendChild(window.draggedDiv);
-    var target = evt.target;
-    while(target && !target.receiveSpot) target = target.parentNode;
-    if(target) target.receiveSpot(window.draggedDiv.spot, evt);
-    window.draggedDiv = null;
-    document.onmouseup = null;
-    document.onmousemove = null;
-    document.body.style.cursor = "default";
-    return false;
-}
-OISpot.prototype.positionelt = function positionelt(elt, delta) {
+OISpot.prototype.positionelt = function positioneltSpot(elt, delta) {
     elt.style.position= "absolute";
     elt.style.left = this.x+(delta||0)+"px";
     elt.style.top = this.y+(delta||0)+"px";
 }
-OISpot.prototype.edit = function edit() {
+OISpot.prototype.drag = function dragSpot(evt) {
+    var event = evt||window.event;
+    this.hide();
+    document.body.style.cursor = "pointer";
+    document.onmouseup = makeObjectCallback(this.drop, this);
+    document.body.appendChild(this.number);
+    this.number.style.top = (event.clientY+document.documentElement.scrollTop-10)+"px";
+    this.number.style.left = (event.clientX+document.documentElement.scrollLeft-10)+"px";
+    document.onmousemove= makeObjectCallback(function(evt){
+        this.number.style.top = (event.clientY+document.documentElement.scrollTop-10)+"px";
+        this.number.style.left = (event.clientX+document.documentElement.scrollLeft-10)+"px";
+    }, this);
+    window.draggedSpot = this;
+    return false;
+}
+OISpot.prototype.drop = function dropSpot(evt) {
+    var event = evt||window.event;
+    this.div.parentNode.appendChild(this.number);
+    this.move(
+        (event.pageX||(event.clientX + document.documentElement.scrollLeft))-this.div.parentElement.offsetLeft-10,
+        (event.pageY||(event.clientY + document.documentElement.scrollTop))-this.div.parentElement.offsetTop-10);
+    document.onmouseup = null;
+    document.onmousemove = null;
+    document.body.style.cursor = "default";
+    window.draggedSpot = null;
+    event.stopPropagation();
+    return false;
+}
+OISpot.prototype.edit = function editSpot() {
     var formdiv = document.getElementById("newspot").cloneNode(true);
     formdiv.style.display = "block";
     this.div.appendChild(formdiv);
@@ -349,12 +376,12 @@ OISpot.prototype.edit = function edit() {
 OISpot.prototype.fillDiv = function fillDiv() {
     if(this.linkid) OIajaxCall('/project/'+this.linkid+'/summarize', null, this.div.id);
 }
-OISpot.prototype.saveTask = function saveTask() {
+OISpot.prototype.saveTask = function saveTaskSpot() {
     addTask(jQuery('#'+this.div.id+' .newtask_title')[0].value, this.projectid, null, 
         makeObjectCallback(this.save, this));
     return false;
 }
-OISpot.prototype.save = function save(taskid) {
+OISpot.prototype.save = function saveSpot(taskid) {
     this.linkid = taskid;
     OIajaxCall('/project/'+this.projectid+'/savespot/'+this.specid+'/0', "taskid="+this.linkid+ "&x="+this.x + "&y="+this.y, null, makeObjectCallback(function(response){
             var spot = eval(response)[0];
@@ -364,24 +391,24 @@ OISpot.prototype.save = function save(taskid) {
         }, this));
     return false;
 }
-OISpot.prototype.show = function show() {
+OISpot.prototype.show = function showSpot() {
     this.div.style.display = "block";
     addPopup(this);
 }
-OISpot.prototype.hide = function hide() {
+OISpot.prototype.hide = function hideSpot() {
     this.div.style.display = "none";
     if(!this.linkid) {
         this.number.style.display = "none";
     }
 }
-OISpot.prototype.move = function move(x,y) {
+OISpot.prototype.move = function moveSpot(x,y) {
     this.x = x;
     this.y = y;
     this.positionelt(this.div, 20);
     this.positionelt(this.number);
     OIajaxCall('/project/'+this.projectid+'/savespot/'+this.specid+'/'+this.spotid, "taskid="+this.linkid+ "&x="+this.x + "&y="+this.y)
 }
-OISpot.prototype.remove = function remove() {
+OISpot.prototype.remove = function removeSpot() {
     if(confirm(gettext("Are you sure you want to permanently remove this annotation?"))) {
         OIajaxCall('/project/'+this.projectid+'/removespot/'+this.specid+'/'+this.spotid, null, 'output',
             makeObjectCallback(function(){

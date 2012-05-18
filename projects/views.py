@@ -17,7 +17,6 @@ from django.contrib.syndication.views import Feed
 from django.db.models import Q, Sum
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response, get_object_or_404
-from django.utils.datastructures import SortedDict
 from django.utils.simplejson.encoder import JSONEncoder
 from django.utils.translation import ugettext as _
 from django.views.generic.list_detail import object_detail, object_list
@@ -54,16 +53,16 @@ def getproject(request, id, view="description"):
 @OINeedsPrjPerms(OI_READ)
 def listtasks(request, id):
     """list tasks of requested projects in id or optionnal url parameter expand. Takes care of permissions and order"""
-    lists = SortedDict()
+    lists = []
     #takes the given id as default if expand is not provided
     idlist = [id] if not request.GET.has_key("expand") else request.GET["expand"].split(",")
     for taskid in idlist:
         if taskid:
             project = Project.objects.get(id=taskid)
             #if user doesn't have permission to see the project, add it as '...'
-            if not project.has_perm(request.user, OI_READ):
-                #the '.' enables to have 2 lists with the same id
-                lists[str(project.parent.id)+"."] = '[{"pk": %s, "fields": {"state": 4, "title": "..."}}]'%project.id
+            if project.parent and not project.has_perm(request.user, OI_READ):
+                #adding the task if the user has no right on it, but with no infZo
+                lists.append('[{"pk": %s, "fields": {"state": 4, "parent": "%s", "title": "..."}}]'%(project.id,project.parent.id))
         
             tasks = project.tasks
             if not request.user.is_superuser: #filters on user permissions
@@ -71,8 +70,8 @@ def listtasks(request, id):
             tasks = tasks.distinct().order_by('-priority')
             
             #appends the serialized task list to the global list
-            lists[str(taskid)]=serializers.oiserialize("json", tasks,
-                extra_fields=("assignee.get_profile.get_display_name", "get_budget","allbid_sum","bid_set.count"))
+            lists.append(serializers.oiserialize("json", tasks,
+                extra_fields=("assignee.get_profile.get_display_name", "get_budget","allbid_sum","bid_set.count")))
     return HttpResponse(JSONEncoder().encode(lists)) #serializes the whole thing
 
 @login_required
@@ -128,7 +127,7 @@ def saveproject(request, id='0'):
     if project.parent:
         project.master.notify_all(request.user, "new_project", project)
     #adds the project to user's observation
-    request.user.get_profile().observed_projects.add(project.master)
+    request.user.get_profile().follow_project(project.master)
     if request.POST.get("inline","0") == "1":
         return HttpResponse(serializers.serialize("json", [project]))
     else:
@@ -206,7 +205,7 @@ def offerproject(request, id):
     project.save()
     project.apply_perm(project.assignee, OI_ALL_PERMS)
     #adds the project to user's observation
-    request.user.get_profile().observed_projects.add(project.master)
+    request.user.get_profile().follow_project(project.master)
 
     project.switch_to(OI_ACCEPTED, request.user)
     messages.info(request, _("Task taken on"))
@@ -242,7 +241,7 @@ def answerdelegate(request, id):
     if answer == "true":
         project.assign_to(request.user)
         #adds the project to user's observation
-        request.user.get_profile().observed_projects.add(project.master)
+        request.user.get_profile().follow_project(project.master)
     project.save()
     return HttpResponse(_("reply sent"))
 
@@ -299,7 +298,7 @@ def bidproject(request, id):
 
     project.apply_perm(bid.user, OI_ALL_PERMS)
     #adds the project to user's observation
-    request.user.get_profile().observed_projects.add(project.master)
+    request.user.get_profile().follow_project(project.master)
     
     project.switch_to(OI_ACCEPTED, request.user)
     messages.info(request, ("Bid saved"))
@@ -507,7 +506,8 @@ def shareproject(request, id):
     except (KeyError, User.DoesNotExist):
         return HttpResponse(_("Cannot find user"), status=531)
     project.apply_perm(user, OI_ALL_PERMS)
-    user.get_profile().observed_projects.add(project)
+    #user.get_profile().observed_projects.add(project)
+    request.user.get_profile().follow_project(project)
     messages.info(request, _("Task shared"))
     return HttpResponse('', status=332)
 
@@ -535,10 +535,10 @@ def favproject(request, id):
     """adds the project in the observe list of the user"""
     project = Project.objects.get(id=id)
     if request.POST.has_key("stop"):
-        request.user.get_profile().observed_projects.remove(project)
+        request.user.get_profile().unfollow_project(project)
         return HttpResponse(False)
     else:
-        request.user.get_profile().observed_projects.add(project)
+        request.user.get_profile().follow_project(project)
         return HttpResponse(True)
     
 @OINeedsPrjPerms(OI_WRITE)
@@ -590,6 +590,8 @@ def savespec(request, id, specid='0'):
         spec.type = int(request.POST["type"])
     
     filename = request.POST.get("filename")
+    if not filename and not spec.file and spec.type in (2,5):
+        return HttpResponse(_("Wrong arguments"), status=531)
     if filename:
 #        filename = normalize("NFC", filename)
         filename = normalize("NFKD", filename).encode('ascii', 'ignore').replace('"', '')

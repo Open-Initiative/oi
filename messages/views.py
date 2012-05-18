@@ -89,15 +89,13 @@ def savemessage(request, id):
         message.add_expertise(request.user, OI_SCORE_ADD, True)
     
     #notify users about this message
-    try:
-        project = project or message.ancestors.exclude(project=None).get().project
-    except Project.DoesNotExist:
-        project = None
     if project:
         project.notify_all(request.user, "answer", message.title)
+    for ancestor in message.ancestors.exclude(project=None):
+        ancestor.project.notify_all(request.user, "answer", message.title)
     #adds the message to user's observation
     if author and message.project:
-            request.user.get_profile().observed_projects.add(message.project)
+        request.user.get_profile().follow_project(message.project)
 
     #affiche le nouveau message en retour
     return render_to_response('messages/message.html',{'message' : message}, context_instance=RequestContext(request))

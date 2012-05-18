@@ -117,6 +117,20 @@ class UserProfile(models.Model):
         """Returns comments made in evals on the user"""
         return Bid.objects.filter(project__assignee=self.user).exclude(comment="")
 
+    def follow_project(self, project):
+        """make the user follow the project"""
+        if project.ancestors.filter(followers = self.user):
+            return False
+        else:
+            self.observed_projects.add(project)
+            return True
+        
+    def unfollow_project(self, project):
+        """make the user stop follow the project"""
+        for ancestor in project.ancestors.filter(followers = self.user):
+            self.observed_projects.remove(ancestors)
+        self.observed_projects.remove(project)
+
     def __unicode__(self):
         return self.get_display_name()
 
