@@ -19,51 +19,47 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext, get_language, activate
 from oi.helpers import OI_READ
 
-QUEUE_ALL = getattr(settings, "NOTIFICATION_QUEUE_ALL", False)
-
-class LanguageStoreNotAvailable(Exception):
-    pass
+# if this gets updated, the create() method below needs to be as well...
+NOTICE_MEDIA = (("1", _("Email")),)
 
 def notify(users, label, project=None, extra_context={}, on_site=True, sender=None):
-    """
-    A basic interface around both queue and send_now. This honors a global
-    flag NOTIFICATION_QUEUE_ALL that helps determine whether all calls should
-    be queued or not. A per call ``queue`` or ``now`` keyword argument can be
-    used to always override the default global behavior.
-    """
-    current_language = get_language()
+    """Adds notifications for the given list of users"""
     if isinstance(sender, AnonymousUser):
         sender = None
 
     for user in users:
-        notice = Notice.objects.create(recipient=user, project=project, on_site=on_site,
-            notice_type=NoticeType.objects.get(label=label), sender=sender)
         if project and project.has_perm(user, OI_READ):
-            if get_notification_setting(user, notice.notice_type, project).should_send() and user.email and user.is_active: # Email
+            notice = Notice.objects.create(recipient=user, project=project, on_site=on_site,
+                notice_type=NoticeType.objects.get(label=label), sender=sender)
+            if NoticeSetting.get_notification_setting(user, notice.notice_type, project).should_send() and user.email and user.is_active: # Email
                 notice.send()
-    
-    # reset environment to original language
-    activate(current_language)
 
 class NoticeType(models.Model):
     label = models.CharField(_('label'), max_length=40)
     display = models.CharField(_('display'), max_length=50)
     description = models.CharField(_('description'), max_length=100)
-
-    # by default only on for media with sensitivity less than or equal to this number
     default = models.IntegerField(_('default'))
 
+    @classmethod
+    def register(cls, label, display, description, default=2):
+        """Creates a new NoticeType"""
+        notice_type, created = NoticeType.objects.get_or_create(label=label)
+        if created:
+            print "Created %s NoticeType" % label
+        if display != notice_type.display or description != notice_type.description or default != notice_type.default:
+            notice_type.display = display
+            notice_type.description = description
+            notice_type.default = default
+            notice_type.save()
+            if not created:
+                print "Updated %s NoticeType" % label
+    
     def __unicode__(self):
         return self.label
 
     class Meta:
         verbose_name = _("notice type")
         verbose_name_plural = _("notice types")
-
-# if this gets updated, the create() method below needs to be as well...
-NOTICE_MEDIA = (("1", _("Email")),)
-# how spam-sensitive is the medium
-NOTICE_MEDIA_DEFAULTS = {"1": 2} # email
 
 class NoticeSetting(models.Model):
     """
@@ -74,20 +70,108 @@ class NoticeSetting(models.Model):
     notice_type = models.ForeignKey(NoticeType, verbose_name=_('notice type'))
     medium = models.CharField(_('medium'), max_length=1, choices=NOTICE_MEDIA)
     last_notice = models.DateTimeField(null=True)
-    send_every = models.IntegerField(default=0)
+    send_every = models.IntegerField(default=3600)
     project = models.ForeignKey("projects.Project", null=True)
     
     def should_send(self):
-        return (self.last_notice or datetime.min) + timedelta(self.send_every) < datetime.now()
-        
+        return (self.last_notice or datetime.min) + timedelta(seconds=self.send_every) < datetime.now()
+    
+    @classmethod
+    def get_setting(cls, user, notice_type, project=None):
+        try:
+            return NoticeSetting.objects.get(user=user, notice_type=notice_type, project=project)
+        except NoticeSetting.DoesNotExist:
+            setting, created = NoticeSetting.objects.get_or_create(user=user, notice_type=notice_type, project=None)
+            return setting
+    
+    def __unicode__(self):
+        return u"%s's notification settings for %s on %s"%(self.user, self.notice_type, self.project or "all projects")
+    
     class Meta:
         verbose_name = _("notice setting")
         verbose_name_plural = _("notice settings")
-        unique_together = ("user", "notice_type", "medium")
+        unique_together = ("user", "notice_type", "project")
 
-def get_notification_setting(user, notice_type, project=None):
-    setting, created = NoticeSetting.objects.get_or_create(user=user, notice_type=notice_type, project=project)
-    return setting
+class Notice(models.Model):
+    recipient = models.ForeignKey(User, related_name='recieved_notices', verbose_name=_('recipient'))
+    sender = models.ForeignKey(User, null=True, related_name='sent_notices', verbose_name=_('sender'))
+    notice_type = models.ForeignKey(NoticeType, verbose_name=_('notice type'))
+    added = models.DateTimeField(_('added'), default=datetime.now)
+    unseen = models.BooleanField(_('unseen'), default=True)
+    archived = models.BooleanField(_('archived'), default=False)
+    sent = models.DateTimeField(null=True)
+    on_site = models.BooleanField(_('on site'))
+    project = models.ForeignKey("projects.Project")
+    objects = NoticeManager()
+
+    def __unicode__(self):
+        return self.render()
+
+    def archive(self):
+        self.archived = True
+        self.save()
+    
+    def render(self):
+        return render_to_string(('notification/%s/%s' % (self.notice_type.label, 'notice.html'), 'notification/%s' % format),
+            context_instance=Context({"recipient": self.recipient, "sender": self.sender, "notice": ugettext(self.notice_type.display),}))
+
+    def send(self):
+        # get user language for user from language store defined in
+        # NOTIFICATION_LANGUAGE_MODULE setting
+        current_language = get_language() #the language is to be temporarily switched to the recipient's language
+        activate(self.recipient.get_profile().language)
+        
+        formats = ('short.txt', 'full.txt', 'notice.html', 'full.html',) # TODO make formats configurable
+        protocol = getattr(settings, "DEFAULT_HTTP_PROTOCOL", "http")
+        current_site = Site.objects.get_current()
+        notices_url = u"%s://%s%s" % (protocol, unicode(current_site), reverse("notification_notices"),)
+
+        # update context with user specific translations
+        context = Context({"recipient": self.recipient, "sender": self.sender, "notice": ugettext(self.notice_type.display),
+            "notices_url": notices_url, "current_site": current_site,})
+        
+        self.sent = datetime.now()
+        self.save()
+        
+        # get formated messages
+        messages = self.get_formatted_messages(formats, context)
+        # Strip newlines from subject
+        subject = ''.join(render_to_string('notification/email_subject.txt', {'message': messages['short.txt'],}, context).splitlines())
+        body = render_to_string('notification/email_body.txt', {'message': messages['full.txt'],}, context)
+        body_html = render_to_string('notification/email_body.html', {'message': messages['full.html'],}, context)
+        
+        msg = EmailMultiAlternatives(subject, body, settings.DEFAULT_FROM_EMAIL, [self.recipient.email])
+        msg.attach_alternative(body_html, "text/html")
+    
+        # reset environment to original language
+        activate(current_language)
+        return msg.send()
+
+    def get_formatted_messages(self, formats, context):
+        """
+        Returns a dictionary with the format identifier as the key. The values are
+        are fully rendered templates with the given context.
+        """
+        format_templates = {}
+        for format in formats:
+            # conditionally turn off autoescaping for .txt extensions in format
+            if format.endswith(".txt"):
+                context.autoescape = False
+            else:
+                context.autoescape = True
+            format_templates[format] = render_to_string((
+                'notification/%s/%s' % (self.label, format),
+                'notification/%s' % format), context_instance=context)
+        return format_templates
+    
+    class Meta:
+        ordering = ["-added"]
+        verbose_name = _("notice")
+        verbose_name_plural = _("notices")
+
+    def get_absolute_url(self):
+        return ("notification_notice", [str(self.pk)])
+    get_absolute_url = models.permalink(get_absolute_url)
 
 class NoticeManager(models.Manager):
     def notices_for(self, user, archived=False, unseen=None, on_site=None, sent=False):
@@ -131,151 +215,6 @@ class NoticeManager(models.Manager):
         kwargs["sent"] = True
         return self.notices_for(sender, **kwargs)
 
-class Notice(models.Model):
-    recipient = models.ForeignKey(User, related_name='recieved_notices', verbose_name=_('recipient'))
-    sender = models.ForeignKey(User, null=True, related_name='sent_notices', verbose_name=_('sender'))
-    notice_type = models.ForeignKey(NoticeType, verbose_name=_('notice type'))
-    added = models.DateTimeField(_('added'), default=datetime.now)
-    unseen = models.BooleanField(_('unseen'), default=True)
-    archived = models.BooleanField(_('archived'), default=False)
-    sent = models.DateTimeField(null=True)
-    on_site = models.BooleanField(_('on site'))
-    project = models.ForeignKey("projects.Project")
-    objects = NoticeManager()
-
-    def __unicode__(self):
-        return self.render()
-
-    def archive(self):
-        self.archived = True
-        self.save()
-    
-    def render(self):
-        return render_to_string(('notification/%s/%s' % (self.notice_type.label, 'notice.html'), 'notification/%s' % format),
-            context_instance=Context({"recipient": self.recipient, "sender": self.sender, "notice": ugettext(self.notice_type.display),}))
-
-    def send(self):
-        # get user language for user from language store defined in
-        # NOTIFICATION_LANGUAGE_MODULE setting
-        try:
-            language = get_notification_language(self.recipient)
-            activate(language) # activate the user's language
-        except LanguageStoreNotAvailable:
-            language = None
-        
-        formats = ('short.txt', 'full.txt', 'notice.html', 'full.html',) # TODO make formats configurable
-        protocol = getattr(settings, "DEFAULT_HTTP_PROTOCOL", "http")
-        current_site = Site.objects.get_current()
-        notices_url = u"%s://%s%s" % (protocol, unicode(current_site), reverse("notification_notices"),)
-
-        # update context with user specific translations
-        context = Context({"recipient": self.recipient, "sender": self.sender, "notice": ugettext(self.notice_type.display),
-            "notices_url": notices_url, "current_site": current_site,})
-        
-        self.sent = datetime.now()
-        self.save()
-        
-        # get formated messages
-        messages = get_formatted_messages(formats, self.notice_type.label, context)
-        # Strip newlines from subject
-        subject = ''.join(render_to_string('notification/email_subject.txt', {'message': messages['short.txt'],}, context).splitlines())
-        body = render_to_string('notification/email_body.txt', {'message': messages['full.txt'],}, context)
-        body_html = render_to_string('notification/email_body.html', {'message': messages['full.html'],}, context)
-        
-        msg = EmailMultiAlternatives(subject, body, settings.DEFAULT_FROM_EMAIL, [self.recipient.email])
-        msg.attach_alternative(body_html, "text/html")
-        return msg.send()
-
-    def is_unseen(self):
-        """
-        returns value of self.unseen but also changes it to false.
-
-        Use this in a template to mark an unseen notice differently the first
-        time it is shown.
-        """
-        unseen = self.unseen
-        if unseen:
-            self.unseen = False
-            self.save()
-        return unseen
-
-    class Meta:
-        ordering = ["-added"]
-        verbose_name = _("notice")
-        verbose_name_plural = _("notices")
-
-    def get_absolute_url(self):
-        return ("notification_notice", [str(self.pk)])
-    get_absolute_url = models.permalink(get_absolute_url)
-
-class NoticeQueueBatch(models.Model):
-    """
-    A queued notice.
-    Denormalized data for a notice.
-    """
-    pickled_data = models.TextField()
-
-def create_notice_type(label, display, description, default=2, verbosity=1):
-    """
-    Creates a new NoticeType.
-
-    This is intended to be used by other apps as a post_syncdb manangement step.
-    """
-    try:
-        notice_type = NoticeType.objects.get(label=label)
-        updated = False
-        if display != notice_type.display:
-            notice_type.display = display
-            updated = True
-        if description != notice_type.description:
-            notice_type.description = description
-            updated = True
-        if default != notice_type.default:
-            notice_type.default = default
-            updated = True
-        if updated:
-            notice_type.save()
-            if verbosity > 1:
-                print "Updated %s NoticeType" % label
-    except NoticeType.DoesNotExist:
-        NoticeType(label=label, display=display, description=description, default=default).save()
-        if verbosity > 1:
-            print "Created %s NoticeType" % label
-
-def get_notification_language(user):
-    """
-    Returns site-specific notification language for this user. Raises
-    LanguageStoreNotAvailable if this site does not use translated
-    notifications.
-    """
-    if getattr(settings, 'NOTIFICATION_LANGUAGE_MODULE', False):
-        try:
-            app_label, model_name = settings.NOTIFICATION_LANGUAGE_MODULE.split('.')
-            model = models.get_model(app_label, model_name)
-            language_model = model._default_manager.get(user__id__exact=user.id)
-            if hasattr(language_model, 'language'):
-                return language_model.language
-        except (ImportError, ImproperlyConfigured, model.DoesNotExist):
-            raise LanguageStoreNotAvailable
-    raise LanguageStoreNotAvailable
-
-def get_formatted_messages(formats, label, context):
-    """
-    Returns a dictionary with the format identifier as the key. The values are
-    are fully rendered templates with the given context.
-    """
-    format_templates = {}
-    for format in formats:
-        # conditionally turn off autoescaping for .txt extensions in format
-        if format.endswith(".txt"):
-            context.autoescape = False
-        else:
-            context.autoescape = True
-        format_templates[format] = render_to_string((
-            'notification/%s/%s' % (label, format),
-            'notification/%s' % format), context_instance=context)
-    return format_templates
-
 class ObservedItemManager(models.Manager):
     def all_for(self, observed, signal):
         """
@@ -290,7 +229,6 @@ class ObservedItemManager(models.Manager):
         content_type = ContentType.objects.get_for_model(observed)
         observed_item = self.get(content_type=content_type, object_id=observed.id, user=observer, signal=signal)
         return observed_item
-
 
 class ObservedItem(models.Model):
     user = models.ForeignKey(User, verbose_name=_('user'))

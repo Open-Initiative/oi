@@ -16,7 +16,7 @@ from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render_to_response
 from django.utils.translation import ugettext as _
 from django.views.generic.simple import direct_to_template
-from oi.prjnotify.models import Notice, NoticeType, get_notification_setting, notify
+from oi.prjnotify.models import Notice, NoticeType, NoticeSetting, notify
 from oi.settings import MEDIA_ROOT, MEDIA_URL, PAYMENT_ACTION
 from oi.helpers import render_to_pdf, OI_DISPLAYNAME_TYPES, computeSHA
 from oi.users.models import User, UserProfile, UserProfileForm, PersonalMessage, Payment
@@ -51,7 +51,7 @@ def userprofile(request, username):
 def userprefs(request):
     """user settings page"""
     for notice_type in NoticeType.objects.all():
-        notice_type.send = get_notification_setting(request.user, notice_type, "1").send
+        notice_type.send = NoticeSetting.get_notification_setting(request.user, notice_type, "1").send
     extra_context={'notice_settings': notice_settings, 'contact_form':UserProfileForm(instance=request.user.get_profile())}
     return direct_to_template(request, template='users/preferences.html', extra_context=extra_context)
 
@@ -60,7 +60,7 @@ def setemailing(request):
     """sets email sending for a given notice type for the current user"""
     notice_type = NoticeType.objects.get(label=request.POST["label"])
     send = (request.POST["send"] == "true")
-    setting = get_notification_setting(request.user, notice_type, "1")
+    setting = NoticeSetting.get_notification_setting(request.user, notice_type, "1")
     setting.send = send
     setting.save()
     return HttpResponse(_("Setting saved"))

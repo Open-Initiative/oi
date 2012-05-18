@@ -30,8 +30,8 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal('prjnotify', ['NoticeSetting'])
 
-        # Adding unique constraint on 'NoticeSetting', fields ['user', 'notice_type', 'medium']
-        db.create_unique('prjnotify_noticesetting', ['user_id', 'notice_type_id', 'medium'])
+        # Adding unique constraint on 'NoticeSetting', fields ['user', 'notice_type', 'project']
+        db.create_unique('prjnotify_noticesetting', ['user_id', 'notice_type_id', 'project_id'])
 
         # Adding model 'Notice'
         db.create_table('prjnotify_notice', (
@@ -70,8 +70,8 @@ class Migration(SchemaMigration):
 
     def backwards(self, orm):
         
-        # Removing unique constraint on 'NoticeSetting', fields ['user', 'notice_type', 'medium']
-        db.delete_unique('prjnotify_noticesetting', ['user_id', 'notice_type_id', 'medium'])
+        # Removing unique constraint on 'NoticeSetting', fields ['user', 'notice_type', 'project']
+        db.delete_unique('prjnotify_noticesetting', ['user_id', 'notice_type_id', 'project_id'])
 
         # Deleting model 'NoticeType'
         db.delete_table('prjnotify_noticetype')
@@ -145,7 +145,7 @@ class Migration(SchemaMigration):
             'pickled_data': ('django.db.models.fields.TextField', [], {})
         },
         'prjnotify.noticesetting': {
-            'Meta': {'unique_together': "(('user', 'notice_type', 'medium'),)", 'object_name': 'NoticeSetting'},
+            'Meta': {'unique_together': "(('user', 'notice_type', 'project'),)", 'object_name': 'NoticeSetting'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'last_notice': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
             'medium': ('django.db.models.fields.CharField', [], {'max_length': '1'}),

@@ -142,7 +142,7 @@ class Project(models.Model):
             self.save()
             #notify users of state change
             if user:
-                user.get_profile().notify_all(self, "project_state", OI_PRJ_STATES[self.state][1])
+                self.notify_all(user, "project_state", OI_PRJ_STATES[self.state][1])
         return True
 
     @commit_on_success
