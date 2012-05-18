@@ -94,7 +94,7 @@ def savemessage(request, id):
         request.user.get_profile().notify_all(message.project, "answer", message.title)
         #adds the message to user's observation
         if message.project:
-            request.user.get_profile().observed_projects.add(message.project)
+            request.user.get_profile().follow_project(message.project)
     else: #notification from anonymous
         recipients = User.objects.filter(userprofile__observed_projects__subprojects__message__descendants = message).distinct()
         notification.send(recipients, "answer", {'message':message, 'param':message.title}, True, None)

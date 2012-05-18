@@ -123,9 +123,23 @@ class UserProfile(models.Model):
         if prj:
             recipients = User.objects.filter(userprofile__observed_projects__descendants = prj).exclude(userprofile=self).distinct()
             notification.send(recipients, notice_type, {'project':prj, 'param':param}, True, self.user)
+            
+    def follow_project(self, project):
+        """make the user follow the project"""
+        if project.ancestors.filter(followers = self.user):
+            return False
+        else:
+            self.observed_projects.add(project)
+            return True
+        
+    def unfollow_project(self, project):
+        """make the user stop follow the project"""
+        for ancestor in project.ancestors.filter(followers = self.user):
+            self.observed_projects.remove(ancestors)
+        self.observed_projects.remove(project)
 
-    def __unicode__(self):
-        return self.get_display_name()
+        def __unicode__(self):
+            return self.get_display_name()
 
 class Skill(models.Model):
     user = models.ForeignKey(User)

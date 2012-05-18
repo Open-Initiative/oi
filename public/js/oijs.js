@@ -53,14 +53,14 @@ function randid() {
     return "oi" + (""+Math.random()).slice(5);
 }
 function getValue(eltid, erase){
-    elt = document.getElementById(eltid);
+    var elt = document.getElementById(eltid);
     if(elt==null) return null;
-    value = elt.value.replace(/%/g,"%25").replace(/&/g,"%26").replace(/;/g,"%3B");
+    var value = elt.value.replace(/%/g,"%25").replace(/&/g,"%26").replace(/;/g,"%3B");
     if(erase) elt.value = "";
     return value;
 }
 function newDiv(parentid) {
-    divid = randid();
+    var divid = randid();
     var newdiv = document.createElement('div');
     newdiv.setAttribute('id',divid);
     document.getElementById(parentid).appendChild(newdiv);
@@ -97,7 +97,7 @@ function parseDate(dateString) {
 }
 
 function toggle(img, divid) {
-    div = document.getElementById(divid);
+    var div = document.getElementById(divid);
     if(document.defaultView.getComputedStyle(div,null).getPropertyValue('display').toString() == "block") {
         if(img){
             img.down = null;
@@ -114,7 +114,7 @@ function toggle(img, divid) {
 }
 
 function prepareForm(formid) {
-    form = document.forms[formid];
+    var form = document.forms[formid];
     params=[];
     for(i=0;i<form.elements.length;i++)
         if(form.elements[i].type=="checkbox")
@@ -155,14 +155,14 @@ datemax = null;
 selectedStateFilter = null;
 state = null;
 function getSelectedCategs(categArray) {
-    categlist=[];
+    var categlist=[];
     for(categ in categArray) if(categArray[categ]) categlist.push(categ);
     return categlist.join(',');
 }
 function applyFilter() {
-    categlist = getSelectedCategs(selectedcateg);
+    var categlist = getSelectedCategs(selectedcateg);
     
-    paramList = new Array();
+    var paramList = new Array();
     if(categlist.length) paramList.push("categs=" + categlist);
     if(datemin) paramList.push("datemin="+datemin.getFullYear()+","+(datemin.getMonth()+1)+","+datemin.getDate());
     if(datemax) paramList.push("datemax="+datemax.getFullYear()+","+(datemax.getMonth()+1)+","+datemax.getDate());
@@ -175,9 +175,9 @@ function applyFilter() {
 }
 function selectCateg(span, categid, dest) {
     if(!span) {
-        anclist = OIajaxCall("/message/listancestors/"+categid, null, null).split(",")
+        var anclist = OIajaxCall("/message/listancestors/"+categid, null, null).split(",")
         for(i=0;i<anclist.length;i++) {
-            img = document.getElementById("arrow"+anclist[i])
+            var img = document.getElementById("arrow"+anclist[i])
             expandCateg(img, Number(anclist[i]), null);
         }
         span = document.getElementById("categ_"+categid)

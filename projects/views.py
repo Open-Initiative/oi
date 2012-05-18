@@ -128,7 +128,7 @@ def saveproject(request, id='0'):
     if project.parent:
         request.user.get_profile().notify_all(project.master, "new_project", project)
     #adds the project to user's observation
-    request.user.get_profile().observed_projects.add(project.master)
+    request.user.get_profile().follow_project(project.master)
     if request.POST.get("inline","0") == "1":
         return HttpResponse(serializers.serialize("json", [project]))
     else:
@@ -206,7 +206,7 @@ def offerproject(request, id):
     project.save()
     project.apply_perm(project.assignee, OI_ALL_PERMS)
     #adds the project to user's observation
-    request.user.get_profile().observed_projects.add(project.master)
+    request.user.get_profile().follow_project(project.master)
 
     project.switch_to(OI_ACCEPTED, request.user)
     messages.info(request, _("Task taken on"))
@@ -242,7 +242,7 @@ def answerdelegate(request, id):
     if answer == "true":
         project.assign_to(request.user)
         #adds the project to user's observation
-        request.user.get_profile().observed_projects.add(project.master)
+        request.user.get_profile().follow_project(project.master)
     project.save()
     return HttpResponse(_("reply sent"))
 
@@ -299,7 +299,7 @@ def bidproject(request, id):
 
     project.apply_perm(bid.user, OI_ALL_PERMS)
     #adds the project to user's observation
-    request.user.get_profile().observed_projects.add(project.master)
+    request.user.get_profile().follow_project(project.master)
     
     project.switch_to(OI_ACCEPTED, request.user)
     messages.info(request, ("Bid saved"))
@@ -507,7 +507,8 @@ def shareproject(request, id):
     except (KeyError, User.DoesNotExist):
         return HttpResponse(_("Cannot find user"), status=531)
     project.apply_perm(user, OI_ALL_PERMS)
-    user.get_profile().observed_projects.add(project)
+    #user.get_profile().observed_projects.add(project)
+    request.user.get_profile().follow_project(project)
     messages.info(request, _("Task shared"))
     return HttpResponse('', status=332)
 
@@ -535,10 +536,10 @@ def favproject(request, id):
     """adds the project in the observe list of the user"""
     project = Project.objects.get(id=id)
     if request.POST.has_key("stop"):
-        request.user.get_profile().observed_projects.remove(project)
+        request.user.get_profile().unfollow_project(project)
         return HttpResponse(False)
     else:
-        request.user.get_profile().observed_projects.add(project)
+        request.user.get_profile().follow_project(project)
         return HttpResponse(True)
     
 @OINeedsPrjPerms(OI_WRITE)
