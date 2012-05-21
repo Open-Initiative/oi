@@ -507,7 +507,6 @@ msgid "You can not evaluate yourself"
 msgstr "Vous ne pouvez pas vous évaluer vous même"
 
 #: projects/views.py:371
-#, fuzzy
 msgid "You have already evaluated this task"
 msgstr "Vous avez déjà évalué cette tâche"
 
@@ -593,7 +592,6 @@ msgid "Wrong arguments"
 msgstr "Arguments incorrects"
 
 #: projects/views.py:626
-#, fuzzy
 msgid "Spec moved"
 msgstr "Message déplacé"
 
@@ -1275,7 +1273,6 @@ msgid "A file describing the job..."
 msgstr "Un fichier descrivant le travail à faire..."
 
 #: templates/projects/spec/spec.html:5
-#, fuzzy
 msgid "Download the desciption"
 msgstr "Télécharger la description"
 
@@ -1284,22 +1281,18 @@ msgid "Guest"
 msgstr "Invité"
 
 #: templates/projects/spec/spec.html:22
-#, fuzzy
 msgid "Delete the description"
 msgstr "Supprimer la description"
 
 #: templates/projects/spec/spec.html:23
-#, fuzzy
 msgid "Correct the description"
 msgstr "Corriger la description"
 
 #: templates/projects/spec/spec.html:24
-#, fuzzy
 msgid "Move the description up"
 msgstr "Déplacer la description vers le haut"
 
 #: templates/projects/spec/spec.html:25
-#, fuzzy
 msgid "Move the description down"
 msgstr "Déplacer la description vers le bas"
 
