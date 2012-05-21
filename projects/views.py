@@ -361,8 +361,12 @@ def evaluateproject(request, id):
     project = Project.objects.get(id=id)
     rating = int(request.POST["rating"])
     comment = request.POST["comment"]
+    if request.user == project.assignee:
+        return HttpResponse(_("You can not evaluate yourself"), status=433)
     if project.state == OI_VALIDATED:
         for bid in project.bid_set.filter(user=request.user):
+            if bid.rating is not None:
+                return HttpResponse(_("You have already evaluated this task"), status=433)
             bid.rating = rating
             bid.comment = comment
             bid.save()
@@ -631,7 +635,7 @@ def deletespec(request, id, specid):
 @OINeedsPrjPerms(OI_WRITE)
 def savespot(request, id, specid, spotid):
     """saves an annotation spot linked to a spec"""
-    if spotid=="0":
+    if spotid=="0": #new spot
         spot = Spot(spec = Spec.objects.get(id=specid))
     else:
         spot = Spot.objects.get(id=spotid)
