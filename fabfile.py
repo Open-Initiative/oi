@@ -16,6 +16,7 @@ def deploy_pp():
     with cd("oi"):
         run("git merge devel")
         run("./manage.py migrate")
+        run("./manage.py register_notice_types")
         
 @hosts('open-initiative@ssh.alwaysdata.com')
 def deploy_PROD():
@@ -23,6 +24,7 @@ def deploy_PROD():
     with cd("oi"):
         run("git merge master")
         run("./manage.py migrate")
+        run("./manage.py register_notice_types")
 
 def maintenance_PROD():
     run("mv www www.off;mv wwwtmp www")

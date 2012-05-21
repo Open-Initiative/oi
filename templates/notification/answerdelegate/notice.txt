@@ -1,0 +1,3 @@
+{% load i18n %}
+{{notice.sender}} {% trans "has" %} {% ifequal answer "true" %}{% trans "accepted" %}{% else %}{% trans "refused" %}{% endifequal %} {% trans "to take on project" %} {{notice.project.title}}
+{{current_site}}/project/{{notice.project.id}}

@@ -1,0 +1,4 @@
+{% load i18n %}{% load oifilters %}
+{{notice.sender}} {% trans "has changed the specification of a project you follow:" %} {{notice.project.title}} :
+{{notice.param|oiunescape}}
+{{current_site}}/project/{{notice.project.id}}

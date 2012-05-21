@@ -13,6 +13,7 @@ from oi.settings import SHASIGN_NAME
 from oi.helpers import OI_DISPLAYNAME_TYPES, computeSHA
 from oi.messages.models import Message, Expert
 from oi.projects.models import Project, Bid
+from oi.prjnotify.models import Observer
 
 def getpicturepath(instance, filename):
     return "user/%s/%s"%(instance.user.username,filename)
@@ -117,19 +118,25 @@ class UserProfile(models.Model):
         """Returns comments made in evals on the user"""
         return Bid.objects.filter(project__assignee=self.user).exclude(comment="")
 
+    def get_default_observer(self):
+        """gets the observer that applies for notification when no project is provided"""
+        observer, created = Observer.objects.get_or_create(user=self.user, project=None, use_default=False)
+        return observer
+
     def follow_project(self, project):
         """make the user follow the project"""
-        if project.ancestors.filter(followers = self.user):
+        if Observer.objects.filter(user=self.user, project__descendants=project):
             return False
         else:
-            self.observed_projects.add(project)
+            Observer.objects.get_or_create(user=self.user, project=project)
             return True
         
     def unfollow_project(self, project):
-        """make the user stop follow the project"""
-        for ancestor in project.ancestors.filter(followers = self.user):
-            self.observed_projects.remove(ancestors)
-        self.observed_projects.remove(project)
+        """make the user stop following the project"""
+        for observer in Observer.objects.filter(user=self.user, project__descendants=project):
+            observer.delete()
+        if Observer.objects.filter(user=self.user, project=project):
+            Observer.objects.get(user=self.user, project=project).delete()
 
     def __unicode__(self):
         return self.get_display_name()

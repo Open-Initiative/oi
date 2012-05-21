@@ -14,9 +14,11 @@
         </div>
     </a>
     <p style="color: #D0574C; font-size: 20px">{% trans "Hello" %} {{name}},</p>
-    {% trans "You have received the following notice from" %} {{ current_site }}:
-    <p>{{ message }}</p>
-    <p style="font-weight: bold; color: #D0574C"><a href="{{notices_url}}">{% trans "See all notices" %}</a></p>
+    {% trans "You have received the following notices from" %} {{ current_site }} {% trans "on project" %} {{observed_project}}:
+    {% for notice in notices %}{% with 'notification/'|add:notice.notice_type.label|add:'/notice.html' as template_name %}
+    <p>{% include template_name %}</p>
+    {% endwith %}{% endfor %}
+    <p style="font-weight: bold; color: #D0574C"><a href="{{current_site}}{{notices_url}}">{% trans "See all notices" %}</a></p>
 </div>
 </body>
 </html>

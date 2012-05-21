@@ -1,5 +1,5 @@
 {% load i18n %}
-<a href="/user/profile/{{sender.username}}">{{sender}}</a>
-{% trans "has added a project proposal in a subject you follow:" %}
-<a href="/project/{{param.id}}">{{param.title}}</a>
-{% trans "in" %} <a href="/message/get/{{message.id}}">{{message.title}}</a>
+<a href="{{current_site}}/user/profile/{{notice.sender.username}}">{{notice.sender}}</a>
+{% trans "has created a new task:" %}
+<a href="{{current_site}}/project/{{notice.project.id}}">{{notice.project.title}}</a>
+{% trans "in project" %} <a href="{{current_site}}/project/get/{{notice.project.parent.id}}">{{notice.project.parent.title}}</a>

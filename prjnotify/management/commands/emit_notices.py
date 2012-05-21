@@ -1,15 +1,11 @@
-
 import logging
-
 from django.core.management.base import NoArgsCommand
-
-from oi.prjnotify.engine import send_all
+from oi.prjnotify.models import Observer
 
 class Command(NoArgsCommand):
     help = "Emit queued notices."
     
     def handle_noargs(self, **options):
-        logging.basicConfig(level=logging.DEBUG, format="%(message)s")
-        logging.info("-" * 72)
-        send_all()
-    
+        for observer in Observer.objects.filter(notice__sent=None):
+            if observer.should_send() and observer.user.email and observer.user.is_active: # Email
+                observer.send()

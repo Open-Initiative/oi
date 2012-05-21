@@ -16,7 +16,7 @@ from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render_to_response
 from django.utils.translation import ugettext as _
 from django.views.generic.simple import direct_to_template
-from oi.prjnotify.models import Notice, NoticeType, NoticeSetting, notify
+from oi.prjnotify.models import Notice, NoticeType, Observer
 from oi.settings import MEDIA_ROOT, MEDIA_URL, PAYMENT_ACTION
 from oi.helpers import render_to_pdf, OI_DISPLAYNAME_TYPES, computeSHA
 from oi.users.models import User, UserProfile, UserProfileForm, PersonalMessage, Payment
@@ -50,9 +50,7 @@ def userprofile(request, username):
 @login_required
 def userprefs(request):
     """user settings page"""
-    for notice_type in NoticeType.objects.all():
-        notice_type.send = NoticeSetting.get_notification_setting(request.user, notice_type, "1").send
-    extra_context={'notice_settings': notice_settings, 'contact_form':UserProfileForm(instance=request.user.get_profile())}
+    extra_context={'contact_form':UserProfileForm(instance=request.user.get_profile())}
     return direct_to_template(request, template='users/preferences.html', extra_context=extra_context)
 
 @login_required
@@ -60,9 +58,7 @@ def setemailing(request):
     """sets email sending for a given notice type for the current user"""
     notice_type = NoticeType.objects.get(label=request.POST["label"])
     send = (request.POST["send"] == "true")
-    setting = NoticeSetting.get_notification_setting(request.user, notice_type, "1")
-    setting.send = send
-    setting.save()
+    setting = Observer.objects.get(request.user).get_setting.update(send=send)
     return HttpResponse(_("Setting saved"))
 
 @login_required
@@ -84,7 +80,7 @@ def setrss(request):
 def invite(request, id):
     """adds a user as a contact of the current user"""
     request.user.get_profile().contacts.add(id)
-    notify( [ User.objects.get(id=id) ], 'invitation', sender=request.user )
+    User.objects.get(id=id).get_profile().get_default_observer.notify('invitation', sender=request.user)
     return HttpResponse(_("Invitation sent"))
 
 def resetpassword(request):
@@ -244,7 +240,7 @@ def sendMP(request, id):
     """sends a private to the selected user, from the current user"""
     mp = PersonalMessage(from_user=request.user, to_user=User.objects.get(id=id), text=request.POST['message'], subject=request.POST['subject'])
     mp.save()
-    notify([mp.to_user], 'personal_message',  extra_context={'message':mp.text, 'subject':mp.subject}, sender=mp.from_user)
+    mp.to_user.get_default_observer.notify('personal_message', param=mp.subject, sender=mp.from_user)
     return HttpResponse(_("Message sent"))
 
 @login_required

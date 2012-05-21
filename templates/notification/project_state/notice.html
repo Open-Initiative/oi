@@ -1,4 +1,5 @@
 {% load i18n %}
-<a href="/user/profile/{{sender.username}}">{{sender}}</a>
+{% load oifilters %}
+<a href="{{current_site}}/user/profile/{{notice.sender.username}}">{{notice.sender}}</a>
 {% trans "has changed the state of a project you follow:" %}<br />
-<a href="/project/{{project.id}}">{{project.title}}</a> {% trans "is now in state" %} {{param}}
+<a href="{{current_site}}/project/{{notice.project.id}}">{{notice.project.title}}</a> {% trans "is now in state" %} {{OI_PRJ_STATES|get:notice.param}}

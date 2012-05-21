@@ -1,0 +1,3 @@
+{% load i18n %}
+{{notice.sender}} {% trans "has created a new task:" %} {{notice.project.title}}
+{{current_site}}/project/get/{{notice.project.id}}

@@ -1,17 +1,23 @@
 from django.contrib import admin
-from oi.prjnotify.models import NoticeType, NoticeSetting, Notice, ObservedItem, NoticeQueueBatch
+from oi.prjnotify.models import NoticeType, NoticeSetting, Notice, Observer
 
 class NoticeTypeAdmin(admin.ModelAdmin):
-    list_display = ('label', 'display', 'description', 'default')
+    list_display = ('label', 'display', 'description')
 
 class NoticeSettingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'notice_type', 'medium')
+    list_display = ('id', 'notice_type', 'medium')
 
 class NoticeAdmin(admin.ModelAdmin):
-    list_display = ('render', 'recipient', 'sender', 'notice_type', 'added', 'unseen', 'archived')
+    list_display = ('recipient', 'sender', 'notice_type', 'added', 'unseen', 'archived')
 
-admin.site.register(NoticeQueueBatch)
+class NoticeInline(admin.TabularInline):
+    model = Notice
+    extra = 0
+
+class ObserverAdmin(admin.ModelAdmin):
+    inlines = [NoticeInline]
+
 admin.site.register(NoticeType, NoticeTypeAdmin)
 admin.site.register(NoticeSetting, NoticeSettingAdmin)
 admin.site.register(Notice, NoticeAdmin)
-admin.site.register(ObservedItem)
+admin.site.register(Observer, ObserverAdmin)

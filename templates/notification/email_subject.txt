@@ -1,1 +1,0 @@
-{% load i18n %}{% blocktrans %}[Open Initiative] {{ message }}{% endblocktrans %}

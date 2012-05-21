@@ -14,24 +14,36 @@ class Migration(SchemaMigration):
             ('label', self.gf('django.db.models.fields.CharField')(max_length=40)),
             ('display', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('description', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('default', self.gf('django.db.models.fields.IntegerField')()),
         ))
         db.send_create_signal('prjnotify', ['NoticeType'])
+
+        # Adding model 'Observer'
+        db.create_table('prjnotify_observer', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+            ('added', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
+            ('use_default', self.gf('django.db.models.fields.BooleanField')(default=True)),
+            ('last_notice', self.gf('django.db.models.fields.DateTimeField')(null=True)),
+            ('send_every', self.gf('django.db.models.fields.IntegerField')(default=3600)),
+            ('project', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['projects.Project'], null=True, blank=True)),
+        ))
+        db.send_create_signal('prjnotify', ['Observer'])
+
+        # Adding unique constraint on 'Observer', fields ['user', 'project']
+        db.create_unique('prjnotify_observer', ['user_id', 'project_id'])
 
         # Adding model 'NoticeSetting'
         db.create_table('prjnotify_noticesetting', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+            ('observer', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['prjnotify.Observer'])),
             ('notice_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['prjnotify.NoticeType'])),
             ('medium', self.gf('django.db.models.fields.CharField')(max_length=1)),
-            ('last_notice', self.gf('django.db.models.fields.DateTimeField')(null=True)),
-            ('send_every', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('project', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['projects.Project'], null=True)),
+            ('send', self.gf('django.db.models.fields.BooleanField')(default=True)),
         ))
         db.send_create_signal('prjnotify', ['NoticeSetting'])
 
-        # Adding unique constraint on 'NoticeSetting', fields ['user', 'notice_type', 'project']
-        db.create_unique('prjnotify_noticesetting', ['user_id', 'notice_type_id', 'project_id'])
+        # Adding unique constraint on 'NoticeSetting', fields ['observer', 'notice_type']
+        db.create_unique('prjnotify_noticesetting', ['observer_id', 'notice_type_id'])
 
         # Adding model 'Notice'
         db.create_table('prjnotify_notice', (
@@ -39,54 +51,37 @@ class Migration(SchemaMigration):
             ('recipient', self.gf('django.db.models.fields.related.ForeignKey')(related_name='recieved_notices', to=orm['auth.User'])),
             ('sender', self.gf('django.db.models.fields.related.ForeignKey')(related_name='sent_notices', null=True, to=orm['auth.User'])),
             ('notice_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['prjnotify.NoticeType'])),
-            ('added', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
+            ('param', self.gf('django.db.models.fields.TextField')(blank=True)),
+            ('added', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('unseen', self.gf('django.db.models.fields.BooleanField')(default=True)),
             ('archived', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('sent', self.gf('django.db.models.fields.DateTimeField')(null=True)),
             ('on_site', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('project', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['projects.Project'])),
+            ('observer', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['prjnotify.Observer'])),
         ))
         db.send_create_signal('prjnotify', ['Notice'])
-
-        # Adding model 'NoticeQueueBatch'
-        db.create_table('prjnotify_noticequeuebatch', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('pickled_data', self.gf('django.db.models.fields.TextField')()),
-        ))
-        db.send_create_signal('prjnotify', ['NoticeQueueBatch'])
-
-        # Adding model 'ObservedItem'
-        db.create_table('prjnotify_observeditem', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('content_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['contenttypes.ContentType'])),
-            ('object_id', self.gf('django.db.models.fields.PositiveIntegerField')()),
-            ('notice_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['prjnotify.NoticeType'])),
-            ('added', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
-            ('signal', self.gf('django.db.models.fields.TextField')()),
-        ))
-        db.send_create_signal('prjnotify', ['ObservedItem'])
 
 
     def backwards(self, orm):
         
-        # Removing unique constraint on 'NoticeSetting', fields ['user', 'notice_type', 'project']
-        db.delete_unique('prjnotify_noticesetting', ['user_id', 'notice_type_id', 'project_id'])
+        # Removing unique constraint on 'NoticeSetting', fields ['observer', 'notice_type']
+        db.delete_unique('prjnotify_noticesetting', ['observer_id', 'notice_type_id'])
+
+        # Removing unique constraint on 'Observer', fields ['user', 'project']
+        db.delete_unique('prjnotify_observer', ['user_id', 'project_id'])
 
         # Deleting model 'NoticeType'
         db.delete_table('prjnotify_noticetype')
+
+        # Deleting model 'Observer'
+        db.delete_table('prjnotify_observer')
 
         # Deleting model 'NoticeSetting'
         db.delete_table('prjnotify_noticesetting')
 
         # Deleting model 'Notice'
         db.delete_table('prjnotify_notice')
-
-        # Deleting model 'NoticeQueueBatch'
-        db.delete_table('prjnotify_noticequeuebatch')
-
-        # Deleting model 'ObservedItem'
-        db.delete_table('prjnotify_observeditem')
 
 
     models = {
@@ -128,48 +123,42 @@ class Migration(SchemaMigration):
         },
         'prjnotify.notice': {
             'Meta': {'ordering': "['-added']", 'object_name': 'Notice'},
-            'added': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
+            'added': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'archived': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'notice_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['prjnotify.NoticeType']"}),
+            'observer': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['prjnotify.Observer']"}),
             'on_site': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'param': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'project': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['projects.Project']"}),
             'recipient': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'recieved_notices'", 'to': "orm['auth.User']"}),
             'sender': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'sent_notices'", 'null': 'True', 'to': "orm['auth.User']"}),
             'sent': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
             'unseen': ('django.db.models.fields.BooleanField', [], {'default': 'True'})
         },
-        'prjnotify.noticequeuebatch': {
-            'Meta': {'object_name': 'NoticeQueueBatch'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'pickled_data': ('django.db.models.fields.TextField', [], {})
-        },
         'prjnotify.noticesetting': {
-            'Meta': {'unique_together': "(('user', 'notice_type', 'project'),)", 'object_name': 'NoticeSetting'},
+            'Meta': {'unique_together': "(('observer', 'notice_type'),)", 'object_name': 'NoticeSetting'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'last_notice': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
             'medium': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             'notice_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['prjnotify.NoticeType']"}),
-            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['projects.Project']", 'null': 'True'}),
-            'send_every': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
+            'observer': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['prjnotify.Observer']"}),
+            'send': ('django.db.models.fields.BooleanField', [], {'default': 'True'})
         },
         'prjnotify.noticetype': {
             'Meta': {'object_name': 'NoticeType'},
-            'default': ('django.db.models.fields.IntegerField', [], {}),
             'description': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'display': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'label': ('django.db.models.fields.CharField', [], {'max_length': '40'})
         },
-        'prjnotify.observeditem': {
-            'Meta': {'ordering': "['-added']", 'object_name': 'ObservedItem'},
-            'added': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
+        'prjnotify.observer': {
+            'Meta': {'unique_together': "(('user', 'project'),)", 'object_name': 'Observer'},
+            'added': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'notice_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['prjnotify.NoticeType']"}),
-            'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'signal': ('django.db.models.fields.TextField', [], {}),
+            'last_notice': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
+            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['projects.Project']", 'null': 'True', 'blank': 'True'}),
+            'send_every': ('django.db.models.fields.IntegerField', [], {'default': '3600'}),
+            'use_default': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
         },
         'projects.project': {

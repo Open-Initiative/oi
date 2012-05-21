@@ -1,1 +1,0 @@
-{% load i18n %}{{ notice }} {% trans "on project" %} {{param.title}}

@@ -1,0 +1,3 @@
+{% load i18n %}
+{{notice.sender}} {% trans "has cancelled his bid on a project you follow:" %} {{notice.project.title}}
+{{current_site}}/project/{{notice.project.id}}

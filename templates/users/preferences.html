@@ -21,27 +21,7 @@
         <a href="/user/changeemail">{% trans "Change your e-mail address" %}</a>
     </div>
     <div>
-        <h2>{% trans "Notification settings" %}</h2>
-        {% comment %}<h3>{% trans "Followed messages" %}</h3>
-        {% for message in user.get_profile.observed_messages.all %}
-        <div id="followmsg_{{message.id}}">
-            <a href="/message/get/{{message.id}}">{{message.title}}</a>
-            <img class="clickable" src="/img/icons/delete.png" onclick="observeMessage({{message.id}}, 'stop=True');clearDiv('followmsg_{{message.id}}')"/>
-        </div>
-        {% endfor %}{% endcomment %}
-        <h3>{% trans "Followed projects" %}</h3>
-        {% for project in user.get_profile.observed_projects.all %}
-        <div id="followprj_{{project.id}}">    
-            <a href="/project/{{project.id}}">{{project.title}}</a>
-            <img class="clickable" src="/img/icons/delete.png" onclick="favProject({{project.id}}, 'stop=True');clearDiv('followprj_{{project.id}}')"/>
-        </div>
-        {% endfor %}
-        <h3>{% trans "E-mail notification" %}</h3>
-        {% for notice_type in notice_settings %}
-        <input type="checkbox" onclick="setemailing('{{notice_type.label}}', this.checked)" {% if notice_type.send %}CHECKED{% endif %}/>
-        {{notice_type.display}}<br />
-        {% endfor %}
-    </div>
+        <a href="/notification/settings">{% trans "Notification settings" %}</a>
 <!--    <div>-->
 <!--        <h2>Privacy settings</h2>-->
 <!--    </div>-->

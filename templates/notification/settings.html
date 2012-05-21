@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}Notifications Settings{% endblock %}
+{% block content %}
+{% for observer in observers %}
+{{observer.project.title|default:"Default settings"}} :
+{% if observer.project %}<input type="checkbox" value="default" {% if observer.use_default %}checked{% endif %}/>
+<label>{% trans "Use default" %}</label>{% endif %}
+<ul>{% for setting in observer.noticesetting_set.all %}
+<li><input type="checkbox" value="default" {% if setting.send %}checked{% endif %}/>
+<label>{{setting.notice_type.label}}</label></li>
+{% endfor %}</ul>
+{% endfor %}
+{% endblock %}

@@ -124,10 +124,9 @@ def saveproject(request, id='0'):
     project.save()
         
     #notify users about this project
-    if project.parent:
-        project.master.notify_all(request.user, "new_project", project)
+    project.notify_all(request.user, "new_project", "")
     #adds the project to user's observation
-    request.user.get_profile().follow_project(project.master)
+    request.user.get_profile().follow_project(project.parent or project)
     if request.POST.get("inline","0") == "1":
         return HttpResponse(serializers.serialize("json", [project]))
     else:
@@ -224,7 +223,7 @@ def delegateproject(request, id):
     except (KeyError, User.DoesNotExist):
         return HttpResponse(_("Cannot find user"), status=531)
     project.save()
-    notify([project.delegate_to], "delegate", project=this, extra_context={'project':project}, sender=request.user)
+    project.delegate_to.get_profile().get_default_observer.notify("delegate", project=project, sender=request.user)
     return HttpResponse(_("Sent delegation offer"))
 
 @ajax_login_required
@@ -235,7 +234,7 @@ def answerdelegate(request, id):
     if project.delegate_to != request.user:
         return HttpResponse(_("The project was not delegated to you"))
     #notifies former assignee of the answer of the user
-    notify([project.assignee], "answerdelegate", project=this, extra_context={'project':project, 'answer':answer}, sender=request.user)
+    project.assignee.get_profile().get_default_observer.notify("answerdelegate", project=project, param=answer, sender=request.user)
     project.delegate_to = None
 
     if answer == "true":
@@ -254,7 +253,7 @@ def answerdelay(request, id):
         return HttpResponse(_("No delay was requested"), status=531)
 
     # notifies the assignee
-    notify([project.assignee], "answerdelay", project=this, extra_context={'project':project, 'answer':answer}, sender=request.user)
+    project.assignee.get_profile().get_default_observer.notify("answerdelay", project=project, param=answer, sender=request.user)
     if answer == "false":
         project.reset_delay_request()
         return HttpResponse(_("The date was not changed"))
@@ -368,7 +367,7 @@ def evaluateproject(request, id):
             bid.comment = comment
             bid.save()
         #notify assignee that he has an evaluation
-        notify([project.assignee], "project_eval", project=this, extra_context={'project':project, 'rating':rating}, sender=request.user)
+        project.assignee.get_profile().get_default_observer.notify("project_eval", project=project, param=unicode(rating), sender=request.user)
     messages.info(request, _("Evaluation saved"))
     return HttpResponse('', status=332)
 
@@ -603,7 +602,7 @@ def savespec(request, id, specid='0'):
     spec.save()
 
     #notify users about this spec change
-    project.notify_all(request.user, "project_spec", spec)
+    project.notify_all(request.user, "project_spec", spec.text)
     return render_to_response('projects/spec/spec.html',{'user': request.user, 'project' : project, 'spec' : spec})
 
 @OINeedsPrjPerms(OI_WRITE)

@@ -1,0 +1,3 @@
+{% load i18n %}
+{{notice.sender}} {% blocktrans with title=notice.project.title %}wants to delegate project {{title}} to you.{% endblocktrans %}
+{{current_site}}/project/{{notice.project.id}}

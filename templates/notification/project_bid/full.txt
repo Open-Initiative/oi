@@ -1,2 +1,0 @@
-{% load i18n %}
-{{sender}} {% trans "has added a bid on a project you follow:" %} {{project.title}}

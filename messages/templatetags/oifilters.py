@@ -7,6 +7,7 @@ from django.utils.safestring import mark_safe
 from django.contrib.auth.models import AnonymousUser
 from oi.messages.models import Message, OI_READ, OI_WRITE, OI_ANSWER
 from oi.projects.models import Project
+from oi.prjnotify.models import Observer
 register = template.Library()
 
 OI_ESCAPE_CODE = {"<hr />":"[[hr]]","<p":"[[p]]","</p>":"[[/p]]","<strong>":"[[strong]]","</strong>":"[[/strong]]","<em>":"[[em]]","</em>":"[[/em]]",
@@ -64,8 +65,11 @@ def get(valueset, key):
     finally:
         try:
             return valueset.__getitem__(key)
-        except KeyError, IndexError:
-            return ''
+        except (KeyError, IndexError):
+            try:
+                return valueset.__getitem__(int(key))
+            except (KeyError, IndexError, ValueError):
+                return ''
 
 @register.filter
 def oidateshift(end_date, start_date):
@@ -104,7 +108,7 @@ def bids(prj, user):
 
 @register.filter
 def is_following(prj, user):
-    return user.is_authenticated() and user.get_profile() in prj.followers.all()
+    return Observer.objects.filter(user=user, project__descendants=prj).count()>0
 
 @register.filter
 def ip_has_voted(obj,ip_address):

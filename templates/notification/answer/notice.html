@@ -1,6 +1,6 @@
 {% load i18n %}
-{% if sender.is_authenticated %}
-<a href="/user/profile/{{sender.username}}">{{sender}}</a>
+{% if notice.sender.is_authenticated %}
+<a href="{{current_site}}/user/profile/{{notice.sender.username}}">{{notice.sender}}</a>
 {% else %} {% trans "guest" %} {% endif %}
 {% blocktrans %} has published a message on a project you follow:{% endblocktrans %}
-<a href="/message/get/{{message.id}}">{{param}}</a>
+<a href="{{current_site}}/project/{{notice.project.id}}">{{notice.param}}</a>

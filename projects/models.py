@@ -12,7 +12,7 @@ from oi.settings import MEDIA_ROOT
 from oi.helpers import OI_ALL_PERMS, OI_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_ANSWER, OI_COMMISSION, OI_COM_ON_BID, OI_CANCELLED_BID
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS
 from oi.helpers import SPEC_TYPES, SPOT_TYPES, TEXT_TYPE, NOTE_TYPE, to_date
-from oi.prjnotify.models import notify
+from oi.prjnotify.models import Observer
 
 # A project can contain subprojects and/or specs. Without them it is only a task
 class Project(models.Model):
@@ -142,7 +142,7 @@ class Project(models.Model):
             self.save()
             #notify users of state change
             if user:
-                self.notify_all(user, "project_state", OI_PRJ_STATES[self.state][1])
+                self.notify_all(user, "project_state", OI_PRJ_STATES[self.state][0])
         return True
 
     @commit_on_success
@@ -220,9 +220,9 @@ class Project(models.Model):
 
     def notify_all(self, sender, notice_type, param):
         """sends a notification to all users about this project"""
-        recipients = User.objects.filter(models.Q(userprofile__observed_projects__descendants = self)|
-            models.Q(userprofile__observed_projects = self)).exclude(userprofile=sender).distinct()
-        notify(recipients, notice_type, project=self, extra_context={'param':param}, sender=sender)
+        for observer in Observer.objects.filter(models.Q(project=self)|
+                models.Q(project__descendants=self)).exclude(user=sender).distinct():
+            observer.notify(label=notice_type, project=self, param=param, sender=sender)
 
     def canceled_bids(self):
         """gets all the bids marked as canceled"""
