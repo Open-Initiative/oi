@@ -363,6 +363,8 @@ def evaluateproject(request, id):
     project = Project.objects.get(id=id)
     rating = int(request.POST["rating"])
     comment = request.POST["comment"]
+    if request.user == project.assignee:
+        return HttpResponse(_("You can not evaluate yourself"), status=433)
     if project.state == OI_VALIDATED:
         for bid in project.bid_set.filter(user=request.user):
             bid.rating = rating
