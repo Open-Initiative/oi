@@ -367,6 +367,8 @@ def evaluateproject(request, id):
         return HttpResponse(_("You can not evaluate yourself"), status=433)
     if project.state == OI_VALIDATED:
         for bid in project.bid_set.filter(user=request.user):
+            if bid.rating is not None:
+                return HttpResponse(_("You have already evaluated this task"), status=433)
             bid.rating = rating
             bid.comment = comment
             bid.save()

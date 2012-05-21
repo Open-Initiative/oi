@@ -18,7 +18,7 @@
     {% if object.state == 3 and not bids.0.validated %}
     <div class="prjstatebtn clickable" onclick="validateProject({{object.id}})">{% trans "Validate" %} <img src="/img/icons/bluebtn.png" /></div>
     {% endif %}
-    {% if object.state == 4 %}
+    {% if object.state == 4 and object.assignee != user and bids.0.rating == None %}
     <div class="prjstatebtn clickable" onclick="evalProject({{object.id}})">{% trans "Evaluate" %} <img src="/img/icons/bluebtn.png" /></div>
     {% endif %}
 {% endif %}{% endwith %}
