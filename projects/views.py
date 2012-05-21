@@ -637,7 +637,7 @@ def deletespec(request, id, specid):
 @OINeedsPrjPerms(OI_WRITE)
 def savespot(request, id, specid, spotid):
     """saves an annotation spot linked to a spec"""
-    if spotid=="0":
+    if spotid=="0": #new spot
         spot = Spot(spec = Spec.objects.get(id=specid))
     else:
         spot = Spot.objects.get(id=spotid)

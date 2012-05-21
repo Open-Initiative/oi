@@ -347,6 +347,7 @@ OISpot.prototype.positionelt = function positioneltSpot(elt, delta) {
 }
 OISpot.prototype.drag = function dragSpot(evt) {
     var event = evt||window.event;
+    window.draggedSpot = this;
     this.hide();
     document.body.style.cursor = "pointer";
     document.onmouseup = makeObjectCallback(this.drop, this);
@@ -358,7 +359,6 @@ OISpot.prototype.drag = function dragSpot(evt) {
         this.number.style.top = (event.clientY+document.documentElement.scrollTop-10)+"px";
         this.number.style.left = (event.clientX+document.documentElement.scrollLeft-10)+"px";
     }, this);
-    window.draggedSpot = this;
     return false;
 }
 OISpot.prototype.drop = function dropSpot(evt) {
@@ -371,6 +371,7 @@ OISpot.prototype.drop = function dropSpot(evt) {
     document.onmousemove = null;
     document.body.style.cursor = "default";
     window.draggedSpot = null;
+    document.ignoreClosePopups = true;
     event.stopPropagation();
     return false;
 }
@@ -404,16 +405,16 @@ OISpot.prototype.show = function showSpot() {
 }
 OISpot.prototype.hide = function hideSpot() {
     this.div.style.display = "none";
-    if(!this.linkid) {
+    if(!(window.draggedSpot || this.linkid))
         this.number.style.display = "none";
-    }
 }
 OISpot.prototype.move = function moveSpot(x,y) {
     this.x = x;
     this.y = y;
     this.positionelt(this.div, 20);
     this.positionelt(this.number);
-    OIajaxCall('/project/'+this.projectid+'/savespot/'+this.specid+'/'+this.spotid, "taskid="+this.linkid+ "&x="+this.x + "&y="+this.y)
+    if(this.spotid)
+        OIajaxCall('/project/'+this.projectid+'/savespot/'+this.specid+'/'+this.spotid, "taskid="+this.linkid+ "&x="+this.x + "&y="+this.y);
 }
 OISpot.prototype.remove = function removeSpot() {
     if(confirm(gettext("Are you sure you want to permanently remove this annotation?"))) {
