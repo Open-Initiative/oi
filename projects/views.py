@@ -223,7 +223,7 @@ def delegateproject(request, id):
     except (KeyError, User.DoesNotExist):
         return HttpResponse(_("Cannot find user"), status=531)
     project.save()
-    project.delegate_to.get_profile().get_default_observer.notify("delegate", project=project, sender=request.user)
+    project.delegate_to.get_profile().get_default_observer().notify("delegate", project=project, sender=request.user)
     return HttpResponse(_("Sent delegation offer"))
 
 @ajax_login_required
@@ -233,15 +233,16 @@ def answerdelegate(request, id):
     answer = request.POST["answer"]
     if project.delegate_to != request.user:
         return HttpResponse(_("The project was not delegated to you"))
-    #notifies former assignee of the answer of the user
-    project.assignee.get_profile().get_default_observer().notify("answerdelegate", project=project, param=answer, sender=request.user)
     project.delegate_to = None
 
     if answer == "true":
         project.assign_to(request.user)
+        project.apply_perm(request.user, OI_ALL_PERMS)
         #adds the project to user's observation
         request.user.get_profile().follow_project(project.master)
     project.save()
+    #notifies former assignee of the answer of the user
+    project.assignee.get_profile().get_default_observer().notify("answerdelegate", project=project, param=answer, sender=request.user)
     return HttpResponse(_("reply sent"))
 
 @ajax_login_required
@@ -326,7 +327,7 @@ def deliverproject(request, id):
     project = Project.objects.get(id=id)
     if not project.switch_to(OI_DELIVERED, request.user):
         return HttpResponseForbidden(_("only the assignee can deliver the project!"))
-
+        
     project.progress = OI_PRJ_DONE
     #resets any delay demand
     project.reset_delay_request()
