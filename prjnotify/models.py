@@ -92,7 +92,7 @@ class Observer(models.Model):
         context = Context({"recipient": self.user, "notification_url": reverse("notification_notices"), 'current_site': current_site, 'observed_project': self.project})
         
         # e-mail data
-        subject = _('Notifications on %s')%(self.project.title or _('your account'))
+        subject = _('Notifications on %s')%(self.project.title if self.project else _('your account'))
         body = render_to_string('notification/email_body.txt', {'notices': notices, 'format': 'txt'}, context)
         body_html = render_to_string('notification/email_body.html', {'notices':notices, 'format': 'html'}, context)
         

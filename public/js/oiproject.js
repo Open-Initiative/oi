@@ -198,7 +198,7 @@ function shareProject(projectid) {
         function(){show("prjdialogue_"+projectid);});
 }
 function confirmShareProject(projectid) {
-    OIajaxCall("/project/"+projectid+"/confirmshare", "username="+getValue("usershare_"+divid), "output", 
+    OIajaxCall("/project/"+projectid+"/confirmshare", "username="+getValue("usershare_"+projectid), "output", 
         function(){hide("prjdialogue_"+projectid);});
 }
 function cancelProject(projectid, state) {

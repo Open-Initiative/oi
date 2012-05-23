@@ -234,7 +234,7 @@ def answerdelegate(request, id):
     if project.delegate_to != request.user:
         return HttpResponse(_("The project was not delegated to you"))
     #notifies former assignee of the answer of the user
-    project.assignee.get_profile().get_default_observer.notify("answerdelegate", project=project, param=answer, sender=request.user)
+    project.assignee.get_profile().get_default_observer().notify("answerdelegate", project=project, param=answer, sender=request.user)
     project.delegate_to = None
 
     if answer == "true":
