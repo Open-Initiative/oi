@@ -509,7 +509,6 @@ def shareproject(request, id):
     except (KeyError, User.DoesNotExist):
         return HttpResponse(_("Cannot find user"), status=531)
     project.apply_perm(user, OI_ALL_PERMS)
-    #user.get_profile().observed_projects.add(project)
     request.user.get_profile().follow_project(project)
     messages.info(request, _("Task shared"))
     return HttpResponse('', status=332)

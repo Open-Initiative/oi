@@ -194,11 +194,11 @@ function toggleHideProject(projectid) {
     OIajaxCall("/project/togglehide/"+projectid, null, "output");
 }
 function shareProject(projectid) {
-    OIajaxCall("/project/share/"+projectid+"/"+divid, null, "prjdialogue_"+projectid, 
+    OIajaxCall("/project/"+projectid+"/share", null, "prjdialogue_"+projectid, 
         function(){show("prjdialogue_"+projectid);});
 }
-function confirmShareProject(projectid, divid) {
-    OIajaxCall("/project/confirmshare/"+projectid, "username="+getValue("usershare_"+divid), "output", 
+function confirmShareProject(projectid) {
+    OIajaxCall("/project/"+projectid+"/confirmshare", "username="+getValue("usershare_"+divid), "output", 
         function(){hide("prjdialogue_"+projectid);});
 }
 function cancelProject(projectid, state) {
