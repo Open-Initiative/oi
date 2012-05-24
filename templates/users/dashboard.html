@@ -4,7 +4,7 @@
 {% block pagetitle %}{% trans "My projects" %}{% endblock %}
 {% block title %}{% trans "My projects" %}{% endblock %}
 {% block nav %}
-{% for project in user.get_profile.observed_projects.distinct|dictsort:"state" %}
+{% for project in user.get_profile.get_observed_projects.distinct|dictsort:"state" %}
 <div>{{project.title}}</div>
 {% endfor %}
 <form onsubmit="addTask(getValue('newproject_title'), null, '{{request.user.username}}',function(taskid){document.location = '/project/'+taskid});return false">
@@ -14,7 +14,7 @@
 {% endblock %}
 {% comment %}contacts, network updates, blog, finance, notification!, mp!{% endcomment %}
 {% block content %}
-{% for project in user.get_profile.observed_projects.distinct|dictsort:"state" %}
+{% for project in user.get_profile.get_observed_projects.distinct|dictsort:"state" %}
 {% if project.state < 4 %}{% include 'projects/project_card.html' %}{% endif %}
 {% endfor %}
 {% endblock %}

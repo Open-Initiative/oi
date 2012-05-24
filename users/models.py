@@ -122,7 +122,11 @@ class UserProfile(models.Model):
         """gets the observer that applies for notification when no project is provided"""
         observer, created = Observer.objects.get_or_create(user=self.user, project=None, use_default=False)
         return observer
-
+        
+    def get_observed_projects(self):
+        """ filter all projects followed by the user"""
+        return Project.objects.filter(observer__user=self.user)
+        
     def follow_project(self, project):
         """make the user follow the project"""
         if Observer.objects.filter(user=self.user, project__descendants=project):
