@@ -1,0 +1,123 @@
+# encoding: utf-8
+import datetime
+from south.db import db
+from south.v2 import SchemaMigration
+from django.db import models
+
+class Migration(SchemaMigration):
+
+    def forwards(self, orm):
+        
+        # Changing field 'Notice.project'
+        db.alter_column('prjnotify_notice', 'project_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['projects.Project'], null=True))
+
+
+    def backwards(self, orm):
+        
+        # User chose to not deal with backwards NULL issues for 'Notice.project'
+        raise RuntimeError("Cannot reverse this migration. 'Notice.project' and its values cannot be restored.")
+
+
+    models = {
+        'auth.group': {
+            'Meta': {'object_name': 'Group'},
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '80'}),
+            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
+        },
+        'auth.permission': {
+            'Meta': {'ordering': "('content_type__app_label', 'content_type__model', 'codename')", 'unique_together': "(('content_type', 'codename'),)", 'object_name': 'Permission'},
+            'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
+        },
+        'auth.user': {
+            'Meta': {'object_name': 'User'},
+            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
+            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
+            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
+            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
+            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
+            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
+            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
+            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
+        },
+        'contenttypes.contenttype': {
+            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
+            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
+        },
+        'prjnotify.notice': {
+            'Meta': {'ordering': "['-added']", 'object_name': 'Notice'},
+            'added': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'archived': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'notice_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['prjnotify.NoticeType']"}),
+            'observer': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['prjnotify.Observer']"}),
+            'on_site': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'param': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
+            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['projects.Project']", 'null': 'True', 'blank': 'True'}),
+            'recipient': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'recieved_notices'", 'to': "orm['auth.User']"}),
+            'sender': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'sent_notices'", 'null': 'True', 'to': "orm['auth.User']"}),
+            'sent': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
+            'unseen': ('django.db.models.fields.BooleanField', [], {'default': 'True'})
+        },
+        'prjnotify.noticesetting': {
+            'Meta': {'unique_together': "(('observer', 'notice_type'),)", 'object_name': 'NoticeSetting'},
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'medium': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
+            'notice_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['prjnotify.NoticeType']"}),
+            'observer': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['prjnotify.Observer']"}),
+            'send': ('django.db.models.fields.BooleanField', [], {'default': 'True'})
+        },
+        'prjnotify.noticetype': {
+            'Meta': {'object_name': 'NoticeType'},
+            'description': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'display': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'label': ('django.db.models.fields.CharField', [], {'max_length': '40'})
+        },
+        'prjnotify.observer': {
+            'Meta': {'unique_together': "(('user', 'project'),)", 'object_name': 'Observer'},
+            'added': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'last_notice': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
+            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['projects.Project']", 'null': 'True', 'blank': 'True'}),
+            'send_every': ('django.db.models.fields.IntegerField', [], {'default': '3600'}),
+            'use_default': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
+        },
+        'projects.project': {
+            'Meta': {'object_name': 'Project'},
+            'ancestors': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "'descendants'", 'blank': 'True', 'to': "orm['projects.Project']"}),
+            'assignee': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'assigned_projects'", 'null': 'True', 'to': "orm['auth.User']"}),
+            'author': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'ownprojects'", 'null': 'True', 'to': "orm['auth.User']"}),
+            'commission': ('django.db.models.fields.DecimalField', [], {'default': '0', 'max_digits': '12', 'decimal_places': '2'}),
+            'created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'delay': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
+            'delegate_to': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'delegated_projects'", 'null': 'True', 'to': "orm['auth.User']"}),
+            'due_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'master': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'subprojects'", 'null': 'True', 'to': "orm['projects.Project']"}),
+            'modified': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'offer': ('django.db.models.fields.DecimalField', [], {'default': '0', 'max_digits': '12', 'decimal_places': '2'}),
+            'parent': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'tasks'", 'null': 'True', 'to': "orm['projects.Project']"}),
+            'priority': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'progress': ('django.db.models.fields.FloatField', [], {'default': '0.0'}),
+            'public': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'start_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
+            'state': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'validation': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'})
+        }
+    }
+
+    complete_apps = ['prjnotify']

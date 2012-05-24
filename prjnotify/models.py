@@ -51,7 +51,7 @@ class Observer(models.Model):
     user = models.ForeignKey(User, verbose_name=_('user'))
     added = models.DateTimeField(_('added'), auto_now_add=True)
     use_default = models.BooleanField(default=True)
-    last_notice = models.DateTimeField(null=True)
+    last_notice = models.DateTimeField(null=True, blank=True)
     send_every = models.IntegerField(default=3600)
     project = models.ForeignKey("projects.Project", null=True, blank=True)
     
@@ -181,9 +181,9 @@ class Notice(models.Model):
     added = models.DateTimeField(_('added'), auto_now_add=True)
     unseen = models.BooleanField(_('unseen'), default=True)
     archived = models.BooleanField(_('archived'), default=False)
-    sent = models.DateTimeField(null=True)
+    sent = models.DateTimeField(null=True, blank=True)
     on_site = models.BooleanField(_('on site'), default=True)
-    project = models.ForeignKey("projects.Project")
+    project = models.ForeignKey("projects.Project", null=True, blank=True)
     observer = models.ForeignKey(Observer)
     objects = NoticeManager()
 
