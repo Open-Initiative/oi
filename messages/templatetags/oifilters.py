@@ -108,7 +108,10 @@ def bids(prj, user):
 
 @register.filter
 def is_following(prj, user):
-    return Observer.objects.filter(user=user, project__descendants=prj).count()>0
+    try:
+        return Observer.objects.filter(user=user, project__descendants=prj).count()>0
+    except TypeError:
+        return False
 
 @register.filter
 def ip_has_voted(obj,ip_address):
