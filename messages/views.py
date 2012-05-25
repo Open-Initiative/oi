@@ -91,11 +91,14 @@ def savemessage(request, id):
     #notify users about this message
     if project:
         project.notify_all(request.user, "answer", message.title)
+        #adds the message to user's observation
+        if author:
+            author.get_profile().follow_project(project)
     for ancestor in message.ancestors.exclude(project=None):
         ancestor.project.notify_all(request.user, "answer", message.title)
-    #adds the message to user's observation
-    if author and message.project:
-        request.user.get_profile().follow_project(message.project)
+        #adds the message to user's observation
+        if author:
+            author.get_profile().follow_project(ancestor.project)
 
     #affiche le nouveau message en retour
     return render_to_response('messages/message.html',{'message' : message}, context_instance=RequestContext(request))

@@ -109,7 +109,7 @@ def bids(prj, user):
 @register.filter
 def is_following(prj, user):
     try:
-        return Observer.objects.filter(user=user, project__descendants=prj).count()>0
+        return Observer.objects.filter(user=user, project__descendants=prj).count() + Observer.objects.filter(user=user, project=prj).count() > 0
     except TypeError:
         return False
 
