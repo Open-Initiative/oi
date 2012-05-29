@@ -4,6 +4,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Open Initiative</title>
+    <style type="text/css">
+    a {text-decoration:underline;}
+    </style>
 </head>
 <body>
 <div style="width: 630px; margin: auto; font-size: 14px; font-family: Helvetica, Arial, sans-serif; line-height: 19px; color: #333; background-color: #ffffff;color:#444444">
@@ -14,7 +17,10 @@
         </div>
     </a>
     <p style="color: #D0574C; font-size: 20px">{% trans "Hello" %} {{name}},</p>
-    {% trans "You have received the following notices from" %} {{ current_site }} {% trans "on project" %} {{observed_project}}:
+    {% trans "You have received the following notices from" %} {{ current_site }}
+    {% if project %}
+        {% trans "on project" %} {{observed_project}}:
+    {% endif %}
     {% for notice in notices %}{% with 'notification/'|add:notice.notice_type.label|add:'/notice.html' as template_name %}
     <p>{% include template_name %}</p>
     {% endwith %}{% endfor %}

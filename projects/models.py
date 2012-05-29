@@ -31,7 +31,7 @@ class Project(models.Model):
     due_date = models.DateTimeField(blank=True, null=True)
     validation = models.DateTimeField(blank=True, null=True)
     delay = models.DateTimeField(blank=True, null=True)
-    progress = models.FloatField(default=0.0)
+    progress = models.IntegerField(default=0.0)
     priority = models.IntegerField(default=0)
     state = models.IntegerField(choices=OI_PRJ_STATES, default=OI_PROPOSED)
     public = models.BooleanField(default=True)
@@ -168,7 +168,7 @@ class Project(models.Model):
     
     def is_late(self):
         """A task is late when its due date is passed but it is not completely done"""
-        return self.progress < 1.0 and self.due_date < datetime.now()
+        return self.progress < 100 and self.due_date < datetime.now()
     
     def has_perm(self, user, perm):
         """checks if the user has the required perms"""

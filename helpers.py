@@ -31,7 +31,7 @@ OI_EXPERTISE_FROM_ANSWER = .002 #Fraction transmise par une réponse
 OI_PRJ_STATES = ((OI_PROPOSED, _("Proposed")), (OI_ACCEPTED, _("Accepted")), (OI_STARTED, _("Started")), (OI_DELIVERED, _("Delivered")), (OI_VALIDATED, _("Done")), (OI_CANCELLED, _("Cancelled")), (OI_POSTPONED, _("Delayed")), (OI_CONTENTIOUS, _("Contentious")),)
 
 # Project constants
-OI_PRJ_DONE = 1.
+OI_PRJ_DONE = 100
 OI_CANCELLED_BID = -1
 OI_NO_EVAL = -2
 OI_ACCEPT_DELAY = -3

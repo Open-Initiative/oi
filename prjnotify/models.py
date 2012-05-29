@@ -58,10 +58,10 @@ class Observer(models.Model):
     def should_send(self):
         """determines if the notice should be sent now or later"""
         if self.use_default:
-            observer = self.user.get_profile().get_default_observer()
+            send_every = self.user.get_profile().get_default_observer().send_every
         else:
-            observer = self
-        next_notice = (observer.last_notice or datetime.min) + timedelta(seconds=observer.send_every)
+            send_every = self.send_every
+        next_notice = (self.last_notice or datetime.min) + timedelta(send_every)
         return next_notice < datetime.now() and self.user.email and self.user.is_active
     
     def notify(self, label, project=None, param="", sender=None):
@@ -101,12 +101,8 @@ class Observer(models.Model):
         msg.send()
         
         notices.update(sent=datetime.now())
-        if self.use_default:
-            observer = self.user.get_profile().get_default_observer()
-        else:
-            observer = self
-        observer.last_notice = datetime.now()
-        observer.save()
+        self.last_notice = datetime.now()
+        self.save()
         # reset environment to original language
         activate(current_language)
     

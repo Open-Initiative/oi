@@ -526,7 +526,7 @@ def editprogress(request, id):
     progress = request.POST.get("progress")
     if not progress:
         return HttpResponse(_("Invalid value"))
-    project.progress = Decimal(progress) / 100
+    project.progress = int(progress)
     project.save()
     #notify users about this state change
     project.notify_all(request.user, "project_state", "%s %%"%project.progress)
