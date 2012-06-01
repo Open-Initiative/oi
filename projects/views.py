@@ -223,7 +223,7 @@ def delegateproject(request, id):
     except (KeyError, User.DoesNotExist):
         return HttpResponse(_("Cannot find user"), status=531)
     project.save()
-    project.delegate_to.get_profile().get_default_observer().notify("delegate", project=project, sender=request.user)
+    project.delegate_to.get_profile().get_default_observer(project).notify("delegate", project=project, sender=request.user)
     return HttpResponse(_("Sent delegation offer"))
 
 @ajax_login_required
@@ -234,6 +234,8 @@ def answerdelegate(request, id):
     if project.delegate_to != request.user:
         return HttpResponse(_("The project was not delegated to you"))
     project.delegate_to = None
+    #notifies former assignee of the answer of the user BEFORE we lose info
+    project.assignee.get_profile().get_default_observer(project).notify("answerdelegate", project=project, param=answer, sender=request.user)
 
     if answer == "true":
         project.assign_to(request.user)
@@ -241,8 +243,6 @@ def answerdelegate(request, id):
         #adds the project to user's observation
         request.user.get_profile().follow_project(project.master)
     project.save()
-    #notifies former assignee of the answer of the user
-    project.assignee.get_profile().get_default_observer().notify("answerdelegate", project=project, param=answer, sender=request.user)
     return HttpResponse(_("reply sent"))
 
 @ajax_login_required
@@ -254,7 +254,7 @@ def answerdelay(request, id):
         return HttpResponse(_("No delay was requested"), status=531)
 
     # notifies the assignee
-    project.assignee.get_profile().get_default_observer.notify("answerdelay", project=project, param=answer, sender=request.user)
+    project.assignee.get_profile().get_default_observer(project).notify("answerdelay", project=project, param=answer, sender=request.user)
     if answer == "false":
         project.reset_delay_request()
         return HttpResponse(_("The date was not changed"))
@@ -301,6 +301,8 @@ def bidproject(request, id):
     request.user.get_profile().follow_project(project.master)
     
     project.switch_to(OI_ACCEPTED, request.user)
+    #notify users about this bid
+    project.notify_all(request.user, "project_bid", bid)
     messages.info(request, ("Bid saved"))
     return HttpResponse('', status=332)
 
@@ -372,7 +374,7 @@ def evaluateproject(request, id):
             bid.comment = comment
             bid.save()
         #notify assignee that he has an evaluation
-        project.assignee.get_profile().get_default_observer.notify("project_eval", project=project, param=unicode(rating), sender=request.user)
+        project.assignee.get_profile().get_default_observer(project).notify("project_eval", project=project, param=unicode(rating), sender=request.user)
     messages.info(request, _("Evaluation saved"))
     return HttpResponse('', status=332)
 
@@ -511,6 +513,7 @@ def shareproject(request, id):
         return HttpResponse(_("Cannot find user"), status=531)
     project.apply_perm(user, OI_ALL_PERMS)
     user.get_profile().follow_project(project)
+    user.get_profile().get_default_observer(project).notify("share", project=project, sender=request.user)
     messages.info(request, _("Task shared"))
     return HttpResponse('', status=332)
 
