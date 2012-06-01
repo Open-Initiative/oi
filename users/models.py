@@ -118,8 +118,10 @@ class UserProfile(models.Model):
         """Returns comments made in evals on the user"""
         return Bid.objects.filter(project__assignee=self.user).exclude(comment="")
 
-    def get_default_observer(self):
+    def get_default_observer(self, prj=None):
         """gets the observer that applies for notification when no project is provided"""
+        if Observer.objects.filter(user=self.user, project=prj):
+            return Observer.objects.get(user=self.user, project=prj)
         observer, created = Observer.objects.get_or_create(user=self.user, project=None, use_default=False)
         return observer
         
@@ -221,10 +223,10 @@ class PersonalMessage(models.Model):
     def __unicode__(self):
         return "%s to %s : %s"%(self.from_user, self.to_user, self.subject)
 
-# Sets the UserProfile class to be the profile of the given django User class
-def set_profile(sender, instance, created, **kwargs):
-    if created==True:
-        instance.userprofile_set.add(UserProfile(blog=Message.objects.create(author=instance, relevance=1, title=_("%s's blog")%instance.username)))
+    # Sets the UserProfile class to be the profile of the given django User class
+    def set_profile(sender, instance, created, **kwargs):
+        if created==True:
+            instance.userprofile_set.add(UserProfile(blog=Message.objects.create(author=instance, relevance=1, title=_("%s's blog")%instance.username)))
 
-# Sets the profile on user creation
-post_save.connect(set_profile, sender=User)
+    # Sets the profile on user creation
+    post_save.connect(set_profile, sender=User)
