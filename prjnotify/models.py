@@ -61,26 +61,27 @@ class Observer(models.Model):
             send_every = self.user.get_profile().get_default_observer().send_every
         else:
             send_every = self.send_every
-        next_notice = (self.last_notice or datetime.min) + timedelta(send_every)
+        next_notice = (self.last_notice or datetime.min) + timedelta(0, send_every)
         return next_notice < datetime.now() and self.user.email and self.user.is_active
     
     def notify(self, label, project=None, param="", sender=None):
         """Adds notifications for the given list of users"""
         if isinstance(sender, AnonymousUser):
             sender = None
-        if project and project.has_perm(self.user, OI_READ):
-            notice_type = NoticeType.objects.get(label=label)
-            notice = Notice.objects.create(recipient=self.user, project=project, observer=self,
-                notice_type=notice_type, sender=sender, param=param)
-            if self.get_setting(notice_type).send:
-                if self.should_send(): # Email
-                    self.send()
-            else:
-                notice.sent = datetime.now()
-                notice.save()
+        if project and not project.has_perm(self.user, OI_READ):
+            return False
+        notice_type = NoticeType.objects.get(label=label)
+        notice = Notice.objects.create(recipient=self.user, project=project, observer=self,
+            notice_type=notice_type, sender=sender, param=param)
+        if self.get_setting(notice_type).send:
+            if self.should_send(): # Email
+                self.send()
+        else:
+            notice.sent = datetime.now()
+            notice.save()
     
     def send(self):
-        notices = self.notice_set.filter(sent=None)
+        notices = self.notice_set.filter(sent=None).order_by('added')
         if not notices:
             return
         # the language is to be temporarily switched to the recipient's language
