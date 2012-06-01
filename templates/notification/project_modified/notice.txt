@@ -1,4 +1,4 @@
 {% load i18n %}
-{{notice.sender}} {% trans "has changed a project you follow:" %} {{notice.project.title}}
+{{notice.sender.get_profile}} {% trans "has changed a project you follow:" %} {{notice.project.title}}
 {{notice.param}}
 {{current_site}}/project/{{notice.project.id}}

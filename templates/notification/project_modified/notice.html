@@ -1,5 +1,5 @@
 {% load i18n %}
-<a href="{{current_site}}/user/profile/{{notice.sender.username}}">{{notice.sender}}</a>
+<a href="{{current_site}}/user/profile/{{notice.sender.username}}">{{notice.sender.get_profile}}</a>
 {% trans "has changed a project you follow:" %}
 <a href="{{current_site}}/project/{{notice.project.id}}">{{notice.project.title}}</a><br />
 {{notice.param}}

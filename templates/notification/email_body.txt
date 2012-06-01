@@ -2,7 +2,7 @@
 Open Initiative
 {% trans "The IT community dedicated to your business" %}
 
-{% trans "Hello" %} {{name}},
+{% trans "Hello" %} {{recipient.get_profile}},
 {% trans "You have received the following notices from" %} {{ current_site }} {% trans "on project" %} {{observed_project}}:
 {% for notice in notices %}{% with 'notification/'|add:notice.notice_type.label|add:'/notice.txt' as template_name %}
 {% include template_name %}

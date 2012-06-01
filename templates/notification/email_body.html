@@ -16,7 +16,7 @@
             {% trans "The IT community dedicated to your business" %}
         </div>
     </a>
-    <p style="color: #D0574C; font-size: 20px">{% trans "Hello" %} {{name}},</p>
+    <p style="color: #D0574C; font-size: 20px">{% trans "Hello" %} {{recipient.get_profile}},</p>
     {% trans "You have received the following notices from" %} {{ current_site }}
     {% if project %}
         {% trans "on project" %} {{observed_project}}:
