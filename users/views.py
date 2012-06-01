@@ -80,7 +80,7 @@ def setrss(request):
 def invite(request, id):
     """adds a user as a contact of the current user"""
     request.user.get_profile().contacts.add(id)
-    User.objects.get(id=id).get_profile().get_default_observer.notify('invitation', sender=request.user)
+    User.objects.get(id=id).get_profile().get_default_observer().notify('invitation', sender=request.user)
     return HttpResponse(_("Invitation sent"))
 
 def resetpassword(request):
@@ -240,8 +240,8 @@ def sendMP(request, id):
     """sends a private to the selected user, from the current user"""
     mp = PersonalMessage(from_user=request.user, to_user=User.objects.get(id=id), text=request.POST['message'], subject=request.POST['subject'])
     mp.save()
-    mp.to_user.get_default_observer.notify('personal_message', param=mp.subject, sender=mp.from_user)
-    return HttpResponse(_("Message sent"))
+    mp.to_user.get_profile().get_default_observer().notify('personal_message', param=mp.subject, sender=mp.from_user)
+    return HttpResponse("Message sent")
 
 @login_required
 def archivenotice(request):
