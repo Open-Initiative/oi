@@ -21,8 +21,8 @@
         {% if project|can_write:user and project.state < 2 %}
         <img class="clickable" src="/img/icons/delete.png" onclick="deleteSpec({{project.id}}, {{spec.order}})" alt="{% trans 'Delete the description' %}" title="{% trans 'Delete the description' %}"/>
         <img class="clickable" src="/img/icons/edit.png" onclick="editSpec({{project.id}}, {{spec.order}})" alt="{% trans 'Correct the description' %}" title="{% trans 'Correct the description' %}"/>
-        <img class="clickable" src="/img/icons/moveUp.png" onclick="moveSpec({{project.id}}, {{spec.order}}, true)" alt="{% trans 'Move the description up'%}" title="{% trans 'Move the description up'%}"/>
-        <img class="clickable" src="/img/icons/moveDown.png" onclick="moveSpec({{project.id}}, {{spec.order}}, false)" alt="{% trans 'Move the description down'%}" title="{% trans 'Move the description down'%}"/>        
+        <img class="clickable" src="/img/icons/moveSpecUp.png" onclick="moveSpec({{project.id}}, {{spec.order}}, true)" alt="{% trans 'Move the description up'%}" title="{% trans 'Move the description up'%}"/>
+        <img class="clickable" src="/img/icons/moveSpecDown.png" onclick="moveSpec({{project.id}}, {{spec.order}}, false)" alt="{% trans 'Move the description down'%}" title="{% trans 'Move the description down'%}"/>        
         {% endif %}
     </div>
     <div class="sepspec"></div>
