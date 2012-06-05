@@ -8,5 +8,5 @@ Open Initiative
 {% include template_name %}
 {% endwith %}{% endfor %}
 {% trans "To see other notices or change how you receive notifications, please go to" %} {{current_site}}{{notices_url}}.
-{% trans "If you want to change the frequency of sending of your notification, " %} <a href="http://{{current_site}}/notification/settings/"> {% trans "click here." %}</a>
+{% trans "To change the frequency of sending of your notification, " %} <a href="{{current_site}}/notification/settings/"> {% trans "click here." %}</a>
 

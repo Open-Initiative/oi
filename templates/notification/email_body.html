@@ -9,18 +9,17 @@
     </style>
 </head>
 <body>
-<div style="border:4px #0094B5 solid"></div>
-<div style="width: 630px; margin: auto; font-size: 14px; font-family: Helvetica, Arial, sans-serif; line-height: 19px; color: #333; background-color: #ffffff;color:#444444">
-    <a href="http://{{current_site}}/">
-        <div style="text-align: center; margin: 0 0 50px 50px; width: 200px; font-weight: bold; color: #D0574C">
-            <img src="http://{{current_site}}/img/log.png" alt="Open Initiative" style="border: none"/> <br />
-            <p style="color: #0094B5; font-size: 14px">{% trans "The IT community dedicated to your business" %}</p>
-            <img src="http://{{current_site}}/img/baseunderline.png" alt="baseline" style="border: none"/>
+<div style="width: 630px; margin: auto; font-size: 11px; font-family: Helvetica, Arial, sans-serif; line-height: 19px; color: #333; background-color: #ffffff;color:#444444">
+    <div style="border:4px #0094B5 solid"></div>
+    <a href="{{current_site}}/" style="text-decoration: none">
+        <div style="text-align: center; margin: 0 0 50px 50px; width: 370px; font-weight: bold; color: #D0574C">
+            <img src="{{current_site}}/img/log.png" alt="Open Initiative" style="border: none; float: left"/>
+            <p style="color: #0094B5; font-size: 11px; margin: 0 2px; text-transform: uppercase">{% trans "The IT community dedicated to your business" %}</p>
+            <img src="{{current_site}}/img/baseunderline.png" alt="baseline" style="border: none"/>
         </div>
     </a>
-    </br>
-    <p align="right"> {% trans "login" %} <img src="http://{{current_site}}/img/login.png" alt="login" style="border: none"/></p>
-    <div style="border:4px gray solid"></div>
+    <p align="right"> {% trans "login" %} <img src="{{current_site}}/img/login.png" alt="login" style="border: none"/></p>
+    <div style="border-top:1px gray solid"></div>
     </br>
     <p style="color: #0094B5; font-size: 20px">{% trans "Hello" %} {{recipient.get_profile}},</p>
     <p style="color: #0094B5; font-size: 18px">{% trans "You have received the following notices from" %} {{ current_site }}</p>
@@ -31,12 +30,12 @@
     <p>{% include template_name %}</p>
     {% endwith %}{% endfor %}
     <p style="color: #D0574C"><a href="{{current_site}}{{notices_url}}">{% trans "See all notices" %}</a>
-        <img src="http://{{current_site}}/img/notification.png" alt="notification" style="border: none"/>
+        <img src="{{current_site}}/img/notification.png" alt="notification" style="border: none"/>
     </p>
 </br>
-<div style="border:4px gray solid"></div>
+<div style="border-top:1px gray solid"></div>
 </br>
-{% trans "If you want to change the frequency of sending of your notification, " %} <a href="http://{{current_site}}/notification/settings/"> {% trans "click here." %}</a>
+{% trans "To change the frequency of sending of your notification, " %} <a href="{{current_site}}/notification/settings/"> {% trans "click here." %}</a>
 </div>
 </body>
 </html>
