@@ -22,3 +22,4 @@ class Command(NoArgsCommand):
         NoticeType.register("project_bid_cancel", _(u"Bid cancelled"), _(u"A user has cancelled his bis on a project"))
         NoticeType.register("project_cancel", _(u"Project cancelled"), _(u"A user has requested the project to be cancelled"))
         NoticeType.register("project_spec", _(u"Specification changed"), _(u"The specification of a project you follow has been changed"))
+        NoticeType.register("share", _(u"Project shared"), _(u"The project has been shared with"))
