@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-05 13:57+0200\n"
+"POT-Creation-Date: 2012-06-05 16:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -677,7 +677,7 @@ msgstr "Se connecter"
 msgid "username"
 msgstr "Nom d'utilisateur"
 
-#: templates/base.html:90 templates/notification/email_body.html:22
+#: templates/base.html:90 templates/notification/email_body.html:21
 #: templates/registration/login.html:21
 msgid "login"
 msgstr "Se connecter"
@@ -826,29 +826,29 @@ msgstr "plus récents"
 msgid "Create in"
 msgstr "Créer dans"
 
-#: templates/notification/email_body.html:25
+#: templates/notification/email_body.html:24
 msgid "Hello"
 msgstr "Bonjour"
 
-#: templates/notification/email_body.html:26
+#: templates/notification/email_body.html:25
 msgid "You have received the following notices from"
 msgstr "Vous avez reçu la notification suivante de"
 
-#: templates/notification/email_body.html:28
+#: templates/notification/email_body.html:27
 #: templates/notification/notices.html:3 templates/notification/notices.html:9
 #: templates/users/account.html:29 templates/users/pdf/invoice.html:7
 msgid "on project"
 msgstr "sur le projet"
 
-#: templates/notification/email_body.html:33
+#: templates/notification/email_body.html:32
 msgid "See all notices"
 msgstr "Voir toutes les notifications"
 
-#: templates/notification/email_body.html:39
-msgid "If you want to change the frequency of sending of your notification, "
-msgstr "Si vous voulez changer la fréquence d'envoi de vos notitifcation, "
+#: templates/notification/email_body.html:38
+msgid "To change the frequency of sending of your notification, "
+msgstr "Pour changer la fréquence d'envoi de vos notitifcation, "
 
-#: templates/notification/email_body.html:39
+#: templates/notification/email_body.html:38
 msgid "click here."
 msgstr "cliquer ici"
 
