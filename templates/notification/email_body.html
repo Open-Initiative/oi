@@ -23,7 +23,7 @@
         <div style="position: relative; top: -6.2em">
         <p style="color: #0094B5; font-size: 20px">{% trans "Hello" %} {{recipient.get_profile}},</p>
         <p style="color: #0094B5; font-size: 18px">{% trans "You have received the following notices from" %}<a href="{{current_site}}" style="text-decoration: none">Open Initiative</a></p>
-        {% if project %}
+        {% if observed_project %}
             {% trans "on project" %} {{observed_project}}:
         {% endif %}
         {% for notice in notices %}{% with 'notification/'|add:notice.notice_type.label|add:'/notice.html' as template_name %}

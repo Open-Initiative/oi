@@ -1,4 +1,4 @@
 {% load i18n %}
 <a href="{{current_site}}/user/profile/{{notice.sender.username}}">{{notice.sender.get_profile}}</a>
-{% trans "has sent you a personal message:" %}
+{% trans "has sent you a personal message:" %} </br>
 <a href="{{current_site}}/user/messageswith/{{notice.sender.username}}">{{notice.param}}</a>
