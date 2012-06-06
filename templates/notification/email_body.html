@@ -18,24 +18,23 @@
             <img src="{{current_site}}/img/baseunderline.png" alt="baseline" style="border: none"/>
         </div>
     </a>
-    <p align="right" style="font-size: 14px; position: absolute; top: 7em; right: -6%;"> {% trans "login" %} <a href="{{current_site}}/" style="text-decoration: none"><img src="{{current_site}}/img/login.png" style="border: none; position: relative; top: 0.4em; right: 0%"/></a></p>
-    <div style="border-top:1px gray solid"></div>
-    </br>
-    <p style="color: #0094B5; font-size: 20px">{% trans "Hello" %} {{recipient.get_profile}},</p>
-    <p style="color: #0094B5; font-size: 18px">{% trans "You have received the following notices from" %} <a href="{{current_site}}" style="text-decoration: none"> Open Initiative </a></p>
-    {% if project %}
-        {% trans "on project" %} {{observed_project}}:
-    {% endif %}
-    {% for notice in notices %}{% with 'notification/'|add:notice.notice_type.label|add:'/notice.html' as template_name %}
-    <p style="font-size: 14px">{% include template_name %}</p>
-    {% endwith %}{% endfor %}
-    <p style="color: #0094B5; font-size: 14px"><a href="{{current_site}}{{notices_url}}" style="text-decoration: none">{% trans "See all notices" %}
-        <img src="{{current_site}}/img/notification.png" style="border: none; position: absolute; bottom: -0.5em; left: 32%"/></a>
-    </p>
-</br>
-<div style="border-top:1px gray solid"></div>
-</br>
-<p style="font-size: 12px">{% trans "To change the frequency of sending of your notification, " %} <a href="{{current_site}}/notification/settings/"> {% trans "click here." %}</a></p>
+    <p align="right" style="font-size: 14px; position: relative; top: -2em; right: 0%;"><a href="{{current_site}}/" style="text-decoration: none">  {% trans "login" %}  <img src="{{current_site}}/img/login.png" style="border: none; position: relative; top: 0.4em; right: 0%"/></a></p>
+    <div style="border-top:1px gray solid; position: relative; top: -5em"></div>
+        <div style="position: relative; top: -5em">
+        <p style="color: #0094B5; font-size: 20px">{% trans "Hello" %} {{recipient.get_profile}},</p>
+        <p style="color: #0094B5; font-size: 18px">{% trans "You have received the following notices from" %}<a href="{{current_site}}" style="text-decoration: none">Open Initiative</a></p>
+        {% if project %}
+            {% trans "on project" %} {{observed_project}}:
+        {% endif %}
+        {% for notice in notices %}{% with 'notification/'|add:notice.notice_type.label|add:'/notice.html' as template_name %}
+        <p style="font-size: 13px">{% include template_name %}</p>
+        {% endwith %}{% endfor %}
+        <p style="color: #D0574C; font-size: 14px"><a href="{{current_site}}{{notices_url}}" style="text-decoration: none">{% trans "See all notices" %}
+            <img src="{{current_site}}/img/notification.png" style="border: none; position: relative; bottom: -0.5em; left: 0%"/></a>
+        </p>
+    </div>
+<div style="border-top:1px gray solid; position: relative; bottom: 4.5em"></div>
+<p style="font-size: 12px; position: relative; bottom: 3.5em">{% trans "To change the frequency of sending of your notification, " %} <a href="{{current_site}}/notification/settings/"> {% trans "click here." %}</a></p>
 </div>
 </body>
 </html>
