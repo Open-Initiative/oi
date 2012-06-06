@@ -1,5 +1,4 @@
 {% load i18n %}{% load oifilters %}
 <a href="{{current_site}}/user/profile/{{notice.sender.username}}">{{notice.sender.get_profile}}</a>
-{% trans "has changed the specification of a project you follow:" %}
-<a href="{{current_site}}/project/{{notice.project.id}}">{{notice.project.title}}</a> : <br />
-{{notice.param|oiunescape}}
+{% trans "has changed the specification of a project you follow:" %} </br>
+<a href="{{current_site}}/project/{{notice.project.id}}">{{notice.project.title}}</a> : {{notice.param|oiunescape}}
