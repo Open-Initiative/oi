@@ -2,4 +2,4 @@
 {% load oifilters %}
 <a href="{{current_site}}/user/profile/{{notice.sender.username}}">{{notice.sender.get_profile}}</a>
 {% trans "has changed the state of a project you follow:" %}<br />
-<a href="{{current_site}}/project/{{notice.project.id}}">{{notice.project.title}}</a> {% trans "is now in state" %} {{OI_PRJ_STATES|get:notice.param}}
+<a href="{{current_site}}/project/{{notice.project.id}}">{{notice.project.title}}</a> {% trans "is now in state" %} {{OI_PRJ_STATES|get:notice.param|default:notice.param}}

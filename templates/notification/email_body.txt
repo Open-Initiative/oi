@@ -3,10 +3,10 @@ Open Initiative
 {% trans "The IT community dedicated to your business" %}
 
 {% trans "Hello" %} {{recipient.get_profile}},
-{% trans "You have received the following notices from" %} {{ current_site }} {% trans "on project" %} {{observed_project}}:
+{% trans "You have received the following notices from" %} {{ current_site }}{% if observed_project %} {% trans "on project" %} {{observed_project.title}}{% endif %}:
 {% for notice in notices %}{% with 'notification/'|add:notice.notice_type.label|add:'/notice.txt' as template_name %}
 {% include template_name %}
 {% endwith %}{% endfor %}
 {% trans "To see other notices or change how you receive notifications, please go to" %} {{current_site}}{{notices_url}}.
-{% trans "To change the frequency of sending of your notification, " %} <a href="{{current_site}}/notification/settings/"> {% trans "click here." %}</a>
+{% trans "To change the frequency of sending of your notification, " %}{% trans "please go to" %}{{current_site}}/notification/settings/
 
