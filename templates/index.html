@@ -21,7 +21,7 @@
             </div>
         </div>
         <script type="text/javascript">
-            window.setInterval(function test(){jQuery('.indexslide').fadeOut();e=jQuery('.indexslide:visible').next();(e.length?e:jQuery('.indexslide').first()).delay(500).fadeIn();}, 3000);
+            window.setInterval(function test(){jQuery('.indexslide').fadeOut();var e=jQuery('.indexslide:visible').next();(e.length?e:jQuery('.indexslide').first()).delay(500).fadeIn();}, 3000);
         </script>
         <a href="{%trans "/presentation" %}"><div class="slidermore" onmouseover="this.style.color='#D0574C'" onmouseout="this.style.color='white'">
             {% trans "Learn More" %}
