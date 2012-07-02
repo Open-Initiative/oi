@@ -15,7 +15,7 @@ function addTask(tasktitle, projectid, userid, callBack) {
     if(projectid) params += "&parent="+projectid;
     OIajaxCall("/project/save/0", params, null, 
         function(response){
-            task = eval(response)[0];
+            var task = eval(response)[0];
             if(window.oiTree) {
                 setTaskName(oiTree.nodes[projectid].addChild(task.pk, 0), task.pk, task.fields.title, viewname);
                 if(oiTable) {
@@ -248,7 +248,38 @@ function favProject(projectid, param){
             }
         });
 }
-
+function populateOverviewTable(projectid, order, page){
+    var url = "/project/"+projectid+"/listtasks?listall";
+    if(order) url += "&order="+order;
+    url += "&page="+(page||1); 
+    OIajaxCall(url, null, null, 
+        function(response){
+            var header = document.getElementById('headerTableOverview');
+            document.getElementById('dynamicTableOverview').innerHTML = "";
+            document.getElementById('dynamicTableOverview').appendChild(header);
+            var tasklist = eval(eval(response)[0]);
+            var fields = ["title", "state", "due_date", "assignee_get_profile_get_display_name", "offer"];
+            for(var i = 0; i < tasklist.length; i++){
+                var line = document.createElement('tr');
+                var task = tasklist[i];
+                for(var field = fields[j=0]; j < fields.length; field=fields[++j]){
+                    if(fields[j]=="title") etiquette = "overview";
+                    if(fields[j]=="state") etiquette = "description";
+                    if(fields[j]=="due_date") etiquette = "planning";
+                    if(fields[j]=="assignee_get_profile_get_display_name") etiquette = "team";
+                    if(fields[j]=="offer") etiquette = "budget";
+                    var a = document.createElement('a');
+                    document.getElementById('dynamicTableOverview').appendChild(a);
+                    teste = document.createElement('td');
+                    teste.innerHTML = "<a href=/project/"+task.pk+"/view/"+etiquette+">"+task.fields[field]+"</a>";
+                    teste.appendChild(a);
+                    line.appendChild(teste);
+                    document.getElementById('dynamicTableOverview').appendChild(line);
+                }
+            }
+        }
+    );
+}
 function addSpec(projectid) {
     var divid = newDiv("specs_"+projectid);
     OIajaxCall("/project/"+projectid+"/editspec/0?divid="+divid+"&specorder=-1", null, divid, 
