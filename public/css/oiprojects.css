@@ -1,15 +1,85 @@
 div.prjbody {
-    padding: 10px 1px;
+    padding: 10px 0px;
     background: #FFFFFF;
     clear: left;
 }
 div.prjauthor {
     float: right;
-    color: #0094B5;
+    color: #778E9C;;
 }
 div.prjdesc {
     padding-left: 5px;
 }
+
+/**/
+div.speclinkoverview {
+    float:right; 
+    clear: right;
+    margin-top:1.5em;
+}
+img.nextMiniSpec {
+    float:right; 
+    margin-top: 3em;
+    margin-right: -1em;
+}
+img.previousMiniSpec {
+    float:left; 
+    margin-top: 3em;
+    margin-left: -1em;
+}
+div.descripOverview {
+    margin-top:2em;
+}
+div.prjTableOverview {
+    margin-top:1em;
+}
+div.topoverview {
+    background: #D7E7F0;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    padding-top: 1em;
+    padding-bottom: 4em;
+    margin-top: -0.7em;
+}
+div.bottomoverview {
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    padding-top: 2em;
+    padding-bottom: 4em;
+    margin-top: -0.7em;
+}
+span.entitleOverview {
+    color: #0094B5;
+    font-size: 15px;
+    font-weight:bold;
+    line-height:1.7em;
+}
+div.prjTableOverview table tr:nth-child(even) {
+    background: white;
+}
+div.prjTableOverview table tr:nth-child(odd) {
+    background: #D7E7F0;
+}
+div.prjTableOverview table tr {
+    height: 30px;
+}
+div.prjTableOverview table tr th {
+    color: #0094B5;
+    text-align:left;
+}
+div.prjTableOverview table tr td {
+    text-align:left;
+    width: 150px;
+}
+col { 
+    background: blue;
+    border-style: none solid 
+}
+a {
+    text-decoration: none;
+}
+/**/
+
 .prjtitle {
     font-family: "Interstate";
     text-transform: uppercase;
@@ -35,10 +105,13 @@ div.cardspec {
     margin: 20px 0;
 }
 div.minispec {
-    width: 200px;
+    width: 140px;
+    height: 70px;
     float: right;
     border: 1px solid;
     margin: 2px;
+    text-align:center;
+    padding-top:2.5em;
 }
 .cardspec img{
     max-width:100%
