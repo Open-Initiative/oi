@@ -28,6 +28,8 @@ from oi.helpers import SPEC_TYPES, SPOT_TYPES, NOTE_TYPE, TASK_TYPE, MESSAGE_TYP
 from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeedsPrjPerms
 from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.template import RequestContext
 
 #def getprojects(request):
 #    """Apply filter to project list"""
@@ -45,8 +47,8 @@ from oi.messages.templatetags.oifilters import oiescape, summarize
 #    return object_list(request, queryset=projects[:10], extra_context={'promotedprj': promotedprj})
 
 @OINeedsPrjPerms(OI_READ, isajax=False)
-def getproject(request, id, view="description"):
-    if not view: view = "description"
+def getproject(request, id, view="overview"):
+    if not view: view = "overview"
     project = Project.objects.get(id=id)
     return direct_to_template(request, template="projects/project_detail.html", extra_context={'object': project, 'view':view, 'types':SPEC_TYPES, })
 
@@ -61,19 +63,30 @@ def listtasks(request, id):
             project = Project.objects.get(id=taskid)
             #if user doesn't have permission to see the project, add it as '...'
             if project.parent and not project.has_perm(request.user, OI_READ):
-                #adding the task if the user has no right on it, but with no infZo
+                #adding the task if the user has no right on it, but with no info
                 lists.append('[{"pk": %s, "fields": {"state": 4, "parent": "%s", "title": "..."}}]'%(project.id,project.parent.id))
         
-            tasks = project.tasks
+            if request.GET.has_key("listall"):
+                tasks = project.descendants
+            else:
+                tasks = project.tasks
             if not request.user.is_superuser: #filters on user permissions
-                tasks = tasks.filter(Q(public=True)|Q(projectacl__user=request.user if request.user.is_authenticated() else None, projectacl__permission=OI_READ))
-            tasks = tasks.distinct().order_by('-priority')
+                tasks = tasks.filter(Q(public=True)|Q(projectacl__user=request.user if request.user.is_authenticated() else None, projectacl__permission=OI_READ)).distinct()
+            if request.GET.has_key("order"):
+                tasks = tasks.order_by(request.GET['order'])
+            else:
+                tasks = tasks.order_by('-priority')
+                
+            if request.GET.has_key('page'):
+                paginator = Paginator(tasks, 15) # Show 25 contacts per page
+                page = request.GET.get('page')
+                tasks = paginator.page(page).object_list
             
             #appends the serialized task list to the global list
             lists.append(serializers.oiserialize("json", tasks,
                 extra_fields=("assignee.get_profile.get_display_name", "get_budget","allbid_sum","bid_set.count")))
     return HttpResponse(JSONEncoder().encode(lists)) #serializes the whole thing
-
+    
 @login_required
 def editproject(request, id):
     """Shows the Edit template of the project"""
