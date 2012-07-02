@@ -1,0 +1,61 @@
+{% load pagination_tags %}
+{% load oifilters %}
+{% load i18n %}
+<div class="topoverview">
+    <div class="prjauthor">{% trans "Project created on" %} {{project.created|date:"d/m/Y"}} {% trans "by" %} <a href="/user/profile/{{object.author.username}}">{{object.author.get_profile}} </a></div>
+    {% if object.spec_set.all %}
+        <div class="speclinkoverview">
+            {% if object.spec_set.count > 1 %}<img class="clickable nextMiniSpec" src="/img/icons/nextMiniSpec.png"/>{% endif %}
+                {% if object.spec_set.all %}
+                    <a href="/project/{{object.id}}/view/description">
+                        {% for spec in object.spec_set.all %}
+                            <div class="minispec {% if not forloop.first %}invisible {% endif %}">
+                                {% include 'projects/spec/minispec.html' %}
+                            </div>
+                        {% endfor %}
+                    </a>
+                {% endif %}
+            {% if object.spec_set.count > 1 %}<img class="clickable previousMiniSpec" src="/img/icons/previousMiniSpec.png"/>{% endif %}
+        </div>
+    {% endif %}
+    <script type="text/javascript">
+        $('.previousMiniSpec').click(function(){
+            $('.minispec').animate({width: 'hide'});
+            var prevSpec=$('.minispec:visible').prev(".minispec");
+            (prevSpec.length?prevSpec:$('.minispec').last()).animate({width: 'show'});;
+        });
+        $('.nextMiniSpec').click(function(){
+            $('.minispec').animate({width: 'hide'});
+            var nextSpec=$('.minispec:visible').next(".minispec");
+            (nextSpec.length?nextSpec:$('.minispec').first()).animate({width: 'show'});;
+        });
+    </script>
+    <div class="prjtitle">{{project.title}}</div>
+    <div class="descripOverview">
+        <div><span class="entitleOverview">{% trans "Assignee : " %}</span><span><a href="/project/{{object.id}}/view/team">{{project.assignee.get_profile}}</a></span></div>
+        <div><span class="entitleOverview">{% trans "Date of completion : " %}</span><span><a href="/project/{{object.id}}/view/planning">{% if project.due_date|date:"d/m/Y" %}{{project.start_date|date:"d/m/Y"}} {% trans "to" %} {{project.due_date|date:"d/m/Y"}}</a></span></div>
+        {% else %}{% trans "click here to add a date" %}</a></span></div>{% endif %}
+        <div><span class="entitleOverview">{% trans "Engaged : " %}</span><span><a href="/project/{{object.id}}/view/budget">{{project.offer}}€</a></span></div>
+    </div>
+</div>  
+{% if  project.descendants.all %}
+    <div class="bottomoverview">
+        <div class="prjtitle">{% trans "Tasks" %}</div>
+        <div class="prjTableOverview">
+            <table id="dynamicTableOverview">
+                <tr id="headerTableOverview">
+                    <th class="tableheader clickable" onclick="populateOverviewTable({{project.id}}, 'title')">{% trans "Title" %}</th>
+                    <th class="tableheader clickable" onclick="populateOverviewTable({{project.id}}, 'state')">{% trans "State" %}</th>
+                    <th class="tableheader clickable" onclick="populateOverviewTable({{project.id}}, 'due_date')">{% trans "Echeance" %}</th>
+                    <th class="tableheader clickable" onclick="populateOverviewTable({{project.id}}, 'assignee')">{% trans "Assignee" %}</th>
+                    <th class="tableheader clickable" onclick="populateOverviewTable({{project.id}}, 'offer')">{% trans "Engaged" %}</th>
+                </tr>
+                <script>
+                    $(".prjTableOverview").ready(populateOverviewTable({{project.id}}));
+                    nbtask = {{project.descendants.count}};
+                    page=1;
+                </script>
+            </table>
+        </div>
+    </div>
+{% endif %}
