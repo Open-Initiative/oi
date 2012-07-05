@@ -1,4 +1,3 @@
-{% load pagination_tags %}
 {% load oifilters %}
 {% load i18n %}
 <div class="topoverview">
@@ -44,18 +43,25 @@
         <div class="prjTableOverview">
             <table id="dynamicTableOverview">
                 <tr id="headerTableOverview">
-                    <th class="tableheader clickable" onclick="populateOverviewTable({{project.id}}, 'title')">{% trans "Title" %}</th>
-                    <th class="tableheader clickable" onclick="populateOverviewTable({{project.id}}, 'state')">{% trans "State" %}</th>
-                    <th class="tableheader clickable" onclick="populateOverviewTable({{project.id}}, 'due_date')">{% trans "Echeance" %}</th>
-                    <th class="tableheader clickable" onclick="populateOverviewTable({{project.id}}, 'assignee')">{% trans "Assignee" %}</th>
-                    <th class="tableheader clickable" onclick="populateOverviewTable({{project.id}}, 'offer')">{% trans "Engaged" %}</th>
+                    <th class="tableheader clickable" onclick="orderOverviewTable({{project.id}}, 'title')">{% trans "Title" %} </th>
+                    <th class="tableheader clickable" onclick="orderOverviewTable({{project.id}}, 'state')">{% trans "State" %}</th>
+                    <th class="tableheader clickable" onclick="orderOverviewTable({{project.id}}, 'due_date')">{% trans "Echeance" %}</th>
+                    <th class="tableheader clickable" onclick="orderOverviewTable({{project.id}}, 'assignee')">{% trans "Assignee" %}</th>
+                    <th class="tableheader clickable" onclick="orderOverviewTable({{project.id}}, 'offer')">{% trans "Engaged" %}</th>
                 </tr>
-                <script>
-                    $(".prjTableOverview").ready(populateOverviewTable({{project.id}}));
-                    nbtask = {{project.descendants.count}};
-                    page=1;
-                </script>
             </table>
+            <span id="projectOverviewPagePrev" class="prjOverviewPagePrev clickable" onclick="page--; populateOverviewTable({{project.id}})">{% trans "previous" %}</span>
+            <span id="projectOverviewPageNext" class="prjOverviewPageNext clickable" onclick="++page; populateOverviewTable({{project.id}})">{% trans "next" %}</span>
+                <script>
+                    //states = {{OI_PRJ_STATES}};
+                    nbtask = {{project.descendants.count}};
+                    totalnbpage = Math.ceil(nbtask / 5);
+                    order = null;
+                    page=1;
+                    $(".prjTableOverview").ready(populateOverviewTable({{project.id}}));
+                </script>
         </div>
     </div>
+{% else %}
+    <p class="noProjectOverviewTable">{% trans "Please create a project, thank" %}</p>
 {% endif %}
