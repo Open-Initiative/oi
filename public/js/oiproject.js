@@ -248,7 +248,12 @@ function favProject(projectid, param){
             }
         });
 }
-function populateOverviewTable(projectid, order, page){
+function orderOverviewTable(projectid, order_by){
+    if(order==order_by) order = "-"+order_by;
+    else order = order_by;
+    populateOverviewTable(projectid);
+}
+function populateOverviewTable(projectid){
     var url = "/project/"+projectid+"/listtasks?listall";
     if(order) url += "&order="+order;
     url += "&page="+(page||1); 
@@ -268,15 +273,14 @@ function populateOverviewTable(projectid, order, page){
                     if(fields[j]=="due_date") etiquette = "planning";
                     if(fields[j]=="assignee_get_profile_get_display_name") etiquette = "team";
                     if(fields[j]=="offer") etiquette = "budget";
-                    var a = document.createElement('a');
-                    document.getElementById('dynamicTableOverview').appendChild(a);
                     teste = document.createElement('td');
                     teste.innerHTML = "<a href=/project/"+task.pk+"/view/"+etiquette+">"+task.fields[field]+"</a>";
-                    teste.appendChild(a);
                     line.appendChild(teste);
                     document.getElementById('dynamicTableOverview').appendChild(line);
                 }
             }
+        document.getElementById('projectOverviewPageNext').style.display = (page >= totalnbpage?"none":"inline"); 
+        document.getElementById('projectOverviewPagePrev').style.display = (page > 1?"inline":"none");
         }
     );
 }
