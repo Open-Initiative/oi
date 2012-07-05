@@ -28,8 +28,8 @@ from oi.helpers import SPEC_TYPES, SPOT_TYPES, NOTE_TYPE, TASK_TYPE, MESSAGE_TYP
 from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeedsPrjPerms
 from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template import RequestContext
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 #def getprojects(request):
 #    """Apply filter to project list"""
@@ -78,7 +78,7 @@ def listtasks(request, id):
                 tasks = tasks.order_by('-priority')
                 
             if request.GET.has_key('page'):
-                paginator = Paginator(tasks, 15) # Show 25 contacts per page
+                paginator = Paginator(tasks, 5)
                 page = request.GET.get('page')
                 tasks = paginator.page(page).object_list
             
