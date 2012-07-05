@@ -78,6 +78,21 @@ col {
 a {
     text-decoration: none;
 }
+span.prjOverviewPageNext{
+    float:right;
+    padding-top: 2em;
+    font-size: 1.5em;
+    
+}
+span.prjOverviewPagePrev{
+    float:left;
+    padding-top: 2em;
+    font-size: 1.5em;
+}
+p.noProjectOverviewTable{
+    text-align:center;
+    font-size: 1.5em;
+}
 /**/
 
 .prjtitle {
@@ -361,7 +376,7 @@ div.sepspecfooter {
     border:solid 1px;
     color: #6C6D6E;
     position: absolute;
-    width: 150px;
+    width: 140px;
     margin-top: 5px;
 }
 .progress {
