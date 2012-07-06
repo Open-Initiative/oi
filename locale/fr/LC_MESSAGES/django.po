@@ -1143,11 +1143,11 @@ msgstr "Budget demandé :"
 
 #: templates/projects/project_overview.html:44
 msgid "tasks inside"
-msgstr "tâches à l'interieur"
+msgstr "tâches à l'interieur de :"
 
 #: templates/projects/project_overview.html:46
 msgid "task inside"
-msgstr "tâche à l'interieur"
+msgstr "tâche à l'interieur de :"
 
 #: templates/projects/project_overview.html:51 users/models.py:152
 msgid "Title"
