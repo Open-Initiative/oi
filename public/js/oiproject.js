@@ -269,7 +269,7 @@ function populateOverviewTable(projectid){
                 var task = tasklist[i];
                 for(var field = fields[j=0]; j < fields.length; field=fields[++j]){
                     if(fields[j]=="title") etiquette = "overview";
-                    if(fields[j]=="state") etiquette = "description";
+                    if(fields[j]=="state"){ etiquette = "description"; task.fields[field] = gettext("State"+task.fields[field]);}
                     if(fields[j]=="due_date") etiquette = "planning";
                     if(fields[j]=="assignee_get_profile_get_display_name") etiquette = "team";
                     if(fields[j]=="offer") etiquette = "budget";
@@ -279,7 +279,7 @@ function populateOverviewTable(projectid){
                     document.getElementById('dynamicTableOverview').appendChild(line);
                 }
             }
-        document.getElementById('projectOverviewPageNext').style.display = (page >= totalnbpage?"none":"inline"); 
+        document.getElementById('projectOverviewPageNext').style.display = (page >= nbpage?"none":"inline"); 
         document.getElementById('projectOverviewPagePrev').style.display = (page > 1?"inline":"none");
         }
     );
