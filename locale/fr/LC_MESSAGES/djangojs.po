@@ -112,3 +112,23 @@ msgstr "Phase de réalisation"
 # oigantt.js
 msgid "Phase2"
 msgstr "Phase de validation"
+
+# oiproject.js
+msgid "State0"
+msgstr "Proposé"
+
+# oiproject.js
+msgid "State1"
+msgstr "Accepté"
+
+# oiproject.js
+msgid "State2"
+msgstr "Démarré"
+
+# oiproject.js
+msgid "State3"
+msgstr "Livré"
+
+# oiproject.js
+msgid "State4"
+msgstr "Terminé"
