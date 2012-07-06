@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-06 14:38+0200\n"
+"POT-Creation-Date: 2012-07-06 16:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1142,11 +1142,11 @@ msgid "Requested budget:"
 msgstr "Budget demandé :"
 
 #: templates/projects/project_overview.html:44
-msgid "tasks inside"
+msgid "tasks inside:"
 msgstr "tâches à l'interieur de :"
 
 #: templates/projects/project_overview.html:46
-msgid "task inside"
+msgid "task inside:"
 msgstr "tâche à l'interieur de :"
 
 #: templates/projects/project_overview.html:51 users/models.py:152
