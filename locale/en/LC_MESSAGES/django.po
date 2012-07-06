@@ -1754,5 +1754,25 @@ msgstr ""
 msgid "Notice archived"
 msgstr ""
 
+# oiproject.js
+msgid "State0"
+msgstr "Proposed"
+
+# oiproject.js
+msgid "State1"
+msgstr "Accepted"
+
+# oiproject.js
+msgid "State2"
+msgstr "Started"
+
+# oiproject.js
+msgid "State3"
+msgstr "Delivered"
+
+# oiproject.js
+msgid "State4"
+msgstr "Done"
+
 #~ msgid "past_fem_plur"
 #~ msgstr "ed"
