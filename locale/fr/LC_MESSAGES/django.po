@@ -1139,7 +1139,7 @@ msgstr "Cliquer ici pour ajouter une date"
 
 #: templates/projects/project_overview.html:37
 msgid "Requested budget:"
-msgstr "Budget demandé"
+msgstr "Budget demandé :"
 
 #: templates/projects/project_overview.html:44
 msgid "tasks inside"
