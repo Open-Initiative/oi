@@ -31,15 +31,20 @@
     </script>
     <div class="prjtitle">{{project.title}}</div>
     <div class="descripOverview">
-        <div><span class="entitleOverview">{% trans "Assignee : " %}</span><span><a href="/project/{{object.id}}/view/team">{{project.assignee.get_profile}}</a></span></div>
-        <div><span class="entitleOverview">{% trans "Date of completion : " %}</span><span><a href="/project/{{object.id}}/view/planning">{% if project.due_date|date:"d/m/Y" %}{{project.start_date|date:"d/m/Y"}} {% trans "to" %} {{project.due_date|date:"d/m/Y"}}</a></span></div>
+        <div><span class="entitleOverview">{% trans "Assignee:" %} </span><span><a href="/project/{{object.id}}/view/team"> {{project.assignee.get_profile}}</a></span></div>
+        <div><span class="entitleOverview">{% trans "Realisation date:" %} </span><span><a href="/project/{{object.id}}/view/planning"> {% if project.due_date|date:"d/m/Y" %}{{project.start_date|date:"d/m/Y"}} {% trans "to" %} {{project.due_date|date:"d/m/Y"}}</a></span></div>
         {% else %}{% trans "click here to add a date" %}</a></span></div>{% endif %}
-        <div><span class="entitleOverview">{% trans "Engaged : " %}</span><span><a href="/project/{{object.id}}/view/budget">{{project.offer}}€</a></span></div>
+        <div><span class="entitleOverview">{% trans "Requested budget:" %} </span><span><a href="/project/{{object.id}}/view/budget"> {{project.offer}}€</a></span></div>
     </div>
 </div>  
 {% if  project.descendants.all %}
     <div class="bottomoverview">
-        <div class="prjtitle">{% trans "Tasks" %}</div>
+        <div class="prjtitle">
+        {% if project.descendants.count > 1 %}
+            {{project.descendants.count}} {% trans "tasks inside" %} {{project.title}}</div>
+        {% else %}
+            {{project.descendants.count}} {% trans "task inside" %} {{project.title}}</div>
+        {% endif %}
         <div class="prjTableOverview">
             <table id="dynamicTableOverview">
                 <tr id="headerTableOverview">
@@ -47,21 +52,21 @@
                     <th class="tableheader clickable" onclick="orderOverviewTable({{project.id}}, 'state')">{% trans "State" %}</th>
                     <th class="tableheader clickable" onclick="orderOverviewTable({{project.id}}, 'due_date')">{% trans "Echeance" %}</th>
                     <th class="tableheader clickable" onclick="orderOverviewTable({{project.id}}, 'assignee')">{% trans "Assignee" %}</th>
-                    <th class="tableheader clickable" onclick="orderOverviewTable({{project.id}}, 'offer')">{% trans "Engaged" %}</th>
+                    <th class="tableheader clickable" onclick="orderOverviewTable({{project.id}}, 'offer')">{% trans "Budget" %}</th>
                 </tr>
             </table>
-            <span id="projectOverviewPagePrev" class="prjOverviewPagePrev clickable" onclick="page--; populateOverviewTable({{project.id}})">{% trans "previous" %}</span>
-            <span id="projectOverviewPageNext" class="prjOverviewPageNext clickable" onclick="++page; populateOverviewTable({{project.id}})">{% trans "next" %}</span>
-                <script>
-                    //states = {{OI_PRJ_STATES}};
-                    nbtask = {{project.descendants.count}};
-                    totalnbpage = Math.ceil(nbtask / 5);
-                    order = null;
-                    page=1;
-                    $(".prjTableOverview").ready(populateOverviewTable({{project.id}}));
-                </script>
+            <span id="projectOverviewPagePrev" class="prjOverviewPagePrev clickable" onclick="page--; populateOverviewTable({{project.id}}); document.getElementById('page').innerHTML=page;">{% trans "previous" %}</span>
+            <span id="projectOverviewPageNext" class="prjOverviewPageNext clickable" onclick="++page; populateOverviewTable({{project.id}}); document.getElementById('page').innerHTML=page;">{% trans "next" %}</span>
+            <script>
+                nbtask = {{project.descendants.count}};
+                nbpage = Math.ceil(nbtask / 5);
+                order = null;
+                page=1;
+                $(".prjTableOverview").ready(populateOverviewTable({{project.id}}));
+                document.write("<span class=changePage>"+"<span id=page>"+page+"</span>"+"<span>"+"/"+nbpage+"</span>"+"</span>");
+            </script>
         </div>
     </div>
 {% else %}
-    <p class="noProjectOverviewTable">{% trans "Please create a project, thank" %}</p>
+    <p class="noProjectOverviewTable">{% trans "You can add tasks with the menu on your left." %}</p>
 {% endif %}
