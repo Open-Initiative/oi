@@ -121,7 +121,7 @@ class UserProfile(models.Model):
     def get_default_observer(self, prj=None):
         """gets the observer that applies for notification when no project is provided"""
         if Observer.objects.filter(user=self.user, project__descendants=prj):
-            return Observer.objects.get(user=self.user, project=prj)
+            return Observer.objects.filter(user=self.user, project__descendants=prj)[0]
         observer, created = Observer.objects.get_or_create(user=self.user, project=None, use_default=False)
         return observer
         
