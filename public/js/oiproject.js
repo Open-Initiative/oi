@@ -240,13 +240,15 @@ function updateProgress(projectid, progress) {
         function(){document.getElementById("progressbar_"+projectid).style.width = progress+"%";
         document.getElementById("progresslabel_"+projectid).innerHTML = progress+"%";});
 }
-function favProject(projectid, param){
-    OIajaxCall("/project/"+projectid+"/fav", param, null, 
-        function(follow){
+function favProject(projectid){
+    OIajaxCall("/project/"+projectid+"/fav", follow?"&stop=true":null, null, 
+        function(response){
             if(document.getElementById("fav_"+projectid)){
-            document.getElementById("fav_"+projectid).src = "/img/icons/star"+follow+".png";
+                document.getElementById("fav_"+projectid).src = "/img/icons/star"+response+".png";
+                follow = (response=="True");
             }
-        });
+        }
+    );
 }
 function orderOverviewTable(projectid, order_by){
     if(order==order_by) order = "-"+order_by;
