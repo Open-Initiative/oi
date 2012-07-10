@@ -207,6 +207,11 @@ def offerproject(request, id):
         return HttpResponse(_("Task already assigned"))
     if project.state > OI_STARTED:
         return HttpResponse(_("Can not change a task already started"), status=431)
+    
+    if project.descendants.filter(offer__gt=0):   
+        return HttpResponse(_("The task '%s' already has an offer"%project.descendants.filter(offer__gt=0)[0].title), status=431)
+    elif project.ancestors.filter(offer__gt=0):
+        return HttpResponse(_("The task '%s' already has an offer"%project.ancestors.filter(offer__gt=0)[0].title), status=431)
 
     project.assign_to(request.user)
     try:
