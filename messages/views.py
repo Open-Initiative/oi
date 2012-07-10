@@ -54,6 +54,7 @@ def editmessage(request, id):
 def savemessage(request, id):
     """Saves the edited message and redirects to its view"""
     author = None
+    project = None
     if request.user.is_authenticated():
         author=request.user
     text = oiescape(request.POST["message"])
@@ -70,8 +71,9 @@ def savemessage(request, id):
         parent = None
         if request.POST.get("parent"): #Checking parent rights
             parent = Message.objects.get(id=request.POST["parent"])
-        project = Project.objects.get(id=request.POST["project"]) if request.POST.get("project") else None
-        if project:
+            #return HttpResponse(_("parent"))
+        if request.POST.get("project"):
+            project = Project.objects.get(id=request.POST["project"])
             if not project.has_perm(request.user, OI_WRITE):
                 return HttpResponseForbidden(_("Forbidden"))
 
