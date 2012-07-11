@@ -8,7 +8,19 @@
         <img class="contactpicture" src="/user/getpicture/{{project.assignee.username}}" />
         <div class="username">{{project.assignee}}</div>
         <div>{{project.offer|default:project.alloffer_sum}} €</div>
-        {% if project.assignee == user and project.state < 2 %}<div><img class="clickable" src="/img/icons/edit2.png" onclick="offerProject({{project.id}})" /> {% trans "Change my offer" %}</div>{% endif %}
+        {% if project.assignee == user and project.state < 2 %}
+            <div>
+                {% if project.descendants.with_offer %}
+                    {% trans "The task" %} "{{project.descendants.with_offer.0.title}}" {% trans "already has an offer" %} 
+                {% else %}
+                    {% if project.ancestors.with_offer %}
+                        {% trans "The task" %} "{{project.ancestors.with_offer.0.title}}" {% trans "already has an offer" %}
+                    {% else %}
+                        <img class="clickable" src="/img/icons/edit2.png" onclick="offerProject({{project.id}})" /> {% trans "Change my offer" %}
+                    {% endif %} 
+                {% endif %}
+            </div>
+        {% endif %}
         <div class="cleared">{% trans "Commission" %} 5% : {{project.commission|default:project.allcommission_sum}} €</div>
     {% else %}
         {% trans "No offer was made for this project" %}
