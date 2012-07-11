@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-10 16:59+0200\n"
+"POT-Creation-Date: 2012-07-11 17:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,7 +97,7 @@ msgid "Published on"
 msgstr "Publié sur"
 
 #: messages/models.py:140 messages/views.py:65 messages/views.py:78
-#: projects/models.py:311 projects/views.py:97 projects/views.py:117
+#: projects/models.py:319 projects/views.py:97 projects/views.py:117
 #: templates/projects/project_detail.html:62
 msgid "Forbidden"
 msgstr "Permissions insuffisantes"
@@ -357,7 +357,7 @@ msgstr "Le projet a été partagé avec"
 msgid "Recompute all descendants"
 msgstr "Recalculer tous les descendants"
 
-#: projects/models.py:379
+#: projects/models.py:387
 msgid "Refund of bid"
 msgstr "Remboursement de la participation"
 
@@ -398,7 +398,7 @@ msgstr "Tâche déjà assignée"
 
 #: projects/views.py:212 projects/views.py:214
 msgid "The task '%s' already has an offer"
-msgstr "Le projet a déjà une offre"
+msgstr "La tâche '%s' a déjà une offre"
 
 #: projects/views.py:220
 msgid "Please enter a valid number"
@@ -457,7 +457,7 @@ msgid "Bid"
 msgstr "Participation"
 
 #: projects/views.py:315 projects/views.py:455
-#: templates/projects/project_budget.html:12
+#: templates/projects/project_budget.html:24
 msgid "Commission"
 msgstr "Commission"
 
@@ -976,97 +976,107 @@ msgstr "vous a invité sur le projet:"
 msgid "Offer"
 msgstr "Devis"
 
-#: templates/projects/project_budget.html:11
+#: templates/projects/project_budget.html:14
+#: templates/projects/project_budget.html:17
+msgid "The task"
+msgstr "La tâche"
+
+#: templates/projects/project_budget.html:14
+#: templates/projects/project_budget.html:17
+msgid "already has an offer"
+msgstr "a déjà une offre"
+
+#: templates/projects/project_budget.html:19
 msgid "Change my offer"
 msgstr "Modifier mon offre"
 
-#: templates/projects/project_budget.html:14
+#: templates/projects/project_budget.html:26
 msgid "No offer was made for this project"
 msgstr "Aucun devis n'a été proposé pour ce projet"
 
-#: templates/projects/project_budget.html:17
+#: templates/projects/project_budget.html:29
 msgid "Make an offer"
 msgstr "Faire une offre"
 
-#: templates/projects/project_budget.html:24
+#: templates/projects/project_budget.html:36
 msgid "Bids"
 msgstr "Souscriptions"
 
-#: templates/projects/project_budget.html:31
+#: templates/projects/project_budget.html:43
 msgid "Add a new bid"
 msgstr "Ajouter une nouvelle souscription"
 
-#: templates/projects/project_budget.html:32
+#: templates/projects/project_budget.html:44
 msgid "Cancel your bid on this task"
 msgstr "Annuler votre financement à la tâche"
 
-#: templates/projects/project_budget.html:32
+#: templates/projects/project_budget.html:44
 msgid "Cancel my bid"
 msgstr "Annuler mon financement"
 
-#: templates/projects/project_budget.html:37
+#: templates/projects/project_budget.html:49
 msgid "No bid on this task"
 msgstr "Aucun financement sur cette tâche"
 
-#: templates/projects/project_budget.html:40
+#: templates/projects/project_budget.html:52
 msgid "Payment awaiting:"
 msgstr "Paiement en attente"
 
-#: templates/projects/project_budget.html:43
+#: templates/projects/project_budget.html:55
 msgid "Bid_verb"
 msgstr "Souscrire"
 
-#: templates/projects/project_budget.html:51
+#: templates/projects/project_budget.html:63
 msgid "wants to cancel his"
 msgstr "veut annuler sa"
 
-#: templates/projects/project_budget.html:51
+#: templates/projects/project_budget.html:63
 msgid "bid on this task"
 msgstr "financement sur cette tâche"
 
-#: templates/projects/project_budget.html:52
+#: templates/projects/project_budget.html:64
 msgid "Your offer will be reduced of"
 msgstr "Votre offre sera réduite de"
 
-#: templates/projects/project_budget.html:53
-#: templates/projects/project_budget.html:64
-#: templates/projects/project_budget.html:72
+#: templates/projects/project_budget.html:65
+#: templates/projects/project_budget.html:76
+#: templates/projects/project_budget.html:84
 #: templates/projects/project_team.html:23
 msgid "Do you accept it?"
 msgstr "Acceptez-vous ?"
 
-#: templates/projects/project_budget.html:54
-#: templates/projects/project_budget.html:65
-#: templates/projects/project_budget.html:73
+#: templates/projects/project_budget.html:66
+#: templates/projects/project_budget.html:77
+#: templates/projects/project_budget.html:85
 #: templates/projects/project_team.html:24
 msgid "Accept"
 msgstr "Accepter"
 
-#: templates/projects/project_budget.html:55
-#: templates/projects/project_budget.html:66
-#: templates/projects/project_budget.html:74
+#: templates/projects/project_budget.html:67
+#: templates/projects/project_budget.html:78
+#: templates/projects/project_budget.html:86
 #: templates/projects/project_team.html:25
 msgid "Refuse"
 msgstr "Refuser"
 
-#: templates/projects/project_budget.html:62
+#: templates/projects/project_budget.html:74
 msgid "wants to cancel this task."
 msgstr "veut annuler cette tâche"
 
-#: templates/projects/project_budget.html:63
+#: templates/projects/project_budget.html:75
 msgid "You will be reimbursed in full."
 msgstr "Vous serez intégralement remboursé."
 
-#: templates/projects/project_budget.html:71
+#: templates/projects/project_budget.html:83
 msgid "wants to change this task due date to"
 msgstr "veut modifier la date de livraison de cette tâche au"
 
-#: templates/projects/project_budget.html:80
+#: templates/projects/project_budget.html:92
 #: templates/projects/project_overview.html:55
 msgid "Budget"
 msgstr "Budget"
 
-#: templates/projects/project_budget.html:80
+#: templates/projects/project_budget.html:92
 msgid "Engaged"
 msgstr "Engagé"
 

@@ -274,7 +274,7 @@ function populateOverviewTable(projectid){
                     if(fields[j]=="state"){ etiquette = "description"; task.fields[field] = gettext("State"+task.fields[field]);}
                     if(fields[j]=="due_date") etiquette = "planning";
                     if(fields[j]=="assignee_get_profile_get_display_name") etiquette = "team";
-                    if(fields[j]=="offer") etiquette = "budget";
+                    if(fields[j]=="offer"){ etiquette = "budget"; task.fields[field] += " €";}
                     teste = document.createElement('td');
                     teste.innerHTML = "<a href=/project/"+task.pk+"/view/"+etiquette+">"+task.fields[field]+"</a>";
                     line.appendChild(teste);
