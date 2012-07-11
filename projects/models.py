@@ -14,6 +14,13 @@ from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_D
 from oi.helpers import SPEC_TYPES, SPOT_TYPES, TEXT_TYPE, NOTE_TYPE, to_date
 from oi.prjnotify.models import Observer
 
+
+#Add function for the list
+class ProjectManager(models.Manager):
+    def with_offer(self):
+        """includes only projects with an offer"""
+        return self.filter(offer__gt = 0)
+
 # A project can contain subprojects and/or specs. Without them it is only a task
 class Project(models.Model):
     title = models.CharField(max_length=100)
@@ -35,6 +42,7 @@ class Project(models.Model):
     priority = models.IntegerField(default=0)
     state = models.IntegerField(choices=OI_PRJ_STATES, default=OI_PROPOSED)
     public = models.BooleanField(default=True)
+    objects = ProjectManager()
     
     # overloads save to compute master project and ancestors
     def save(self, *args, **kwargs):
