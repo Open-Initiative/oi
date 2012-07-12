@@ -256,35 +256,33 @@ function orderOverviewTable(projectid, order_by){
     populateOverviewTable(projectid);
 }
 function populateOverviewTable(projectid){
-    var url = "/project/"+projectid+"/listtasks?listall";
-    if(order) url += "&order="+order;
-    url += "&page="+(page||1); 
-    OIajaxCall(url, null, null, 
-        function(response){
-            var header = document.getElementById('headerTableOverview');
-            document.getElementById('dynamicTableOverview').innerHTML = "";
-            document.getElementById('dynamicTableOverview').appendChild(header);
-            var tasklist = eval(eval(response)[0]);
-            var fields = ["title", "state", "due_date", "assignee_get_profile_get_display_name", "offer"];
-            for(var i = 0; i < tasklist.length; i++){
-                var line = document.createElement('tr');
-                var task = tasklist[i];
-                for(var field = fields[j=0]; j < fields.length; field=fields[++j]){
-                    if(fields[j]=="title") etiquette = "overview";
-                    if(fields[j]=="state"){ etiquette = "description"; task.fields[field] = gettext("State"+task.fields[field]);}
-                    if(fields[j]=="due_date") etiquette = "planning";
-                    if(fields[j]=="assignee_get_profile_get_display_name") etiquette = "team";
-                    if(fields[j]=="offer"){ etiquette = "budget"; task.fields[field] += " €";}
-                    teste = document.createElement('td');
-                    teste.innerHTML = "<a href=/project/"+task.pk+"/view/"+etiquette+">"+task.fields[field]+"</a>";
-                    line.appendChild(teste);
-                    document.getElementById('dynamicTableOverview').appendChild(line);
-                }
-            }
-        document.getElementById('projectOverviewPageNext').style.display = (page >= nbpage?"none":"inline"); 
-        document.getElementById('projectOverviewPagePrev').style.display = (page > 1?"inline":"none");
-        }
-    );
+    var divid = newDiv("load");
+    var url = "/project/"+projectid+"/listtasks?listall";
+    if(order) url += "&order="+order;
+    url += "&page="+(page||1);
+    OIajaxCall(url, null, divid, 
+        function(response){
+            var header = document.getElementById('headerTableOverview');
+            document.getElementById('dynamicTableOverview').innerHTML = "";
+            document.getElementById('dynamicTableOverview').appendChild(header);
+            var tasklist = eval(eval(response)[0]);
+            var fields = ["title", "state", "due_date", "assignee_get_profile_get_display_name", "offer"];
+            var views = ["overview","description","planning","team","budget"]
+            for(var i = 0; i < tasklist.length; i++){
+                var line = document.createElement('tr');
+                var task = tasklist[i];
+                for(var field = fields[j=0]; j < fields.length; field=fields[++j]){
+                    if(fields[j]=="state")task.fields[field] = gettext("State"+task.fields[field]);
+                    if(fields[j]=="offer")task.fields[field] += " €";
+                    line.appendChild(document.createElement('td')).innerHTML = "<a href=/project/"+task.pk+"/view/"+views[j]+">"+task.fields[field]+"</a>";
+                }
+                document.getElementById('dynamicTableOverview').appendChild(line);
+            }
+        document.getElementById('projectOverviewPageNext').style.display = (page >= nbpage?"none":"inline"); 
+        document.getElementById('projectOverviewPagePrev').style.display = (page > 1?"inline":"none");
+        clearDiv(divid);
+        }
+    );
 }
 function addSpec(projectid) {
     var divid = newDiv("specs_"+projectid);

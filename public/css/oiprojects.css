@@ -80,14 +80,14 @@ a {
 }
 span.prjOverviewPageNext{
     float:right;
-    padding-top: 2em;
-    font-size: 1.5em;
+    padding-top: 1em;
+    font-size: 18px;
     
 }
 span.prjOverviewPagePrev{
     float:left;
-    padding-top: 2em;
-    font-size: 1.5em;
+    padding-top: 1em;
+    font-size: 18px;
 }
 p.noProjectOverviewTable{
     text-align:center;
@@ -95,7 +95,8 @@ p.noProjectOverviewTable{
 }
 span.changePageOverview{
     position: absolute;
-    right:36em;
+    right: 36em;
+    bottom: -52em;
 }
 /**/
 
