@@ -918,7 +918,7 @@ msgstr ""
 
 #: templates/notification/invitation/notice.html:3
 msgid "wants to add you to his contacts."
-msgstr "veut vous ajouté dans ses contacts"
+msgstr "veut vous ajouter à ses contacts"
 
 #: templates/notification/invitation_accepted/notice.html:3
 msgid "has accepted your invitation."
