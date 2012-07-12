@@ -78,7 +78,7 @@ def listtasks(request, id):
                 tasks = tasks.order_by('-priority')
                 
             if request.GET.has_key('page'):
-                paginator = Paginator(tasks, 5)
+                paginator = Paginator(tasks, 25)
                 page = request.GET.get('page')
                 tasks = paginator.page(page).object_list
             
