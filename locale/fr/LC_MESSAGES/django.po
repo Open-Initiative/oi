@@ -901,7 +901,7 @@ msgstr "refusé"
 
 #: templates/notification/answerdelay/notice.html:4
 msgid "to change the due date of the project:"
-msgstr "pour changer la date de livraison du projet"
+msgstr "de changer la date de livraison du projet :"
 
 #: templates/notification/answerdelegate/notice.html:4
 msgid "to take on project"
@@ -918,7 +918,7 @@ msgstr ""
 
 #: templates/notification/invitation/notice.html:3
 msgid "wants to add you to his contacts."
-msgstr "veut vous ajouté dans ses contacts"
+msgstr "veut vous ajouter à ses contacts"
 
 #: templates/notification/invitation_accepted/notice.html:3
 msgid "has accepted your invitation."

@@ -22,10 +22,8 @@
     <div style="border-top:1px gray solid; position: relative; top: -5em"></div>
     <div style="position: relative; top: -6.2em">
         <p style="color: #0094B5; font-size: 20px">{% trans "Hello" %} {{recipient.get_profile}},</p>
-        <p style="color: #0094B5; font-size: 18px">{% trans "You have received the following notices from" %}<a href="{{current_site}}" style="text-decoration: none">Open Initiative</a></p>
-        {% if observed_project %}
-            <p style="color: #0094B5; font-size: 18px">{% trans "on project" %} {{observed_project.title}}</p>
-        {% endif %}:
+        <p style="color: #0094B5; font-size: 18px">{% trans "You have received the following notices from" %}<a href="{{current_site}}" style="text-decoration: none">Open Initiative</a>
+        {% if observed_project %}{% trans "on project" %} {{observed_project.title}}{% endif %}:</p>
         {% for notice in notices %}{% with 'notification/'|add:notice.notice_type.label|add:'/notice.html' as template_name %}
         <p style="font-size: 13px">{% include template_name %}</p>
         {% endwith %}{% endfor %}
