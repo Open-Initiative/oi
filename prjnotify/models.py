@@ -18,6 +18,8 @@ from django.contrib.contenttypes import generic
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext, get_language, activate
 from oi.helpers import OI_READ
+from oi.projects.context_processors import constants
+import codecs
 
 # if this gets updated, the create() method below needs to be as well...
 NOTICE_MEDIA = (("1", _("Email")),)
@@ -90,7 +92,7 @@ class Observer(models.Model):
         
         # update context with site information
         current_site = "%s://%s"%(getattr(settings, "DEFAULT_HTTP_PROTOCOL", "http"), Site.objects.get_current())
-        context = Context({"recipient": self.user, "notification_url": reverse("notification_notices"), 'current_site': current_site, 'observed_project': self.project})
+        context = Context(dict({"recipient": self.user, "notification_url": reverse("notification_notices"), 'current_site': current_site, 'observed_project': self.project}, **constants(None)))
         
         # e-mail data
         subject = _('Notifications on %s')%(self.project.title if self.project else _('your account'))
