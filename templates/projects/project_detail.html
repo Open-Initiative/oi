@@ -10,7 +10,7 @@
 <div class="pagetop">
     <div id="tabs">
         <div class="{% ifequal view "overview" %}selectedtab {% endifequal %}tab">
-            <a href="/project/{{object.id}}/view/overview"><img class="tabicon" src="/img/icons/spec{% ifequal view "overview" %}white{% endifequal %}.png"/> {% trans "overview" %}</a>
+            <a href="/project/{{object.id}}/view/overview"><img class="tabicon" src="/img/icons/overview{% ifequal view "overview" %}white{% endifequal %}.png"/> {% trans "overview" %}</a>
         </div>
         <div class="{% ifequal view "description" %}selectedtab {% endifequal %}tab">
             <a href="/project/{{object.id}}/view/description"><img class="tabicon" src="/img/icons/spec{% ifequal view "description" %}white{% endifequal %}.png"/> {% trans "description" %}</a>
