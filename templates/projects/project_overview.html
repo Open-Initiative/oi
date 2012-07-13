@@ -43,7 +43,7 @@
         {% if project.descendants.count > 1 %}
             {{project.descendants.count}} {% trans "tasks inside:" %} {{project.title}}</div> <div id="load"></div>
         {% else %}
-            {{project.descendants.count}} {% trans "task inside:" %} {{project.title}}</div>
+            {{project.descendants.count}} {% trans "task inside:" %} {{project.title}}</div> <div id="load"></div>
         {% endif %}
         <div class="prjTableOverview">
             <table id="dynamicTableOverview">

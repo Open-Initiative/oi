@@ -94,9 +94,9 @@ p.noProjectOverviewTable{
     font-size: 1.5em;
 }
 span.changePageOverview{
-    position: absolute;
-    right: 36em;
-    bottom: -52em;
+    position: relative;
+    bottom: -1.5em;
+    right: -23em;
 }
 /**/
 
@@ -126,12 +126,14 @@ div.cardspec {
 }
 div.minispec {
     width: 140px;
-    height: 70px;
+    height: 100px; /*100 au lieu de 70*/
     float: right;
     border: 1px solid;
     margin: 2px;
     text-align:center;
-    padding-top:2.5em;
+    overflow: hidden;
+    text-overflow: ellipsis; /*ne veut pa fonctionner mais c'est le bon code, ne fonctionne pas sans overflow caché*/
+    /* word-wrap: break-word; /*soit word-wrap ou overflow, mais pas les deux*/
 }
 .cardspec img{
     max-width:100%
