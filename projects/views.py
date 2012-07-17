@@ -71,7 +71,7 @@ def listtasks(request, id):
             else:
                 tasks = project.tasks
             if not request.user.is_superuser: #filters on user permissions
-                tasks = tasks.filter(Q(public=True)|Q(projectacl__user=request.user if request.user.is_authenticated() else None, projectacl__permission=OI_READ)).distinct()
+                tasks = tasks.filter_perm(request.user, OI_READ).distinct()
             if request.GET.has_key("order"):
                 tasks = tasks.order_by(request.GET['order'])
             else:

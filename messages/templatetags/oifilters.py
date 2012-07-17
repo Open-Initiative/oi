@@ -79,6 +79,11 @@ def oidateshift(end_date, start_date):
         return None
     
 @register.filter
+def filter_read(obj, user):
+    return obj.filter_perm(user, OI_READ)
+
+    
+@register.filter    
 def can_read(obj, user):
     can_read = getattr(obj,"can_read",None) #request caching for performance
     if can_read==None:

@@ -20,6 +20,10 @@ class ProjectManager(models.Manager):
     def with_offer(self):
         """includes only projects with an offer"""
         return self.filter(offer__gt = 0)
+    
+    def filter_perm(self, user, permission):
+        """filter permissions"""
+        return self.filter(models.Q(public=True)|models.Q(projectacl__user=user if user.is_authenticated() else None, projectacl__permission=permission)).distinct()
 
 # A project can contain subprojects and/or specs. Without them it is only a task
 class Project(models.Model):
@@ -58,11 +62,11 @@ class Project(models.Model):
     
     def check_dates(self):
         """Fixes incorrect dates : the dates should be in the right order"""
-        if to_date(self.created) > to_date(self.start_date):
+        if self.start_date and to_date(self.created) > to_date(self.start_date):
             self.start_date = self.created
-        if to_date(self.start_date) >to_date( self.due_date):
+        if self.due_date and to_date(self.start_date) >to_date( self.due_date):
             self.due_date = self.start_date
-        if to_date(self.due_date) > to_date(self.validation):
+        if self.validation and to_date(self.due_date) > to_date(self.validation):
             self.validation = to_date(self.due_date) + timedelta(15)
     
     def update_tree(self):
@@ -88,22 +92,24 @@ class Project(models.Model):
             ancestor.start_date = self.start_date
             ancestor.check_dates()
             ancestor.save()
-        for ancestor in self.ancestors.filter(due_date__lt = self.due_date):
-            #ancestor due date should be after task due date
-            ancestor.due_date = self.due_date
-            ancestor.check_dates()
-            ancestor.save()
+        if self.due_date:
+            for ancestor in self.ancestors.filter(due_date__lt = self.due_date):
+                #ancestor due date should be after task due date
+                ancestor.due_date = self.due_date
+                ancestor.check_dates()
+                ancestor.save()
 
         for descendant in self.descendants.filter(start_date__lt = self.start_date):
             #descendant start date should be after project start date
             descendant.start_date = self.start_date
             descendant.check_dates()
             descendant.save()
-        for descendant in self.descendants.filter(due_date__gt = self.due_date):
-            #descendant due date should be before project due date
-            descendant.due_date = self.due_date
-            descendant.check_dates()
-            descendant.save()
+        if self.due_date:
+            for descendant in self.descendants.filter(due_date__gt = self.due_date):
+                #descendant due date should be before project due date
+                descendant.due_date = self.due_date
+                descendant.check_dates()
+                descendant.save()
         return True
     
     def switch_to(self, newstate, user):

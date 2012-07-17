@@ -71,9 +71,7 @@ class OIAction:
         self.__dict__.update(kwargs)
 
 def to_date(value):
-    if value:
-        return DateTimeField.to_python(DateTimeField(), value)
-    return datetime(2000,1,1)
+    return DateTimeField.to_python(DateTimeField(), value)
 
 def ajax_login_required(function):
     """Similar decorator as login_required, using 333 as redirect Http code to be captured by javascript"""
