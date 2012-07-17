@@ -45,6 +45,13 @@
         </td>
     </tr>
 </table>
+<div id="personal_website" class="userblock">
+    <h2 class="resumetitle">{% trans "Personal web site" %}</h2>
+    <a href="{{selected_user.get_profile.personal_website|default:""}}">{{selected_user.get_profile.personal_website|default:""}}</a>
+    {% ifequal user selected_user %}
+        <a href="/user/preferences"><img src="/img/icons/edit.png" /></a>
+    {% endifequal %}
+</div>
 <div id="skill" class="userblock">
     {% ifequal user selected_user %}<div class="actions">
         <img src="/img/icons/add.png" class="clickable" onclick="editDetail('skill')" alt="{% trans "Add a skill" %}" title="{% trans "Add a skill" %}" />
@@ -59,7 +66,10 @@
         <img src="/img/icons/add.png" class="clickable" onclick="editDetail('experience')" alt="{% trans "Add an experience" %}" title="{% trans "Add an experience" %}" />
     </div>{% endifequal %}
     <h2 class="resumetitle">{% trans "Experience" %}</h2>
-    {% for experience in selected_user.experience_set.all|dictsortreversed:"begining" %}
+    {% for experience in selected_user.experience_set.with_start_date|dictsortreversed:"begining" %}
+        {% include "users/profile/experience.html" %}
+    {% endfor %}
+    {% for experience in selected_user.experience_set.with_no_start_date %}
         {% include "users/profile/experience.html" %}
     {% endfor %}
 </div>
@@ -68,7 +78,10 @@
         <img src="/img/icons/add.png" class="clickable" onclick="editDetail('training')" alt="{% trans "Add a training" %} title="{% trans "Add a training" %}" />
     </div>{% endifequal %}
     <h2 class="resumetitle">{% trans "Training" %}</h2>
-    {% for training in selected_user.training_set.all|dictsortreversed:"begining" %}
+    {% for training in selected_user.training_set.with_start_date|dictsortreversed:"begining" %}
+        {% include "users/profile/training.html" %}
+    {% endfor %}
+    {% for training in selected_user.training_set.with_no_start_date %}
         {% include "users/profile/training.html" %}
     {% endfor %}
 </div>

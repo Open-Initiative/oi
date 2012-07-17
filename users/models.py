@@ -38,6 +38,7 @@ class UserProfile(models.Model):
     rss_feed = models.URLField(verify_exists=False, blank=True)
     last_feed = models.DateTimeField(null=True, blank=True)
     observed_projects = models.ManyToManyField(Project, related_name="followers", blank=True)
+    personal_website = models.URLField(max_length=200, blank=True, null=True)
     
     def get_titles(self):
         """suggests titles for the user, based on resume details"""
@@ -147,6 +148,15 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return self.get_display_name()
 
+class DetailsManager(models.Manager):
+    def with_start_date(self):
+        """includes only traning or experience with start date"""
+        return self.filter(begining__isnull=False)
+    
+    def with_no_start_date(self):
+        """includes only traning or experience with no start date"""
+        return self.filter(begining__isnull=True)
+
 class Skill(models.Model):
     user = models.ForeignKey(User)
     title = models.CharField(max_length=100, blank=True, verbose_name=ugettext_lazy("Title"))
@@ -162,6 +172,7 @@ class Experience(models.Model):
     company = models.CharField(max_length=100, blank=True, verbose_name=ugettext_lazy("Company"))
     job = models.CharField(max_length=100, blank=True, verbose_name=ugettext_lazy("Job"))
     description = models.TextField(blank=True, verbose_name=ugettext_lazy("Description"))
+    objects = DetailsManager()
     def __unicode__(self):
         return self.company
 
@@ -172,6 +183,7 @@ class Training(models.Model):
     degree = models.CharField(max_length=100, blank=True, verbose_name=ugettext_lazy("Degree"))
     university = models.CharField(max_length=100, blank=True, verbose_name=ugettext_lazy("University"))
     comment = models.TextField(blank=True, verbose_name=ugettext_lazy("Comment"))
+    objects = DetailsManager()
     def __unicode__(self):
         return self.university
 
@@ -188,7 +200,7 @@ class Payment(models.Model):
 class UserProfileForm(ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('address','postcode','city','country','mobile','phone')
+        fields = ('address','postcode','city','country','mobile','phone','personal_website')
 
 class SkillForm(ModelForm):
     class Meta:
