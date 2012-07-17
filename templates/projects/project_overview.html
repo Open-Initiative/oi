@@ -34,19 +34,18 @@
     <div class="prjtitle">{{project.title}}</div>
     <div class="descripOverview">
         <div><span class="entitleOverview">{% trans "Assignee:" %} </span><span><a href="/project/{{object.id}}/view/team"> {{project.assignee.get_profile}}</a></span></div>
-        <div><span class="entitleOverview">{% trans "Realisation date:" %} </span><span><a href="/project/{{object.id}}/view/planning"> {% if project.due_date|date:"d/m/Y" %}{{project.start_date|date:"d/m/Y"}} {% trans "to" %} {{project.due_date|date:"d/m/Y"}}</a></span></div>
+        <div><span class="entitleOverview">{% trans "Realisation date:" %} </span><span><a href="/project/{{object.id}}/view/planning"> {% if project.due_date %}{{project.start_date|date:"d/m/Y"}} {% trans "to" %} {{project.due_date|date:"d/m/Y"}}</a></span></div>
         {% else %}{% trans "click here to add a date" %}</a></span></div>{% endif %}
         <div><span class="entitleOverview">{% trans "Requested budget:" %} </span><span><a href="/project/{{object.id}}/view/budget"> {{project.offer}}€</a></span></div>
     </div>
 </div>  
-{% if  project.descendants.all %}
+{% with  project.descendants|filter_read:user as tasks %}
+{% if tasks %}
     <div class="bottomoverview">
         <div class="prjtitle">
-        {% if project.descendants.count > 1 %}
-            {{project.descendants.count}} {% trans "tasks inside:" %} {{project.title}}</div> <div id="load"></div>
-        {% else %}
-            {{project.descendants.count}} {% trans "task inside:" %} {{project.title}}</div> <div id="load"></div>
-        {% endif %}
+            {{tasks.count}} 
+            {% blocktrans count counter=tasks|length %}task inside{% plural %}tasks inside{% endblocktrans %}
+            {{project.title}}</div> <div id="load"></div>
         <div class="prjTableOverview">
             <table id="dynamicTableOverview">
                 <tr id="headerTableOverview">
@@ -60,7 +59,7 @@
             <span id="projectOverviewPagePrev" class="prjOverviewPagePrev clickable" onclick="page--; populateOverviewTable({{project.id}}); document.getElementById('page').innerHTML=page;">{% trans "previous" %}</span>
             <span id="projectOverviewPageNext" class="prjOverviewPageNext clickable" onclick="++page; populateOverviewTable({{project.id}}); document.getElementById('page').innerHTML=page;">{% trans "next" %}</span>
             <script>
-                nbtask = {{project.descendants.count}};
+                nbtask = {{tasks.count}};
                 nbpage = Math.ceil(nbtask / 25);
                 order = null;
                 page=1;
@@ -70,5 +69,8 @@
         </div>
     </div>
 {% else %}
-    <p class="noProjectOverviewTable">{% trans "You can add tasks with the menu on your left." %}</p>
+    {% if object|can_write:user and object.state < 4 %}
+        <p class="noProjectOverviewTable">{% trans "You can add tasks with the menu on your left." %}</p>
+    {% endif %}
 {% endif %}
+{% endwith %}

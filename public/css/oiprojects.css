@@ -139,8 +139,11 @@ div.minispec {
     margin: 2px;
     text-align:center;
     overflow: hidden;
-    text-overflow: ellipsis; /*ne veut pa fonctionner mais c'est le bon code, ne fonctionne pas sans overflow caché*/
-    /* word-wrap: break-word; /*soit word-wrap ou overflow, mais pas les deux*/
+}
+.minispec p {
+    margin-top: 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .cardspec img{
     max-width:100%
