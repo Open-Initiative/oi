@@ -1,4 +1,2 @@
 {% load i18n %}
-<a href="{{current_site}}/user/profile/{{notice.sender.username}}">{{notice.sender.get_profile}}</a>
-{% trans "has cancelled a project you follow:" %} </br>
-<a href="{{current_site}}/project/{{notice.project.id}}">{{notice.project.title}}</a>
+<p>{% trans "The task" %} {{notice.project.title}} {% trans "is completely delete" %}</p>

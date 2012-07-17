@@ -1,3 +1,3 @@
 {% load i18n %}
-{{notice.sender.get_profile}} {% trans "has cancelled a project you follow:" %} {{notice.project.title}}
+{% trans "The task" %} {{notice.project.title}} {% trans "is completely delete" %}
 {{current_site}}/project/{{notice.project.id}}

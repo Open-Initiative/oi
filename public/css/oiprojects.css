@@ -98,6 +98,13 @@ span.changePageOverview{
     bottom: -1.5em;
     right: -23em;
 }
+div.noMiniSpec{
+    float: right;
+    width: 140px;
+    margin-top: 5em;
+    margin-right: -15em;
+    text-align:center;
+}
 /**/
 
 .prjtitle {
