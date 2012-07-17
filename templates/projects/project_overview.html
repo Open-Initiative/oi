@@ -16,6 +16,8 @@
                 {% endif %}
             {% if object.spec_set.count > 1 %}<img class="clickable previousMiniSpec" src="/img/icons/previousMiniSpec.png"/>{% endif %}
         </div>
+    {% else %}
+        <div class="noMiniSpec"> <a href="/project/{{object.id}}/view/description"> {% trans "Click here to describe the task" %} </a> </div>
     {% endif %}
     <script type="text/javascript">
         $('.previousMiniSpec').click(function(){
