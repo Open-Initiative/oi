@@ -33,6 +33,7 @@ function showChildren(projectid) {
         if(oiTree.nodes[child.id].open && oiTree.nodes[child.id].children.length) afterid = showChildren(child.id);
         else afterid = child.id;
     }
+    oiTable.redraw();
     return afterid;
 }
 function hideChildren(projectid) {
@@ -195,7 +196,9 @@ function toggleHideProject(projectid) {
 }
 function shareProject(projectid) {
     OIajaxCall("/project/"+projectid+"/share", null, "prjdialogue_"+projectid, 
-        function(){show("prjdialogue_"+projectid);});
+        function(){show("prjdialogue_"+projectid);
+        document.getElementById('usershare_'+projectid).focus();
+        });
 }
 function confirmShareProject(projectid) {
     OIajaxCall("/project/"+projectid+"/confirmshare", "username="+getValue("usershare_"+projectid), "output", 
