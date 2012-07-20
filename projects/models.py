@@ -64,10 +64,10 @@ class Project(models.Model):
         """Fixes incorrect dates : the dates should be in the right order"""
         if self.start_date and to_date(self.created) > to_date(self.start_date):
             self.start_date = self.created
-        if self.due_date and to_date(self.start_date) >to_date( self.due_date):
-            self.due_date = self.start_date
-        if self.validation and to_date(self.due_date) > to_date(self.validation):
-            self.validation = to_date(self.due_date) + timedelta(15)
+            if self.due_date and to_date(self.start_date) >to_date( self.due_date):
+                self.due_date = self.start_date
+                if self.validation and to_date(self.due_date) > to_date(self.validation):
+                    self.validation = to_date(self.due_date)
     
     def update_tree(self):
         """checks if ancestors and descendants states and dates are consistent with the task"""
@@ -147,6 +147,8 @@ class Project(models.Model):
                 self.due_date = datetime.now()
             elif newstate == self.state == OI_VALIDATED:
                 self.validation = datetime.now()
+                if not self.due_date:
+                    self.due_date = datetime.now()
             self.check_dates()
             
             #update tree states
