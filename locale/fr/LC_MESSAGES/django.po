@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-17 14:22+0200\n"
+"POT-Creation-Date: 2012-07-20 18:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,7 +97,7 @@ msgid "Published on"
 msgstr "Publié sur"
 
 #: messages/models.py:140 messages/views.py:65 messages/views.py:78
-#: projects/models.py:325 projects/views.py:97 projects/views.py:117
+#: projects/models.py:329 projects/views.py:97 projects/views.py:117
 #: templates/projects/project_detail.html:62
 msgid "Forbidden"
 msgstr "Permissions insuffisantes"
@@ -357,7 +357,7 @@ msgstr "Le projet a été partagé avec"
 msgid "Recompute all descendants"
 msgstr "Recalculer tous les descendants"
 
-#: projects/models.py:393
+#: projects/models.py:397
 msgid "Refund of bid"
 msgstr "Remboursement de la participation"
 
@@ -461,6 +461,10 @@ msgstr "Participation"
 #: templates/projects/project_budget.html:24
 msgid "Commission"
 msgstr "Commission"
+
+#: projects/views.py:324
+msgid "Bid saved"
+msgstr "Souscription enregistrée"
 
 #: projects/views.py:332
 msgid "Not enough bids"
@@ -1851,7 +1855,6 @@ msgstr "Mofication enregistrée"
 msgid "Notice archived"
 msgstr "Notification archivée"
 
-#, fuzzy
 #~ msgid "is completely delete"
 #~ msgstr "Fichier supprimé"
 

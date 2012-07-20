@@ -321,7 +321,7 @@ def bidproject(request, id):
     project.switch_to(OI_ACCEPTED, request.user)
     #notify users about this bid
     project.notify_all(request.user, "project_bid", bid)
-    messages.info(request, ("Bid saved"))
+    messages.info(request, _("Bid saved"))
     return HttpResponse('', status=332)
 
 @OINeedsPrjPerms(OI_READ)
