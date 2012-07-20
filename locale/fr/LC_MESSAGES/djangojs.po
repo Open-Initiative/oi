@@ -67,6 +67,14 @@ msgstr "Merci d'accepter les Conditions Générales d'Utilisation"
 msgid "Are you sure you want to start this task?"
 msgstr "Etes-vous sûr de vouloir démarrer cette tâche ?"
 
+#: public/js/oiproject.js:171
+msgid "Are you sure you want to deliver this task?"
+msgstr "Etes-vous sûr de vouloir délivrer cette tâche ?"
+
+#: public/js/oiproject.js:175
+msgid "Are you sure you want to validate this task?"
+msgstr "Etes-vous sûr de vouloir valider cette tâche ?"
+
 #: public/js/oiproject.js:194
 msgid "Are you sure you want to cancel this project?"
 msgstr "Etes vous sûr de vouloir annuler ce projet ?"
