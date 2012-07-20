@@ -33,7 +33,6 @@ function showChildren(projectid) {
         if(oiTree.nodes[child.id].open && oiTree.nodes[child.id].children.length) afterid = showChildren(child.id);
         else afterid = child.id;
     }
-    oiTable.redraw();
     return afterid;
 }
 function hideChildren(projectid) {
@@ -57,15 +56,23 @@ function populateTaskList(taskLists) {
     }
 }
 function onExpandNode(projectid) {
-    if(oiTree.nodes[projectid].children.length) {
-        if(oiTable) showChildren(projectid);
-    }else{
+    if(!oiTree.nodes[projectid].children.length){
         OIajaxCall("/project/"+projectid+"/listtasks", null, null,
-            function(response){populateTaskList(eval('('+response+')'));});
-    }
-    if(window.oiTable){
-        if(oiTree.selected) oiTable.addSpace(oiTree.selected);
-        if(oiTable) oiTable.redraw();
+            function(response){
+                populateTaskList(eval('('+response+')'));
+                if(window.oiTable){
+                    showChildren(projectid);
+                    if(oiTree.selected) oiTable.addSpace(oiTree.selected);
+                    oiTable.redraw();
+                }
+            }
+        );
+    }else{
+        if(window.oiTable){
+            showChildren(projectid);
+            if(oiTree.selected) oiTable.addSpace(oiTree.selected);
+            oiTable.redraw();
+        }
     }
 }
 function onShrinkNode(projectid) {
