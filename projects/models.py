@@ -86,12 +86,13 @@ class Project(models.Model):
                 #update all descendants not yet delivered if project is delivered
                 if not descendant.switch_to(OI_VALIDATED, None):
                     return False
-
-        for ancestor in self.ancestors.filter(start_date__gt = self.start_date):
-            #ancestor start date should be before task start date
-            ancestor.start_date = self.start_date
-            ancestor.check_dates()
-            ancestor.save()
+    
+        if self.start_date:
+            for ancestor in self.ancestors.filter(start_date__gt = self.start_date):
+                #ancestor start date should be before task start date
+                ancestor.start_date = self.start_date
+                ancestor.check_dates()
+                ancestor.save()
         if self.due_date:
             for ancestor in self.ancestors.filter(due_date__lt = self.due_date):
                 #ancestor due date should be after task due date
@@ -99,11 +100,12 @@ class Project(models.Model):
                 ancestor.check_dates()
                 ancestor.save()
 
-        for descendant in self.descendants.filter(start_date__lt = self.start_date):
-            #descendant start date should be after project start date
-            descendant.start_date = self.start_date
-            descendant.check_dates()
-            descendant.save()
+        if self.start_date:
+            for descendant in self.descendants.filter(start_date__lt = self.start_date):
+                #descendant start date should be after project start date
+                descendant.start_date = self.start_date
+                descendant.check_dates()
+                descendant.save()
         if self.due_date:
             for descendant in self.descendants.filter(due_date__gt = self.due_date):
                 #descendant due date should be before project due date
