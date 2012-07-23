@@ -140,18 +140,17 @@ class Project(models.Model):
             newstate = OI_VALIDATED if self.bid_set.filter(validated=False).count()==0 else OI_DELIVERED
             
         if self.state != newstate: #state needs to be updated
-            self.state = newstate
         
             #update dates
-            if newstate == self.state == OI_STARTED:
+            if self.state < OI_STARTED and newstate == OI_STARTED:
                 self.start_date = datetime.now()
-            elif newstate == self.state == OI_DELIVERED:
+            elif self.state == OI_STARTED and newstate > OI_STARTED:
                 self.due_date = datetime.now()
-            elif newstate == self.state == OI_VALIDATED:
+            elif self.state < OI_VALIDATED and newstate == OI_VALIDATED:
                 self.validation = datetime.now()
-                if not self.due_date:
-                    self.due_date = datetime.now()
             self.check_dates()
+            
+            self.state = newstate
             
             #update tree states
             if user:
