@@ -64,3 +64,17 @@ function archiveNotice(noticeid) {
     OIajaxCall("/user/archivenotice", "notice="+noticeid, "output", 
         function(){clearDiv("notice_"+noticeid);});
 }
+function saveSetting(observerid, frequency, use_default, noticeField, send){
+    var param;
+    if(frequency) param =+ "&frequency="+frequency;
+    if(use_default) param =+ "&use_default="+use_default;
+    if(noticeField) param =+ "&noticeField="+noticeField+"&send="+send;
+    OIajaxCall("/notification/settings/"+observerid+"/save", param, "output", 
+    function(){
+        if(!use_default){
+            show("notice_setting_"+observerid);
+        }else{
+            hide("notice_setting_"+observerid);
+        }
+    });
+}
