@@ -16,10 +16,10 @@
 <div id="notice_setting_{{observer.id}}" {% if observer.use_default %} class="invisible" {% endif %}>
     <label for="freq_{{observer.id}}">{% trans "Receive notices every" %}</label> 
     <select id="freq_{{observer.id}}"> 
-        <option onclick="saveSetting({{observer.id}}, 604800);">{% trans "weeks" %}</option> 
-        <option onclick="saveSetting({{observer.id}}, 86400);">{% trans "days" %}</option> 
-        <option onclick="saveSetting({{observer.id}}, 3600);">{% trans "hours" %}</option> 
-        <option onclick="saveSetting({{observer.id}}, 300);">{% trans "5 minutes" %}</option>
+        <option onclick="saveSetting({{observer.id}}, 604800);" {% if observer.send_every = 604800 %} selected {% endif %}>{% trans "week" %}</option> 
+        <option onclick="saveSetting({{observer.id}}, 86400);" {% if observer.send_every = 86400 %} selected {% endif %}>{% trans "day" %}</option> 
+        <option onclick="saveSetting({{observer.id}}, 3600);" {% if observer.send_every = 3600 %} selected {% endif %}>{% trans "hour" %}</option> 
+        <option onclick="saveSetting({{observer.id}}, 300);" {% if observer.send_every = 300 %} selected {% endif %}>{% trans "5 minute" %}</option>
     </select>
     
     <ul style="margin-top: 0px;">{% for setting in observer.noticesetting_set.all %}
