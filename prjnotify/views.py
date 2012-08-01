@@ -128,10 +128,9 @@ def save_observer(request, id):
     if request.POST.get("frequency"):
         observer.send_every = request.POST["frequency"]
     if request.POST.get("use_default"):
-        observer.use_default = request.POST["use_default"]
+        observer.use_default = (request.POST["use_default"] == "true")
     if request.POST.get("noticeField"):
         observer.noticesetting_set.filter(notice_type__label=POST["noticeField"]).update(send=request.POST["send"])
-    if observer:
-        observer.save()
-        return HttpResponse(_("Modification saved"))
+    observer.save()
+    return HttpResponse(_("Modification saved"))
     

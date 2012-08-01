@@ -65,10 +65,11 @@ function archiveNotice(noticeid) {
         function(){clearDiv("notice_"+noticeid);});
 }
 function saveSetting(observerid, frequency, use_default, noticeField, send){
-    var param;
-    if(frequency) param =+ "&frequency="+frequency;
-    if(use_default) param =+ "&use_default="+use_default;
-    if(noticeField) param =+ "&noticeField="+noticeField+"&send="+send;
+    var param = "";
+    if(frequency) param += "&frequency="+frequency;
+    if(use_default != null) param += "&use_default="+use_default;
+    if(noticeField) param += "&noticeField="+noticeField+"&send="+send;
+    //alert(use_default);
     OIajaxCall("/notification/settings/"+observerid+"/save", param, "output", 
     function(){
         if(!use_default){
