@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-31 14:03+0200\n"
+"POT-Creation-Date: 2012-07-31 15:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -898,19 +898,19 @@ msgstr "Paramètre par défaut"
 
 #: templates/notification/settings.html:17
 msgid "Receive notices every"
-msgstr ""
+msgstr "Recevoir les notification toutes/tous les"
 
 #: templates/notification/settings.html:19
-msgid "week"
-msgstr "semaine"
+msgid "weeks"
+msgstr "semaines"
 
 #: templates/notification/settings.html:20
-msgid "day"
-msgstr "jour"
+msgid "days"
+msgstr "jours"
 
 #: templates/notification/settings.html:21
-msgid "hour"
-msgstr "heur"
+msgid "hours"
+msgstr "heures"
 
 #: templates/notification/settings.html:22
 msgid "5 minutes"
@@ -1882,3 +1882,5 @@ msgstr "Impossible de modifier le profil d'un autre utilisateur"
 msgid "Notice archived"
 msgstr "Notification archivée"
 
+#~ msgid "day"
+#~ msgstr "jour"
