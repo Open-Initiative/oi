@@ -33,11 +33,7 @@ def notices(request):
 @login_required
 def notice_settings(request):
     default = request.user.get_profile().get_default_observer()
-    observers = Observer.objects.filter(user=request.user)
-    #ensures settings objects exists when the observer doesn't use the default configuration
-    for observer in observers.filter(use_default=False):
-        for notice_type in NoticeType.objects.all():
-            observer.get_setting(notice_type)
+    observers = Observer.objects.filter(user=request.user).order_by("project__id")
     return direct_to_template(request, template="notification/settings.html", extra_context={'default_observer': default, 'observers': observers})
 
 

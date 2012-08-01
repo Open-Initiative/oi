@@ -1,20 +1,19 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% block title %}Notifications Settings{% endblock %}
+{% block title %}{% trans "Notifications Settings" %}{% endblock %}
+{% block pagetitle %}{% trans "Notifications Settings" %}{% endblock %}
 {% block content %}
-<div style="font-size:3em;position:relative;right:6em;margin-bottom:30px">{% trans "Notifications Settings" %}</div>
 {% for observer in observers %}
-{{observer.project.title|default:"Default settings"}} :
-
-<br/>
+{% if observer.project %}<a href="/project/{{observer.project.id}}/view/overview"><div class="prjtitle">{{observer.project.title}}</div></a>
+{% else %} <div class="prjtitle">{% trans "Default settings" %}</div> {% endif %}
 
 {% if observer.project %}
-{{observer.id}} {{observer.use_default}}
     <label for="Use_Default_{{observer.id}}">{% trans "Use default" %}</label>
     <input id="Use_Default_{{observer.id}}" type="checkbox" {% if observer.use_default %} checked="checked" {% endif %} onclick="saveSetting({{observer.id}}, null, this.checked);"/>
 {% endif %}
-
-<div id="notice_setting_{{observer.id}}"  class="invisible">
+<br/>
+<br/>
+<div id="notice_setting_{{observer.id}}" {% if observer.use_default %} class="invisible" {% endif %}>
     <label for="freq_{{observer.id}}">{% trans "Receive notices every" %}</label> 
     <select id="freq_{{observer.id}}"> 
         <option onclick="saveSetting({{observer.id}}, 604800);">{% trans "weeks" %}</option> 
@@ -22,11 +21,12 @@
         <option onclick="saveSetting({{observer.id}}, 3600);">{% trans "hours" %}</option> 
         <option onclick="saveSetting({{observer.id}}, 300);">{% trans "5 minutes" %}</option>
     </select>
+    
+    <ul style="margin-top: 0px;">{% for setting in observer.noticesetting_set.all %}
+    <li><input type="checkbox" value="default" {% if setting.send %}checked="checked"{% endif %} onclick="saveSetting({{observer.id}}, null, null, '{{setting.notice_type.label}}', true);"/>
+    <label>{% trans setting.notice_type.display %}</label></li>
+    {% endfor %}</ul><br/>
+    
 </div>
-
-<ul style="margin-top: 0px;">{% for setting in observer.noticesetting_set.all %}
-<li><input type="checkbox" value="default" {% if setting.send %}checked="checked"{% endif %} onclick="saveSetting({{observer.id}}, null, null, '{{setting.notice_type.label}}', true);"/>
-<label>{{setting.notice_type.label}}</label></li>
-{% endfor %}</ul><br/>
 {% endfor %}
 {% endblock %}
