@@ -69,7 +69,6 @@ function saveSetting(observerid, frequency, use_default, noticeField, send){
     if(frequency) param += "&frequency="+frequency;
     if(use_default != null) param += "&use_default="+use_default;
     if(noticeField) param += "&noticeField="+noticeField+"&send="+send;
-    //alert(use_default);
     OIajaxCall("/notification/settings/"+observerid+"/save", param, "output", 
     function(){
         if(!use_default){
