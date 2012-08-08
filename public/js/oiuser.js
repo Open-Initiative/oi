@@ -68,3 +68,17 @@ function switchPrjList(listid) {
     jQuery(".prjlist").slideUp();
     jQuery("#prjlist"+listid).slideDown();
 }
+function saveSetting(observerid, frequency, use_default, noticeField, send){
+    var param = "";
+    if(frequency) param += "&frequency="+frequency;
+    if(use_default != null) param += "&use_default="+use_default;
+    if(noticeField) param += "&noticeField="+noticeField+"&send="+send;
+    OIajaxCall("/notification/settings/"+observerid+"/save", param, "output", 
+    function(){
+        if(!use_default){
+            show("notice_setting_"+observerid);
+        }else{
+            hide("notice_setting_"+observerid);
+        }
+    });
+}

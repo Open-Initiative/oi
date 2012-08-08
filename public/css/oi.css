@@ -198,14 +198,13 @@ div.center{
     color: #6c6d6e;
 }
 #pagetitle {
-    height: 95px;
-    width: 265px;
     padding: 0 5px;
     font-family: "Interstate";
     text-transform: uppercase;
     font-size: 2em;
     color: #D0574C;
     overflow: hidden;
+    clear:left;
 }
 #messageoutput {
     position: fixed;

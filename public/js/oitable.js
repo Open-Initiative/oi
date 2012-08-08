@@ -24,10 +24,10 @@ OITable.prototype.addSpace = function(afterid) {
 OITable.prototype.hideLine = function(id, nbnext) {
     var line = this.lineids[id];
     var pos = this.lines.indexOf(line);
-    this.lines.splice(pos, 1 + (nbnext||0));
+    if(pos >= 0) this.lines.splice(pos, 1 + (nbnext||0));
 }
 OITable.prototype.showLine = function(id, afterid) {
-    if(this.lines.indexOf(this.lineids[id])) this.lines.splice(this.lines.indexOf(this.lineids[id]), 1);
+    if(this.lines.indexOf(this.lineids[id]) >= 0) this.lines.splice(this.lines.indexOf(this.lineids[id]), 1);
     var pos = this.lines.indexOf(this.lineids[afterid]) + 1;
     this.lines.splice(pos, 0, this.lineids[id]);
 }

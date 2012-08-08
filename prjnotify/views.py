@@ -1,6 +1,6 @@
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response, get_object_or_404
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.syndication.views import feed
@@ -10,6 +10,8 @@ from oi.prjnotify.models import Notice, NoticeType, NoticeSetting, Observer
 from oi.prjnotify.decorators import basic_auth_required, simple_basic_auth_callback
 from oi.prjnotify.feeds import NoticeUserFeed
 from oi.projects.models import Project
+
+from django.utils.translation import ugettext as _
 
 
 @basic_auth_required(realm='Notices Feed', callback_func=simple_basic_auth_callback)
@@ -31,11 +33,7 @@ def notices(request):
 @login_required
 def notice_settings(request):
     default = request.user.get_profile().get_default_observer()
-    observers = Observer.objects.filter(user=request.user)
-    #ensures settings objects exists when the observer doesn't use the default configuration
-    for observer in observers.filter(use_default=False):
-        for notice_type in NoticeType.objects.all():
-            observer.get_setting(notice_type)
+    observers = Observer.objects.filter(user=request.user).order_by("project__id")
     return direct_to_template(request, template="notification/settings.html", extra_context={'default_observer': default, 'observers': observers})
 
 
@@ -117,3 +115,18 @@ def mark_all_seen(request):
         notice.unseen = False
         notice.save()
     return HttpResponseRedirect(reverse("notification_notices"))
+ 
+@login_required   
+def save_observer(request, id):
+    """save observer modification"""
+    observer = Observer.objects.get(id=id)
+    
+    if request.POST.get("frequency"):
+        observer.send_every = request.POST["frequency"]
+    if request.POST.get("use_default"):
+        observer.use_default = (request.POST["use_default"] == "true")
+    if request.POST.get("noticeField"):
+        observer.noticesetting_set.filter(notice_type__label=POST["noticeField"]).update(send=request.POST["send"])
+    observer.save()
+    return HttpResponse(_("Modification saved"))
+    

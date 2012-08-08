@@ -17,7 +17,6 @@
     {% endfor %}
     </div>
     <div id="tools">
-        <img id="fav_{{object.id}}" class="clickable" title="Suivre le projet" alt="Suivre le projet" src="/img/icons/star{{object|is_following:user}}.png" onclick="favProject({{object.id}})">
         {% include 'projects/project_state.html' %}
     </div>
 </div>

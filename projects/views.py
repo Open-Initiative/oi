@@ -71,7 +71,7 @@ def listtasks(request, id):
             else:
                 tasks = project.tasks
             if not request.user.is_superuser: #filters on user permissions
-                tasks = tasks.filter_perm(request.user, OI_READ).distinct()
+                tasks = tasks.filter_perm(request.user, OI_READ)
             if request.GET.has_key("order"):
                 tasks = tasks.order_by(request.GET['order'])
             else:
@@ -329,7 +329,7 @@ def bidproject(request, id):
     project.switch_to(OI_ACCEPTED, request.user)
     #notify users about this bid
     project.notify_all(request.user, "project_bid", bid)
-    messages.info(request, ("Bid saved"))
+    messages.info(request, _("Bid saved"))
     return HttpResponse('', status=332)
 
 @OINeedsPrjPerms(OI_READ)

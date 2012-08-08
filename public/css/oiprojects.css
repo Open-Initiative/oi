@@ -70,6 +70,13 @@ div.prjTableOverview table tr th {
 div.prjTableOverview table tr td {
     text-align:left;
     width: 150px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+#dynamicTableOverview{
+    overflow:hidden;
+    table-layout: fixed;
+    width: 700px;
 }
 col { 
     background: blue;
@@ -105,6 +112,103 @@ div.noMiniSpec{
     margin-right: -15em;
     text-align:center;
 }
+div.prjBlockAction{
+    height:65px;
+    margin-top: 30px;
+}
+div.prjActionBtn{
+    padding: 3px;
+    font-size:1.5em; 
+    background-color: #0094B5;
+    font-family:'Interstate'; 
+    color:white; 
+    border-radius : 5px;
+}
+div.prjActionDel{
+    background-color: #0094B5;
+    border-radius : 5px;
+}
+div.prjActionWait{
+    font-size:1.5em;
+}
+div.prjstate-done{
+    background-color:#6C6D6E; 
+    color:white;
+    font-size:1.8em;
+}
+div.prjstate-not-done{
+    background-color:white; 
+    color:#6C6D6E;
+    font-size:1.5em;
+}
+div.prjstate-validation{
+    background-color:#68274E; 
+    color:white;
+    font-size:1.8em;
+}
+div.prjstate-not-validation{
+    background-color:white; 
+    color:#68274E;
+    font-size:1.5em;
+}
+div.prjstate-execution{
+    background-color:#D0574C; 
+    color:white;
+    font-size:1.8em;
+}
+div.prjstate-not-execution{
+    background-color: white; 
+    color:#D0574C;
+    font-size:1.5em;
+}
+div.prjstate-design{
+    background-color:#0094B5; 
+    color:white;
+    font-size:1.8em;
+}
+div.prjstate-not-design{
+    background-color:white; 
+    color:#0094B5;
+    font-size:1.5em;
+}
+div.prjBlockFavP{
+    float:right;
+    margin-top: -4px;
+    margin-right: 11px;
+    font-size: 0.8em;
+}
+div.prjStarFav{
+    text-align: center;
+}
+div.prjBlockPrivate{
+    float:right;
+    margin-top: 4px;
+    font-size: 0.8em;
+}
+div.arrow-validation{
+    float: right;
+    border-bottom: 15px solid transparent;
+    border-left: 15px solid #68274E;
+    border-top: 15px solid transparent;
+    background-color: white;
+    padding-right: 3px;
+}
+div.arrow-execution{
+    float: right;
+    border-bottom: 15px solid transparent;
+    border-left: 15px solid #D0574C;
+    border-top: 15px solid transparent;
+    background-color: white;
+    padding-right: 3px;
+}
+div.arrow-design{
+    float: right;
+    border-bottom: 15px solid transparent;
+    border-left: 15px solid #0094B5;
+    border-top: 15px solid transparent;
+    background-color: white;
+    padding-right: 3px;
+}
 /**/
 
 .tasktip {
@@ -137,7 +241,7 @@ div.cardspec {
 }
 div.minispec {
     width: 140px;
-    height: 100px; /*100 au lieu de 70*/
+    height: 100px;
     float: right;
     border: 1px solid;
     margin: 2px;
@@ -197,10 +301,11 @@ div.prjstate {
     text-align: right;
 }
 div.prjstatebtn {
-    padding: 3px;
     float: right;
-    font-size: 1.5em;
-    color: #A8DCF4;
+    height: 28px;
+    padding-left: 9px;
+    padding-right: 5px;
+    border: 1px solid;
 }
 div.bidaction {
     background: #D0574C;
@@ -392,12 +497,12 @@ div.sepspecfooter {
 }
 .progressbar {
     float:left;
-    font-size:.3em;
+    font-size:.6em;
     width:10em;
     border:solid 1px;
     color: #6C6D6E;
     position: absolute;
-    width: 140px;
+    width: 270px;
     margin-top: 5px;
 }
 .progress {

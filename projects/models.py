@@ -64,10 +64,10 @@ class Project(models.Model):
         """Fixes incorrect dates : the dates should be in the right order"""
         if self.start_date and to_date(self.created) > to_date(self.start_date):
             self.start_date = self.created
-        if self.due_date and to_date(self.start_date) >to_date( self.due_date):
-            self.due_date = self.start_date
-        if self.validation and to_date(self.due_date) > to_date(self.validation):
-            self.validation = to_date(self.due_date) + timedelta(15)
+            if self.due_date and to_date(self.start_date) >to_date( self.due_date):
+                self.due_date = self.start_date
+                if self.validation and to_date(self.due_date) > to_date(self.validation):
+                    self.validation = to_date(self.due_date)
     
     def update_tree(self):
         """checks if ancestors and descendants states and dates are consistent with the task"""
@@ -86,12 +86,13 @@ class Project(models.Model):
                 #update all descendants not yet delivered if project is delivered
                 if not descendant.switch_to(OI_VALIDATED, None):
                     return False
-
-        for ancestor in self.ancestors.filter(start_date__gt = self.start_date):
-            #ancestor start date should be before task start date
-            ancestor.start_date = self.start_date
-            ancestor.check_dates()
-            ancestor.save()
+    
+        if self.start_date:
+            for ancestor in self.ancestors.filter(start_date__gt = self.start_date):
+                #ancestor start date should be before task start date
+                ancestor.start_date = self.start_date
+                ancestor.check_dates()
+                ancestor.save()
         if self.due_date:
             for ancestor in self.ancestors.filter(due_date__lt = self.due_date):
                 #ancestor due date should be after task due date
@@ -99,11 +100,12 @@ class Project(models.Model):
                 ancestor.check_dates()
                 ancestor.save()
 
-        for descendant in self.descendants.filter(start_date__lt = self.start_date):
-            #descendant start date should be after project start date
-            descendant.start_date = self.start_date
-            descendant.check_dates()
-            descendant.save()
+        if self.start_date:
+            for descendant in self.descendants.filter(start_date__lt = self.start_date):
+                #descendant start date should be after project start date
+                descendant.start_date = self.start_date
+                descendant.check_dates()
+                descendant.save()
         if self.due_date:
             for descendant in self.descendants.filter(due_date__gt = self.due_date):
                 #descendant due date should be before project due date
@@ -138,16 +140,17 @@ class Project(models.Model):
             newstate = OI_VALIDATED if self.bid_set.filter(validated=False).count()==0 else OI_DELIVERED
             
         if self.state != newstate: #state needs to be updated
-            self.state = newstate
         
             #update dates
-            if newstate == self.state == OI_STARTED:
+            if self.state < OI_STARTED and newstate == OI_STARTED:
                 self.start_date = datetime.now()
-            elif newstate == self.state == OI_DELIVERED:
+            elif self.state == OI_STARTED and newstate > OI_STARTED:
                 self.due_date = datetime.now()
-            elif newstate == self.state == OI_VALIDATED:
+            elif self.state < OI_VALIDATED and newstate == OI_VALIDATED:
                 self.validation = datetime.now()
             self.check_dates()
+            
+            self.state = newstate
             
             #update tree states
             if user:
