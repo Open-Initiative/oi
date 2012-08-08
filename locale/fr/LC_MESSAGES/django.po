@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-01 13:11+0200\n"
+"POT-Creation-Date: 2012-08-08 10:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,7 +80,7 @@ msgstr "Document"
 msgid "Note"
 msgstr "Note"
 
-#: helpers.py:64 templates/projects/project_state.html:26
+#: helpers.py:64
 msgid "Task"
 msgstr "Tâche"
 
@@ -98,7 +98,7 @@ msgstr "Publié sur"
 
 #: messages/models.py:140 messages/views.py:65 messages/views.py:78
 #: projects/models.py:328 projects/views.py:97 projects/views.py:117
-#: templates/projects/project_detail.html:62
+#: templates/projects/project_detail.html:61
 msgid "Forbidden"
 msgstr "Permissions insuffisantes"
 
@@ -704,24 +704,88 @@ msgstr "Mot de passe"
 msgid "Forgot your password?"
 msgstr "Mot de passe oublié ?"
 
-#: templates/base.html:127 templates/projects/dialogue/bid.html:4
+#: templates/base.html:119
+msgid "Public"
+msgstr "Publique"
+
+#: templates/base.html:119
+msgid "Private"
+msgstr "Privée"
+
+#: templates/base.html:119
+msgid "task"
+msgstr "tâche"
+
+#: templates/base.html:121
+msgid "Make this task"
+msgstr "Rendre cette tâche"
+
+#: templates/base.html:121
+msgid "private"
+msgstr "privée"
+
+#: templates/base.html:121
+msgid "public"
+msgstr "publique"
+
+#: templates/base.html:125
+msgid "follow the project"
+msgstr "suivre le projet"
+
+#: templates/base.html:130
+msgid "subscriber"
+msgid_plural "subscribers"
+msgstr[0] "abonné"
+msgstr[1] "abonnés"
+
+#: templates/base.html:153
+msgid "Delete the task"
+msgstr "Supprimer cette tâche"
+
+#: templates/base.html:156 templates/projects/spec/edit_spot.html:10
+msgid "Cancel"
+msgstr "Annuler"
+
+#: templates/base.html:161
+msgid "Start"
+msgstr "Démarrer"
+
+#: templates/base.html:164
+msgid "Deliver"
+msgstr "Livrer"
+
+#: templates/base.html:169
+msgid "Waiting for the bidder"
+msgid_plural "Waiting for the bidders"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/base.html:176
+msgid "Validate"
+msgstr "Valider"
+
+#: templates/base.html:179
+msgid "Evaluate"
+msgstr "Evaluer"
+
+#: templates/base.html:203 templates/projects/dialogue/bid.html:4
 #: templates/projects/dialogue/offer.html:4 templates/users/register.html:35
 msgid "Terms of Use"
 msgstr "Conditions Générales d'Utilisation"
 
-#: templates/base.html:128 templates/index.html:14 templates/index.html.py:26
+#: templates/base.html:204 templates/index.html:14 templates/index.html.py:26
 msgid "/presentation"
 msgstr "/presentation-fr"
 
-#: templates/base.html:128
+#: templates/base.html:204
 msgid "Presentation"
 msgstr "Présentation"
 
-#: templates/base.html:129 templates/contact.html:3
+#: templates/base.html:205 templates/contact.html:3
 msgid "Legal notice"
 msgstr "Mentions légales"
 
-#: templates/base.html:130
+#: templates/base.html:206
 msgid "Contact"
 msgstr "Contact"
 
@@ -906,19 +970,19 @@ msgid "Receive notices every"
 msgstr "Recevoir les notification toutes/tous les"
 
 #: templates/notification/settings.html:19
-msgid "weeks"
+msgid "week"
 msgstr "semaines"
 
 #: templates/notification/settings.html:20
-msgid "days"
+msgid "day"
 msgstr "jours"
 
 #: templates/notification/settings.html:21
-msgid "hours"
+msgid "hour"
 msgstr "heures"
 
 #: templates/notification/settings.html:22
-msgid "5 minutes"
+msgid "5 minute"
 msgstr "5 minutes"
 
 #: templates/notification/answer/notice.html:5
@@ -1145,7 +1209,6 @@ msgstr "Ajouter une discussion"
 
 #: templates/projects/project_detail.html:4
 #: templates/projects/project_detail.html:5
-#: templates/projects/project_state.html:26
 msgid "Project"
 msgstr "Projet"
 
@@ -1206,7 +1269,7 @@ msgid_plural "tasks inside"
 msgstr[0] "tâche à l'interieur de"
 msgstr[1] "tâches à l'interieur de"
 
-#: templates/projects/project_overview.html:52 users/models.py:162
+#: templates/projects/project_overview.html:52 users/models.py:161
 msgid "Title"
 msgstr "Titre"
 
@@ -1220,7 +1283,7 @@ msgstr "Echéance"
 
 #: templates/projects/project_overview.html:55
 #: templates/projects/project_team.html:6
-#: templates/projects/project_team.html:68
+#: templates/projects/project_team.html:66
 msgid "Assignee"
 msgstr "Responsable"
 
@@ -1252,34 +1315,21 @@ msgstr "Date de livraison :"
 msgid "Validation on:"
 msgstr "Validation le :"
 
-#: templates/projects/project_state.html:4
-msgid "Delete the task"
-msgstr "Supprimer cette tâche"
+#: templates/projects/project_state.html:3
+msgid "Task done"
+msgstr "Tâche terminée"
+
+#: templates/projects/project_state.html:5
+msgid "Validation"
+msgstr "Validation"
 
 #: templates/projects/project_state.html:7
-#: templates/projects/spec/edit_spot.html:10
-msgid "Cancel"
-msgstr "Annuler"
+msgid "exectution"
+msgstr "Réalisation"
 
-#: templates/projects/project_state.html:11
-msgid "Start"
-msgstr "Démarrer"
-
-#: templates/projects/project_state.html:14
-msgid "Deliver"
-msgstr "Livrer"
-
-#: templates/projects/project_state.html:19
-msgid "Validate"
-msgstr "Valider"
-
-#: templates/projects/project_state.html:22
-msgid "Evaluate"
-msgstr "Evaluer"
-
-#: templates/projects/project_state.html:26
-msgid "adj_fem"
-msgstr "e"
+#: templates/projects/project_state.html:9
+msgid "design"
+msgstr "Conception"
 
 #: templates/projects/project_sum.html:4
 msgid "delete this task"
@@ -1310,7 +1360,7 @@ msgid "Take on"
 msgstr "Prendre en charge"
 
 #: templates/projects/project_team.html:40
-#: templates/projects/project_team.html:68
+#: templates/projects/project_team.html:66
 msgid "Bidders"
 msgstr "Souscripteurs"
 
@@ -1318,33 +1368,15 @@ msgstr "Souscripteurs"
 msgid "No bidder on this project"
 msgstr "Aucune souscription sur ce projet"
 
-#: templates/projects/project_team.html:52
-msgid "This task is"
-msgstr "Cette tâche est"
-
-#: templates/projects/project_team.html:52
 #: templates/projects/project_team.html:53
-msgid "public"
-msgstr "publique"
-
-#: templates/projects/project_team.html:52
-#: templates/projects/project_team.html:53
-msgid "private"
-msgstr "privée"
-
-#: templates/projects/project_team.html:53
-msgid "Make this task"
-msgstr "Rendre cette tâche"
-
-#: templates/projects/project_team.html:55
 msgid "Guests"
 msgstr "Invités"
 
-#: templates/projects/project_team.html:62
+#: templates/projects/project_team.html:60
 msgid "No guest on this task"
 msgstr "Aucun invité sur cette tâche"
 
-#: templates/projects/project_team.html:64
+#: templates/projects/project_team.html:62
 msgid "Invite members"
 msgstr "Inviter des membres"
 
@@ -1747,67 +1779,67 @@ msgstr "Téléphone portable"
 msgid "Phone Number"
 msgstr "Numéro de téléphone"
 
-#: users/models.py:46
+#: users/models.py:45
 #, python-format
 msgid "%(job)s at %(company)s"
 msgstr "%(job)s chez %(company)s"
 
-#: users/models.py:54
+#: users/models.py:53
 #, python-format
 msgid "Studying %(degree)s in %(university)s"
 msgstr "Etudiant en %(degree)s à %(university)s"
 
-#: users/models.py:57
+#: users/models.py:56
 #, python-format
 msgid "Expert in %(skill)s"
 msgstr "Expert en %(skill)s"
 
-#: users/models.py:97
+#: users/models.py:96
 msgid "online payment"
 msgstr "Versement par paiement en ligne"
 
-#: users/models.py:98
+#: users/models.py:97
 #, python-format
 msgid "Paiement %s validated"
 msgstr "Paiement %s validé"
 
-#: users/models.py:163
+#: users/models.py:162
 msgid "Main skill"
 msgstr "Compétence principale"
 
-#: users/models.py:164 users/models.py:185
+#: users/models.py:163 users/models.py:184
 msgid "Comment"
 msgstr "Commentaire"
 
-#: users/models.py:170 users/models.py:181
+#: users/models.py:169 users/models.py:180
 msgid "Begining"
 msgstr "Début"
 
-#: users/models.py:171 users/models.py:182
+#: users/models.py:170 users/models.py:181
 msgid "End"
 msgstr "Fin"
 
-#: users/models.py:172
+#: users/models.py:171
 msgid "Company"
 msgstr "Société"
 
-#: users/models.py:173
+#: users/models.py:172
 msgid "Job"
 msgstr "Emploi"
 
-#: users/models.py:174
+#: users/models.py:173
 msgid "Description"
 msgstr "Description"
 
-#: users/models.py:183
+#: users/models.py:182
 msgid "Degree"
 msgstr "Diplôme"
 
-#: users/models.py:184
+#: users/models.py:183
 msgid "University"
 msgstr "Université"
 
-#: users/models.py:241
+#: users/models.py:240
 #, python-format
 msgid "%s's blog"
 msgstr "blog de %s"
@@ -1887,5 +1919,11 @@ msgstr "Impossible de modifier le profil d'un autre utilisateur"
 msgid "Notice archived"
 msgstr "Notification archivée"
 
-#~ msgid "day"
-#~ msgstr "jour"
+#~ msgid "adj_fem"
+#~ msgstr "e"
+
+#~ msgid "This task is"
+#~ msgstr "Cette tâche est"
+
+#~ msgid "days"
+#~ msgstr "jours"
