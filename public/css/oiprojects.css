@@ -495,12 +495,12 @@ div.sepspecfooter {
 }
 .progressbar {
     float:left;
-    font-size:.3em;
+    font-size:.6em;
     width:10em;
     border:solid 1px;
     color: #6C6D6E;
     position: absolute;
-    width: 140px;
+    width: 270px;
     margin-top: 5px;
 }
 .progress {
