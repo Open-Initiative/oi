@@ -1,36 +1,9 @@
 {% load oifilters %}
 {% load i18n %}
-{% if object|can_write:user and object.state < 2 and object.bid_set.count == 0 and object.tasks.count == 0 %}
-<img src="/img/icons/del-32.png" class="clickable actions" alt="{% trans "Delete the task" %}" title="{% trans "Delete the task" %}" onclick="deleteProject({{object.id}})" />
-{% endif %}
-{% if object.state < 4 and object.bid_set.count > 0 and user == object.assignee %}
-<img src="/img/icons/del-32.png" class="clickable actions" alt="{% trans "Cancel" %}" title="{% trans "Cancel" %}" onclick="cancelProject({{object.id}}, {{object.state}})" />
-{% endif %}
-{% if object.assignee == user %}
-    {% if object.state < 2 and object.is_ready_to_start %}
-    <div class="prjstatebtn clickable" onclick="startProject({{object.id}})">{% trans "Start" %} <img src="/img/icons/bluebtn.png" /></div>
-    {% endif %}
-    {% if object.state == 2 %}
-    <div class="prjstatebtn clickable" onclick="deliverProject({{object.id}})">{% trans "Deliver" %} <img src="/img/icons/bluebtn.png" /></div>
-    {% endif %}
-{% endif %}
-{% with object|bids:user as bids %}{% if bids %}
-    {% if object.state == 3 and not bids.0.validated %}
-    <div class="prjstatebtn clickable" onclick="validateProject({{object.id}})">{% trans "Validate" %} <img src="/img/icons/bluebtn.png" /></div>
-    {% endif %}
-    {% if object.state == 4 and object.assignee != user and bids.0.rating == None %}
-    <div class="prjstatebtn clickable" onclick="evalProject({{object.id}})">{% trans "Evaluate" %} <img src="/img/icons/bluebtn.png" /></div>
-    {% endif %}
-{% endif %}{% endwith %}
-<div class="prjstate statebg{{object.state}}">
-    {% if object.parent %}{% trans "Task" %}{% else %}{% trans "Project" %}{% endif %} {{OI_PRJ_STATES|get:object.state}}{% if object.parent %}{% trans "adj_fem" %}{% endif %}
-    <img src="/img/icons/state0.png" />
-    {% ifequal object.state 2 %}
-    <div class="progressbar{% ifequal object.assignee user %} clickable" onclick="updateProgress({{object.id}},(event.clientX-this.offsetLeft)/this.offsetWidth){% endifequal %}">
-        <span id="progressbar_{{object.id}}" class="progress" style="width:{{object.progress|default:0|floatformat:0}}%;"></span>
-        <span id="progresslabel_{{object.id}}" class="progresstitle" >{{object.progress|default:0|floatformat:0}}%</span>
-    </div>
-    {% endifequal %}
-</div>
-
-
+    <div class="prjstatebtn {% if object.state == 4 %} prjstateDone {% else %} prjstateNotDone {% endif %}" >{% trans "Task done" %}</div>
+    
+    <div class="prjstatebtn {% if object.state == 3 and not bids.0.validated %} prjstateValidation {% else %} prjstateNotValidation {% endif %}" >{% trans "Validation" %} <img src="/img/icons/bluebtn.png" /></div>
+    
+    <div class="prjstatebtn {% if object.state == 2 %} prjstateRealisation {% else %} prjstateNotRealisation {% endif %}" >{% trans "exectution" %} <img src="/img/icons/bluebtn.png" /></div>
+    
+    <div class="prjstatebtn {% if object.state < 2 and object.is_ready_to_start %} prjstateConception {% else %} prjstateNotConception {% endif %}" >{% trans "design" %} <img src="/img/icons/bluebtn.png" /></div>
