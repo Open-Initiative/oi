@@ -118,29 +118,21 @@
                     {% if project.public %}{% trans "Public" %}{% else %}{% trans "Private" %}{% endif %} {% trans "task" %} 
                 </div>
                     <a class="clickable" onclick="toggleHideProject({{object.id}})"> {% trans "Make this task" %} {% if project.public %}{% trans "private" %}{% else %}{% trans "public" %}{% endif %}<img src="/img/icons/bluebtn.png"/></a>
-            </div class="prjBlockPrivate">
+            </div>
             <div class="prjBlockFavP">
                 <div class="prjStarFav">
                     <img id="fav_{{object.id}}" class="clickable" title="{% trans 'follow the project' %}" alt="{% trans 'follow the project' %}" src="/img/icons/star{{object|is_following:user}}.png" onclick="favProject({{object.id}})">
                 </div>
                 <div>
-                {{object.observer_set.count}}
-                {% with object.observer_set.count as followers %}
-                    {% blocktrans count counter=followers|length %}subscriber{% plural %}subscribers{% endblocktrans %}
+                {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
                 </div>
-                {% endwith %}
-           </div class="prjBlockFavP">          
-                {% with  object.ancestors|filter_read:user as tasks %}
-                    {% for task in tasks %}
-                        <div class="Breadcrumb">
-                            <a href="/project/{{task.id}}/view/overview">{{task.title}}</a>
-                        </div>
-                        <div class="prjNextBreadcrumb"> > </div>
-                    {% endfor %}
-                {% endwith %}
+            </div>          
+            {% for task in object.ancestors|filter_read:user %}
+                <a href="/project/{{task.id}}/view/overview">{{task.title}}</a> &gt; 
+            {% endfor %}
         {% endif %}
         <div id="pagetitle">{% block pagetitle %}{% endblock %}</div>
-    </div class="topPage">
+    </div>
        <script>
             follow = {% if object|is_following:user %}true{%else%}false{%endif%};
        </script>
@@ -162,13 +154,6 @@
                         {% if object.state == 2 %}
                             <div class="prjActionBtn clickable" onclick="deliverProject({{object.id}})">{% trans "Deliver" %} <img src="/img/icons/bluebtn.png" /></div>
                         {% endif %}
-                        {% if object.state == 3 %}
-                            <div class="prjActionWait">
-                                {% with object|bids:user as bids %}
-                                {% blocktrans count counter=bids|length %}Waiting for the bidder{% plural %}Waiting for the bidders{% endblocktrans %}
-                                {% endwith %}
-                            </div>
-                        {% endif %}
                     {% endif %}
                     {% with object|bids:user as bids %}{% if bids %}
                         {% if object.state == 3 and not bids.0.validated %}
@@ -178,6 +163,15 @@
                             <div class="prjActionBtn clickable" onclick="evalProject({{object.id}})">{% trans "Evaluate" %} <img src="/img/icons/bluebtn.png" /></div>
                         {% endif %}
                     {% endif %}{% endwith %}
+                    {% if object.assignee == user %}
+                        {% if object.state == 3 %}
+                            <div class="prjActionWait">
+                                {% with object|bids:user as bids %}
+                                {% blocktrans count counter=bids|length %}Waiting for the bidder{% plural %}Waiting for the bidders{% endblocktrans %}
+                                {% endwith %}
+                            </div>
+                        {% endif %}
+                    {% endif %}
                     
                     {% ifequal object.state 2 %}
                             <div class="progressbar{% ifequal object.assignee user %} clickable" onclick="updateProgress({{object.id}},(event.clientX-this.offsetLeft)/this.offsetWidth){% endifequal %}">

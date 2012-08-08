@@ -2,8 +2,12 @@
 {% load i18n %}
     <div class="prjstatebtn {% if object.state == 4 %} prjstate-done {% else %} prjstate-not-done {% endif %}" >{% trans "Task done" %}</div>
     
-    <div class="prjstatebtn {% if object.state == 3 and not bids.0.validated %} prjstate-validation {% else %} prjstate-not-validation {% endif %}" >{% trans "Validation" %} <div class="arrow-validation"></div> </div>
     
-    <div class="prjstatebtn {% if object.state == 2 %} prjstate-execution {% else %} prjstate-not-execution {% endif %}" >{% trans "execution" %} <div class="arrow-execution"></div> </div>
+    <div class="arrow-validation"></div>
+    <div class="prjstatebtn {% if object.state == 3 and not bids.0.validated %} prjstate-validation {% else %} prjstate-not-validation {% endif %}" >{% trans "Validation" %}</div>
     
-    <div class="prjstatebtn {% if object.state < 2 and object.is_ready_to_start %} prjstate-design {% else %} prjstate-not-design {% endif %}" >{% trans "design" %} <div class="arrow-design"></div> </div>
+    <div class="arrow-execution"></div>
+    <div class="prjstatebtn {% if object.state == 2 %} prjstate-execution {% else %} prjstate-not-execution {% endif %}" >{% trans "execution" %}</div>
+    
+    <div class="arrow-design"></div>
+    <div class="prjstatebtn {% if object.state < 2 and object.is_ready_to_start %} prjstate-design {% else %} prjstate-not-design {% endif %}" >{% trans "design" %}</div>
