@@ -114,7 +114,6 @@ div.noMiniSpec{
 }
 div.prjNextBreadcrumb{
     float:left; 
-    font-size: 1.5em; 
     margin-right:10px;
     margin-left:10px;
 }
@@ -137,41 +136,40 @@ div.prjActionDel{
 div.prjActionWait{
     font-size:1.5em;
 }
-div.prjstateDone{
+div.prjstate-done{
     background-color:#6C6D6E; 
     color:white;
 }
-div.prjstateNotDone{
+div.prjstate-not-done{
     background-color:white; 
     color:#6C6D6E;
 }
-div.prjstateValidation{
+div.prjstate-validation{
     background-color:#68274E; 
     color:white;
 }
-div.prjstateNotValidation{
+div.prjstate-not-validation{
     background-color:white; 
     color:#68274E;
 }
-div.prjstateRealisation{
+div.prjstate-execution{
     background-color:#D0574C; 
     color:white;
 }
-div.prjstateNotRealisation{
+div.prjstate-not-execution{
     background-color: white; 
     color:#D0574C;
 }
-div.prjstateConception{
+div.prjstate-design{
     background-color:#0094B5; 
     color:white;
 }
-div.prjstateNotConception{
+div.prjstate-not-design{
     background-color:white; 
     color:#0094B5;
 }
 div.Breadcrumb{
     float:left;
-    font-size:1.2em;
 }
 div.prjBlockFavP{
     float:right;
@@ -186,6 +184,33 @@ div.prjBlockPrivate{
     float:right;
     margin-top: 4px;
     font-size: 0.8em;
+}
+div.arrow-validation{
+    float: right;
+    border-bottom: 15px solid transparent;
+    border-left: 15px solid #68274E;
+    border-top: 15px solid transparent;
+    margin-left: 4px; 
+    background-color: white;
+    margin-right:-3px;
+}
+div.arrow-execution{
+    float: right;
+    border-bottom: 15px solid transparent;
+    border-left: 15px solid #D0574C;
+    border-top: 15px solid transparent;
+    margin-left: 4px; 
+    background-color: white;
+    margin-right:-3px;
+}
+div.arrow-design{
+    float: right;
+    border-bottom: 15px solid transparent;
+    border-left: 15px solid #0094B5;
+    border-top: 15px solid transparent;
+    margin-left: 4px; 
+    background-color: white;
+    margin-right:-3px;
 }
 /**/
 
@@ -275,11 +300,10 @@ div.prjstate {
     text-align: right;
 }
 div.prjstatebtn {
-    padding: 1.5px;
     float: right;
     font-size: 1.5em;
-    height: 23px;
-    border: 2px solid;
+    height: 30px;
+    padding-left: 6px;
 }
 div.bidaction {
     background: #D0574C;
