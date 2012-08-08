@@ -1,5 +1,5 @@
 {% load i18n %}
-<div class="cleared">{% trans "Add" %}</div>
+<div class="cleared"><img src="/img/askoi.png" />{% trans "Describe here what is to be done in" %} <span class="prjtitle">{{project.title}}</span></div>
 <div class="spectypes">{% for elttype in types.items %}
 <div id="type{{elttype.0}}_{{divid}}" onclick="changeSpecType('{{divid}}', {{elttype.0}})" class="spectype clickable {% ifequal elttype.0 spec.type %}spectypeselected {% endifequal %}">{{elttype.1}}</div>
 {% endfor %}</div>

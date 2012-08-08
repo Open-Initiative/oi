@@ -5,25 +5,16 @@
 {% block pagetitle %}{{object.title|default:_("Project")}}{% endblock %}
 {% block nav %}
 <div id="projecttree"></div>
+{% if not object.tasks.all %}<div class="tasktip"><img src="/img/askoi.png" />{% trans "Tasks in the project are to be listed here" %}</div>{% endif %}
 {% endblock %}
 {% block content %}
 <div class="pagetop">
     <div id="tabs">
-        <div class="{% ifequal view "overview" %}selectedtab {% endifequal %}tab">
-            <a href="/project/{{object.id}}/view/overview"><img class="tabicon" src="/img/icons/overview{% ifequal view "overview" %}white{% endifequal %}.png"/> {% trans "overview" %}</a>
+    {% for view in views %}
+        <div class="{% ifequal current_view view %}selectedtab {% endifequal %}tab">
+            <a href="/project/{{object.id}}/view/{{view}}"><img class="tabicon" src="/img/icons/{{view}}{% ifequal current_view view %}white{% endifequal %}.png"/> {% trans view %}</a>
         </div>
-        <div class="{% ifequal view "description" %}selectedtab {% endifequal %}tab">
-            <a href="/project/{{object.id}}/view/description"><img class="tabicon" src="/img/icons/spec{% ifequal view "description" %}white{% endifequal %}.png"/> {% trans "description" %}</a>
-        </div>
-        <div class="{% ifequal view "planning" %}selectedtab {% endifequal %}tab">
-            <a href="/project/{{object.id}}/view/planning"><img class="tabicon" src="/img/icons/planning{% ifequal view "planning" %}white{% endifequal %}.png"/> {% trans "planning" %}</a>
-        </div>
-        <div class="{% ifequal view "budget" %}selectedtab {% endifequal %}tab">
-            <a href="/project/{{object.id}}/view/budget"><img class="tabicon" src="/img/icons/budget{% ifequal view "budget" %}white{% endifequal %}.png"/> {% trans "budget" %}</a>
-        </div>
-        <div class="{% ifequal view "team" %}selectedtab {% endifequal %}tab">
-            <a href="/project/{{object.id}}/view/team"><img class="tabicon" src="/img/icons/team{% ifequal view "team" %}white{% endifequal %}.png"/> {% trans "team" %}</a>
-        </div>
+    {% endfor %}
     </div>
     <div id="tools">
         <img id="fav_{{object.id}}" class="clickable" title="Suivre le projet" alt="Suivre le projet" src="/img/icons/star{{object|is_following:user}}.png" onclick="favProject({{object.id}})">
@@ -35,7 +26,7 @@
 <div id="project_{{project.id}}" class="project">
     <div id="prjdialogue_{{project.id}}" class="popup invisible"></div>
     <div class="prjbody">
-    {% with "projects/project_"|add:view|add:".html" as template_name %}
+    {% with "projects/project_"|add:current_view|add:".html" as template_name %}
     {% include template_name %}
     {% endwith %}
         <div class="cleared"></div> 
@@ -45,10 +36,10 @@
 <script>
     follow = {% if object|is_following:user %}true{%else%}false{%endif%};
     username = '{{user.username}}';
-    viewname = '{{view}}';
+    viewname = '{{current_view}}';
     oiTree = new OITree("projecttree");
     var rootdiv = oiTree.setRoot({{object.master.id}}, {{object.master.state}}, 0);
-    setTaskName(rootdiv, {{object.master.id}}, "{{object.master.title}}", "{{view}}");
+    setTaskName(rootdiv, {{object.master.id}}, "{{object.master.title}}", "{{current_view}}");
     rootdiv.className += " treeroot";
     OIajaxCall("/project/{{object.id}}/listtasks?expand={% for ancestor in object.get_path %}{{ancestor.id}},{% endfor %}", null, null,  function(response){
         populateTaskList(eval('('+response+')'));

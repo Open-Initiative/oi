@@ -107,6 +107,10 @@ div.noMiniSpec{
 }
 /**/
 
+.tasktip {
+    padding: 5px;
+    background: white;
+}
 .prjtitle {
     font-family: "Interstate";
     text-transform: uppercase;

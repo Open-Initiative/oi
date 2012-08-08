@@ -159,6 +159,19 @@ function getSelectedCategs(categArray) {
     for(categ in categArray) if(categArray[categ]) categlist.push(categ);
     return categlist.join(',');
 }
+function slideIndex(nextid) {
+    if(nextid) nextSlide = jQuery('#indexslide'+nextid);
+    else if(jQuery('.indexslide:visible').next().length) nextSlide = jQuery('.indexslide:visible').next();
+    else nextSlide = jQuery('.indexslide').first();
+    jQuery('.indexslide').fadeOut();
+    nextSlide.delay(500).fadeIn();
+    
+    if(nextid) nextIcon = jQuery('#slidericon'+nextid);
+    else if(jQuery('.slidericonselected').next().length) nextIcon = jQuery('.slidericonselected').next();
+    else nextIcon = jQuery('.slidericon').first();
+    jQuery('.slidericonselected').removeClass("slidericonselected");
+    nextIcon.addClass("slidericonselected");
+}
 function applyFilter() {
     var categlist = getSelectedCategs(selectedcateg);
     

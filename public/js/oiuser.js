@@ -64,3 +64,7 @@ function archiveNotice(noticeid) {
     OIajaxCall("/user/archivenotice", "notice="+noticeid, "output", 
         function(){clearDiv("notice_"+noticeid);});
 }
+function switchPrjList(listid) {
+    jQuery(".prjlist").slideUp();
+    jQuery("#prjlist"+listid).slideDown();
+}

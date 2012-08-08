@@ -24,7 +24,7 @@ from django.views.generic.simple import direct_to_template
 from oi.settings import MEDIA_ROOT, TEMP_DIR
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS
 from oi.helpers import OI_PRJ_DONE, OI_NO_EVAL, OI_ACCEPT_DELAY, OI_READ, OI_ANSWER, OI_WRITE, OI_ALL_PERMS, OI_CANCELLED_BID, OI_COM_ON_BID, OI_COMMISSION
-from oi.helpers import SPEC_TYPES, SPOT_TYPES, NOTE_TYPE, TASK_TYPE, MESSAGE_TYPE, OIAction, ajax_login_required
+from oi.helpers import OI_PRJ_VIEWS, SPEC_TYPES, SPOT_TYPES, NOTE_TYPE, TASK_TYPE, MESSAGE_TYPE, OIAction, ajax_login_required
 from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeedsPrjPerms
 from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
@@ -50,7 +50,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def getproject(request, id, view="overview"):
     if not view: view = "overview"
     project = Project.objects.get(id=id)
-    return direct_to_template(request, template="projects/project_detail.html", extra_context={'object': project, 'view':view, 'types':SPEC_TYPES, })
+    return direct_to_template(request, template="projects/project_detail.html", extra_context={'object': project, 'current_view':view, 'views':OI_PRJ_VIEWS, 'types':SPEC_TYPES, })
 
 @OINeedsPrjPerms(OI_READ)
 def listtasks(request, id):
@@ -97,7 +97,7 @@ def editproject(request, id):
             return HttpResponseForbidden(_("Forbidden"))
     return direct_to_template(request, template='projects/editproject.html', extra_context={'user': request.user, 'parent':request.GET.get("parent"), 'project':project})
 
-@login_required
+@ajax_login_required(keep_field='title')
 def saveproject(request, id='0'):
     """Saves the edited project and redirects to it"""
     author=request.user
@@ -105,23 +105,29 @@ def saveproject(request, id='0'):
     if (parent and parent.state==OI_VALIDATED):
         return HttpResponse(_("Can not change a task already started"), status=431)
     
+    assignee = None
+    if request.POST.get("assignee") and len(request.POST["assignee"])>0:
+        assignee = User.objects.get(username=request.POST["assignee"])
+        
     if id=='0': #new project
-        if not request.POST["title"]:
-            return HttpResponse(_("Please enter a title"), status=531)
+        if request.POST.get("title"):
+            title = request.POST["title"]
+        else:
+            if request.session.get("title"):
+                title = request.session['title']
+                assignee = assignee or request.user
+            else:
+                return HttpResponse(_("Please enter a title"), status=531)
         if parent:
             parent.inc_tasks_priority(0)
-        project = Project(title = request.POST["title"], author=author, parent=parent)
+            assignee = assignee or parent.assignee
+        project = Project(title = title, author=author, parent=parent)
     else: #existing project
         project = Project.objects.get(id=id)
         if not project.has_perm(request.user, OI_WRITE):
             return HttpResponseForbidden(_("Forbidden"))
         project.title = request.POST["title"]
 
-    if request.POST.get("assignee") and len(request.POST["assignee"])>0:
-        project.assign_to(User.objects.get(username=request.POST["assignee"]))
-    else: #parent assignee by default
-        if parent:
-            project.assignee = parent.assignee
     for field in ["start_date","due_date","validaton","progress"]:
         if request.POST.has_key(field) and len(request.POST[field])>0:
             project.__setattr__(field, request.POST[field])
@@ -136,6 +142,8 @@ def saveproject(request, id='0'):
         project.apply_perm(project.assignee, OI_ALL_PERMS)
     project.save()
         
+    if assignee:
+        project.assign_to(assignee)
     #notify users about this project
     project.notify_all(request.user, "new_project", "")
     #adds the project to user's observation

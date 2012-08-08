@@ -5,24 +5,37 @@
 {% block announcement %}
 <div id="catcherbg">
     <div id="catcher">
-        <div> </div>
-        <div class="slider">
+        <div id="slider" class="slider" onmouseover="window.slide=false" onmouseout="if(event.target.id=='slider')window.slide=true">
+
             <div class="slidertext">
                 <dl>
-                    <div class="indexslide"><dt>{% trans "build" %}</dt><dd>{% trans "your IT project online" %}</dd></div>
-                    <div class="indexslide invisible"><dt>{% trans "find" %}</dt><dd>{% trans "skilled service providers transparently" %}</dd></div>
-                    <div class="indexslide invisible"><dt>{% trans "follow" %}</dt><dd>{% trans "the progress of your project in real time with agile methodology" %} <a href="{%trans "/presentation" %}#methodology">
-                    <img class="askoi" src="/img/askoi.png" />
-                        </a>
-                        </dd></div>
-                    <div class="indexslide invisible"><dt>{% trans "control" %}</dt><dd>{% trans "your budget by paying tasks as they are completed" %}</dd></div>
-                    <div class="indexslide invisible"><dt>{% trans "breathe" %}</dt><dd>{% trans "with the payment guarantee" %}</dd></div>
+                    <div id="indexslide1" class="indexslide"><div style="text-transform: lowercase; color: rgb(208, 87, 76); font-weight: normal; font-size: 0.8em; float: right; width: 250px;">Open Initiative vous aide à décrire précisément votre projet avec une méthodologie éprouvée</div><dt>{% trans "build" %}</dt>
+                        <dd>{% trans "your IT project online" %}</dd>
+                    </div>
+                    <div id="indexslide2" class="indexslide invisible"><div style="text-transform: lowercase; color: rgb(208, 87, 76); font-weight: normal; font-size: 0.8em; float: right; width: 250px;">Open Initiative trouve le prestataire adapté à votre besoin parmi un réseau de professionnels sélectionnés</div><dt>{% trans "find" %}</dt>
+                        <dd>{% trans "skilled service providers transparently" %}</dd>
+                        
+                    </div>
+                    <div id="indexslide3" class="indexslide invisible"><div style="text-transform: lowercase; color: rgb(208, 87, 76); font-weight: normal; font-size: 0.8em; float: right; width: 250px;">Open Initiative assure un bon déroulement du projet en organisant les tâches et en assurant un suivi régulier</div><dt>{% trans "follow" %}</dt>
+                        <dd>{% trans "the progress of your project in real time with agile methodology" %}</dd>
+                    </div>
+                    <div id="indexslide4" class="indexslide invisible"><div style="text-transform: lowercase; color: rgb(208, 87, 76); font-weight: normal; font-size: 0.8em; float: right; width: 250px;">{% trans "control" %} {% trans "your budget by paying tasks as they are completed" %}</div><dt>{% trans "breathe" %}</dt>
+                        <dd>{% trans "with the payment guarantee" %}</dd>
+                    </div>
                 </dl>
+            </div>
+            <div class="clickable slidericons">
+                <div id="slidericon1" class="slidericon slidericonselected" onclick="slideIndex(1)">1</div>
+                <div id="slidericon2" class="slidericon" onclick="slideIndex(2)">2</div>
+                <div id="slidericon3" class="slidericon" onclick="slideIndex(3)">3</div>
+                <div id="slidericon4" class="slidericon" onclick="slideIndex(4)">4</div>
             </div>
         </div>
         <script type="text/javascript">
-            window.setInterval(function test(){jQuery('.indexslide').fadeOut();var e=jQuery('.indexslide:visible').next();(e.length?e:jQuery('.indexslide').first()).delay(500).fadeIn();}, 3000);
+            window.slide = true;
+            window.setInterval(function (){if(window.slide) slideIndex()}, 5000);
         </script>
+        <div style="font-size:1.5em;padding:20px;height:60px">J'ai un projet et je veux être contacté</div>
         <a href="{%trans "/presentation" %}"><div class="slidermore" onmouseover="this.style.color='#D0574C'" onmouseout="this.style.color='white'">
             {% trans "Learn More" %}
         </div></a>
@@ -39,7 +52,14 @@
     </div>
 </div>
 {% endblock %}
-{% block nav %}{% endblock %}
+{% block nav %}
+<div class="bidaction"><form onsubmit="addTask(getValue('newproject_title'), null, '{{request.user.username}}',function(taskid){document.location = '/project/'+taskid});return false">
+    {% trans "Create a new project:" %}
+    <input type="image" src="/img/icons/add.png" /> <input id="newproject_title" />
+</form></div>
+<div class="navtitle">{% trans "Projects on Open Initiative" %}</div>
+<div class="treetitle"><a href=""">{% trans "Our selection" %}</a></div>
+{% endblock %}
 {% block content %}
 {% for project in object_list %}
 {% include 'projects/project_card.html' %}
