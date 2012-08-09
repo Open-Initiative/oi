@@ -1,10 +1,10 @@
 {% load oifilters %}
 {% load i18n %}
-<div class="topoverview">
+<div class="top-overview">
     <div class="prjauthor">{% trans "Project created on" %} {{project.created|date:"d/m/Y"}} {% trans "by" %} <a href="/user/profile/{{object.author.username}}">{{object.author.get_profile}} </a></div>
     {% if object.spec_set.all %}
-        <div class="speclinkoverview">
-            {% if object.spec_set.count > 1 %}<img class="clickable nextMiniSpec" src="/img/icons/nextMiniSpec.png"/>{% endif %}
+        <div class="spec-link-overview">
+            {% if object.spec_set.count > 1 %}<img class="clickable next-mini-spec" src="/img/icons/nextMiniSpec.png"/>{% endif %}
                 {% if object.spec_set.all %}
                     <a href="/project/{{object.id}}/view/description">
                         {% for spec in object.spec_set.all %}
@@ -14,39 +14,39 @@
                         {% endfor %}
                     </a>
                 {% endif %}
-            {% if object.spec_set.count > 1 %}<img class="clickable previousMiniSpec" src="/img/icons/previousMiniSpec.png"/>{% endif %}
+            {% if object.spec_set.count > 1 %}<img class="clickable previous-mini-spec" src="/img/icons/previousMiniSpec.png"/>{% endif %}
         </div>
     {% else %}
-        <div class="noMiniSpec"> <a href="/project/{{object.id}}/view/description"> {% trans "Click here to describe the task" %} </a> </div>
+        <div class="no-mini-spec"> <a href="/project/{{object.id}}/view/description"> {% trans "Click here to describe the task" %} </a> </div>
     {% endif %}
     <script type="text/javascript">
-        $('.previousMiniSpec').click(function(){
+        $('.previous-mini-spec').click(function(){
             $('.minispec').animate({width: 'hide'});
             var prevSpec=$('.minispec:visible').prev(".minispec");
             (prevSpec.length?prevSpec:$('.minispec').last()).animate({width: 'show'});;
         });
-        $('.nextMiniSpec').click(function(){
+        $('.next-mini-spec').click(function(){
             $('.minispec').animate({width: 'hide'});
             var nextSpec=$('.minispec:visible').next(".minispec");
             (nextSpec.length?nextSpec:$('.minispec').first()).animate({width: 'show'});;
         });
     </script>
     <div class="prjtitle">{{project.title}}</div>
-    <div class="descripOverview">
-        <div><span class="entitleOverview">{% trans "Assignee:" %} </span><span><a href="/project/{{object.id}}/view/team"> {{project.assignee.get_profile}}</a></span></div>
-        <div><span class="entitleOverview">{% trans "Realisation date:" %} </span><span><a href="/project/{{object.id}}/view/planning"> {% if project.due_date %}{{project.start_date|date:"d/m/Y"}} {% trans "to" %} {{project.due_date|date:"d/m/Y"}}</a></span></div>
+    <div class="descrip-overview">
+        <div><span class="entitle-overview">{% trans "Assignee:" %} </span><span><a href="/project/{{object.id}}/view/team"> {{project.assignee.get_profile}}</a></span></div>
+        <div><span class="entitle-overview">{% trans "Realisation date:" %} </span><span><a href="/project/{{object.id}}/view/planning"> {% if project.due_date %}{{project.start_date|date:"d/m/Y"}} {% trans "to" %} {{project.due_date|date:"d/m/Y"}}</a></span></div>
         {% else %}{% trans "click here to add a date" %}</a></span></div>{% endif %}
-        <div><span class="entitleOverview">{% trans "Requested budget:" %} </span><span><a href="/project/{{object.id}}/view/budget"> {{project.offer}}€</a></span></div>
+        <div><span class="entitle-overview">{% trans "Requested budget:" %} </span><span><a href="/project/{{object.id}}/view/budget"> {{project.offer}}€</a></span></div>
     </div>
 </div>  
 {% with  project.descendants|filter_read:user as tasks %}
 {% if tasks %}
-    <div class="bottomoverview">
+    <div class="bottom-overview">
         <div class="prjtitle">
             {{tasks.count}} 
             {% blocktrans count counter=tasks|length %}task inside{% plural %}tasks inside{% endblocktrans %}
             {{project.title}}</div> <div id="load"></div>
-        <div class="prjTableOverview">
+        <div class="prj-table-overview">
             <table id="dynamicTableOverview">
                 <tr id="headerTableOverview">
                     <th class="tableheader clickable" onclick="orderOverviewTable({{project.id}}, 'title')">{% trans "Title" %} </th>
@@ -56,21 +56,21 @@
                     <th class="tableheader clickable" onclick="orderOverviewTable({{project.id}}, 'offer')">{% trans "Budget" %}</th>
                 </tr>
             </table>
-            <span id="projectOverviewPagePrev" class="prjOverviewPagePrev clickable" onclick="page--; populateOverviewTable({{project.id}}); document.getElementById('page').innerHTML=page;">{% trans "previous" %}</span>
-            <span id="projectOverviewPageNext" class="prjOverviewPageNext clickable" onclick="++page; populateOverviewTable({{project.id}}); document.getElementById('page').innerHTML=page;">{% trans "next" %}</span>
+            <span id="projectOverviewPagePrev" class="prj-overview-page-prev clickable" onclick="page--; populateOverviewTable({{project.id}}); document.getElementById('page').innerHTML=page;">{% trans "previous" %}</span>
+            <span id="projectOverviewPageNext" class="prj-overview-page-next clickable" onclick="++page; populateOverviewTable({{project.id}}); document.getElementById('page').innerHTML=page;">{% trans "next" %}</span>
             <script>
                 nbtask = {{tasks.count}};
                 nbpage = Math.ceil(nbtask / 25);
                 order = null;
                 page=1;
-                $(".prjTableOverview").ready(populateOverviewTable({{project.id}}));
-                document.write("<span class=changePageOverview>"+"<span id=page>"+page+"</span>"+"<span>"+"/"+nbpage+"</span>"+"</span>");
+                $(".prj-table-overview").ready(populateOverviewTable({{project.id}}));
+                document.write("<span class=change-page-overview>"+"<span id=page>"+page+"</span>"+"<span>"+"/"+nbpage+"</span>"+"</span>");
             </script>
         </div>
     </div>
 {% else %}
     {% if object|can_write:user and object.state < 4 %}
-        <p class="noProjectOverviewTable">{% trans "You can add tasks with the menu on your left." %}</p>
+        <p class="no-project-overview-table">{% trans "You can add tasks with the menu on your left." %}</p>
     {% endif %}
 {% endif %}
 {% endwith %}

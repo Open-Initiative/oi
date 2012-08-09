@@ -12,28 +12,28 @@ div.prjdesc {
 }
 
 /**/
-div.speclinkoverview {
+div.spec-link-overview {
     float:right; 
     clear: right;
     margin-top:1.5em;
 }
-img.nextMiniSpec {
+img.next-mini-spec {
     float:right; 
     margin-top: 3em;
     margin-right: -1em;
 }
-img.previousMiniSpec {
+img.previous-mini-spec {
     float:left; 
     margin-top: 3em;
     margin-left: -1em;
 }
-div.descripOverview {
+div.descrip-overview {
     margin-top:2em;
 }
-div.prjTableOverview {
+div.prj-table-overview {
     margin-top:1em;
 }
-div.topoverview {
+div.top-overview {
     background: #D7E7F0;
     padding-left: 1.5em;
     padding-right: 1.5em;
@@ -41,33 +41,33 @@ div.topoverview {
     padding-bottom: 4em;
     margin-top: -0.7em;
 }
-div.bottomoverview {
+div.bottom-overview {
     padding-left: 1.5em;
     padding-right: 1.5em;
     padding-top: 2em;
     padding-bottom: 4em;
     margin-top: -0.7em;
 }
-span.entitleOverview {
+span.entitle-overview {
     color: #0094B5;
     font-size: 15px;
     font-weight:bold;
     line-height:1.7em;
 }
-div.prjTableOverview table tr:nth-child(even) {
+div.prj-table-overview table tr:nth-child(even) {
     background: white;
 }
-div.prjTableOverview table tr:nth-child(odd) {
+div.prj-table-overview table tr:nth-child(odd) {
     background: #D7E7F0;
 }
-div.prjTableOverview table tr {
+div.prj-table-overview table tr {
     height: 30px;
 }
-div.prjTableOverview table tr th {
+div.prj-table-overview table tr th {
     color: #0094B5;
     text-align:left;
 }
-div.prjTableOverview table tr td {
+div.prj-table-overview table tr td {
     text-align:left;
     width: 150px;
     overflow:hidden;
@@ -85,38 +85,41 @@ col {
 a {
     text-decoration: none;
 }
-span.prjOverviewPageNext{
+span.prj-overview-page-next{
     float:right;
     padding-top: 1em;
     font-size: 18px;
     
 }
-span.prjOverviewPagePrev{
+span.prj-overview-page-prev{
     float:left;
     padding-top: 1em;
     font-size: 18px;
 }
-p.noProjectOverviewTable{
+p.no-project-overview-table{
     text-align:center;
     font-size: 1.5em;
 }
-span.changePageOverview{
+span.change-page-overview{
     position: relative;
     bottom: -1.5em;
     right: -23em;
 }
-div.noMiniSpec{
+div.no-mini-spec{
     float: right;
     width: 140px;
     margin-top: 5em;
     margin-right: -15em;
     text-align:center;
 }
-div.prjBlockAction{
+
+    /**/
+
+div.prj-block-action{
     height:65px;
     margin-top: 30px;
 }
-div.prjActionBtn{
+div.prj-action-btn{
     padding: 3px;
     font-size:1.5em; 
     background-color: #0094B5;
@@ -124,11 +127,11 @@ div.prjActionBtn{
     color:white; 
     border-radius : 5px;
 }
-div.prjActionDel{
+div.prj-action-del{
     background-color: #0094B5;
     border-radius : 5px;
 }
-div.prjActionWait{
+div.prj-action-wait{
     font-size:1.5em;
 }
 div.prjstate-done{
@@ -171,16 +174,16 @@ div.prjstate-not-design{
     color:#0094B5;
     font-size:1.5em;
 }
-div.prjBlockFavP{
+div.prj-block-fav{
     float:right;
     margin-top: -4px;
     margin-right: 11px;
     font-size: 0.8em;
 }
-div.prjStarFav{
+div.prj-star-fav{
     text-align: center;
 }
-div.prjBlockPrivate{
+div.prj-private-bloc{
     float:right;
     margin-top: 4px;
     font-size: 0.8em;
