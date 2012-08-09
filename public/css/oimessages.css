@@ -68,11 +68,6 @@ div.smallmsg {
     font-variant: small-caps;
     font-weight: bold;
 }
-div.prjlist {
-    position: absolute;
-    left: 700px;
-    width: 150px;
-}
 div.childrenlist {
     clear: left;
     padding-left: 20px;

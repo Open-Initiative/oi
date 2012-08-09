@@ -281,7 +281,10 @@ img.tabicon {
     width:275px;
 }
 div.navtitle {
-    padding-top: 20px;
+    color: #D0574C;
+    font-size: 1.4em;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 div.navcontent {
     padding: 5px;
@@ -342,10 +345,29 @@ div.navcontent {
     font-weight: bold;
     font-size: 1.1em;
     padding: 5px 12px;
-    margin-top: 150px;
+    margin-top: 50px;
+}
+.slidericons {
+    left: 190px;
+    position: absolute;
+    top: 230px;
 }
 .slidericon {
-    text-align: right;
+    float: left;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #0094B5;
+    padding: 3px 5px;
+    margin-right: 10px;
+    height: 28px;
+    width: 20px;
+}
+.slidericonselected {
+    background: #0094B5;
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+    width: 20px;
 }
 .slider dt {
     text-transform: uppercase;

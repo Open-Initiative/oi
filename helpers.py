@@ -30,6 +30,9 @@ OI_EXPERTISE_FROM_ANSWER = .002 #Fraction transmise par une réponse
 [OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED,  OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS] = [0,1,2,3,4,11,12,99]
 OI_PRJ_STATES = ((OI_PROPOSED, _("Proposed")), (OI_ACCEPTED, _("Accepted")), (OI_STARTED, _("Started")), (OI_DELIVERED, _("Delivered")), (OI_VALIDATED, _("Done")), (OI_CANCELLED, _("Cancelled")), (OI_POSTPONED, _("Delayed")), (OI_CONTENTIOUS, _("Contentious")),)
 
+# Available views
+OI_PRJ_VIEWS = ['overview','description','planning','team','budget']
+
 # Project constants
 OI_PRJ_DONE = 100
 OI_CANCELLED_BID = -1
@@ -73,13 +76,16 @@ class OIAction:
 def to_date(value):
     return DateTimeField.to_python(DateTimeField(), value)
 
-def ajax_login_required(function):
+def ajax_login_required(function=None, keep_field=None):
     """Similar decorator as login_required, using 333 as redirect Http code to be captured by javascript"""
     def decorator(f):
         @wraps(f, assigned=available_attrs(f))
         def new_f(request, id, *args, **kwargs):
             if request.user.is_authenticated():
                 return f(request, id, *args, **kwargs)
+            if keep_field:
+                request.session[keep_field] = request.POST[keep_field]
+                return HttpResponse('%s?%s=%s'%(LOGIN_URL, REDIRECT_FIELD_NAME, request.build_absolute_uri()),status=333)
             return HttpResponse('%s?%s=/%s/get/%s'%(LOGIN_URL, REDIRECT_FIELD_NAME, request.get_full_path().split('/')[1],id),status=333)
         return new_f
     if function:
