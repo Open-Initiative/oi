@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-08 10:24+0200\n"
+"POT-Creation-Date: 2012-08-09 17:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -732,60 +732,60 @@ msgstr "publique"
 msgid "follow the project"
 msgstr "suivre le projet"
 
-#: templates/base.html:130
-msgid "subscriber"
-msgid_plural "subscribers"
+#: templates/base.html:128
+msgid " subscriber "
+msgid_plural " subscribers "
 msgstr[0] "abonné"
 msgstr[1] "abonnés"
 
-#: templates/base.html:153
+#: templates/base.html:145
 msgid "Delete the task"
 msgstr "Supprimer cette tâche"
 
-#: templates/base.html:156 templates/projects/spec/edit_spot.html:10
+#: templates/base.html:148 templates/projects/spec/edit_spot.html:10
 msgid "Cancel"
 msgstr "Annuler"
 
-#: templates/base.html:161
+#: templates/base.html:153
 msgid "Start"
 msgstr "Démarrer"
 
-#: templates/base.html:164
+#: templates/base.html:156
 msgid "Deliver"
 msgstr "Livrer"
 
-#: templates/base.html:169
+#: templates/base.html:161
+msgid "Validate"
+msgstr "Valider"
+
+#: templates/base.html:164
+msgid "Evaluate"
+msgstr "Evaluer"
+
+#: templates/base.html:171
 msgid "Waiting for the bidder"
 msgid_plural "Waiting for the bidders"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/base.html:176
-msgid "Validate"
-msgstr "Valider"
-
-#: templates/base.html:179
-msgid "Evaluate"
-msgstr "Evaluer"
-
-#: templates/base.html:203 templates/projects/dialogue/bid.html:4
+#: templates/base.html:197 templates/projects/dialogue/bid.html:4
 #: templates/projects/dialogue/offer.html:4 templates/users/register.html:35
 msgid "Terms of Use"
 msgstr "Conditions Générales d'Utilisation"
 
-#: templates/base.html:204 templates/index.html:14 templates/index.html.py:26
+#: templates/base.html:198 templates/index.html:14 templates/index.html.py:26
 msgid "/presentation"
 msgstr "/presentation-fr"
 
-#: templates/base.html:204
+#: templates/base.html:198
 msgid "Presentation"
 msgstr "Présentation"
 
-#: templates/base.html:205 templates/contact.html:3
+#: templates/base.html:199 templates/contact.html:3
 msgid "Legal notice"
 msgstr "Mentions légales"
 
-#: templates/base.html:206
+#: templates/base.html:200
 msgid "Contact"
 msgstr "Contact"
 
@@ -1319,15 +1319,15 @@ msgstr "Validation le :"
 msgid "Task done"
 msgstr "Tâche terminée"
 
-#: templates/projects/project_state.html:5
+#: templates/projects/project_state.html:7
 msgid "Validation"
 msgstr "Validation"
 
-#: templates/projects/project_state.html:7
-msgid "exectution"
+#: templates/projects/project_state.html:10
+msgid "execution"
 msgstr "Réalisation"
 
-#: templates/projects/project_state.html:9
+#: templates/projects/project_state.html:13
 msgid "design"
 msgstr "Conception"
 
