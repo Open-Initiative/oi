@@ -741,8 +741,8 @@ msgstr[1] "abonnés"
 #: templates/base.html:171
 msgid "Waiting for the bidder"
 msgid_plural "Waiting for the bidders"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "En attente du scouscripteur"
+msgstr[1] "En attente des scouscripteurs"
 
 #: templates/base.html:197 templates/projects/dialogue/bid.html:4
 #: templates/projects/dialogue/offer.html:4 templates/users/register.html:35
