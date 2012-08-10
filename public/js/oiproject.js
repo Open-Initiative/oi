@@ -283,6 +283,7 @@ function populateOverviewTable(projectid){
                 var task = tasklist[i];
                 for(var field = fields[j=0]; j < fields.length; field=fields[++j]){
                     if(fields[j]=="state")task.fields[field] = gettext("State"+task.fields[field]);
+                    if(fields[j]=="due_date"){ if(!task.fields[field]) {task.fields[field]="-";}; };
                     if(fields[j]=="offer")task.fields[field] += " €";
                     line.appendChild(document.createElement('td')).innerHTML = "<a href=/project/"+task.pk+"/view/"+views[j]+">"+task.fields[field]+"</a>";
                 }
