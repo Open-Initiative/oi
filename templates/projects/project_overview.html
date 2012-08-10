@@ -61,8 +61,8 @@
                     <th class="tableheader clickable" onclick="orderOverviewTable({{project.id}}, 'offer')">{% trans "Budget" %}</th>
                 </tr>
             </table>
-            <span id="projectOverviewPagePrev" class="prj-overview-page-prev clickable" onclick="page--; populateOverviewTable({{project.id}}); document.getElementById('page').innerHTML=page;">{% trans "previous" %}</span>
-            <span id="projectOverviewPageNext" class="prj-overview-page-next clickable" onclick="++page; populateOverviewTable({{project.id}}); document.getElementById('page').innerHTML=page;">{% trans "next" %}</span>
+            <span id="projectOverviewPagePrev" class="prj-overview-page-prev clickable" onclick="page--; populateOverviewTable({{project.id}}); document.getElementById('page').innerHTML=page; if(page<1){page=1;document.getElementById('page').innerHTML=1;}">{% trans "previous" %}</span>
+            <span id="projectOverviewPageNext" class="prj-overview-page-next clickable" onclick="++page; populateOverviewTable({{project.id}}); document.getElementById('page').innerHTML=page; if(page>nbpage){page=nbpage;document.getElementById('page').innerHTML=nbpage;}">{% trans "next" %}</span>
             <script>
                 nbtask = {{tasks.count}};
                 nbpage = Math.ceil(nbtask / 25);

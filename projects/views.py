@@ -78,9 +78,16 @@ def listtasks(request, id):
                 tasks = tasks.order_by('-priority')
                 
             if request.GET.has_key('page'):
-                paginator = Paginator(tasks, 25)
+                paginator = Paginator(tasks, 25, 0, True)
                 page = request.GET.get('page')
-                tasks = paginator.page(page).object_list
+                try:
+                    tasks = paginator.page(page).object_list
+                except PageNotAnInteger:
+                    tasks = paginator.page(1).object_list
+                except EmptyPage:
+                    tasks = paginator.page(paginator.num_pages).object_list
+                    
+                    
             
             #appends the serialized task list to the global list
             lists.append(serializers.oiserialize("json", tasks,
