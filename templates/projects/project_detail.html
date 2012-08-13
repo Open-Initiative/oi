@@ -3,10 +3,32 @@
 {% load i18n %}
 {% block title %}{{object.title|default:_("Project")}}{% endblock %}
 {% block pagetitle %}{{object.title|default:_("Project")}}{% endblock %}
+{% block indicators %}
+<div class="prjBlockPrivate">
+    <div >
+        {% if project.public %}{% trans "Public" %}{% else %}{% trans "Private" %}{% endif %} {% trans "task" %} 
+    </div>
+        <a class="clickable" onclick="toggleHideProject({{object.id}})"> {% trans "Make this task" %} {% if project.public %}{% trans "private" %}{% else %}{% trans "public" %}{% endif %}<img src="/img/icons/bluebtn.png"/></a>
+</div>
+<div class="prjBlockFavP">
+    <div class="prjStarFav">
+        <img id="fav_{{object.id}}" class="clickable" title="{% trans 'follow the project' %}" alt="{% trans 'follow the project' %}" src="/img/icons/star{{object|is_following:user}}.png" onclick="favProject({{object.id}})">
+    </div>
+    <div>
+    {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
+    </div>
+</div>
+{% for task in object.ancestors|filter_read:user %}
+    <a href="/project/{{task.id}}/view/overview">{{task.title}}</a> &gt; 
+{% endfor %}
+{% endblock %}
+{% block actions %}{% include "projects/project_actions.html" %}{% endblock %}
 {% block nav %}
 <div id="projecttree"></div>
 {% if not object.tasks.all %}<div class="tasktip"><img src="/img/askoi.png" />{% trans "Tasks in the project are to be listed here" %}</div>{% endif %}
 {% endblock %}
+
+
 {% block content %}
 <div class="pagetop">
     <div id="tabs">

@@ -276,6 +276,11 @@ img.tabicon {
     background:url('/img/sep.png');
     height:1px;
 }
+#actions{
+    height:65px;
+    width: 275px;
+    margin-top: 30px;
+}
 #nav {
     background:#D7E7F0;
     width:275px;
@@ -339,13 +344,27 @@ div.navcontent {
     background: url('/img/learnmore.png');
     width: 144px;
     height: 15px;
-    float: left;
+    float: right;
+    clear: right;
     color: white;
     text-transform: uppercase;
     font-weight: bold;
     font-size: 1.1em;
     padding: 5px 12px;
     margin-top: 50px;
+}
+.indexslide {
+    width: 700px;
+}
+.slidertip {
+    text-transform: none;
+    color: rgb(208, 87, 76);
+    font-weight: normal;
+    font-size: 0.9em;
+    position: absolute;
+    left: 650px;
+    width: 240px;
+    margin: 25px 0;
 }
 .slidericons {
     left: 190px;
@@ -372,16 +391,17 @@ div.navcontent {
 .slider dt {
     text-transform: uppercase;
     font-weight: bold;
-    margin-top: 10px;
     color: #0094B5;
     font-size: 2em;
-    margin: 0.5em;
 }
 .slider dl {
     margin-bottom: 0;
     color: #6C6D6E;
     text-transform: uppercase;
     font-weight: bold;
+}
+.slider dd {
+    width: 420px;
 }
 .headersep {
     background: url('/img/headersep.png');

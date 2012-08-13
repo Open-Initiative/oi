@@ -9,17 +9,17 @@
 
             <div class="slidertext">
                 <dl>
-                    <div id="indexslide1" class="indexslide"><div style="text-transform: lowercase; color: rgb(208, 87, 76); font-weight: normal; font-size: 0.8em; float: right; width: 250px;">Open Initiative vous aide à décrire précisément votre projet avec une méthodologie éprouvée</div><dt>{% trans "build" %}</dt>
+                    <div id="indexslide1" class="indexslide"><div class="slidertip">{% trans "Open Initiative helps you to describe your project with an appropriate methodology" %}</div><dt>{% trans "build" %}</dt>
                         <dd>{% trans "your IT project online" %}</dd>
                     </div>
-                    <div id="indexslide2" class="indexslide invisible"><div style="text-transform: lowercase; color: rgb(208, 87, 76); font-weight: normal; font-size: 0.8em; float: right; width: 250px;">Open Initiative trouve le prestataire adapté à votre besoin parmi un réseau de professionnels sélectionnés</div><dt>{% trans "find" %}</dt>
+                    <div id="indexslide2" class="indexslide invisible"><div class="slidertip invisible">{% trans "Open Initiative finds the worker you need in a selected professional network" %}</div><dt>{% trans "find" %}</dt>
                         <dd>{% trans "skilled service providers transparently" %}</dd>
                         
                     </div>
-                    <div id="indexslide3" class="indexslide invisible"><div style="text-transform: lowercase; color: rgb(208, 87, 76); font-weight: normal; font-size: 0.8em; float: right; width: 250px;">Open Initiative assure un bon déroulement du projet en organisant les tâches et en assurant un suivi régulier</div><dt>{% trans "follow" %}</dt>
+                    <div id="indexslide3" class="indexslide invisible"><div class="slidertip invisible">{% trans "Open Initiative secures the progress of your project through task organization and close follow-up" %}</div><dt>{% trans "follow" %}</dt>
                         <dd>{% trans "the progress of your project in real time with agile methodology" %}</dd>
                     </div>
-                    <div id="indexslide4" class="indexslide invisible"><div style="text-transform: lowercase; color: rgb(208, 87, 76); font-weight: normal; font-size: 0.8em; float: right; width: 250px;">{% trans "control" %} {% trans "your budget by paying tasks as they are completed" %}</div><dt>{% trans "breathe" %}</dt>
+                    <div id="indexslide4" class="indexslide invisible"><div class="slidertip invisible">{% trans "Control your budget by paying tasks as they are completed" %}</div><dt>{% trans "breathe" %}</dt>
                         <dd>{% trans "with the payment guarantee" %}</dd>
                     </div>
                 </dl>
@@ -35,7 +35,7 @@
             window.slide = true;
             window.setInterval(function (){if(window.slide) slideIndex()}, 5000);
         </script>
-        <div style="font-size:1.5em;padding:20px;height:60px">J'ai un projet et je veux être contacté</div>
+        <div style="float: right;font-size: 1.5em;padding: 10px;margin: 10px;width:200px;color:#0094B5;border: solid;border-radius: 45px; text-align: center">{% trans "I have a project and I want to be contacted" %}</div>
         <a href="{%trans "/presentation" %}"><div class="slidermore" onmouseover="this.style.color='#D0574C'" onmouseout="this.style.color='white'">
             {% trans "Learn More" %}
         </div></a>
@@ -52,11 +52,13 @@
     </div>
 </div>
 {% endblock %}
-{% block nav %}
+{% block actions %}
 <div class="bidaction"><form onsubmit="addTask(getValue('newproject_title'), null, '{{request.user.username}}',function(taskid){document.location = '/project/'+taskid});return false">
     {% trans "Create a new project:" %}
     <input type="image" src="/img/icons/add.png" /> <input id="newproject_title" />
 </form></div>
+{% endblock %}
+{% block nav %}
 <div class="navtitle">{% trans "Projects on Open Initiative" %}</div>
 <div class="treetitle"><a href=""">{% trans "Our selection" %}</a></div>
 {% endblock %}
