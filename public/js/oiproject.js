@@ -142,6 +142,15 @@ function confirmBidProject(projectid) {
         alert(gettext("Please accept the Terms of Use"));
     }
 }
+function validatorProject(projectid, rating){
+    OIajaxCall("/project/validator/"+projectid, null, "prjdialogue_"+projectid,
+        function(){show("prjdialogue_"+projectid);
+        document.getElementById('validator_'+projectid).focus();});
+}
+function confirmValidatorProject(projectid) {
+    OIajaxCall("/project/confirmvalidator/"+projectid, "username="+getValue("validator_"+projectid), "output", 
+        function(){hide("prjdialogue_"+projectid);});
+}
 function offerProject(projectid) {
     OIajaxCall("/project/offer/"+projectid, null, "prjdialogue_"+projectid, 
         function(){show("prjdialogue_"+projectid);
