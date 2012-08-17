@@ -142,6 +142,15 @@ function confirmBidProject(projectid) {
         alert(gettext("Please accept the Terms of Use"));
     }
 }
+function validatorProject(projectid, rating){
+    OIajaxCall("/project/validator/"+projectid, null, "prjdialogue_"+projectid,
+        function(){show("prjdialogue_"+projectid);
+        document.getElementById('validator_'+projectid).focus();});
+}
+function confirmValidatorProject(projectid) {
+    OIajaxCall("/project/confirmvalidator/"+projectid, "username="+getValue("validator_"+projectid), "output", 
+        function(){hide("prjdialogue_"+projectid);});
+}
 function offerProject(projectid) {
     OIajaxCall("/project/offer/"+projectid, null, "prjdialogue_"+projectid, 
         function(){show("prjdialogue_"+projectid);
@@ -283,6 +292,7 @@ function populateOverviewTable(projectid){
                 var task = tasklist[i];
                 for(var field = fields[j=0]; j < fields.length; field=fields[++j]){
                     if(fields[j]=="state")task.fields[field] = gettext("State"+task.fields[field]);
+                    if(fields[j]=="due_date"){ if(!task.fields[field]) {task.fields[field]="-";}; };
                     if(fields[j]=="offer")task.fields[field] += " €";
                     line.appendChild(document.createElement('td')).innerHTML = "<a href=/project/"+task.pk+"/view/"+views[j]+">"+task.fields[field]+"</a>";
                 }

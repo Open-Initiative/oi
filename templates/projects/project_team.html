@@ -2,6 +2,27 @@
 {% load i18n %}
 <div id="team" class="prjtable"></div>
 <div class="smallcolumn">
+    <div class="possessor">
+        <h3>{% trans "Owner" %}</h3>
+        <a href="/user/profile/{{user.username}}"><div class="cleared">
+            <img class="contactpicture" src="/user/getpicture/{{user.username}}">
+            <div class="username">{{user.username}}</div>
+        </div></a>
+    </div>
+    <div class="participant">
+        <h3>{{project.bid_set.count}} {% trans "Validators" %}</h3>
+        {% for bid in project.bid_set.all %}
+            <a href="/user/profile/{{bid.user.username}}"><div class="cleared">
+                <img class="contactpicture" src="/user/getpicture/{{bid.user.username}}">
+                <div class="username">{{bid.user.get_profile}}</div>
+            </div></a>
+        {% empty %}
+            {% trans "No bidder on this project" %}
+        {% endfor %}
+        {% if project|can_write:user %}<div class="cleared" class="more-space"><a class="clickable" onclick="validatorProject({{project.id}})"><img class="clickable" src="/img/icons/add.png"> {% trans "Invite members" %}</a></div>{% endif %}
+    </div>
+</div>
+<div class="smallcolumn">
     <div class="assignee">
     <h3 class="assignee">{% trans "Assignee" %}</h3>
     {% if project.assignee %}
@@ -36,19 +57,6 @@
         </div>{% endif %}
     {% endif %}
     </div>
-    <div class="participant">
-        <h3>{{project.bid_set.count}} {% trans "Bidders" %}</h3>
-        {% for bid in project.bid_set.all %}
-        <a href="/user/profile/{{bid.user.username}}"><div class="cleared">
-            <img class="contactpicture" src="/user/getpicture/{{bid.user.username}}">
-            <div class="username">{{bid.user.get_profile}}</div>
-        </div></a>
-        {% empty %}
-        {% trans "No bidder on this project" %}
-        {% endfor %}
-    </div>
-</div>
-<div class="smallcolumn">
     <div>
         <h3>{% trans "Guests" %}</h3>
         {% for guest in project.list_guests %}

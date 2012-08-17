@@ -78,9 +78,16 @@ def listtasks(request, id):
                 tasks = tasks.order_by('-priority')
                 
             if request.GET.has_key('page'):
-                paginator = Paginator(tasks, 25)
+                paginator = Paginator(tasks, 25, 0, True)
                 page = request.GET.get('page')
-                tasks = paginator.page(page).object_list
+                try:
+                    tasks = paginator.page(page).object_list
+                except PageNotAnInteger:
+                    tasks = paginator.page(1).object_list
+                except EmptyPage:
+                    tasks = paginator.page(paginator.num_pages).object_list
+                    
+                    
             
             #appends the serialized task list to the global list
             lists.append(serializers.oiserialize("json", tasks,
@@ -250,6 +257,7 @@ def delegateproject(request, id):
         return HttpResponse(_("Cannot find user"), status=531)
     project.save()
     project.delegate_to.get_profile().get_default_observer(project).notify("delegate", project=project, sender=request.user)
+    bid, created = Bid.objects.get_or_create(project=project, user=request.user)
     return HttpResponse(_("Sent delegation offer"))
 
 @ajax_login_required
@@ -331,6 +339,24 @@ def bidproject(request, id):
     project.notify_all(request.user, "project_bid", bid)
     messages.info(request, _("Bid saved"))
     return HttpResponse('', status=332)
+    
+@OINeedsPrjPerms(OI_READ)
+@ajax_login_required
+def validatorproject(request, id):
+    """Add the user as a validator"""
+    project = Project.objects.get(id=id)
+    
+    try:
+        user = User.objects.get(username=request.POST["username"])
+    except (KeyError, User.DoesNotExist):
+        return HttpResponse(_("Cannot find user"), status=531)
+    
+    bid, created = Bid.objects.get_or_create(project=project, user=user)
+    
+    project.apply_perm(user, OI_ALL_PERMS)
+    user.get_profile().follow_project(project.master)
+    user.get_profile().get_default_observer(project).notify("share", project=project, sender=request.user)
+    return HttpResponse(_("The user is add as a validator"))
 
 @OINeedsPrjPerms(OI_READ)
 def startproject(request, id):

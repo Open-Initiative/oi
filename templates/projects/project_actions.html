@@ -1,6 +1,6 @@
 {% load i18n %}
 {% load oifilters %}
-<div class="prjActionDel">
+<div class="prj-action-del">
     {% if object|can_write:user and object.state < 2 and object.bid_set.count == 0 and object.tasks.count == 0 %}
         <img src="/img/icons/del-32.png" class="clickable actions" alt="{% trans "Delete the task" %}" title="{% trans "Delete the task" %}" onclick="deleteProject({{object.id}})" />
     {% endif %}
@@ -9,10 +9,10 @@
     {% endif %}
 </div>
 {% if object.assignee == user and object.state < 2 and object.is_ready_to_start %}
-    <div class="prjActionBtn clickable" onclick="startProject({{object.id}})">{% trans "Start" %} <img src="/img/icons/bluebtn.png" /></div>
+    <div class="prj-action-btn clickable" onclick="startProject({{object.id}})">{% trans "Start" %} <img src="/img/icons/bluebtn.png" /></div>
 {% endif %}
 {% if object.state == 2 %}
-    {% if object.assignee == user %}<div class="prjActionBtn clickable" onclick="deliverProject({{object.id}})">{% trans "Deliver" %} <img src="/img/icons/bluebtn.png" /></div>{% endif %}
+    {% if object.assignee == user %}<div class="prj-action-btn clickable" onclick="deliverProject({{object.id}})">{% trans "Deliver" %} <img src="/img/icons/bluebtn.png" /></div>{% endif %}
 
     <div class="progressbar{% ifequal object.assignee user %} clickable" onclick="updateProgress({{object.id}},(event.clientX-this.offsetLeft)/this.offsetWidth){% endifequal %}">
         <span id="progressbar_{{object.id}}" class="progress" style="width:{{object.progress|default:0|floatformat:0}}%;"></span>
@@ -22,14 +22,14 @@
 {% with object|bids:user as bids %}{% if bids %}
     {% if object.state == 3 %}
     {% if not bids.0.validated %}
-        <div class="prjActionBtn clickable" onclick="validateProject({{object.id}})">{% trans "Validate" %} <img src="/img/icons/bluebtn.png" /></div>
+        <div class="prj-action-btn clickable" onclick="validateProject({{object.id}})">{% trans "Validate" %} <img src="/img/icons/bluebtn.png" /></div>
     {% else %}
-        <div class="prjActionWait">
+        <div class="prj-action-wait">
             {% blocktrans count counter=bids|length %}Waiting for the bidder to validate{% plural %}Waiting for the bidders to validate{% endblocktrans %}
         </div>
     {% endif %}
     {% endif %}
     {% if object.state == 4 and object.assignee != user and bids.0.rating == None %}
-        <div class="prjActionBtn clickable" onclick="evalProject({{object.id}})">{% trans "Evaluate" %} <img src="/img/icons/bluebtn.png" /></div>
+        <div class="prj-action-btn clickable" onclick="evalProject({{object.id}})">{% trans "Evaluate" %} <img src="/img/icons/bluebtn.png" /></div>
     {% endif %}
 {% endif %}{% endwith %}
