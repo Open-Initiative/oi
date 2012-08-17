@@ -12,8 +12,8 @@
     <div class="prj-star-fav">
         <img id="fav_{{object.id}}" class="clickable" title="{% trans 'follow the project' %}" alt="{% trans 'follow the project' %}" src="/img/icons/star{{object|is_following:user}}.png" onclick="favProject({{object.id}})">
     </div>
+    <div>{{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}</div>
 </div>
-<div>{{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}</div>
 {% for task in object.ancestors|filter_read:user %}<a href="/project/{{task.id}}/view/overview">{{task.title}}</a> &gt; {% endfor %}
 {% endblock %}
 {% block actions %}{% include "projects/project_actions.html" %}{% endblock %}
