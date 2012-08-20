@@ -3,10 +3,10 @@
 <div id="team" class="prjtable"></div>
 <div class="smallcolumn">
     <div class="possessor">
-        <h3>{% trans "Possessor" %}</h3>
-        <a href="/user/profile/{{object.author}}"><div class="cleared">
-            <img class="contactpicture" src="/user/getpicture/{{object.author}}">
-            <div class="username">{{object.author.get_profile}}</div>
+        <h3>{% trans "Owner" %}</h3>
+        <a href="/user/profile/{{user.username}}"><div class="cleared">
+            <img class="contactpicture" src="/user/getpicture/{{user.username}}">
+            <div class="username">{{user.username}}</div>
         </div></a>
     </div>
     <div class="participant">
@@ -57,7 +57,7 @@
         </div>{% endif %}
     {% endif %}
     </div>
-    <div class="gest">
+    <div>
         <h3>{% trans "Guests" %}</h3>
         {% for guest in project.list_guests %}
         <a href="/user/profile/{{guest.username}}"><div class="cleared">

@@ -129,6 +129,20 @@ function uploadFile(field_name, url, type, win) {
     {window : win,input : field_name});
 }
 
+function slideIndex(nextid) {
+    if(nextid) nextSlide = jQuery('#indexslide'+nextid);
+    else if(jQuery('.indexslide:visible').next().length) nextSlide = jQuery('.indexslide:visible').next();
+    else nextSlide = jQuery('.indexslide').first();
+    jQuery('.indexslide:visible').children(".slidertip").fadeOut()
+    jQuery('.indexslide:visible').animate({width: "toggle"},1000);
+    nextSlide.delay(1000).animate({width: "toggle"},1000).children(".slidertip").delay(1500).fadeIn(1500);
+    
+    if(nextid) nextIcon = jQuery('#slidericon'+nextid);
+    else if(jQuery('.slidericonselected').next().length) nextIcon = jQuery('.slidericonselected').next();
+    else nextIcon = jQuery('.slidericon').first();
+    jQuery('.slidericonselected').removeClass("slidericonselected");
+    nextIcon.addClass("slidericonselected");
+}
 function slidePres(id) {
     jQuery('.presslide').slideUp();
     jQuery(id).slideDown();
@@ -158,19 +172,6 @@ function getSelectedCategs(categArray) {
     var categlist=[];
     for(categ in categArray) if(categArray[categ]) categlist.push(categ);
     return categlist.join(',');
-}
-function slideIndex(nextid) {
-    if(nextid) nextSlide = jQuery('#indexslide'+nextid);
-    else if(jQuery('.indexslide:visible').next().length) nextSlide = jQuery('.indexslide:visible').next();
-    else nextSlide = jQuery('.indexslide').first();
-    jQuery('.indexslide').fadeOut();
-    nextSlide.delay(500).fadeIn();
-    
-    if(nextid) nextIcon = jQuery('#slidericon'+nextid);
-    else if(jQuery('.slidericonselected').next().length) nextIcon = jQuery('.slidericonselected').next();
-    else nextIcon = jQuery('.slidericon').first();
-    jQuery('.slidericonselected').removeClass("slidericonselected");
-    nextIcon.addClass("slidericonselected");
 }
 function applyFilter() {
     var categlist = getSelectedCategs(selectedcateg);

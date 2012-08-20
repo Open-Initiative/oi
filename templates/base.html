@@ -110,76 +110,14 @@
         {% endblock %}
     </div>
     <div class="center">
-    
-    <div class="topPage">
-        {% if object %}
-           <div class="prj-private-bloc">
-                <div >
-                    {% if project.public %}{% trans "Public" %}{% else %}{% trans "Private" %}{% endif %} {% trans "task" %} 
-                </div>
-                    <a class="clickable" onclick="toggleHideProject({{object.id}})"> {% trans "Make this task" %} {% if project.public %}{% trans "private" %}{% else %}{% trans "public" %}{% endif %}<img src="/img/icons/bluebtn.png"/></a>
-            </div>
-            <div class="prj-block-fav">
-                <div class="prj-star-fav">
-                    <img id="fav_{{object.id}}" class="clickable" title="{% trans 'follow the project' %}" alt="{% trans 'follow the project' %}" src="/img/icons/star{{object|is_following:user}}.png" onclick="favProject({{object.id}})">
-                </div>
-                <div>
-                {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
-                </div>
-            </div>          
-            {% for task in object.ancestors|filter_read:user %}
-                <a href="/project/{{task.id}}/view/overview">{{task.title}}</a> &gt; 
-            {% endfor %}
-        {% endif %}
+        {% block indicators %}{% endblock %}
         <div id="pagetitle">{% block pagetitle %}{% endblock %}</div>
-    </div>
        <script>
             follow = {% if object|is_following:user %}true{%else%}false{%endif%};
        </script>
         <div class="column">
-            <div class="prj-block-action"> 
-                {% if object %}
-                    <div class="prj-action-del">
-                        {% if object|can_write:user and object.state < 2 and object.bid_set.count == 0 and object.tasks.count == 0 %}
-                            <img src="/img/icons/del-32.png" class="clickable actions" alt="{% trans "Delete the task" %}" title="{% trans "Delete the task" %}" onclick="deleteProject({{object.id}})" />
-                        {% endif %}
-                        {% if object.state < 4 and object.bid_set.count > 0 and user == object.assignee %}
-                            <img src="/img/icons/del-32.png" class="clickable actions" alt="{% trans "Cancel" %}" title="{% trans "Cancel" %}" onclick="cancelProject({{object.id}}, {{object.state}})" />
-                        {% endif %}
-                    </div>
-                    {% if object.assignee == user %}
-                        {% if object.state < 2 and object.is_ready_to_start %}
-                            <div class="prj-action-btn clickable" onclick="startProject({{object.id}})">{% trans "Start" %} <img src="/img/icons/bluebtn.png" /></div>
-                        {% endif %}
-                        {% if object.state == 2 %}
-                            <div class="prj-action-btn clickable" onclick="deliverProject({{object.id}})">{% trans "Deliver" %} <img src="/img/icons/bluebtn.png" /></div>
-                        {% endif %}
-                    {% endif %}
-                    {% with object|bids:user as bids %}{% if bids %}
-                        {% if object.state == 3 and not bids.0.validated %}
-                            <div class="prj-action-btn clickable" onclick="validateProject({{object.id}})">{% trans "Validate" %} <img src="/img/icons/bluebtn.png" /></div>
-                        {% endif %}
-                        {% if object.state == 4 and object.assignee != user and bids.0.rating == None %}
-                            <div class="prj-action-btn clickable" onclick="evalProject({{object.id}})">{% trans "Evaluate" %} <img src="/img/icons/bluebtn.png" /></div>
-                        {% endif %}
-                    {% endif %}{% endwith %}
-                    {% if object.assignee == user %}
-                        {% if object.state == 3 %}
-                            <div class="prj-action-wait">
-                                {% with object|bids:user as bids %}
-                                {% blocktrans count counter=bids|length %}Waiting for the bidder{% plural %}Waiting for the bidders{% endblocktrans %}
-                                {% endwith %}
-                            </div>
-                        {% endif %}
-                    {% endif %}
-                    
-                    {% ifequal object.state 2 %}
-                            <div class="progressbar{% ifequal object.assignee user %} clickable" onclick="updateProgress({{object.id}},(event.clientX-this.offsetLeft)/this.offsetWidth){% endifequal %}">
-                                <span id="progressbar_{{object.id}}" class="progress" style="width:{{object.progress|default:0|floatformat:0}}%;"></span>
-                                <span id="progresslabel_{{object.id}}" class="progresstitle" >{{object.progress|default:0|floatformat:0}}%</span>
-                            </div>
-                    {% endifequal %}
-                {% endif %}
+            <div id="actions"> 
+                {% block actions %}{% endblock %}
             </div>
             
             <div id="nav">

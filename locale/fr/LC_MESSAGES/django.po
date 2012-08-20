@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-14 12:20+0200\n"
+"POT-Creation-Date: 2012-08-17 12:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
 #: helpers.py:31
@@ -98,7 +98,7 @@ msgstr "Publié sur"
 
 #: messages/models.py:140 messages/views.py:65 messages/views.py:78
 #: projects/models.py:328 projects/views.py:104 projects/views.py:135
-#: templates/projects/project_detail.html:52
+#: templates/projects/project_detail.html:74
 msgid "Forbidden"
 msgstr "Permissions insuffisantes"
 
@@ -708,88 +708,89 @@ msgstr "Mot de passe"
 msgid "Forgot your password?"
 msgstr "Mot de passe oublié ?"
 
-#: templates/base.html:119
+#: templates/base.html:122 templates/projects/project_detail.html:9
 msgid "Public"
 msgstr "Publique"
 
-#: templates/base.html:119
+#: templates/base.html:122 templates/projects/project_detail.html:9
 msgid "Private"
 msgstr "Privée"
 
-#: templates/base.html:119
+#: templates/base.html:122 templates/projects/project_detail.html:9
 msgid "task"
 msgstr "tâche"
 
-#: templates/base.html:121
+#: templates/base.html:124 templates/projects/project_detail.html:11
 msgid "Make this task"
 msgstr "Rendre cette tâche"
 
-#: templates/base.html:121
+#: templates/base.html:124 templates/projects/project_detail.html:11
 msgid "private"
 msgstr "privée"
 
-#: templates/base.html:121
+#: templates/base.html:124 templates/projects/project_detail.html:11
 msgid "public"
 msgstr "publique"
 
-#: templates/base.html:125
+#: templates/base.html:128 templates/projects/project_detail.html:15
 msgid "follow the project"
 msgstr "suivre le projet"
 
-#: templates/base.html:128
+#: templates/base.html:131 templates/projects/project_detail.html:18
 msgid " subscriber "
 msgid_plural " subscribers "
 msgstr[0] "abonné"
 msgstr[1] "abonnés"
 
-#: templates/base.html:145
+#: templates/base.html:152 templates/projects/project_actions.html:5
 msgid "Delete the task"
-msgstr "Supprimer cette tâche"
+msgstr "Supprimer la tâche"
 
-#: templates/base.html:148 templates/projects/spec/edit_spot.html:11
+#: templates/base.html:155 templates/projects/project_actions.html:8
+#: templates/projects/spec/edit_spot.html:11
 msgid "Cancel"
 msgstr "Annuler"
 
-#: templates/base.html:153
+#: templates/base.html:160 templates/projects/project_actions.html:12
 msgid "Start"
 msgstr "Démarrer"
 
-#: templates/base.html:156
+#: templates/base.html:163 templates/projects/project_actions.html:15
 msgid "Deliver"
 msgstr "Livrer"
 
-#: templates/base.html:161
+#: templates/base.html:168 templates/projects/project_actions.html:25
 msgid "Validate"
 msgstr "Valider"
 
-#: templates/base.html:164
+#: templates/base.html:171 templates/projects/project_actions.html:33
 msgid "Evaluate"
 msgstr "Evaluer"
 
-#: templates/base.html:171
+#: templates/base.html:178
 msgid "Waiting for the bidder"
 msgid_plural "Waiting for the bidders"
 msgstr[0] "En attente du scouscripteur"
 msgstr[1] "En attente des scouscripteurs"
 
-#: templates/base.html:197 templates/projects/dialogue/bid.html:4
+#: templates/base.html:205 templates/projects/dialogue/bid.html:4
 #: templates/projects/dialogue/offer.html:4 templates/users/register.html:35
 msgid "Terms of Use"
 msgstr "Conditions Générales d'Utilisation"
 
-#: templates/base.html:198 templates/index.html:39
+#: templates/base.html:206 templates/index.html:39
 msgid "/presentation"
 msgstr "/presentation-fr"
 
-#: templates/base.html:198
+#: templates/base.html:206
 msgid "Presentation"
 msgstr "Présentation"
 
-#: templates/base.html:199 templates/contact.html:3
+#: templates/base.html:207 templates/contact.html:3
 msgid "Legal notice"
 msgstr "Mentions légales"
 
-#: templates/base.html:200
+#: templates/base.html:208
 msgid "Contact"
 msgstr "Contact"
 
@@ -802,6 +803,14 @@ msgid "design by"
 msgstr "design by"
 
 #: templates/index.html:12
+msgid ""
+"Open Initiative helps you to describe your project with an appropriate "
+"methodology"
+msgstr ""
+"Open Initiative vous aide à décrire précisément votre projet avec une "
+"méthodologie éprouvée"
+
+#: templates/index.html:12
 msgid "build"
 msgstr "construisez"
 
@@ -810,12 +819,27 @@ msgid "your IT project online"
 msgstr "votre projet informatique en ligne"
 
 #: templates/index.html:15
+msgid ""
+"Open Initiative finds the worker you need in a selected professional network"
+msgstr ""
+"Open Initiative trouve le prestataire adapté à votre besoin parmi un réseau "
+"de professionnels sélectionnés"
+
+#: templates/index.html:15
 msgid "find"
 msgstr "trouvez"
 
 #: templates/index.html:16
 msgid "skilled service providers transparently"
 msgstr "des prestataires compétents en toute transparence"
+
+#: templates/index.html:19
+msgid ""
+"Open Initiative secures the progress of your project through task "
+"organization and close follow-up"
+msgstr ""
+"Open Initiative assure un bon déroulement du projet en organisant les tâches "
+"et en assurant un suivi régulier"
 
 #: templates/index.html:19
 msgid "follow"
@@ -827,13 +851,10 @@ msgstr ""
 "l'avancement de votre projet en temps réel grâce à une méthodologie agile"
 
 #: templates/index.html:22
-msgid "control"
-msgstr "contrôlez"
-
-#: templates/index.html:22
-msgid "your budget by paying tasks as they are completed"
+msgid "Control your budget by paying tasks as they are completed"
 msgstr ""
-"votre budget en payant les tâches au fur et à mesure de leur réalisation"
+"Contrôlez votre budget en payant les tâches au fur et à mesure de leur "
+"réalisation"
 
 #: templates/index.html:22
 msgid "breathe"
@@ -842,6 +863,10 @@ msgstr "respirez"
 #: templates/index.html:23
 msgid "with the payment guarantee"
 msgstr "grâce à la garantie de paiement"
+
+#: templates/index.html:38
+msgid "I have a project and I want to be contacted"
+msgstr "J'ai un projet et je veux être contacté"
 
 #: templates/index.html:40
 msgid "Learn More"
@@ -860,13 +885,13 @@ msgstr "S'inscrire"
 msgid "Create a new project:"
 msgstr "Déposer un nouveau projet"
 
-#: templates/index.html:60
+#: templates/index.html:62
 msgid "Projects on Open Initiative"
 msgstr "Projets sur Open Initiative "
 
-#: templates/index.html:61
+#: templates/index.html:63
 msgid "Our selection"
-msgstr "Nos selection"
+msgstr "Notre sélection"
 
 #: templates/messages/message.html:6
 #: templates/notification/answer/notice.html:4
@@ -1031,11 +1056,11 @@ msgstr "de prendre en charge le projet"
 #: templates/notification/delegate/notice.html:3
 #, python-format
 msgid ""
-"wants to delegate project <a href=\"%(current_site)s/project/%(id)s\">"
-"%(title)s</a> to you."
+"wants to delegate project <a href=\"%(current_site)s/project/%(id)s\">%"
+"(title)s</a> to you."
 msgstr ""
-"veut vous déléguer le projet <a href=\"%(current_site)s/project/%(id)s\">"
-"%(title)s</a>."
+"veut vous déléguer le projet <a href=\"%(current_site)s/project/%(id)s\">%"
+"(title)s</a>."
 
 #: templates/notification/invitation/notice.html:3
 msgid "wants to add you to his contacts."
@@ -1092,6 +1117,12 @@ msgstr "est maintenant en l'état"
 #: templates/notification/share/notice.html:3
 msgid "has invited you on a project:"
 msgstr "vous a invité sur le projet:"
+
+#: templates/projects/project_actions.html:28
+msgid "Waiting for the bidder to validate"
+msgid_plural "Waiting for the bidders to validate"
+msgstr[0] "En attente de la validation des autres utilisateurs"
+msgstr[1] "En attente de la validation des autres utilisateurs"
 
 #: templates/projects/project_budget.html:6
 msgid "Offer"
@@ -1228,7 +1259,7 @@ msgstr "Ajouter une discussion"
 msgid "Project"
 msgstr "Projet"
 
-#: templates/projects/project_detail.html:8
+#: templates/projects/project_detail.html:28
 msgid "Tasks in the project are to be listed here"
 msgstr "Les tâches du projets seront listées ici"
 
@@ -1328,11 +1359,11 @@ msgid "Validation"
 msgstr "Validation"
 
 #: templates/projects/project_state.html:10
-msgid "execution"
+msgid "Execution"
 msgstr "Réalisation"
 
 #: templates/projects/project_state.html:13
-msgid "design"
+msgid "Design"
 msgstr "Conception"
 
 #: templates/projects/project_sum.html:4
@@ -1340,8 +1371,8 @@ msgid "delete this task"
 msgstr "Supprimer cette tâche"
 
 #: templates/projects/project_team.html:6
-msgid "Possessor"
-msgstr ""
+msgid "Owner"
+msgstr "Propriétaire"
 
 #: templates/projects/project_team.html:13
 msgid "Validators"
@@ -1935,23 +1966,17 @@ msgstr "Impossible de modifier le profil d'un autre utilisateur"
 msgid "Notice archived"
 msgstr "Notification archivée"
 
-#~ msgid "overview"
-#~ msgstr "Suivi"
+msgid "overview"
+msgstr "Suivi"
 
-#~ msgid "planning"
-#~ msgstr "Planning"
+msgid "planning"
+msgstr "Planning"
 
-#~ msgid "budget"
-#~ msgstr "Budget"
+msgid "budget"
+msgstr "Budget"
 
-#~ msgid "team"
-#~ msgstr "Equipe"
+msgid "team"
+msgstr "Equipe"
 
-#~ msgid "adj_fem"
-#~ msgstr "e"
-
-#~ msgid "This task is"
-#~ msgstr "Cette tâche est"
-
-#~ msgid "days"
-#~ msgstr "jours"
+msgid "adj_fem"
+msgstr "e"
