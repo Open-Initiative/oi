@@ -49,8 +49,8 @@ OI_DISPLAYNAME_TYPES = ["%(username)s", "%(first)s %(last)s", "%(first)s %(last)
 
 # Generic permission constants
 OI_ALL_PERMS = -1
-OI_RIGHTS = [OI_READ, OI_WRITE, OI_ANSWER] = [1,2,4]
-OI_PERMS = ((OI_READ, _("Reading")), (OI_WRITE, _("Writing")), (OI_ANSWER, _("Answering")),)
+OI_RIGHTS = [OI_READ, OI_WRITE, OI_ANSWER, OI_BID, OI_MANAGE] = [1,2,4,5,6]
+OI_PERMS = ((OI_READ, _("Reading")), (OI_WRITE, _("Writing")), (OI_ANSWER, _("Answering")), (OI_BID, _("Bidding")), (OI_MANAGE, _("Managing")))
 
 #Spec types
 TEXT_TYPE = 1
