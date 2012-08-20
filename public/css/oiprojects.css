@@ -244,7 +244,7 @@ div.cardspec {
 }
 div.minispec {
     width: 140px;
-    height: 100px;
+    height: 90px;
     float: right;
     border: 1px solid;
     margin: 2px;
@@ -325,7 +325,10 @@ div.bidaction {
 }
 .participant {
     color: #0094B5;
-    margin-top: 46px;
+    margin-top: 78px;
+}
+div.gest {
+    padding-top: 12px;
 }
 div.possessor{
     padding-bottom: 60px;
