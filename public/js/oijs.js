@@ -130,18 +130,22 @@ function uploadFile(field_name, url, type, win) {
 }
 
 function slideIndex(nextid) {
-    if(nextid) nextSlide = jQuery('#indexslide'+nextid);
-    else if(jQuery('.indexslide:visible').next().length) nextSlide = jQuery('.indexslide:visible').next();
-    else nextSlide = jQuery('.indexslide').first();
-    jQuery('.indexslide:visible').children(".slidertip").fadeOut()
-    jQuery('.indexslide:visible').animate({width: "toggle"},1000);
-    nextSlide.delay(1000).animate({width: "toggle"},1000).children(".slidertip").delay(1500).fadeIn(1500);
-    
-    if(nextid) nextIcon = jQuery('#slidericon'+nextid);
-    else if(jQuery('.slidericonselected').next().length) nextIcon = jQuery('.slidericonselected').next();
-    else nextIcon = jQuery('.slidericon').first();
-    jQuery('.slidericonselected').removeClass("slidericonselected");
-    nextIcon.addClass("slidericonselected");
+    if(!sliding) {
+        sliding = true;
+        if(nextid) nextSlide = jQuery('#indexslide'+nextid);
+        else if(jQuery('.indexslide:visible').next().length) nextSlide = jQuery('.indexslide:visible').next();
+        else nextSlide = jQuery('.indexslide').first();
+        jQuery(".slidertip").fadeOut()
+        jQuery('.indexslide:visible').animate({width: "toggle"},1000);
+        nextSlide.delay(1000).animate({width: "toggle"},1000).prev(".slidertip").delay(1600).fadeIn(1500);
+        
+        if(nextid) nextIcon = jQuery('#slidericon'+nextid);
+        else if(jQuery('.slidericonselected').next().length) nextIcon = jQuery('.slidericonselected').next();
+        else nextIcon = jQuery('.slidericon').first();
+        jQuery('.slidericonselected').removeClass("slidericonselected");
+        nextIcon.addClass("slidericonselected");
+        setTimeout(function(){sliding = false;}, 2000);
+    }
 }
 function slidePres(id) {
     jQuery('.presslide').slideUp();

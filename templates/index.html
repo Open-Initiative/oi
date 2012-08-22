@@ -9,17 +9,21 @@
 
             <div class="slidertext">
                 <dl>
-                    <div id="indexslide1" class="indexslide"><div class="slidertip">{% trans "Open Initiative helps you to describe your project with an appropriate methodology" %}</div><dt>{% trans "build" %}</dt>
+                    <div class="slidertip">{% trans "Open Initiative helps you to describe your project with an appropriate methodology" %}</div>
+                    <div id="indexslide1" class="indexslide"><dt>{% trans "build" %}</dt>
                         <dd>{% trans "your IT project online" %}</dd>
                     </div>
-                    <div id="indexslide2" class="indexslide invisible"><div class="slidertip invisible">{% trans "Open Initiative finds the worker you need in a selected professional network" %}</div><dt>{% trans "find" %}</dt>
+                    <div class="slidertip invisible">{% trans "Open Initiative finds the worker you need in a selected professional network" %}</div>
+                    <div id="indexslide2" class="indexslide invisible"><dt>{% trans "find" %}</dt>
                         <dd>{% trans "skilled service providers transparently" %}</dd>
                         
                     </div>
-                    <div id="indexslide3" class="indexslide invisible"><div class="slidertip invisible">{% trans "Open Initiative secures the progress of your project through task organization and close follow-up" %}</div><dt>{% trans "follow" %}</dt>
+                    <div class="slidertip invisible">{% trans "Open Initiative secures the progress of your project through task organization and close follow-up" %}</div>
+                    <div id="indexslide3" class="indexslide invisible"><dt>{% trans "follow" %}</dt>
                         <dd>{% trans "the progress of your project in real time with agile methodology" %}</dd>
                     </div>
-                    <div id="indexslide4" class="indexslide invisible"><div class="slidertip invisible">{% trans "Control your budget by paying tasks as they are completed" %}</div><dt>{% trans "breathe" %}</dt>
+                    <div class="slidertip invisible">{% trans "Control your budget by paying tasks as they are completed" %}</div>
+                    <div id="indexslide4" class="indexslide invisible"><dt>{% trans "breathe" %}</dt>
                         <dd>{% trans "with the payment guarantee" %}</dd>
                     </div>
                 </dl>
@@ -33,6 +37,7 @@
         </div>
         <script type="text/javascript">
             window.slide = true;
+            window.sliding = false;
             window.setInterval(function (){if(window.slide) slideIndex()}, 5000);
         </script>
         <a href="/user/register"><div style="float: right;font-size: 1.5em;padding: 10px;margin: 10px;width:200px;color:#0094B5;border: solid;border-radius: 45px; text-align: center">{% trans "I have a project and I want to be contacted" %}</div></a>
