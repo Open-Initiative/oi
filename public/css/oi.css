@@ -354,22 +354,18 @@ div.navcontent {
     margin-top: 50px;
 }
 .indexslide {
-    width: 700px;
+    width: 650px;
+    overflow: hidden;
 }
 .slidertip {
     text-transform: none;
     color: rgb(208, 87, 76);
     font-weight: normal;
     font-size: 0.9em;
-    position: absolute;
+    float: right;
     left: 650px;
     width: 240px;
     margin: 25px 0;
-}
-.slidericons {
-    left: 190px;
-    position: absolute;
-    top: 230px;
 }
 .slidericon {
     float: left;
@@ -402,6 +398,7 @@ div.navcontent {
 }
 .slider dd {
     width: 420px;
+    height: 70px;
 }
 .headersep {
     background: url('/img/headersep.png');
