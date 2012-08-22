@@ -277,7 +277,7 @@ def answerdelegate(request, id):
 
     if answer == "true":
         project.assign_to(request.user)
-        project.apply_perm(request.user, OI_WRITE)
+        project.apply_perm(request.user, OI_MANAGE)
         #adds the project to user's observation
         request.user.get_profile().follow_project(project.master)
     project.save()
@@ -335,7 +335,6 @@ def bidproject(request, id):
     request.user.get_profile().make_payment(-(amount-bid.commission), _("Bid"), project)
     request.user.get_profile().make_payment(-bid.commission, _("Commission"), project)
 
-    project.apply_perm(bid.user, OI_READ)
     #adds the project to user's observation
     request.user.get_profile().follow_project(project.master)
     
@@ -575,7 +574,6 @@ def shareproject(request, id):
     messages.info(request, _("Task shared"))
     return HttpResponse('', status=332)
 
-@OINeedsPrjPerms(OI_MANAGE)
 @OINeedsPrjPerms(OI_WRITE)
 def editprogress(request, id):
     """Updates the progress of the project"""
