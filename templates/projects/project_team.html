@@ -1,10 +1,8 @@
 {% load oifilters %}
 {% load i18n %}
 <div id="team" class="prjtable"></div>
-
 <div class="column">
     <div>
-    
         <div class="smallcolumn">
             <h3>{% trans "Owner" %}</h3>
             <a href="/user/profile/{{user.username}}"><div class="cleared">
@@ -12,7 +10,6 @@
                 <div class="username">{{user.username}}</div>
             </div></a>
         </div>
-        
         <div class="oired smallcolumn">
         <h3>{% trans "Assignee" %}</h3>
         {% if project.assignee %}
@@ -46,16 +43,11 @@
             </div>{% endif %}
         {% endif %}
         </div>
-
         <div class="cleared"></div>
     </div>
-    
-    
-    
     <div>
-        
         <div class="smallcolumn">
-            <h3>{{project.bid_set.count}} {% trans "Validators" %}</h3>
+            <h3>{{project.bid_set.count}} {% blocktrans count counter=project.list_guests.count %} Validator {% plural %} Validators {% endblocktrans %}</h3>
             {% for bid in project.bid_set.all %}
                 <a href="/user/profile/{{bid.user.username}}"><div class="cleared">
                     <img class="contactpicture" src="/user/getpicture/{{bid.user.username}}">
@@ -66,9 +58,8 @@
             {% endfor %}
             {% if project|can_write:user %}<div class="cleared"><a class="clickable" onclick="validatorProject({{project.id}})"><img class="clickable" src="/img/icons/add.png"> {% trans "Invite members" %}</a></div>{% endif %}
         </div> 
-        
         <div class="smallcolumn">
-            <h3>{% trans "Guests" %}</h3>
+            <h3>{{project.list_guests.count}} {% blocktrans count counter=project.list_guests.count %} Guest {% plural %} Guests {% endblocktrans %}</h3>
             {% for guest in project.list_guests %}
             <a href="/user/profile/{{guest.username}}"><div class="cleared">
                 <img class="contactpicture" src="/user/getpicture/{{guest.username}}">
@@ -79,10 +70,8 @@
             {% endfor %}
             {% if project|can_write:user %}<div class="cleared"><a class="clickable" onclick="shareProject({{project.id}})"><img class="clickable" src="/img/icons/add.png"> {% trans "Invite members" %}</a></div>{% endif %}
         </div>
-        
         <div class="cleared"></div>
 </div>
-
 <script>
     oiTable = new OITable("team", ["{% trans 'Assignee' %}", "{% trans 'Bidders' %}"]);
     oiTable.addLine({{project.master.id}}, ["{{project.master.assignee.get_profile.get_display_name}}", "{{project.master.bid_set.count}}"]);
