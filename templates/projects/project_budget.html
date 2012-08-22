@@ -2,8 +2,8 @@
 {% load i18n %}
 <div id="budget" class="prjtable"></div>
 <div class="smallcolumn">
-    <div class="assignee">
-        <h3 class="assignee">{% trans "Offer" %}</h3>
+    <div class="oired">
+        <h3>{% trans "Offer" %}</h3>
     {% if project.assignee %}
         <img class="contactpicture" src="/user/getpicture/{{project.assignee.username}}" />
         <div class="username">{{project.assignee}}</div>

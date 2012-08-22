@@ -209,9 +209,6 @@ div.arrow-design{
     background-color: white;
     padding-right: 3px;
 }
-div.more-space{
-    padding-top: 17px;
-}
 /**/
 
 .tasktip {
@@ -320,18 +317,8 @@ div.bidaction {
     margin: 5px;
     border-radius: 4px;
 }
-.assignee, .assignee a{
+.oired, .oired a, .oired h3 {
     color: #D0574C;
-}
-.participant {
-    color: #0094B5;
-    margin-top: 78px;
-}
-div.gest {
-    padding-top: 12px;
-}
-div.possessor{
-    padding-bottom: 60px;
 }
 .newspot {
     padding: 2px;

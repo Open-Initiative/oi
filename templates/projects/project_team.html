@@ -1,75 +1,88 @@
 {% load oifilters %}
 {% load i18n %}
 <div id="team" class="prjtable"></div>
-<div class="smallcolumn">
-    <div class="possessor">
-        <h3>{% trans "Owner" %}</h3>
-        <a href="/user/profile/{{user.username}}"><div class="cleared">
-            <img class="contactpicture" src="/user/getpicture/{{user.username}}">
-            <div class="username">{{user.username}}</div>
-        </div></a>
-    </div>
-    <div class="participant">
-        <h3>{{project.bid_set.count}} {% trans "Validators" %}</h3>
-        {% for bid in project.bid_set.all %}
-            <a href="/user/profile/{{bid.user.username}}"><div class="cleared">
-                <img class="contactpicture" src="/user/getpicture/{{bid.user.username}}">
-                <div class="username">{{bid.user.get_profile}}</div>
-            </div></a>
-        {% empty %}
-            {% trans "No bidder on this project" %}
-        {% endfor %}
-        {% if project|can_write:user %}<div class="cleared" class="more-space"><a class="clickable" onclick="validatorProject({{project.id}})"><img class="clickable" src="/img/icons/add.png"> {% trans "Invite members" %}</a></div>{% endif %}
-    </div>
-</div>
-<div class="smallcolumn">
-    <div class="assignee">
-    <h3 class="assignee">{% trans "Assignee" %}</h3>
-    {% if project.assignee %}
-        <a href="/user/profile/{{project.assignee.username}}">
-            <img class="contactpicture" src="/user/getpicture/{{project.assignee.username}}">
-            <div class="username">{{project.assignee.get_profile}}</div>
-        </a>
-        <div class="cleared"></div>
-        {% if project.assignee == user and project.state < 3 %}
-        <div>{% trans "You are in charge of this task" %}</div>
-        <div class="bidaction clickable" onclick="delegateProject({{project.id}})">
-            {% trans "Delegate" %} <img src="/img/icons/whitebtn.png" />
-        </div>
-        {% endif %}
-        {% if project.delegate_to %}
-            {% ifequal user project.delegate_to %}
-            <div id="question_delegate_{{project.id}}">
-                {{project.assignee}} {% trans "wants to delegate this task to you." %}
-                {% trans "Do you accept it?" %}
-                <img class="clickable" src="/img/icons/ok.png" onclick="answerDelegate({{project.id}}, true, 'question_delegate_{{project.id}}')" title="{% trans "Accept" %}" alt="{% trans "Accept" %}"/>
-                <img class="clickable" src="/img/icons/delete.png" onclick="answerDelegate({{project.id}}, false, 'question_delegate_{{project.id}}')" title="{%trans "Refuse" %}" alt="{%trans "Refuse" %}"/>
-            </div>
-            {% else %}
-            <div class="cleared">{% trans "Delegation offer sent to" %} {{project.delegate_to}}</div>
-            {% endifequal %}
-        {% endif %}
-    {% else %}
-        {% trans "No one is in charge of this task" %}
-        {% if project.state < 2 and project|can_read:user %}
-        <div class="bidaction clickable" onclick="offerProject({{project.id}})">
-            {% trans "Take on" %} <img src="/img/icons/whitebtn.png" />
-        </div>{% endif %}
-    {% endif %}
-    </div>
+
+<div class="column">
     <div>
-        <h3>{% trans "Guests" %}</h3>
-        {% for guest in project.list_guests %}
-        <a href="/user/profile/{{guest.username}}"><div class="cleared">
-            <img class="contactpicture" src="/user/getpicture/{{guest.username}}">
-            <div class="username">{{guest.get_profile}}</div>
-        </div></a>
-        {% empty %}
-        {% trans "No guest on this task" %}
-        {% endfor %}
-        {% if project|can_write:user %}<div class="cleared"><a class="clickable" onclick="shareProject({{project.id}})"><img class="clickable" src="/img/icons/add.png"> {% trans "Invite members" %}</a></div>{% endif %}
+    
+        <div class="smallcolumn">
+            <h3>{% trans "Owner" %}</h3>
+            <a href="/user/profile/{{user.username}}"><div class="cleared">
+                <img class="contactpicture" src="/user/getpicture/{{user.username}}">
+                <div class="username">{{user.username}}</div>
+            </div></a>
+        </div>
+        
+        <div class="oired smallcolumn">
+        <h3>{% trans "Assignee" %}</h3>
+        {% if project.assignee %}
+            <a href="/user/profile/{{project.assignee.username}}">
+                <img class="contactpicture" src="/user/getpicture/{{project.assignee.username}}">
+                <div class="username">{{project.assignee.get_profile}}</div>
+            </a>
+            {% if project.assignee == user and project.state < 3 %}
+            <div>{% trans "You are in charge of this task" %}</div>
+            <div class="bidaction clickable" onclick="delegateProject({{project.id}})">
+                {% trans "Delegate" %} <img src="/img/icons/whitebtn.png" />
+            </div>
+            {% endif %}
+            {% if project.delegate_to %}
+                {% ifequal user project.delegate_to %}
+                <div id="question_delegate_{{project.id}}">
+                    {{project.assignee}} {% trans "wants to delegate this task to you." %}
+                    {% trans "Do you accept it?" %}
+                    <img class="clickable" src="/img/icons/ok.png" onclick="answerDelegate({{project.id}}, true, 'question_delegate_{{project.id}}')" title="{% trans "Accept" %}" alt="{% trans "Accept" %}"/>
+                    <img class="clickable" src="/img/icons/delete.png" onclick="answerDelegate({{project.id}}, false, 'question_delegate_{{project.id}}')" title="{%trans "Refuse" %}" alt="{%trans "Refuse" %}"/>
+                </div>
+                {% else %}
+                <div class="cleared">{% trans "Delegation offer sent to" %} {{project.delegate_to}}</div>
+                {% endifequal %}
+            {% endif %}
+        {% else %}
+            {% trans "No one is in charge of this task" %}
+            {% if project.state < 2 and project|can_read:user %}
+            <div class="bidaction clickable" onclick="offerProject({{project.id}})">
+                {% trans "Take on" %} <img src="/img/icons/whitebtn.png" />
+            </div>{% endif %}
+        {% endif %}
+        </div>
+
+        <div class="cleared"></div>
     </div>
+    
+    
+    
+    <div>
+        
+        <div class="smallcolumn">
+            <h3>{{project.bid_set.count}} {% trans "Validators" %}</h3>
+            {% for bid in project.bid_set.all %}
+                <a href="/user/profile/{{bid.user.username}}"><div class="cleared">
+                    <img class="contactpicture" src="/user/getpicture/{{bid.user.username}}">
+                    <div class="username">{{bid.user.get_profile}}</div>
+                </div></a>
+            {% empty %}
+                {% trans "No bidder on this project" %}
+            {% endfor %}
+            {% if project|can_write:user %}<div class="cleared"><a class="clickable" onclick="validatorProject({{project.id}})"><img class="clickable" src="/img/icons/add.png"> {% trans "Invite members" %}</a></div>{% endif %}
+        </div> 
+        
+        <div class="smallcolumn">
+            <h3>{% trans "Guests" %}</h3>
+            {% for guest in project.list_guests %}
+            <a href="/user/profile/{{guest.username}}"><div class="cleared">
+                <img class="contactpicture" src="/user/getpicture/{{guest.username}}">
+                <div class="username">{{guest.get_profile}}</div>
+            </div></a>
+            {% empty %}
+            {% trans "No guest on this task" %}
+            {% endfor %}
+            {% if project|can_write:user %}<div class="cleared"><a class="clickable" onclick="shareProject({{project.id}})"><img class="clickable" src="/img/icons/add.png"> {% trans "Invite members" %}</a></div>{% endif %}
+        </div>
+        
+        <div class="cleared"></div>
 </div>
+
 <script>
     oiTable = new OITable("team", ["{% trans 'Assignee' %}", "{% trans 'Bidders' %}"]);
     oiTable.addLine({{project.master.id}}, ["{{project.master.assignee.get_profile.get_display_name}}", "{{project.master.bid_set.count}}"]);
