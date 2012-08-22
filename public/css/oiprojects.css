@@ -209,9 +209,6 @@ div.arrow-design{
     background-color: white;
     padding-right: 3px;
 }
-div.more-space{
-    padding-top: 17px;
-}
 /**/
 
 .tasktip {
@@ -244,7 +241,7 @@ div.cardspec {
 }
 div.minispec {
     width: 140px;
-    height: 100px;
+    height: 90px;
     float: right;
     border: 1px solid;
     margin: 2px;
@@ -320,15 +317,8 @@ div.bidaction {
     margin: 5px;
     border-radius: 4px;
 }
-.assignee, .assignee a{
+.oired, .oired a, .oired h3 {
     color: #D0574C;
-}
-.participant {
-    color: #0094B5;
-    margin-top: 46px;
-}
-div.possessor{
-    padding-bottom: 60px;
 }
 .newspot {
     padding: 2px;

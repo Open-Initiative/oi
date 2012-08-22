@@ -23,7 +23,7 @@ from django.views.generic.list_detail import object_detail, object_list
 from django.views.generic.simple import direct_to_template
 from oi.settings import MEDIA_ROOT, TEMP_DIR
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS
-from oi.helpers import OI_PRJ_DONE, OI_NO_EVAL, OI_ACCEPT_DELAY, OI_READ, OI_ANSWER, OI_WRITE, OI_ALL_PERMS, OI_CANCELLED_BID, OI_COM_ON_BID, OI_COMMISSION
+from oi.helpers import OI_PRJ_DONE, OI_NO_EVAL, OI_ACCEPT_DELAY, OI_READ, OI_ANSWER, OI_BID, OI_MANAGE, OI_WRITE, OI_ALL_PERMS, OI_CANCELLED_BID, OI_COM_ON_BID, OI_COMMISSION
 from oi.helpers import OI_PRJ_VIEWS, SPEC_TYPES, SPOT_TYPES, NOTE_TYPE, TASK_TYPE, MESSAGE_TYPE, OIAction, ajax_login_required
 from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeedsPrjPerms
 from oi.messages.models import Message
@@ -86,8 +86,6 @@ def listtasks(request, id):
                     tasks = paginator.page(1).object_list
                 except EmptyPage:
                     tasks = paginator.page(paginator.num_pages).object_list
-                    
-                    
             
             #appends the serialized task list to the global list
             lists.append(serializers.oiserialize("json", tasks,
@@ -95,6 +93,7 @@ def listtasks(request, id):
     return HttpResponse(JSONEncoder().encode(lists)) #serializes the whole thing
     
 @login_required
+@OINeedsPrjPerms(OI_WRITE)
 def editproject(request, id):
     """Shows the Edit template of the project"""
     project=None
@@ -146,7 +145,7 @@ def saveproject(request, id='0'):
     project.set_perm(author, OI_ALL_PERMS)
     project.inherit_perms()
     if project.assignee:
-        project.apply_perm(project.assignee, OI_ALL_PERMS)
+        project.apply_perm(project.assignee, OI_WRITE)
     project.save()
         
     if assignee:
@@ -160,6 +159,7 @@ def saveproject(request, id='0'):
     else:
         return HttpResponseRedirect('/project/%s'%project.id)
 
+@OINeedsPrjPerms(OI_MANAGE)
 @OINeedsPrjPerms(OI_WRITE)
 def editdate(request, id):
     """Modifies a date of the project"""
@@ -213,7 +213,8 @@ def edittitle(request, id):
     project.notify_all(request.user, "project_modified", project.title)
     return HttpResponse(_("Title updated"))
 
-@OINeedsPrjPerms(OI_READ)
+@OINeedsPrjPerms(OI_MANAGE)
+@OINeedsPrjPerms(OI_WRITE)
 @ajax_login_required
 def offerproject(request, id):
     """Makes the current user assignee of the project"""
@@ -235,7 +236,7 @@ def offerproject(request, id):
         return HttpResponse(_('Please enter a valid number'), status=531)
     project.commission = project.offer * OI_COMMISSION #computes project commission
     project.save()
-    project.apply_perm(project.assignee, OI_ALL_PERMS)
+    project.apply_perm(project.assignee, OI_WRITE)
     #adds the project to user's observation
     request.user.get_profile().follow_project(project.master)
 
@@ -244,6 +245,8 @@ def offerproject(request, id):
     return HttpResponse('', status=332)
 
 @ajax_login_required
+@OINeedsPrjPerms(OI_MANAGE)
+@OINeedsPrjPerms(OI_WRITE)
 def delegateproject(request, id):
     """Offers delegation of the project to the specified user"""
     project = Project.objects.get(id=id)
@@ -261,6 +264,7 @@ def delegateproject(request, id):
     return HttpResponse(_("Sent delegation offer"))
 
 @ajax_login_required
+@OINeedsPrjPerms(OI_READ)
 def answerdelegate(request, id):
     """Accepts or rejects delegation of the project to the current user"""
     project = Project.objects.get(id=id)
@@ -273,13 +277,14 @@ def answerdelegate(request, id):
 
     if answer == "true":
         project.assign_to(request.user)
-        project.apply_perm(request.user, OI_ALL_PERMS)
+        project.apply_perm(request.user, OI_MANAGE)
         #adds the project to user's observation
         request.user.get_profile().follow_project(project.master)
     project.save()
     return HttpResponse(_("reply sent"))
 
 @ajax_login_required
+@OINeedsPrjPerms(OI_READ)
 def answerdelay(request, id):
     """Accepts or rejects the delay asked for the assignee"""
     project = Project.objects.get(id=id)
@@ -307,7 +312,7 @@ def answerdelay(request, id):
     #if neither true nor false
     return HttpResponse(_("No reply received"), status=531)
 
-@OINeedsPrjPerms(OI_READ)
+@OINeedsPrjPerms(OI_BID)
 @ajax_login_required
 def bidproject(request, id):
     """Makes a new bid on the project"""
@@ -330,7 +335,6 @@ def bidproject(request, id):
     request.user.get_profile().make_payment(-(amount-bid.commission), _("Bid"), project)
     request.user.get_profile().make_payment(-bid.commission, _("Commission"), project)
 
-    project.apply_perm(bid.user, OI_ALL_PERMS)
     #adds the project to user's observation
     request.user.get_profile().follow_project(project.master)
     
@@ -341,7 +345,6 @@ def bidproject(request, id):
     return HttpResponse('', status=332)
     
 @OINeedsPrjPerms(OI_READ)
-@ajax_login_required
 def validatorproject(request, id):
     """Add the user as a validator"""
     project = Project.objects.get(id=id)
@@ -353,12 +356,12 @@ def validatorproject(request, id):
     
     bid, created = Bid.objects.get_or_create(project=project, user=user)
     
-    project.apply_perm(user, OI_ALL_PERMS)
+    project.apply_perm(user, OI_BID)
     user.get_profile().follow_project(project.master)
     user.get_profile().get_default_observer(project).notify("share", project=project, sender=request.user)
     return HttpResponse(_("The user is add as a validator"))
 
-@OINeedsPrjPerms(OI_READ)
+@ajax_login_required
 def startproject(request, id):
     """Starts the project"""
     project = Project.objects.get(id=id)
@@ -388,7 +391,7 @@ def deliverproject(request, id):
     messages.info(request, _("Task done!"))
     return HttpResponse('', status=332)
 
-@OINeedsPrjPerms(OI_READ)
+@OINeedsPrjPerms(OI_BID)
 def validateproject(request, id):
     """Validates the project by the user"""
     project = Project.objects.get(id=id)
@@ -410,7 +413,7 @@ def validateproject(request, id):
     messages.info(request, _("Validation saved"))
     return HttpResponse('', status=332)
 
-@OINeedsPrjPerms(OI_READ)
+@OINeedsPrjPerms(OI_BID)
 def evaluateproject(request, id):
     """Gives user's evaluation on the project"""
     project = Project.objects.get(id=id)
@@ -430,7 +433,7 @@ def evaluateproject(request, id):
     messages.info(request, _("Evaluation saved"))
     return HttpResponse('', status=332)
 
-@OINeedsPrjPerms(OI_READ)
+@OINeedsPrjPerms(OI_BID)
 def cancelbid(request, id):
     """Cancels the bid of the user on the project given by id"""
     project = Project.objects.get(id=id)
@@ -456,7 +459,7 @@ def cancelbid(request, id):
     messages.info(request, _("Bid cancelled"))
     return HttpResponse('', status=332)
 
-@OINeedsPrjPerms(OI_WRITE)
+@OINeedsPrjPerms(OI_READ)
 def answercancelbid(request, id):
     """Accepts or refuses bid cancellation"""
     project = Project.objects.get(id=id)
@@ -547,6 +550,7 @@ def moveproject(request, id):
         task.save() #recompute ancestors
     return HttpResponse(_("Task moved"))
 
+@OINeedsPrjPerms(OI_MANAGE)
 @OINeedsPrjPerms(OI_WRITE)
 def togglehideproject(request, id):
     """Makes the project private or public and outputs a message"""
@@ -555,6 +559,7 @@ def togglehideproject(request, id):
     project.save()
     return HttpResponse(_("The task is now %s"%("public" if project.public else "private")))
 
+@OINeedsPrjPerms(OI_MANAGE)
 @OINeedsPrjPerms(OI_WRITE)
 def shareproject(request, id):
     """Shares the project with a user and outputs a message"""
@@ -563,7 +568,7 @@ def shareproject(request, id):
         user = User.objects.get(username=request.POST["username"])
     except (KeyError, User.DoesNotExist):
         return HttpResponse(_("Cannot find user"), status=531)
-    project.apply_perm(user, OI_ALL_PERMS)
+    project.apply_perm(user, OI_BID)
     user.get_profile().follow_project(project)
     user.get_profile().get_default_observer(project).notify("share", project=project, sender=request.user)
     messages.info(request, _("Task shared"))
