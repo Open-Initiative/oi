@@ -3,11 +3,13 @@
 {% load oifilters %}
 {% block pagetitle %}{% trans "My projects" %}{% endblock %}
 {% block title %}{% trans "My projects" %}{% endblock %}
-{% block nav %}
+{% block actions %}
 <div class="bidaction"><form onsubmit="addTask(getValue('newproject_title'), null, '{{request.user.username}}',function(taskid){document.location = '/project/'+taskid});return false">
     {% trans "Create a new project:" %}
     <input type="image" src="/img/icons/add.png" /> <input id="newproject_title" />
 </form></div>
+{% endblock %}
+{% block nav %}
 <div class="navtitle">{% trans "My projects" %}</div>
 {% regroup user.get_profile.get_observed_projects.distinct|dictsort:"state" by state as project_list %}
 {% for projects in project_list %}{% if projects.list %}

@@ -93,7 +93,6 @@ def listtasks(request, id):
     return HttpResponse(JSONEncoder().encode(lists)) #serializes the whole thing
     
 @login_required
-@OINeedsPrjPerms(OI_WRITE)
 def editproject(request, id):
     """Shows the Edit template of the project"""
     project=None
@@ -145,7 +144,7 @@ def saveproject(request, id='0'):
     project.set_perm(author, OI_ALL_PERMS)
     project.inherit_perms()
     if project.assignee:
-        project.apply_perm(project.assignee, OI_WRITE)
+        project.apply_perm(project.assignee, OI_MANAGE)
     project.save()
         
     if assignee:
@@ -160,7 +159,6 @@ def saveproject(request, id='0'):
         return HttpResponseRedirect('/project/%s'%project.id)
 
 @OINeedsPrjPerms(OI_MANAGE)
-@OINeedsPrjPerms(OI_WRITE)
 def editdate(request, id):
     """Modifies a date of the project"""
     project = Project.objects.get(id=id)
@@ -214,7 +212,6 @@ def edittitle(request, id):
     return HttpResponse(_("Title updated"))
 
 @OINeedsPrjPerms(OI_MANAGE)
-@OINeedsPrjPerms(OI_WRITE)
 @ajax_login_required
 def offerproject(request, id):
     """Makes the current user assignee of the project"""
@@ -246,7 +243,6 @@ def offerproject(request, id):
 
 @ajax_login_required
 @OINeedsPrjPerms(OI_MANAGE)
-@OINeedsPrjPerms(OI_WRITE)
 def delegateproject(request, id):
     """Offers delegation of the project to the specified user"""
     project = Project.objects.get(id=id)
@@ -260,7 +256,6 @@ def delegateproject(request, id):
         return HttpResponse(_("Cannot find user"), status=531)
     project.save()
     project.delegate_to.get_profile().get_default_observer(project).notify("delegate", project=project, sender=request.user)
-    bid, created = Bid.objects.get_or_create(project=project, user=request.user)
     return HttpResponse(_("Sent delegation offer"))
 
 @ajax_login_required
@@ -276,6 +271,8 @@ def answerdelegate(request, id):
     project.assignee.get_profile().get_default_observer(project).notify("answerdelegate", project=project, param=answer, sender=request.user)
 
     if answer == "true":
+        #former assignee now has to validate
+        bid, created = Bid.objects.get_or_create(project=project, user=project.assignee)
         project.assign_to(request.user)
         project.apply_perm(request.user, OI_MANAGE)
         #adds the project to user's observation
@@ -359,7 +356,7 @@ def validatorproject(request, id):
     project.apply_perm(user, OI_BID)
     user.get_profile().follow_project(project.master)
     user.get_profile().get_default_observer(project).notify("share", project=project, sender=request.user)
-    return HttpResponse(_("The user is add as a validator"))
+    return HttpResponse(_("The user has been added as a validator"))
 
 @ajax_login_required
 def startproject(request, id):
@@ -378,7 +375,7 @@ def startproject(request, id):
     messages.info(request, _("Task started"))
     return HttpResponse('', status=332)
 
-@OINeedsPrjPerms(OI_WRITE)
+@ajax_login_required
 def deliverproject(request, id):
     """Marks the project as delivered"""
     project = Project.objects.get(id=id)
@@ -479,7 +476,7 @@ def answercancelbid(request, id):
     #if neither true nor false
     return HttpResponse(_("No reply received"), status=531)
 
-@OINeedsPrjPerms(OI_WRITE)
+@OINeedsPrjPerms(OI_MANAGE)
 def cancelproject(request, id):
     """Cancels the project given by id"""
     project = Project.objects.get(id=id)
@@ -551,7 +548,6 @@ def moveproject(request, id):
     return HttpResponse(_("Task moved"))
 
 @OINeedsPrjPerms(OI_MANAGE)
-@OINeedsPrjPerms(OI_WRITE)
 def togglehideproject(request, id):
     """Makes the project private or public and outputs a message"""
     project = Project.objects.get(id=id)
@@ -560,7 +556,6 @@ def togglehideproject(request, id):
     return HttpResponse(_("The task is now %s"%("public" if project.public else "private")))
 
 @OINeedsPrjPerms(OI_MANAGE)
-@OINeedsPrjPerms(OI_WRITE)
 def shareproject(request, id):
     """Shares the project with a user and outputs a message"""
     project = Project.objects.get(id=id)
@@ -574,7 +569,7 @@ def shareproject(request, id):
     messages.info(request, _("Task shared"))
     return HttpResponse('', status=332)
 
-@OINeedsPrjPerms(OI_WRITE)
+@OINeedsPrjPerms(OI_MANAGE)
 def editprogress(request, id):
     """Updates the progress of the project"""
     project = Project.objects.get(id=id)
