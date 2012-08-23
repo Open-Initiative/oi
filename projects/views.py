@@ -89,7 +89,7 @@ def listtasks(request, id):
             
             #appends the serialized task list to the global list
             lists.append(serializers.oiserialize("json", tasks,
-                extra_fields=("assignee.get_profile.get_display_name", "get_budget","allbid_sum","bid_set.count")))
+                extra_fields=("author.get_profile" ,"assignee.get_profile.get_display_name", "get_budget","allbid_sum","bid_set.count")))
     return HttpResponse(JSONEncoder().encode(lists)) #serializes the whole thing
     
 @login_required
