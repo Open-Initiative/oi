@@ -472,7 +472,7 @@ msgid "Bid saved"
 msgstr "Souscription enregistrée"
 
 #: projects/views.py:359
-msgid "The user is add as a validator"
+msgid "The user has been added as a validator"
 msgstr "L'utilisateur a été ajouté comme valideur"
 
 #: projects/views.py:366

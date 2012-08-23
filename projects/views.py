@@ -360,7 +360,7 @@ def validatorproject(request, id):
     project.apply_perm(user, OI_BID)
     user.get_profile().follow_project(project.master)
     user.get_profile().get_default_observer(project).notify("share", project=project, sender=request.user)
-    return HttpResponse(_("The user is add as a validator"))
+    return HttpResponse(_("The user has been added as a validator"))
 
 @ajax_login_required
 def startproject(request, id):
