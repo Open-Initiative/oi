@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-17 12:28+0200\n"
+"POT-Creation-Date: 2012-08-23 18:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
 #: helpers.py:31
@@ -56,6 +56,14 @@ msgstr "Ecriture"
 msgid "Answering"
 msgstr "Réponse"
 
+#: helpers.py:53
+msgid "Bidding"
+msgstr "offrant"
+
+#: helpers.py:53
+msgid "Managing"
+msgstr "Gérant"
+
 #: helpers.py:61
 msgid "Text"
 msgstr "Texte"
@@ -97,8 +105,8 @@ msgid "Published on"
 msgstr "Publié sur"
 
 #: messages/models.py:140 messages/views.py:65 messages/views.py:78
-#: projects/models.py:328 projects/views.py:104 projects/views.py:135
-#: templates/projects/project_detail.html:74
+#: projects/models.py:331 projects/views.py:103 projects/views.py:134
+#: templates/projects/project_detail.html:68
 msgid "Forbidden"
 msgstr "Permissions insuffisantes"
 
@@ -122,7 +130,7 @@ msgstr "Déjà voté !"
 msgid "voted"
 msgstr "A voté"
 
-#: messages/views.py:166 projects/views.py:755
+#: messages/views.py:166 projects/views.py:760
 msgid "Latest updates of Open Initiative "
 msgstr "L'activité la plus récente d'Open Initiative "
 
@@ -325,8 +333,8 @@ msgid "A user has evaluated your project"
 msgstr "Un utilisateur a évalué votre projet"
 
 #: prjnotify/management/commands/register_notice_types.py:22
-#: projects/views.py:448 projects/views.py:456 projects/views.py:467
-#: projects/views.py:505
+#: projects/views.py:451 projects/views.py:459 projects/views.py:470
+#: projects/views.py:508
 msgid "Bid cancelled"
 msgstr "Participation annulée"
 
@@ -362,18 +370,18 @@ msgstr "Le projet a été partagé avec"
 msgid "Recompute all descendants"
 msgstr "Recalculer tous les descendants"
 
-#: projects/models.py:396
+#: projects/models.py:399
 msgid "Refund of bid"
 msgstr "Remboursement de la participation"
 
-#: projects/views.py:113 projects/views.py:181 projects/views.py:197
-#: projects/views.py:207 projects/views.py:224 projects/views.py:251
-#: projects/views.py:539 projects/views.py:622 projects/views.py:636
-#: projects/views.py:686
+#: projects/views.py:112 projects/views.py:181 projects/views.py:197
+#: projects/views.py:207 projects/views.py:225 projects/views.py:254
+#: projects/views.py:542 projects/views.py:627 projects/views.py:641
+#: projects/views.py:691
 msgid "Can not change a task already started"
 msgstr "Impossible de modifier une tâche démarré"
 
-#: projects/views.py:127
+#: projects/views.py:126
 msgid "Please enter a title"
 msgstr "Merci d'entrer un titre"
 
@@ -397,222 +405,222 @@ msgstr "Priorité modifiée"
 msgid "Title updated"
 msgstr "Titre mis-à-jour"
 
-#: projects/views.py:222
+#: projects/views.py:223
 msgid "Task already assigned"
 msgstr "Tâche déjà assignée"
 
-#: projects/views.py:227 projects/views.py:229
+#: projects/views.py:228 projects/views.py:230
 #, python-format
 msgid "The task '%s' already has an offer"
 msgstr "La tâche '%s' a déjà une offre"
 
-#: projects/views.py:235
+#: projects/views.py:236
 msgid "Please enter a valid number"
 msgstr "Merci d'entrer un nombre correct"
 
-#: projects/views.py:243
+#: projects/views.py:244
 msgid "Task taken on"
 msgstr "Tâche assignée"
 
-#: projects/views.py:253
+#: projects/views.py:256
 msgid "Only the user in charge of the project can delegate it"
 msgstr "Seul l'utilisateur responsable du projet peut le déléguer"
 
-#: projects/views.py:257 projects/views.py:352 projects/views.py:565
+#: projects/views.py:260 projects/views.py:355 projects/views.py:570
 msgid "Cannot find user"
 msgstr "Utilisateur introuvable"
 
-#: projects/views.py:261
+#: projects/views.py:264
 msgid "Sent delegation offer"
 msgstr "Proposition de délégation envoyée"
 
-#: projects/views.py:269
+#: projects/views.py:273
 msgid "The project was not delegated to you"
 msgstr "Le projet ne vous a pas été délégué"
 
-#: projects/views.py:280
+#: projects/views.py:284
 msgid "reply sent"
 msgstr "réponse envoyée"
 
-#: projects/views.py:288
+#: projects/views.py:293
 msgid "No delay was requested"
 msgstr "Aucune demande de délai n'a été envoyée"
 
-#: projects/views.py:294
+#: projects/views.py:299
 msgid "The date was not changed"
 msgstr "La date n'a pas été modifiée"
 
-#: projects/views.py:300
+#: projects/views.py:305
 msgid "Awaiting other users' validation"
 msgstr "En attente de la validation des autres utilisateurs"
 
-#: projects/views.py:305
+#: projects/views.py:310
 msgid "The date has been changed"
 msgstr "Un projet que vous suivez a été modifié"
 
-#: projects/views.py:308 projects/views.py:477 projects/views.py:513
+#: projects/views.py:313 projects/views.py:480 projects/views.py:516
 msgid "No reply received"
 msgstr "Aucune réponse reçue"
 
-#: projects/views.py:318
+#: projects/views.py:323
 msgid "Invalid amount"
 msgstr "Montant invalide"
 
-#: projects/views.py:330
+#: projects/views.py:335
 msgid "Bid"
 msgstr "Participation"
 
-#: projects/views.py:331 projects/views.py:489
+#: projects/views.py:336 projects/views.py:492
 #: templates/projects/project_budget.html:24
 msgid "Commission"
 msgstr "Commission"
 
-#: projects/views.py:340
+#: projects/views.py:344
 msgid "Bid saved"
 msgstr "Souscription enregistrée"
 
-#: projects/views.py:359
+#: projects/views.py:362
 msgid "The user is add as a validator"
 msgstr "L'utilisateur a été ajouté comme valideur"
 
-#: projects/views.py:366
+#: projects/views.py:369
 msgid "Not enough bids"
 msgstr "Financement insuffisant"
 
-#: projects/views.py:368
+#: projects/views.py:371
 msgid "Only the assignee can start the project"
 msgstr "Seul le responsable du projet peut le démarrer"
 
-#: projects/views.py:375
+#: projects/views.py:378
 msgid "Task started"
 msgstr "Tâche démarrée"
 
-#: projects/views.py:383
+#: projects/views.py:386
 msgid "only the assignee can deliver the project!"
 msgstr "Seul le responsable du projet peut le livrer !"
 
-#: projects/views.py:388
+#: projects/views.py:391
 msgid "Task done!"
 msgstr "Tâche terminée"
 
-#: projects/views.py:398
+#: projects/views.py:401
 msgid "already validated!"
 msgstr "Déjà validé !"
 
-#: projects/views.py:402
+#: projects/views.py:405
 msgid "only bidders can validate the project!"
 msgstr "Seuls les souscripteurs du projet peuvent le valider !"
 
-#: projects/views.py:408
+#: projects/views.py:411
 msgid "Payment"
 msgstr "Paiement"
 
-#: projects/views.py:410
+#: projects/views.py:413
 msgid "Validation saved"
 msgstr "Validation enregistrée"
 
-#: projects/views.py:420
+#: projects/views.py:423
 msgid "You can not evaluate yourself"
 msgstr "Vous ne pouvez pas vous évaluer vous même"
 
-#: projects/views.py:424
+#: projects/views.py:427
 msgid "You have already evaluated this task"
 msgstr "Vous avez déjà évalué cette tâche"
 
-#: projects/views.py:430
+#: projects/views.py:433
 msgid "Evaluation saved"
 msgstr "Evaluation enregistrée"
 
-#: projects/views.py:438 projects/views.py:484
+#: projects/views.py:441 projects/views.py:487
 msgid "The project is already over"
 msgstr "Le projet est déjà terminé"
 
-#: projects/views.py:441
+#: projects/views.py:444
 msgid "You're not participating on this project"
 msgstr "Vous ne participez pas à ce projet"
 
-#: projects/views.py:475 projects/views.py:511
+#: projects/views.py:478 projects/views.py:514
 msgid "Cancelation refused. Awaiting decision"
 msgstr "Annulation refusée. En attente d'arbitrage"
 
-#: projects/views.py:486
+#: projects/views.py:489
 msgid "Only the user in charge of the project can cancel it"
 msgstr "Seul l'utilisateur responsable du projet peut l'annuler"
 
-#: projects/views.py:495
+#: projects/views.py:498
 msgid "Task cancelled. Awaiting confirmation from other users"
 msgstr "Tâche annulée. En attente de confirmation des autres utilisateurs"
 
-#: projects/views.py:520
+#: projects/views.py:523
 msgid "Can not delete a started project. Please stop it first."
 msgstr "Impossible de supprimer un projet démarré. Arrêtez le d'abord."
 
-#: projects/views.py:522
+#: projects/views.py:525
 msgid ""
 "Can not delete a project containing tasks. Please delete all its tasks first."
 msgstr ""
 "Impossible de supprimer un projet contenant des tâches. Veuillez supprimer "
 "ses tâches d'abord."
 
-#: projects/views.py:526
+#: projects/views.py:529
 msgid "The task has been deleted."
 msgstr "La tâche a été supprimée."
 
-#: projects/views.py:529
+#: projects/views.py:532
 msgid "The project has been deleted."
 msgstr "Le projet a été supprimé."
 
-#: projects/views.py:541
+#: projects/views.py:544
 msgid "Can not move a task inside itself"
 msgstr "Impossible de déplacer une tâche vers elle-même"
 
-#: projects/views.py:548
+#: projects/views.py:551
 msgid "Task moved"
 msgstr "Tâche déplacée"
 
-#: projects/views.py:556
+#: projects/views.py:560
 #, python-format
 msgid "The task is now %s"
 msgstr "La tâche est maintenant passée à %s"
 
-#: projects/views.py:569
+#: projects/views.py:574
 msgid "Task shared"
 msgstr "Tâche partagée"
 
-#: projects/views.py:577
+#: projects/views.py:582
 msgid "The project has to be started for the progress to be updated"
 msgstr "Le projet doit être démarré pour que l'avancement soit mis à jour"
 
-#: projects/views.py:579
+#: projects/views.py:584
 msgid "Only the user in charge of can update its progress"
 msgstr "Seul le responsable du projet peut mettre à jour son avancement"
 
-#: projects/views.py:583
+#: projects/views.py:588
 msgid "Invalid value"
 msgstr "Valeur incorrecte"
 
-#: projects/views.py:588
+#: projects/views.py:593
 msgid "Progress updated"
 msgstr "Avancement mis à jour"
 
-#: projects/views.py:652 projects/views.py:672 projects/views.py:675
-#: projects/views.py:698 projects/views.py:715 users/views.py:202
+#: projects/views.py:657 projects/views.py:677 projects/views.py:680
+#: projects/views.py:703 projects/views.py:720 users/views.py:202
 msgid "Wrong arguments"
 msgstr "Arguments incorrects"
 
-#: projects/views.py:679
+#: projects/views.py:684
 msgid "Spec moved"
 msgstr "Message déplacé"
 
-#: projects/views.py:688
+#: projects/views.py:693
 msgid "Specification deleted"
 msgstr "Spécification supprimée"
 
-#: projects/views.py:713
+#: projects/views.py:718
 msgid "Annotation removed"
 msgstr "Annotation supprimée"
 
-#: projects/views.py:736
+#: projects/views.py:741
 msgid "File deleted"
 msgstr "Fichier supprimé"
 
@@ -708,89 +716,24 @@ msgstr "Mot de passe"
 msgid "Forgot your password?"
 msgstr "Mot de passe oublié ?"
 
-#: templates/base.html:122 templates/projects/project_detail.html:9
-msgid "Public"
-msgstr "Publique"
-
-#: templates/base.html:122 templates/projects/project_detail.html:9
-msgid "Private"
-msgstr "Privée"
-
-#: templates/base.html:122 templates/projects/project_detail.html:9
-msgid "task"
-msgstr "tâche"
-
-#: templates/base.html:124 templates/projects/project_detail.html:11
-msgid "Make this task"
-msgstr "Rendre cette tâche"
-
-#: templates/base.html:124 templates/projects/project_detail.html:11
-msgid "private"
-msgstr "privée"
-
-#: templates/base.html:124 templates/projects/project_detail.html:11
-msgid "public"
-msgstr "publique"
-
-#: templates/base.html:128 templates/projects/project_detail.html:15
-msgid "follow the project"
-msgstr "suivre le projet"
-
-#: templates/base.html:131 templates/projects/project_detail.html:18
-msgid " subscriber "
-msgid_plural " subscribers "
-msgstr[0] "abonné"
-msgstr[1] "abonnés"
-
-#: templates/base.html:152 templates/projects/project_actions.html:5
-msgid "Delete the task"
-msgstr "Supprimer la tâche"
-
-#: templates/base.html:155 templates/projects/project_actions.html:8
-#: templates/projects/spec/edit_spot.html:11
-msgid "Cancel"
-msgstr "Annuler"
-
-#: templates/base.html:160 templates/projects/project_actions.html:12
-msgid "Start"
-msgstr "Démarrer"
-
-#: templates/base.html:163 templates/projects/project_actions.html:15
-msgid "Deliver"
-msgstr "Livrer"
-
-#: templates/base.html:168 templates/projects/project_actions.html:25
-msgid "Validate"
-msgstr "Valider"
-
-#: templates/base.html:171 templates/projects/project_actions.html:33
-msgid "Evaluate"
-msgstr "Evaluer"
-
-#: templates/base.html:178
-msgid "Waiting for the bidder"
-msgid_plural "Waiting for the bidders"
-msgstr[0] "En attente du scouscripteur"
-msgstr[1] "En attente des scouscripteurs"
-
-#: templates/base.html:205 templates/projects/dialogue/bid.html:4
+#: templates/base.html:135 templates/projects/dialogue/bid.html:4
 #: templates/projects/dialogue/offer.html:4 templates/users/register.html:35
 msgid "Terms of Use"
 msgstr "Conditions Générales d'Utilisation"
 
-#: templates/base.html:206 templates/index.html:39
+#: templates/base.html:136 templates/index.html:44
 msgid "/presentation"
 msgstr "/presentation-fr"
 
-#: templates/base.html:206
+#: templates/base.html:136
 msgid "Presentation"
 msgstr "Présentation"
 
-#: templates/base.html:207 templates/contact.html:3
+#: templates/base.html:137 templates/contact.html:3
 msgid "Legal notice"
 msgstr "Mentions légales"
 
-#: templates/base.html:208
+#: templates/base.html:138
 msgid "Contact"
 msgstr "Contact"
 
@@ -810,30 +753,30 @@ msgstr ""
 "Open Initiative vous aide à décrire précisément votre projet avec une "
 "méthodologie éprouvée"
 
-#: templates/index.html:12
+#: templates/index.html:13
 msgid "build"
 msgstr "construisez"
 
-#: templates/index.html:13
+#: templates/index.html:14
 msgid "your IT project online"
 msgstr "votre projet informatique en ligne"
 
-#: templates/index.html:15
+#: templates/index.html:16
 msgid ""
 "Open Initiative finds the worker you need in a selected professional network"
 msgstr ""
 "Open Initiative trouve le prestataire adapté à votre besoin parmi un réseau "
 "de professionnels sélectionnés"
 
-#: templates/index.html:15
+#: templates/index.html:17
 msgid "find"
 msgstr "trouvez"
 
-#: templates/index.html:16
+#: templates/index.html:18
 msgid "skilled service providers transparently"
 msgstr "des prestataires compétents en toute transparence"
 
-#: templates/index.html:19
+#: templates/index.html:21
 msgid ""
 "Open Initiative secures the progress of your project through task "
 "organization and close follow-up"
@@ -841,55 +784,55 @@ msgstr ""
 "Open Initiative assure un bon déroulement du projet en organisant les tâches "
 "et en assurant un suivi régulier"
 
-#: templates/index.html:19
+#: templates/index.html:22
 msgid "follow"
 msgstr "suivez"
 
-#: templates/index.html:20
+#: templates/index.html:23
 msgid "the progress of your project in real time with agile methodology"
 msgstr ""
 "l'avancement de votre projet en temps réel grâce à une méthodologie agile"
 
-#: templates/index.html:22
+#: templates/index.html:25
 msgid "Control your budget by paying tasks as they are completed"
 msgstr ""
 "Contrôlez votre budget en payant les tâches au fur et à mesure de leur "
 "réalisation"
 
-#: templates/index.html:22
+#: templates/index.html:26
 msgid "breathe"
 msgstr "respirez"
 
-#: templates/index.html:23
+#: templates/index.html:27
 msgid "with the payment guarantee"
 msgstr "grâce à la garantie de paiement"
 
-#: templates/index.html:38
+#: templates/index.html:43
 msgid "I have a project and I want to be contacted"
 msgstr "J'ai un projet et je veux être contacté"
 
-#: templates/index.html:40
+#: templates/index.html:45
 msgid "Learn More"
 msgstr "En savoir plus"
 
-#: templates/index.html:47
+#: templates/index.html:52
 msgid "Register to create a new project"
 msgstr "Inscrivez-vous pour déposer un nouveau projet"
 
-#: templates/index.html:50 templates/registration/login.html:25
+#: templates/index.html:55 templates/registration/login.html:25
 #: templates/users/register.html:3 templates/users/register.html.py:36
 msgid "Register"
 msgstr "S'inscrire"
 
-#: templates/index.html:57 templates/users/dashboard.html:8
+#: templates/index.html:62 templates/users/dashboard.html:8
 msgid "Create a new project:"
 msgstr "Déposer un nouveau projet"
 
-#: templates/index.html:62
+#: templates/index.html:67
 msgid "Projects on Open Initiative"
 msgstr "Projets sur Open Initiative "
 
-#: templates/index.html:63
+#: templates/index.html:68
 msgid "Our selection"
 msgstr "Notre sélection"
 
@@ -1056,11 +999,11 @@ msgstr "de prendre en charge le projet"
 #: templates/notification/delegate/notice.html:3
 #, python-format
 msgid ""
-"wants to delegate project <a href=\"%(current_site)s/project/%(id)s\">%"
-"(title)s</a> to you."
+"wants to delegate project <a href=\"%(current_site)s/project/%(id)s\">"
+"%(title)s</a> to you."
 msgstr ""
-"veut vous déléguer le projet <a href=\"%(current_site)s/project/%(id)s\">%"
-"(title)s</a>."
+"veut vous déléguer le projet <a href=\"%(current_site)s/project/%(id)s\">"
+"%(title)s</a>."
 
 #: templates/notification/invitation/notice.html:3
 msgid "wants to add you to his contacts."
@@ -1118,11 +1061,36 @@ msgstr "est maintenant en l'état"
 msgid "has invited you on a project:"
 msgstr "vous a invité sur le projet:"
 
+#: templates/projects/project_actions.html:5
+msgid "Delete the task"
+msgstr "Supprimer la tâche"
+
+#: templates/projects/project_actions.html:8
+#: templates/projects/spec/edit_spot.html:11
+msgid "Cancel"
+msgstr "Annuler"
+
+#: templates/projects/project_actions.html:12
+msgid "Start"
+msgstr "Démarrer"
+
+#: templates/projects/project_actions.html:15
+msgid "Deliver"
+msgstr "Livrer"
+
+#: templates/projects/project_actions.html:25
+msgid "Validate"
+msgstr "Valider"
+
 #: templates/projects/project_actions.html:28
 msgid "Waiting for the bidder to validate"
 msgid_plural "Waiting for the bidders to validate"
 msgstr[0] "En attente de la validation des autres utilisateurs"
 msgstr[1] "En attente de la validation des autres utilisateurs"
+
+#: templates/projects/project_actions.html:33
+msgid "Evaluate"
+msgstr "Evaluer"
 
 #: templates/projects/project_budget.html:6
 msgid "Offer"
@@ -1193,21 +1161,21 @@ msgstr "Votre offre sera réduite de"
 #: templates/projects/project_budget.html:65
 #: templates/projects/project_budget.html:76
 #: templates/projects/project_budget.html:84
-#: templates/projects/project_team.html:44
+#: templates/projects/project_team.html:31
 msgid "Do you accept it?"
 msgstr "Acceptez-vous ?"
 
 #: templates/projects/project_budget.html:66
 #: templates/projects/project_budget.html:77
 #: templates/projects/project_budget.html:85
-#: templates/projects/project_team.html:45
+#: templates/projects/project_team.html:32
 msgid "Accept"
 msgstr "Accepter"
 
 #: templates/projects/project_budget.html:67
 #: templates/projects/project_budget.html:78
 #: templates/projects/project_budget.html:86
-#: templates/projects/project_team.html:46
+#: templates/projects/project_team.html:33
 msgid "Refuse"
 msgstr "Refuser"
 
@@ -1259,7 +1227,41 @@ msgstr "Ajouter une discussion"
 msgid "Project"
 msgstr "Projet"
 
-#: templates/projects/project_detail.html:28
+#: templates/projects/project_detail.html:8
+msgid "Public"
+msgstr "Publique"
+
+#: templates/projects/project_detail.html:8
+msgid "Private"
+msgstr "Privée"
+
+#: templates/projects/project_detail.html:8
+msgid "task"
+msgstr "tâche"
+
+#: templates/projects/project_detail.html:9
+msgid "Make this task"
+msgstr "Rendre cette tâche"
+
+#: templates/projects/project_detail.html:9
+msgid "private"
+msgstr "privée"
+
+#: templates/projects/project_detail.html:9
+msgid "public"
+msgstr "publique"
+
+#: templates/projects/project_detail.html:13
+msgid "follow the project"
+msgstr "suivre le projet"
+
+#: templates/projects/project_detail.html:15
+msgid " subscriber "
+msgid_plural " subscribers "
+msgstr[0] "abonné"
+msgstr[1] "abonnés"
+
+#: templates/projects/project_detail.html:22
 msgid "Tasks in the project are to be listed here"
 msgstr "Les tâches du projets seront listées ici"
 
@@ -1321,8 +1323,8 @@ msgid "Echeance"
 msgstr "Echéance"
 
 #: templates/projects/project_overview.html:60
-#: templates/projects/project_team.html:27
-#: templates/projects/project_team.html:74
+#: templates/projects/project_team.html:14
+#: templates/projects/project_team.html:78
 msgid "Assignee"
 msgstr "Responsable"
 
@@ -1370,58 +1372,84 @@ msgstr "Conception"
 msgid "delete this task"
 msgstr "Supprimer cette tâche"
 
-#: templates/projects/project_team.html:6
+#: templates/projects/project_team.html:7
+#: templates/projects/project_team.html:78
 msgid "Owner"
 msgstr "Propriétaire"
 
-#: templates/projects/project_team.html:13
-msgid "Validators"
-msgstr "Valideur"
+#: templates/projects/project_team.html:7
+msgid "The owner can describe the task, appoint it and detail it."
+msgstr ""
+"Le propriétaire peut décrire la tâche, l'affecter et la détailler avec des "
+"sous-tâches."
 
-#: templates/projects/project_team.html:20
-msgid "No bidder on this project"
-msgstr "Aucune souscription sur ce projet"
+#: templates/projects/project_team.html:14
+msgid "The assignee executes the task and can delegate it."
+msgstr "Le responsable réalise la tâche. Il peut la déléguer."
 
 #: templates/projects/project_team.html:22
-#: templates/projects/project_team.html:70
-msgid "Invite members"
-msgstr "Inviter des membres"
-
-#: templates/projects/project_team.html:35
 msgid "You are in charge of this task"
 msgstr "Vous êtes responsable de cette tâche"
 
-#: templates/projects/project_team.html:37
+#: templates/projects/project_team.html:24
 msgid "Delegate"
 msgstr "Déléguer"
 
-#: templates/projects/project_team.html:43
+#: templates/projects/project_team.html:30
 msgid "wants to delegate this task to you."
 msgstr "veut vous déléguer cette tâche."
 
-#: templates/projects/project_team.html:49
+#: templates/projects/project_team.html:36
 msgid "Delegation offer sent to"
 msgstr "Proposition de délégation envoyée à"
 
-#: templates/projects/project_team.html:53
+#: templates/projects/project_team.html:40
 msgid "No one is in charge of this task"
 msgstr "Personne n'est responsable de cette tâche"
 
-#: templates/projects/project_team.html:56
+#: templates/projects/project_team.html:43
 msgid "Take on"
 msgstr "Prendre en charge"
 
-#: templates/projects/project_team.html:61
-msgid "Guests"
-msgstr "Invités"
+#: templates/projects/project_team.html:51
+msgid " Validator "
+msgid_plural " Validators "
+msgstr[0] "Valideur"
+msgstr[1] "Valideurs"
 
-#: templates/projects/project_team.html:68
+#: templates/projects/project_team.html:51
+msgid ""
+"The validators confirm that the work done coresponds to what was required."
+msgstr ""
+"Les valideurs confirment que le travail livré correspond à ce qui était "
+"demandé."
+
+#: templates/projects/project_team.html:58
+msgid "No bidder on this project"
+msgstr "Aucune souscription sur ce projet"
+
+#: templates/projects/project_team.html:60
+#: templates/projects/project_team.html:72
+msgid "Invite members"
+msgstr "Inviter des membres"
+
+#: templates/projects/project_team.html:63
+msgid " Guest "
+msgid_plural " Guests "
+msgstr[0] "Invité"
+msgstr[1] "Invités"
+
+#: templates/projects/project_team.html:63
+msgid "Guests can see the task and comment it."
+msgstr "Les invités peuvent voir la tâche et la commenter."
+
+#: templates/projects/project_team.html:70
 msgid "No guest on this task"
 msgstr "Aucun invité sur cette tâche"
 
-#: templates/projects/project_team.html:74
-msgid "Bidders"
-msgstr "Souscripteurs"
+#: templates/projects/project_team.html:78
+msgid "V"
+msgstr ""
 
 #: templates/projects/dialogue/bid.html:4
 #: templates/projects/dialogue/offer.html:4 templates/users/register.html:35
@@ -1966,17 +1994,28 @@ msgstr "Impossible de modifier le profil d'un autre utilisateur"
 msgid "Notice archived"
 msgstr "Notification archivée"
 
-msgid "overview"
-msgstr "Suivi"
+#~ msgid "Bidders"
+#~ msgstr "Souscripteurs"
 
-msgid "planning"
-msgstr "Planning"
+#~ msgid "Waiting for the bidder"
+#~ msgid_plural "Waiting for the bidders"
+#~ msgstr[0] "En attente du scouscripteur"
+#~ msgstr[1] "En attente des scouscripteurs"
 
-msgid "budget"
-msgstr "Budget"
+#~ msgid "Guests"
+#~ msgstr "Invités"
 
-msgid "team"
-msgstr "Equipe"
+#~ msgid "overview"
+#~ msgstr "Suivi"
 
-msgid "adj_fem"
-msgstr "e"
+#~ msgid "planning"
+#~ msgstr "Planning"
+
+#~ msgid "budget"
+#~ msgstr "Budget"
+
+#~ msgid "team"
+#~ msgstr "Equipe"
+
+#~ msgid "adj_fem"
+#~ msgstr "e"
