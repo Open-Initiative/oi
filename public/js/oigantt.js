@@ -121,3 +121,5 @@ OIGantt.prototype.highlight = function highlight(id) {
 OIGantt.prototype.unhighlight = function unhighlight(id) {
     this.barids[id].bardiv.className = "";
 }
+OIGantt.prototype.selectLine = function selectLine(id){
+}

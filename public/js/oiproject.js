@@ -102,7 +102,7 @@ function onMoveNode(taskid, newParentid, afterid){
 }
 function setActiveTask(projectid, canAdd) {
     oiTree.nodes[projectid].titleDiv.children[0].className += " selected";
-    if(oiTable) oiTable.lineids[projectid].className += " selected";
+    if(oiTable) oiTable.selectLine(projectid);
     if(canAdd) {
         var form = document.getElementById("newtask_"+projectid);
         form.onsubmit = function(){addTask(getValue("newtask_title_"+projectid, true),projectid);return false};

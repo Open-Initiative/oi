@@ -39,7 +39,7 @@ OITable.prototype.addLine = function(id, cells, afterid, bgClass) {
         col.innerHTML = cell;
         line.appendChild(col);
     }
-    if(!id) line.firstChild.colSpan = "10";
+    if(!id) line.firstChild.colSpan = "2";
     line.className = "tablebg" + (bgClass || 0);
     line.style.height = (this.lineheight-2) + "px";
     line.style.padding = "0";
@@ -61,4 +61,8 @@ OITable.prototype.highlight = function(id) {
 }
 OITable.prototype.unhighlight = function(id) {
     this.lineids[id].style.fontWeight = "";
+}
+OITable.prototype.selectLine = function selectLine (id){
+    this.lineids[id].className = " selected ";
+    this.lineids[id].appendChild(document.createElement('div')).className = "selected-arrow";
 }
