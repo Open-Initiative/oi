@@ -23,7 +23,10 @@ class ProjectManager(models.Manager):
     
     def filter_perm(self, user, permission):
         """filter permissions"""
-        return self.filter(models.Q(public=True)|models.Q(projectacl__user=user if user.is_authenticated() else None, projectacl__permission=permission)).distinct()
+        if permission==OI_READ:
+            return self.filter(models.Q(public=True)|models.Q(projectacl__user=user if user.is_authenticated() else None, projectacl__permission=permission)).distinct()
+        else:
+            return self.filter(projectacl__user=user if user.is_authenticated() else None, projectacl__permission=permission).distinct()
 
 # A project can contain subprojects and/or specs. Without them it is only a task
 class Project(models.Model):
