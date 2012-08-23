@@ -371,7 +371,7 @@ msgstr "Remboursement de la participation"
 #: projects/views.py:539 projects/views.py:622 projects/views.py:636
 #: projects/views.py:686
 msgid "Can not change a task already started"
-msgstr "Impossible de modifier une tâche démarré"
+msgstr "Impossible de modifier une tâche démarrée"
 
 #: projects/views.py:127
 msgid "Please enter a title"
