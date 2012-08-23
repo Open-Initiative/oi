@@ -260,7 +260,6 @@ def delegateproject(request, id):
         return HttpResponse(_("Cannot find user"), status=531)
     project.save()
     project.delegate_to.get_profile().get_default_observer(project).notify("delegate", project=project, sender=request.user)
-    bid, created = Bid.objects.get_or_create(project=project, user=request.user)
     return HttpResponse(_("Sent delegation offer"))
 
 @ajax_login_required
@@ -276,6 +275,8 @@ def answerdelegate(request, id):
     project.assignee.get_profile().get_default_observer(project).notify("answerdelegate", project=project, param=answer, sender=request.user)
 
     if answer == "true":
+        #former assignee now has to validate
+        bid, created = Bid.objects.get_or_create(project=project, user=project.assignee)
         project.assign_to(request.user)
         project.apply_perm(request.user, OI_MANAGE)
         #adds the project to user's observation
