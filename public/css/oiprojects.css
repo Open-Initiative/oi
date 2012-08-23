@@ -209,6 +209,17 @@ div.arrow-design{
     background-color: white;
     padding-right: 3px;
 }
+.selected-arrow{
+    border-bottom: 14px solid transparent;
+    border-right: 15px solid #0094B5;
+    border-top: 14px solid transparent;
+    background-color: white;
+}
+.head-help{
+    float: right;
+    margin-left: 0;
+    margin-right: 10px;
+}
 /**/
 
 .tasktip {
@@ -423,9 +434,9 @@ div.gantttoday {
 }
 div.prjtable {
     float: left;
-    padding-right: 30px;
     margin-right: 30px;
     border-right: solid 1px #0094B5;
+    width: 250px;
 }
 th.tableheader {
     text-transform: uppercase;
