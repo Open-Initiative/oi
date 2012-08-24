@@ -48,7 +48,7 @@
     </div>
     <div>
         <div class="smallcolumn">
-            <h3>{{project.bid_set.count}} {% blocktrans count counter=project.list_guests.count %} Validator {% plural %} Validators {% endblocktrans %}</h3><img src="/img/askoi.png" title="{% trans 'The validators confirm that the work done coresponds to what was required.' %}" alt="{% trans 'The validators confirm that the work done coresponds to what was required.' %}" class="head-help">
+            <h3>{{project.bid_set.count}} {% blocktrans count counter=project.bid_set.count %} Validator {% plural %} Validators {% endblocktrans %}</h3><img src="/img/askoi.png" title="{% trans 'The validators confirm that the work done coresponds to what was required.' %}" alt="{% trans 'The validators confirm that the work done coresponds to what was required.' %}" class="head-help">
             {% for bid in project.bid_set.all %}
                 <a href="/user/profile/{{bid.user.username}}"><div class="cleared">
                     <img class="contactpicture" src="/user/getpicture/{{bid.user.username}}">
