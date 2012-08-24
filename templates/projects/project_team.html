@@ -50,10 +50,10 @@
         <div class="smallcolumn">
             <h3>{{project.bid_set.count}} {% blocktrans count counter=project.list_guests.count %} Validator {% plural %} Validators {% endblocktrans %}</h3><img src="/img/askoi.png" title="{% trans 'The validators confirm that the work done coresponds to what was required.' %}" alt="{% trans 'The validators confirm that the work done coresponds to what was required.' %}" class="head-help">
             {% for bid in project.bid_set.all %}
-                <a href="/user/profile/{{bid.user.username}}">
+                <a href="/user/profile/{{bid.user.username}}"><div class="cleared">
                     <img class="contactpicture" src="/user/getpicture/{{bid.user.username}}">
                     <div class="username">{{bid.user.get_profile}}</div>
-                </a>
+                </div></a>
             {% empty %}
                 {% trans "No bidder on this project" %}
             {% endfor %}
@@ -62,10 +62,10 @@
         <div class="smallcolumn">
             <h3>{{project.list_guests.count}} {% blocktrans count counter=project.list_guests.count %} Guest {% plural %} Guests {% endblocktrans %}</h3></h3><img src="/img/askoi.png" title="{% trans 'Guests can see the task and comment it.' %}" alt="{% trans 'Guests can see the task and comment it.' %}" class="head-help">
             {% for guest in project.list_guests %}
-            <a href="/user/profile/{{guest.username}}">
+            <a href="/user/profile/{{guest.username}}"><div class="cleared">
                 <img class="contactpicture" src="/user/getpicture/{{guest.username}}">
                 <div class="username">{{guest.get_profile}}</div>
-            </a>
+            </div></a>
             {% empty %}
             {% trans "No guest on this task" %}
             {% endfor %}
