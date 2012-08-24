@@ -8,7 +8,7 @@ from django.http import HttpResponseForbidden, Http404
 from django.shortcuts import get_object_or_404
 from oi.helpers import OI_SCORE_ANONYMOUS, OI_SCORE_DEFAULT_RELEVANCE, OI_SCORE_ADD, OI_SCORE_VOTE, OI_SCORE_FRACTION_TO_PARENT
 from oi.helpers import OI_SCORE_FRACTION_FROM_PARENT, OI_EXPERTISE_TO_MESSAGE, OI_EXPERTISE_TO_AUTHOR, OI_EXPERTISE_FROM_ANSWER
-from oi.helpers import OI_ALL_PERMS, OI_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_ANSWER
+from oi.helpers import OI_ALL_PERMS, OI_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_ANSWER, OI_MANAGE, OI_BID
 from oi.projects.models import Project
 
 # Représentation du message

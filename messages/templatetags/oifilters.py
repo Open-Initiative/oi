@@ -5,7 +5,7 @@ from django import template
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from django.contrib.auth.models import AnonymousUser
-from oi.messages.models import Message, OI_READ, OI_WRITE, OI_ANSWER
+from oi.messages.models import Message, OI_READ, OI_WRITE, OI_ANSWER, OI_BID, OI_MANAGE
 from oi.projects.models import Project
 from oi.prjnotify.models import Observer
 register = template.Library()
@@ -82,6 +82,21 @@ def oidateshift(end_date, start_date):
 def filter_read(obj, user):
     return obj.filter_perm(user, OI_READ)
 
+@register.filter
+def can_manage(obj, user):
+    can_manage  = getattr(obj, "can_manage", None) #request caching for performance
+    if can_manage == None:
+        can_manage = obj.has_perm(user, OI_MANAGE)
+        setattr(obj, "can_manage", can_manage)
+    return can_manage
+    
+@register.filter
+def can_bid(obj, user):
+    can_bid = getattr(obj, "can_bid", None) #request caching for performance
+    if can_bid == None:
+        can_bid = obj.has_perm(user, OI_BID)
+        setattr(obj, "can_bid", can_bid)
+    return can_bid
     
 @register.filter    
 def can_read(obj, user):
