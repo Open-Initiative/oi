@@ -1,6 +1,6 @@
 {% load oifilters %}
 {% load i18n %}
-<div id="team" class="prjtable">&nbsp;</div>
+<div id="team" class="prjtable"></div>
 <div class="column">
     <div>
         <div class="smallcolumn">
@@ -60,10 +60,6 @@
             {% if project|can_manage:user %}<div class="cleared"><a class="clickable" onclick="validatorProject({{project.id}})"><img class="clickable" src="/img/icons/add.png"> {% trans "Invite members" %}</a></div>{% endif %}
         </div> 
         <div class="smallcolumn">
-        {% if project|can_manage:user%}oui manage{% else %}non manage{% endif %}
-        {% if project|can_write:user%}oui write{% else %}non write{% endif %}
-        {% if project|can_read:user%}oui read{% else %}non read{% endif %}
-        {% if project|can_bid:user%}oui bid{% else %}non bid{% endif %}
             <h3>{{project.list_guests.count}} {% blocktrans count counter=project.list_guests.count %} Guest {% plural %} Guests {% endblocktrans %}</h3></h3><img src="/img/askoi.png" title="{% trans 'Guests can see the task and comment it.' %}" alt="{% trans 'Guests can see the task and comment it.' %}" class="head-help">
             {% for guest in project.list_guests %}
             <a href="/user/profile/{{guest.username}}"><div class="cleared">
