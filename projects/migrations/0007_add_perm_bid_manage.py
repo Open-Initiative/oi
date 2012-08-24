@@ -3,18 +3,20 @@ import datetime
 from south.db import db
 from south.v2 import DataMigration
 from django.db import models
+from oi.helpers import OI_ALL_PERMS, OI_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_MANAGE, OI_BID
 
 class Migration(DataMigration):
 
     def forwards(self, orm):
         """duplicate right and read permission"""
         for acl in orm.ProjectACL.objects.filter(permission=OI_WRITE):
-            orm.ProjectACL.create(user=acl.user, project=acl.project, permission=OI_MANAGE)
+            orm.ProjectACL.objects.get_or_create(user=acl.user, project=acl.project, permission=OI_MANAGE)
             
-        for acl in orm.Project.objects.filter(projectacl__permission=OI_READ):
-            orm.ProjectACL.create(user=acl.user, project=acl.project, permission=OI_BID)
+        for acl in orm.ProjectACL.objects.filter(projectacl__permission=OI_READ):
+            orm.ProjectACL.objects.get_or_create(user=acl.user, project=acl.project, permission=OI_BID)
 
     def backwards(self, orm):
+        """delete the duplication"""
         orm.Project.objects.filter(projectacl__permission=OI_MANAGE).delete()
             
         orm.Project.objects.filter(projectacl__permission=OI_BID).delete()
