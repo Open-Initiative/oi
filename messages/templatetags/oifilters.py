@@ -98,7 +98,7 @@ def can_bid(obj, user):
         setattr(obj, "can_bid", can_bid)
     return can_bid
     
-@register.filter    
+@register.filter
 def can_read(obj, user):
     can_read = getattr(obj,"can_read",None) #request caching for performance
     if can_read==None:
