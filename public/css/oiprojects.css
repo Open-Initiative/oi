@@ -441,6 +441,13 @@ div.prjtable {
 th.tableheader {
     text-transform: uppercase;
     padding: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 30%;
+}
+table.tablecell {
+    table-layout: fixed;
+    width: 240px;
 }
 tr.tablebg0 {
     background: #D7E7F0;

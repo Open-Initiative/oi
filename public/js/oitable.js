@@ -39,7 +39,7 @@ OITable.prototype.addLine = function(id, cells, afterid, bgClass) {
         col.innerHTML = cell;
         line.appendChild(col);
     }
-    if(!id) line.firstChild.colSpan = "2";
+    if(!id) line.firstChild.colSpan = "3";
     line.className = "tablebg" + (bgClass || 0);
     line.style.height = (this.lineheight-2) + "px";
     line.style.padding = "0";
@@ -51,6 +51,7 @@ OITable.prototype.addLine = function(id, cells, afterid, bgClass) {
 OITable.prototype.redraw = function() {
     this.div.removeChild(this.table);
     this.table = document.createElement("table");
+    this.table.className = "tablecell";
     this.div.appendChild(this.table);
     this.table.appendChild(this.header);
     for(var i=0; i < this.lines.length; i++)
