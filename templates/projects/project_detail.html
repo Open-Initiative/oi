@@ -5,7 +5,7 @@
 {% block pagetitle %}{{object.title|default:_("Project")}}{% endblock %}
 {% block indicators %}
 <div class="prj-private-bloc">
-    <div>{% trans "Task " %}{% if object.public %}{% trans " public" %}{% else %}{% trans " private" %}{% endif %}</div>
+    <div>{% trans "Task" %} {% if object.public %} {% trans "public" %} {% else %} {% trans "private" %}{% endif %}</div>
     <a class="clickable" onclick="toggleHideProject({{object.id}})"> {% trans "Make this task" %} {% if object.public %}{% trans "private" %}{% else %}{% trans "public" %}{% endif %}<img src="/img/icons/bluebtn.png"/></a>
 </div>
 <div class="prj-block-fav">
