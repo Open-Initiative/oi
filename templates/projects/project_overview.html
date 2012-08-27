@@ -4,7 +4,7 @@
     <div class="prjauthor">{% trans "Project created on" %} {{project.created|date:"d/m/Y"}} {% trans "by" %} <a href="/user/profile/{{object.author.username}}">{{object.author.get_profile}} </a></div>
     {% if object.spec_set.all %}
         <div class="spec-link-overview">
-            <img class="clickable next-mini-spec" src="/img/icons/nextMiniSpec.png"/>
+            {% if object.spec_set.count > 1 %}<img class="clickable next-mini-spec" src="/img/icons/nextMiniSpec.png"/>{% endif %}
             <a href="/project/{{object.id}}/view/description">
             {% for spec in object.spec_set.all %}
                 <div class="minispec {% if not forloop.first %}invisible {% endif %}">
@@ -12,7 +12,7 @@
                 </div>
             {% endfor %}
         </a>
-        <img class="clickable previous-mini-spec" src="/img/icons/previousMiniSpec.png"/>
+        {% if object.spec_set.count > 1 %}<img class="clickable previous-mini-spec" src="/img/icons/previousMiniSpec.png"/>{% endif %}
         </div>
     {% else %}
         <div class="no-mini-spec"> <a href="/project/{{object.id}}/view/description"> {% trans "Click here to describe the task" %} </a> </div>
