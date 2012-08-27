@@ -39,7 +39,7 @@ OITable.prototype.addLine = function(id, cells, afterid, bgClass) {
         col.innerHTML = cell;
         line.appendChild(col);
     }
-    if(!id) line.firstChild.colSpan = "3";
+    if(!id) line.firstChild.colSpan = this.header.getElementsByTagName('th').length;
     line.className = "tablebg" + (bgClass || 0);
     line.style.height = (this.lineheight-2) + "px";
     line.style.padding = "0";
