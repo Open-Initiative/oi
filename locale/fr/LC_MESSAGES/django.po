@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-27 17:09+0200\n"
+"POT-Creation-Date: 2012-08-27 17:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1448,8 +1448,8 @@ msgid "No guest on this task"
 msgstr "Aucun invité sur cette tâche"
 
 #: templates/projects/project_team.html:78
-msgid "V"
-msgstr ""
+msgid "Validator"
+msgstr "Valideur"
 
 #: templates/projects/dialogue/bid.html:4
 #: templates/projects/dialogue/offer.html:4 templates/users/register.html:35
