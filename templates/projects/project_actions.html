@@ -20,16 +20,19 @@
     </div>
 {% endif %}
 {% with object|bids:user as bids %}{% if bids %}
-    {% if object.state == 3 %}
-    {% if not bids.0.validated %}
+    {% if object.state == 3 and not bids.0.validated %}
         <div class="prj-action-btn clickable" onclick="validateProject({{object.id}})">{% trans "Validate" %} <img src="/img/icons/bluebtn.png" /></div>
-    {% else %}
-        <div class="prj-action-wait">
-            {% blocktrans count counter=bids|length %}Waiting for the bidder to validate{% plural %}Waiting for the bidders to validate{% endblocktrans %}
-        </div>
-    {% endif %}
     {% endif %}
     {% if object.state == 4 and object.assignee != user and bids.0.rating == None %}
         <div class="prj-action-btn clickable" onclick="evalProject({{object.id}})">{% trans "Evaluate" %} <img src="/img/icons/bluebtn.png" /></div>
     {% endif %}
 {% endif %}{% endwith %}
+{% if object.assignee == user %}
+    {% if object.state == 3 %}
+        <div class="prj-action-wait">
+            {% with object|bids:user as bids %}
+            {% blocktrans count counter=bids|length %}Waiting for the bidder to validate{% plural %}Waiting for the bidders to validate{% endblocktrans %}
+            {% endwith %}
+        </div>
+    {% endif %}
+{% endif %}
