@@ -12,7 +12,7 @@ class Migration(DataMigration):
         for acl in orm.ProjectACL.objects.filter(permission=OI_WRITE):
             orm.ProjectACL.objects.get_or_create(user=acl.user, project=acl.project, permission=OI_MANAGE)
             
-        for acl in orm.ProjectACL.objects.filter(projectacl__permission=OI_READ):
+        for acl in orm.ProjectACL.objects.filter(permission=OI_READ):
             orm.ProjectACL.objects.get_or_create(user=acl.user, project=acl.project, permission=OI_BID)
 
     def backwards(self, orm):
