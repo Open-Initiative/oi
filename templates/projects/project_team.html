@@ -73,8 +73,9 @@
         </div>
         <div class="cleared"></div>
     </div>
-</div>
+</div>{{object.state}}
 <script>
+    coloration = {{object.state}};
     oiTable = new OITable("team", ["{% trans 'Owner' %}", "{% trans 'Assignee' %}", "{% trans 'Validator' %}"]);
     oiTable.addLine({{project.master.id}}, ["{{project.author.get_profile}}" ,"{{project.master.assignee.get_profile}}", "{{project.master.bid_set.count}}"]);
     oiTable.addFromTask = function addFromTask(task, afterid, bgClass) {

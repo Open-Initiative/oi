@@ -89,6 +89,7 @@
     {% endif %}
 </div>
 <script>
+    coloration = {{object.state}};
     oiTable = new OITable("budget", ["{% trans 'Budget' %}","{% trans 'Engaged' %}"]);
     oiTable.addLine({{project.master.id}}, ["{{project.master.get_budget}} €", "{{project.master.allbid_sum}} €"])
     oiTable.addFromTask = function addFromTask(task, afterid, bgClass) {
