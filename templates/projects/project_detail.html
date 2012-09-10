@@ -19,7 +19,7 @@
 {% block actions %}{% include "projects/project_actions.html" %}{% endblock %}
 {% block nav %}
 <div id="projecttree"></div>
-{% if not object.tasks.all %}<div class="tasktip"><img src="/img/askoi.png" />{% trans "Tasks in the project are to be listed here" %}</div>{% endif %}
+{% if object.master and not object.master.tasks.all %}<div class="tasktip"><img src="/img/askoi.png" />{% trans "Tasks in the project are to be listed here" %}</div>{% endif %}
 {% endblock %}
 
 
