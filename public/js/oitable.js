@@ -9,6 +9,7 @@ function OITable(divid, columns) {
     for(var column=columns[i=0]; i<columns.length; column=columns[++i]) {
         var th = document.createElement("th");
         th.className = "tableheader";
+        th.title = ""+column+"";
         th.innerHTML = column;
         this.header.appendChild(th);
     }
