@@ -101,7 +101,7 @@ function onMoveNode(taskid, newParentid, afterid){
     }(taskid, newParentid, afterid));
 }
 function setActiveTask(projectid, canAdd) {
-    oiTree.nodes[projectid].titleDiv.children[0].className += " selected";
+    oiTree.nodes[projectid].titleDiv.children[0].className += " selected"+coloration;
     if(oiTable) oiTable.selectLine(projectid);
     if(canAdd) {
         var form = document.getElementById("newtask_"+projectid);

@@ -209,9 +209,33 @@ div.arrow-design{
     background-color: white;
     padding-right: 3px;
 }
-.selected-arrow{
+.selected-arrow0{
     border-bottom: 14px solid transparent;
     border-right: 15px solid #0094B5;
+    border-top: 14px solid transparent;
+    background-color: white;
+}
+.selected-arrow1{
+    border-bottom: 14px solid transparent;
+    border-right: 15px solid #0094B5;
+    border-top: 14px solid transparent;
+    background-color: white;
+}
+.selected-arrow2{
+    border-bottom: 14px solid transparent;
+    border-right: 15px solid #D0574C;
+    border-top: 14px solid transparent;
+    background-color: white;
+}
+.selected-arrow3{
+    border-bottom: 14px solid transparent;
+    border-right: 15px solid #68274E;
+    border-top: 14px solid transparent;
+    background-color: white;
+}
+.selected-arrow4{
+    border-bottom: 14px solid transparent;
+    border-right: 15px solid #6C6D6E;
     border-top: 14px solid transparent;
     background-color: white;
 }
@@ -297,8 +321,28 @@ div.minispec {
 .statebg11 {
     background: #6C6D6E;
 }
-.selected {
+.selected0 {
     background: #0094B5;
+    color: white;
+    font-weight: bold;
+}
+.selected1 {
+    background: #0094B5;
+    color: white;
+    font-weight: bold;
+}
+.selected2 {
+    background: #D0574C;
+    color: white;
+    font-weight: bold;
+}
+.selected3 {
+    background: #68274E;
+    color: white;
+    font-weight: bold;
+}
+.selected4 {
+    background: #6C6D6E;
     color: white;
     font-weight: bold;
 }

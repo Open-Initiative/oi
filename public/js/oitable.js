@@ -65,6 +65,6 @@ OITable.prototype.unhighlight = function(id) {
     this.lineids[id].style.fontWeight = "";
 }
 OITable.prototype.selectLine = function selectLine (id){
-    this.lineids[id].className = " selected ";
-    this.lineids[id].appendChild(document.createElement('div')).className = "selected-arrow";
+    this.lineids[id].className = " selected"+coloration;
+    this.lineids[id].appendChild(document.createElement('div')).className = "selected-arrow"+coloration;
 }
