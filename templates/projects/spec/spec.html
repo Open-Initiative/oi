@@ -5,7 +5,7 @@
     <a href="{{spec.file.url}}"><img src="/img/icons/dlspec.png" alt="{% trans 'Download the desciption' %}" title="{% trans 'Download the desciption' %}"/></a>
     {% endif %}
     <div id="spec_{{project.id}}_{{spec.order}}_content"{% if project|can_write:user and project.state < 3 %} class="clickable" onclick="(new OISpot(this.parentNode, {{project.id}}, {{spec.id}}, 0, (event.pageX||(event.clientX + document.documentElement.scrollLeft))-this.parentNode.offsetLeft, (event.pageY||(event.clientY + document.documentElement.scrollTop))-this.parentNode.offsetTop)).edit();event.stopPropagation();"{% endif %}>
-        <input type="hidden" id="specid_{{spec.order}}" value="{{spec.id}}" />
+        <input type="hidden" id="specid_{{project.id}}_{{spec.order}}" value="{{spec.id}}" />
         {% if spec.type == 2 %}<img style="max-width:700px" src="{% if spec.file %}{{spec.file.url}}{% endif %}" />{% endif %}
         {% if spec.type == 3 or spec.type == 4 %}
         <a href="{{spec.url}}" >{{spec.text|oiunescape|default:spec.url}}</a>

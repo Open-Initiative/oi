@@ -101,8 +101,8 @@ function onMoveNode(taskid, newParentid, afterid){
     }(taskid, newParentid, afterid));
 }
 function setActiveTask(projectid, canAdd) {
-    oiTree.nodes[projectid].titleDiv.children[0].className += " selected"+coloration;
-    if(oiTable) oiTable.selectLine(projectid);
+    oiTree.nodes[projectid].titleDiv.children[0].className += " selected";
+    if(oiTable) {oiTree.nodes[projectid].titleDiv.children[0].className +=coloration; oiTable.selectLine(projectid);};
     if(canAdd) {
         var form = document.getElementById("newtask_"+projectid);
         form.onsubmit = function(){addTask(getValue("newtask_title_"+projectid, true),projectid);return false};
@@ -327,7 +327,7 @@ function moveSpec(projectid, specorder, moveUp){
             });  
 }
 function editSpec(projectid, specorder) {
-    var specid = getValue("specid_"+specorder);
+    var specid = getValue("specid_"+projectid+"_"+specorder);
     var divid = "spec_"+projectid+"_"+specorder;
     OIajaxCall("/project/"+projectid+"/editspec/"+specid+"?divid="+divid, null, divid,
         function(){changeSpecType(divid, getValue("type_"+divid));});
@@ -362,7 +362,7 @@ function saveSpec(divid, projectid, order, specid) {
 }
 function deleteSpec(projectid, specorder) {
     if(confirm(gettext("Are you sure you want to delete this specification permanently?"))) {
-        specid = getValue("specid_"+specorder);
+        var specid = getValue("specid_"+projectid+"_"+specorder);
         OIajaxCall("/project/"+projectid+"/deletespec/"+specid, null, "output", 
             function(){
                 var div = document.getElementById("spec_"+projectid+"_"+specorder);

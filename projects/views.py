@@ -607,6 +607,8 @@ def editspec(request, id, specid):
     order = request.GET.get("specorder")
     if specid!='0':
         spec = Spec.objects.get(id=specid)
+        if spec.project.id != int(id):
+            return HttpResponse(_("Wrong arguments"), status=531)
         order = spec.order
     extra_context = {'divid': request.GET["divid"], 'spec':spec, 'types':SPEC_TYPES, 'specorder':order}
     return object_detail(request, queryset=Project.objects, object_id=id, template_object_name='project', template_name='projects/spec/editspec.html', extra_context=extra_context)
@@ -622,6 +624,8 @@ def editspecdetails(request, id, specid):
         if project.state > OI_ACCEPTED:
             return HttpResponse(_("Can not change a task already started"), status=431)
         spec = Spec.objects.get(id=specid)
+        if spec.project.id != int(id):
+            return HttpResponse(_("Wrong arguments"), status=531)
     return direct_to_template(request, template='projects/spec/edit_type%s.html'%(type), extra_context={'user': request.user, 'divid': divid, 'project':project, 'spec':spec})
 
 @login_required
@@ -641,6 +645,8 @@ def savespec(request, id, specid='0'):
         spec = Spec(text = oiescape(request.POST["text"]), author=request.user, project=project, order=order, type=1)
     else: #edit existing spec
         spec = Spec.objects.get(id=specid)
+        if spec.project.id != int(id):
+            return HttpResponse(_("Wrong arguments"), status=531)
         spec.text = request.POST.get("legend") or oiescape(request.POST["text"])
         
     if request.POST.has_key("url"):
@@ -669,6 +675,8 @@ def savespec(request, id, specid='0'):
 def movespec(request, id, specid):
     """Move template of an oderspec to an other spec order"""
     spec = Spec.objects.get(id=specid)
+    if spec.project.id != int(id):
+        return HttpResponse(_("Wrong arguments"), status=531)
     if not request.POST.get("target"):
         return HttpResponse(_("Wrong arguments"), status=531)
     target = Spec.objects.get(id=request.POST["target"]) 
@@ -683,6 +691,8 @@ def movespec(request, id, specid):
 def deletespec(request, id, specid):
     """deletes the spec"""
     spec = get_object_or_404(Spec, id=specid)
+    if spec.project.id != int(id):
+        return HttpResponse(_("Wrong arguments"), status=531)
     if spec.project.state > OI_ACCEPTED:
         return HttpResponse(_("Can not change a task already started"), status=431)
     spec.delete()
@@ -691,11 +701,14 @@ def deletespec(request, id, specid):
 @OINeedsPrjPerms(OI_WRITE)
 def savespot(request, id, specid, spotid):
     """saves an annotation spot linked to a spec"""
+    spec = Spec.objects.get(id=specid)
     if spotid=="0": #new spot
         spot = Spot(spec = Spec.objects.get(id=specid))
+        if spot.spec.project.id != int(id) or spot.spec.project.id != spec.project.id:
+            return HttpResponse(_("Wrong arguments"), status=531)
     else:
         spot = Spot.objects.get(id=spotid)
-        if spot.spec.project.id != int(id):
+        if spot.spec.project.id != int(id) or spot.spec.project.id != spec.project.id:
             return HttpResponse(_("Wrong arguments"), status=531)
     
     spot.offsetX = request.POST['x']

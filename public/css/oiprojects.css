@@ -321,6 +321,11 @@ div.minispec {
 .statebg11 {
     background: #6C6D6E;
 }
+.selected {
+    background: #0094B5;
+    color: white;
+    font-weight: bold;
+}
 .selected0 {
     background: #0094B5;
     color: white;
@@ -347,6 +352,24 @@ div.minispec {
     font-weight: bold;
 }
 .selected a {
+    color: white;
+}
+.selected0 a {
+    color: white;
+}
+.selected1 a {
+    color: white;
+}
+.selected2 a {
+    color: white;
+}
+.selected3 a {
+    color: white;
+}
+.selected4 a {
+    color: white;
+}
+.selected5 a {
     color: white;
 }
 div.prjstate {
