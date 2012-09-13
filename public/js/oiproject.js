@@ -102,7 +102,7 @@ function onMoveNode(taskid, newParentid, afterid){
 }
 function setActiveTask(projectid, canAdd) {
     oiTree.nodes[projectid].titleDiv.children[0].className += " selected"+coloration;
-    if(oiTable) {oiTable.selectLine(projectid);};
+    if(oiTable) oiTable.selectLine(projectid);
     if(canAdd) {
         var form = document.getElementById("newtask_"+projectid);
         form.onsubmit = function(){addTask(getValue("newtask_title_"+projectid, true),projectid);return false};
@@ -292,13 +292,15 @@ function populateOverviewTable(projectid){
                 var line = document.createElement('tr');
                 var task = tasklist[i];
                 for(var field = fields[j=0]; j < fields.length; field=fields[++j]){
-                    if(fields[j]=="state")task.fields[field] = gettext("State"+task.fields[field]);
+                    var color = task.fields[field];
+                    if(fields[j]=="state"){task.fields[field] = gettext("State"+task.fields[field]);
+                        line.className += "state"+color;}
                     if(fields[j]=="due_date"){ if(!task.fields[field]) {task.fields[field]="-";}; };
                     if(fields[j]=="offer")task.fields[field] += " €";
                     line.appendChild(document.createElement('td')).innerHTML = "<a href=/project/"+task.pk+"/view/"+views[j]+">"+task.fields[field]+"</a>";
                 }
                 document.getElementById('dynamicTableOverview').appendChild(line);
-            }
+            }if(this.oiTree.nodes[projectid]) this.oiTree.nodes[projectid].className = " invisible";
         document.getElementById('projectOverviewPageNext').style.display = (page >= nbpage?"none":"inline"); 
         document.getElementById('projectOverviewPagePrev').style.display = (page > 1?"inline":"none");
         clearDiv(divid);
