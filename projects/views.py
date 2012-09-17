@@ -701,14 +701,13 @@ def deletespec(request, id, specid):
 @OINeedsPrjPerms(OI_WRITE)
 def savespot(request, id, specid, spotid):
     """saves an annotation spot linked to a spec"""
-    spec = Spec.objects.get(id=specid)
     if spotid=="0": #new spot
         spot = Spot(spec = Spec.objects.get(id=specid))
-        if spot.spec.project.id != int(id) or spot.spec.project.id != spec.project.id:
+        if spot.spec.project.id != int(id):
             return HttpResponse(_("Wrong arguments"), status=531)
     else:
         spot = Spot.objects.get(id=spotid)
-        if spot.spec.project.id != int(id) or spot.spec.project.id != spec.project.id:
+        if spot.spec.project.id != int(id) or spot.spec.id != int(specid):
             return HttpResponse(_("Wrong arguments"), status=531)
     
     spot.offsetX = request.POST['x']
