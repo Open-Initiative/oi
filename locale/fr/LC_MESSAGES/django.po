@@ -58,11 +58,11 @@ msgstr "Réponse"
 
 #: helpers.py:53
 msgid "Bidding"
-msgstr "offrant"
+msgstr "Offre"
 
 #: helpers.py:53
 msgid "Managing"
-msgstr "Gérant"
+msgstr "Gestion"
 
 #: helpers.py:61
 msgid "Text"
