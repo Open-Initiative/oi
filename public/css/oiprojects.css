@@ -369,6 +369,17 @@ div.minispec {
 .selected4 a {
     color: white;
 }
+div.nextrelease{
+    border-bottom: 10px solid transparent;
+    border-left: 24px solid #0094B5;
+    border-top: 10px solid transparent;
+    width: 70px;
+    float: right;
+}
+#version{
+    margin-top: 20px; 
+/*  sinon la barre de release se confond avec la barre de progress  */
+}
 div.prjstate {
     float: right;
     padding: 2px;
@@ -501,6 +512,7 @@ div.prjtable {
     margin-right: 30px;
     border-right: solid 1px #0094B5;
     width: 250px;
+    margin-top: 10px;
 }
 th.tableheader {
     text-transform: uppercase;
