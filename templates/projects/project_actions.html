@@ -56,7 +56,7 @@
     <div id="releaseblock">
         <select id="release" onchange="initOITree()">
             {% if not object.master.release %}
-                <option selected >{% trans "Initial release" %}</option>
+                <option selected value="">{% trans "Initial release" %}</option>
             {% endif %}
             {% for release in object.master.release_set.all %}
                 <option>{{release.name}}</option>
