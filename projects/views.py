@@ -25,7 +25,7 @@ from oi.settings import MEDIA_ROOT, TEMP_DIR
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS
 from oi.helpers import OI_PRJ_DONE, OI_NO_EVAL, OI_ACCEPT_DELAY, OI_READ, OI_ANSWER, OI_BID, OI_MANAGE, OI_WRITE, OI_ALL_PERMS, OI_CANCELLED_BID, OI_COM_ON_BID, OI_COMMISSION
 from oi.helpers import OI_PRJ_VIEWS, SPEC_TYPES, SPOT_TYPES, NOTE_TYPE, TASK_TYPE, MESSAGE_TYPE, OIAction, ajax_login_required
-from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeedsPrjPerms
+from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeedsPrjPerms, Release
 from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
 from django.template import RequestContext
@@ -86,11 +86,48 @@ def listtasks(request, id):
                     tasks = paginator.page(1).object_list
                 except EmptyPage:
                     tasks = paginator.page(paginator.num_pages).object_list
+                    
+            if request.GET.get("release"):
+                tasks = tasks.filter(target__name=request.GET['release'])
             
             #appends the serialized task list to the global list
             lists.append(serializers.oiserialize("json", tasks,
                 extra_fields=("author.get_profile" ,"assignee.get_profile.get_display_name", "get_budget","allbid_sum","bid_set.count")))
     return HttpResponse(JSONEncoder().encode(lists)) #serializes the whole thing
+
+@OINeedsPrjPerms(OI_MANAGE)
+def addrelease(request, id):
+    """Add a new release to the project"""
+    if request.POST["release"] == "":
+        return HttpResponse(_("Not empty release"))
+    Release(name = request.POST["release"], project = Project.objects.get(id=id).master).save()
+    return HttpResponse(_("New release added"))
+
+@OINeedsPrjPerms(OI_MANAGE)
+def changerelease(request, id):
+    """Change the release"""
+    
+    release = Release.objects.get(name = request.POST["release"])
+    if release.done == True:
+        return HttpResponse(_("Already done"))
+        
+    #get the master id of the project    
+    master = Project.objects.get(id=id)
+    
+    if not master.target:
+        master.target = Release.objects.create(name = _("Initial release"), project = master)
+        master.save()
+    
+    #make a filter on the descendant master project, and update them
+    master.descendants.filter(state__gte = 4, target__isnull=True).update(target=master.target)
+    master.descendants.filter(state__lt = 4, target = master.target).update(target=None)
+    
+    #make the old release done true
+    master.target.done = True
+    master.target = release
+    master.target.save()
+    
+    return HttpResponse(_("Release changed"))
     
 @login_required
 def editproject(request, id):

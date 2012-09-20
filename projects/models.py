@@ -27,7 +27,7 @@ class ProjectManager(models.Manager):
             return self.filter(models.Q(public=True)|models.Q(projectacl__user=user if user.is_authenticated() else None, projectacl__permission=permission)).distinct()
         else:
             return self.filter(projectacl__user=user if user.is_authenticated() else None, projectacl__permission=permission).distinct()
-
+            
 # A project can contain subprojects and/or specs. Without them it is only a task
 class Project(models.Model):
     title = models.CharField(max_length=100)
@@ -49,6 +49,7 @@ class Project(models.Model):
     priority = models.IntegerField(default=0)
     state = models.IntegerField(choices=OI_PRJ_STATES, default=OI_PROPOSED)
     public = models.BooleanField(default=True)
+    target = models.ForeignKey("projects.Release", null=True, blank=True, related_name="tasks", unique=True)
     objects = ProjectManager()
     
     # overloads save to compute master project and ancestors
@@ -310,6 +311,14 @@ class Project(models.Model):
     def __unicode__(self):
         return "%s : %s"%(self.id, self.title)
 
+    def old_releases(self):
+        """Show all the old releases"""
+        return self.master.release_setfilter(done = True)
+        
+    def future_releases(self):
+        """Show all the releases that are not done yet"""
+        return self.master.release_set.filter(done = False).exclude(tasks=self.master)
+
 #Structure de contrôle des permissions
 class ProjectACL(models.Model):
     user = models.ForeignKey(User)
@@ -410,3 +419,10 @@ class PromotedProject(models.Model):
     location = models.CharField(max_length=50)
     def __unicode__(self):
         return "%s(%s)"%(self.project.title, self.location)
+        
+class Release(models.Model):
+    project = models.ForeignKey(Project)
+    name = models.CharField(max_length=50)
+    due_date = models.DateTimeField(blank=True, null=True)
+    done = models.BooleanField()
+    
