@@ -142,10 +142,15 @@ OITreeNode.prototype.getLastChild = function getLastChild() {
 
 function OITree(divid, expandCallback, shrinkCallback) {
     this.div = document.getElementById(divid);
-    this.nodes = {};
-    this.selected = null;
+    this.init();
     this.expandCallback = expandCallback;
     this.shrinkCallback = shrinkCallback;
+}
+OITree.prototype.init = function init() {
+    this.div.innerHTML = "";
+    this.nodes = {};
+    this.selected = null;
+    this.root = null;
 }
 OITree.prototype.setRoot = function setRoot(rootid, color, bgClass) {
     this.root = new OITreeNode(rootid, this, null, color, bgClass);

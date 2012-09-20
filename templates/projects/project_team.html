@@ -75,9 +75,8 @@
     </div>
 </div>
 <script>
-    coloration = {{object.state}};
     oiTable = new OITable("team", ["{% trans 'Owner' %}", "{% trans 'Assignee' %}", "{% trans 'Validator' %}"]);
-    oiTable.addLine({{project.master.id}}, ["{{project.author.get_profile}}" ,"{{project.master.assignee.get_profile}}", "{{project.master.bid_set.count}}"]);
+    firstLine = ["{{project.author.get_profile}}" ,"{{project.master.assignee.get_profile}}", "{{project.master.bid_set.count}}"];
     oiTable.addFromTask = function addFromTask(task, afterid, bgClass) {
         oiTable.addLine(task.pk, [task.fields.author_get_profile ,task.fields.assignee_get_profile_get_display_name, task.fields.bid_set_count], afterid, bgClass);
     }

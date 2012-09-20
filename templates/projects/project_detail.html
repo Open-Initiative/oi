@@ -21,8 +21,6 @@
 <div id="projecttree"></div>
 {% if object.master and not object.master.tasks.all %}<div class="tasktip"><img src="/img/askoi.png" />{% trans "Tasks in the project are to be listed here" %}</div>{% endif %}
 {% endblock %}
-
-
 {% block content %}
 <div class="pagetop">
     <div id="tabs">
@@ -49,20 +47,29 @@
 </div>
 {% endwith %}
 <script>
+    function initOITree() {
+        oiTree.init();
+        if(oiTable) {
+            oiTable.init();
+            oiTable.addLine({{object.master.id}}, firstLine);
+        }
+        var rootdiv = oiTree.setRoot({{object.master.id}}, {{object.master.state}}, 0);
+        setTaskName(rootdiv, {{object.master.id}}, "{{object.master.title}}", "{{current_view}}");
+        rootdiv.className += " treeroot";
+        OIajaxCall("/project/{{object.id}}/listtasks?release="+getValue("release")+"&expand={% for ancestor in object.get_path %}{{ancestor.id}},{% endfor %}", null, null,  function(response){
+            populateTaskList(eval('('+response+')'));
+            {% for ancestor in object.get_path %}
+            oiTree.nodes[{{ancestor.id}}].expand();
+            {% endfor %}
+            setActiveTask({{object.id}}{% if object.state < 4 and object|can_write:user %}, true{% endif %});
+        });
+    }
+    coloration = {{object.state}};
     follow = {% if object|is_following:user %}true{%else%}false{%endif%};
     username = '{{user.username}}';
     viewname = '{{current_view}}';
     oiTree = new OITree("projecttree");
-    var rootdiv = oiTree.setRoot({{object.master.id}}, {{object.master.state}}, 0);
-    setTaskName(rootdiv, {{object.master.id}}, "{{object.master.title}}", "{{current_view}}");
-    rootdiv.className += " treeroot";
-    OIajaxCall("/project/{{object.id}}/listtasks?expand={% for ancestor in object.get_path %}{{ancestor.id}},{% endfor %}", null, null,  function(response){
-        populateTaskList(eval('('+response+')'));
-        {% for ancestor in object.get_path %}
-        oiTree.nodes[{{ancestor.id}}].expand();
-        {% endfor %}
-        setActiveTask({{object.id}}{% if object.state < 4 and object|can_write:user %}, true{% endif %});
-    });
+    initOITree();
 </script>
 {% else %}
 {% trans "Forbidden" %}

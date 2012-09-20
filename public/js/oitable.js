@@ -14,8 +14,7 @@ function OITable(divid, columns) {
         this.header.appendChild(th);
     }
     this.div.appendChild(this.table);
-    this.lines = [];
-    this.lineids = {};
+    this.init();
 }
 OITable.prototype.addSpace = function(afterid) {
     if(this.space) this.lines.splice(this.lines.indexOf(this.space), 1);
@@ -67,4 +66,8 @@ OITable.prototype.unhighlight = function(id) {
 OITable.prototype.selectLine = function selectLine (id){
     this.lineids[id].className = " selected"+coloration;
     this.lineids[id].appendChild(document.createElement('div')).className = "selected-arrow"+coloration;
+}
+OITable.prototype.init = function init (){
+    this.lines = [];
+    this.lineids = {};
 }

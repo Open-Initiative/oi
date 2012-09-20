@@ -62,6 +62,7 @@ function OIGantt(divid, startDate, endDate) {
     this.header.style.height = this.headerHeight + "px";
     
     this.drawTimeline();
+    this.init();
 }
 OIGantt.prototype.drawTimeline = function drawTimeline() {
     if(this.startDate.getDate() < 29) this.header.innerHTML = this.startDate.dateFormat("d/m/Y");
@@ -87,7 +88,7 @@ OIGantt.prototype.redraw = function redraw(barNb) {
     for(var i=barNb; i<this.bars.length; i++) 
         this.bars[i].draw();
 }
-OIGantt.prototype.addBar = function addBar(id, dates, afterid, bgClass) {
+OIGantt.prototype.addLine = function addLine(id, dates, afterid, bgClass) {
     var newBar = new GanttBar(this, dates, "ganttbg"+(bgClass || 0));
     var pos = this.bars.indexOf(this.barids[afterid]) + 1;
     this.bars.splice(pos, 0, newBar);
@@ -122,4 +123,9 @@ OIGantt.prototype.unhighlight = function unhighlight(id) {
     this.barids[id].bardiv.className = "";
 }
 OIGantt.prototype.selectLine = function selectLine(id){
+}
+OIGantt.prototype.init = function init (){
+    this.bars = [];
+    this.barids = {};
+    this.space = null;  
 }
