@@ -55,9 +55,23 @@ function populateTaskList(taskLists) {
         }
     }
 }
+function addRelease(projectid){
+    var value = prompt(gettext("Enter your text :"));
+    OIajaxCall("/project/"+projectid+"/addrelease", "release="+value, "output", 
+        function(){
+            var newoption = document.createElement("option");
+            newoption.innerHTML = value;
+            document.getElementById("release").appendChild(newoption);
+        }
+    );
+}
+function changeRelease(projectid){
+    if(confirm(gettext("Are you sure you want to change the release?")))
+        OIajaxCall("/project/"+projectid+"/changerelease","release="+getValue("nextrelease"),"output",function(){});
+}
 function onExpandNode(projectid) {
     if(!oiTree.nodes[projectid].children.length){
-        OIajaxCall("/project/"+projectid+"/listtasks", null, null,
+        OIajaxCall("/project/"+projectid+"/listtasks?release="+getValue("release"), null, null,
             function(response){
                 populateTaskList(eval('('+response+')'));
                 if(window.oiTable){
@@ -287,7 +301,7 @@ function populateOverviewTable(projectid){
             document.getElementById('dynamicTableOverview').appendChild(header);
             var tasklist = eval(eval(response)[0]);
             var fields = ["title", "state", "due_date", "assignee_get_profile_get_display_name", "offer"];
-            var views = ["overview","description","planning","team","budget"]
+            var views = ["overview","description","planning","team","budget"];
             for(var i = 0; i < tasklist.length; i++){
                 var line = document.createElement('tr');
                 var task = tasklist[i];

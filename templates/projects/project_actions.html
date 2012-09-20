@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load oifilters %}
+<div>
 <div class="prj-action-del">
     {% if object|can_write:user and object.state < 2 and object.bid_set.count == 0 and object.tasks.count == 0 %}
         <img src="/img/icons/del-32.png" class="clickable actions" alt="{% trans "Delete the task" %}" title="{% trans "Delete the task" %}" onclick="deleteProject({{object.id}})" />
@@ -36,3 +37,43 @@
         </div>
     {% endif %}
 {% endif %}
+<div class="cleared"></div>
+</div>
+<div id="version">
+    <div class="nextrelease clickable" title="{% trans 'Change the release of the project' %}"></div>
+    <div class="nextreleaseblock">
+        <select id="nextrelease" onchange="changeRelease({{object.id}})" class="invisible">
+        {% if not object.future_releases %}
+            <option value="" selected >{% trans "No next release" %}</option>
+        {% else %}
+            {% for release in object.future_releases %}
+                <option value="{{release.name}}">{{release.name}}</option>
+            {% endfor %}
+        {% endif %}
+        <option onclick="addRelease({{object.id}})"  >{% trans "Add a new release" %}</option>
+        </select>
+    </div>
+    <div id="releaseblock">
+        <select id="release" onchange="initOITree()">
+            {% if not object.master.release %}
+                <option selected >{% trans "Initial release" %}</option>
+            {% endif %}
+            {% for release in object.master.release_set.all %}
+                <option>{{release.name}}</option>
+            {% endfor %}
+            <option onclick="addRelease({{object.id}})"  >{% trans "Add a new release" %}</option>
+        </select>
+    </div>
+    <script>
+        $('.nextrelease').click(function(){
+            $('.nextrelease').addClass(" invisible");
+            $('#nextrelease').show();
+            $('#releaseblock').hide();
+        });
+        $('#nextrelease').change(function(){
+            $('.nextrelease').removeClass(" invisible");
+            $('#nextrelease').hide();
+            $('#releaseblock').show();
+        });
+    </script>
+</div>
