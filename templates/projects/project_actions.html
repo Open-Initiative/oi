@@ -1,6 +1,15 @@
 {% load i18n %}
 {% load oifilters %}
-<div>
+{% if object.state < 0 or object.state == 4 %}
+    <div style="padding:3px; margin-top:30px">
+    </div>
+{% endif %}
+{% if object.state == 2 %}
+    <div class="progressbar{% ifequal object.assignee user %} clickable" onclick="updateProgress({{object.id}},(event.clientX-this.offsetLeft)/this.offsetWidth){% endifequal %}">
+        <span id="progressbar_{{object.id}}" class="progress" style="width:{{object.progress|default:0|floatformat:0}}%;"></span>
+        <span id="progresslabel_{{object.id}}" class="progresstitle" >{{object.progress|default:0|floatformat:0}}%</span>
+    </div>
+{% endif %}
 <div class="prj-action-del">
     {% if object|can_write:user and object.state < 2 and object.bid_set.count == 0 and object.tasks.count == 0 %}
         <img src="/img/icons/del-32.png" class="clickable actions" alt="{% trans "Delete the task" %}" title="{% trans "Delete the task" %}" onclick="deleteProject({{object.id}})" />
@@ -14,53 +23,50 @@
 {% endif %}
 {% if object.state == 2 %}
     {% if object.assignee == user %}<div class="prj-action-btn clickable" onclick="deliverProject({{object.id}})">{% trans "Deliver" %} <img src="/img/icons/bluebtn.png" /></div>{% endif %}
-
-    <div class="progressbar{% ifequal object.assignee user %} clickable" onclick="updateProgress({{object.id}},(event.clientX-this.offsetLeft)/this.offsetWidth){% endifequal %}">
-        <span id="progressbar_{{object.id}}" class="progress" style="width:{{object.progress|default:0|floatformat:0}}%;"></span>
-        <span id="progresslabel_{{object.id}}" class="progresstitle" >{{object.progress|default:0|floatformat:0}}%</span>
-    </div>
 {% endif %}
 {% with object|bids:user as bids %}{% if bids %}
     {% if object.state == 3 and not bids.0.validated %}
-        <div class="prj-action-btn clickable" onclick="validateProject({{object.id}})">{% trans "Validate" %} <img src="/img/icons/bluebtn.png" /></div>
+    <div class="prj-action-btn clickable" onclick="validateProject({{object.id}})">{% trans "Validate" %} <img src="/img/icons/bluebtn.png" /></div>
     {% endif %}
     {% if object.state == 4 and object.assignee != user and bids.0.rating == None %}
-        <div class="prj-action-btn clickable" onclick="evalProject({{object.id}})">{% trans "Evaluate" %} <img src="/img/icons/bluebtn.png" /></div>
+    <div class="prj-action-btn clickable" onclick="evalProject({{object.id}})">{% trans "Evaluate" %} <img src="/img/icons/bluebtn.png" /></div>
     {% endif %}
 {% endif %}{% endwith %}
 {% if object.assignee == user %}
     {% if object.state == 3 %}
         <div class="prj-action-wait">
             {% with object|bids:user as bids %}
-            {% blocktrans count counter=bids|length %}Waiting for the bidder to validate{% plural %}Waiting for the bidders to validate{% endblocktrans %}
+                {% blocktrans count counter=bids|length %}Waiting for the bidder to validate{% plural %}Waiting for the bidders to validate{% endblocktrans %}
             {% endwith %}
         </div>
     {% endif %}
 {% endif %}
 <div class="cleared"></div>
-</div>
 <div id="version">
-    <div class="nextrelease clickable" title="{% trans 'Change the release of the project' %}"></div>
-    <div class="nextreleaseblock">
-        <select id="nextrelease" onchange="changeRelease({{object.id}})" class="invisible">
-        {% if not object.future_releases %}
-            <option value="" selected >{% trans "No next release" %}</option>
-        {% else %}
+    {% if user == object.assignee %}
+        <div class="nextrelease clickable" title="{% trans 'Change the release of the project' %}"></div>
+        <div class="nextreleaseblock">
+            <select id="nextrelease" onchange="changeRelease({{object.id}})" class="invisible">
+                {% for release in object.future_releases %}
+                    <option value="{{release.name}}">{{release.name}}</option>
+                {% endfor %}
+            <option selected value="" onclick="changeRelease({{object.id}})">{% trans "Add a new release" %}</option>
+            </select>
+        </div>
+    {% endif %}
+    <div id="releaseblock">
+        <select id="release" onchange="initOITree()">
+            {% if not object.master.target %}
+                <option class="currentrelease" selected value="Initial release">{% trans "Initial release" %}</option>
+            {% endif %}
+            {% for release in object.old_releases %}
+                <option class="oldrelease" value="{{release.name}}">{{release.name}}</option>
+            {% endfor %}
+            {% if object.master.target %}<option class="currentrelease" selected value="{{object.master.target.name}}">{{object.master.target.name}}</option>{% endif %}
             {% for release in object.future_releases %}
                 <option value="{{release.name}}">{{release.name}}</option>
             {% endfor %}
-        {% endif %}
-        <option onclick="addRelease({{object.id}})"  >{% trans "Add a new release" %}</option>
-        </select>
-    </div>
-    <div id="releaseblock">
-        <select id="release" onchange="initOITree()">
-            {% if not object.master.release %}
-                <option selected value="">{% trans "Initial release" %}</option>
-            {% endif %}
-            {% for release in object.master.release_set.all %}
-                <option>{{release.name}}</option>
-            {% endfor %}
+            <option value="">{% trans "All release" %}</option>
             <option onclick="addRelease({{object.id}})"  >{% trans "Add a new release" %}</option>
         </select>
     </div>
