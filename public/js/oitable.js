@@ -65,7 +65,7 @@ OITable.prototype.unhighlight = function(id) {
 }
 OITable.prototype.selectLine = function selectLine (id){
     this.lineids[id].className = " selected"+coloration;
-    this.lineids[id].appendChild(document.createElement('div')).className = "selected-arrow"+coloration;
+    this.lineids[id].appendChild(document.createElement('div')).className = "selected-arrow";
 }
 OITable.prototype.init = function init (){
     this.lines = [];
