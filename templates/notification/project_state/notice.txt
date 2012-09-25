@@ -1,5 +1,5 @@
 {% load i18n %}
 {% load oifilters %}
-{{notice.sender.get_profile}} {% trans "has changed state of a project you follow:" %}
+{{notice.sender.get_profile}} {% trans "has changed state of a task you follow:" %}
 {{notice.project.title}} {% trans "is now in state" %} {{OI_PRJ_STATES|get:notice.param|default:notice.param}}
 {{current_site}}/project/{{notice.project.id}}

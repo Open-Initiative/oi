@@ -1,3 +1,3 @@
 {% load i18n %}
-{{notice.sender.get_profile}} {% blocktrans with title=notice.project.title %}wants to delegate project {{title}} to you.{% endblocktrans %}
+{{notice.sender.get_profile}} {% blocktrans with title=notice.project.title %}{% trans 'wants to delegate the task' %}{{title}} {% trans 'to you' %}.{% endblocktrans %}
 {{current_site}}/project/{{notice.project.id}}

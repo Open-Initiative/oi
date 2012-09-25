@@ -1,4 +1,4 @@
 {% load i18n %}
 <a href="{{current_site}}/user/profile/{{notice.sender.username}}">{{notice.sender.get_profile}}</a>
-{% blocktrans %}has invited you on a project:{% endblocktrans %} </br>
+{% blocktrans %}has invited you on a task:{% endblocktrans %} </br>
 <a href="{{current_site}}/project/{{notice.project.id}}">{{notice.project.title}}</a>
