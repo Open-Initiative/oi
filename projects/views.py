@@ -88,35 +88,39 @@ def listtasks(request, id):
                     tasks = paginator.page(paginator.num_pages).object_list
                     
             if request.GET.get("release"):
-                tasks = tasks.filter(target__name=request.GET['release'])
+                if not project.master.target or request.GET.get("release") == project.master.target.name:
+                    tasks = tasks.filter(Q(target__name = request.GET['release'])|Q(target__isnull = True)|Q(descendants__target__name = request.GET['release'])|Q(descendants__target__isnull = True)).exclude(target__done = True)
+                else:
+                    tasks = tasks.filter(Q(target__name = request.GET['release'])|Q(descendants__target__name = request.GET['release']))
             
             #appends the serialized task list to the global list
             lists.append(serializers.oiserialize("json", tasks,
-                extra_fields=("author.get_profile" ,"assignee.get_profile.get_display_name", "get_budget","allbid_sum","bid_set.count")))
+                extra_fields=("author.get_profile" ,"assignee.get_profile.get_display_name", "get_budget","allbid_sum","bid_set.count","target.name","target.done")))
     return HttpResponse(JSONEncoder().encode(lists)) #serializes the whole thing
 
 @OINeedsPrjPerms(OI_MANAGE)
 def addrelease(request, id):
     """Add a new release to the project"""
-    if request.POST["release"] == "":
+    if request.POST["release"] == "" or request.POST["release"] == None:
         return HttpResponse(_("Not empty release"))
+    if request.POST["release"] == "Initial release":
+        return HttpResponse(_("Release already existing"))
     Release(name = request.POST["release"], project = Project.objects.get(id=id).master).save()
     return HttpResponse(_("New release added"))
 
 @OINeedsPrjPerms(OI_MANAGE)
 def changerelease(request, id):
     """Change the release"""
+
+    #get the master id of the project    
+    master = Project.objects.get(id=id).master
     
-    release = Release.objects.get(name = request.POST["release"])
+    release = Release.objects.get(name = request.POST["release"], project=master)
     if release.done == True:
         return HttpResponse(_("Already done"))
         
-    #get the master id of the project    
-    master = Project.objects.get(id=id)
-    
     if not master.target:
         master.target = Release.objects.create(name = _("Initial release"), project = master)
-        master.save()
     
     #make a filter on the descendant master project, and update them
     master.descendants.filter(state__gte = 4, target__isnull=True).update(target=master.target)
@@ -124,8 +128,9 @@ def changerelease(request, id):
     
     #make the old release done true
     master.target.done = True
-    master.target = release
     master.target.save()
+    master.target = release
+    master.save()
     
     return HttpResponse(_("Release changed"))
     

@@ -49,7 +49,7 @@ class Project(models.Model):
     priority = models.IntegerField(default=0)
     state = models.IntegerField(choices=OI_PRJ_STATES, default=OI_PROPOSED)
     public = models.BooleanField(default=True)
-    target = models.ForeignKey("projects.Release", null=True, blank=True, related_name="tasks", unique=True)
+    target = models.ForeignKey("projects.Release", null=True, blank=True, related_name="tasks")
     objects = ProjectManager()
     
     # overloads save to compute master project and ancestors
@@ -313,7 +313,7 @@ class Project(models.Model):
 
     def old_releases(self):
         """Show all the old releases"""
-        return self.master.release_setfilter(done = True)
+        return self.master.release_set.filter(done = True)
         
     def future_releases(self):
         """Show all the releases that are not done yet"""
@@ -426,3 +426,8 @@ class Release(models.Model):
     due_date = models.DateTimeField(blank=True, null=True)
     done = models.BooleanField()
     
+    class Meta:
+        unique_together = ("project", "name")
+        
+    def __unicode__(self):
+        return "Project: '%s', on release: '%s', done is: '%s'"%(self.project.title, self.name, self.done)
