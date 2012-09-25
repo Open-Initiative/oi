@@ -1,5 +1,4 @@
 div.prjbody {
-    padding: 10px 0px;
     background: #FFFFFF;
     clear: left;
 }
@@ -117,6 +116,7 @@ div.prj-block-action{
     margin-top: 30px;
 }
 div.prj-action-btn{
+    margin-top: 30px;
     padding: 3px;
     font-size:1.5em; 
     background-color: #0094B5;
@@ -209,33 +209,9 @@ div.arrow-design{
     background-color: white;
     padding-right: 3px;
 }
-.selected-arrow0{
+.selected-arrow{
     border-bottom: 14px solid transparent;
     border-right: 15px solid #0094B5;
-    border-top: 14px solid transparent;
-    background-color: white;
-}
-.selected-arrow1{
-    border-bottom: 14px solid transparent;
-    border-right: 15px solid #0094B5;
-    border-top: 14px solid transparent;
-    background-color: white;
-}
-.selected-arrow2{
-    border-bottom: 14px solid transparent;
-    border-right: 15px solid #D0574C;
-    border-top: 14px solid transparent;
-    background-color: white;
-}
-.selected-arrow3{
-    border-bottom: 14px solid transparent;
-    border-right: 15px solid #68274E;
-    border-top: 14px solid transparent;
-    background-color: white;
-}
-.selected-arrow4{
-    border-bottom: 14px solid transparent;
-    border-right: 15px solid #6C6D6E;
     border-top: 14px solid transparent;
     background-color: white;
 }
@@ -377,8 +353,15 @@ div.nextrelease{
     float: right;
 }
 #version{
-    margin-top: 20px; 
+    margin-top: 9px;
 /*  sinon la barre de release se confond avec la barre de progress  */
+}
+option.currentrelease{
+    color:#0094B5; 
+    font-weight:bold;
+}
+option.oldrelease{
+    color:#AAAAAA;
 }
 div.prjstate {
     float: right;
@@ -592,9 +575,9 @@ div.sepspecfooter {
     width:10em;
     border:solid 1px;
     color: #6C6D6E;
-    position: absolute;
+/*    position: absolute;*/
     width: 270px;
-    margin-top: 5px;
+    margin-top: -35px;
 }
 .progress {
     float:left;
