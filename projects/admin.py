@@ -1,7 +1,7 @@
 #coding: utf-8
 # Admin manager
 
-from oi.projects.models import Project,Spec,Bid,PromotedProject,ProjectACL
+from oi.projects.models import Project,Spec,Bid,PromotedProject,ProjectACL,Release
 from django.contrib import admin
 from django.utils.translation import ugettext as _
 
@@ -37,3 +37,4 @@ admin.site.register(Project, ProjectAdmin)
 admin.site.register(Spec)
 admin.site.register(Bid)
 admin.site.register(PromotedProject)
+admin.site.register(Release)
