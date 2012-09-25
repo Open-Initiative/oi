@@ -57,17 +57,24 @@ function populateTaskList(taskLists) {
 }
 function addRelease(projectid){
     var value = prompt(gettext("Enter your text :"));
-    OIajaxCall("/project/"+projectid+"/addrelease", "release="+value, "output", 
-        function(){
-            var newoption = document.createElement("option");
-            newoption.innerHTML = value;
-            document.getElementById("release").appendChild(newoption);
-        }
-    );
+    if(value){ 
+        OIajaxCall("/project/"+projectid+"/addrelease", "release="+value, "output", 
+            function(){
+                var newoption = document.createElement("option");
+                var newoption2 = document.createElement("option");
+                document.getElementById("release").appendChild(newoption).innerHTML = value;
+                document.getElementById("nextrelease").appendChild(newoption2).innerHTML = value;
+            }
+        );
+    }
 }
 function changeRelease(projectid){
-    if(confirm(gettext("Are you sure you want to change the release?")))
+    if (getValue("nextrelease")){
+        if(confirm(gettext("Are you sure you want to change the release?")))
         OIajaxCall("/project/"+projectid+"/changerelease","release="+getValue("nextrelease"),"output",function(){});
+    }else{
+        addRelease(projectid);
+    }
 }
 function onExpandNode(projectid) {
     if(!oiTree.nodes[projectid].children.length){
@@ -300,7 +307,7 @@ function populateOverviewTable(projectid){
             document.getElementById('dynamicTableOverview').innerHTML = "";
             document.getElementById('dynamicTableOverview').appendChild(header);
             var tasklist = eval(eval(response)[0]);
-            var fields = ["title", "state", "due_date", "assignee_get_profile_get_display_name", "offer"];
+            var fields = ["title", "state", "due_date", "assignee_get_profile_get_display_name", "offer", "target_name"];
             var views = ["overview","description","planning","team","budget"];
             for(var i = 0; i < tasklist.length; i++){
                 var line = document.createElement('tr');

@@ -59,6 +59,7 @@
                     <th class="tableheader clickable" onclick="orderOverviewTable({{project.id}}, 'due_date')">{% trans "Echeance" %}</th>
                     <th class="tableheader clickable" onclick="orderOverviewTable({{project.id}}, 'assignee')">{% trans "Assignee" %}</th>
                     <th class="tableheader clickable" onclick="orderOverviewTable({{project.id}}, 'offer')">{% trans "Budget" %}</th>
+                    <th class="tableheader clickable" onclick="orderOverviewTable({{project.id}}, 'target__name')">{% trans "Release" %}</th>
                 </tr>
             </table>
             <span id="projectOverviewPagePrev" class="prj-overview-page-prev clickable" onclick="page = page<=1?1:page-1; populateOverviewTable({{project.id}}); document.getElementById('page').innerHTML=page">{% trans "previous" %}</span>
