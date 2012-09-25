@@ -311,12 +311,11 @@ function populateOverviewTable(projectid){
             var views = ["overview","description","planning","team","budget"];
             for(var i = 0; i < tasklist.length; i++){
                 var line = document.createElement('tr');
+                line.className += "state"+task.fields["state"];
                 var task = tasklist[i];
                 for(var field = fields[j=0]; j < fields.length; field=fields[++j]){
-                    var color = task.fields[field];
-                    if(fields[j]=="state"){task.fields[field] = gettext("State"+task.fields[field]);
-                        line.className += "state"+color;}
-                    if(fields[j]=="due_date"){ if(!task.fields[field]) {task.fields[field]="-";}; };
+                    if(fields[j]=="state"){task.fields[field] = gettext("State"+task.fields[field]);}
+                    if(fields[j]=="due_date"){if(!task.fields[field]) {task.fields[field]="-";}; };
                     if(fields[j]=="offer")task.fields[field] += " €";
                     line.appendChild(document.createElement('td')).innerHTML = "<a href=/project/"+task.pk+"/view/"+views[j]+">"+task.fields[field]+"</a>";
                 }
