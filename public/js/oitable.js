@@ -16,22 +16,22 @@ function OITable(divid, columns) {
     this.div.appendChild(this.table);
     this.init();
 }
-OITable.prototype.addSpace = function(afterid) {
-    if(this.space) this.lines.splice(this.lines.indexOf(this.space), 1);
+OITable.prototype.addSpace = function addSpace(afterid) {
+    if(this.space && this.lines.indexOf(this.space) > -1) this.lines.splice(this.lines.indexOf(this.space), 1);
     this.space = this.addLine(0, [""], afterid, " "+this.lineids[afterid].className);
     this.redraw();
 }
-OITable.prototype.hideLine = function(id, nbnext) {
+OITable.prototype.hideLine = function hideLine(id, nbnext) {
     var line = this.lineids[id];
     var pos = this.lines.indexOf(line);
     if(pos >= 0) this.lines.splice(pos, 1 + (nbnext||0));
 }
-OITable.prototype.showLine = function(id, afterid) {
+OITable.prototype.showLine = function showLine(id, afterid) {
     if(this.lines.indexOf(this.lineids[id]) >= 0) this.lines.splice(this.lines.indexOf(this.lineids[id]), 1);
     var pos = this.lines.indexOf(this.lineids[afterid]) + 1;
     this.lines.splice(pos, 0, this.lineids[id]);
 }
-OITable.prototype.addLine = function(id, cells, afterid, bgClass) {
+OITable.prototype.addLine = function addLine(id, cells, afterid, bgClass) {
     var line = document.createElement("tr");
     var i;
     for(var cell=cells[i=0]; i<cells.length; cell=cells[++i]) {
@@ -48,7 +48,7 @@ OITable.prototype.addLine = function(id, cells, afterid, bgClass) {
     this.lines.splice(pos, 0, line);
     return line;
 }
-OITable.prototype.redraw = function() {
+OITable.prototype.redraw = function redraw() {
     this.div.removeChild(this.table);
     this.table = document.createElement("table");
     this.table.className = "tablecell";
@@ -57,10 +57,10 @@ OITable.prototype.redraw = function() {
     for(var i=0; i < this.lines.length; i++)
         if(this.lines[i]) this.table.appendChild(this.lines[i]);
 }
-OITable.prototype.highlight = function(id) {
+OITable.prototype.highlight = function highlight(id) {
     this.lineids[id].style.fontWeight = "bold";
 }
-OITable.prototype.unhighlight = function(id) {
+OITable.prototype.unhighlight = function unhighlight(id) {
     this.lineids[id].style.fontWeight = "";
 }
 OITable.prototype.selectLine = function selectLine (id){
@@ -70,4 +70,5 @@ OITable.prototype.selectLine = function selectLine (id){
 OITable.prototype.init = function init (){
     this.lines = [];
     this.lineids = {};
+    this.space = null;
 }
