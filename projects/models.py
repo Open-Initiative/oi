@@ -23,6 +23,8 @@ class ProjectManager(models.Manager):
     
     def filter_perm(self, user, permission):
         """filter permissions"""
+        if user.is_superuser: #Super user has permissions on all tasks
+            return self.all()
         if permission==OI_READ:
             return self.filter(models.Q(public=True)|models.Q(projectacl__user=user if user.is_authenticated() else None, projectacl__permission=permission)).distinct()
         else:
@@ -430,4 +432,4 @@ class Release(models.Model):
         unique_together = ("project", "name")
         
     def __unicode__(self):
-        return "Project: '%s', on release: '%s', done is: '%s'"%(self.project.title, self.name, self.done)
+        return "'%s', on project: '%s', done is: '%s'"%(self.name, self.project.title, self.done)

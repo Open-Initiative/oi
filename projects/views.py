@@ -67,11 +67,16 @@ def listtasks(request, id):
                 lists.append('[{"pk": %s, "fields": {"state": 4, "parent": "%s", "title": "..."}}]'%(project.id,project.parent.id))
         
             if request.GET.has_key("listall"):
-                tasks = project.descendants
+                tasks = project.descendants.filter_perm(request.user, OI_READ)
             else:
-                tasks = project.tasks
-            if not request.user.is_superuser: #filters on user permissions
-                tasks = tasks.filter_perm(request.user, OI_READ)
+                tasks = project.tasks.filter_perm(request.user, OI_READ)
+                
+            if request.GET.get("release"):
+                if not project.master.target or request.GET.get("release") == project.master.target.name:
+                    tasks = tasks.filter(Q(target__name = request.GET['release'])|Q(target__isnull = True)|Q(descendants__target__name = request.GET['release'])|Q(descendants__isnull=False, descendants__target__isnull = True)).distinct()
+                else:
+                    tasks = tasks.filter(Q(target__name = request.GET['release'])|Q(descendants__target__name = request.GET['release'])).distinct()
+                
             if request.GET.has_key("order"):
                 tasks = tasks.order_by(request.GET['order'])
             else:
@@ -86,12 +91,6 @@ def listtasks(request, id):
                     tasks = paginator.page(1).object_list
                 except EmptyPage:
                     tasks = paginator.page(paginator.num_pages).object_list
-                    
-            if request.GET.get("release"):
-                if not project.master.target or request.GET.get("release") == project.master.target.name:
-                    tasks = tasks.filter(Q(target__name = request.GET['release'])|Q(target__isnull = True)|Q(descendants__target__name = request.GET['release'])|Q(descendants__target__isnull = True)).exclude(target__done = True)
-                else:
-                    tasks = tasks.filter(Q(target__name = request.GET['release'])|Q(descendants__target__name = request.GET['release']))
             
             #appends the serialized task list to the global list
             lists.append(serializers.oiserialize("json", tasks,
