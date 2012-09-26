@@ -68,7 +68,7 @@ function addRelease(projectid){
 }
 function changeRelease(projectid){
     if (getValue("nextrelease")){
-        if(confirm(gettext("Are you sure you want to change the release?")))
+        if(confirm(gettext("Are you sure you want to mark "+ getValue("release") +" as done and work on "+ getValue("nextrelease") +". All unfinished tasks in "+ getValue("release") +" will be assigned to "+ getValue("nextrelease") +"." )))
         OIajaxCall("/project/"+projectid+"/changerelease","release="+getValue("nextrelease"),"output",function(){});
     }else{
         addRelease(projectid);
@@ -309,8 +309,8 @@ function populateOverviewTable(projectid){
             var views = ["overview","description","planning","team","budget"];
             for(var i = 0; i < tasklist.length; i++){
                 var line = document.createElement('tr');
-                line.className += "state"+task.fields["state"];
                 var task = tasklist[i];
+                line.className += "state"+task.fields["state"];
                 for(var field = fields[j=0]; j < fields.length; field=fields[++j]){
                     if(fields[j]=="state"){task.fields[field] = gettext("State"+task.fields[field]);}
                     if(fields[j]=="due_date"){if(!task.fields[field]) {task.fields[field]="-";}; };
