@@ -59,9 +59,9 @@
         OIajaxCall("/project/{{object.id}}/listtasks?release="+getValue("release")+"&expand={% for ancestor in object.get_path %}{{ancestor.id}},{% endfor %}", null, null,  function(response){
             populateTaskList(eval('('+response+')'));
             {% for ancestor in object.get_path %}
-            oiTree.nodes[{{ancestor.id}}].expand();
+            if(oiTree.nodes[{{ancestor.id}}]) oiTree.nodes[{{ancestor.id}}].expand();
             {% endfor %}
-            setActiveTask({{object.id}}{% if object.state < 4 and object|can_write:user %}, true{% endif %});
+            if(oiTree.nodes[{{object.id}}]) setActiveTask({{object.id}}{% if object.state < 4 and object|can_write:user %}, true{% endif %});
         });
     }
     coloration = {{object.state}};
