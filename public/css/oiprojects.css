@@ -507,6 +507,7 @@ th.tableheader {
 table.tablecell {
     table-layout: fixed;
     width: 240px;
+    white-space: nowrap;
 }
 tr.tablebg0 {
     background: #D7E7F0;

@@ -52,6 +52,8 @@ a:hover {
 .prjtable td
 {
     padding: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 div.center{
     margin: auto;
