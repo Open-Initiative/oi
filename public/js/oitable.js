@@ -9,7 +9,7 @@ function OITable(divid, columns) {
     for(var column=columns[i=0]; i<columns.length; column=columns[++i]) {
         var th = document.createElement("th");
         th.className = "tableheader";
-        th.title = ""+column+"";
+        th.title = ""+column;
         th.innerHTML = column;
         this.header.appendChild(th);
     }
@@ -36,6 +36,7 @@ OITable.prototype.addLine = function addLine(id, cells, afterid, bgClass) {
     var i;
     for(var cell=cells[i=0]; i<cells.length; cell=cells[++i]) {
         col = document.createElement("td");
+        col.title = ""+cell;
         col.innerHTML = cell;
         line.appendChild(col);
     }
