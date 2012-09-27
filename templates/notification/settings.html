@@ -9,21 +9,21 @@
 
 {% if observer.project %}
     <label for="Use_Default_{{observer.id}}">{% trans "Use default" %}</label>
-    <input id="Use_Default_{{observer.id}}" type="checkbox" {% if observer.use_default %} checked="checked" {% endif %} onclick="saveSetting({{observer.id}}, null, this.checked);"/>
+    <input id="Use_Default_{{observer.id}}" type="checkbox" {% if observer.use_default %} checked="checked" {% endif %} onclick="saveSetting({{observer.id}}, this.checked);"/>
 {% endif %}
 <br/>
 <br/>
 <div id="notice_setting_{{observer.id}}" {% if observer.use_default %} class="invisible" {% endif %}>
     <label for="freq_{{observer.id}}">{% trans "Receive notices every" %}</label> 
-    <select id="freq_{{observer.id}}"> 
-        <option onclick="saveSetting({{observer.id}}, 604800);" {% if observer.send_every = 604800 %} selected {% endif %}>{% trans "week" %}</option> 
-        <option onclick="saveSetting({{observer.id}}, 86400);" {% if observer.send_every = 86400 %} selected {% endif %}>{% trans "day" %}</option> 
-        <option onclick="saveSetting({{observer.id}}, 3600);" {% if observer.send_every = 3600 %} selected {% endif %}>{% trans "hour" %}</option> 
-        <option onclick="saveSetting({{observer.id}}, 300);" {% if observer.send_every = 300 %} selected {% endif %}>{% trans "5 minute" %}</option>
+    <select id="freq_{{observer.id}}" onchange="saveSetting({{observer.id}});">
+        <option value="604800" {% if observer.send_every = 604800 %} selected {% endif %}>{% trans "week" %}</option> 
+        <option value="86400" {% if observer.send_every = 86400 %} selected {% endif %}>{% trans "day" %}</option> 
+        <option value="3600" {% if observer.send_every = 3600 %} selected {% endif %}>{% trans "hour" %}</option> 
+        <option value="300" {% if observer.send_every = 300 %} selected {% endif %}>{% trans "5 minute" %}</option>
     </select>
     
     <ul style="margin-top: 0px;">{% for setting in observer.noticesetting_set.all %}
-    <li><input type="checkbox" value="default" {% if setting.send %}checked="checked"{% endif %} onclick="saveSetting({{observer.id}}, null, null, '{{setting.notice_type.label}}', true);"/>
+    <li><input type="checkbox" value="default" {% if setting.send %}checked="checked"{% endif %} onclick="saveSetting({{observer.id}}, null, '{{setting.notice_type.label}}', true);"/>
     <label>{% trans setting.notice_type.display %}</label></li>
     {% endfor %}</ul><br/>
     

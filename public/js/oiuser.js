@@ -68,9 +68,9 @@ function switchPrjList(listid) {
     jQuery(".prjlist").slideUp();
     jQuery("#prjlist"+listid).slideDown();
 }
-function saveSetting(observerid, frequency, use_default, noticeField, send){
+function saveSetting(observerid, use_default, noticeField, send){
     var param = "";
-    if(frequency) param += "&frequency="+frequency;
+    if(getValue("freq_"+observerid)) param += "&frequency="+getValue("freq_"+observerid);
     if(use_default != null) param += "&use_default="+use_default;
     if(noticeField) param += "&noticeField="+noticeField+"&send="+send;
     OIajaxCall("/notification/settings/"+observerid+"/save", param, "output", 
