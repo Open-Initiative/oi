@@ -48,7 +48,10 @@
 {% endwith %}
 <script>
     function initOITree() {
-        if (document.getElementById("add_new_release").selected) addRelease({{object.id}});
+        if (document.getElementById("add_new_release").selected){ 
+            addRelease({{object.id}});
+            document.getElementById("add_new_release").selected = false;
+        };
         oiTree.init();
         if(oiTable) {
             oiTable.init();

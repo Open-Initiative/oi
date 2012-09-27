@@ -49,8 +49,10 @@
             <select id="nextrelease" onchange="changeRelease({{object.id}})" class="invisible">
                 {% for release in object.future_releases %}
                     <option value="{{release.name}}">{{release.name}}</option>
+                {% empty %}
+                    <option selected >{% trans "No next release" %}</option>
                 {% endfor %}
-                <option selected id="change_release" >{% trans "Add a new release" %}</option>
+                <option id="change_release" >{% trans "Add a new release" %}</option>
             </select>
         </div>
     {% endif %}
