@@ -50,7 +50,7 @@
                 {% for release in object.future_releases %}
                     <option value="{{release.name}}">{{release.name}}</option>
                 {% endfor %}
-            <option selected value="" onclick="changeRelease({{object.id}})">{% trans "Add a new release" %}</option>
+                <option selected id="change_release" >{% trans "Add a new release" %}</option>
             </select>
         </div>
     {% endif %}
@@ -67,7 +67,7 @@
                 <option value="{{release.name}}">{{release.name}}</option>
             {% endfor %}
             <option value="">{% trans "All release" %}</option>
-            <option onclick="addRelease({{object.id}})"  >{% trans "Add a new release" %}</option>
+            <option id="add_new_release"  >{% trans "Add a new release" %}</option>
         </select>
     </div>
     <script>

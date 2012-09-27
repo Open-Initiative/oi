@@ -67,11 +67,11 @@ function addRelease(projectid){
     }
 }
 function changeRelease(projectid){
-    if (getValue("nextrelease")){
+    if (document.getElementById("change_release").selected){
+        addRelease(projectid);
+    }else{
         if(confirm(gettext("Are you sure you want to mark "+ getValue("release") +" as done and work on "+ getValue("nextrelease") +". All unfinished tasks in "+ getValue("release") +" will be assigned to "+ getValue("nextrelease") +"." )))
         OIajaxCall("/project/"+projectid+"/changerelease","release="+getValue("nextrelease"),"output",function(){});
-    }else{
-        addRelease(projectid);
     }
 }
 function onExpandNode(projectid) {
