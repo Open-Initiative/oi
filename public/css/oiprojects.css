@@ -363,6 +363,15 @@ option.currentrelease{
 option.oldrelease{
     color:#AAAAAA;
 }
+#nextrelease, #release{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 130px;
+    float: left;
+}
+#release{
+    margin-right: 15px;
+}
 div.prjstate {
     float: right;
     padding: 2px;

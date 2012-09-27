@@ -43,21 +43,8 @@
 {% endif %}
 <div class="cleared"></div>
 <div id="version">
-    {% if user == object.assignee %}
-        <div class="nextrelease clickable" title="{% trans 'Change the release of the project' %}"></div>
-        <div class="nextreleaseblock">
-            <select id="nextrelease" onchange="changeRelease({{object.id}})" class="invisible">
-                {% for release in object.future_releases %}
-                    <option value="{{release.name}}">{{release.name}}</option>
-                {% empty %}
-                    <option selected >{% trans "No next release" %}</option>
-                {% endfor %}
-                <option id="change_release" >{% trans "Add a new release" %}</option>
-            </select>
-        </div>
-    {% endif %}
-    <div id="releaseblock">
-        <select id="release" onchange="initOITree()">
+    <div id="releaseblock" >
+        <select id="release" onchange="initOITree()" title="All the release of this project">
             {% if not object.master.target %}
                 <option class="currentrelease" selected value="Initial release">{% trans "Initial release" %}</option>
             {% endif %}
@@ -72,16 +59,16 @@
             <option id="add_new_release"  >{% trans "Add a new release" %}</option>
         </select>
     </div>
-    <script>
-        $('.nextrelease').click(function(){
-            $('.nextrelease').addClass(" invisible");
-            $('#nextrelease').show();
-            $('#releaseblock').hide();
-        });
-        $('#nextrelease').change(function(){
-            $('.nextrelease').removeClass(" invisible");
-            $('#nextrelease').hide();
-            $('#releaseblock').show();
-        });
-    </script>
+    {% if user == object.assignee %}
+        <div id="nextreleaseblock" >
+            <select id="nextrelease" onchange="changeRelease({{object.id}})" title="All the future release of this project">
+                {% for release in object.future_releases %}
+                    <option value="{{release.name}}">{{release.name}}</option>
+                {% empty %}
+                    <option selected >{% trans "No next release" %}</option>
+                {% endfor %}
+                <option id="change_release" >{% trans "Add a new release" %}</option>
+            </select>
+        </div>
+    {% endif %}
 </div>
