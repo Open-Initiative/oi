@@ -133,7 +133,7 @@ function slideIndex(nextid) {
     if(!sliding) {
         sliding = true;
         if(nextid) nextSlide = jQuery('#indexslide'+nextid);
-        else if(jQuery('.indexslide:visible').next().length) nextSlide = jQuery('.indexslide:visible').next();
+        else if(jQuery('.indexslide:visible').nextAll(".indexslide").length) nextSlide = jQuery('.indexslide:visible').nextAll(".indexslide:first");
         else nextSlide = jQuery('.indexslide').first();
         jQuery(".slidertip").fadeOut()
         jQuery('.indexslide:visible').animate({width: "toggle"},1000);
