@@ -51,7 +51,7 @@
         {% if object.master.state < 4 %}<div class="nextrelease clickable" title="{% trans 'Change the release of the project' %}" onclick="$('#nextreleaseblock').show();"></div> {% endif %}
         <div id="nextreleaseblock" class="invisible">
             <p>{% trans "Click here to change the release" %}</p>
-            <select id="nextrelease" onchange="changeRelease({{object.id}})" title="All the future release of this project" >
+            <select id="nextrelease" onchange="changeRelease({{object.id}})" title="All the future releases of this project" >
                 {% for release in object.future_releases %}
                     <option value="{{release.name}}">{{release.name}}</option>
                 {% empty %}
@@ -63,7 +63,7 @@
         </div>
     {% endif %}
     <div id="releaseblock" >
-        <select id="release" onchange="initOITree()" title="All the release of this project">
+        <select id="release" onchange="initOITree()" title="All the releases of this project">
             {% if not object.master.target %}
                 <option class="currentrelease" selected value="Initial release">{% trans "Initial release" %}</option>
             {% endif %}
@@ -74,7 +74,7 @@
             {% for release in object.future_releases %}
                 <option value="{{release.name}}">{{release.name}}</option>
             {% endfor %}
-            <option value="">{% trans "All release" %}</option>
+            <option value="">{% trans "All releases" %}</option>
             <option id="add_new_release"  >{% trans "Add a new release" %}</option>
         </select>
     </div>

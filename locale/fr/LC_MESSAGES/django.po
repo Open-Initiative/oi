@@ -1029,7 +1029,7 @@ msgid ""
 "%(title)s</a>to you."
 msgstr ""
 "veut vous déléguer la tâche <a href=\"%(current_site)s/project/%(id)s\">"
-"%(title)s</a>. à vous"
+"%(title)s</a>."
 
 #: templates/notification/invitation/notice.html:3
 msgid "wants to add you to his contacts."
@@ -1120,7 +1120,7 @@ msgstr[1] "En attente de la validation des autres utilisateurs"
 
 #: templates/projects/project_actions.html:51
 msgid "Change the release of the project"
-msgstr "De changer la date de livraison du projet :"
+msgstr "Changer la version du projet"
 
 #: templates/projects/project_actions.html:53
 msgid "Click here to change the release"
@@ -1136,7 +1136,7 @@ msgid "Close this window"
 msgstr "Fermer cette fenêtre"
 
 #: templates/projects/project_actions.html:77
-msgid "All release"
+msgid "All releases"
 msgstr "Tous les versions"
 
 #: templates/projects/project_budget.html:6
