@@ -83,7 +83,7 @@ def ajax_login_required(function=None, keep_field=None):
         def new_f(request, id, *args, **kwargs):
             if request.user.is_authenticated():
                 return f(request, id, *args, **kwargs)
-            if keep_field:
+            if keep_field and request.POST.has_key(keep_field):
                 request.session[keep_field] = request.POST[keep_field]
                 return HttpResponse('%s?%s=%s'%(LOGIN_URL, REDIRECT_FIELD_NAME, request.build_absolute_uri()),status=333)
             return HttpResponse('%s?%s=/%s/get/%s'%(LOGIN_URL, REDIRECT_FIELD_NAME, request.get_full_path().split('/')[1],id),status=333)
