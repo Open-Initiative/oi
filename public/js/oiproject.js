@@ -65,14 +65,14 @@ function addRelease(projectid){
             }
         );
     }
+    return value;
 }
 function changeRelease(projectid){
-    if (document.getElementById("change_release").selected){
-        addRelease(projectid);
-    }else{
-        if(confirm(gettext("Are you sure you want to mark '"+ getValue("release") +"' as done and work on '"+ getValue("nextrelease") +"'. All unfinished tasks in '"+ getValue("release") +"' will be assigned to '"+ getValue("nextrelease") +"'." )))
-            OIajaxCall("/project/"+projectid+"/changerelease","release="+getValue("nextrelease"),"output",function(){});
-    }
+    if (document.getElementById("change_release").selected) name = addRelease(projectid);
+    else name = getValue("nextrelease");
+
+    if(confirm(gettext("Are you sure you want to mark '"+ getValue("release") +"' as done and work on '"+ name +"'. All unfinished tasks in '"+ getValue("release") +"' will be assigned to '"+ name +"'." )))
+        OIajaxCall("/project/"+projectid+"/changerelease","release="+name,"output",function(){});
 }
 function onExpandNode(projectid) {
     if(!oiTree.nodes[projectid].children.length){
