@@ -126,7 +126,7 @@ def save_observer(request, id):
     if request.POST.get("use_default"):
         observer.use_default = (request.POST["use_default"] == "true")
     if request.POST.get("noticeField"):
-        observer.noticesetting_set.filter(notice_type__label=request.POST["noticeField"]).update(send=request.POST["send"])
+        observer.noticesetting_set.filter(notice_type__label=request.POST["noticeField"]).update(send=request.POST["send"]=="true")
     observer.save()
     return HttpResponse(_("Modification saved"))
     
