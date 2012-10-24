@@ -47,7 +47,7 @@
 
 <div class="cleared"></div>
 <div id="version">
-    {% if user == object.assignee %}
+    {% if object.master|can_manage:user %}
         {% if object.master.state < 4 %}<div class="nextrelease clickable" title="{% trans 'Change the release of the project' %}" onclick="$('#nextreleaseblock').show();"></div> {% endif %}
         <div id="nextreleaseblock" class="invisible">
             <p>{% trans "Click here to change the release" %}</p>
