@@ -127,6 +127,7 @@ def changerelease(request, id):
     
     #make the old release done true
     master.target.done = True
+    master.target.due_date = request.POST["date"]
     master.target.save()
     master.target = release
     master.save()
@@ -295,6 +296,7 @@ def delegateproject(request, id):
         project.delegate_to = User.objects.get(username=request.POST["delegate_to"])
     except (KeyError, User.DoesNotExist):
         return HttpResponse(_("Cannot find user"), status=531)
+    project.apply_perm(request.user, OI_BID)
     project.save()
     project.delegate_to.get_profile().get_default_observer(project).notify("delegate", project=project, sender=request.user)
     return HttpResponse(_("Sent delegation offer"))

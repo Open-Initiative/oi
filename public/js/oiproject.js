@@ -70,9 +70,10 @@ function addRelease(projectid){
 function changeRelease(projectid){
     if (document.getElementById("change_release").selected) name = addRelease(projectid);
     else name = getValue("nextrelease");
-
-    if(confirm(gettext("Are you sure you want to mark '"+ getValue("release") +"' as done and work on '"+ name +"'. All unfinished tasks in '"+ getValue("release") +"' will be assigned to '"+ name +"'." )))
-        OIajaxCall("/project/"+projectid+"/changerelease","release="+name,"output",function(){});
+    if(confirm(gettext("Are you sure you want to mark '"+ getValue("release") +"' as done and work on '"+ name +"'. All unfinished tasks in '"+ getValue("release") +"' will be assigned to '"+ name +"'." ))){
+        date = new Date();
+        OIajaxCall("/project/"+projectid+"/changerelease","release="+name+"&date="+date.dateFormat("Y-m-d"),"output",function(){});
+    }
 }
 function onExpandNode(projectid) {
     if(!oiTree.nodes[projectid].children.length){
