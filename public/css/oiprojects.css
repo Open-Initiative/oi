@@ -15,11 +15,13 @@ div.spec-link-overview {
     float:right; 
     clear: right;
     margin-top:1.5em;
+    width: 150px;
+    padding: 2px;
 }
 img.next-mini-spec {
     float:right; 
     margin-top: 3em;
-    margin-right: -1em;
+    margin-right: -1.5em;
 }
 img.previous-mini-spec {
     float:left; 
@@ -257,7 +259,7 @@ div.cardspec {
     margin: 20px 0;
 }
 div.minispec {
-    width: 140px;
+    width: 135px;
     height: 90px;
     float: right;
     border: 1px solid;

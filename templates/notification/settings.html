@@ -9,7 +9,7 @@
 
 {% if observer.project %}
     <label for="Use_Default_{{observer.id}}">{% trans "Use default" %}</label>
-    <input id="Use_Default_{{observer.id}}" type="checkbox" {% if observer.use_default %} checked="checked" {% endif %} onclick="saveSetting({{observer.id}}, this.checked);"/>
+    <input id="Use_Default_{{observer.id}}" type="checkbox" {% if observer.use_default %} checked {% endif %} onclick="saveSetting({{observer.id}}, this.checked);"/>
 {% endif %}
 <br/>
 <br/>
@@ -23,7 +23,7 @@
     </select>
     
     <ul style="margin-top: 0px;">{% for setting in observer.noticesetting_set.all %}
-    <li><input type="checkbox" value="default" {% if setting.send %}checked="checked"{% endif %} onclick="saveSetting({{observer.id}}, null, '{{setting.notice_type.label}}', true);"/>
+    <li><input type="checkbox" {% if setting.send %} checked {% endif %} onclick="saveSetting({{observer.id}}, null, '{{setting.notice_type.label}}', this.checked);"/>
     <label>{% trans setting.notice_type.display %}</label></li>
     {% endfor %}</ul><br/>
     

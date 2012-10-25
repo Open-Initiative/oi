@@ -35,7 +35,7 @@ function OIajaxCall(url, params, divid, callBack) {
             document.getElementById("output").innerHTML = gettext('Forbidden : ') + xmlhttp.responseText;
         else if(xmlhttp.status >= 404)
             document.getElementById("output").innerHTML = gettext('ERROR : ') +gettext('Could not find object');
-        else if(xmlhttp.status == 332) document.location.reload();
+        else if(xmlhttp.status == 332) document.location.reload(true);
         else if(xmlhttp.status == 333) document.location = xmlhttp.responseText;
         else if(xmlhttp.status == 200){
             if(divid)document.getElementById(divid).innerHTML = xmlhttp.responseText;

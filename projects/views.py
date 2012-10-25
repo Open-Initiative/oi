@@ -131,7 +131,7 @@ def changerelease(request, id):
     master.target = release
     master.save()
     
-    return HttpResponse(_("Release changed"))
+    return HttpResponse(_("Release changed"), status=332)
     
 @login_required
 def editproject(request, id):

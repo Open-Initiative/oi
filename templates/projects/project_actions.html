@@ -47,7 +47,7 @@
 
 <div class="cleared"></div>
 <div id="version">
-    {% if user == object.assignee %}
+    {% if object.master|can_manage:user %}
         {% if object.master.state < 4 %}<div class="nextrelease clickable" title="{% trans 'Change the release of the project' %}" onclick="$('#nextreleaseblock').show();"></div> {% endif %}
         <div id="nextreleaseblock" class="invisible">
             <p>{% trans "Click here to change the release" %}</p>
@@ -65,7 +65,7 @@
     <div id="releaseblock" >
         <select id="release" onchange="initOITree()" title="All the releases of this project">
             {% if not object.master.target %}
-                <option class="currentrelease" selected value="Initial release">{% trans "Initial release" %}</option>
+                <option class="currentrelease" selected value="{% trans 'Initial release' %}">{% trans "Initial release" %}</option>
             {% endif %}
             {% for release in object.old_releases %}
                 <option class="oldrelease" value="{{release.name}}">{{release.name}}</option>
