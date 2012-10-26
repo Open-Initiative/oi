@@ -5,7 +5,7 @@
 {% block pagetitle %}{{object.title|default:_("Project")}}{% endblock %}
 {% block indicators %}
 <div class="prj-private-bloc">
-    <div>{% trans "Task" %} {% if object.public %} {% trans "public" %} {% else %} {% trans "private" %}{% endif %}</div>
+    <div>{% if object.public %} {% trans "Public task" %} {% else %} {% trans "Private task" %}{% endif %}</div>
     <a class="clickable" onclick="toggleHideProject({{object.id}})"> {% trans "Make this task" %} {% if object.public %}{% trans "private" %}{% else %}{% trans "public" %}{% endif %}<img src="/img/icons/bluebtn.png"/></a>
 </div>
 <div class="prj-block-fav">
@@ -19,7 +19,7 @@
 {% block actions %}{% include "projects/project_actions.html" %}{% endblock %}
 {% block nav %}
 <div id="projecttree"></div> <div id="loading"> </div> 
-{% if object.master and not object.master.tasks.all %}<div class="tasktip"><img src="/img/askoi.png" />{% trans "Tasks in the project are to be listed here" %}</div>{% endif %}
+{% if object.master.descendants.count < 1 %}<div class="tasktip"><img src="/img/askoi.png" />{% trans "Tasks in the project are to be listed here" %}</div>{% endif %}
 {% endblock %}
 {% block content %}
 <div class="pagetop">
