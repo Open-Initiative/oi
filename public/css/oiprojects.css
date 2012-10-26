@@ -437,6 +437,7 @@ div.treetitle {
     height: 20px;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
     padding: 5px;
     line-height: 1.5em;
 }
