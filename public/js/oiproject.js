@@ -296,7 +296,7 @@ function orderOverviewTable(projectid, order_by){
     populateOverviewTable(projectid);
 }
 function populateOverviewTable(projectid){
-    var divid = newDiv("load");
+    var divid = "load";
     var url = "/project/"+projectid+"/listtasks?listall";
     if(order) url += "&order="+order;
     url += "&page="+(page||1);
