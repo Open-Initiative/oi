@@ -8,15 +8,14 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden, Http404
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext as _
+from django.db.models.query import QuerySet
 from oi.settings import MEDIA_ROOT
 from oi.helpers import OI_ALL_PERMS, OI_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_ANSWER, OI_BID, OI_MANAGE, OI_COMMISSION, OI_COM_ON_BID, OI_CANCELLED_BID
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS
 from oi.helpers import SPEC_TYPES, SPOT_TYPES, TEXT_TYPE, NOTE_TYPE, to_date
 from oi.prjnotify.models import Observer
 
-
-#Add function for the list
-class ProjectManager(models.Manager):
+class ProjectQuerySet(QuerySet):
     def with_offer(self):
         """includes only projects with an offer"""
         return self.filter(offer__gt = 0)
@@ -30,6 +29,35 @@ class ProjectManager(models.Manager):
         else:
             return self.filter(projectacl__user=user if user.is_authenticated() else None, projectacl__permission=permission).distinct()
             
+    def apply_perm(self, user, perm):
+        """sets perm on all descendants project"""
+        for task in self:
+            task.set_perm(user, perm)
+
+    def apply_public(self, public):
+        """sets public on project and descendants"""
+        return self.update(public=public)
+
+#Add function for the list
+class ProjectManager(models.Manager):
+    def get_query_set(self):
+        """Returns a new QuerySet object.  Subclasses can override this method
+        to easily customize the behavior of the Manager.
+        """
+        return ProjectQuerySet(self.model, using=self._db)
+        
+    def filter_perm(self, *args, **kwargs):
+        return self.get_query_set().filter_perm(*args, **kwargs)
+            
+    def with_offer(self, *args, **kwargs):
+        return self.get_query_set().with_offer(*args, **kwargs)
+        
+    def apply_perm(self, *args, **kwargs):
+        return self.get_query_set().apply_perm(*args, **kwargs)
+        
+    def apply_public(self, *args, **kwargs):
+        return self.get_query_set().apply_public(*args, **kwargs)
+        
 # A project can contain subprojects and/or specs. Without them it is only a task
 class Project(models.Model):
     title = models.CharField(max_length=100)
@@ -212,20 +240,7 @@ class Project(models.Model):
                     self.projectacl_set.get_or_create(user=user, permission=right)
             else:
                 self.projectacl_set.get_or_create(user=user, permission=perm)
-
-    @commit_on_success
-    def apply_perm(self, user, perm):
-        """sets perm on project and descendants"""
-        self.set_perm(user, perm)
-        for descendant in self.descendants.all():
-            descendant.set_perm(user, perm)
-
-    @commit_on_success
-    def apply_public(self, public):
-        """sets public on project and descendants"""
-        self.public = public
-        self.descendants.all().update(public=public)
-
+    
     @commit_on_success
     def inherit_perms(self):
         """gets all perms from parent and sets them to the project"""
@@ -233,13 +248,26 @@ class Project(models.Model):
             self.public = self.parent.public
             for perm in self.parent.projectacl_set.all():
                 self.set_perm(perm.user, perm.permission)
-
+            
     @commit_on_success
-    def assign_to(self, user):
+    def assign_to(self, user, requester=None):
         """sets project and descendants' assignee"""
-        self.assignee = user
-        self.save()
-        self.descendants.update(assignee=user)
+        if user.is_authenticated:
+            if requester:
+                if self.has_perm(requester, OI_MANAGE):
+                    self.assignee = user
+                    self.save()
+                    tasks = self.descendants.filter_perm(requester, OI_MANAGE)
+                    tasks.update(assignee=user)
+                    tasks.apply_perm(user, OI_MANAGE)
+                    tasks.apply_perm(requester, OI_BID)
+                    for task in tasks:
+                        bid, created = Bid.objects.get_or_create(project=task, user=requester)
+            else:
+                self.assignee = user
+                self.save()
+                self.descendants.update(assignee=user)
+                self.descendants.apply_perm(user, OI_MANAGE)
 
     def notify_all(self, sender, notice_type, param):
         """sends a notification to all users about this project"""

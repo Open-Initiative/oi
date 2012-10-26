@@ -186,7 +186,8 @@ def saveproject(request, id='0'):
     project.set_perm(author, OI_ALL_PERMS)
     project.inherit_perms()
     if project.assignee:
-        project.apply_perm(project.assignee, OI_MANAGE)
+        self.set_perm(user, OI_MANAGE)
+        project.descendants.apply_perm(project.assignee, OI_MANAGE)
     project.save()
         
     if assignee:
@@ -275,7 +276,7 @@ def offerproject(request, id):
         return HttpResponse(_('Please enter a valid number'), status=531)
     project.commission = project.offer * OI_COMMISSION #computes project commission
     project.save()
-    project.apply_perm(project.assignee, OI_WRITE)
+    project.descendants.apply_perm(project.assignee, OI_WRITE)
     #adds the project to user's observation
     request.user.get_profile().follow_project(project.master)
 
@@ -296,7 +297,6 @@ def delegateproject(request, id):
         project.delegate_to = User.objects.get(username=request.POST["delegate_to"])
     except (KeyError, User.DoesNotExist):
         return HttpResponse(_("Cannot find user"), status=531)
-    project.apply_perm(request.user, OI_BID)
     project.save()
     project.delegate_to.get_profile().get_default_observer(project).notify("delegate", project=project, sender=request.user)
     return HttpResponse(_("Sent delegation offer"))
@@ -315,9 +315,7 @@ def answerdelegate(request, id):
 
     if answer == "true":
         #former assignee now has to validate
-        bid, created = Bid.objects.get_or_create(project=project, user=project.assignee)
-        project.assign_to(request.user)
-        project.apply_perm(request.user, OI_MANAGE)
+        project.assign_to(request.user, requester=project.assignee)
         #adds the project to user's observation
         request.user.get_profile().follow_project(project.master)
     project.save()
@@ -396,7 +394,8 @@ def validatorproject(request, id):
     
     bid, created = Bid.objects.get_or_create(project=project, user=user)
     
-    project.apply_perm(user, OI_BID)
+    project.set_perm(user, OI_BID)
+    project.descendants.apply_perm(user, OI_BID)
     user.get_profile().follow_project(project.master)
     user.get_profile().get_default_observer(project).notify("share", project=project, sender=request.user)
     return HttpResponse(_("The user has been added as a validator"))
@@ -594,8 +593,9 @@ def moveproject(request, id):
 def togglehideproject(request, id):
     """Makes the project private or public and outputs a message"""
     project = Project.objects.get(id=id)
-    project.apply_public(not project.public)
+    project.public = not project.public
     project.save()
+    project.descendants.apply_public(project.public)
     return HttpResponse(_("The task is now %s"%("public" if project.public else "private")))
 
 @OINeedsPrjPerms(OI_MANAGE)
@@ -606,8 +606,10 @@ def shareproject(request, id):
         user = User.objects.get(username=request.POST["username"])
     except (KeyError, User.DoesNotExist):
         return HttpResponse(_("Cannot find user"), status=531)
-    project.apply_perm(user, OI_BID)
-    project.apply_perm(user, OI_READ)
+    project.set_perm(user, OI_BID)
+    project.descendants.apply_perm(user, OI_BID)
+    project.set_perm(user, OI_READ)
+    project.descendants.apply_perm(user, OI_READ)
     user.get_profile().follow_project(project)
     user.get_profile().get_default_observer(project).notify("share", project=project, sender=request.user)
     messages.info(request, _("Task shared"))
