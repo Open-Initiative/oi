@@ -261,6 +261,7 @@ class Project(models.Model):
                     tasks = self.descendants.filter_perm(requester, OI_MANAGE)
                     tasks.update(assignee=user)
                     tasks.apply_perm(user, OI_MANAGE)
+                    self.set_perm(requester, OI_BID)
                     tasks.apply_perm(requester, OI_BID)
                     bid, created = Bid.objects.get_or_create(project=self, user=requester)
                     for task in tasks:
@@ -269,6 +270,7 @@ class Project(models.Model):
                 self.assignee = user
                 self.save()
                 self.descendants.update(assignee=user)
+                self.set_perm(user, OI_MANAGE)
                 self.descendants.apply_perm(user, OI_MANAGE)
 
     def notify_all(self, sender, notice_type, param):
