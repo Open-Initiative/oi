@@ -257,10 +257,12 @@ class Project(models.Model):
                 if self.has_perm(requester, OI_MANAGE):
                     self.assignee = user
                     self.save()
+                    self.set_perm(user, OI_MANAGE)
                     tasks = self.descendants.filter_perm(requester, OI_MANAGE)
                     tasks.update(assignee=user)
                     tasks.apply_perm(user, OI_MANAGE)
                     tasks.apply_perm(requester, OI_BID)
+                    bid, created = Bid.objects.get_or_create(project=self, user=requester)
                     for task in tasks:
                         bid, created = Bid.objects.get_or_create(project=task, user=requester)
             else:

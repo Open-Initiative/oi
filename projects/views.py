@@ -276,6 +276,7 @@ def offerproject(request, id):
         return HttpResponse(_('Please enter a valid number'), status=531)
     project.commission = project.offer * OI_COMMISSION #computes project commission
     project.save()
+    project.set_perm(project.assignee, OI_WRITE)
     project.descendants.apply_perm(project.assignee, OI_WRITE)
     #adds the project to user's observation
     request.user.get_profile().follow_project(project.master)
