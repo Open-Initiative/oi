@@ -140,3 +140,20 @@ msgstr "Livré"
 # oiproject.js
 msgid "State4"
 msgstr "Terminé"
+
+# oiproject.js
+msgid "Are you sure you want to mark '"
+msgstr "Êtes vous sûr de marquer '"
+
+# oiproject.js
+msgid "' as done and work on '"
+msgstr "' comme finie et travailler sur '"
+
+# oiproject.js
+msgid "'. All unfinished tasks in '"
+msgstr "'. Toutes les tâches non finie dans '"
+
+# oiproject.js
+msgid "' will be assigned to '"
+msgstr "' seront assigné à '"
+
