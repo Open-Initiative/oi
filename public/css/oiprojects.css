@@ -524,6 +524,7 @@ th.tableheader {
     overflow: hidden;
     text-overflow: ellipsis;
     width: 30%;
+    position: relative;
 }
 table.tablecell {
     table-layout: fixed;

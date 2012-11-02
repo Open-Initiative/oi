@@ -83,7 +83,7 @@ function hidePopups() {
     }
     var i, popup;
     for(popup=document.popups[i=0]; i<document.popups.length; popup=document.popups[++i])
-        popup.hide();
+        hide(popup.id);
 }
 function addPopup(popup) {
     document.popups = (document.popups || []).concat(popup);
