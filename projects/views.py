@@ -66,11 +66,42 @@ def listtasks(request, id):
                 #adding the task if the user has no right on it, but with no info
                 lists.append('[{"pk": %s, "fields": {"state": 4, "parent": "%s", "title": "..."}}]'%(project.id,project.parent.id))
         
+        
             if request.GET.has_key("listall"):
                 tasks = project.descendants.filter_perm(request.user, OI_READ)
             else:
                 tasks = project.tasks.filter_perm(request.user, OI_READ)
+             
+            #this queryset filter with request key 'filter_title' in overview table   
+            if request.GET.get('filter_title'):
+                tasks = project.tasks.filter(title__contains=request.GET['filter_title'])
+               
+            #this queryset filter with request key 'filter_state' in overview table     
+            if request.GET.get('filter_state'):
+                tasks = project.tasks.filter(state=request.GET['filter_state'])
+             
+            #this queryset filter with request key 'filter_echeance' in overview table    
+            if request.GET.get('filter_echeance'):
+                tasks = project.tasks.filter(
+                    Q(created__gte=datetime.now()-timedelta(0, int(request.GET['filter_echeance'])))|
+                    Q(due_date__gte=datetime.now()-timedelta(hours=0, seconds=int(request.GET['filter_echeance'])))|
+                    Q(validation__gte=datetime.now()-timedelta(0, int(request.GET['filter_echeance']))))
+            
+            #this queryset filter with request key 'filter_assignee' in overview table    
+            if request.GET.get('filter_assignee'):
+                if request.GET['filter_assignee'] == 'Other':
+                   tasks = project.tasks.filter(assignee__isnull=False).exclude(assignee=request.user.get_profile())
+                else:
+                    tasks = project.tasks.filter(assignee__username=request.user.get_profile())
                 
+            if request.GET.get('filter_budget_min') and request.GET.get('filter_budget_max'):
+                tasks = project.tasks.filter(Q(offer__gte=request.GET['filter_budget_min']),Q(offer__lte=request.GET['filter_budget_max']))
+              
+            #this queryset filter with request key 'filter_release' in overview table  
+            if request.GET.get('filter_release'):
+                tasks = project.tasks.filter(target__name__contains=request.GET['filter_release'])
+            
+            #can sort on the project for the release    
             if request.GET.get("release"):
                 if not project.master.target or request.GET.get("release") == project.master.target.name:
                     tasks = tasks.filter(Q(target__name = request.GET['release'])|Q(target__isnull = True)|Q(descendants__target__name = request.GET['release'])|Q(descendants__isnull=False, descendants__target__isnull = True)).distinct()
@@ -82,6 +113,7 @@ def listtasks(request, id):
             else:
                 tasks = tasks.order_by('-priority')
                 
+            #can paginate overview table     
             if request.GET.has_key('page'):
                 paginator = Paginator(tasks, 25, 0, True)
                 page = request.GET.get('page')
@@ -127,7 +159,7 @@ def changerelease(request, id):
     
     #make the old release done true
     master.target.done = True
-    master.target.due_date = request.POST["date"]
+    master.target.due_date = datetime.now()
     master.target.save()
     master.target = release
     master.save()

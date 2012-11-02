@@ -70,11 +70,12 @@ function addRelease(projectid){
 function changeRelease(projectid){
     if (document.getElementById("change_release").selected) name = addRelease(projectid);
     else name = getValue("nextrelease");
-    if(confirm(
-    gettext("Are you sure you want to mark '")+ getValue("release") +gettext("' as done and work on '")+ name +gettext("'. All unfinished tasks in '")+ getValue("release") +gettext("' will be assigned to '")+ name +"'.")){
-        date = new Date();
-        OIajaxCall("/project/"+projectid+"/changerelease","release="+name+"&date="+date.dateFormat("Y-m-d"),"output",function(){});
-    }
+    if(name){
+        if(confirm(
+        gettext("Are you sure you want to mark '")+ getValue("release") +gettext("' as done and work on '")+ name +gettext("'. All unfinished tasks in '")+ getValue("release") +gettext("' will be assigned to '")+ name +"'.")){
+            OIajaxCall("/project/"+projectid+"/changerelease","release="+name,"output",function(){});
+        }
+    } 
 }
 function onExpandNode(projectid) {
     if(!oiTree.nodes[projectid].children.length){
@@ -301,6 +302,7 @@ function populateOverviewTable(projectid){
     var url = "/project/"+projectid+"/listtasks?listall";
     if(order) url += "&order="+order;
     url += "&page="+(page||1);
+    url += "&"+prepareForm("form_overview");
     OIajaxCall(url, null, divid, 
         function(response){
             var header = document.getElementById('headerTableOverview');
@@ -317,6 +319,7 @@ function populateOverviewTable(projectid){
                     if(fields[j]=="state"){task.fields[field] = gettext("State"+task.fields[field]);}
                     if(fields[j]=="due_date"){if(!task.fields[field]) {task.fields[field]="-";}; };
                     if(fields[j]=="offer")task.fields[field] += " €";
+                    if(fields[j]=="target_name"){if(!task.fields[field]) {task.fields[field]="-";}; };
                     line.appendChild(document.createElement('td')).innerHTML = "<a href=/project/"+task.pk+"/view/"+views[j]+">"+task.fields[field]+"</a>";
                 }
                 document.getElementById('dynamicTableOverview').appendChild(line);
@@ -426,7 +429,7 @@ OISpot.prototype.positionelt = function positioneltSpot(elt, delta) {
 OISpot.prototype.drag = function dragSpot(evt) {
     var event = evt||window.event;
     window.draggedSpot = this;
-    this.hide();
+    hide(this.div);
     document.body.style.cursor = "pointer";
     document.onmouseup = makeObjectCallback(this.drop, this);
     document.body.appendChild(this.number);
@@ -479,13 +482,13 @@ OISpot.prototype.save = function saveSpot(taskid) {
 }
 OISpot.prototype.show = function showSpot() {
     this.div.style.display = "block";
-    addPopup(this);
+    addPopup(this.div);
 }
-OISpot.prototype.hide = function hideSpot() {
-    this.div.style.display = "none";
-    if(!(window.draggedSpot || this.linkid))
-        this.number.style.display = "none";
-}
+//OISpot.prototype.hide = function hideSpot() {
+//    this.div.style.display = "none";
+//    if(!(window.draggedSpot || this.linkid))
+        //this.number.style.display = "none";
+//}
 OISpot.prototype.move = function moveSpot(x,y) {
     this.x = x;
     this.y = y;
