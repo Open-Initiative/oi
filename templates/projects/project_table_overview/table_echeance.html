@@ -1,0 +1,12 @@
+{% load i18n %}
+<a href="javascript:orderOverviewTable({{project.id}}, 'due_date')" class="clickable">
+    {% trans "Echeance" %} </a> 
+<img src="/img/icons/treebtn1-open.png" class="clickable show_hide_popup" onclick="addPopup($('#table_echeance').toggle()[0]);document.ignoreClosePopups = true;"> 
+<div id="table_echeance" class="invisible filter_table">
+    <select name="filter_echeance" class="smallinput" onchange="(populateOverviewTable({{project.id}}))">
+        <option selected> </option>
+        <option value="86400"> {% trans "Today" %} </option>
+        <option value="604800"> {% trans "This week" %} </option>
+        <option value="2678400"> {% trans "This month" %} </option>
+    </select>
+</div>

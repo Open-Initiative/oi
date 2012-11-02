@@ -53,86 +53,26 @@
             {{project.title}}</div> <div id="load"></div>
         <div class="prj-table-overview"><form id="form_overview">
             <table id="dynamicTableOverview"> 
-            
-            
                 <tr id="headerTableOverview">
                     <th class="tableheader">
-                        <a href="javascript:orderOverviewTable({{project.id}}, 'title')" class="clickable">
-                            {% trans "Title" %}</a> 
-                        <img src="/img/icons/treebtn1-open.png" class="clickable" style="float:right; margin-right: -7px;" onclick="addPopup($('#table_title').toggle()[0]);document.ignoreClosePopups = true;"> 
-                        <div id="table_title" class="invisible" style="width:110px; position:absolute; margin-top:9px; overflow:hidden">
-                            <input name="filter_title" style="width: 100px;" onclick="(populateOverviewTable({{project.id}}))">
-                        </div>
+                        {% include 'projects/project_table_overview/table_title.html' %}
                     </th>
-                    
                     <th class="tableheader">
-                        <a href="javascript:orderOverviewTable({{project.id}}, 'state')" class="clickable">
-                            {% trans "State" %} </a>
-                        <img src="/img/icons/treebtn1-open.png" class="clickable" style="float:right; margin-right: -7px;" onclick="addPopup($('#table_state').toggle()[0]);document.ignoreClosePopups = true;">
-                        <div id="table_state" class="invisible"  style="width:110px; position:absolute; margin-top:9px; overflow:hidden">
-                            <select name="filter_state" style="width: 100px;" onchange="(populateOverviewTable({{project.id}}))">
-                                <option selected> </option>
-                                <option value="0"> {% trans "Proposed" %} </option>
-                                <option value="2"> {% trans "Started" %} </option>
-                                <option value="3"> {% trans "Delivered" %} </option>
-                                <option value="4"> {% trans "Done" %} </option>
-                            </select>
-                        </div> 
+                        {% include 'projects/project_table_overview/table_state.html' %}
                     </th>
-                    
                     <th class="tableheader">
-                        <a href="javascript:orderOverviewTable({{project.id}}, 'due_date')" class="clickable">
-                            {% trans "Echeance" %} </a> 
-                        <img src="/img/icons/treebtn1-open.png" class="clickable" style="float:right; margin-right: -7px;" onclick="addPopup($('#table_echeance').toggle()[0]);document.ignoreClosePopups = true;"> 
-                        <div id="table_echeance" class="invisible" style="width:110px; position:absolute; margin-top:9px; overflow:hidden">
-                            <select name="filter_echeance" style="width: 100px;" onchange="(populateOverviewTable({{project.id}}))">
-                                <option selected> </option>
-                                <option value="86400"> {% trans "Today" %} </option>
-                                <option value="604800"> {% trans "This week" %} </option>
-                                <option value="2678400"> {% trans "This month" %} </option>
-                            </select>
-                        </div>
+                        {% include 'projects/project_table_overview/table_echeance.html' %}
                     </th>
-                    
                     <th class="tableheader">
-                        <a href="javascript:orderOverviewTable({{project.id}}, 'assignee')" class="clickable">
-                            {% trans "Assignee" %} </a>
-                        <img src="/img/icons/treebtn1-open.png" class="clickable" style="float:right; margin-right: -7px;" onclick="addPopup($('#table_assignee').toggle()[0]);document.ignoreClosePopups = true;"> 
-                        <div id="table_assignee" class="invisible" style="width:110px; position:absolute; margin-top:9px; overflow:hidden">
-                            <select name="filter_assignee" style="width: 100px;" onchange="(populateOverviewTable({{project.id}}))">
-                                <option selected> </option>
-                                <option value="{% trans 'Me' %}"> {% trans "Me" %} </option>
-                                <option value="{% trans 'Other' %}"> {% trans "Other" %} </option>
-                            </select>
-                        </div>
+                        {% include 'projects/project_table_overview/table_assignee.html' %}
                     </th>
-                    
                     <th class="tableheader">
-                        <a href="javascript:orderOverviewTable({{project.id}}, 'offer')" class="clickable">
-                            {% trans "Budget" %} </a>
-                        <img src="/img/icons/treebtn1-open.png" class="clickable" style="float:right; margin-right: -7px;" onclick="addPopup($('#table_budget').toggle()[0]);document.ignoreClosePopups = true;"> 
-                        <div id="table_budget" style="width:110px; position:absolute; padding-top:9px; overflow:hidden; background:white; border: medium solid; padding-left: 7px; margin-left: -8px;" class="invisible">
-                            <div class="clickable" id="table_budget_slide"></div>
-                            <p>
-                                <label for="maxi">Price range:</label>
-                                <input type="text" id="maxi" style="width:100px; font-family: 'ProximaNova'; color: #0094B5;"/>
-                                <input class="invisible" name="filter_budget_min" type="text" id="maxi_min" style="width:100px; font-family: 'ProximaNova'; color: #0094B5;" value=""/>
-                                <input class="invisible" name="filter_budget_max" type="text" id="maxi_max" style="width:100px; font-family: 'ProximaNova'; color: #0094B5;" value=""/>
-                            </p>
-                        </div>
+                        {% include 'projects/project_table_overview/table_budget.html' %}
                     </th>
-                    
                     <th class="tableheader">
-                        <a href="javascript:orderOverviewTable({{project.id}}, 'target__name')" class="clickable">
-                            {% trans "Release" %} </a>
-                        <img src="/img/icons/treebtn1-open.png" class="clickable" style="float:right; margin-right: -7px;" onclick="addPopup($('#table_release').toggle()[0]);document.ignoreClosePopups = true;"> 
-                        <div id="table_release" class="invisible" style="width:110px; position:absolute; margin-top:9px; overflow:hidden">
-                            <input name="filter_release"style="width: 100px;" onclick="(populateOverviewTable({{project.id}}))">
-                        </div>
+                        {% include 'projects/project_table_overview/table_release.html' %}
                     </th>
                 </tr>
-                
-            
             </table></form>
             <span id="projectOverviewPagePrev" class="prj-overview-page-prev clickable" onclick="page = page<=1?1:page-1; populateOverviewTable({{project.id}}); document.getElementById('page').innerHTML=page">{% trans "previous" %}</span>
             <span id="projectOverviewPageNext" class="prj-overview-page-next clickable" onclick="page = page>=nbpage?nbpage:page+1; populateOverviewTable({{project.id}}); document.getElementById('page').innerHTML=page;">{% trans "next" %}</span>
@@ -143,23 +83,6 @@
                 page=1;
                 $(".prj-table-overview").ready(populateOverviewTable({{project.id}}));
                 document.write("<span class=change-page-overview>"+"<span id=page>"+page+"</span>"+"<span>"+"/"+nbpage+"</span>"+"</span>");
-                
-                $(function() {
-                    max_offer = ({{object.offer}});
-                    $("#table_budget_slide").slider({
-                        range: true,
-                        min: 0,
-                        max: 10000,
-                        values: [0, 10000],
-                        slide: function( event, ui ) {
-                            $("#maxi").val(ui.values[0]+"€"+ " - " + ui.values[1]+"€");
-                            $("#maxi_min").val(ui.values[0]);
-                            $("#maxi_max").val(ui.values[1]);
-                        }
-                    });
-                });
-
-                
             </script>
         </div>
     </div>

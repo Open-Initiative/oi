@@ -1,0 +1,30 @@
+{% load i18n %}
+<a href="javascript:orderOverviewTable({{project.id}}, 'offer')" class="clickable">
+    {% trans "Budget" %} </a>
+<img src="/img/icons/treebtn1-open.png" class="clickable show_hide_popup" onclick="addPopup($('#table_budget').toggle()[0]);document.ignoreClosePopups = true;"> 
+<div id="table_budget" class="invisible filter_table_budget" onclick="(populateOverviewTable({{project.id}}))">
+    <div class="clickable" id="table_budget_slide"></div>
+    <p>
+        <label for="slide">{% trans "Price range" %}:</label>
+        <input type="text" id="slide" style="width:100px; font-family: 'ProximaNova'; color: #0094B5;"/>
+        <input class="invisible" name="filter_budget_min" type="text" id="slide_min" value=""/>
+        <input class="invisible" name="filter_budget_max" type="text" id="slide_max" value=""/>
+    </p>
+</div>
+
+<script>
+    $(function() {
+         var max_offer = eval({{object.alloffer_sum}});
+        $("#table_budget_slide").slider({
+            range: true,
+            min: 0,
+            max: max_offer,
+            values: [0, max_offer/2],
+            slide: function( event, ui ) {
+                $("#slide").val(ui.values[0]+"€"+ " - " + ui.values[1]+"€");
+                $("#slide_min").val(ui.values[0]);
+                $("#slide_max").val(ui.values[1]);
+            }
+        });
+    });
+</script>
