@@ -146,7 +146,7 @@ function editProjectTitle(projectid) {
 }
 function confirmEditTitle(projectid) {
     OIajaxCall("/project/confirmedittitle/"+projectid, "title="+getValue("title_"+projectid), "output", 
-        function(){resetProjectTitle(projectid, title);});
+        function(){resetProjectTitle(projectid, getValue("title_"+projectid));});
 }
 function resetProjectTitle(projectid, title) {
     document.getElementById("prjtitle_"+projectid).innerHTML = title;

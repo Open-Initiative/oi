@@ -5,7 +5,7 @@
     <div class="prjtitle" id="prjtitle_{{object.id}}">
         {{object.title}}
         {% if object|can_write:user and object.state < 2 %}
-        <img onclick="editProjectTitle({{object.id}})" class="clickable" src="/img/icons/edit.png" alt="{% trans "Edit the title" %}" title="{% trans "Edit the title" %}" />
+        <img onclick="editProjectTitle({{object.id}})" class="clickable" src="/img/icons/edit.png" alt="{% trans 'Edit the title' %}" title="{% trans 'Edit the title' %}" />
         {% endif %}
     </div>
     <div id="specs_{{project.id}}">
