@@ -33,6 +33,9 @@ OI_PRJ_STATES = ((OI_PROPOSED, _("Proposed")), (OI_ACCEPTED, _("Accepted")), (OI
 # Available views
 OI_PRJ_VIEWS = ['overview','description','planning','team','budget']
 
+# Available table_overview
+OI_TABLE_OVERVIEW = ['title','state','echeance','assignee','budget','target']
+
 # Project constants
 OI_PRJ_DONE = 100
 OI_CANCELLED_BID = -1
@@ -60,11 +63,13 @@ VIDEO_TYPE = 4
 DOC_TYPE = 5
 SPEC_TYPES =  {TEXT_TYPE:_("Text"), IMAGE_TYPE:_("Image"), URL_TYPE:_("url link"), VIDEO_TYPE:_("Video"), DOC_TYPE:_("Document")}
 
-#Spot types
-NOTE_TYPE = 1
-TASK_TYPE = 2
-MESSAGE_TYPE = 3
-SPOT_TYPES =  {NOTE_TYPE:_("Note"), TASK_TYPE:_("Task"), MESSAGE_TYPE:_("Discussion")}
+
+#XXX deprecated
+##Spot types
+#NOTE_TYPE = 1
+#TASK_TYPE = 2
+#MESSAGE_TYPE = 3
+#SPOT_TYPES =  {NOTE_TYPE:_("Note"), TASK_TYPE:_("Task"), MESSAGE_TYPE:_("Discussion")}
 
 class OIAction:
     def show(self, project, user):

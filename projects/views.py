@@ -22,9 +22,9 @@ from django.utils.translation import ugettext as _
 from django.views.generic.list_detail import object_detail, object_list
 from django.views.generic.simple import direct_to_template
 from oi.settings import MEDIA_ROOT, TEMP_DIR
-from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS
+from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS, OI_TABLE_OVERVIEW
 from oi.helpers import OI_PRJ_DONE, OI_NO_EVAL, OI_ACCEPT_DELAY, OI_READ, OI_ANSWER, OI_BID, OI_MANAGE, OI_WRITE, OI_ALL_PERMS, OI_CANCELLED_BID, OI_COM_ON_BID, OI_COMMISSION
-from oi.helpers import OI_PRJ_VIEWS, SPEC_TYPES, SPOT_TYPES, NOTE_TYPE, TASK_TYPE, MESSAGE_TYPE, OIAction, ajax_login_required
+from oi.helpers import OI_PRJ_VIEWS, SPEC_TYPES, OIAction, ajax_login_required
 from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeedsPrjPerms, Release
 from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
@@ -50,7 +50,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def getproject(request, id, view="overview"):
     if not view: view = "overview"
     project = Project.objects.get(id=id)
-    return direct_to_template(request, template="projects/project_detail.html", extra_context={'object': project, 'current_view':view, 'views':OI_PRJ_VIEWS, 'types':SPEC_TYPES, })
+    return direct_to_template(request, template="projects/project_detail.html", extra_context={'object': project, 'current_view':view, 'views':OI_PRJ_VIEWS, 'types':SPEC_TYPES, 'table_overview': OI_TABLE_OVERVIEW})
 
 @OINeedsPrjPerms(OI_READ)
 def listtasks(request, id):
