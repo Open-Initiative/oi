@@ -75,7 +75,7 @@
                 <option value="{{release.name}}">{{release.name}}</option>
             {% endfor %}
             <option value="">{% trans "All releases" %}</option>
-            <option id="add_new_release"  >{% trans "Add a new release" %}</option>
+            {% if object.master|can_manage:user %}<option id="add_new_release"  >{% trans "Add a new release" %}</option>{% endif %}
         </select>
     </div>
     <script>
