@@ -51,27 +51,25 @@
             {{tasks.count}} 
             {% blocktrans count counter=tasks|length %}task inside{% plural %}tasks inside{% endblocktrans %}
             {{project.title}}</div> <div id="load"></div>
-        <div class="prj-table-overview"><form id="form_overview">
+        <div class="prj-table-overview"><form id="form_overview" onsubmit="populateOverviewTable({{project.id}});return false">
             <table id="dynamicTableOverview"> 
                 <tr id="headerTableOverview">
-                    <th class="tableheader">
-                        {% include 'projects/project_table_overview/table_title.html' %}
-                    </th>
-                    <th class="tableheader">
-                        {% include 'projects/project_table_overview/table_state.html' %}
-                    </th>
-                    <th class="tableheader">
-                        {% include 'projects/project_table_overview/table_echeance.html' %}
-                    </th>
-                    <th class="tableheader">
-                        {% include 'projects/project_table_overview/table_assignee.html' %}
-                    </th>
-                    <th class="tableheader">
-                        {% include 'projects/project_table_overview/table_budget.html' %}
-                    </th>
-                    <th class="tableheader">
-                        {% include 'projects/project_table_overview/table_release.html' %}
-                    </th>
+                
+                    {% for cell in table_overview %}
+                        <th class="tableheader">
+                            <a href="javascript:orderOverviewTable({{project.id}}, '{{cell}}')" class="clickable">
+                                {% trans cell %}</a> 
+                            <img src="/img/icons/treebtn1-open.png" class="clickable show_hide_popup" onclick="addPopup($('#table_{{cell}}').toggle()[0]);document.ignoreClosePopups = true;">
+                            <div id="table_{{cell}}" class="invisible filter_table" onclick="document.ignoreClosePopups = true;event.stopPropagation();">
+                                {% with 'projects/table_overview/table_'|add:cell|add:'.html' as template_name %}
+                                    {% include template_name %}
+                                {% endwith %}
+                                <input type="image" src="/img/icons/ok.png" alt="{% trans 'Add' %}" onclick="$('#table_{{cell}}').hide()" />
+                                <img class="clickable" src="/img/icons/delete.png" alt="{% trans 'Cancel' %}" onclick="$('#table_{{cell}}').hide()"/>
+                            <div>
+                        </th>
+                    {% endfor %}
+                    
                 </tr>
             </table></form>
             <span id="projectOverviewPagePrev" class="prj-overview-page-prev clickable" onclick="page = page<=1?1:page-1; populateOverviewTable({{project.id}}); document.getElementById('page').innerHTML=page">{% trans "previous" %}</span>
