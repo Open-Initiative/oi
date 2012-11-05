@@ -1,8 +1,0 @@
-{% load i18n %}
-<a href="javascript:orderOverviewTable({{project.id}}, 'title')" class="clickable">
-    {% trans "Title" %}</a> 
-<img src="/img/icons/treebtn1-open.png" class="clickable show_hide_popup" onclick="addPopup($('#table_title').toggle()[0]);document.ignoreClosePopups = true;"> 
-<div id="table_title" class="invisible filter_table">
-    <input name="filter_title" class="smallinput" onclick="(populateOverviewTable({{project.id}}))">
-</div>
-

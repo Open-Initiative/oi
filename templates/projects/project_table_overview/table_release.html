@@ -1,7 +1,0 @@
-{% load i18n %}
-<a href="javascript:orderOverviewTable({{project.id}}, 'target__name')" class="clickable">
-    {% trans "Release" %} </a>
-<img src="/img/icons/treebtn1-open.png" class="clickable show_hide_popup" onclick="addPopup($('#table_release').toggle()[0]);document.ignoreClosePopups = true;"> 
-<div id="table_release" class="invisible filter_table">
-    <input name="filter_release" class="smallinput" onclick="(populateOverviewTable({{project.id}}))">
-</div>
