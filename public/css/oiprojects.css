@@ -231,12 +231,6 @@ div.arrow-design{
 .filter_table{
     width:110px; 
     position:absolute; 
-    margin-top:9px; 
-    overflow:hidden;
-}
-.filter_table_budget{
-    width:110px; 
-    position:absolute; 
     padding-top:9px; overflow:hidden; 
     background:white; 
     border: medium solid; 
