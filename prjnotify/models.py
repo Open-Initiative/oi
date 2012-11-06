@@ -73,14 +73,15 @@ class Observer(models.Model):
         if project and not project.has_perm(self.user, OI_READ):
             return False
         notice_type = NoticeType.objects.get(label=label)
-        notice = Notice.objects.create(recipient=self.user, project=project, observer=self,
+        if project.assignee != sender:
+            notice = Notice.objects.create(recipient=self.user, project=project, observer=self,
             notice_type=notice_type, sender=sender, param=param)
-        if self.get_setting(notice_type).send:
-            if self.should_send(): # Email
-                self.send()
-        else:
-            notice.sent = datetime.now()
-            notice.save()
+            if self.get_setting(notice_type).send:
+                if self.should_send(): # Email
+                    self.send()
+            else:
+                notice.sent = datetime.now()
+                notice.save()
     
     def send(self):
         notices = self.notice_set.filter(sent=None).order_by('added')
