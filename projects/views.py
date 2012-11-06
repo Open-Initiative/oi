@@ -164,6 +164,8 @@ def changerelease(request, id):
     master.target = release
     master.save()
     
+    master.notify_all(request.user, "change_release", project.target)
+    
     return HttpResponse(_("Release changed"), status=332)
     
 @login_required
@@ -430,7 +432,7 @@ def validatorproject(request, id):
     project.set_perm(user, OI_BID)
     project.descendants.apply_perm(user, OI_BID)
     user.get_profile().follow_project(project.master)
-    user.get_profile().get_default_observer(project).notify("share", project=project, sender=request.user)
+    user.get_profile().get_default_observer(project).notify("validate_project", project=project, sender=request.user)
     return HttpResponse(_("The user has been added as a validator"))
 
 @ajax_login_required

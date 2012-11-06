@@ -23,3 +23,5 @@ class Command(NoArgsCommand):
         NoticeType.register("project_cancel", _(u"Project cancelled"), _(u"A user has requested the project to be cancelled"))
         NoticeType.register("project_spec", _(u"Specification changed"), _(u"The specification of a project you follow has been changed"))
         NoticeType.register("share", _(u"Project shared"), _(u"The project has been shared with"))
+        NoticeType.register("change_release", _(u"Release changed"), _(u"The release of the project has been changed"))
+        NoticeType.register("validate_project", _(u"Validated project"), _(u"The user has been invited to validate a project"))
