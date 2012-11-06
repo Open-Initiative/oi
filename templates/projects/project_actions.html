@@ -8,7 +8,6 @@
     </div>
 {% endif %}
 
-{% if object.assignee == user %}
 <div class="prj-action-del" >
     {% if object|can_write:user and object.state < 2 and object.bid_set.count == 0 and object.tasks.count == 0 %}
         <img src="/img/icons/del-32.png" class="clickable actions" alt="{% trans "Delete the task" %}" title="{% trans "Delete the task" %}" onclick="deleteProject({{object.id}})" />
@@ -17,7 +16,6 @@
         <img src="/img/icons/del-32.png" class="clickable actions" alt="{% trans "Cancel" %}" title="{% trans "Cancel" %}" onclick="cancelProject({{object.id}}, {{object.state}})" />
     {% endif %}
 </div>
-{% endif %}
 
 <div class="prj-action-btn" id="prj-action-btn">
 {% if object.assignee == user and object.state < 2 and object.is_ready_to_start %}
