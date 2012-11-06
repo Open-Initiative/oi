@@ -1006,7 +1006,7 @@ msgstr ""
 
 #: templates/projects/project_budget.html:43
 msgid "Bid_verb"
-msgstr ""
+msgstr "Bid"
 
 #: templates/projects/project_budget.html:51
 msgid "wants to cancel his"
