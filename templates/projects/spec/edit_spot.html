@@ -7,8 +7,8 @@
             <input name="tasktitle" type="text" class="newtask_title" value="{% trans 'New task' %}" onclick="if(this.value=='{% trans 'New task' %}')this.value=''" onblur="if(!this.value)this.value='{% trans 'New task' %}'"/>
         </div>
         <div class="actions">
-            <input type="image" src="/img/icons/ok-32.png" alt="{% trans "Add" %}" />
-            <img class="clickable" src="/img/icons/del-32.png" alt="{% trans "Cancel" %}" onclick="return getSpot(this).hide()"/>
+            <input type="image" src="/img/icons/ok-32.png" alt="{% trans 'Add' %}" />
+            <img class="clickable" src="/img/icons/del-32.png" alt="{% trans 'Cancel' %}" onclick="return hide(getSpot(this).div.id)"/>
         </div>
     </form>
     <div class="cleared"></div>
