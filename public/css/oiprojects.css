@@ -67,6 +67,7 @@ div.prj-table-overview table tr {
 div.prj-table-overview table tr th {
     color: #0094B5;
     text-align:left;
+    overflow: visible;
 }
 div.prj-table-overview table tr td {
     text-align:left;
@@ -75,7 +76,8 @@ div.prj-table-overview table tr td {
     text-overflow:ellipsis;
 }
 #dynamicTableOverview{
-    overflow:hidden;
+/*    overflow:hidden;*/
+    overflow: visible;
     table-layout: fixed;
     width: 700px;
 }
@@ -233,9 +235,11 @@ div.arrow-design{
     position:absolute; 
     padding-top:9px; overflow:hidden; 
     background:white; 
-    border: medium solid; 
+    border: 1px solid; 
     padding-left: 7px; 
     margin-left: -8px;
+    border-radius: 0px 0px 5px 5px;
+    box-shadow: 2px 2px 4px #888888;
 }
 .show_hide_popup{
     float:right; 
@@ -284,6 +288,9 @@ div.minispec {
     margin-top: 0px;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+.minispec img {
+    max-width:100%
 }
 .cardspec img{
     max-width:100%
