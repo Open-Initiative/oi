@@ -20,7 +20,9 @@
     </div>
     <h3>{% trans "My latest projects" %}</h3>
         {% for project in selected_user.ownprojects.all|dictsortreversed:"modified"|slice:":5" %}
-        <div><a  href="/project/{{project.id}}">{{project.title}}</a></div>
+            {% if project|can_bid:user %}
+                <div><a  href="/project/{{project.id}}">{{project.title}}</a></div>
+            {% endif %}
         {% endfor %}
 </div>
 
