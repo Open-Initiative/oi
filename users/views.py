@@ -79,6 +79,9 @@ def setrss(request):
 @login_required
 def invite(request, id):
     """adds a user as a contact of the current user"""
+    contact = UserProfile.objects.get(id=id)
+    if request.user.get_profile().contacts.filter(user=contact.user):
+        return HttpResponse(_("Contact already added"))
     request.user.get_profile().contacts.add(id)
     User.objects.get(id=id).get_profile().get_default_observer().notify('invitation', sender=request.user)
     return HttpResponse(_("Invitation sent"))
