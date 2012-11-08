@@ -34,7 +34,7 @@ OI_PRJ_STATES = ((OI_PROPOSED, _("Proposed")), (OI_ACCEPTED, _("Accepted")), (OI
 OI_PRJ_VIEWS = ['overview','description','planning','team','budget']
 
 # Available table_overview
-OI_TABLE_OVERVIEW = ['title','state','echeance','assignee','budget','target']
+OI_TABLE_OVERVIEW = ['title','state','due_date','assignee','offer','target']
 
 # Project constants
 OI_PRJ_DONE = 100
