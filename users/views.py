@@ -243,7 +243,7 @@ def sendMP(request, id):
     mp = PersonalMessage(from_user=request.user, to_user=User.objects.get(id=id), text=request.POST['message'], subject=request.POST['subject'])
     mp.save()
     mp.to_user.get_profile().get_default_observer().notify('personal_message', param=mp.subject, sender=mp.from_user)
-    return HttpResponse("Message sent")
+    return HttpResponse(_("Message sent"), status=332)
 
 @login_required
 def archivenotice(request):
