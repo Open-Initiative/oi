@@ -598,6 +598,8 @@ def deleteproject(request, id):
     if project.tasks.count() > 0:
         return HttpResponse(_("Can not delete a project containing tasks. Please delete all its tasks first."))
     
+    project.notify_all(request.user, "project_delete", "")
+    project.notice_set.filter(project=project).update(project=None)
     project.delete()
     if project.parent:
         messages.info(request, _("The task has been deleted."))
