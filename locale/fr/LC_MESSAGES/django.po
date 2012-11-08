@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-06 11:55+0100\n"
+"POT-Creation-Date: 2012-11-08 13:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -94,7 +94,7 @@ msgstr "Publié sur"
 
 #: messages/models.py:140 messages/views.py:65 messages/views.py:78
 #: projects/models.py:374 projects/views.py:178 projects/views.py:209
-#: templates/projects/project_detail.html:85
+#: templates/projects/project_detail.html:87
 msgid "Forbidden"
 msgstr "Permissions insuffisantes"
 
@@ -118,7 +118,7 @@ msgstr "Déjà voté !"
 msgid "voted"
 msgstr "A voté"
 
-#: messages/views.py:166 projects/views.py:848
+#: messages/views.py:166 projects/views.py:850
 msgid "Latest updates of Open Initiative "
 msgstr "L'activité la plus récente d'Open Initiative "
 
@@ -150,7 +150,7 @@ msgstr "affichage"
 msgid "description"
 msgstr "description"
 
-#: prjnotify/models.py:49 prjnotify/models.py:131 prjnotify/models.py:178
+#: prjnotify/models.py:49 prjnotify/models.py:136 prjnotify/models.py:183
 msgid "notice type"
 msgstr "type de notification"
 
@@ -158,69 +158,69 @@ msgstr "type de notification"
 msgid "notice types"
 msgstr "types de notification"
 
-#: prjnotify/models.py:53 prjnotify/models.py:130
+#: prjnotify/models.py:53 prjnotify/models.py:135
 msgid "user"
 msgstr "utilisateur"
 
-#: prjnotify/models.py:54 prjnotify/models.py:180
+#: prjnotify/models.py:54 prjnotify/models.py:185
 msgid "added"
 msgstr "ajouté"
 
-#: prjnotify/models.py:98
+#: prjnotify/models.py:103
 #, python-format
 msgid "Notifications on %s"
 msgstr "Notifications sur %s"
 
-#: prjnotify/models.py:98
+#: prjnotify/models.py:103
 msgid "your account"
 msgstr "votre compte"
 
-#: prjnotify/models.py:125
+#: prjnotify/models.py:130
 msgid "observer"
 msgstr "observateur"
 
-#: prjnotify/models.py:132
+#: prjnotify/models.py:137
 msgid "medium"
 msgstr "canal"
 
-#: prjnotify/models.py:136
+#: prjnotify/models.py:141
 msgid "notice setting"
 msgstr "paramètre de notifications"
 
-#: prjnotify/models.py:137
+#: prjnotify/models.py:142
 msgid "notice settings"
 msgstr "paramètres de notifications"
 
-#: prjnotify/models.py:176
+#: prjnotify/models.py:181
 msgid "recipient"
 msgstr "destinataire"
 
-#: prjnotify/models.py:177
+#: prjnotify/models.py:182
 msgid "sender"
 msgstr "expéditeur"
 
-#: prjnotify/models.py:181
+#: prjnotify/models.py:186
 msgid "unseen"
 msgstr "non lu"
 
-#: prjnotify/models.py:182
+#: prjnotify/models.py:187
 msgid "archived"
 msgstr "archivé"
 
-#: prjnotify/models.py:184
+#: prjnotify/models.py:189
 msgid "on site"
 msgstr "sur site"
 
-#: prjnotify/models.py:198
+#: prjnotify/models.py:203
 msgid "notice"
 msgstr "notification"
 
-#: prjnotify/models.py:199
+#: prjnotify/models.py:204
 msgid "notices"
 msgstr "notifications"
 
-#: prjnotify/views.py:131 users/views.py:183 users/views.py:190
-#: users/views.py:205 users/views.py:212
+#: prjnotify/views.py:131 users/views.py:185 users/views.py:192
+#: users/views.py:207 users/views.py:214
 msgid "Modification saved"
 msgstr "Mofication enregistrée"
 
@@ -371,6 +371,14 @@ msgstr "Valide le projet"
 msgid "The user has been invited to validate a project"
 msgstr "L'utilisateur a été invité pour valider le projet"
 
+#: prjnotify/management/commands/register_notice_types.py:28
+msgid "Project delete"
+msgstr "Projet supprimer"
+
+#: prjnotify/management/commands/register_notice_types.py:28
+msgid "The user has deleted the project"
+msgstr "Un utilisateur a supprimé votre projet"
+
 #: projects/admin.py:34
 msgid "Recompute all descendants"
 msgstr "Recalculer tous les descendants"
@@ -401,8 +409,8 @@ msgstr "Version initiale"
 
 #: projects/views.py:187 projects/views.py:256 projects/views.py:272
 #: projects/views.py:282 projects/views.py:299 projects/views.py:328
-#: projects/views.py:616 projects/views.py:705 projects/views.py:721
-#: projects/views.py:777
+#: projects/views.py:618 projects/views.py:707 projects/views.py:723
+#: projects/views.py:779
 msgid "Can not change a task already started"
 msgstr "Impossible de modifier une tâche démarrée"
 
@@ -451,7 +459,7 @@ msgstr "Tâche assignée"
 msgid "Only the user in charge of the project can delegate it"
 msgstr "Seul l'utilisateur responsable du projet peut le déléguer"
 
-#: projects/views.py:334 projects/views.py:428 projects/views.py:643
+#: projects/views.py:334 projects/views.py:428 projects/views.py:645
 msgid "Cannot find user"
 msgstr "Utilisateur introuvable"
 
@@ -587,67 +595,67 @@ msgstr ""
 "Impossible de supprimer un projet contenant des tâches. Veuillez supprimer "
 "ses tâches d'abord."
 
-#: projects/views.py:603
+#: projects/views.py:605
 msgid "The task has been deleted."
 msgstr "La tâche a été supprimée."
 
-#: projects/views.py:606
+#: projects/views.py:608
 msgid "The project has been deleted."
 msgstr "Le projet a été supprimé."
 
-#: projects/views.py:618
+#: projects/views.py:620
 msgid "Can not move a task inside itself"
 msgstr "Impossible de déplacer une tâche vers elle-même"
 
-#: projects/views.py:625
+#: projects/views.py:627
 msgid "Task moved"
 msgstr "Tâche déplacée"
 
-#: projects/views.py:634
+#: projects/views.py:636
 #, python-format
 msgid "The task is now %s"
 msgstr "La tâche est maintenant passée à %s"
 
-#: projects/views.py:650
+#: projects/views.py:652
 msgid "Task shared"
 msgstr "Tâche partagée"
 
-#: projects/views.py:658
+#: projects/views.py:660
 msgid "The project has to be started for the progress to be updated"
 msgstr "Le projet doit être démarré pour que l'avancement soit mis à jour"
 
-#: projects/views.py:660
+#: projects/views.py:662
 msgid "Only the user in charge of can update its progress"
 msgstr "Seul le responsable du projet peut mettre à jour son avancement"
 
-#: projects/views.py:664
+#: projects/views.py:666
 msgid "Invalid value"
 msgstr "Valeur incorrecte"
 
-#: projects/views.py:669
+#: projects/views.py:671
 msgid "Progress updated"
 msgstr "Avancement mis à jour"
 
-#: projects/views.py:691 projects/views.py:708 projects/views.py:729
-#: projects/views.py:739 projects/views.py:759 projects/views.py:761
-#: projects/views.py:764 projects/views.py:775 projects/views.py:787
-#: projects/views.py:791 projects/views.py:808 users/views.py:202
+#: projects/views.py:693 projects/views.py:710 projects/views.py:731
+#: projects/views.py:741 projects/views.py:761 projects/views.py:763
+#: projects/views.py:766 projects/views.py:777 projects/views.py:789
+#: projects/views.py:793 projects/views.py:810 users/views.py:204
 msgid "Wrong arguments"
 msgstr "Arguments incorrects"
 
-#: projects/views.py:768
+#: projects/views.py:770
 msgid "Spec moved"
 msgstr "Message déplacé"
 
-#: projects/views.py:779
+#: projects/views.py:781
 msgid "Specification deleted"
 msgstr "Spécification supprimée"
 
-#: projects/views.py:806
+#: projects/views.py:808
 msgid "Annotation removed"
 msgstr "Annotation supprimée"
 
-#: projects/views.py:829
+#: projects/views.py:831
 msgid "File deleted"
 msgstr "Fichier supprimé"
 
@@ -1071,6 +1079,10 @@ msgstr "a annulé sa participation à une tâche que vous suivez :"
 #: templates/notification/project_cancel/notice.html:3
 msgid "has cancelled a task you follow:"
 msgstr "a annulé une tâche que vous suivez :"
+
+#: templates/notification/project_delete/notice.html:3
+msgid "has deleted the task:"
+msgstr "a supprimé la tâche"
 
 #: templates/notification/project_eval/notice.html:3
 msgid "has evaluated you on task:"
@@ -1701,7 +1713,7 @@ msgstr "Modifier le mot de passe"
 msgid "Former password"
 msgstr "Ancien mot de passe"
 
-#: templates/users/changepwd.html:13 users/views.py:97
+#: templates/users/changepwd.html:13 users/views.py:99
 msgid "New password"
 msgstr "Nouveau mot de passe"
 
@@ -1992,70 +2004,78 @@ msgstr "Paramètre enregistré"
 msgid "Information saved"
 msgstr "Information enregistrée"
 
-#: users/views.py:84
+#: users/views.py:83
+msgid "Contact already added"
+msgstr "Contact déjà ajouté"
+
+#: users/views.py:86
 msgid "Invitation sent"
 msgstr "Invitation envoyée"
 
-#: users/views.py:91
+#: users/views.py:93
 msgid "The user doesn't exist"
 msgstr "L'utilisateur n'existe pas"
 
-#: users/views.py:93
+#: users/views.py:95
 msgid "E-mail address did not match"
 msgstr "L'adresse e-mail ne correspond pas"
 
-#: users/views.py:97
+#: users/views.py:99
 #, python-format
 msgid "Your password has been reset. Your new password is: %s"
 msgstr ""
 "Votre mot de passe a été réinitialisé. Votre nouveau mot de passe est : %s"
 
-#: users/views.py:98
+#: users/views.py:100
 msgid "The new password has been sent to you by e-mail"
 msgstr "Le nouveau mot de passe vous a été envoyé par e-mail"
 
-#: users/views.py:104
+#: users/views.py:106
 msgid "Old password did not match"
 msgstr "L'ancien mot de passe ne correspond pas"
 
-#: users/views.py:109
+#: users/views.py:111
 msgid "Your password has been updated"
 msgstr "Votre mot de passe a été mis-à-jour."
 
-#: users/views.py:119
+#: users/views.py:121
 msgid "Your email has been updated"
 msgstr "Votre adresse e-mail a été mise-à-jour"
 
-#: users/views.py:125
+#: users/views.py:127
 msgid "Please accept the terms of use"
 msgstr "Merci d'accepter les Conditions Générales d'Utilisation"
 
-#: users/views.py:127
+#: users/views.py:129
 msgid "Invalid username. Please use only letters, digits, - and _."
 msgstr ""
 "Nom d'utilisateur non valide. Merci d'utiliser des lettres, chiffres, - et _."
 
-#: users/views.py:129
+#: users/views.py:131
 msgid "Please enter a password"
 msgstr "Veuillez choisir un mot de passe"
 
-#: users/views.py:131
+#: users/views.py:133
 msgid "Passwords did not match"
 msgstr "Les mots de passe ne correspondent pas"
 
-#: users/views.py:135
+#: users/views.py:137
 msgid "This username is already used"
 msgstr "Ce nom d'utilisateur n'est pas disponible"
 
-#: users/views.py:168
+#: users/views.py:170
 msgid "Incorrect data"
 msgstr "Données incorrectes"
 
-#: users/views.py:181
+#: users/views.py:183
 msgid "Can not change other users' profiles"
 msgstr "Impossible de modifier le profil d'un autre utilisateur"
 
-#: users/views.py:253
+#: users/views.py:246
+msgid "Message sent"
+msgstr "Message envoyé"
+
+#: users/views.py:255
 msgid "Notice archived"
 msgstr "Notification archivée"
 
