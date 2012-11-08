@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-08 13:13+0100\n"
+"POT-Creation-Date: 2012-11-08 14:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1582,23 +1582,23 @@ msgstr "Moi"
 msgid "Other"
 msgstr "Les autres"
 
-#: templates/projects/table_overview/table_budget.html:4
-msgid "Price range"
-msgstr "Tranche de prix"
-
-#: templates/projects/table_overview/table_echeance.html:4
+#: templates/projects/table_overview/table_due_date.html:4
 #: templates/users/profile/experience.html:4
 #: templates/users/profile/training.html:4
 msgid "Today"
 msgstr "Aujourd'hui"
 
-#: templates/projects/table_overview/table_echeance.html:5
+#: templates/projects/table_overview/table_due_date.html:5
 msgid "This week"
 msgstr "Cette semaine"
 
-#: templates/projects/table_overview/table_echeance.html:6
+#: templates/projects/table_overview/table_due_date.html:6
 msgid "This month"
 msgstr "Ce mois"
+
+#: templates/projects/table_overview/table_offer.html:4
+msgid "Price range"
+msgstr "Tranche de prix"
 
 #: templates/registration/login.html:3
 msgid "Connection"
@@ -2079,6 +2079,9 @@ msgstr "Message envoyé"
 msgid "Notice archived"
 msgstr "Notification archivée"
 
+msgid "due_date"
+msgstr "echéance"
+
 msgid "Note"
 msgstr "Note"
 
@@ -2094,14 +2097,23 @@ msgstr "privée"
 msgid "public"
 msgstr "publique"
 
-msgid "State"
-msgstr "Etat"
+msgid "state"
+msgstr "etat"
 
-msgid "Echeance"
-msgstr "Echéance"
+msgid "title"
+msgstr "titre"
 
-msgid "Release"
-msgstr "Version"
+msgid "assignee"
+msgstr "responsable"
+
+msgid "echeance"
+msgstr "echéance"
+
+msgid "target"
+msgstr "version"
+
+msgid "offer"
+msgstr "budget"
 
 msgid "to take on project"
 msgstr "de prendre en charge le projet"
