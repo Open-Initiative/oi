@@ -1,4 +1,4 @@
 {% load i18n %}
 <input type="text" id="MPsubject" /><br />
 <textarea id="MPmessage" class="norich mp" ></textarea><br />
-<button onclick="sendMP({{ params.id }});location.reload();">{% trans "send" %}</button>
+<button onclick="sendMP({{ params.id }});">{% trans "send" %}</button>
