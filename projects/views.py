@@ -90,7 +90,7 @@ def listtasks(request, id):
             #this queryset filter with request key 'filter_assignee' in overview table    
             if request.GET.get('filter_assignee'):
                 if request.GET['filter_assignee'] == 'Other':
-                   tasks = project.tasks.filter(assignee__isnull=False).exclude(assignee=request.user.get_profile())
+                    tasks = project.tasks.exclude(assignee__username=request.user.get_profile())
                 else:
                     tasks = project.tasks.filter(assignee__username=request.user.get_profile())
                 
