@@ -74,32 +74,35 @@ def listtasks(request, id):
              
             #this queryset filter with request key 'filter_title' in overview table   
             if request.GET.get('filter_title'):
-                tasks = project.descendants.filter(title__contains=request.GET['filter_title'])
+                tasks = tasks.filter(title__contains=request.GET['filter_title'])
                
             #this queryset filter with request key 'filter_state' in overview table     
             if request.GET.get('filter_state'):
-                tasks = project.descendants.filter(state=request.GET['filter_state'])
+                tasks = tasks.filter(state=request.GET['filter_state'])
              
             #this queryset filter with request key 'filter_echeance' in overview table    
             if request.GET.get('filter_echeance'):
-                tasks = project.descendants.filter(
-                    Q(created__gte=datetime.now()-timedelta(0, int(request.GET['filter_echeance'])))|
-                    Q(due_date__gte=datetime.now()-timedelta(hours=0, seconds=int(request.GET['filter_echeance'])))|
-                    Q(validation__gte=datetime.now()-timedelta(0, int(request.GET['filter_echeance']))))
+                tasks = tasks.filter(
+                    Q(start_date=datetime.now())|
+                    Q(start_date__gte=datetime.now()+timedelta(0, int(request.GET['filter_echeance'])))|
+                    Q(due_date=datetime.now())|
+                    Q(due_date__gte=datetime.now()+timedelta(hours=0, seconds=int(request.GET['filter_echeance'])))|
+                    Q(validation=datetime.now())|
+                    Q(validation__gte=datetime.now()+timedelta(0, int(request.GET['filter_echeance']))))
             
             #this queryset filter with request key 'filter_assignee' in overview table    
             if request.GET.get('filter_assignee'):
                 if request.GET['filter_assignee'] == 'Other':
-                    tasks = project.descendants.all().exclude(assignee__username=request.user.get_profile())
+                    tasks = tasks.exclude(assignee__username=request.user.get_profile())
                 else:
-                    tasks = project.descendants.filter(assignee__username=request.user.get_profile())
+                    tasks = tasks.filter(assignee__username=request.user.get_profile())
                 
             if request.GET.get('filter_budget_min') and request.GET.get('filter_budget_max'):
-                tasks = project.descendants.filter(Q(offer__gte=request.GET['filter_budget_min']),Q(offer__lte=request.GET['filter_budget_max']))
+                tasks = tasks.filter(Q(offer__gte=request.GET['filter_budget_min']),Q(offer__lte=request.GET['filter_budget_max']))
               
             #this queryset filter with request key 'filter_release' in overview table  
             if request.GET.get('filter_release'):
-                tasks = project.descendants.filter(target__name__contains=request.GET['filter_release'])
+                tasks = tasks.filter(target__name__contains=request.GET['filter_release'])
             
             #can sort on the project for the release    
             if request.GET.get("release"):
