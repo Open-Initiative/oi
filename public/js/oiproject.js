@@ -429,7 +429,7 @@ OISpot.prototype.positionelt = function positioneltSpot(elt, delta) {
 OISpot.prototype.drag = function dragSpot(evt) {
     var event = evt||window.event;
     window.draggedSpot = this;
-    hide(this.div);
+    hide(this.div.id);
     document.body.style.cursor = "pointer";
     document.onmouseup = makeObjectCallback(this.drop, this);
     document.body.appendChild(this.number);
