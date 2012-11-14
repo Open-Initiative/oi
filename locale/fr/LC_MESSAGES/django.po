@@ -361,11 +361,11 @@ msgstr "Version modifiée"
 
 #: prjnotify/management/commands/register_notice_types.py:26
 msgid "The release of the project has been changed"
-msgstr "La version du a été modifié"
+msgstr "La version du projet a été modifiée"
 
 #: prjnotify/management/commands/register_notice_types.py:27
 msgid "Validated project"
-msgstr "Valide le projet"
+msgstr "Projet validé"
 
 #: prjnotify/management/commands/register_notice_types.py:27
 msgid "The user has been invited to validate a project"
@@ -1032,8 +1032,8 @@ msgid "to take the task"
 msgstr "de prendre en charge la tâche"
 
 #: templates/notification/change_release/notice.html:3
-msgid "has change the release of the project you follow:"
-msgstr "a changé la version que vous suivez"
+msgid "has changed the release of a project you follow:"
+msgstr "a changé la version d'un projet que vous suivez"
 
 #: templates/notification/delegate/notice.html:3
 #, python-format
@@ -1050,7 +1050,7 @@ msgstr "Répondre"
 
 #: templates/notification/invitation/notice.html:3
 msgid "wants to add you to his contacts."
-msgstr "veut vous ajouter dans ces contacts"
+msgstr "veut vous ajouter à ses contacts"
 
 #: templates/notification/invitation_accepted/notice.html:3
 msgid "has accepted your invitation."
