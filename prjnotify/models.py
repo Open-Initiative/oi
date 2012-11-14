@@ -74,7 +74,7 @@ class Observer(models.Model):
             return False
         notice_type = NoticeType.objects.get(label=label)
         if project:#check if there is a project and assignee is not the sender to not receive his own notification
-            if project.assignee != sender:
+            if self.user != sender:
                 notice = Notice.objects.create(recipient=self.user, project=project, observer=self,
                 notice_type=notice_type, sender=sender, param=param)
                 if self.get_setting(notice_type).send:
