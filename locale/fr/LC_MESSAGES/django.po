@@ -372,12 +372,12 @@ msgid "The user has been invited to validate a project"
 msgstr "L'utilisateur a été invité pour valider le projet"
 
 #: prjnotify/management/commands/register_notice_types.py:28
-msgid "Project delete"
-msgstr "Projet supprimer"
+msgid "Project deleted"
+msgstr "Projet supprimé"
 
 #: prjnotify/management/commands/register_notice_types.py:28
 msgid "The user has deleted the project"
-msgstr "Un utilisateur a supprimé votre projet"
+msgstr "Un utilisateur a supprimé le projet"
 
 #: projects/admin.py:34
 msgid "Recompute all descendants"
