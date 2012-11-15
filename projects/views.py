@@ -83,12 +83,9 @@ def listtasks(request, id):
             #this queryset filter with request key 'filter_echeance' in overview table    
             if request.GET.get('filter_echeance'):
                 tasks = tasks.filter(
-                    Q(start_date=datetime.now())|
-                    Q(start_date__gte=datetime.now()+timedelta(0, int(request.GET['filter_echeance'])))|
-                    Q(due_date=datetime.now())|
-                    Q(due_date__gte=datetime.now()+timedelta(hours=0, seconds=int(request.GET['filter_echeance'])))|
-                    Q(validation=datetime.now())|
-                    Q(validation__gte=datetime.now()+timedelta(0, int(request.GET['filter_echeance']))))
+                    Q(start_date__gte=datetime.now(), start_date__lte=datetime.now()+timedelta(0, int(request.GET['filter_echeance'])))|
+                    Q(due_date__gte=datetime.now(), due_date__lte=datetime.now()+timedelta(hours=0, seconds=int(request.GET['filter_echeance'])))|
+                    Q(validation__gte=datetime.now(), validation__lte=datetime.now()+timedelta(0, int(request.GET['filter_echeance']))))
             
             #this queryset filter with request key 'filter_assignee' in overview table    
             if request.GET.get('filter_assignee'):
