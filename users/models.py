@@ -38,6 +38,8 @@ class UserProfile(models.Model):
     rss_feed = models.URLField(verify_exists=False, blank=True)
     last_feed = models.DateTimeField(null=True, blank=True)
     personal_website = models.URLField(max_length=200, blank=True, null=True)
+    github_username = models.CharField(max_length=100, blank=True, null=True)
+    github_password = models.CharField(max_length=100, blank=True, null=True)
     
     def get_titles(self):
         """suggests titles for the user, based on resume details"""
@@ -199,7 +201,7 @@ class Payment(models.Model):
 class UserProfileForm(ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('address','postcode','city','country','mobile','phone','personal_website')
+        fields = ('address','postcode','city','country','mobile','phone','personal_website', 'github_username', 'github_password')
 
 class SkillForm(ModelForm):
     class Meta:

@@ -256,10 +256,10 @@ div.tab {
     float: left;
     padding: 5px;
     text-transform: uppercase;
-    width: 135px;
 }
 div.selectedtab {
     background: #0094B5;
+    width: 135px;
 }
 div.selectedtab a {
     color: white;

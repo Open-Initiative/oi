@@ -29,7 +29,7 @@
     <div id="tabs">
     {% for view in views %}
         <div class="{% ifequal current_view view %}selectedtab {% endifequal %}tab">
-            <a href="/project/{{object.id}}/view/{{view}}"><img class="tabicon" src="/img/icons/{{view}}{% ifequal current_view view %}white{% endifequal %}.png"/> {% trans view %}</a>
+            <a href="/project/{{object.id}}/view/{{view}}"><img class="tabicon" src="/img/icons/{{view}}{% ifequal current_view view %}white{% endifequal %}.png"/> {% ifequal current_view view %}{% trans view %}{% endifequal %}</a>
         </div>
     {% endfor %}
     </div>

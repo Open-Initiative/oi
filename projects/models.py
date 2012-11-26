@@ -2,6 +2,7 @@
 # Modèles des projets
 from datetime import datetime, timedelta
 from decimal import Decimal
+from github import Github
 from django.db import models
 from django.db.transaction import commit_on_success
 from django.contrib.auth.models import User
@@ -80,6 +81,7 @@ class Project(models.Model):
     state = models.IntegerField(choices=OI_PRJ_STATES, default=OI_PROPOSED)
     public = models.BooleanField(default=True)
     target = models.ForeignKey("projects.Release", null=True, blank=True, related_name="tasks")
+    githubid = models.IntegerField(blank=True, null=True)
     objects = ProjectManager()
     
     # overloads save to compute master project and ancestors
@@ -183,7 +185,6 @@ class Project(models.Model):
             elif self.state < OI_VALIDATED and newstate == OI_VALIDATED:
                 self.validation = datetime.now()
             self.check_dates()
-            
             self.state = newstate
             
             #update tree states
@@ -272,6 +273,11 @@ class Project(models.Model):
                 self.descendants.update(assignee=user)
                 self.set_perm(user, OI_MANAGE)
                 self.descendants.apply_perm(user, OI_MANAGE)
+            if self.githubid and self.assignee and self.assignee.get_profile().github_username:
+                repo = self.parent.get_repo()
+                github_user = self.parent.get_gituser(self.assignee.get_profile().github_username)
+                issue = repo.get_issue(self.githubid)
+                issue.edit(assignee=github_user)
 
     def notify_all(self, sender, notice_type, param):
         """sends a notification to all users about this project"""
@@ -341,6 +347,16 @@ class Project(models.Model):
             bid.save()
         self.delay = None
         self.save()
+    
+    def get_repo(self):
+        """gets the github repo attached with the project"""
+        githubsync = self.githubsync_set.get()
+        return Github(githubsync.user.get_profile().github_username, githubsync.user.get_profile().github_password).get_user().get_repo(githubsync.repository)
+    
+    def get_gituser(self, username):
+        """gets the github repo attached with the project"""
+        githubsync = self.githubsync_set.get()
+        return Github(githubsync.user.get_profile().github_username, githubsync.user.get_profile().github_password).get_user(username)
 
     def __unicode__(self):
         return "%s : %s"%(self.id, self.title)
@@ -465,3 +481,13 @@ class Release(models.Model):
         
     def __unicode__(self):
         return "'%s', on project: '%s', done is: '%s'"%(self.name, self.project.title, self.done)
+
+# GitHub integration
+class GitHubSync(models.Model):
+    project = models.ForeignKey(Project, unique=True)
+    user = models.ForeignKey(User)
+    repository = models.CharField(max_length=100)
+    label = models.CharField(max_length=100)
+    
+    def __unicode__(self):
+        return "Project '%s' synchronised on repository '%s' with label '%s'"%(self.project, self.repository, self.label)

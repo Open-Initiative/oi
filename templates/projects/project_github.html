@@ -1,0 +1,29 @@
+{% load oifilters %}
+{% load i18n %}
+<div id="github" class="prjtable"></div>
+<div class="smallcolumn">
+    {% if project.githubid %}<a href="https://github.com/{{project.parent.githubsync_set.get.user.get_profile.github_username}}/{{project.parent.githubsync_set.get.repository}}/issues/{{project.githubid}}">See on Github</a>{% endif %}
+    <form id="github_form" onsubmit="OIajaxCall('/project/{{project.id}}/setgithubsync', prepareForm('github_form'), 'output');return false">
+        <div class="oired">
+            {% trans "user"%}
+            <input name="user" value="{{project.githubsync_set.get.user.username}}"/>
+        </div>
+        <div>
+            {% trans "Repository"%}
+            <input name="repo" value="{{project.githubsync_set.get.repository}}"/>
+        </div>
+        <div>
+            {% trans "Label"%}
+            <input name="label" value="{{project.githubsync_set.get.label}}"/>
+        </div>
+        <input type="image" src="/img/icons/ok-32.png" />
+    </form>
+    {% if project.githubsync_set.get %}<div class="clickable bidaction" onclick="OIajaxCall('/project/{{project.id}}/syncgithub')">{%trans "Synchronise" %}</div>{% endif %}
+</div>
+<script>
+    oiTable = new OITable("github", ["{% trans 'Synchronisez' %}","{% trans 'Label' %}"]);
+    firstLine = ["{{project.master}}", "{{project.master}}"];
+    oiTable.addFromTask = function addFromTask(task, afterid, bgClass) {
+        oiTable.addLine(task.pk, [parseFloat(task.fields), parseFloat(task.fields)], afterid, bgClass);
+    }
+</script>

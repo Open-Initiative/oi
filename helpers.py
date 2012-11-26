@@ -31,7 +31,7 @@ OI_EXPERTISE_FROM_ANSWER = .002 #Fraction transmise par une réponse
 OI_PRJ_STATES = ((OI_PROPOSED, _("Proposed")), (OI_ACCEPTED, _("Accepted")), (OI_STARTED, _("Started")), (OI_DELIVERED, _("Delivered")), (OI_VALIDATED, _("Done")), (OI_CANCELLED, _("Cancelled")), (OI_POSTPONED, _("Delayed")), (OI_CONTENTIOUS, _("Contentious")),)
 
 # Available views
-OI_PRJ_VIEWS = ['overview','description','planning','team','budget']
+OI_PRJ_VIEWS = ['overview','description','planning','team','budget', 'github']
 
 # Available table_overview
 OI_TABLE_OVERVIEW = ['title','state','due_date','assignee','offer','target']

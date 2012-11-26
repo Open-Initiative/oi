@@ -9,9 +9,8 @@ function setTaskName(div, id, title, view) {
     newTaskForm.id = "newtask_"+id;
     div.parentNode.insertBefore(newTaskForm,div.nextSibling);
 }
-function addTask(tasktitle, projectid, userid, callBack) {
+function addTask(tasktitle, projectid, callBack) {
     var params = "title="+tasktitle+"&inline=1&progress=0";
-    if(userid) params += "&assignee="+userid;
     if(projectid) params += "&parent="+projectid;
     OIajaxCall("/project/save/0", params, null, 
         function(response){
@@ -466,8 +465,7 @@ OISpot.prototype.fillDiv = function fillDiv() {
     if(this.linkid) OIajaxCall('/project/'+this.linkid+'/summarize', null, this.div.id);
 }
 OISpot.prototype.saveTask = function saveTaskSpot() {
-    addTask(jQuery('#'+this.div.id+' .newtask_title')[0].value, this.projectid, null, 
-        makeObjectCallback(this.save, this));
+    addTask(jQuery('#'+this.div.id+' .newtask_title')[0].value, this.projectid, makeObjectCallback(this.save, this));
     return false;
 }
 OISpot.prototype.save = function saveSpot(taskid) {

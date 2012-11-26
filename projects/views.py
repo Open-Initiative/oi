@@ -5,6 +5,7 @@ import logging
 from time import time
 from datetime import datetime,timedelta
 from decimal import Decimal, InvalidOperation
+from github import Github
 from urllib import quote
 from unicodedata import normalize
 from django.core import serializers
@@ -25,7 +26,7 @@ from oi.settings import MEDIA_ROOT, TEMP_DIR
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS, OI_TABLE_OVERVIEW
 from oi.helpers import OI_PRJ_DONE, OI_NO_EVAL, OI_ACCEPT_DELAY, OI_READ, OI_ANSWER, OI_BID, OI_MANAGE, OI_WRITE, OI_ALL_PERMS, OI_CANCELLED_BID, OI_COM_ON_BID, OI_COMMISSION
 from oi.helpers import OI_PRJ_VIEWS, SPEC_TYPES, OIAction, ajax_login_required
-from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeedsPrjPerms, Release
+from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeedsPrjPerms, Release, GitHubSync
 from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
 from django.template import RequestContext
@@ -142,7 +143,6 @@ def addrelease(request, id):
 @OINeedsPrjPerms(OI_MANAGE)
 def changerelease(request, id):
     """Change the release"""
-
     #get the master id of the project    
     master = Project.objects.get(id=id).master
     project = Project.objects.get(id=id)
@@ -179,31 +179,38 @@ def editproject(request, id):
             return HttpResponseForbidden(_("Forbidden"))
     return direct_to_template(request, template='projects/editproject.html', extra_context={'user': request.user, 'parent':request.GET.get("parent"), 'project':project})
 
+def create_new_task(parent, title, author, githubid=None):
+    if parent:
+        parent.inc_tasks_priority(0)
+    project = Project(title=title, author=author, parent=parent, githubid=githubid)
+    project.save()
+    # permission handling
+    project.set_perm(author, OI_ALL_PERMS)
+    project.inherit_perms()
+    # assigns task
+    assignee = parent.assignee if parent else author
+    if assignee:
+        project.assign_to(assignee)
+    # github sync
+    if  parent.githubsync_set.all() and not githubid:
+        repo = parent.get_repo()
+        project.githubid = repo.create_issue(project.title, body="http://www.openinitiative.com/project/%s/view/description/"%project.id, labels=[repo.get_label(parent.githubsync_set.get().label)]).id
+        project.save()
+    return project
+
 @ajax_login_required(keep_field='title')
 def saveproject(request, id='0'):
     """Saves the edited project and redirects to it"""
-    author=request.user
     parent = Project.objects.get(id=request.POST["parent"]) if request.POST.get("parent") else None
     if (parent and parent.state==OI_VALIDATED):
-        return HttpResponse(_("Can not change a task already started"), status=431)
-    
-    assignee = None
-    if request.POST.get("assignee") and len(request.POST["assignee"])>0:
-        assignee = User.objects.get(username=request.POST["assignee"])
-        
+        return HttpResponse(_("Can not change a finished task"), status=431)
+
+    title = request.POST.get("title") or request.session.get('title')
+    if not title:
+        return HttpResponse(_("Please enter a title"), status=531)
+
     if id=='0': #new project
-        if request.POST.get("title"):
-            title = request.POST["title"]
-        else:
-            if request.session.get("title"):
-                title = request.session['title']
-                assignee = assignee or request.user
-            else:
-                return HttpResponse(_("Please enter a title"), status=531)
-        if parent:
-            parent.inc_tasks_priority(0)
-            assignee = assignee or parent.assignee
-        project = Project(title = title, author=author, parent=parent)
+        project = create_new_task(parent, title, request.user)
     else: #existing project
         project = Project.objects.get(id=id)
         if not project.has_perm(request.user, OI_WRITE):
@@ -217,16 +224,6 @@ def saveproject(request, id='0'):
     project.check_dates()
     project.save()
     
-    # permission handling
-    project.set_perm(author, OI_ALL_PERMS)
-    project.inherit_perms()
-    if project.assignee:
-        self.set_perm(user, OI_MANAGE)
-        project.descendants.apply_perm(project.assignee, OI_MANAGE)
-    project.save()
-        
-    if assignee:
-        project.assign_to(assignee)
     #notify users about this project
     project.notify_all(request.user, "new_project", "")
     #adds the project to user's observation
@@ -682,7 +679,32 @@ def favproject(request, id):
     else:
         request.user.get_profile().follow_project(project)
         return HttpResponse(True)
-    
+
+@OINeedsPrjPerms(OI_WRITE)
+def setgithubsync(request, id):
+    """sets a GitHub synchronization on that project"""
+    user = User.objects.get(username=request.POST['user'])
+    project = Project.objects.get(id=id)
+    try:
+        githubsync = GitHubSync.objects.get(project = project)
+    except GitHubSync.DoesNotExist:
+        githubsync = GitHubSync(project = project)
+    githubsync.user = user
+    githubsync.repository = request.POST['repo']
+    githubsync.label = request.POST['label']
+    githubsync.save()
+    return HttpResponse(_('Settings saved'))
+
+@OINeedsPrjPerms(OI_MANAGE)
+def syncgithub(request, id):
+    """Synchronises the tasks with the github issues"""
+    project = Project.objects.get(id=id)
+    repo = project.get_repo()
+    for issue in repo.get_issues():
+        if not Project.objects.filter(githubid=issue.number):
+            create_new_task(project, issue.title, request.user, issue.number)
+    return HttpResponse('', status=332)
+
 @OINeedsPrjPerms(OI_WRITE)
 def editspec(request, id, specid):
     """Edit template of a spec contains a spec details edit template"""
