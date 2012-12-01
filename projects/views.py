@@ -705,6 +705,11 @@ def syncgithub(request, id):
             create_new_task(project, issue.title, request.user, issue.number)
     return HttpResponse('', status=332)
 
+def createtask(request, id):
+    import logging
+    logging.getLogger("oi").debug(request)
+    return HttpResponse('')
+
 @OINeedsPrjPerms(OI_WRITE)
 def editspec(request, id, specid):
     """Edit template of a spec contains a spec details edit template"""
