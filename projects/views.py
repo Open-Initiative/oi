@@ -709,7 +709,9 @@ def syncgithub(request, id):
 @csrf_exempt
 def createtask(request, id):
     import logging
-    logging.getLogger("oi").debug(request)
+    data = serializers.deserialize("json", request.POST["payload"])
+    l = ("%s, %s, %s, %s, %s, %s")%(data["repository"]["name"], data["action"], data["issue"]["user"]["login"], data["issue"]["state"], data["issue"]["labels"][0]["name"], data["issue"]["id"])
+    logging.getLogger("oi").debug(l)
     return HttpResponse('')
 
 @OINeedsPrjPerms(OI_WRITE)
