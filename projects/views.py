@@ -20,6 +20,7 @@ from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirec
 from django.shortcuts import render_to_response, get_object_or_404
 from django.utils.simplejson.encoder import JSONEncoder
 from django.utils.translation import ugettext as _
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.list_detail import object_detail, object_list
 from django.views.generic.simple import direct_to_template
 from oi.settings import MEDIA_ROOT, TEMP_DIR
@@ -705,6 +706,7 @@ def syncgithub(request, id):
             create_new_task(project, issue.title, request.user, issue.number)
     return HttpResponse('', status=332)
 
+@csrf_exempt
 def createtask(request, id):
     import logging
     logging.getLogger("oi").debug(request)
