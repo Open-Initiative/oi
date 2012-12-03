@@ -18,7 +18,15 @@
         </div>
         <input type="image" src="/img/icons/ok-32.png" />
     </form>
-    {% if project.githubsync_set.get %}<div class="clickable bidaction" onclick="OIajaxCall('/project/{{project.id}}/syncgithub')">{%trans "Synchronise" %}</div>{% endif %}
+    {% if project.githubsync_set.get and project|can_manage:user %}
+    <div class="clickable bidaction" onclick="OIajaxCall('/project/{{project.id}}/syncgithub')">{%trans "Synchronise" %}</div>
+    {% if project.get_hook %}
+    {% trans "Hook set on Github repository " %}
+    <div class="clickable bidaction" onclick="OIajaxCall('/project/{{project.id}}/togglegithubhook', null, 'output')">{%trans "Remove Hook" %}</div>
+    {% else %}
+    <div class="clickable bidaction" onclick="OIajaxCall('/project/{{project.id}}/togglegithubhook', null, 'output')">{%trans "Set Hook" %}</div>
+    {% endif %}
+    {% endif %}
 </div>
 <script>
     oiTable = new OITable("github", ["{% trans 'Synchronisez' %}","{% trans 'Label' %}"]);

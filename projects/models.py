@@ -3,6 +3,7 @@
 from datetime import datetime, timedelta
 from decimal import Decimal
 from github import Github
+from re import match
 from django.db import models
 from django.db.transaction import commit_on_success
 from django.contrib.auth.models import User
@@ -357,7 +358,15 @@ class Project(models.Model):
         """gets the github repo attached with the project"""
         githubsync = self.githubsync_set.get()
         return Github(githubsync.user.get_profile().github_username, githubsync.user.get_profile().github_password).get_user(username)
-
+    
+    def get_hook(self):
+        """determines if a project has a hook to Github"""
+        for hook in self.get_repo().get_hooks():
+            if hook.config.get("url"):
+                if match( ".*open.*initiative.*/project/%s/createtask"%self.id, hook.config['url']):
+                    return hook
+        return None
+    
     def __unicode__(self):
         return "%s : %s"%(self.id, self.title)
 

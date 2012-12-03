@@ -15,10 +15,11 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.syndication.views import Feed
+from django.contrib.sites.models import get_current_site
 from django.db.models import Q, Sum
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response, get_object_or_404
-from django.utils.simplejson.encoder import JSONEncoder
+from django.utils.simplejson import JSONEncoder, JSONDecoder
 from django.utils.translation import ugettext as _
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.list_detail import object_detail, object_list
@@ -706,13 +707,38 @@ def syncgithub(request, id):
             create_new_task(project, issue.title, request.user, issue.number)
     return HttpResponse('', status=332)
 
+@OINeedsPrjPerms(OI_MANAGE)
+def togglegithubhook(request, id):
+    """Set a Github hook on the current project, to create a task each time an issue is created
+    or deletes it if it exists"""
+    project = Project.objects.get(id=id)
+    hook = project.get_hook()
+    if hook:
+        hook.delete()
+        return HttpResponse(_("Hook deleted"))
+        
+    url = "%s/project/%s/createtask"%(get_current_site(request).domain, id)
+    project.get_repo().create_hook("web", {'url': url}, ["issues", "issue_comments"])
+    return HttpResponse(_("Hook created"))
+
 @csrf_exempt
 def createtask(request, id):
-    import logging
-    data = serializers.deserialize("json", request.POST["payload"])
-    l = ("%s, %s, %s, %s, %s, %s")%(data["repository"]["name"], data["action"], data["issue"]["user"]["login"], data["issue"]["state"], data["issue"]["labels"][0]["name"], data["issue"]["id"])
-    logging.getLogger("oi").debug(l)
-    return HttpResponse('')
+    """Create task on GitHub hook"""
+    import logging, sys
+    project = Project.objects.get(id=id)
+    try:
+        data = JSONDecoder().decode(request.POST["payload"])
+        logging.getLogger("oi").debug("Github :"+data.get("action"))
+        #Check if one of the issue's labels is synchronised in a project
+        for label in data["issue"].get("labels", []):
+            for githubsync in GitHubSync.objects.filter(repository=data["repository"]["name"], label=label["name"]):
+                if project == githubsync.project:
+                    if data.get("action") == "opened":
+                        create_new_task(project, data["issue"].get("title"), githubsync.user, data["issue"].get("number"))
+        return HttpResponse('OK')
+    except Exception:
+        logging.getLogger("oi").debug("Github Sync Error : " + sys.exc_info())
+        return HttpResponse('', status=422)
 
 @OINeedsPrjPerms(OI_WRITE)
 def editspec(request, id, specid):
