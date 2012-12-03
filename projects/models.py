@@ -352,12 +352,12 @@ class Project(models.Model):
     def get_repo(self):
         """gets the github repo attached with the project"""
         githubsync = self.githubsync_set.get()
-        return Github(githubsync.user.get_profile().github_username, githubsync.user.get_profile().github_password).get_user().get_repo(githubsync.repository)
+        return Github(githubsync.user.get_profile().github_username, githubsync.user.get_profile().github_password, user_agent="Open-Initiative/0.1").get_user().get_repo(githubsync.repository)
     
     def get_gituser(self, username):
         """gets the github repo attached with the project"""
         githubsync = self.githubsync_set.get()
-        return Github(githubsync.user.get_profile().github_username, githubsync.user.get_profile().github_password).get_user(username)
+        return Github(githubsync.user.get_profile().github_username, githubsync.user.get_profile().github_password, user_agent="Open-Initiative/0.1").get_user(username)
     
     def get_hook(self):
         """determines if a project has a hook to Github"""
