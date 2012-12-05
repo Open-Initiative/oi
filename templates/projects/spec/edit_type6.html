@@ -1,0 +1,43 @@
+{% load oifilters %}
+{% load i18n %}
+<div>{% trans "Describe the bug you can find in the task..." %}</div>
+<div class="column">
+
+<!--  image part  -->
+    <input id="filename_{{divid}}" name="filename" type="hidden" />
+    <input id="ts_{{divid}}" name="ts" type="hidden" />
+    <span id="filespan_{{divid}}" {% if not spec.file %}class="invisible" {% endif %}>
+        <img src='/img/icons/delete.png' alt='{% trans "Delete" %}' title='{% trans "Delete" %}' onclick='changeFile("{{divid}}")' /> {{spec.file.name|cleanfilename}}
+    </span>
+    <div id="filediv_{{divid}}" {% if spec.file %}class="invisible" {% endif %}style="float: left;">
+        <form id="form_{{divid}}" method="post" enctype="multipart/form-data" action="/project/{{project.id}}/uploadfile/{{spec.id|default:0}}" target="filedest_{{divid}}">
+            {% csrf_token %}
+            <input id="divid_{{divid}}" name="divid" type="hidden" value="{{divid}}" />
+            <input id="file_{{divid}}" name="file" type="file" onchange="hide('validspec_{{divid}}');document.getElementById('form_{{divid}}').submit()" />
+        </form>
+    </div>
+    
+<!--  url part  -->
+    <label for="url_{{divid}}">Url</label>
+    <input id="url_{{divid}}" type="text" value="{{spec.url|default:"http://"}}" />
+
+<!--  text part  -->
+    <div class="msgtitle">{% trans "What I did:" %}</div>
+    <textarea id="bug_report_{{divid}}_1" class="speclegend"></textarea>
+
+    <div class="msgtitle">{% trans "What happened:" %}</div>
+    <textarea id="bug_report_{{divid}}_2" class="speclegend"></textarea>
+
+    <div class="msgtitle">{% trans "What should happen:" %}</div>
+    <textarea id="bug_report_{{divid}}_3" class="speclegend"></textarea>
+
+    <div class="msgtitle">{% trans "Environnement:" %}</div>
+    <textarea id="bug_report_{{divid}}_4" class="speclegend"></textarea>
+
+    <div id="text_{{divid}}" class="invisibl">{{spec.text|oiunescape}}</div>
+</div>
+
+<!--  common part  -->
+<div id="validspec_{{divid}}" class="actions"><img class="clickable" src="/img/icons/ok-32.png" onclick="prepareText('{{divid}}'); saveSpec('{{divid}}',{{project.id}},getValue('specorder_{{divid}}'),{{spec.id|default:0}})"/></div>
+<div class="cleared"></div>
+

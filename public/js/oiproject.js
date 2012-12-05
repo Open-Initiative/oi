@@ -388,7 +388,31 @@ function changeSpecType(divid, type) {
     document.getElementById("type_"+divid).value = type;
     var url = "/project/"+projectid+"/editspecdetails/"+specid+"?divid="+divid+"&type="+type;
     OIajaxCall(url, null, "spec_"+divid, 
-        function(){if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceAddControl', false, 'text_'+divid);});
+        function(){if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceAddControl', false, 'text_'+divid);
+            if(getValue("type_"+divid)==6){buildText(divid);}
+        });
+}
+function prepareText(divid){
+    var allvalue = "<dl>";
+    var br = RegExp("<br />", "g");
+    var n = "\n";
+    allvalue += "<br /><dt><b> What I did: </b></dt><dd> "+document.getElementById("bug_report_"+divid+"_1").value.replace(br,n)+"</dd>";
+    allvalue += "<br /><dt><b> What happened: </b></dt><dd>  "+document.getElementById("bug_report_"+divid+"_2").value+"</dd>";
+    allvalue += "<br /><dt><b> What should happen: </b></dt><dd> "+document.getElementById("bug_report_"+divid+"_3").value+"</dd>";
+    allvalue += "<br /><dt><b> Environnement: </b></dt><dd>  "+document.getElementById("bug_report_"+divid+"_4").value+"</dd>";
+    
+//    allvalue.replace(br,n);
+    document.getElementById("text_"+divid).value = allvalue+"</dl>";
+//    document.getElementById("text_"+divid).innerHTML.replace(br,n);
+}
+function buildText(divid){
+    var br = "<br />";
+    var n = RegExp("\n", "g");
+    
+    if(document.getElementById(divid).getElementsByTagName("dd")){
+    for(var i = 1; i <= 4; ++i){
+        document.getElementById("bug_report_"+divid+"_"+i).innerHTML = document.getElementById(divid).getElementsByTagName("dd")[i-1].innerHTML.replace(n,br);}
+    }
 }
 function saveSpec(divid, projectid, order, specid) {
     tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
