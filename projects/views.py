@@ -760,9 +760,10 @@ def savespec(request, id, specid='0'):
         spec.type = int(request.POST["type"])
     
     filename = request.POST.get("filename")
+    
     if not filename and not spec.file and spec.type in (2,5):
         return HttpResponse(_("Wrong arguments"), status=531)
-    if filename:
+    if filename or spec.type == 6 and filename: #check if filename existing or the spec_type is 6 and filename existing
 #        filename = normalize("NFC", filename)
         filename = normalize("NFKD", filename).encode('ascii', 'ignore').replace('"', '')
         if spec.file:
@@ -770,6 +771,7 @@ def savespec(request, id, specid='0'):
         path = ("%s%s_%s_%s"%(TEMP_DIR,request.user.id,request.POST["ts"],filename))
         spec.file.save(filename, File(open(path)), False)
         os.remove(path)
+        
     spec.save()
 
     #notify users about this spec change
