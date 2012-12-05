@@ -1,5 +1,5 @@
 {% load i18n %}
-<select name="filter_state" class="smallinput" onchange="populateOverviewTable({{project.id}})">
+<select name="filter_state" class="smallinput" onchange="populateOverviewTable({{project.id}}); $('#table_{{cell}}').hide()">
     <option selected> </option>
     <option value="0"> {% trans "Proposed" %} </option>
     <option value="2"> {% trans "Started" %} </option>

@@ -76,6 +76,15 @@ function changeRelease(projectid){
         }
     } 
 }
+function assignRelease(projectid){
+    var value = getValue("entitle-overview_"+projectid);
+    if(!value) return
+    OIajaxCall("/project/"+projectid+"/assignrelease", "release="+value, "output", 
+        function(){
+            document.getElementById("assignRelease").innerHTML = ""+value;
+        }
+    )
+}
 function onExpandNode(projectid) {
     if(!oiTree.nodes[projectid].children.length){
         OIajaxCall("/project/"+projectid+"/listtasks?release="+getValue("release"), null, null,
@@ -309,14 +318,28 @@ function populateOverviewTable(projectid){
             document.getElementById('dynamicTableOverview').appendChild(header);
             var tasklist = eval(eval(response)[0]);
             var fields = ["title", "state", "due_date", "assignee_get_profile_get_display_name", "offer", "target_name"];
-            var views = ["overview","description","planning","team","budget"];
+            var views = ["overview","description","planning","team","budget","overview"];
             for(var i = 0; i < tasklist.length; i++){
                 var line = document.createElement('tr');
                 var task = tasklist[i];
                 line.className += "state"+task.fields["state"];
                 for(var field = fields[j=0]; j < fields.length; field=fields[++j]){
-                    if(fields[j]=="state"){task.fields[field] = gettext("State"+task.fields[field]);}
-                    if(fields[j]=="due_date"){if(!task.fields[field]) {task.fields[field]="-";}; };
+                    if(fields[j]=="state"){
+                        if(task.fields[field] == 0){
+                            task.fields["due_date"] = ""+task.fields.start_date;
+                        }
+                        if(task.fields[field] == 2){
+                            task.fields["due_date"] = ""+task.fields.due_date;
+                        }
+                        if(task.fields[field] == 3){
+                            task.fields["due_date"] = ""+task.fields.validation;
+                        }
+                        if(task.fields[field] == 4){
+                            task.fields["due_date"] = ""+task.fields.validation;
+                        }
+                        task.fields[field] = gettext("State"+task.fields[field]);
+                    };
+//                    if(fields[j]=="due_date"){if(!task.fields[field]) {task.fields[field]="-";}; };
                     if(fields[j]=="offer")task.fields[field] += " €";
                     if(fields[j]=="target_name"){if(!task.fields[field]) {task.fields[field]="-";}; };
                     line.appendChild(document.createElement('td')).innerHTML = "<a href=/project/"+task.pk+"/view/"+views[j]+">"+task.fields[field]+"</a>";
@@ -465,7 +488,8 @@ OISpot.prototype.fillDiv = function fillDiv() {
     if(this.linkid) OIajaxCall('/project/'+this.linkid+'/summarize', null, this.div.id);
 }
 OISpot.prototype.saveTask = function saveTaskSpot() {
-    addTask(jQuery('#'+this.div.id+' .newtask_title')[0].value, this.projectid, makeObjectCallback(this.save, this));
+    addTask(jQuery('#'+this.div.id+' .newtask_title')[0].value, this.projectid, null, 
+        makeObjectCallback(this.save, this));
     return false;
 }
 OISpot.prototype.save = function saveSpot(taskid) {

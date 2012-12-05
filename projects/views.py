@@ -15,13 +15,11 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.syndication.views import Feed
-from django.contrib.sites.models import get_current_site
 from django.db.models import Q, Sum
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response, get_object_or_404
-from django.utils.simplejson import JSONEncoder, JSONDecoder
+from django.utils.simplejson.encoder import JSONEncoder
 from django.utils.translation import ugettext as _
-from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.list_detail import object_detail, object_list
 from django.views.generic.simple import direct_to_template
 from oi.settings import MEDIA_ROOT, TEMP_DIR
@@ -106,10 +104,15 @@ def listtasks(request, id):
             
             #can sort on the project for the release    
             if request.GET.get("release"):
-                if not project.master.target or request.GET.get("release") == project.master.target.name:
-                    tasks = tasks.filter(Q(target__name = request.GET['release'])|Q(target__isnull = True)|Q(descendants__target__name = request.GET['release'])|Q(descendants__isnull=False, descendants__target__isnull = True)).distinct()
+                if request.GET['release'] == '*':
+                    tasks = tasks.filter(Q(target__isnull=True)|Q(descendants__isnull=False, descendants__target__isnull=True)).distinct()
+                
+#                elif not project.master.target or request.GET.get("release") == project.master.target.name:
+#                    tasks = tasks.filter(Q(target__name = request.GET['release'])|Q(target__isnull = True)|Q(descendants__target__name = request.GET['release'])|Q(descendants__isnull=False, descendants__target__isnull = True)).distinct()
                 else:
                     tasks = tasks.filter(Q(target__name = request.GET['release'])|Q(descendants__target__name = request.GET['release'])).distinct()
+                    
+                
                 
             if request.GET.has_key("order"):
                 tasks = tasks.order_by(request.GET['order'])
@@ -129,7 +132,7 @@ def listtasks(request, id):
             
             #appends the serialized task list to the global list
             lists.append(serializers.oiserialize("json", tasks,
-                extra_fields=("author.get_profile" ,"assignee.get_profile.get_display_name", "get_budget","allbid_sum","bid_set.count","target.name","target.done")))
+                extra_fields=("author.get_profile" ,"assignee.get_profile.get_display_name", "get_budget","allbid_sum","bid_set.count","target.name","target.done","target.project","created","start_date","due_date","validation")))
     return HttpResponse(JSONEncoder().encode(lists)) #serializes the whole thing
 
 @OINeedsPrjPerms(OI_MANAGE)
@@ -139,15 +142,17 @@ def addrelease(request, id):
         return HttpResponse(_("Not empty release"))
     if request.POST["release"] == "Initial release":
         return HttpResponse(_("Release already existing"))
+    if request.POST["release"] == "*":
+        return HttpResponse(_("The character '*' is not allowed"))
     Release(name = request.POST["release"], project = Project.objects.get(id=id).master).save()
     return HttpResponse(_("New release added"))
 
 @OINeedsPrjPerms(OI_MANAGE)
 def changerelease(request, id):
     """Change the release"""
+
     #get the master id of the project    
     master = Project.objects.get(id=id).master
-    project = Project.objects.get(id=id)
     
     release = Release.objects.get(name = request.POST["release"], project=master)
     if release.done == True:
@@ -164,12 +169,26 @@ def changerelease(request, id):
     master.target.done = True
     master.target.due_date = datetime.now()
     master.target.save()
+    
+    #make the new release become the current release
     master.target = release
     master.save()
     
-    project.notify_all(request.user, "change_release", project.target)
+    master.notify_all(request.user, "change_release", master.target)
     
-    return HttpResponse(_("Release changed"), status=332)
+    return HttpResponse(_("Release changed"), status=332)   
+
+@OINeedsPrjPerms(OI_MANAGE)
+def assignrelease(request, id):
+    project = Project.objects.get(id=id)
+    
+    release, created = Release.objects.get_or_create(name = request.POST["release"], project = project)
+    if release.done == True:
+        return HttpResponse(_("Release already done, can't be assigned"))
+        
+    project.target = release
+    project.save() 
+    return HttpResponse(_("Release assigned"))
     
 @login_required
 def editproject(request, id):
@@ -210,7 +229,6 @@ def saveproject(request, id='0'):
     title = request.POST.get("title") or request.session.get('title')
     if not title:
         return HttpResponse(_("Please enter a title"), status=531)
-
     if id=='0': #new project
         project = create_new_task(parent, title, request.user)
     else: #existing project
@@ -226,6 +244,7 @@ def saveproject(request, id='0'):
     project.check_dates()
     project.save()
     
+
     #notify users about this project
     project.notify_all(request.user, "new_project", "")
     #adds the project to user's observation
@@ -598,7 +617,7 @@ def deleteproject(request, id):
     if project.tasks.count() > 0:
         return HttpResponse(_("Can not delete a project containing tasks. Please delete all its tasks first."))
     
-    project.notify_all(request.user, "project_delete", "")
+    project.notify_all(request.user, "project_delete", project.title)
     project.notice_set.filter(project=project).update(project=None)
     project.delete()
     if project.parent:
@@ -681,7 +700,6 @@ def favproject(request, id):
     else:
         request.user.get_profile().follow_project(project)
         return HttpResponse(True)
-
 @OINeedsPrjPerms(OI_WRITE)
 def setgithubsync(request, id):
     """sets a GitHub synchronization on that project"""
@@ -706,40 +724,6 @@ def syncgithub(request, id):
         if not Project.objects.filter(githubid=issue.number):
             create_new_task(project, issue.title, request.user, issue.number)
     return HttpResponse('', status=332)
-
-@OINeedsPrjPerms(OI_MANAGE)
-def togglegithubhook(request, id):
-    """Set a Github hook on the current project, to create a task each time an issue is created
-    or deletes it if it exists"""
-    project = Project.objects.get(id=id)
-    hook = project.get_hook()
-    if hook:
-        hook.delete()
-        return HttpResponse(_("Hook deleted"))
-        
-    url = "%s/project/%s/createtask"%(get_current_site(request).domain, id)
-    project.get_repo().create_hook("web", {'url': url}, ["issues", "issue_comments"])
-    return HttpResponse(_("Hook created"))
-
-@csrf_exempt
-def createtask(request, id):
-    """Create task on GitHub hook"""
-    import logging, sys
-    project = Project.objects.get(id=id)
-    try:
-        data = JSONDecoder().decode(request.POST["payload"])
-        logging.getLogger("oi").debug("Github :"+data.get("action"))
-        #Check if one of the issue's labels is synchronised in a project
-        for label in data["issue"].get("labels", []):
-            for githubsync in GitHubSync.objects.filter(repository=data["repository"]["name"], label=label["name"]):
-                if project == githubsync.project:
-                    if data.get("action") == "opened":
-                        create_new_task(project, data["issue"].get("title"), githubsync.user, data["issue"].get("number"))
-        return HttpResponse('OK')
-    except Exception:
-        logging.getLogger("oi").debug("Github Sync Error : " + sys.exc_info())
-        return HttpResponse('', status=422)
-
 @OINeedsPrjPerms(OI_WRITE)
 def editspec(request, id, specid):
     """Edit template of a spec contains a spec details edit template"""

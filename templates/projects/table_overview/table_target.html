@@ -1,2 +1,13 @@
 {% load i18n %}
-<input name="filter_release" class="smallinput">
+<!--<input name="filter_release" class="smallinput">-->
+
+<select name="filter_release" class="smallinput" onchange="populateOverviewTable({{project.id}}); $('#table_{{cell}}').hide()">
+    <option selected></option>
+    {% for release in object.old_releases %}
+        <option class="oldrelease" value="{{release.name}}">{{release.name}}</option>
+    {% endfor %}
+    <option class="currentrelease" value="{{object.master.target.name}}">{{object.master.target.name}} *</option>s
+    {% for release in object.future_releases %}
+        <option value="{{release.name}}">{{release.name}}</option>
+    {% endfor %}
+</select>

@@ -83,7 +83,7 @@ def invite(request, id):
         return HttpResponse(_("Contact already added"))
     request.user.get_profile().contacts.add(id)
     User.objects.get(id=id).get_profile().get_default_observer().notify('invitation', sender=request.user)
-    return HttpResponse(_("Invitation sent"))
+    return HttpResponse(_("Invitation sent"), status=332)
 
 def resetpassword(request):
     """sends an e-mail to the user with a new password"""
