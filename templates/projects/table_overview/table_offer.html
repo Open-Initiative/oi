@@ -19,6 +19,7 @@
                 $("#slide").val(ui.values[0]+"€"+ " - " + ui.values[1]+"€");
                 $("#slide_min").val(ui.values[0]);
                 $("#slide_max").val(ui.values[1]);
+                window.location.href = '#'+slide_min.value+"-"+slide_max.value;
             }
         });
         populateOverviewTable({{project.id}});

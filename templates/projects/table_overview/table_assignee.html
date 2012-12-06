@@ -1,5 +1,5 @@
 {% load i18n %}
-<select name="filter_assignee" class="smallinput" onchange="populateOverviewTable({{project.id}}); $('#table_{{cell}}').hide()">
+<select name="filter_assignee" class="smallinput" onchange="populateOverviewTable({{project.id}}); $('#table_{{cell}}').hide(); window.location.href = '#'+this.value">
     <option selected> </option>
     <option value="Me"> {% trans "Me" %} </option>
     <option value="Other"> {% trans "Other" %} </option>
