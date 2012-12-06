@@ -67,7 +67,6 @@ def listtasks(request, id):
                 #adding the task if the user has no right on it, but with no info
                 lists.append('[{"pk": %s, "fields": {"state": 4, "parent": "%s", "title": "..."}}]'%(project.id,project.parent.id))
         
-        
             if request.GET.has_key("listall"):
                 tasks = project.descendants.filter_perm(request.user, OI_READ)
             else:
@@ -90,10 +89,7 @@ def listtasks(request, id):
             
             #this queryset filter with request key 'filter_assignee' in overview table    
             if request.GET.get('filter_assignee'):
-                if request.GET['filter_assignee'] == 'Other':
-                    tasks = tasks.exclude(assignee__username=request.user.get_profile())
-                else:
-                    tasks = tasks.filter(assignee__username=request.user.get_profile())
+                tasks = tasks.filter(assignee__username=request.GET['filter_assignee'])
                 
             if request.GET.get('filter_budget_min') and request.GET.get('filter_budget_max'):
                 tasks = tasks.filter(Q(offer__gte=request.GET['filter_budget_min']),Q(offer__lte=request.GET['filter_budget_max']))
@@ -107,13 +103,9 @@ def listtasks(request, id):
                 if request.GET['release'] == '*':
                     tasks = tasks.filter(Q(target__isnull=True)|Q(descendants__isnull=False, descendants__target__isnull=True)).distinct()
                 
-#                elif not project.master.target or request.GET.get("release") == project.master.target.name:
-#                    tasks = tasks.filter(Q(target__name = request.GET['release'])|Q(target__isnull = True)|Q(descendants__target__name = request.GET['release'])|Q(descendants__isnull=False, descendants__target__isnull = True)).distinct()
                 else:
                     tasks = tasks.filter(Q(target__name = request.GET['release'])|Q(descendants__target__name = request.GET['release'])).distinct()
                     
-                
-                
             if request.GET.has_key("order"):
                 tasks = tasks.order_by(request.GET['order'])
             else:

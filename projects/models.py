@@ -377,6 +377,9 @@ class Project(models.Model):
     def future_releases(self):
         """Show all the releases that are not done yet"""
         return self.master.release_set.filter(done = False).exclude(tasks=self.master)
+        
+    def all_ancestors_assignee(self):
+        return User.objects.filter(assigned_projects__ancestors=self).distinct()
 
 #Structure de contrôle des permissions
 class ProjectACL(models.Model):
