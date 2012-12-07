@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-08 14:04+0100\n"
+"POT-Creation-Date: 2012-12-07 16:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,19 +16,19 @@ msgstr ""
 msgid "Proposed"
 msgstr "Proposé"
 
-#: helpers.py:31
+#: helpers.py:31 templates/projects/table_overview/table_state.html:5
 msgid "Accepted"
 msgstr "Accepté"
 
-#: helpers.py:31 templates/projects/table_overview/table_state.html:5
+#: helpers.py:31 templates/projects/table_overview/table_state.html:6
 msgid "Started"
 msgstr "Démarré"
 
-#: helpers.py:31 templates/projects/table_overview/table_state.html:6
+#: helpers.py:31 templates/projects/table_overview/table_state.html:7
 msgid "Delivered"
 msgstr "Livré"
 
-#: helpers.py:31 templates/projects/table_overview/table_state.html:7
+#: helpers.py:31 templates/projects/table_overview/table_state.html:8
 msgid "Done"
 msgstr "Terminé"
 
@@ -64,27 +64,31 @@ msgstr "Offre"
 msgid "Managing"
 msgstr "Gestion"
 
-#: helpers.py:64
+#: helpers.py:65
 msgid "Text"
 msgstr "Texte"
 
-#: helpers.py:64
+#: helpers.py:65
 msgid "Image"
 msgstr "Image"
 
-#: helpers.py:64
+#: helpers.py:65
 msgid "url link"
 msgstr "Lien url"
 
-#: helpers.py:64
+#: helpers.py:65
 msgid "Video"
 msgstr "Vidéo"
 
-#: helpers.py:64
+#: helpers.py:65
 msgid "Document"
 msgstr "Document"
 
-#: helpers.py:112
+#: helpers.py:65
+msgid "Bug report"
+msgstr ""
+
+#: helpers.py:113
 msgid "PDF Transformation Error"
 msgstr "Erreur de transformation PDF"
 
@@ -93,7 +97,7 @@ msgid "Published on"
 msgstr "Publié sur"
 
 #: messages/models.py:140 messages/views.py:65 messages/views.py:78
-#: projects/models.py:374 projects/views.py:178 projects/views.py:209
+#: projects/models.py:402 projects/views.py:192 projects/views.py:229
 #: templates/projects/project_detail.html:87
 msgid "Forbidden"
 msgstr "Permissions insuffisantes"
@@ -118,7 +122,7 @@ msgstr "Déjà voté !"
 msgid "voted"
 msgstr "A voté"
 
-#: messages/views.py:166 projects/views.py:850
+#: messages/views.py:166 projects/views.py:886
 msgid "Latest updates of Open Initiative "
 msgstr "L'activité la plus récente d'Open Initiative "
 
@@ -150,7 +154,7 @@ msgstr "affichage"
 msgid "description"
 msgstr "description"
 
-#: prjnotify/models.py:49 prjnotify/models.py:136 prjnotify/models.py:183
+#: prjnotify/models.py:49 prjnotify/models.py:131 prjnotify/models.py:178
 msgid "notice type"
 msgstr "type de notification"
 
@@ -158,64 +162,65 @@ msgstr "type de notification"
 msgid "notice types"
 msgstr "types de notification"
 
-#: prjnotify/models.py:53 prjnotify/models.py:135
+#: prjnotify/models.py:53 prjnotify/models.py:130
+#: templates/projects/project_github.html:8
 msgid "user"
 msgstr "utilisateur"
 
-#: prjnotify/models.py:54 prjnotify/models.py:185
+#: prjnotify/models.py:54 prjnotify/models.py:180
 msgid "added"
 msgstr "ajouté"
 
-#: prjnotify/models.py:103
+#: prjnotify/models.py:98
 #, python-format
 msgid "Notifications on %s"
 msgstr "Notifications sur %s"
 
-#: prjnotify/models.py:103
+#: prjnotify/models.py:98
 msgid "your account"
 msgstr "votre compte"
 
-#: prjnotify/models.py:130
+#: prjnotify/models.py:125
 msgid "observer"
 msgstr "observateur"
 
-#: prjnotify/models.py:137
+#: prjnotify/models.py:132
 msgid "medium"
 msgstr "canal"
 
-#: prjnotify/models.py:141
+#: prjnotify/models.py:136
 msgid "notice setting"
 msgstr "paramètre de notifications"
 
-#: prjnotify/models.py:142
+#: prjnotify/models.py:137
 msgid "notice settings"
 msgstr "paramètres de notifications"
 
-#: prjnotify/models.py:181
+#: prjnotify/models.py:176
 msgid "recipient"
 msgstr "destinataire"
 
-#: prjnotify/models.py:182
+#: prjnotify/models.py:177
 msgid "sender"
 msgstr "expéditeur"
 
-#: prjnotify/models.py:186
+#: prjnotify/models.py:181
 msgid "unseen"
 msgstr "non lu"
 
-#: prjnotify/models.py:187
+#: prjnotify/models.py:182
 msgid "archived"
 msgstr "archivé"
 
-#: prjnotify/models.py:189
+#: prjnotify/models.py:184
 msgid "on site"
 msgstr "sur site"
 
-#: prjnotify/models.py:203
+#: prjnotify/models.py:198
 msgid "notice"
 msgstr "notification"
 
-#: prjnotify/models.py:204
+#: prjnotify/models.py:199
 msgid "notices"
 msgstr "notifications"
 
@@ -321,8 +326,8 @@ msgid "A user has evaluated your project"
 msgstr "Un utilisateur a évalué votre projet"
 
 #: prjnotify/management/commands/register_notice_types.py:22
-#: projects/views.py:525 projects/views.py:533 projects/views.py:544
-#: projects/views.py:582
+#: projects/views.py:536 projects/views.py:544 projects/views.py:555
+#: projects/views.py:593
 msgid "Bid cancelled"
 msgstr "Participation annulée"
 
@@ -355,7 +360,7 @@ msgid "The project has been shared with"
 msgstr "Le projet a été partagé avec"
 
 #: prjnotify/management/commands/register_notice_types.py:26
-#: projects/views.py:169
+#: projects/views.py:171
 msgid "Release changed"
 msgstr "Version modifiée"
 
@@ -383,17 +388,21 @@ msgstr "Un utilisateur a supprimé le projet"
 msgid "Recompute all descendants"
 msgstr "Recalculer tous les descendants"
 
-#: projects/models.py:442
+#: projects/models.py:470
 msgid "Refund of bid"
 msgstr "Remboursement de la participation"
 
-#: projects/views.py:136
+#: projects/views.py:134
 msgid "Not empty release"
 msgstr "Pas de version sans nom"
 
-#: projects/views.py:138
+#: projects/views.py:136
 msgid "Release already existing"
 msgstr "Version déjà existante"
+
+#: projects/views.py:138
+msgid "The character '*' is not allowed"
+msgstr "La caractère '*' n'a pas n'est pas autorisé'"
 
 #: projects/views.py:140
 msgid "New release added"
@@ -407,255 +416,270 @@ msgstr "Déjà fait"
 msgid "Initial release"
 msgstr "Version initiale"
 
-#: projects/views.py:187 projects/views.py:256 projects/views.py:272
-#: projects/views.py:282 projects/views.py:299 projects/views.py:328
-#: projects/views.py:618 projects/views.py:707 projects/views.py:723
-#: projects/views.py:779
-msgid "Can not change a task already started"
-msgstr "Impossible de modifier une tâche démarrée"
+#: projects/views.py:179
+msgid "Release already done, can't be assigned"
+msgstr "Version déjà terminé, ne peut pas être assignée"
 
-#: projects/views.py:201
+#: projects/views.py:183
+msgid "Release assigned"
+msgstr "Version modifiée"
+
+#: projects/views.py:219
+msgid "Can not change a finished task"
+msgstr "Impossible de modifier une tâche finie"
+
+#: projects/views.py:223
 msgid "Please enter a title"
 msgstr "Merci d'entrer un titre"
 
-#: projects/views.py:247
+#: projects/views.py:258
 msgid "Request for delay"
 msgstr "Demande de délai"
 
-#: projects/views.py:248
+#: projects/views.py:259
 msgid "Request for delay awaiting validation"
 msgstr "Demande de délai en attente de validation"
 
-#: projects/views.py:254 projects/views.py:265
+#: projects/views.py:265 projects/views.py:276
 msgid "Date updated"
 msgstr "Date mise-à-jour"
 
-#: projects/views.py:275
+#: projects/views.py:267 projects/views.py:283 projects/views.py:293
+#: projects/views.py:310 projects/views.py:339 projects/views.py:629
+#: projects/views.py:741 projects/views.py:757 projects/views.py:815
+msgid "Can not change a task already started"
+msgstr "Impossible de modifier une tâche démarrée"
+
+#: projects/views.py:286
 msgid "Priority changed"
 msgstr "Priorité modifiée"
 
-#: projects/views.py:289
+#: projects/views.py:300
 msgid "Title updated"
 msgstr "Titre mis-à-jour"
 
-#: projects/views.py:297
+#: projects/views.py:308
 msgid "Task already assigned"
 msgstr "Tâche déjà assignée"
 
-#: projects/views.py:302 projects/views.py:304
+#: projects/views.py:313 projects/views.py:315
 #, python-format
 msgid "The task '%s' already has an offer"
 msgstr "La tâche '%s' a déjà une offre"
 
-#: projects/views.py:310
+#: projects/views.py:321
 msgid "Please enter a valid number"
 msgstr "Merci d'entrer un nombre correct"
 
-#: projects/views.py:319
+#: projects/views.py:330
 msgid "Task taken on"
 msgstr "Tâche assignée"
 
-#: projects/views.py:330
+#: projects/views.py:341
 msgid "Only the user in charge of the project can delegate it"
 msgstr "Seul l'utilisateur responsable du projet peut le déléguer"
 
-#: projects/views.py:334 projects/views.py:428 projects/views.py:645
+#: projects/views.py:345 projects/views.py:439 projects/views.py:656
 msgid "Cannot find user"
 msgstr "Utilisateur introuvable"
 
-#: projects/views.py:337
+#: projects/views.py:348
 msgid "Sent delegation offer"
 msgstr "Proposition de délégation envoyée"
 
-#: projects/views.py:346
+#: projects/views.py:357
 msgid "The project was not delegated to you"
 msgstr "Le projet ne vous a pas été délégué"
 
-#: projects/views.py:357
+#: projects/views.py:368
 msgid "reply sent"
 msgstr "réponse envoyée"
 
-#: projects/views.py:366
+#: projects/views.py:377
 msgid "No delay was requested"
 msgstr "Aucune demande de délai n'a été envoyée"
 
-#: projects/views.py:372
+#: projects/views.py:383
 msgid "The date was not changed"
 msgstr "La date n'a pas été modifiée"
 
-#: projects/views.py:378
+#: projects/views.py:389
 msgid "Awaiting other users' validation"
 msgstr "En attente de la validation des autres utilisateurs"
 
-#: projects/views.py:383
+#: projects/views.py:394
 msgid "The date has been changed"
 msgstr "Un projet que vous suivez a été modifié"
 
-#: projects/views.py:386 projects/views.py:554 projects/views.py:590
+#: projects/views.py:397 projects/views.py:565 projects/views.py:601
 msgid "No reply received"
 msgstr "Aucune réponse reçue"
 
-#: projects/views.py:396
+#: projects/views.py:407
 msgid "Invalid amount"
 msgstr "Montant invalide"
 
-#: projects/views.py:408
+#: projects/views.py:419
 msgid "Bid"
 msgstr "Participation"
 
-#: projects/views.py:409 projects/views.py:566
+#: projects/views.py:420 projects/views.py:577
 #: templates/projects/project_budget.html:24
 msgid "Commission"
 msgstr "Commission"
 
-#: projects/views.py:417
+#: projects/views.py:428
 msgid "Bid saved"
 msgstr "Souscription enregistrée"
 
-#: projects/views.py:436
+#: projects/views.py:447
 msgid "The user has been added as a validator"
 msgstr "L'utilisateur a été ajouté comme valideur"
 
-#: projects/views.py:443
+#: projects/views.py:454
 msgid "Not enough bids"
 msgstr "Financement insuffisant"
 
-#: projects/views.py:445
+#: projects/views.py:456
 msgid "Only the assignee can start the project"
 msgstr "Seul le responsable du projet peut le démarrer"
 
-#: projects/views.py:452
+#: projects/views.py:463
 msgid "Task started"
 msgstr "Tâche démarrée"
 
-#: projects/views.py:460
+#: projects/views.py:471
 msgid "only the assignee can deliver the project!"
 msgstr "Seul le responsable du projet peut le livrer !"
 
-#: projects/views.py:465
+#: projects/views.py:476
 msgid "Task done!"
 msgstr "Tâche terminée"
 
-#: projects/views.py:475
+#: projects/views.py:486
 msgid "already validated!"
 msgstr "Déjà validé !"
 
-#: projects/views.py:479
+#: projects/views.py:490
 msgid "only bidders can validate the project!"
 msgstr "Seuls les souscripteurs du projet peuvent le valider !"
 
-#: projects/views.py:485
+#: projects/views.py:496
 msgid "Payment"
 msgstr "Paiement"
 
-#: projects/views.py:487
+#: projects/views.py:498
 msgid "Validation saved"
 msgstr "Validation enregistrée"
 
-#: projects/views.py:497
+#: projects/views.py:508
 msgid "You can not evaluate yourself"
 msgstr "Vous ne pouvez pas vous évaluer vous même"
 
-#: projects/views.py:501
+#: projects/views.py:512
 msgid "You have already evaluated this task"
 msgstr "Vous avez déjà évalué cette tâche"
 
-#: projects/views.py:507
+#: projects/views.py:518
 msgid "Evaluation saved"
 msgstr "Evaluation enregistrée"
 
-#: projects/views.py:515 projects/views.py:561
+#: projects/views.py:526 projects/views.py:572
 msgid "The project is already over"
 msgstr "Le projet est déjà terminé"
 
-#: projects/views.py:518
+#: projects/views.py:529
 msgid "You're not participating on this project"
 msgstr "Vous ne participez pas à ce projet"
 
-#: projects/views.py:552 projects/views.py:588
+#: projects/views.py:563 projects/views.py:599
 msgid "Cancelation refused. Awaiting decision"
 msgstr "Annulation refusée. En attente d'arbitrage"
 
-#: projects/views.py:563
+#: projects/views.py:574
 msgid "Only the user in charge of the project can cancel it"
 msgstr "Seul l'utilisateur responsable du projet peut l'annuler"
 
-#: projects/views.py:572
+#: projects/views.py:583
 msgid "Task cancelled. Awaiting confirmation from other users"
 msgstr "Tâche annulée. En attente de confirmation des autres utilisateurs"
 
-#: projects/views.py:597
+#: projects/views.py:608
 msgid "Can not delete a started project. Please stop it first."
 msgstr "Impossible de supprimer un projet démarré. Arrêtez le d'abord."
 
-#: projects/views.py:599
+#: projects/views.py:610
 msgid ""
 "Can not delete a project containing tasks. Please delete all its tasks first."
 msgstr ""
 "Impossible de supprimer un projet contenant des tâches. Veuillez supprimer "
 "ses tâches d'abord."
 
-#: projects/views.py:605
+#: projects/views.py:616
 msgid "The task has been deleted."
 msgstr "La tâche a été supprimée."
 
-#: projects/views.py:608
+#: projects/views.py:619
 msgid "The project has been deleted."
 msgstr "Le projet a été supprimé."
 
-#: projects/views.py:620
+#: projects/views.py:631
 msgid "Can not move a task inside itself"
 msgstr "Impossible de déplacer une tâche vers elle-même"
 
-#: projects/views.py:627
+#: projects/views.py:638
 msgid "Task moved"
 msgstr "Tâche déplacée"
 
-#: projects/views.py:636
+#: projects/views.py:647
 #, python-format
 msgid "The task is now %s"
 msgstr "La tâche est maintenant passée à %s"
 
-#: projects/views.py:652
+#: projects/views.py:663
 msgid "Task shared"
 msgstr "Tâche partagée"
 
-#: projects/views.py:660
+#: projects/views.py:671
 msgid "The project has to be started for the progress to be updated"
 msgstr "Le projet doit être démarré pour que l'avancement soit mis à jour"
 
-#: projects/views.py:662
+#: projects/views.py:673
 msgid "Only the user in charge of can update its progress"
 msgstr "Seul le responsable du projet peut mettre à jour son avancement"
 
-#: projects/views.py:666
+#: projects/views.py:677
 msgid "Invalid value"
 msgstr "Valeur incorrecte"
 
-#: projects/views.py:671
+#: projects/views.py:682
 msgid "Progress updated"
 msgstr "Avancement mis à jour"
 
-#: projects/views.py:693 projects/views.py:710 projects/views.py:731
-#: projects/views.py:741 projects/views.py:761 projects/views.py:763
-#: projects/views.py:766 projects/views.py:777 projects/views.py:789
-#: projects/views.py:793 projects/views.py:810 users/views.py:204
+#: projects/views.py:708
+msgid "Settings saved"
+msgstr "Paramètre enregistré"
+
+#: projects/views.py:727 projects/views.py:744 projects/views.py:765
+#: projects/views.py:776 projects/views.py:797 projects/views.py:799
+#: projects/views.py:802 projects/views.py:813 projects/views.py:825
+#: projects/views.py:829 projects/views.py:846 users/views.py:204
 msgid "Wrong arguments"
 msgstr "Arguments incorrects"
 
-#: projects/views.py:770
+#: projects/views.py:806
 msgid "Spec moved"
 msgstr "Message déplacé"
 
-#: projects/views.py:781
+#: projects/views.py:817
 msgid "Specification deleted"
 msgstr "Spécification supprimée"
 
-#: projects/views.py:808
+#: projects/views.py:844
 msgid "Annotation removed"
 msgstr "Annotation supprimée"
 
-#: projects/views.py:831
+#: projects/views.py:867
 msgid "File deleted"
 msgstr "Fichier supprimé"
 
@@ -1049,7 +1073,7 @@ msgid "answer"
 msgstr "Répondre"
 
 #: templates/notification/invitation/notice.html:3
-msgid "wants to add you to his contacts."
+msgid "has added you to his contacts."
 msgstr "veut vous ajouter à ses contacts"
 
 #: templates/notification/invitation_accepted/notice.html:3
@@ -1117,7 +1141,7 @@ msgid "Delete the task"
 msgstr "Supprimer la tâche"
 
 #: templates/projects/project_actions.html:16
-#: templates/projects/project_overview.html:68
+#: templates/projects/project_overview.html:82
 #: templates/projects/spec/edit_spot.html:11
 msgid "Cancel"
 msgstr "Annuler"
@@ -1153,7 +1177,7 @@ msgid "Click here to change the release"
 msgstr "Cliquer ici pour changer la version"
 
 #: templates/projects/project_actions.html:58
-#: templates/projects/project_actions.html:76
+#: templates/projects/project_actions.html:77
 msgid "Add a new release"
 msgstr "Ajouter une nouvelle version"
 
@@ -1162,6 +1186,10 @@ msgid "Close this window"
 msgstr "Fermer cette fenêtre"
 
 #: templates/projects/project_actions.html:75
+msgid "See all tasks without release"
+msgstr ""
+
+#: templates/projects/project_actions.html:76
 msgid "All releases"
 msgstr "Tous les versions"
 
@@ -1329,6 +1357,35 @@ msgstr[1] "abonnés"
 msgid "Tasks in the project are to be listed here"
 msgstr "Les tâches du projets seront listées ici"
 
+#: templates/projects/project_github.html:12
+msgid "Repository"
+msgstr ""
+
+#: templates/projects/project_github.html:16
+#: templates/projects/project_github.html:32
+msgid "Label"
+msgstr "étiquette"
+
+#: templates/projects/project_github.html:22
+msgid "Synchronise"
+msgstr "Synchroniser"
+
+#: templates/projects/project_github.html:24
+msgid "Hook set on Github repository "
+msgstr "Crochet mis en garde sur Github"
+
+#: templates/projects/project_github.html:25
+msgid "Remove Hook"
+msgstr "Supprimer le crochet"
+
+#: templates/projects/project_github.html:27
+msgid "Set Hook"
+msgstr "Mettre le crochet"
+
+#: templates/projects/project_github.html:32
+msgid "Synchronisez"
+msgstr ""
+
 #: templates/projects/project_overview.html:4
 msgid "Project created on"
 msgstr "Projet proposé en"
@@ -1368,22 +1425,30 @@ msgstr "Cliquer ici pour ajouter une date"
 msgid "Requested budget:"
 msgstr "Budget demandé :"
 
-#: templates/projects/project_overview.html:52
+#: templates/projects/project_overview.html:47
+msgid "Release's project:"
+msgstr "La version du projet"
+
+#: templates/projects/project_overview.html:49
+msgid "Assign a release to a task"
+msgstr "Assigner la release à un projet"
+
+#: templates/projects/project_overview.html:66
 msgid "task inside"
 msgid_plural "tasks inside"
 msgstr[0] "tâche à l'interieur de"
 msgstr[1] "tâches à l'interieur de"
 
-#: templates/projects/project_overview.html:67
+#: templates/projects/project_overview.html:81
 #: templates/projects/spec/edit_spot.html:10
 msgid "Add"
 msgstr "Ajouter"
 
-#: templates/projects/project_overview.html:75
+#: templates/projects/project_overview.html:89
 msgid "previous"
 msgstr "précédente"
 
-#: templates/projects/project_overview.html:76
+#: templates/projects/project_overview.html:90
 msgid "next"
 msgstr "suivante"
 
@@ -1546,6 +1611,26 @@ msgstr "Bientôt..."
 msgid "A file describing the job..."
 msgstr "Un fichier descrivant le travail à faire..."
 
+#: templates/projects/spec/edit_type6.html:3
+msgid "Describe the bug you can find in the task..."
+msgstr ""
+
+#: templates/projects/spec/edit_type6.html:14
+msgid "What I did:"
+msgstr ""
+
+#: templates/projects/spec/edit_type6.html:17
+msgid "What happened:"
+msgstr ""
+
+#: templates/projects/spec/edit_type6.html:20
+msgid "What should happen:"
+msgstr ""
+
+#: templates/projects/spec/edit_type6.html:23
+msgid "Environnement:"
+msgstr ""
+
 #: templates/projects/spec/editspec.html:2
 msgid "Describe here what is to be done in"
 msgstr "Décrire ce qui doit être fait dans"
@@ -1573,14 +1658,6 @@ msgstr "Déplacer la description vers le haut"
 #: templates/projects/spec/spec.html:25
 msgid "Move the description down"
 msgstr "Déplacer la description vers le bas"
-
-#: templates/projects/table_overview/table_assignee.html:4
-msgid "Me"
-msgstr "Moi"
-
-#: templates/projects/table_overview/table_assignee.html:5
-msgid "Other"
-msgstr "Les autres"
 
 #: templates/projects/table_overview/table_due_date.html:4
 #: templates/users/profile/experience.html:4
@@ -1927,71 +2004,71 @@ msgstr "Téléphone portable"
 msgid "Phone Number"
 msgstr "Numéro de téléphone"
 
-#: users/models.py:45
+#: users/models.py:47
 #, python-format
 msgid "%(job)s at %(company)s"
 msgstr "%(job)s chez %(company)s"
 
-#: users/models.py:53
+#: users/models.py:55
 #, python-format
 msgid "Studying %(degree)s in %(university)s"
 msgstr "Etudiant en %(degree)s à %(university)s"
 
-#: users/models.py:56
+#: users/models.py:58
 #, python-format
 msgid "Expert in %(skill)s"
 msgstr "Expert en %(skill)s"
 
-#: users/models.py:96
+#: users/models.py:98
 msgid "online payment"
 msgstr "Versement par paiement en ligne"
 
-#: users/models.py:97
+#: users/models.py:99
 #, python-format
 msgid "Paiement %s validated"
 msgstr "Paiement %s validé"
 
-#: users/models.py:161
+#: users/models.py:163
 msgid "Title"
 msgstr "Titre"
 
-#: users/models.py:162
+#: users/models.py:164
 msgid "Main skill"
 msgstr "Compétence principale"
 
-#: users/models.py:163 users/models.py:184
+#: users/models.py:165 users/models.py:186
 msgid "Comment"
 msgstr "Commentaire"
 
-#: users/models.py:169 users/models.py:180
+#: users/models.py:171 users/models.py:182
 msgid "Begining"
 msgstr "Début"
 
-#: users/models.py:170 users/models.py:181
+#: users/models.py:172 users/models.py:183
 msgid "End"
 msgstr "Fin"
 
-#: users/models.py:171
+#: users/models.py:173
 msgid "Company"
 msgstr "Société"
 
-#: users/models.py:172
+#: users/models.py:174
 msgid "Job"
 msgstr "Emploi"
 
-#: users/models.py:173
+#: users/models.py:175
 msgid "Description"
 msgstr "Description"
 
-#: users/models.py:182
+#: users/models.py:184
 msgid "Degree"
 msgstr "Diplôme"
 
-#: users/models.py:183
+#: users/models.py:185
 msgid "University"
 msgstr "Université"
 
-#: users/models.py:240
+#: users/models.py:242
 #, python-format
 msgid "%s's blog"
 msgstr "blog de %s"
@@ -2078,6 +2155,12 @@ msgstr "Message envoyé"
 #: users/views.py:255
 msgid "Notice archived"
 msgstr "Notification archivée"
+
+msgid "Me"
+msgstr "Moi"
+
+msgid "Other"
+msgstr "Les autres"
 
 msgid "due_date"
 msgstr "echéance"
