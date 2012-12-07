@@ -86,7 +86,7 @@ msgstr "Document"
 
 #: helpers.py:65
 msgid "Bug report"
-msgstr ""
+msgstr "Rapport de bug"
 
 #: helpers.py:113
 msgid "PDF Transformation Error"
@@ -1187,7 +1187,7 @@ msgstr "Fermer cette fenêtre"
 
 #: templates/projects/project_actions.html:75
 msgid "See all tasks without release"
-msgstr ""
+msgstr "Voir toutes les tâche sans version"
 
 #: templates/projects/project_actions.html:76
 msgid "All releases"
@@ -1359,7 +1359,7 @@ msgstr "Les tâches du projets seront listées ici"
 
 #: templates/projects/project_github.html:12
 msgid "Repository"
-msgstr ""
+msgstr "Dépot"
 
 #: templates/projects/project_github.html:16
 #: templates/projects/project_github.html:32
@@ -1613,23 +1613,23 @@ msgstr "Un fichier descrivant le travail à faire..."
 
 #: templates/projects/spec/edit_type6.html:3
 msgid "Describe the bug you can find in the task..."
-msgstr ""
+msgstr "Décrire le bug que vous pouvez trouver dans la tâche..."
 
 #: templates/projects/spec/edit_type6.html:14
 msgid "What I did:"
-msgstr ""
+msgstr "Ce que j'ai fait'"
 
 #: templates/projects/spec/edit_type6.html:17
 msgid "What happened:"
-msgstr ""
+msgstr "Ce qui est arrivé"
 
 #: templates/projects/spec/edit_type6.html:20
 msgid "What should happen:"
-msgstr ""
+msgstr "Ce qui aurait dû arriver"
 
 #: templates/projects/spec/edit_type6.html:23
 msgid "Environnement:"
-msgstr ""
+msgstr "L'environnement"
 
 #: templates/projects/spec/editspec.html:2
 msgid "Describe here what is to be done in"
