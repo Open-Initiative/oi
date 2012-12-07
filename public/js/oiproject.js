@@ -516,8 +516,7 @@ OISpot.prototype.fillDiv = function fillDiv() {
     if(this.linkid) OIajaxCall('/project/'+this.linkid+'/summarize', null, this.div.id);
 }
 OISpot.prototype.saveTask = function saveTaskSpot() {
-    addTask(jQuery('#'+this.div.id+' .newtask_title')[0].value, this.projectid, null, 
-        makeObjectCallback(this.save, this));
+    addTask(jQuery('#'+this.div.id+' .newtask_title')[0].value, this.projectid, makeObjectCallback(this.save, this));
     return false;
 }
 OISpot.prototype.save = function saveSpot(taskid) {
