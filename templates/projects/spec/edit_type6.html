@@ -4,18 +4,7 @@
 <div class="column">
 
 <!--  image part  -->
-    <input id="filename_{{divid}}" name="filename" type="hidden" />
-    <input id="ts_{{divid}}" name="ts" type="hidden" />
-    <span id="filespan_{{divid}}" {% if not spec.file %}class="invisible" {% endif %}>
-        <img src='/img/icons/delete.png' alt='{% trans "Delete" %}' title='{% trans "Delete" %}' onclick='changeFile("{{divid}}")' /> {{spec.file.name|cleanfilename}}
-    </span>
-    <div id="filediv_{{divid}}" {% if spec.file %}class="invisible" {% endif %}style="float: left;">
-        <form id="form_{{divid}}" method="post" enctype="multipart/form-data" action="/project/{{project.id}}/uploadfile/{{spec.id|default:0}}" target="filedest_{{divid}}">
-            {% csrf_token %}
-            <input id="divid_{{divid}}" name="divid" type="hidden" value="{{divid}}" />
-            <input id="file_{{divid}}" name="file" type="file" onchange="hide('validspec_{{divid}}');document.getElementById('form_{{divid}}').submit()" />
-        </form>
-    </div>
+    {% include 'projects/spec/edit_type2.html' %}
     
 <!--  url part  -->
     <label for="url_{{divid}}">Url</label>
@@ -34,7 +23,7 @@
     <div class="msgtitle">{% trans "Environnement:" %}</div>
     <textarea id="bug_report_{{divid}}_4" class="speclegend"></textarea>
 
-    <div id="text_{{divid}}" class="invisibl">{{spec.text|oiunescape}}</div>
+    <div id="text_{{divid}}" class="invisible">{{spec.text|oiunescape}}</div>
 </div>
 
 <!--  common part  -->
