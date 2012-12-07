@@ -311,6 +311,7 @@ function populateOverviewTable(projectid){
     if(order) url += "&order="+order;
     url += "&page="+(page||1);
     url += "&"+prepareForm("form_overview");
+    document.location.hash = '#'+prepareForm("form_overview");
     OIajaxCall(url, null, divid, 
         function(response){
             var header = document.getElementById('headerTableOverview');
@@ -327,6 +328,9 @@ function populateOverviewTable(projectid){
                     if(fields[j]=="state"){
                         if(task.fields[field] == 0){
                             task.fields["due_date"] = ""+task.fields.start_date;
+                        }
+                        if(task.fields[field] == 1){
+                            task.fields["due_date"] = ""+task.fields.due_date;
                         }
                         if(task.fields[field] == 2){
                             task.fields["due_date"] = ""+task.fields.due_date;
@@ -389,29 +393,29 @@ function changeSpecType(divid, type) {
     var url = "/project/"+projectid+"/editspecdetails/"+specid+"?divid="+divid+"&type="+type;
     OIajaxCall(url, null, "spec_"+divid, 
         function(){if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceAddControl', false, 'text_'+divid);
-            if(getValue("type_"+divid)==6){buildText(divid);}
+            if(getValue("type_"+divid)==6){
+                buildText(divid);
+                if(document.getElementById("text_"+divid)){
+                    document.getElementById("text_"+divid+"_div").style.display = "none";
+                }else{
+                    document.getElementById("text_"+divid+"_div").style.display = "inline";
+                }
+            }
         });
 }
 function prepareText(divid){
     var allvalue = "<dl>";
-    var br = RegExp("<br />", "g");
-    var n = "\n";
-    allvalue += "<br /><dt><b> What I did: </b></dt><dd> "+document.getElementById("bug_report_"+divid+"_1").value.replace(br,n)+"</dd>";
-    allvalue += "<br /><dt><b> What happened: </b></dt><dd>  "+document.getElementById("bug_report_"+divid+"_2").value+"</dd>";
-    allvalue += "<br /><dt><b> What should happen: </b></dt><dd> "+document.getElementById("bug_report_"+divid+"_3").value+"</dd>";
-    allvalue += "<br /><dt><b> Environnement: </b></dt><dd>  "+document.getElementById("bug_report_"+divid+"_4").value+"</dd>";
+    allvalue += "<br /><dt><b> What I did: </b></dt><dd>"+document.getElementById("bug_report_"+divid+"_1").value+"</dd>";
+    allvalue += "<br /><dt><b> What happened: </b></dt><dd>"+document.getElementById("bug_report_"+divid+"_2").value+"</dd>";
+    allvalue += "<br /><dt><b> What should happen: </b></dt><dd>"+document.getElementById("bug_report_"+divid+"_3").value+"</dd>";
+    allvalue += "<br /><dt><b> Environnement: </b></dt><dd>"+document.getElementById("bug_report_"+divid+"_4").value+"</dd>";
     
-//    allvalue.replace(br,n);
-    document.getElementById("text_"+divid).value = allvalue+"</dl>";
-//    document.getElementById("text_"+divid).innerHTML.replace(br,n);
+    document.getElementById("text_"+divid).value = allvalue.replace(/\n/g,"<br />")+"</dl>";
 }
 function buildText(divid){
-    var br = "<br />";
-    var n = RegExp("\n", "g");
-    
     if(document.getElementById(divid).getElementsByTagName("dd")){
     for(var i = 1; i <= 4; ++i){
-        document.getElementById("bug_report_"+divid+"_"+i).innerHTML = document.getElementById(divid).getElementsByTagName("dd")[i-1].innerHTML.replace(n,br);}
+        document.getElementById("bug_report_"+divid+"_"+i).innerHTML = document.getElementById(divid).getElementsByTagName("dd")[i-1].innerHTML.replace(/<br( \/)*>/g, "\n");}
     }
 }
 function saveSpec(divid, projectid, order, specid) {
