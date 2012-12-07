@@ -205,7 +205,7 @@ def create_new_task(parent, title, author, githubid=None):
     if assignee:
         project.assign_to(assignee)
     # github sync
-    if  parent.githubsync_set.all() and not githubid:
+    if parent and parent.githubsync_set.all() and not githubid:
         repo = parent.get_repo()
         project.githubid = repo.create_issue(project.title, body="http://www.openinitiative.com/project/%s/view/description/"%project.id, labels=[repo.get_label(parent.githubsync_set.get().label)]).id
         project.save()
