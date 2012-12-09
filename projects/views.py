@@ -692,6 +692,7 @@ def favproject(request, id):
     else:
         request.user.get_profile().follow_project(project)
         return HttpResponse(True)
+    
 @OINeedsPrjPerms(OI_WRITE)
 def setgithubsync(request, id):
     """sets a GitHub synchronization on that project"""
@@ -706,7 +707,7 @@ def setgithubsync(request, id):
     githubsync.label = request.POST['label']
     githubsync.save()
     return HttpResponse(_('Settings saved'))
-
+    
 @OINeedsPrjPerms(OI_MANAGE)
 def syncgithub(request, id):
     """Synchronises the tasks with the github issues"""
@@ -716,6 +717,40 @@ def syncgithub(request, id):
         if not Project.objects.filter(githubid=issue.number):
             create_new_task(project, issue.title, request.user, issue.number)
     return HttpResponse('', status=332)
+    
+    @OINeedsPrjPerms(OI_MANAGE)
+def togglegithubhook(request, id):
+    """Set a Github hook on the current project, to create a task each time an issue is created
+    or deletes it if it exists"""
+    project = Project.objects.get(id=id)
+    hook = project.get_hook()
+    if hook:
+        hook.delete()
+        return HttpResponse(_("Hook deleted"))
+        
+    url = "%s/project/%s/createtask"%(get_current_site(request).domain, id)
+    project.get_repo().create_hook("web", {'url': url}, ["issues", "issue_comments"])
+    return HttpResponse(_("Hook created"))
+
+@csrf_exempt
+def createtask(request, id):
+    """Create task on GitHub hook"""
+    import logging, sys
+    project = Project.objects.get(id=id)
+    try:
+        data = JSONDecoder().decode(request.POST["payload"])
+        logging.getLogger("oi").debug("Github :"+data.get("action"))
+        #Check if one of the issue's labels is synchronised in a project
+        for label in data["issue"].get("labels", []):
+            for githubsync in GitHubSync.objects.filter(repository=data["repository"]["name"], label=label["name"]):
+                if project == githubsync.project:
+                    if data.get("action") == "opened":
+                        create_new_task(project, data["issue"].get("title"), githubsync.user, data["issue"].get("number"))
+        return HttpResponse('OK')
+    except Exception:
+        logging.getLogger("oi").debug("Github Sync Error : " + sys.exc_info())
+        return HttpResponse('', status=422)
+    
 @OINeedsPrjPerms(OI_WRITE)
 def editspec(request, id, specid):
     """Edit template of a spec contains a spec details edit template"""
