@@ -180,7 +180,7 @@ def assignrelease(request, id):
     
     release, created = Release.objects.get_or_create(name = request.POST["release"], project = project)
     if release.done == True:
-        return HttpResponse(_("Release already done, can't be assigned"))
+        return HttpResponse(_("Can't set to a release already finished"))
         
     project.target = release
     project.save() 
@@ -820,7 +820,7 @@ def savespec(request, id, specid='0'):
     
     if not filename and not spec.file and spec.type in (2,5):
         return HttpResponse(_("Wrong arguments"), status=531)
-    if filename or spec.type == 6 and filename: #check if filename existing or the spec_type is 6 and filename existing
+    if filename:
 #        filename = normalize("NFC", filename)
         filename = normalize("NFKD", filename).encode('ascii', 'ignore').replace('"', '')
         if spec.file:

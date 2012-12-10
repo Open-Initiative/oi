@@ -44,9 +44,9 @@
         <div><span class="entitle-overview">{% trans "Requested budget:" %} </span><a href="/project/{{object.id}}/view/budget"> {{project.offer}}€ <img src="/img/icons/edit.png" /></a></div>
         </div>
         <div>
-            <span class="entitle-overview">{% trans "Release's project:" %}</span> <span id="assignRelease">{{project.target.name}}</span> 
+            <span class="entitle-overview">{% trans "Release:" %}</span> <span id="assignRelease">{{project.target.name}}</span> 
             {% if object|can_manage:user and object.state < 3 %}
-                <img src="/img/icons/edit.png" class="clickable" alt="{% trans 'Assign a release to a task' %}" title="{% trans 'Assign a release to a task' %}" onclick="$('#entitle-overview_{{object.id}}').toggle()" /> 
+                <img src="/img/icons/edit.png" class="clickable" alt="{% trans 'Select in which release this task will be done' %}" title="{% trans 'Select in which release this task will be done' %}" onclick="$('#entitle-overview_{{object.id}}').toggle()" /> 
             {% endif %}
             <select id="entitle-overview_{{object.id}}" class="invisible" onchange="assignRelease({{object.id}}); $('#entitle-overview_{{object.id}}').hide()">
                 <option selected ></option>

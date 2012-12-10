@@ -1,7 +1,7 @@
 {% load i18n %}
 <select name="filter_assignee" class="smallinput" onchange="populateOverviewTable({{project.id}}); $('#table_{{cell}}').hide();">
     <option selected> </option>
-    {% for user in object.all_ancestors_assignee %}
+    {% for user in object.all_descendants_assignees %}
         <option value="{{user}}"> {{user}} </option>
     {% endfor %}
 </select>

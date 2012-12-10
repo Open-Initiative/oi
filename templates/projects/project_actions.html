@@ -69,7 +69,7 @@
         </div>
     {% endif %}
     <div id="releaseblock" >
-        <select id="release" onchange="initOITree()" title="All the releases of this project">
+        <select id="release" onchange="initOITree()" title="{% trans 'Show tasks in a release' %}">
             {% for release in object.old_releases %}
                 <option class="oldrelease" value="{{release.name}}">{{release.name}}</option>
             {% endfor %}
