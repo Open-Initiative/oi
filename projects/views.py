@@ -126,7 +126,9 @@ def listtasks(request, id):
             
             #appends the serialized task list to the global list
             lists.append(serializers.oiserialize("json", tasks,
-                extra_fields=("author.get_profile" ,"assignee.get_profile.get_display_name", "get_budget","allbid_sum","bid_set.count","target.name","target.done","target.project","created","start_date","due_date","validation")))
+                extra_fields=("author.get_profile","assignee.get_profile.get_display_name","get_budget","allbid_sum",
+                    "bid_set.count","target.name","target.done","target.project","created","start_date",
+                    "due_date","validation", "githubsync_set.get.repository", "githubsync_set.get.label")))
     return HttpResponse(JSONEncoder().encode(lists)) #serializes the whole thing
 
 @OINeedsPrjPerms(OI_MANAGE)

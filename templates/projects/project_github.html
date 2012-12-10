@@ -29,9 +29,9 @@
     {% endif %}
 </div>
 <script>
-    oiTable = new OITable("github", ["{% trans 'Synchronisez' %}","{% trans 'Label' %}"]);
-    firstLine = ["{{project.master}}", "{{project.master}}"];
+    oiTable = new OITable("github", ["{% trans 'Synchronised' %}","{% trans 'Label' %}"]);
+    firstLine = ["{{project.githubsync_set.get.repository}}", "{{project.githubsync_set.get.label}}"];
     oiTable.addFromTask = function addFromTask(task, afterid, bgClass) {
-        oiTable.addLine(task.pk, [parseFloat(task.fields), parseFloat(task.fields)], afterid, bgClass);
+        oiTable.addLine(task.pk, [parseFloat(task.fields.githubsync_set_get_repository) || "-", parseFloat(task.fields.githubsync_set_get_label) || "-"], afterid, bgClass);
     }
 </script>
