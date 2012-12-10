@@ -23,22 +23,26 @@ class ProjectQuerySet(QuerySet):
         return self.filter(offer__gt = 0)
     
     def filter_perm(self, user, permission):
-        """filter permissions"""
-        if user.is_superuser: #Super user has permissions on all tasks
+        """filter projects on permissions"""
+        if user.is_superuser: #Super user has all permissions on all tasks
             return self.all()
         if permission==OI_READ:
-            return self.filter(models.Q(public=True)|models.Q(projectacl__user=user if user.is_authenticated() else None, projectacl__permission=permission)).distinct()
+            return self.filter(models.Q(public_read=True)|models.Q(projectacl__user=user if user.is_authenticated() else None, projectacl__permission=permission)).distinct()
+        elif permission==OI_ANSWER:
+            return self.filter(models.Q(public_answer=True)|models.Q(projectacl__user=user if user.is_authenticated() else None, projectacl__permission=permission)).distinct()
+        if permission==OI_BID:
+            return self.filter(models.Q(public_bid=True)|models.Q(projectacl__user=user if user.is_authenticated() else None, projectacl__permission=permission)).distinct()
         else:
             return self.filter(projectacl__user=user if user.is_authenticated() else None, projectacl__permission=permission).distinct()
             
     def apply_perm(self, user, perm):
-        """sets perm on all descendants project"""
+        """sets perm on all projects in queryset"""
         for task in self:
             task.set_perm(user, perm)
 
-    def apply_public(self, public):
-        """sets public on project and descendants"""
-        return self.update(public=public)
+    def apply_public(self, permission, public):
+        """sets public on all projects in queryset"""
+        return self.update(**{"public_"+permission: public})
 
 #Add function for the list
 class ProjectManager(models.Manager):
@@ -81,6 +85,9 @@ class Project(models.Model):
     priority = models.IntegerField(default=0)
     state = models.IntegerField(choices=OI_PRJ_STATES, default=OI_PROPOSED)
     public = models.BooleanField(default=True)
+    public_read = models.BooleanField(default=True)
+    public_answer = models.BooleanField(default=False)
+    public_bid = models.BooleanField(default=False)
     target = models.ForeignKey("projects.Release", null=True, blank=True, related_name="tasks")
     githubid = models.IntegerField(blank=True, null=True)
     objects = ProjectManager()
@@ -228,7 +235,11 @@ class Project(models.Model):
         #superuser always has all permissions
         if user.is_superuser:
             return True
-        if perm in [1,4] and self.public:
+        if perm == OI_READ and self.public_read:
+            return True
+        if perm == OI_ANSWER and self.public_answer:
+            return True
+        if perm == OI_BID and self.public_bid:
             return True
         if user.is_anonymous():
             return False
@@ -247,7 +258,10 @@ class Project(models.Model):
     def inherit_perms(self):
         """gets all perms from parent and sets them to the project"""
         if self.parent:
-            self.public = self.parent.public
+            self.public_read = self.parent.public_read
+            self.public_answer = self.parent.public_answer
+            self.public_bid = self.parent.public_bid
+            self.save()
             for perm in self.parent.projectacl_set.all():
                 self.set_perm(perm.user, perm.permission)
             
