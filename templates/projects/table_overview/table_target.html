@@ -2,7 +2,7 @@
 <!--<input name="filter_release" class="smallinput">-->
 
 <select name="filter_release" class="smallinput" onchange="populateOverviewTable({{project.id}}); $('#table_{{cell}}').hide();">
-    <option selected></option>
+    <option value="" selected></option>
     {% for release in object.old_releases %}
         <option class="oldrelease" value="{{release.name}}">{{release.name}}</option>
     {% endfor %}
