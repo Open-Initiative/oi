@@ -12,7 +12,7 @@ from django.template import RequestContext
 from django.utils.translation import ugettext as _
 from django.views.generic.list_detail import object_list
 from django.views.generic.simple import direct_to_template
-from oi.helpers import OI_PAGE_SIZE, OI_ALL_PERMS, OI_READ, OI_WRITE, ajax_login_required
+from oi.helpers import OI_PAGE_SIZE, OI_ALL_PERMS, OI_READ, OI_ANSWER, OI_WRITE, ajax_login_required
 from oi.helpers import OI_SCORE_ADD, OI_SCORE_DEFAULT_RELEVANCE, OI_EXPERTISE_FROM_ANSWER, OI_EXPERTISE_TO_MESSAGE
 from oi.settings import MEDIA_ROOT, MEDIA_URL
 from oi.projects.models import Project
