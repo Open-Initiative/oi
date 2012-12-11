@@ -312,7 +312,7 @@ function populateOverviewTable(projectid){
     OIajaxCall(url, null, divid, 
         function(response){
             var header = document.getElementById('headerTableOverview');
-            document.appendChild(header);
+            document.getElementById("prj-table-overview").appendChild(header);
             document.getElementById('dynamicTableOverview').innerHTML = "";
             document.getElementById('dynamicTableOverview').appendChild(header);
             var tasklist = eval(eval(response)[0]);

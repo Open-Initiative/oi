@@ -66,7 +66,7 @@
     {% blocktrans count counter=tasks|length %}task inside{% plural %}tasks inside{% endblocktrans %}
     {{project.title}}
     </div> <div id="load"></div>
-    <div class="prj-table-overview"><form id="form_overview" onsubmit="populateOverviewTable({{project.id}});return false">
+    <div id="prj-table-overview" class="prj-table-overview"><form id="form_overview" onsubmit="populateOverviewTable({{project.id}});return false">
         <table id="dynamicTableOverview"> 
             <tr id="headerTableOverview">
                 {% for cell in table_overview %}
