@@ -60,43 +60,42 @@
 </div>  
 {% with  project.descendants|filter_read:user as tasks %}
 {% if tasks %}
-    <div class="bottom-overview">
-        <div class="prjtitle">
-            {{tasks.count}} 
-            {% blocktrans count counter=tasks|length %}task inside{% plural %}tasks inside{% endblocktrans %}
-            {{project.title}}</div> <div id="load"></div>
-        <div class="prj-table-overview"><form id="form_overview" onsubmit="populateOverviewTable({{project.id}});return false">
-            <table id="dynamicTableOverview"> 
-                <tr id="headerTableOverview">
-                
-                    {% for cell in table_overview %}
-                        <th class="tableheader">
-                            <a href="javascript:orderOverviewTable({{project.id}}, '{{cell}}')" class="clickable">
-                                {% trans cell %}</a> 
-                            <img src="/img/icons/treebtn1-open.png" class="clickable show_hide_popup" onclick="addPopup($('#table_{{cell}}').toggle()[0]);document.ignoreClosePopups = true;">
-                            <div id="table_{{cell}}" class="invisible filter_table" onclick="document.ignoreClosePopups = true;event.stopPropagation();">
-                                {% with 'projects/table_overview/table_'|add:cell|add:'.html' as template_name %}
-                                    {% include template_name %}
-                                {% endwith %}
-                                <input type="image" src="/img/icons/ok.png" alt="{% trans 'Add' %}" onclick="$('#table_{{cell}}').hide()" />
-                                <img class="clickable" src="/img/icons/delete.png" alt="{% trans 'Cancel' %}" onclick="$('#table_{{cell}}').hide()"/>
-                            <div>
-                        </th>
-                    {% endfor %}
+<div class="bottom-overview">
+    <div class="prjtitle">
+    {{tasks.count}} 
+    {% blocktrans count counter=tasks|length %}task inside{% plural %}tasks inside{% endblocktrans %}
+    {{project.title}}
+    </div> <div id="load"></div>
+    <div class="prj-table-overview"><form id="form_overview" onsubmit="populateOverviewTable({{project.id}});return false">
+        <table id="dynamicTableOverview"> 
+            <tr id="headerTableOverview">
+                {% for cell in table_overview %}
+                <th class="tableheader">
+                    <a href="javascript:orderOverviewTable({{project.id}}, '{{cell}}')" class="clickable">{% trans cell %}</a> 
+                    <img src="/img/icons/treebtn1-open.png" class="clickable show_hide_popup" onclick="addPopup($('#table_{{cell}}').toggle()[0]);document.ignoreClosePopups = true;">
+                    <div id="table_{{cell}}" class="invisible filter_table" onclick="document.ignoreClosePopups = true;event.stopPropagation();">
+                        {% with 'projects/table_overview/table_'|add:cell|add:'.html' as template_name %}
+                        {% include template_name %}
+                        {% endwith %}
+                        <input type="image" src="/img/icons/ok.png" alt="{% trans 'Add' %}" onclick="$('#table_{{cell}}').hide()" />
+                        <img class="clickable" src="/img/icons/delete.png" alt="{% trans 'Cancel' %}" onclick="$('#table_{{cell}}').hide()"/>
+                    </div>
+                </th>
+                {% endfor %}
                     
-                </tr>
-            </table></form>
-            <span id="projectOverviewPagePrev" class="prj-overview-page-prev clickable" onclick="page = page<=1?1:page-1; populateOverviewTable({{project.id}}); document.getElementById('page').innerHTML=page">{% trans "previous" %}</span>
-            <span id="projectOverviewPageNext" class="prj-overview-page-next clickable" onclick="page = page>=nbpage?nbpage:page+1; populateOverviewTable({{project.id}}); document.getElementById('page').innerHTML=page;">{% trans "next" %}</span>
-            <script>
-                nbtask = {{tasks.count}};
-                nbpage = Math.ceil(nbtask / 25);
-                order = null;
-                page=1;
-                $(".prj-table-overview").ready(populateOverviewTable({{project.id}}));
-                document.write("<span class=change-page-overview>"+"<span id=page>"+page+"</span>"+"<span>"+"/"+nbpage+"</span>"+"</span>");
-            </script>
-        </div>
+            </tr>
+        </table></form>
+        <span id="projectOverviewPagePrev" class="prj-overview-page-prev clickable" onclick="page = page<=1?1:page-1; populateOverviewTable({{project.id}}); document.getElementById('page').innerHTML=page">{% trans "previous" %}</span>
+        <span id="projectOverviewPageNext" class="prj-overview-page-next clickable" onclick="page = page>=nbpage?nbpage:page+1; populateOverviewTable({{project.id}}); document.getElementById('page').innerHTML=page;">{% trans "next" %}</span>
+        <script>
+            nbtask = {{tasks.count}};
+            nbpage = Math.ceil(nbtask / 25);
+            order = null;
+            page=1;
+            $(".prj-table-overview").ready(populateOverviewTable({{project.id}}));
+            document.write("<span class=change-page-overview>"+"<span id=page>"+page+"</span>"+"<span>"+"/"+nbpage+"</span>"+"</span>");
+        </script>
     </div>
+</div>
 {% endif %}
 {% endwith %}
