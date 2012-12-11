@@ -2057,7 +2057,7 @@ msgid "Notice archived"
 msgstr ""
 
 msgid "due_date"
-msgstr "Echeance"
+msgstr "Deadline"
 
 msgid "adj_fem"
 msgstr " "

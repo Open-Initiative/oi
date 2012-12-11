@@ -1,6 +1,6 @@
 from StringIO import StringIO
 from django.core import serializers
-from  django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.serializers import base
 from django.core.serializers import python
 from django.utils.encoding import is_protected_type
@@ -57,7 +57,7 @@ def handle_extra_field(self, obj, field_name):
             value = value.__getattribute__(field)
             if callable(value):
                 value = value()
-    except AttributeError, ObjectDoesNotExist:
+    except (AttributeError, ObjectDoesNotExist):
         return None
     # Protected types (i.e., primitives like None, numbers, dates,
     # and Decimals) are passed through as is. All other values are
