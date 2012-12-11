@@ -378,7 +378,7 @@ class Project(models.Model):
         """Show all the releases that are not done yet"""
         return self.master.release_set.filter(done = False).exclude(tasks=self.master)
         
-    def all_ancestors_assignee(self):
+    def all_descendants_assignees(self):
         return User.objects.filter(assigned_projects__ancestors=self).distinct()
 
 #Structure de contrôle des permissions

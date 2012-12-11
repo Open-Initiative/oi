@@ -1,16 +1,7 @@
 {% load oifilters %}
 {% load i18n %}
-<div>{% trans "Describe the bug you can find in the task..." %}</div>
+<div>{% trans "Describe the bug you found in the task..." %}</div>
 <div class="column">
-
-<!--  image part  -->
-    {% include 'projects/spec/edit_type2.html' %}
-    
-<!--  url part  -->
-    <label for="url_{{divid}}">Url</label>
-    <input id="url_{{divid}}" type="text" value="{{spec.url|default:"http://"}}" />
-
-<!--  text part  -->
     <div class="msgtitle">{% trans "What I did:" %}</div>
     <textarea id="bug_report_{{divid}}_1" class="speclegend"></textarea>
 
@@ -20,13 +11,18 @@
     <div class="msgtitle">{% trans "What should happen:" %}</div>
     <textarea id="bug_report_{{divid}}_3" class="speclegend"></textarea>
 
-    <div class="msgtitle">{% trans "Environnement:" %}</div>
+    <div class="msgtitle">{% trans "Environment:" %}</div>
     <textarea id="bug_report_{{divid}}_4" class="speclegend"></textarea>
 
     <div id="text_{{divid}}" class="invisible">{{spec.text|oiunescape}}</div>
+
+    {% tran "You can add a link or an image as a reference:" %}
+    
+    <label for="url_{{divid}}">Url</label>
+    <input id="url_{{divid}}" type="text" value="{{spec.url|default:"http://"}}" />
+    {% include 'projects/spec/edit_type2.html' %}
 </div>
 
-<!--  common part  -->
 <div id="validspec_{{divid}}" class="actions"><img class="clickable" src="/img/icons/ok-32.png" onclick="prepareText('{{divid}}'); saveSpec('{{divid}}',{{project.id}},getValue('specorder_{{divid}}'),{{spec.id|default:0}})"/></div>
 <div class="cleared"></div>
 
