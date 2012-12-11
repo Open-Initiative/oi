@@ -2202,3 +2202,21 @@ msgstr "Equipe"
 
 msgid "adj_fem"
 msgstr "e"
+
+msgid "state"
+msgstr "état"
+
+msgid "title"
+msgstr "titre"
+
+msgid "assignee"
+msgstr "responsable"
+
+msgid "due_date"
+msgstr "échéance"
+
+msgid "target"
+msgstr "version"
+
+msgid "offer"
+msgstr "budget"
