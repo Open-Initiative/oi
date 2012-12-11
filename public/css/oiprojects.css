@@ -269,9 +269,10 @@ div.prjcard {
     margin: 5px;
     padding: 10px;
     float: left;
-    background: #D7E7F0;
+    background: white;
     overflow: hidden;
-    border-radius: 4px;
+    border: 1px solid #E3E3E5;
+    border-radius: 3px;
 }
 div.cardspec {
     margin: 20px 0;

@@ -9,30 +9,29 @@
 
             <div class="slidertext">
                 <dl>
-                    <div class="slidertip">{% trans "Open Initiative helps you to describe your project with an appropriate methodology" %}</div>
                     <div id="indexslide1" class="indexslide"><dt>{% trans "build" %}</dt>
                         <dd>{% trans "your IT project online" %}</dd>
                     </div>
-                    <div class="slidertip invisible">{% trans "Open Initiative finds the worker you need in a selected professional network" %}</div>
+                    <div class="slidertip">{% trans "Open Initiative helps you to describe your project with an appropriate methodology" %}</div>
                     <div id="indexslide2" class="indexslide invisible"><dt>{% trans "find" %}</dt>
                         <dd>{% trans "skilled service providers transparently" %}</dd>
-                        
                     </div>
-                    <div class="slidertip invisible">{% trans "Open Initiative secures the progress of your project through task organization and close follow-up" %}</div>
+                    <div class="slidertip invisible">{% trans "Open Initiative finds the worker you need in a selected professional network" %}</div>
                     <div id="indexslide3" class="indexslide invisible"><dt>{% trans "follow" %}</dt>
                         <dd>{% trans "the progress of your project in real time with agile methodology" %}</dd>
                     </div>
-                    <div class="slidertip invisible">{% trans "Control your budget by paying tasks as they are completed" %}</div>
+                    <div class="slidertip invisible">{% trans "Open Initiative secures the progress of your project through task organization and close follow-up" %}</div>
                     <div id="indexslide4" class="indexslide invisible"><dt>{% trans "breathe" %}</dt>
                         <dd>{% trans "with the payment guarantee" %}</dd>
                     </div>
+                    <div class="slidertip invisible">{% trans "Control your budget by paying tasks as they are completed" %}</div>
                 </dl>
             </div>
             <div class="clickable slidericons">
-                <div id="slidericon1" class="slidericon slidericonselected" onclick="slideIndex(1)">1</div>
-                <div id="slidericon2" class="slidericon" onclick="slideIndex(2)">2</div>
-                <div id="slidericon3" class="slidericon" onclick="slideIndex(3)">3</div>
-                <div id="slidericon4" class="slidericon" onclick="slideIndex(4)">4</div>
+                <div id="slidericon1" class="slidericon slidericonselected" onclick="slideIndex(1)"></div>
+                <div id="slidericon2" class="slidericon" onclick="slideIndex(2)"></div>
+                <div id="slidericon3" class="slidericon" onclick="slideIndex(3)"></div>
+                <div id="slidericon4" class="slidericon" onclick="slideIndex(4)"></div>
             </div>
         </div>
         <script type="text/javascript">
@@ -40,7 +39,6 @@
             window.sliding = false;
             window.setInterval(function (){if(window.slide) slideIndex()}, 5000);
         </script>
-        <a href="/user/register"><div style="float: right;font-size: 1.5em;padding: 10px;margin: 10px;width:200px;color:#0094B5;border: solid;border-radius: 45px; text-align: center">{% trans "I have a project and I want to be contacted" %}</div></a>
         <a href="{%trans "/presentation" %}"><div class="slidermore" onmouseover="this.style.color='#D0574C'" onmouseout="this.style.color='white'">
             {% trans "Learn More" %}
         </div></a>
@@ -49,26 +47,38 @@
 {% endblock %}
 {% block headersep %}
 <div class="registerline">
-    <div class="registertext">{% trans "Register to create a new project" %}</div>
-    <div id="registerarea">
-        <a href="/user/register"><div id="registerbtn" onmouseover="this.style.color='white'" onmouseout="this.style.color='#A8DCF4'">
-            {% trans "Register" %}
-        </div></a>
-    </div>
+    <a href="/user/register"><div class="registertext">{% trans "I have a project and I want to be contacted" %} <img src="/img/icons/next.png"/></div></a>
 </div>
 {% endblock %}
 {% block actions %}
-<div class="bidaction"><form onsubmit="addTask(getValue('newproject_title'), null, function(taskid){document.location = '/project/'+taskid});return false">
-    {% trans "Create a new project:" %}
-    <input type="image" src="/img/icons/add.png" /> <input id="newproject_title" />
+<div id="navhome">
+    <div class="navtitlehome">{% trans "Projects on Open Initiative" %}</div>
+    <a href="#0" onclick="switchPrjList(0)"><div class="treetitlehome">{% trans "Our selection" %}</div></a>
+    <a href="#1" onclick="switchPrjList(1)"><div class="treetitlehome">{% trans "Last projects" %}</div></a>
+</div>
+<div class="actionbutton"><form onsubmit="addTask(getValue('newproject_title'), null, function(taskid){document.location = '/project/'+taskid});return false">
+    <img class="actions" src="/img/icons/descriptionwhite.png" />
+    <div>{% trans "Create" %}</div>{% trans "a new project:" %}
+    <input id="newproject_title"/><input id="newproject_add" type="image" src="/img/icons/add.png" />
 </form></div>
 {% endblock %}
 {% block nav %}
-<div class="navtitle">{% trans "Projects on Open Initiative" %}</div>
-<div class="treetitle"><a href=""">{% trans "Our selection" %}</a></div>
 {% endblock %}
 {% block content %}
+<div class="invisible prjlist" id="prjlist0">
 {% for project in object_list %}
 {% include 'projects/project_card.html' %}
 {% endfor %}
+</div>
+<div class="invisible prjlist" id="prjlist1">
+{% for project in object_list %}
+{% include 'projects/project_card.html' %}
+{% endfor %}
+</div>
+<script>
+    ajaxParams = document.location.hash;
+    listid = ajaxParams.substring(1) || "{{project_list.0.grouper}}";
+    switchPrjList(listid);
+</script>
+<div class="cleared" style="width:100%"></div>
 {% endblock %}
