@@ -673,7 +673,7 @@ msgstr "Crochet supprimé"
 
 #: projects/views.py:744
 msgid "Hook created"
-msgstr "Crocher créé"
+msgstr "Crochet créé"
 
 #: projects/views.py:773 projects/views.py:790 projects/views.py:811
 #: projects/views.py:822 projects/views.py:843 projects/views.py:845
@@ -1380,7 +1380,7 @@ msgstr "Synchroniser"
 
 #: templates/projects/project_github.html:24
 msgid "Hook set on Github repository "
-msgstr "Crochet mis en garde sur Github"
+msgstr "Crochet posé sur Github"
 
 #: templates/projects/project_github.html:25
 msgid "Remove Hook"
