@@ -11,8 +11,8 @@
                     {% include 'projects/spec/minispec.html' %}
                 </div>
             {% endfor %}
-        </a>
-        {% if object.spec_set.count > 1 %}<img class="clickable previous-mini-spec" src="/img/icons/previousMiniSpec.png"/>{% endif %}
+            </a>
+            {% if object.spec_set.count > 1 %}<img class="clickable previous-mini-spec" src="/img/icons/previousMiniSpec.png"/>{% endif %}
         </div>
     {% else %}
         <div class="no-mini-spec"> <a href="/project/{{object.id}}/view/description"> {% trans "Click here to describe the task" %} </a> </div>
@@ -34,14 +34,14 @@
         <div><span class="entitle-overview">{% trans "Assignee:" %} </span><a href="/project/{{object.id}}/view/team">
             {% if project.assignee %}{{project.assignee.get_profile}}
             {% else %}{% trans "click here to take on the task" %}{% endif %}
-            <img src="/img/icons/edit.png" />
-        </a></div>
+            <img src="/img/icons/edit.png" /></a>
+        </div>
         <div><span class="entitle-overview">{% trans "Execution dates:" %} </span><a href="/project/{{object.id}}/view/planning">
             {% if project.due_date %}{{project.start_date|date:"d/m/Y"}} {% trans "to" %} {{project.due_date|date:"d/m/Y"}}
             {% else %}{% trans "click here to add a date" %}{% endif %}
-            <img src="/img/icons/edit.png" />
-        </a></div>
-        <div><span class="entitle-overview">{% trans "Requested budget:" %} </span><a href="/project/{{object.id}}/view/budget"> {{project.offer}}€ <img src="/img/icons/edit.png" /></a></div>
+            <img src="/img/icons/edit.png" /></a>
+        </div>
+        <div><span class="entitle-overview">{% trans "Requested budget:" %} </span><a href="/project/{{object.id}}/view/budget"> {{project.offer}}€ <img src="/img/icons/edit.png" /></a>
         </div>
         <div>
             <span class="entitle-overview">{% trans "Release:" %}</span> <span id="assignRelease">{{project.target.name}}</span> 
@@ -72,7 +72,7 @@
                 {% for cell in table_overview %}
                 <th class="tableheader">
                     <a href="javascript:orderOverviewTable({{project.id}}, '{{cell}}')" class="clickable">{% trans cell %}</a> 
-                    <img src="/img/icons/treebtn1-open.png" class="clickable show_hide_popup" onclick="addPopup($('#table_{{cell}}').toggle()[0]);document.ignoreClosePopups = true;">
+                    <img src="/img/icons/treebtn1-open.png" class="clickable show_hide_popup" onclick="addPopup($('#table_{{cell}}').toggle()[0]);document.ignoreClosePopups = true;" />
                     <div id="table_{{cell}}" class="invisible filter_table" onclick="document.ignoreClosePopups = true;event.stopPropagation();">
                         {% with 'projects/table_overview/table_'|add:cell|add:'.html' as template_name %}
                         {% include template_name %}
@@ -82,7 +82,6 @@
                     </div>
                 </th>
                 {% endfor %}
-                    
             </tr>
         </table></form>
         <span id="projectOverviewPagePrev" class="prj-overview-page-prev clickable" onclick="page = page<=1?1:page-1; populateOverviewTable({{project.id}}); document.getElementById('page').innerHTML=page">{% trans "previous" %}</span>
