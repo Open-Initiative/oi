@@ -238,9 +238,6 @@ function confirmEvalProject(projectid) {
     OIajaxCall("/project/confirmeval/"+projectid, "rating="+getValue(projectid+"_eval")+"&comment="+getValue("eval_comment_"+projectid), "output", 
         function(){hide("prjdialogue_"+projectid);});
 }
-function toggleHideProject(projectid) {
-    OIajaxCall("/project/togglehide/"+projectid, null, "output");
-}
 function shareProject(projectid) {
     OIajaxCall("/project/"+projectid+"/share", null, "prjdialogue_"+projectid, 
         function(){show("prjdialogue_"+projectid);

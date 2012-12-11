@@ -4,14 +4,14 @@
 <div class="column">
     <div>
         <div class="smallcolumn">
-            <h3>{% trans "Owner" %}</h3><img src="/img/askoi.png" title="{% trans 'The owner can describe the task, appoint it and detail it.' %}" alt="{% trans 'The owner can describe the task, appoint it and detail it.' %}" class="head-help">
+            <img src="/img/askoi.png" title="{% trans 'The owner can describe the task, appoint it and detail it.' %}" alt="{% trans 'The owner can describe the task, appoint it and detail it.' %}" class="head-help"><h3>{% trans "Owner" %}</h3>
             <a href="/user/profile/{{object.author}}">
                 <img class="contactpicture" src="/user/getpicture/{{object.author}}">
                 <div class="username">{{object.author.get_profile}}</div>
             </a>
         </div>
         <div class="oired smallcolumn">
-        <h3>{% trans "Assignee" %}</h3> <img src="/img/askoi.png" title="{% trans 'The assignee executes the task and can delegate it.' %}" alt="{% trans 'The assignee executes the task and can delegate it.' %}" class="head-help">
+        <img src="/img/askoi.png" title="{% trans 'The assignee executes the task and can delegate it.' %}" alt="{% trans 'The assignee executes the task and can delegate it.' %}" class="head-help"><h3>{% trans "Assignee" %}</h3>
         {% if project.assignee %}
             <a href="/user/profile/{{project.assignee.username}}">
                 <img class="contactpicture" src="/user/getpicture/{{project.assignee.username}}">
@@ -48,7 +48,7 @@
     </div>
     <div>
         <div class="smallcolumn">
-            <h3>{{project.bid_set.count}} {% blocktrans count counter=project.bid_set.count %} Validator {% plural %} Validators {% endblocktrans %}</h3><img src="/img/askoi.png" title="{% trans 'The validators confirm that the work done coresponds to what was required.' %}" alt="{% trans 'The validators confirm that the work done coresponds to what was required.' %}" class="head-help">
+            <img src="/img/askoi.png" title="{% trans 'The validators confirm that the work done coresponds to what was required.' %}" alt="{% trans 'The validators confirm that the work done coresponds to what was required.' %}" class="head-help"><h3>{{project.bid_set.count}} {% blocktrans count counter=project.bid_set.count %} Validator {% plural %} Validators {% endblocktrans %}</h3>
             {% for bid in project.bid_set.all %}
                 <a href="/user/profile/{{bid.user.username}}"><div class="cleared">
                     <img class="contactpicture" src="/user/getpicture/{{bid.user.username}}">
@@ -60,7 +60,7 @@
             {% if project|can_manage:user %}<div class="cleared"><a class="clickable" onclick="validatorProject({{project.id}})"><img class="clickable" src="/img/icons/add.png"> {% trans "Invite members" %}</a></div>{% endif %}
         </div> 
         <div class="smallcolumn">
-            <h3>{{project.list_guests.count}} {% blocktrans count counter=project.list_guests.count %} Guest {% plural %} Guests {% endblocktrans %}</h3></h3><img src="/img/askoi.png" title="{% trans 'Guests can see the task and comment it.' %}" alt="{% trans 'Guests can see the task and comment it.' %}" class="head-help">
+            <img src="/img/askoi.png" title="{% trans 'Guests can see the task and comment it.' %}" alt="{% trans 'Guests can see the task and comment it.' %}" class="head-help"><h3>{{project.list_guests.count}} {% blocktrans count counter=project.list_guests.count %} Guest {% plural %} Guests {% endblocktrans %}</h3></h3>
             {% for guest in project.list_guests %}
             <a href="/user/profile/{{guest.username}}"><div class="cleared">
                 <img class="contactpicture" src="/user/getpicture/{{guest.username}}">
@@ -72,6 +72,13 @@
             {% if project|can_manage:user %}<div class="cleared"><a class="clickable" onclick="shareProject({{project.id}})"><img class="clickable" src="/img/icons/add.png"> {% trans "Invite members" %}</a></div>{% endif %}
         </div>
         <div class="cleared"></div>
+        <div class="smallcolumn" id="public">
+            <img src="/img/askoi.png" title="{% trans 'All other users.' %}" alt="{% trans 'All other users.' %}" class="head-help"><h3>{% trans "Public" %}</h3>
+            {% trans "The public can" %}
+            <br /><input id="public_read_{{project.id}}" type="checkbox" {% if project.public_read %}checked="checked"{% endif %} {% if not project|can_manage:user %}disabled="true"{% endif %} onclick="OIajaxCall('/project/{{project.id}}/setpublic', 'read='+this.checked, 'output')" /><label for="public_read_{{project.id}}">{% trans "see the task and its content" %}</label>
+            <br /><input id="public_answer_{{project.id}}" type="checkbox" {% if project.public_answer %}checked="checked"{% endif %} {% if not project|can_manage:user %}disabled="true"{% endif %} onclick="OIajaxCall('/project/{{project.id}}/setpublic', 'answer='+this.checked, 'output')" /><label for="public_answer_{{project.id}}">{% trans "add comments and tasks" %}</label>
+            <br /><input id="public_bid_{{project.id}}" type="checkbox" {% if project.public_bid %}checked="checked"{% endif %} {% if not project|can_manage:user %}disabled="true"{% endif %} onclick="OIajaxCall('/project/{{project.id}}/setpublic', 'bid='+this.checked, 'output')" /><label for="public_bid_{{project.id}}">{% trans "bid and vote" %}</label>
+        </div>
     </div>
 </div>
 <script>

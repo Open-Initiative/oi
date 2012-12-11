@@ -15,11 +15,13 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.syndication.views import Feed
+from django.contrib.sites.models import get_current_site
 from django.db.models import Q, Sum
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response, get_object_or_404
 from django.utils.simplejson.encoder import JSONEncoder
 from django.utils.translation import ugettext as _
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.list_detail import object_detail, object_list
 from django.views.generic.simple import direct_to_template
 from oi.settings import MEDIA_ROOT, TEMP_DIR
@@ -225,7 +227,7 @@ def saveproject(request, id='0'):
         project = create_new_task(parent, title, request.user)
     else: #existing project
         project = Project.objects.get(id=id)
-        if not project.has_perm(request.user, OI_WRITE):
+        if not project.has_perm(request.user, OI_ANSWER):
             return HttpResponseForbidden(_("Forbidden"))
         project.title = request.POST["title"]
 
@@ -638,13 +640,15 @@ def moveproject(request, id):
     return HttpResponse(_("Task moved"))
 
 @OINeedsPrjPerms(OI_MANAGE)
-def togglehideproject(request, id):
+def setpublicproject(request, id):
     """Makes the project private or public and outputs a message"""
     project = Project.objects.get(id=id)
-    project.public = not project.public
-    project.save()
-    project.descendants.apply_public(project.public)
-    return HttpResponse(_("The task is now %s"%("public" if project.public else "private")))
+    for permission in ['read', 'answer', 'bid']:
+        if request.POST.get(permission):
+            project.__setattr__("public_"+permission, request.POST[permission]=="true")
+            project.save()
+            project.descendants.apply_public(permission, request.POST[permission]=="true")
+    return HttpResponse(_("Permissions set"))
 
 @OINeedsPrjPerms(OI_MANAGE)
 def shareproject(request, id):
@@ -696,8 +700,13 @@ def favproject(request, id):
 @OINeedsPrjPerms(OI_WRITE)
 def setgithubsync(request, id):
     """sets a GitHub synchronization on that project"""
-    user = User.objects.get(username=request.POST['user'])
     project = Project.objects.get(id=id)
+    try:
+        user = User.objects.get(username=request.POST['user'])
+    except User.DoesNotExist:
+        return HttpResponse(_('Please enter a valid Open Initiative username'), status=531)
+    if not user.get_profile().github_username:
+        return HttpResponse(_('Please select a user who has set a github username in preferences'), status=531)
     try:
         githubsync = GitHubSync.objects.get(project = project)
     except GitHubSync.DoesNotExist:
@@ -718,7 +727,7 @@ def syncgithub(request, id):
             create_new_task(project, issue.title, request.user, issue.number)
     return HttpResponse('', status=332)
     
-    @OINeedsPrjPerms(OI_MANAGE)
+@OINeedsPrjPerms(OI_MANAGE)
 def togglegithubhook(request, id):
     """Set a Github hook on the current project, to create a task each time an issue is created
     or deletes it if it exists"""
@@ -739,7 +748,7 @@ def createtask(request, id):
     project = Project.objects.get(id=id)
     try:
         data = JSONDecoder().decode(request.POST["payload"])
-        logging.getLogger("oi").debug("Github :"+data.get("action"))
+        logging.getLogger("oi").debug("Github: "+data.get("action"))
         #Check if one of the issue's labels is synchronised in a project
         for label in data["issue"].get("labels", []):
             for githubsync in GitHubSync.objects.filter(repository=data["repository"]["name"], label=label["name"]):

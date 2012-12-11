@@ -27,8 +27,9 @@ def feed_for_user(request):
 @login_required
 def notices(request):
     project = Project.objects.get(id=request.GET["project"]) if request.GET.get("project") else None
-    notices = Notice.objects.notices_for(request.user, on_site=True, project=project)
-    return render_to_response("notification/notices.html", {"notices": notices, "see_archived": request.GET.get("see")=="all", 'project': project}, context_instance=RequestContext(request))
+    archived = (request.GET.get("archived")=="yes")
+    notices = Notice.objects.notices_for(request.user, on_site=True, project=project).filter(archived=archived)
+    return render_to_response("notification/notices.html", {"notices": notices, "see_archived": archived, 'project': project}, context_instance=RequestContext(request))
 
 @login_required
 def notice_settings(request):

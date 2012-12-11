@@ -74,7 +74,7 @@ def savemessage(request, id):
             #return HttpResponse(_("parent"))
         if request.POST.get("project"):
             project = Project.objects.get(id=request.POST["project"])
-            if not project.has_perm(request.user, OI_WRITE):
+            if not project.has_perm(request.user, OI_ANSWER):
                 return HttpResponseForbidden(_("Forbidden"))
 
         #Creating the message

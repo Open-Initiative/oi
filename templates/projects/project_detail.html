@@ -5,11 +5,7 @@
 {% block pagetitle %}{{object.title|default:_("Project")}}{% endblock %}
 {% block indicators %}
 <div class="prj-private-bloc">
-    <div id="public_{{object.id}}" {% if not object.public %} class="invisible" {% endif %}> {% trans "Public task" %} </div>  <div id="nopublic_{{object.id}}" {% if object.public %} class="invisible" {% endif %}> {% trans "Private task" %} </div>
-    <a class="clickable" onclick="toggleHideProject({{object.id}}); $('#public_{{object.id}}').toggle(); $('#nopublic_{{object.id}}').toggle(); $('#public_{{object.id}}_1').toggle(); $('#nopublic_{{object.id}}_2').toggle()"> 
-        <div id="public_{{object.id}}_1" {% if object.public %} class="invisible" {% endif %}> {% trans "Make this task public" %} <img src="/img/icons/bluebtn.png"/></div>
-        <div id="nopublic_{{object.id}}_2" {% if not object.public %} class="invisible" {% endif %}> {% trans "Make this task private" %} <img src="/img/icons/bluebtn.png"/></div>
-    </a>
+    <a href="/project/{{object.id}}/view/team#public">{% if object.public_read %}{% trans "Public task" %}{% else %}{% trans "Private task" %}{% endif %} <img src="/img/icons/bluebtn.png"/></a>
 </div>
 <div class="prj-block-fav">
     <div class="prj-star-fav">

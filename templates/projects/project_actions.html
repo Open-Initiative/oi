@@ -18,8 +18,16 @@
 </div>
 
 <div class="prj-action-btn" id="prj-action-btn">
-{% if object.assignee == user and object.state < 2 and object.is_ready_to_start %}
-    <div class="clickable btn-action" onclick="startProject({{object.id}})">{% trans "Start" %} <img src="/img/icons/bluebtn.png" /></div>
+{% if object.state < 2 %}
+    {% if object.assignee == user %}
+        {% if object.is_ready_to_start %}
+        <div class="clickable btn-action" onclick="startProject({{object.id}})">{% trans "Start" %} <img src="/img/icons/bluebtn.png" /></div>
+        {% endif %}
+    {% else %}
+        {% if object|can_bid:user and not object|bids:user %}
+        <div class="clickable btn-action" onclick="OIajaxCall('/project/confirmbid/{{object.id}}', 'bid=0', 'output')">{% trans "Bid_verb" %} <img src="/img/icons/bluebtn.png" /></div>
+        {% endif %}
+    {% endif %}
 {% endif %}
 {% if object.state == 2 %}
     {% if object.assignee == user %}<div class="clickable btn-action" onclick="deliverProject({{object.id}})">{% trans "Deliver" %} <img src="/img/icons/bluebtn.png" /></div>{% endif %}
