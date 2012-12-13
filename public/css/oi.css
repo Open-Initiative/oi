@@ -285,7 +285,7 @@ img.tabicon {
     height:1px;
 }
 #actions{
-    height:65px;
+    min-height:65px;
     width: 275px;
 }
 #nav {
