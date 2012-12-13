@@ -57,7 +57,7 @@
                     <a class="toplink" href="/user/preferences"><img src="/img/icons/minisettings.png" />{% trans "Settings" %}</a> |
                     <a class="toplink" href="/logout"><img src="/img/icons/minilogout.png" />{% trans "Disconnect" %} {{user}}</a> |
                     {% endif %}
-                    <form action="/i18n/setlang/" method="post">
+                    <form action="/i18n/setlang/" method="post" class="actions">
                         {% csrf_token %}
                         <input type="hidden" name="language" value="{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}">
                         <input type="image" src="/img/{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}.png" />
