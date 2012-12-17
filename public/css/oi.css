@@ -240,9 +240,6 @@ div.smallcolumn {
     border-top:1px solid #D0574C;
     height:15px;
 }
-div.pagetop {
-    color: #0094B5;
-}
 div.pagetitle {
     font-size: 1.5em;
     color: #D0574C;
@@ -255,25 +252,21 @@ div.pagetitle {
 #tabs {
     float: right;
     height: 30px;
-    font-size: 1.2em;
+    margin-top: 1em;
 }
 div.tab {
     border-left: 1px solid;
     float: left;
     padding: 5px;
     text-transform: uppercase;
+    font-weight: bold;
+    background: #F9F9F9;
+    min-width: 105px;
 }
 div.selectedtab {
     background: #0094B5;
-    width: 135px;
 }
 div.selectedtab a {
-    color: white;
-}
-#tools {
-    height: 30px;
-    clear: both;
-    background: #0094B5;
     color: white;
 }
 img.tabicon {
@@ -285,7 +278,6 @@ img.tabicon {
     height:1px;
 }
 #actions{
-    min-height:65px;
     width: 275px;
 }
 #nav {

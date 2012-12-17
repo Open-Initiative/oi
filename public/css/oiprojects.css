@@ -1,59 +1,28 @@
 div.prjbody {
-    background: #FFFFFF;
+    background: white;
     clear: left;
+    border: solid 1px #E0E0E0;
+}
+.prjheader {
+    padding: .5em;
 }
 div.prjauthor {
     float: right;
-    color: #778E9C;;
+    color: #778E9C;
+}
+.prjdetail {
+    text-align: right;
+    font-size: .8em;
+    float: right;
+    clear: right;
+    width: 50%;
 }
 div.prjdesc {
     padding-left: 5px;
 }
-
-/**/
-div.spec-link-overview {
-    float:right; 
-    clear: right;
-    margin-top:1.5em;
-    width: 150px;
-    padding: 2px;
-}
-img.next-mini-spec {
-    float:right; 
-    margin-top: 3em;
-    margin-right: -1.5em;
-}
-img.previous-mini-spec {
-    float:left; 
-    margin-top: 3em;
-    margin-left: -1em;
-}
-div.descrip-overview {
-    margin-top:2em;
-}
-div.prj-table-overview {
-    margin-top:1em;
-}
-div.top-overview {
-    background: #D7E7F0;
-    padding-left: 1.5em;
-    padding-right: 1.5em;
-    padding-top: 1em;
-    padding-bottom: 4em;
-    margin-top: -0.7em;
-}
-div.bottom-overview {
-    padding-left: 1.5em;
-    padding-right: 1.5em;
-    padding-top: 2em;
-    padding-bottom: 4em;
-    margin-top: -0.7em;
-}
-span.entitle-overview {
-    color: #0094B5;
-    font-size: 15px;
-    font-weight:bold;
-    line-height:1.7em;
+.minispec-arrow {
+    float: right;
+    margin: 40px 5px;
 }
 div.prj-table-overview table tr:nth-child(even) {
     background: white;
@@ -76,7 +45,6 @@ div.prj-table-overview table tr td {
     text-overflow:ellipsis;
 }
 #dynamicTableOverview{
-/*    overflow:hidden;*/
     overflow: visible;
     table-layout: fixed;
     width: 700px;
@@ -84,9 +52,6 @@ div.prj-table-overview table tr td {
 col { 
     background: blue;
     border-style: none solid 
-}
-a {
-    text-decoration: none;
 }
 span.prj-overview-page-next{
     float:right;
@@ -108,118 +73,139 @@ span.change-page-overview{
     bottom: -1.5em;
     right: -23em;
 }
-div.no-mini-spec{
+div.no-mini-spec {
     float: right;
     width: 140px;
-    margin-top: 5em;
-    margin-right: -15em;
+    margin: 3em 0;
     text-align:center;
 }
-div.prj-block-action{
+div.prj-block-action {
     height:65px;
     margin-top: 30px;
 }
-div.btn-action{
+div.prj-btn {
     background-color: #0094B5;
-    border-radius: 5px;
-    padding: 3px;
-}
-div.prj-action-btn{
-    margin-top: 30px;
-    font-size:1.5em; 
-    font-family:'Interstate'; 
+    border-radius: 3px;
+    padding: 5px;
+    font-size:1.2em; 
     color:white; 
-    width: 245px;
+    width: 160px;
+    clear: left;
+    font-weight: bold;
 }
-/*div.prj-action-del{*/
-/*    background-color: #0094B5;*/
-/*    border-radius : 5px;*/
-/*}*/
-div.prj-action-wait{
+.prj-btn:after {
+    content: url('/img/icons/nextwhite.png');
+    left: 2px;
+    position: relative;
+    vertical-align: -3px;
+}
+div.prj-action-wait {
     background-color: gray;
     border-radius: 5px 5px 5px 5px;
     font-size: 14px;
     height: 24px;
     padding: 3px;
 }
-div.prjstate-done{
-    background-color:#6C6D6E; 
-    color:white;
-    font-size:1.8em;
+.prjstatebar {
+    position: relative;
 }
-div.prjstate-not-done{
-    background-color:white; 
-    color:#6C6D6E;
-    font-size:1.5em;
+.prjstate {
+    float: left;
+    border: solid 1px #E0E0E0;
+    padding: 3px;
+    text-transform: uppercase;
 }
-div.prjstate-validation{
-    background-color:#68274E; 
-    color:white;
-    font-size:1.8em;
+.prjstate:not(:last-child):after {
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid #E0E0E0;
+    border-top: 5px solid transparent;
+    content: " ";
+    height: 0;
+    position: relative;
+    left: 6px;
 }
-div.prjstate-not-validation{
-    background-color:white; 
-    color:#68274E;
-    font-size:1.5em;
+.prjstate:not(:first-child):before {
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid white;
+    border-top: 5px solid transparent;
+    content: " ";
+    height: 0;
+    position: relative;
+    left: -8px;
 }
-div.prjstate-execution{
-    background-color:#D0574C; 
-    color:white;
-    font-size:1.8em;
+.currentstate {
+    background: #F9F9F9;
+    font-weight: bold;
 }
-div.prjstate-not-execution{
-    background-color: white; 
-    color:#D0574C;
-    font-size:1.5em;
-}
-div.prjstate-design{
-    background-color:#0094B5; 
-    color:white;
-    font-size:1.8em;
-}
-div.prjstate-not-design{
-    background-color:white; 
-    color:#0094B5;
-    font-size:1.5em;
-}
-div.prj-block-fav{
-    float:right;
-    margin-top: -4px;
-    margin-right: 11px;
+/*div.prjstate-done{*/
+/*    background-color:#6C6D6E; */
+/*    color:white;*/
+/*    font-size:1.8em;*/
+/*}*/
+/*div.prjstate-not-done{*/
+/*    background-color:white; */
+/*    color:#6C6D6E;*/
+/*    font-size:1.5em;*/
+/*}*/
+/*div.prjstate-validation{*/
+/*    background-color:#68274E; */
+/*    color:white;*/
+/*    font-size:1.8em;*/
+/*}*/
+/*div.prjstate-not-validation{*/
+/*    background-color:white; */
+/*    color:#68274E;*/
+/*    font-size:1.5em;*/
+/*}*/
+/*div.prjstate-execution{*/
+/*    background-color:#D0574C; */
+/*    color:white;*/
+/*    font-size:1.8em;*/
+/*}*/
+/*div.prjstate-not-execution{*/
+/*    background-color: white; */
+/*    color:#D0574C;*/
+/*    font-size:1.5em;*/
+/*}*/
+/*div.prjstate-design{*/
+/*    background-color:#0094B5; */
+/*    color:white;*/
+/*    font-size:1.8em;*/
+/*}*/
+/*div.prjstate-not-design{*/
+/*    background-color:white; */
+/*    color:#0094B5;*/
+/*    font-size:1.5em;*/
+/*}*/
+.prj-block-fav{
+    float: left;
     font-size: 0.8em;
-}
-div.prj-star-fav{
     text-align: center;
 }
-div.prj-private-bloc{
-    float:right;
-    margin-top: 4px;
-    font-size: 0.8em;
-}
-div.arrow-validation{
-    float: right;
-    border-bottom: 15px solid transparent;
-    border-left: 15px solid #68274E;
-    border-top: 15px solid transparent;
-    background-color: white;
-    padding-right: 3px;
-}
-div.arrow-execution{
-    float: right;
-    border-bottom: 15px solid transparent;
-    border-left: 15px solid #D0574C;
-    border-top: 15px solid transparent;
-    background-color: white;
-    padding-right: 3px;
-}
-div.arrow-design{
-    float: right;
-    border-bottom: 15px solid transparent;
-    border-left: 15px solid #0094B5;
-    border-top: 15px solid transparent;
-    background-color: white;
-    padding-right: 3px;
-}
+/*div.arrow-validation{*/
+/*    float: right;*/
+/*    border-bottom: 15px solid transparent;*/
+/*    border-left: 15px solid #68274E;*/
+/*    border-top: 15px solid transparent;*/
+/*    background-color: white;*/
+/*    padding-right: 3px;*/
+/*}*/
+/*div.arrow-execution{*/
+/*    float: right;*/
+/*    border-bottom: 15px solid transparent;*/
+/*    border-left: 15px solid #D0574C;*/
+/*    border-top: 15px solid transparent;*/
+/*    background-color: white;*/
+/*    padding-right: 3px;*/
+/*}*/
+/*div.arrow-design{*/
+/*    float: right;*/
+/*    border-bottom: 15px solid transparent;*/
+/*    border-left: 15px solid #0094B5;*/
+/*    border-top: 15px solid transparent;*/
+/*    background-color: white;*/
+/*    padding-right: 3px;*/
+/*}*/
 .selected-arrow{
     border-bottom: 14px solid transparent;
     border-right: 15px solid #0094B5;
@@ -246,17 +232,19 @@ div.arrow-design{
     float:right; 
     margin-right: -7px;
 }
-/**/
-
 .tasktip {
     padding: 5px;
     background: white;
 }
 .prjtitle {
-    font-family: "Interstate";
     text-transform: uppercase;
     font-size: 1.5em;
     color: #0094B5;
+}
+.tasktitle {
+    font-size: 1.5em;
+    color: #D0574C;
+    font-weight: bold;
 }
 div.prjbtm {
     width: 600px;
@@ -297,31 +285,37 @@ div.minispec {
 .cardspec img{
     max-width:100%
 }
-.state1 a {
+.state0, .state0 a {
+    color: #0094B5;
+}
+.statebg0 {
+    background: #0094B5;
+}
+.state1, .state1 a {
     color: #0094B5;
 }
 .statebg1 {
     background: #0094B5;
 }
-.state2 a {
+.state2, .state2 a {
     color: #D0574C;
 }
 .statebg2 {
     background: #D0574C;
 }
-.state3 a {
+.state3, .state3 a {
     color: #68274E;
 }
 .statebg3 {
     background: #68274E;
 }
-.state4 a {
+.state4, .state4 a {
     color: #6C6D6E;
 }
 .statebg4 {
     background: #6C6D6E;
 }
-.state11 a {
+.state11, .state11 a {
     color: #6C6D6E;
 }
 .statebg11 {
@@ -383,7 +377,7 @@ div.nextrelease{
     float: right;
 }
 #version{
-    margin-top: 9px;
+    margin-top: 193px;
 }
 option.currentrelease{
     color:#0094B5; 
@@ -405,19 +399,18 @@ option.oldrelease{
     text-overflow: ellipsis;
     width: 55%;
 }
-div.prjstate {
-    float: right;
-    padding: 2px;
-    font-size: 1.5em;
-    text-align: right;
-}
-div.prjstatebtn {
-    float: right;
-    height: 28px;
-    padding-left: 9px;
-    padding-right: 5px;
-    border: 1px solid;
-}
+/*    float: right;*/
+/*    padding: 2px;*/
+/*    font-size: 1.5em;*/
+/*    text-align: right;*/
+/*}*/
+/*div.prjstatebtn {*/
+/*    float: right;*/
+/*    height: 28px;*/
+/*    padding-left: 9px;*/
+/*    padding-right: 5px;*/
+/*    border: 1px solid;*/
+/*}*/
 div.bidaction {
     background: #D0574C;
     color: white;
@@ -451,7 +444,6 @@ div.treelist {
     display: none;
 }
 div.treeroot {
-    font-family: "Interstate";
     text-transform: uppercase;
     font-size: 1.2em;
 }
@@ -538,7 +530,6 @@ div.prjtable {
     margin-right: 30px;
     border-right: solid 1px #0094B5;
     width: 250px;
-    margin-top: 10px;
 }
 th.tableheader {
     text-transform: uppercase;
