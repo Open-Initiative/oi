@@ -82,7 +82,7 @@ div.center{
     color: white;
 }
 #header {
-    height: 75px;
+    height: 85px;
     padding: 3px 0;
     background: white;
     box-shadow: 0 1px 2px #C6C7C8;
@@ -131,7 +131,7 @@ div.center{
     float:right;
     border-left:solid 1px #0094B5;
     color: #0094B5;
-    height: 60px;
+    height: 70px;
     padding-left: 0.5em;
 }
 .usertitle {
@@ -146,11 +146,15 @@ div.center{
     padding: 0 10px;
 }
 #loginarea {
-  letter-spacing: -1px;
-  margin-right: 120px;
+      letter-spacing: -1px;
+      margin-right: 120px;
+}
+#loginarea td {
+    padding: 2px;
 }
 .loginlabel {
     position: absolute;
+    padding: 2px;
 }
 .loginfield {
     width: 130px;
@@ -327,13 +331,12 @@ div.navcontent {
     height:20px;
 }
 #catcherbg {
-    background:#B3E1F4;
+    background: #C2DAEB;
 }
 #catcher {
-    background:url('/img/catcher.jpg') repeat-y;
-    height:200px;
-    width:1020px;
-    margin:auto;
+    height: 185px;
+    width: 1020px;
+    margin: auto;
     clear: left;
 }
 .catcherleft {
@@ -360,8 +363,8 @@ div.navcontent {
 }
 .slidermore {
     position: absolute;
-    left: 800px;
-    top: 250px;
+    left: 750px;
+    top: 230px;
     background: none repeat scroll 0 0 #D0574C;
     font-size: 1.1em;
     font-weight: bold;
@@ -370,10 +373,13 @@ div.navcontent {
     text-transform: uppercase;
     color: white;
     width: 144px;
-    border-radius: 5px;
+    border-radius: 3px;
+}
+.sliderimg {
+    margin-top: 26px;
 }
 .indexslide {
-    width: 490px;
+    width: 650px;
     overflow: hidden;
 }
 .slidertip {
@@ -394,7 +400,7 @@ div.navcontent {
     font-weight: bold;
     color: #0094B5;
     padding: 3px;
-    margin-right: 10px;
+    margin-right: 7px;
     border-radius: 6px;
     border: solid;
     color: #0094B5;
@@ -415,7 +421,7 @@ div.navcontent {
     font-weight: bold;
 }
 .slider dd {
-    width: 420px;
+    width: 600px;
     height: 50px;
     color: #0094B5;
 }

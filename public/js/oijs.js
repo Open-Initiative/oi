@@ -144,6 +144,12 @@ function slideIndex(nextid) {
         else nextIcon = jQuery('.slidericon').first();
         jQuery('.slidericonselected').removeClass("slidericonselected");
         nextIcon.addClass("slidericonselected");
+        
+        if(nextid) nextImg = jQuery('#sliderimg'+nextid);
+        else if(jQuery('.sliderimg:visible').next().length) nextImg = jQuery('.sliderimg:visible').next();
+        else nextImg = jQuery('.sliderimg').first();
+        jQuery('.sliderimg:visible').fadeOut();
+        nextImg.delay(1000).fadeIn();
         setTimeout(function(){sliding = false;}, 2000);
     }
 }
