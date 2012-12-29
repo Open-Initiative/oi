@@ -137,13 +137,19 @@ function slideIndex(nextid) {
         else nextSlide = jQuery('.indexslide').first();
         jQuery(".slidertip").fadeOut()
         jQuery('.indexslide:visible').animate({width: "toggle"},1000);
-        nextSlide.delay(1000).animate({width: "toggle"},1000).prev(".slidertip").delay(1600).fadeIn(1500);
+        nextSlide.delay(1000).animate({width: "toggle"},1000).next(".slidertip").delay(1600).fadeIn(1500);
         
         if(nextid) nextIcon = jQuery('#slidericon'+nextid);
         else if(jQuery('.slidericonselected').next().length) nextIcon = jQuery('.slidericonselected').next();
         else nextIcon = jQuery('.slidericon').first();
         jQuery('.slidericonselected').removeClass("slidericonselected");
         nextIcon.addClass("slidericonselected");
+        
+        if(nextid) nextImg = jQuery('#sliderimg'+nextid);
+        else if(jQuery('.sliderimg:visible').next().length) nextImg = jQuery('.sliderimg:visible').next();
+        else nextImg = jQuery('.sliderimg').first();
+        jQuery('.sliderimg:visible').fadeOut();
+        nextImg.delay(1000).fadeIn();
         setTimeout(function(){sliding = false;}, 2000);
     }
 }

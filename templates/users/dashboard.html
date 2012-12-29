@@ -1,20 +1,23 @@
 {% extends "base.html" %}
 ﻿{% load i18n %}
 {% load oifilters %}
-{% block pagetitle %}{% trans "My projects" %}{% endblock %}
 {% block title %}{% trans "My projects" %}{% endblock %}
 {% block actions %}
-<div class="bidaction"><form onsubmit="addTask(getValue('newproject_title'), null,function(taskid){document.location = '/project/'+taskid});return false">
-    {% trans "Create a new project:" %}
-    <input type="image" src="/img/icons/add.png" /> <input id="newproject_title" />
+<div id="navhome">
+    <div class="navtitlehome">{% trans "My projects" %}</div>
+    {% regroup user.get_profile.get_observed_projects.distinct|dictsort:"state" by state as project_list %}
+    {% for projects in project_list %}{% if projects.list %}
+    <a href="#{{projects.grouper}}" onclick="switchPrjList({{projects.grouper}})">
+        <div class="treetitlehome">{{OI_PRJ_STATES|get:projects.grouper}}</div>
+    </a>
+    {% endif %}{% endfor %}
+</div>
+<div class="actionbutton"><form onsubmit="addTask(getValue('newproject_title'), null,function(taskid){document.location = '/project/'+taskid});return false"><img class="actions" src="/img/icons/descriptionwhite.png" />
+    <div>{% trans "Create" %}</div>{% trans "a new project:" %}
+    <input id="newproject_title"/><input id="newproject_add" type="image" src="/img/icons/add.png" />
 </form></div>
 {% endblock %}
 {% block nav %}
-<div class="navtitle">{% trans "My projects" %}</div>
-{% regroup user.get_profile.get_observed_projects.distinct|dictsort:"state" by state as project_list %}
-{% for projects in project_list %}{% if projects.list %}
-<div class="treetitle"><a href="#{{projects.grouper}}" onclick="switchPrjList({{projects.grouper}})">{{OI_PRJ_STATES|get:projects.grouper}}</a></div>
-{% endif %}{% endfor %}
 {% endblock %}
 {% comment %}contacts, network updates, blog, finance, notification!, mp!{% endcomment %}
 {% block content %}

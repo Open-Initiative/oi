@@ -13,10 +13,6 @@
     src: url('/fonts/proximanova-extrabold-webfont.eot?') format('eot'), url('/fonts/ProximaNova-Extrabold.otf') format('opentype');
 }
 @font-face {
-    font-family: "Interstate";
-    src: url('/fonts/Interstate-boldcondensed-webfont.eot?') format('eot'), url('/fonts/Interstate-BoldCondensed.ttf') format('opentype');
-}
-@font-face {
     font-family: "CCRA";
     src: url('/fonts/CCRA.eot?') format('eot'), url('/fonts/CCRA.ttf') format('opentype');
 }
@@ -61,6 +57,7 @@ div.center{
 }
 #footer {
     clear: left;
+    background: #dce8ea;
     text-align: center;
     font-size: .9em;
     margin-top: 20px;
@@ -72,25 +69,33 @@ div.center{
     color: #0094B5;
 }
 #toptext {
-    background:#68274E;
+    background: #0094B5;
     height:20px;
-    border-radius: 0 0 5px 5px;
+    border-radius: 5px;
     margin:auto;
     float:right;
     padding: 0 10px;
+    text-transform: uppercase;
+    margin: 2px;
+}
+#toptext a {
+    color: white;
 }
 #header {
-    height: 75px;
+    height: 85px;
     padding: 3px 0;
     background: white;
     box-shadow: 0 1px 2px #C6C7C8;
+}
+.headerpic {
+    float:right;
+    margin-top:5px
 }
 #logo {
     width:200px;
     float:left
 }
 #searchdiv {
-    border-right: 1px solid #0094B5;
     float: left;
     margin: 5px 20px 0 0;
     width: 250px;
@@ -110,7 +115,6 @@ div.center{
     height: 15px;
 }
 .searchbox {
-    border:solid 1px #0094B5;
     height:20px;
     font-style: italic;
     position: relative;
@@ -124,27 +128,33 @@ div.center{
 }
 #userheader {
     margin-top: 5px;
-    float:left;
+    float:right;
+    border-left:solid 1px #0094B5;
+    color: #0094B5;
+    height: 70px;
+    padding-left: 0.5em;
 }
 .usertitle {
-    color:#D0574C;
+    color: #0094B5;
     text-transform: uppercase;
-    font-weight:bold;
-    width: 480px;
+    font-weight: bold;
 }
 #loginbox {
     text-transform: uppercase;
     font-size:1.1em;
     font-weight: bold;
     padding: 0 10px;
-    color: #0094B5;
 }
 #loginarea {
-    float: left;
-    width: 400px;
-    margin: 2px;
-    letter-spacing: -1px;
-    color: #68274E;
+      letter-spacing: -1px;
+      margin-right: 120px;
+}
+#loginarea td {
+    padding: 2px;
+}
+.loginlabel {
+    position: absolute;
+    padding: 2px;
 }
 .loginfield {
     width: 130px;
@@ -152,9 +162,14 @@ div.center{
     font-size: .8em;
 }
 #loginbtn {
+    background: none repeat scroll 0 0 #0094B5;
+    border: medium none;
+    color: white;
     font-size: 0.9em;
+    font-weight: bold;
     height: 20px;
     letter-spacing: -1px;
+    text-transform: uppercase;
 }
 #registerarea {
     float: left;
@@ -169,7 +184,9 @@ div.center{
     text-transform: uppercase;
     font-weight: bold;
     font-size: 1.1em;
-    color: #A8DCF4;
+    color: white;
+    float: right;
+    clear: right;
 }
 .registerline {
     repeat-x:repeat;
@@ -181,7 +198,6 @@ div.center{
     padding: 7px;
     font-size: 1.4em;
     font-weight: bold;
-    text-transform: uppercase;
     color: white;
     float: left;
 }
@@ -195,13 +211,8 @@ div.center{
 .homelink{
     color: #0094B5;
 }
-.footlink {
-    text-transform: uppercase;
-    color: #6c6d6e;
-}
 #pagetitle {
     padding: 0 5px;
-    font-family: "Interstate";
     text-transform: uppercase;
     font-size: 2em;
     color: #D0574C;
@@ -233,10 +244,6 @@ div.smallcolumn {
     border-top:1px solid #D0574C;
     height:15px;
 }
-div.pagetop {
-    font-family: "Interstate";
-    color: #0094B5;
-}
 div.pagetitle {
     font-size: 1.5em;
     color: #D0574C;
@@ -249,25 +256,21 @@ div.pagetitle {
 #tabs {
     float: right;
     height: 30px;
-    font-size: 1.2em;
+    margin-top: 1em;
 }
 div.tab {
     border-left: 1px solid;
     float: left;
     padding: 5px;
     text-transform: uppercase;
+    font-weight: bold;
+    background: #F9F9F9;
+    min-width: 105px;
 }
 div.selectedtab {
     background: #0094B5;
-    width: 135px;
 }
 div.selectedtab a {
-    color: white;
-}
-#tools {
-    height: 30px;
-    clear: both;
-    background: #0094B5;
     color: white;
 }
 img.tabicon {
@@ -279,12 +282,32 @@ img.tabicon {
     height:1px;
 }
 #actions{
-    height:65px;
     width: 275px;
 }
 #nav {
     background:#D7E7F0;
     width:275px;
+}
+#navhome {
+    margin-bottom: 1em;
+    margin-top: .35em;
+}
+#navhome div{
+    background: none repeat scroll 0 0 white;
+    border: 1px solid #E3E3E5;
+    text-transform: uppercase;
+    color: #0094B5;
+    padding: .5em;
+}
+.navtitlehome {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+.treetitlehome:after {
+    content: url("/img/icons/next.png");
+    position: relative;
+    left: 3px;
+    top: 3px;
 }
 div.navtitle {
     color: #D0574C;
@@ -308,13 +331,12 @@ div.navcontent {
     height:20px;
 }
 #catcherbg {
-    background:#B3E1F4;
+    background: #C2DAEB;
 }
 #catcher {
-    background:url('/img/catcher.jpg') repeat-y;
-    height:200px;
-    width:1020px;
-    margin:auto;
+    height: 185px;
+    width: 1020px;
+    margin: auto;
     clear: left;
 }
 .catcherleft {
@@ -329,7 +351,6 @@ div.navcontent {
 }
 .catchericon {
     text-transform: uppercase;
-    font-family:'Interstate';
     font-size:1.8em;
     color: #0094B5;
     padding: 10px 0;
@@ -337,69 +358,72 @@ div.navcontent {
 .slider {
     float: left;
     width: 600px;
-    color: #D0574C;
     width: 730px;
     font-size: 1.4em;
 }
 .slidermore {
-    background: url('/img/learnmore.png');
-    width: 144px;
-    height: 15px;
-    float: right;
-    clear: right;
-    color: white;
-    text-transform: uppercase;
-    font-weight: bold;
+    position: absolute;
+    left: 750px;
+    top: 230px;
+    background: none repeat scroll 0 0 #D0574C;
     font-size: 1.1em;
+    font-weight: bold;
+    height: 15px;
     padding: 5px 12px;
-    margin-top: 50px;
+    text-transform: uppercase;
+    color: white;
+    width: 144px;
+    border-radius: 3px;
+}
+.sliderimg {
+    margin-top: 26px;
 }
 .indexslide {
-    width: 490px;
+    width: 650px;
     overflow: hidden;
 }
 .slidertip {
     text-transform: none;
-    color: rgb(208, 87, 76);
     font-weight: normal;
     font-size: 0.9em;
-    float: right;
     left: 650px;
-    width: 240px;
-    margin: 25px 0;
+    margin-bottom: 25px;
+    color: #68274E;
+}
+.slidericons {
+    position: absolute;
+    top: 250px;
 }
 .slidericon {
     float: left;
     font-size: 1.3em;
     font-weight: bold;
     color: #0094B5;
-    padding: 3px 5px;
-    margin-right: 10px;
-    height: 28px;
-    width: 20px;
+    padding: 3px;
+    margin-right: 7px;
+    border-radius: 6px;
+    border: solid;
+    color: #0094B5;
 }
 .slidericonselected {
-    background: #0094B5;
-    border-radius: 5px;
     font-weight: bold;
-    color: white;
-    width: 20px;
+    background: white;
 }
 .slider dt {
     text-transform: uppercase;
     font-weight: bold;
-    color: #0094B5;
+    color: #D0574C;
     font-size: 2em;
 }
 .slider dl {
     margin-bottom: 0;
-    color: #6C6D6E;
     text-transform: uppercase;
     font-weight: bold;
 }
 .slider dd {
-    width: 420px;
-    height: 70px;
+    width: 600px;
+    height: 50px;
+    color: #0094B5;
 }
 .headersep {
     background: url('/img/headersep.png');
@@ -429,6 +453,26 @@ div.popup {
     clear: right;
     float: right;
     margin: 5px;
+}
+.actionbutton {
+    background: url('/img/headersep.png');
+    color: white;
+    padding: 5%;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.actionbutton div {
+    margin-bottom: .3em;
+    font-size: 1.2em;
+    text-transform: uppercase;
+}
+#newproject_title {
+    margin-top: 1em;
+}
+#newproject_add {
+    position: relative;
+    left: -20px;
 }
 .overlap {  
     margin-top: -60px;
@@ -465,9 +509,6 @@ div.morelink {
     visibility: hidden;
     height: 0;
     width: 0;
-}
-.nobold {
-    font-weight:normal;
 }
 .norich {
     width: 500px;

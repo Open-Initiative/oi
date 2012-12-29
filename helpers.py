@@ -29,6 +29,7 @@ OI_EXPERTISE_FROM_ANSWER = .002 #Fraction transmise par une réponse
 # States of project workflow
 [OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED,  OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS] = [0,1,2,3,4,11,12,99]
 OI_PRJ_STATES = ((OI_PROPOSED, _("Proposed")), (OI_ACCEPTED, _("Accepted")), (OI_STARTED, _("Started")), (OI_DELIVERED, _("Delivered")), (OI_VALIDATED, _("Done")), (OI_CANCELLED, _("Cancelled")), (OI_POSTPONED, _("Delayed")), (OI_CONTENTIOUS, _("Contentious")),)
+OI_PRJ_PHASES = ((OI_ACCEPTED, _("Design")), (OI_STARTED, _("Execution")), (OI_DELIVERED, _("Validation")), (OI_VALIDATED, _("Task done")),)
 
 # Available views
 OI_PRJ_VIEWS = ['overview','description','planning','team','budget', 'github']

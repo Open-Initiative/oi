@@ -36,42 +36,38 @@
         <div><span id="output" class="info"></span></div>
     </div>
     <div id="topline">
-        <div class="center">
-            <div id="toptext">
-                <form action="/i18n/setlang/" method="post">
-                    {%if user.is_authenticated%}
-                    <a class="toplink" href="/user/myprofile"><img src="/img/icons/miniuser.png" />{% trans "My profile" %}</a> |
-                    <a class="toplink" href="/user/preferences"><img src="/img/icons/minisettings.png" />{% trans "Settings" %}</a> |
-                    <a class="toplink" href="/logout"><img src="/img/icons/minilogout.png" />{% trans "Disconnect" %} {{user}}</a> |
-                    {% endif %}
-                    {% csrf_token %}
-                    <input type="hidden" name="language" value="{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}">
-                    <input type="image" src="/img/{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}.png" />
-                </form>
-            </div>
-        </div>
     </div>
     <div id="header">
         <div class="center">
             {% block header %}
-            <div style='width:0;float: left;font-family: "Interstate";font-size: 12px;font-weight: bold;left: 185px;padding: 1px;position: relative;top: 56px;'>BETA</div>
+            <div style='width:0;float: left;font-size: 12px;font-weight: bold;left: 185px;padding: 1px;position: relative;top: 56px;'>BETA</div>
             <div id="logo"><a href="/"><img style="height:75px" src="/img/logo.png" /></a></div>
             <div id="searchdiv">
                 <div id="baseline">{% trans "The IT community dedicated to your business" %}</div>
                 <img src="/img/baseunderline.png" />
-                <div class="sepsearch"></div>
                 {% comment %}<div id="search"><form name="searchform" action="/search" method="GET">
                     <input class="searchbox" name="q" type="text" value="Rechercher..." onclick="value=''" />
                     <input id="searchbtn" type="image" src="/img/icons/search.png" />
                 </form></div>{% endcomment %}
             </div>
-                {%if user.is_authenticated%}<div style="float:left;margin-top:5px"><img class="contactpicture" src="/user/getpicture/{{user.username}}" /></div>{% endif %}
             <div id="userheader">
+                <div id="toptext">
+                    {%if user.is_authenticated%}
+                    <a class="toplink" href="/user/myprofile"><img src="/img/icons/miniuser.png" />{% trans "My profile" %}</a> |
+                    <a class="toplink" href="/user/preferences"><img src="/img/icons/minisettings.png" />{% trans "Settings" %}</a> |
+                    <a class="toplink" href="/logout"><img src="/img/icons/minilogout.png" />{% trans "Disconnect" %} {{user}}</a> |
+                    {% endif %}
+                    <form action="/i18n/setlang/" method="post" class="actions">
+                        {% csrf_token %}
+                        <input type="hidden" name="language" value="{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}">
+                        <input type="image" src="/img/{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}.png" />
+                    </form>
+                </div>
                 {%if user.is_authenticated%}
-                <div class="usertitle"><a href="/user/myprofile" style="color:#D0574C;">
-                    {{user.get_profile}} <br />
-                    <span class="nobold">{{user.get_profile.title}}</span>
-                </a></div>
+                <a href="/user/myprofile">
+                    <div class="usertitle">{{user.get_profile}}</div>
+                    {{user.get_profile.title}}
+                </a>
 <!--                <div id="userlinks">-->
 <!--                    <a class="homelink" href="/user/dashboard">{% trans "Dashboard" %}</a> |-->
 <!--                    <a class="homelink" href="/notification">{% trans "Notices" %}</a> |-->
@@ -80,26 +76,32 @@
 <!--                    <a class="toplink" href="/user/myaccount">{% trans "Transactions" %}</a>-->
 <!--                </div>-->
                 {%else%}
-                <img src="/img/sep1.png" />
+                <a href="/user/register">
+                    <div id="registerbtn" onmouseover="this.style.color='#D0574C'" onmouseout="this.style.color='white'">{% trans "Register" %}</div>
+                </a>
                 <span id="loginbox">{% trans "Login" %}</span>
-                <img src="/img/sep2.png" />
-                <form method="post" action="{% url django.contrib.auth.views.login %}" style="margin:0">{% csrf_token %}
-                    <div id="loginarea"><table>
+                <div id="loginarea">
+                    <form method="post" action="{% url django.contrib.auth.views.login %}">{% csrf_token %}<table>
                         <tr>
-                            <td><label for="id_username">{% trans "username" %}</label></td>
-                            <td><input id="id_username" type="text" name="username" tabindex=1 class="loginfield" /></td>
+                            <td>
+                                <label class="loginlabel" for="username_field">{% trans "username" %}</label>
+                                <input id="username_field" type="text" name="username" tabindex=1 class="loginfield" onkeyup="if(this.value)jQuery(this).prev().fadeOut(); else jQuery(this).prev().fadeIn();" />
+                            </td>
                             <td><input id="loginbtn" type="submit" tabindex=3 value="{% trans "login" %}" /></td>
                         </tr>
                         <tr>
-                            <td><label for="id_password">{% trans "password" %}</label></td>
-                            <td><input type="password" name="password" id="id_password" tabindex=2 class="loginfield" /></td>
+                            <td>
+                                <label class="loginlabel" for="id_password">{% trans "password" %}</label>
+                                <input type="password" name="password" id="id_password" tabindex=2 class="loginfield" onkeyup="if(this.value)jQuery(this).prev().fadeOut(); else jQuery(this).prev().fadeIn();" />
+                            </td>
                             <td><a href="/user/resetpassword" class="forgotpwd">{% trans "Forgot your password?" %}</a></td>
                         </tr>
-                    </table></div>
+                    </table>
                     <input type="hidden" name="next" value="{{request.get_full_path}}" />
-                </form>
+                </form></div>
                 {%endif%}
             </div>
+            {%if user.is_authenticated%}<div class="headerpic"><img class="contactpicture" src="/user/getpicture/{{user.username}}" /></div>{%endif%}
             {% endblock %}
         </div>
     </div>

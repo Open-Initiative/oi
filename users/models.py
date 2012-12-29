@@ -6,7 +6,7 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
-from django.forms import ModelForm, DateField
+from django.forms import ModelForm, DateField, PasswordInput
 from django.forms.extras.widgets import SelectDateWidget
 from django.utils.translation import ugettext_lazy, ugettext as _
 from oi.settings import SHASIGN_NAME
@@ -202,6 +202,7 @@ class UserProfileForm(ModelForm):
     class Meta:
         model = UserProfile
         fields = ('address','postcode','city','country','mobile','phone','personal_website', 'github_username', 'github_password')
+        widgets = {'github_password': PasswordInput(),}
 
 class SkillForm(ModelForm):
     class Meta:
