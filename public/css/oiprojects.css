@@ -6,6 +6,10 @@ div.prjbody {
 .prjheader {
     padding: .5em;
 }
+.delbtn {
+    float: right;
+    margin-left: 5px;
+}
 div.prjauthor {
     float: right;
     color: #778E9C;
@@ -16,6 +20,7 @@ div.prjauthor {
     float: right;
     clear: right;
     width: 50%;
+    height: 110px;
 }
 div.prjdesc {
     padding-left: 5px;
@@ -23,6 +28,11 @@ div.prjdesc {
 .minispec-arrow {
     float: right;
     margin: 40px 5px;
+}
+.overview_title {
+    font-size: 1.2em;
+    color: #0094B5;
+    padding: .5em;
 }
 div.prj-table-overview table tr:nth-child(even) {
     background: white;
@@ -83,7 +93,7 @@ div.prj-block-action {
     height:65px;
     margin-top: 30px;
 }
-div.prj-btn {
+.prj-btn {
     background-color: #0094B5;
     border-radius: 3px;
     padding: 5px;
@@ -92,6 +102,7 @@ div.prj-btn {
     width: 160px;
     clear: left;
     font-weight: bold;
+    margin: 1.5em 0.5em 0.5em;
 }
 .prj-btn:after {
     content: url('/img/icons/nextwhite.png');
@@ -111,101 +122,38 @@ div.prj-action-wait {
 }
 .prjstate {
     float: left;
-    border: solid 1px #E0E0E0;
-    padding: 3px;
+    border-top: solid 1px #E0E0E0;
+    border-bottom: solid 1px #E0E0E0;
+    width: 130px;
+    padding: 3px 0 3px 15px;
     text-transform: uppercase;
+    position: relative;
 }
 .prjstate:not(:last-child):after {
-    border-bottom: 5px solid transparent;
-    border-left: 5px solid #E0E0E0;
-    border-top: 5px solid transparent;
+    border-bottom: 11px solid transparent;
+    border-top: 11px solid transparent;
     content: " ";
     height: 0;
-    position: relative;
-    left: 6px;
+    position: absolute;
+    top: -1px;
+    left: 144px;
+    z-index: 1;
 }
-.prjstate:not(:first-child):before {
-    border-bottom: 5px solid transparent;
-    border-left: 5px solid white;
-    border-top: 5px solid transparent;
-    content: " ";
-    height: 0;
-    position: relative;
-    left: -8px;
+.prjstate:not(.currentstate):not(:last-child):after {
+    border-left: 10px solid white;
+}
+.currentstate:not(:last-child):after {
+    border-left: 10px solid #F9F9F9;
 }
 .currentstate {
     background: #F9F9F9;
     font-weight: bold;
 }
-/*div.prjstate-done{*/
-/*    background-color:#6C6D6E; */
-/*    color:white;*/
-/*    font-size:1.8em;*/
-/*}*/
-/*div.prjstate-not-done{*/
-/*    background-color:white; */
-/*    color:#6C6D6E;*/
-/*    font-size:1.5em;*/
-/*}*/
-/*div.prjstate-validation{*/
-/*    background-color:#68274E; */
-/*    color:white;*/
-/*    font-size:1.8em;*/
-/*}*/
-/*div.prjstate-not-validation{*/
-/*    background-color:white; */
-/*    color:#68274E;*/
-/*    font-size:1.5em;*/
-/*}*/
-/*div.prjstate-execution{*/
-/*    background-color:#D0574C; */
-/*    color:white;*/
-/*    font-size:1.8em;*/
-/*}*/
-/*div.prjstate-not-execution{*/
-/*    background-color: white; */
-/*    color:#D0574C;*/
-/*    font-size:1.5em;*/
-/*}*/
-/*div.prjstate-design{*/
-/*    background-color:#0094B5; */
-/*    color:white;*/
-/*    font-size:1.8em;*/
-/*}*/
-/*div.prjstate-not-design{*/
-/*    background-color:white; */
-/*    color:#0094B5;*/
-/*    font-size:1.5em;*/
-/*}*/
 .prj-block-fav{
     float: left;
     font-size: 0.8em;
     text-align: center;
 }
-/*div.arrow-validation{*/
-/*    float: right;*/
-/*    border-bottom: 15px solid transparent;*/
-/*    border-left: 15px solid #68274E;*/
-/*    border-top: 15px solid transparent;*/
-/*    background-color: white;*/
-/*    padding-right: 3px;*/
-/*}*/
-/*div.arrow-execution{*/
-/*    float: right;*/
-/*    border-bottom: 15px solid transparent;*/
-/*    border-left: 15px solid #D0574C;*/
-/*    border-top: 15px solid transparent;*/
-/*    background-color: white;*/
-/*    padding-right: 3px;*/
-/*}*/
-/*div.arrow-design{*/
-/*    float: right;*/
-/*    border-bottom: 15px solid transparent;*/
-/*    border-left: 15px solid #0094B5;*/
-/*    border-top: 15px solid transparent;*/
-/*    background-color: white;*/
-/*    padding-right: 3px;*/
-/*}*/
 .selected-arrow{
     border-bottom: 14px solid transparent;
     border-right: 15px solid #0094B5;
@@ -220,7 +168,8 @@ div.prj-action-wait {
 .filter_table{
     width:110px; 
     position:absolute; 
-    padding-top:9px; overflow:hidden; 
+    padding-top:9px;
+    overflow:hidden; 
     background:white; 
     border: 1px solid; 
     padding-left: 7px; 
@@ -245,6 +194,10 @@ div.prj-action-wait {
     font-size: 1.5em;
     color: #D0574C;
     font-weight: bold;
+    padding-top: .2em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 div.prjbtm {
     width: 600px;
@@ -377,7 +330,9 @@ div.nextrelease{
     float: right;
 }
 #version{
-    margin-top: 193px;
+    margin-top: 152px;
+    border: solid 1px;
+    padding: .5em;
 }
 option.currentrelease{
     color:#0094B5; 
@@ -399,18 +354,6 @@ option.oldrelease{
     text-overflow: ellipsis;
     width: 55%;
 }
-/*    float: right;*/
-/*    padding: 2px;*/
-/*    font-size: 1.5em;*/
-/*    text-align: right;*/
-/*}*/
-/*div.prjstatebtn {*/
-/*    float: right;*/
-/*    height: 28px;*/
-/*    padding-left: 9px;*/
-/*    padding-right: 5px;*/
-/*    border: 1px solid;*/
-/*}*/
 div.bidaction {
     background: #D0574C;
     color: white;
@@ -612,7 +555,6 @@ div.sepspecfooter {
     border:solid 1px;
     color: #6C6D6E;
     width: 270px;
-    margin-top: -35px;
 }
 .progress {
     float:left;

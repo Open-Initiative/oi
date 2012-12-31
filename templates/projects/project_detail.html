@@ -2,28 +2,31 @@
 ﻿﻿{% load oifilters %}
 {% load i18n %}
 {% block title %}{{object.title|default:_("Project")}}{% endblock %}
-{% block pagetitle %}{% endblock %}
-{% block indicators %}
-{% for task in object.ancestors|filter_read:user %}<a href="/project/{{task.id}}/view/overview">{{task.title}}</a> &gt; {% endfor %}
+{% block breadcrumb %}
+{% for ancestor in object.ancestors|filter_read:user %}
+<div class="path-element"><a href="/project/{{ancestor.id}}/view/overview">{{ancestor.title}}</a></div>
+{% endfor %}
 {% endblock %}
 {% block actions %}
 <div id="version">
+    {% trans "Current release:" %} <b>{{object.master.target|default:_("Initial release")}}</b>
     {% if object.master|can_manage:user %}
-        {% if object.master.state < 4 %}<div class="nextrelease clickable" title="{% trans 'Change the release of the project' %}" onclick="$('#nextreleaseblock').show();"></div> {% endif %}
+        {% if object.master.state < 4 %}<a onclick="$('#nextreleaseblock').show();" title="Changer la version du projet" class="clickable">Switch<img src="/img/icons/bluebtn.png"></a>{% endif %}
         <div id="nextreleaseblock" class="invisible">
             <p>{% trans "Click here to change the release" %}</p>
             <select id="nextrelease" onchange="changeRelease({{object.id}})" title="All the future releases of this project" >
                 {% for release in object.future_releases %}
-                    <option value="{{release.name}}">{{release.name}}</option>
+                <option value="{{release.name}}">{{release.name}}</option>
                 {% empty %}
-                    <option selected ></option>
+                <option selected ></option>
                 {% endfor %}
                 <option id="change_release" >{% trans "Add a new release" %}</option>
             </select>
-            <img src="/img/icons/del-32.png" class="clickable actions" alt="{% trans "Close this window" %}" title="{% trans "Close this window" %}" onclick="$('#nextreleaseblock').hide()" />
+            <img src="/img/icons/del.png" class="clickable actions" alt="{% trans 'Close this window' %}" title="{% trans 'Close this window' %}" onclick="$('#nextreleaseblock').hide()" />
         </div>
     {% endif %}
-    <div id="releaseblock" >
+    <div>
+        {% trans "Show:" %}
         <select id="release" onchange="initOITree()" title="{% trans 'Show tasks in a release' %}">
             {% for release in object.old_releases %}
                 <option class="oldrelease" value="{{release.name}}">{{release.name}}</option>
