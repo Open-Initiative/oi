@@ -2,12 +2,6 @@
 {% load i18n %}
 <div class="prjdesc">
     <div class="prjauthor">{% trans "Project created by" %} <a href="/user/profile/{{object.author.username}}">{{object.author.get_profile}}</a></div>
-    <div class="prjtitle" id="prjtitle_{{object.id}}">
-        {{object.title}}
-        {% if object|can_write:user and object.state < 2 %}
-        <img onclick="editProjectTitle({{object.id}})" class="clickable" src="/img/icons/edit.png" alt="{% trans 'Edit the title' %}" title="{% trans 'Edit the title' %}" />
-        {% endif %}
-    </div>
     <div id="specs_{{project.id}}">
         {%for spec in project.spec_set.all|dictsort:"order"%}{%include 'projects/spec/spec.html'%}{% endfor %}
         {% if project|can_write:user and project.state < 4 %}

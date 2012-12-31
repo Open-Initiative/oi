@@ -185,10 +185,15 @@ div.prj-action-wait {
     padding: 5px;
     background: white;
 }
-.prjtitle {
-    text-transform: uppercase;
-    font-size: 1.5em;
+.prjtitle-block {
+    font-size: 1.2em;
     color: #0094B5;
+    height: 152px;
+    overflow: hidden;
+}
+.prjtitle {
+    font-weight: bold;
+    font-size: 1.5em;
 }
 .tasktitle {
     font-size: 1.5em;
@@ -330,7 +335,6 @@ div.nextrelease{
     float: right;
 }
 #version{
-    margin-top: 152px;
     border: solid 1px;
     padding: .5em;
 }

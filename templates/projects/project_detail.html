@@ -8,8 +8,12 @@
 {% endfor %}
 {% endblock %}
 {% block actions %}
+<div class="prjtitle-block">
+    {% trans "Project:" %}
+    <div class="prjtitle">{{object.master.title}}</div>
+</div>
 <div id="version">
-    {% trans "Current release:" %} <b>{{object.master.target|default:_("Initial release")}}</b>
+    {% trans "Current release:" %} <b>{{object.master.target.name|default:_("Initial release")}}</b>
     {% if object.master|can_manage:user %}
         {% if object.master.state < 4 %}<a onclick="$('#nextreleaseblock').show();" title="Changer la version du projet" class="clickable">Switch<img src="/img/icons/bluebtn.png"></a>{% endif %}
         <div id="nextreleaseblock" class="invisible">
