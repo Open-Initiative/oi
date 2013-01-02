@@ -11,9 +11,12 @@
     synced with https://github.com/{{project.githubsync_set.get.githubowner}}/{{project.githubsync_set.get.repository}}
     {% if project.githubsync_set.get.label %} {% trans "on label"%} {{project.githubsync_set.get.label}}{% endif %}
     {% if project|can_manage:user %}<div class="clickable bidaction" onclick="getGithubRepos({{project.id}}, '{{project.githubsync_set.get.githubowner}}', '{{project.githubsync_set.get.repository}}');">{% trans "Edit settings" %}</div>{% endif %}
+    {% else %}
+    <script>getGithubRepos({{project.id}}, '{{project.githubsync_set.get.githubowner}}', '{{project.githubsync_set.get.repository}}');</script>
     {% endif %}
+    
     {% if project|can_manage:user %}
-    <form id="github_form" onsubmit="OIajaxCall('/project/{{project.id}}/setgithubsync', prepareForm('github_form'), 'output');return false"{% if project.githubsync_set.get.repository %} class="invisible"{% endif %}>
+    <form id="github_form" onsubmit="OIajaxCall('/project/{{project.id}}/setgithubsync', prepareForm('github_form'), 'output');return false" class="invisible">
         <input class="actions" type="image" src="/img/icons/ok-32.png" />
         {% trans "Repository"%}: /
         <select id="github_login" name="github_login" onchange="updateGithubRepos()"></select> /
