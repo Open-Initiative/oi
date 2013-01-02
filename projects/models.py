@@ -2,7 +2,7 @@
 # Modèles des projets
 from datetime import datetime, timedelta
 from decimal import Decimal
-from github import Github
+from github import Github, GithubException
 from re import match
 from django.db import models
 from django.db.transaction import commit_on_success
@@ -365,20 +365,25 @@ class Project(models.Model):
     
     def get_repo(self):
         """gets the github repo attached with the project"""
-        githubsync = self.githubsync_set.get()
-        return Github(githubsync.user.get_profile().github_username, githubsync.user.get_profile().github_password, user_agent="Open-Initiative/0.1").get_user().get_repo(githubsync.repository)
+        try:
+            githubsync = self.githubsync_set.get()
+            return Github(githubsync.token, user_agent="Open-Initiative/0.1").get_user().get_repo(githubsync.repository)
+        except GithubException:
+            return None
     
     def get_gituser(self, username):
         """gets the github repo attached with the project"""
         githubsync = self.githubsync_set.get()
-        return Github(githubsync.user.get_profile().github_username, githubsync.user.get_profile().github_password, user_agent="Open-Initiative/0.1").get_user(username)
+        return Github(githubsync.token, user_agent="Open-Initiative/0.1").get_user(username)
     
     def get_hook(self):
         """determines if a project has a hook to Github"""
-        for hook in self.get_repo().get_hooks():
-            if hook.config.get("url"):
-                if match( ".*open.*initiative.*/project/%s/createtask"%self.id, hook.config['url']):
-                    return hook
+        repo = self.get_repo()
+        if repo:
+            for hook in repo.get_hooks():
+                if hook.config.get("url"):
+                    if match( ".*open.*initiative.*/project/%s/createtask"%self.id, hook.config['url']):
+                        return hook
         return None
     
     def __unicode__(self):
@@ -437,9 +442,9 @@ class Spec(models.Model):
     modified = models.DateTimeField(auto_now=True)
     
     #saves project as well
-    def save(self):
+    def save(self, *args, **kwargs):
         self.project.save()
-        super(Spec, self).save()
+        super(Spec, self).save(*args, **kwargs)
 
 class Spot(models.Model):
     author = models.ForeignKey(User, null=True, blank=True)
@@ -451,11 +456,11 @@ class Spot(models.Model):
     task = models.ForeignKey(Project, null=True, blank=True)
     number = models.IntegerField()
     
-    def save(self):
+    def save(self, *args, **kwargs):
         """puts last number for spec if none is provided"""
         if not self.number:
             self.number = (self.spec.spot_set.aggregate(maxnumber=models.Max('number'))['maxnumber'] or 0) + 1
-        super(Spot, self).save()
+        super(Spot, self).save(*args, **kwargs)
 
     def delete(self):
         """renumbers other spots of same spec when a spot is deleted"""
@@ -511,9 +516,27 @@ class Release(models.Model):
 # GitHub integration
 class GitHubSync(models.Model):
     project = models.ForeignKey(Project, unique=True)
-    user = models.ForeignKey(User)
+    githubowner = models.CharField(max_length=100, blank=True, null=True)
+    token = models.CharField(max_length=100, blank=True, null=True)
     repository = models.CharField(max_length=100)
-    label = models.CharField(max_length=100)
+    label = models.CharField(max_length=100, default="")
+    
+    def list_repos(self):
+        """lists all repos an authorized user can use"""
+        user = Github(self.token).get_user()
+        repos= {user.login: user.get_repos()}
+        for org in user.get_orgs():
+            repos[org.login] = org.get_repos()
+        return repos
+    
+    def accept_issue_label(self, issue):
+        """tests if the issue should be synchronized regarding its labels"""
+        if not self.label: # if no label selected, all are accepted
+            return True
+        for label in issue.get_labels():
+            if self.label == label.name:
+                return True
+        return False
     
     def __unicode__(self):
         return "Project '%s' synchronised on repository '%s' with label '%s'"%(self.project, self.repository, self.label)

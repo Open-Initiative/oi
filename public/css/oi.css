@@ -229,6 +229,11 @@ div.column {
     float: left;
     margin: 5px;
 }
+.largecolumn {
+    float: left;
+    width: 420px;
+    margin: 2px;
+}
 div.smallcolumn {
     float: left;
     width: 200px;

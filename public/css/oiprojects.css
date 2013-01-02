@@ -358,15 +358,18 @@ option.oldrelease{
     text-overflow: ellipsis;
     width: 55%;
 }
-div.bidaction {
+.bidaction {
     background: #D0574C;
     color: white;
     font-weight: bold;
     padding: 3px;
     text-transform: uppercase;
-    width: auto;
+    display: table;
     margin: 5px;
     border-radius: 4px;
+}
+.bidaction:after {
+    content: url("/img/icons/whitebtn.png");
 }
 .oired, .oired a, .oired h3 {
     color: #D0574C;

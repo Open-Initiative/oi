@@ -6,7 +6,8 @@ from time import time
 from datetime import datetime,timedelta
 from decimal import Decimal, InvalidOperation
 from github import Github
-from urllib import quote
+from urllib import quote, urlencode
+from urllib2 import Request, urlopen
 from unicodedata import normalize
 from django.core import serializers
 from django.core.urlresolvers import reverse
@@ -19,12 +20,12 @@ from django.contrib.sites.models import get_current_site
 from django.db.models import Q, Sum
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response, get_object_or_404
-from django.utils.simplejson.encoder import JSONEncoder
+from django.utils.simplejson import JSONEncoder, JSONDecoder
 from django.utils.translation import ugettext as _
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.list_detail import object_detail, object_list
 from django.views.generic.simple import direct_to_template
-from oi.settings import MEDIA_ROOT, TEMP_DIR
+from oi.settings import MEDIA_ROOT, TEMP_DIR, github_id, github_secret
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS, OI_TABLE_OVERVIEW
 from oi.helpers import OI_PRJ_DONE, OI_NO_EVAL, OI_ACCEPT_DELAY, OI_READ, OI_ANSWER, OI_BID, OI_MANAGE, OI_WRITE, OI_ALL_PERMS, OI_CANCELLED_BID, OI_COM_ON_BID, OI_COMMISSION
 from oi.helpers import OI_PRJ_VIEWS, SPEC_TYPES, OIAction, ajax_login_required
@@ -211,7 +212,11 @@ def create_new_task(parent, title, author, githubid=None):
     # github sync
     if parent and parent.githubsync_set.all() and not githubid:
         repo = parent.get_repo()
-        project.githubid = repo.create_issue(project.title, body="http://www.openinitiative.com/project/%s/view/description/"%project.id, labels=[repo.get_label(parent.githubsync_set.get().label)]).id
+        if parent.githubsync_set.get().label:
+            labels = [repo.get_label(parent.githubsync_set.get().label)]
+        else:
+            labels = []
+        project.githubid = repo.create_issue(project.title, body="http://www.openinitiative.com/project/%s/view/description/"%project.id, labels=labels).id
         project.save()
     return project
 
@@ -704,29 +709,52 @@ def setgithubsync(request, id):
     """sets a GitHub synchronization on that project"""
     project = Project.objects.get(id=id)
     try:
-        user = User.objects.get(username=request.POST['user'])
-    except User.DoesNotExist:
-        return HttpResponse(_('Please enter a valid Open Initiative username'), status=531)
-    if not user.get_profile().github_username:
-        return HttpResponse(_('Please select a user who has set a github username in preferences'), status=531)
-    try:
         githubsync = GitHubSync.objects.get(project = project)
     except GitHubSync.DoesNotExist:
         githubsync = GitHubSync(project = project)
-    githubsync.user = user
-    githubsync.repository = request.POST['repo']
+    githubsync.githubowner = request.POST['github_login']
+    githubsync.repository = request.POST['github_repo']
     githubsync.label = request.POST['label']
     githubsync.save()
     return HttpResponse(_('Settings saved'))
+    
+@OINeedsPrjPerms(OI_MANAGE)
+def setgihubtoken(request, id):
+    """Sets a token on a github synchronization for authorization"""
+    project = Project.objects.get(id=id)
+    if not int(request.GET['state']) == request.user.id:
+        messages.info(request, _("Forbidden: could not identify requester"))
+        return HttpResponseRedirect("/project/%s/view/github"%project.id)
+    params = urlencode({'client_id': github_id, 'client_secret': github_secret, 'code': request.GET['code'], 'state': request.GET['state']})
+    req = Request('https://github.com/login/oauth/access_token', params, {'Accept': 'application/json'})
+    response = JSONDecoder().decode(urlopen(req).read())
+    if response.has_key('error'):
+        messages.info(request, _("Github error: %s")%response["error"])
+    else:
+        githubsync, created = GitHubSync.objects.get_or_create(project = project)
+        githubsync.token = response["access_token"]
+        githubsync.save()
+        messages.info(request, _("Project authorized"))
+    return HttpResponseRedirect("/project/%s/view/github"%project.id)
+    
+@OINeedsPrjPerms(OI_MANAGE)
+def getgithubrepos(request, id):
+    """list all repository available with given token"""
+    project = Project.objects.get(id=id)
+    repos = project.githubsync_set.get().list_repos()
+    repos = dict(map(lambda (login,repo_list): (login, [repo.name for repo in repo_list]), repos.items()))
+    return HttpResponse("(%s)"%JSONEncoder().encode(repos))
     
 @OINeedsPrjPerms(OI_MANAGE)
 def syncgithub(request, id):
     """Synchronises the tasks with the github issues"""
     project = Project.objects.get(id=id)
     repo = project.get_repo()
-    for issue in repo.get_issues():
-        if not Project.objects.filter(githubid=issue.number):
-            create_new_task(project, issue.title, request.user, issue.number)
+    for issue in repo.get_issues(): # all issues in repository
+        if not Project.objects.filter(githubid=issue.number): 
+            if project.githubsync_set.get().accept_issue_label(issue):
+                task = create_new_task(project, issue.title, request.user, issue.number)
+                Spec.objects.create(project=task, type=1, text=issue.body, url=issue.url, order=project.get_max_order()+1)
     return HttpResponse('', status=332)
     
 @OINeedsPrjPerms(OI_MANAGE)
@@ -752,11 +780,12 @@ def createtask(request, id):
         data = JSONDecoder().decode(request.POST["payload"])
         logging.getLogger("oi").debug("Github: "+data.get("action"))
         #Check if one of the issue's labels is synchronised in a project
-        for label in data["issue"].get("labels", []):
+        for label in data["issue"].get("labels", [{"name": None}]):
             for githubsync in GitHubSync.objects.filter(repository=data["repository"]["name"], label=label["name"]):
                 if project == githubsync.project:
                     if data.get("action") == "opened":
                         create_new_task(project, data["issue"].get("title"), githubsync.user, data["issue"].get("number"))
+                        Spec.objects.create(project=project, type=1, text=issue.body, url=issue.url, order=project.get_max_order()+1)
         return HttpResponse('OK')
     except Exception:
         logging.getLogger("oi").debug("Github Sync Error : " + sys.exc_info())
