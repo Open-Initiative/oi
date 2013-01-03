@@ -1,4 +1,4 @@
-function OITreeNode(id, tree, parent, color) {
+function OITreeNode(id, tree, parent, color, has_children) {
     this.id = id;
     this.tree = tree;
     this.parent = parent;
@@ -9,7 +9,7 @@ function OITreeNode(id, tree, parent, color) {
     if(parent) this.div = document.getElementById(newDiv(this.parent.childDiv.id));
     else this.div = document.getElementById(newDiv(this.tree.div.id));
     this.div.node = this;
-    this.setContent(color);
+    this.setContent(has_children);
     this.resetBtn(); //No idea why it is necessary to put this in a different method
     if('onmouseenter' in this.div) //test browser support for onmouseenter
         this.div.onmouseenter = this.over;
@@ -24,16 +24,17 @@ function OITreeNode(id, tree, parent, color) {
             if(id!=this.node.id) onMoveNode(id,this.node.id);
         };
 }
-OITreeNode.prototype.setContent = function setContent() {
+OITreeNode.prototype.setContent = function setContent(has_children) {
     if(this.parent) {
-//    if(){
-        this.btn = document.createElement("img");
-        this.btn.src = "/img/icons/treebtn"+this.color+"-closed.png";
-        this.btn.id = "treebtn_"+this.id;
-        this.btn.style.cssFloat = "left";
-        this.btn.style.styleFloat = "left";
-        this.btn.style.margin = "5px 0";
-        this.div.appendChild(this.btn);
+        if(has_children){
+            this.btn = document.createElement("img");
+            this.btn.src = "/img/icons/treebtn"+this.color+"-closed.png";
+            this.btn.id = "treebtn_"+this.id;
+            this.btn.style.cssFloat = "left";
+            this.btn.style.styleFloat = "left";
+            this.btn.style.margin = "5px 0";
+            this.div.appendChild(this.btn);
+          } 
         
         if(this.color < 2){
             /*create del button for all the tasks*/
@@ -69,7 +70,6 @@ OITreeNode.prototype.setContent = function setContent() {
             };
             this.div.appendChild(this.edit);          
         }
-//      }       
     }
     this.titleDiv = document.getElementById(newDiv(this.div.id));
     this.titleDiv.className = "treeelt state" + this.color;
@@ -128,7 +128,7 @@ OITreeNode.prototype.drop = function drop(evt) {
     document.body.style.cursor = "default";
     return false;
 }
-OITreeNode.prototype.addChild = function addChild(childid, color, afterid) {
+OITreeNode.prototype.addChild = function addChild(childid, color, afterid, has_children) {
     var node = this.tree.nodes[childid];
     if(node) {
         node.parent.children.splice(node.parent.children.indexOf(node), 1);
@@ -140,7 +140,7 @@ OITreeNode.prototype.addChild = function addChild(childid, color, afterid) {
             this.children.push(node);
         } else this.tree.nodes[childid] = null;
     } else {
-        node = new OITreeNode(childid, this.tree, this, color);
+        node = new OITreeNode(childid, this.tree, this, color, has_children);
         this.tree.nodes[childid] = node;
         this.children.push(node);
     }
@@ -148,14 +148,14 @@ OITreeNode.prototype.addChild = function addChild(childid, color, afterid) {
     return node.titleDiv;
 }
 OITreeNode.prototype.resetBtn = function resetBtn() {
-    if(this.parent) {
+    if(this.parent && this.btn) {
         this.btn = document.getElementById(this.btn.id);
         this.btn.node = this;
         this.btn.onclick = function(){this.node.expand();};
     }
 }
 OITreeNode.prototype.expand = function expand() {
-    if(this.parent) {
+    if(this.parent && this.btn) {
         this.btn.src = "/img/icons/treebtn"+this.color+"-open.png";
         this.btn.onclick = function(){this.node.shrink();};
     }
@@ -164,7 +164,7 @@ OITreeNode.prototype.expand = function expand() {
     if(this.tree.expandCallback) this.tree.expandCallback(this.id);
 }
 OITreeNode.prototype.shrink = function shrink() {
-    if(this.parent) {
+    if(this.parent && this.btn) {
         this.btn.src = "/img/icons/tree"+(this.parent?"btn":"root")+this.color+"-closed.png";
         this.btn.onclick = function(){this.node.expand();};
     }
@@ -195,11 +195,4 @@ OITree.prototype.setRoot = function setRoot(rootid, color, bgClass) {
     this.root = new OITreeNode(rootid, this, null, color, bgClass);
     this.nodes[rootid] = this.root;
     return this.root.titleDiv;
-}
-OITree.prototype.addChild = function addChild(parentid, childid, color, bgClass) {
-    var parentNode = this.nodes[parentid];
-    var node = new OITreeNode(childid, this, parentNode, color, bgClass);
-    parentNode.children.push(node);
-    this.nodes[childid] = node;
-    return node.titleDiv;
 }

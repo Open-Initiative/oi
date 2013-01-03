@@ -54,7 +54,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def getproject(request, id, view="overview"):
     if not view: view = "overview"
     project = Project.objects.get(id=id)
-    return direct_to_template(request, template="projects/project_detail.html", extra_context={'object': project, 'current_view':view, 'views':OI_PRJ_VIEWS, 'types':SPEC_TYPES, 'table_overview': OI_TABLE_OVERVIEW, 'release': request.session.get("release")})
+    return direct_to_template(request, template="projects/project_detail.html", extra_context={'object': project, 'current_view':view, 'views':OI_PRJ_VIEWS, 'types':SPEC_TYPES, 'table_overview': OI_TABLE_OVERVIEW, 'release': request.session.get("release", {}).get(project.master.id, "")})
 
 @OINeedsPrjPerms(OI_READ)
 def listtasks(request, id):
@@ -73,6 +73,7 @@ def listtasks(request, id):
             if request.GET.has_key("listall"):
                 tasks = project.descendants.filter_perm(request.user, OI_READ)
             else:
+                request.session.get("release", {})[project.master.id] = ""
                 tasks = project.tasks.filter_perm(request.user, OI_READ)
              
             #this queryset filter with request key 'filter_title' in overview table   
@@ -103,13 +104,12 @@ def listtasks(request, id):
             
             #can sort on the project for the release    
             if request.GET.get("release"):
+                request.session.get("release", {})[project.master.id] = request.GET['release']
                 if request.GET['release'] == '*':
                     tasks = tasks.filter(Q(target__isnull=True)|Q(descendants__isnull=False, descendants__target__isnull=True)).distinct()
-                    request.session["release"] = request.GET['release']
                 
                 else:
                     tasks = tasks.filter(Q(target__name = request.GET['release'])|Q(descendants__target__name = request.GET['release'])).distinct()
-                    request.session["release"] = request.GET['release']
                     
             if request.GET.has_key("order"):
                 tasks = tasks.order_by(request.GET['order'])
@@ -131,7 +131,7 @@ def listtasks(request, id):
             lists.append(serializers.oiserialize("json", tasks,
                 extra_fields=("author.get_profile","assignee.get_profile.get_display_name","get_budget","allbid_sum",
                     "bid_set.count","target.name","target.done","target.project","created","start_date",
-                    "due_date","validation", "githubsync_set.get.repository", "githubsync_set.get.label","tasks.count()")))
+                    "due_date","validation", "githubsync_set.get.repository", "githubsync_set.get.label","tasks.count")))
     return HttpResponse(JSONEncoder().encode(lists)) #serializes the whole thing
 
 @OINeedsPrjPerms(OI_MANAGE)

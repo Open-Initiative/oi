@@ -49,7 +49,7 @@ function populateTaskList(taskLists) {
         var tasks = eval(list);
         for(var task=tasks[i=0]; i<tasks.length; task=tasks[++i]) {
             var parentid = task.fields.parent;
-            setTaskName(oiTree.nodes[String(parentid).replace(".","")].addChild(task.pk, task.fields.state), task.pk, task.fields.title, viewname);
+            setTaskName(oiTree.nodes[String(parentid).replace(".","")].addChild(task.pk, task.fields.state, null, task.fields.tasks_count), task.pk, task.fields.title, viewname);
             if(oiTable) oiTable.addFromTask(task, afterid||parentid, i%2);
             afterid = task.pk;
         }
@@ -286,28 +286,20 @@ function answerCancelBid(projectid, bidid, answer, divid) {
         function(){clearDiv(divid);});
 }
 function deleteProject(projectid) {
-    if(currentTask == projectid){
-        if(confirm(gettext("Are you sure you want to delete this task permanently?"))) {
-            OIajaxCall("/project/delete/"+projectid, null, "output",
-                function(){
-                    var xmlhttp = new XMLHttpRequest();
-                    if(oiTree.nodes[projectid].parent) document.location = "/project/"+oiTree.nodes[projectid].parent.id;
-                    else document.location = "/";
-                }
-            );
-        }
-    }else{
-        if(confirm(gettext("Are you sure you want to delete this task permanently? grbeigeznrbni"))) {
-            OIajaxCall("/project/delete/"+projectid, null, "output", 
-                function(){
-                    var node = oiTree.nodes[projectid];
-                    node.parent.children.pop(node);
-                    node.div.parentNode.removeChild(node.div);
-                    oiTree.nodes[projectid] = null;
-                }
-            );
-        }
-    }  
+    if(confirm(gettext("Are you sure you want to delete this task permanently?"))) {
+        OIajaxCall("/project/delete/"+projectid, null, "output",
+            function(){
+                if(currentTask == projectid){
+                    if(oiTree.nodes[projectid].parent) document.location = "/project/"+oiTree.nodes[projectid].parent.id;
+                    else document.location = "/";
+                } else {
+                    var node = oiTree.nodes[projectid];
+                    node.parent.children.pop(node);
+                    node.div.parentNode.removeChild(node.div);
+                    oiTree.nodes[projectid] = null;
+                }
+        });
+    }
 }
 function updateProgress(projectid, progress) {
     var progress = Math.min(Math.round(progress*100), 100);
