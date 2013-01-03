@@ -7,33 +7,32 @@
     {% if project.githubsync_set.get.token %}{% trans "Project authorized" %}<br />{% endif %}
     {% if project|can_manage:user %}<a href="https://github.com/login/oauth/authorize?client_id={{github_id}}&redirect_uri=http://{{Site}}/project/{{project.id}}/setgihubtoken&scope=repo&state={{user.id}}"><div class="bidaction">{% trans "Authorize on Github" %}</div></a>{% endif %}
     {% if project.githubsync_set.get.token %}
-    {% if project.githubsync_set.get.repository %}
-    synced with https://github.com/{{project.githubsync_set.get.githubowner}}/{{project.githubsync_set.get.repository}}
-    {% if project.githubsync_set.get.label %} {% trans "on label"%} {{project.githubsync_set.get.label}}{% endif %}
-    {% if project|can_manage:user %}<div class="clickable bidaction" onclick="getGithubRepos({{project.id}}, '{{project.githubsync_set.get.githubowner}}', '{{project.githubsync_set.get.repository}}');">{% trans "Edit settings" %}</div>{% endif %}
-    {% else %}
-    <script>getGithubRepos({{project.id}}, '{{project.githubsync_set.get.githubowner}}', '{{project.githubsync_set.get.repository}}');</script>
-    {% endif %}
-    
-    {% if project|can_manage:user %}
-    <form id="github_form" onsubmit="OIajaxCall('/project/{{project.id}}/setgithubsync', prepareForm('github_form'), 'output');return false" class="invisible">
-        <input class="actions" type="image" src="/img/icons/ok-32.png" />
-        {% trans "Repository"%}: /
-        <select id="github_login" name="github_login" onchange="updateGithubRepos()"></select> /
-        <select id="github_repo" name="github_repo"></select>
-        <br />{% trans "You can enter a label. Only issues of that label will be synchronised."%}
-        <input name="label" value="{{project.githubsync_set.get.label}}"/>
-    </form>
-    {% endif %}
-    {% if project.githubsync_set.get and project|can_manage:user %}
-    <div class="clickable bidaction" onclick="OIajaxCall('/project/{{project.id}}/syncgithub')">{%trans "Synchronise" %}</div>
-    {% if project.get_hook %}
-    {% trans "Hook set on Github repository " %}
-    <div class="clickable bidaction" onclick="OIajaxCall('/project/{{project.id}}/togglegithubhook', null, 'output')">{%trans "Remove Hook" %}</div>
-    {% else %}
-    <div class="clickable bidaction" onclick="OIajaxCall('/project/{{project.id}}/togglegithubhook', null, 'output')">{%trans "Set Hook" %}</div>
-    {% endif %}
-    {% endif %}
+        {% if project.githubsync_set.get.repository %}
+        synced with https://github.com/{{project.githubsync_set.get.githubowner}}/{{project.githubsync_set.get.repository}}
+        {% if project.githubsync_set.get.label %} {% trans "on label"%} {{project.githubsync_set.get.label}}{% endif %}
+        {% if project|can_manage:user %}<div class="clickable bidaction" onclick="getGithubRepos({{project.id}}, '{{project.githubsync_set.get.githubowner}}', '{{project.githubsync_set.get.repository}}');">{% trans "Edit settings" %}</div>{% endif %}
+        {% else %}
+        <script>getGithubRepos({{project.id}}, '{{project.githubsync_set.get.githubowner}}', '{{project.githubsync_set.get.repository}}');</script>
+        {% endif %}
+        
+        {% if project|can_manage:user %}
+        <form id="github_form" onsubmit="OIajaxCall('/project/{{project.id}}/setgithubsync', prepareForm('github_form'), 'output');hide('github_form');return false" class="invisible">
+            <input class="actions" type="image" src="/img/icons/ok-32.png" />
+            {% trans "Repository"%}: /
+            <select id="github_login" name="github_login" onchange="updateGithubRepos()"></select> /
+            <select id="github_repo" name="github_repo"></select>
+            <br />{% trans "You can enter a label. Only issues of that label will be synchronised."%}
+            <input name="label" value="{{project.githubsync_set.get.label}}"/>
+        </form>
+        {% endif %}
+        {% if project.githubsync_set.get and project|can_manage:user %}
+        <div class="clickable bidaction" onclick="OIajaxCall('/project/{{project.id}}/syncgithub')">{%trans "Synchronise" %}</div>
+        {% trans "Hooks enable your tasks to be automatically created when you create a new issue on Github" %}
+        {% if project.get_hook %}{% trans "Hook set on Github repository " %}{% endif %}
+        <div class="clickable bidaction" onclick="OIajaxCall('/project/{{project.id}}/togglegithubhook', null, 'output', makeObjectCallback(function(){if(this.innerHTML=='{%trans "Remove Hook" %}')this.innerHTML='{%trans "Set Hook" %}'; else this.innerHTML='{%trans "Remove Hook" %}'}, this));">
+            {% if project.get_hook %}{%trans "Remove Hook" %}{% else %}{%trans "Set Hook" %}{% endif %}
+        </div>
+        {% endif %}
     {% endif %}
 </div>
 <script>

@@ -25,9 +25,7 @@
     {% else %}
         {% trans "No offer was made for this project" %}
         {% if project.state < 2 and project|can_bid:user %}
-        <div class="bidaction clickable" onclick="offerProject({{project.id}})">
-            {% trans "Make an offer" %} <img src="/img/icons/whitebtn.png" />
-        </div>
+        <div class="bidaction clickable" onclick="offerProject({{project.id}})">{% trans "Make an offer" %}</div>
         {% endif %}
     {% endif %}
     </div>
@@ -51,9 +49,7 @@
         <div>
             <h3>{% if project.missing_bid > 0 %}{% trans "Payment awaiting:" %} {{project.missing_bid|floatformat:2}} €{% endif %}</h3>
             {% if project.state < 3 %}{% if project|can_bid:user %}{% if not project|bids:user %}
-            <div onclick="bidProject({{project.id}})" class="clickable bidaction">
-                {% trans "Bid_verb" %} <img src="/img/icons/whitebtn.png" />
-            </div>
+            <div onclick="bidProject({{project.id}})" class="clickable bidaction">{% trans "Bid_verb" %}</div>
             {% endif %}{% endif %}{% endif %}
         </div>
     </div>
