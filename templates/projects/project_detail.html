@@ -15,10 +15,10 @@
 <div id="version">
     {% trans "Current release:" %} <b>{{object.master.target.name|default:_("Initial release")}}</b>
     {% if object.master|can_manage:user %}
-        {% if object.master.state < 4 %}<a onclick="$('#nextreleaseblock').show();" title="Changer la version du projet" class="clickable">Switch<img src="/img/icons/bluebtn.png"></a>{% endif %}
+        {% if object.master.state < 4 %}<a onclick="$('#nextreleaseblock').show();" title="{% trans 'Switch the project to another version'%}" class="clickable">Switch<img src="/img/icons/bluebtn.png"></a>{% endif %}
         <div id="nextreleaseblock" class="invisible">
-            <p>{% trans "Click here to change the release" %}</p>
-            <select id="nextrelease" onchange="changeRelease({{object.id}})" title="All the future releases of this project" >
+            <p>{% trans "Please select the next release" %}</p>
+            <select id="nextrelease" onchange="changeRelease({{object.id}})">
                 {% for release in object.future_releases %}
                 <option value="{{release.name}}">{{release.name}}</option>
                 {% empty %}
