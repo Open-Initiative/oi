@@ -40,7 +40,7 @@
                 <option value="{{future_release.name}}" {% if release == future_release.name %} selected {% endif %}>{{future_release.name}}</option>
             {% endfor %}
             <option value="*" {% if release == "*" %} selected {% endif %}>{% trans "See all tasks without release" %}</option>
-            <option value="" {% if not release %} selected {% endif %}>{% trans "All releases" %}</option>
+            <option value="" {% if release == "" %} selected {% endif %}>{% trans "All releases" %}</option>
             {% if object.master|can_manage:user %}<option id="add_new_release"  >{% trans "Add a new release" %}</option>{% endif %}
         </select>
     </div>
