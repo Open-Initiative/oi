@@ -157,3 +157,18 @@ msgstr "'. Toutes les tâches non finie dans '"
 msgid "' will be assigned to '"
 msgstr "' seront assigné à '"
 
+# oiproject.js
+msgid "What I did:"
+msgstr "Ce que j'ai fait :"
+
+# oiproject.js
+msgid "What happened:"
+msgstr "Ce qui s'est passé :"
+
+# oiproject.js
+msgid "What should happen:"
+msgstr "Ce qui aurait dû se passer :"
+
+# oiproject.js
+msgid "Environment:"
+msgstr "Environnement :"

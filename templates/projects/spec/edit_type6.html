@@ -20,9 +20,5 @@
     
     <label for="url_{{divid}}">Url</label>
     <input id="url_{{divid}}" type="text" value="{{spec.url|default:"http://"}}" />
-    {% include 'projects/spec/edit_type2.html' %}
+    {% include 'projects/spec/edit_type2_bis.html' %}
 </div>
-
-<div id="validspec_{{divid}}" class="actions"><img class="clickable" src="/img/icons/ok-32.png" onclick="prepareText('{{divid}}'); saveSpec('{{divid}}',{{project.id}},getValue('specorder_{{divid}}'),{{spec.id|default:0}})"/></div>
-<div class="cleared"></div>
-
