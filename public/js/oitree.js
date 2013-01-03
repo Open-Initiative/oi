@@ -170,7 +170,7 @@ OITreeNode.prototype.shrink = function shrink() {
     }
     this.childDiv.style.display = "none";
     this.open = false;
-    if(onShrinkNode) onShrinkNode(this.id);
+    if(this.tree.shrinkCallback) this.tree.shrinkCallback(this.id);
 }
 OITreeNode.prototype.getLastChild = function getLastChild() {
     if(this.children.length) return this.children[this.children.length-1].id;
