@@ -92,6 +92,10 @@
     oiTable = new OITable("budget", ["{% trans 'Budget' %}","{% trans 'Engaged' %}"]);
     firstLine = ["{{project.master.get_budget}} €", "{{project.master.allbid_sum}} €"];
     oiTable.addFromTask = function addFromTask(task, afterid, bgClass) {
-        oiTable.addLine(task.pk, [parseFloat(task.fields.get_budget) + " €", parseFloat(task.fields.allbid_sum) + " €"], afterid, bgClass);
+    
+    var budget = (parseFloat(task.fields.get_budget)) ? parseFloat(task.fields.get_budget) : "{{project.master.get_budget}}";
+    var engaged = (parseFloat(task.fields.allbid_sum)) ? parseFloat(task.fields.allbid_sum) : "{{project.master.allbid_sum}}";
+    
+        oiTable.addLine(task.pk, [budget + " €", engaged + " €"], afterid, bgClass);
     }
 </script>

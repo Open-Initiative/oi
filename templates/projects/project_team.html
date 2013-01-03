@@ -85,6 +85,11 @@
     oiTable = new OITable("team", ["{% trans 'Owner' %}", "{% trans 'Assignee' %}", "{% trans 'Validator' %}"]);
     firstLine = ["{{project.author.get_profile}}" ,"{{project.master.assignee.get_profile}}", "{{project.master.bid_set.count}}"];
     oiTable.addFromTask = function addFromTask(task, afterid, bgClass) {
-        oiTable.addLine(task.pk, [task.fields.author_get_profile ,task.fields.assignee_get_profile_get_display_name, task.fields.bid_set_count], afterid, bgClass);
+    
+    var owner = (task.fields.author_get_profile) ? task.fields.author_get_profile : "{{project.author.get_profile}}";
+    var assignee = (task.fields.assignee_get_profile_get_display_name) ? task.fields.assignee_get_profile_get_display_name : "{{project.master.assignee.get_profile}}";
+    var validator = (task.fields.bid_set_count) ? task.fields.bid_set_count : "{{project.master.bid_set.count}}";
+    
+        oiTable.addLine(task.pk, [owner , assignee, validator], afterid, bgClass);
     }
 </script>
