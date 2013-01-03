@@ -158,9 +158,9 @@ function confirmEditTitle(projectid, title) {
         function(){
             resetProjectTitle(projectid, title);
             if(document.getElementById("prjtitle_"+projectid)){
-            document.getElementById("prjtitle_"+projectid).innerHTML = title;
-            document.getElementById("prjtitle_"+projectid).innerHTML += ' <img onclick="editProjectTitle('+projectid+')" class="clickable" src="/img/icons/edit.png" />';
-            setTaskName(oiTree.nodes[projectid].titleDiv, projectid, title, viewname);
+                document.getElementById("prjtitle_"+projectid).innerHTML = title;
+                document.getElementById("prjtitle_"+projectid).innerHTML += ' <img onclick="editProjectTitle('+projectid+')" class="clickable" src="/img/icons/edit.png" />';
+                setTaskName(oiTree.nodes[projectid].titleDiv, projectid, title, viewname);
             }
         }
     );
