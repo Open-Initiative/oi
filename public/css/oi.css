@@ -63,11 +63,6 @@ div.center{
     margin-top: 20px;
     padding: 10px;
 }
-#topline {
-    background: #68274E;
-    height: 2px;
-    color: #0094B5;
-}
 #toptext {
     background: #0094B5;
     height:20px;
@@ -97,7 +92,7 @@ div.center{
 }
 #searchdiv {
     float: left;
-    margin: 5px 20px 0 0;
+    margin-top: 5px;
     width: 250px;
     height: 60px;
 }

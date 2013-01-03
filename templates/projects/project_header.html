@@ -74,7 +74,10 @@
     <div class="cleared"></div>
     <div class="prjstatebar">
         {% for phase in OI_PRJ_PHASES %}
-        <div class="{% if phase.0 == object.state %}currentstate {% endif %}prjstate state{{phase.0}}">{{phase.1}}</div>
+            <div class="{% if phase.0 == object.state %}currentstate {% endif %}prjstate state{{phase.0}}">{{phase.1}}</div>
+            {% if not phase.0 == 4 %}
+                <div class="arrow"></div>
+            {% endif %}
         {% endfor %}
     </div>
 </div>
