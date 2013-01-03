@@ -111,9 +111,14 @@
         </div>
         {% endblock %}
     </div>
+    <div id="breadcrumb">
+        <div class="center">
+            <div class="path-element"><a href="/"><img src="/img/icons/home.png" alt="home" /></a></div>
+            {% block breadcrumb %}{% endblock %}
+        </div>
+        <div class="cleared"></div>
+    </div>
     <div class="center">
-        {% block indicators %}{% endblock %}
-        <div id="pagetitle">{% block pagetitle %}{% endblock %}</div>
        <script>
             follow = {% if object|is_following:user %}true{%else%}false{%endif%};
        </script>

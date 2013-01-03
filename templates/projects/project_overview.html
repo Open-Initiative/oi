@@ -3,7 +3,7 @@
 {% with project.descendants|filter_read:user as tasks %}
 {% if tasks %}
 <div class="bottom-overview">
-    <div class="prjtitle">
+    <div class="overview_title">
     {{tasks.count}} 
     {% blocktrans count counter=tasks|length %}task inside{% plural %}tasks inside{% endblocktrans %}
     {{project.title}}

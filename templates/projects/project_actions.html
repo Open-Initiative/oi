@@ -1,12 +1,5 @@
 {% load i18n %}
 {% load oifilters %}
-{% if object.state == 2 %}
-    <div class="progressbar{% ifequal object.assignee user %} clickable" onclick="updateProgress({{object.id}},(event.clientX-this.offsetLeft)/this.offsetWidth){% endifequal %}">
-        <span id="progressbar_{{object.id}}" class="progress" style="width:{{object.progress|default:0|floatformat:0}}%;"></span>
-        <span id="progresslabel_{{object.id}}" class="progresstitle" >{{object.progress|default:0|floatformat:0}}%</span>
-    </div>
-{% endif %}
-
 <div>
 {% if object.state < 2 %}
     {% if object.assignee == user %}

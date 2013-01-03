@@ -3,10 +3,10 @@
 <div class="prjheader">
     <div class="prjdetail">
         {% if object|can_write:user and object.state < 2 and object.bid_set.count == 0 and object.tasks.count == 0 %}
-            <img src="/img/icons/delete.png" class="clickable actions" alt="{% trans "Delete the task" %}" title="{% trans "Delete the task" %}" onclick="deleteProject({{object.id}})" />
+            <img src="/img/icons/delete.png" class="clickable delbtn" alt="{% trans "Delete the task" %}" title="{% trans "Delete the task" %}" onclick="deleteProject({{object.id}})" />
         {% endif %}
         {% if object.state < 4 and object.bid_set.count > 0 and user == object.assignee %}
-            <img src="/img/icons/delete.png" class="clickable actions" alt="{% trans "Cancel" %}" title="{% trans "Cancel" %}" onclick="cancelProject({{object.id}}, {{object.state}})" />
+            <img src="/img/icons/delete.png" class="clickable delbtn" alt="{% trans "Cancel" %}" title="{% trans "Cancel" %}" onclick="cancelProject({{object.id}}, {{object.state}})" />
         {% endif %}
         <div class="prjauthor">{% trans "Project created on" %} {{object.created|date:"d/m/Y"}} {% trans "by" %} <a href="/user/profile/{{object.author.username}}">{{object.author.get_profile}} </a></div>
         <div class="cleared"></div>
@@ -68,9 +68,18 @@
             <img onclick="favProject(174)" src="/img/icons/starTrue.png" alt="suivre le projet" title="suivre le projet" class="clickable" id="fav_174"><br>
             {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
         </div>
-        <div class="tasktitle">{{object.title}}</div>
+        <div class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">{{object.title}}</div>
+        {% if object|can_write:user and object.state < 2 %}
+            <img onclick="editProjectTitle({{object.id}})" class="clickable" src="/img/icons/edit.png" alt="{% trans 'Edit the title' %}" title="{% trans 'Edit the title' %}" />
+        {% endif %}
         {% include "projects/project_actions.html" %}
     </div>
+    {% if object.state == 2 %}
+    <div class="progressbar{% ifequal object.assignee user %} clickable" onclick="updateProgress({{object.id}},(event.clientX-this.offsetLeft)/this.offsetWidth){% endifequal %}">
+        <span id="progressbar_{{object.id}}" class="progress" style="width:{{object.progress|default:0|floatformat:0}}%;"></span>
+        <span id="progresslabel_{{object.id}}" class="progresstitle" >{{object.progress|default:0|floatformat:0}}%</span>
+    </div>
+    {% endif %}
     <div class="cleared"></div>
     <div class="prjstatebar">
         {% for phase in OI_PRJ_PHASES %}

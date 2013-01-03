@@ -368,7 +368,6 @@ function populateOverviewTable(projectid){
                         }
                         task.fields[field] = gettext("State"+task.fields[field]);
                     };
-//                    if(fields[j]=="due_date"){if(!task.fields[field]) {task.fields[field]="-";}; };
                     if(fields[j]=="offer")task.fields[field] += " €";
                     if(fields[j]=="target_name"){if(!task.fields[field]) {task.fields[field]="-";}; };
                     line.appendChild(document.createElement('td')).innerHTML = "<a href=/project/"+task.pk+"/view/"+views[j]+">"+task.fields[field]+"</a>";
@@ -381,6 +380,25 @@ function populateOverviewTable(projectid){
         }
     );
 }
+
+function getGithubRepos(id, login, repo) {
+    OIajaxCall("/project/"+id+"/getgithubrepos", null, "output", function(response){
+            output.innerHTML="";
+            repos = eval(response)
+            for(login in repos) github_login.add(new Option(login));
+            github_login.value = login;
+            updateGithubRepos();
+            github_repo.value = repo;
+            show('github_form');
+        });
+}
+function updateGithubRepos() {
+    github_repo.options.length=0;
+    var i=0;
+    for(repo=repos[github_login.value][i]; i<repos[github_login.value].length; repo=repos[github_login.value][++i])
+        github_repo.add(new Option(repo));
+}
+
 function addSpec(projectid) {
     var divid = newDiv("specs_"+projectid);
     OIajaxCall("/project/"+projectid+"/editspec/0?divid="+divid+"&specorder=-1", null, divid, 

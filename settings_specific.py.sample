@@ -1,6 +1,7 @@
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 HOME_DIR = '/path/to/your/django/project'
+OI_DOMAIN = u'www.openinitiative.mydomain'
 
 ADMINS = (('Name', 'email'),)
 
