@@ -25,15 +25,15 @@
     {% endif %}
     <div id="releaseblock" >
         <select id="release" onchange="initOITree()" title="{% trans 'Show tasks in a release' %}">
-            {% for release in object.old_releases %}
-                <option class="oldrelease" value="{{release.name}}">{{release.name}}</option>
+            {% for old_release in object.old_releases %}
+                <option class="oldrelease" value="{{old_release.name}}" {% if release == old_release.name %} selected {% endif %}>{{old_release.name}}</option>
             {% endfor %}
-            {% if object.master.target %}<option class="currentrelease" selected value="{{object.master.target.name}}">{{object.master.target.name}} *</option>{% endif %}
-            {% for release in object.future_releases %}
-                <option value="{{release.name}}">{{release.name}}</option>
+            {% if object.master.target %}<option class="currentrelease" value="{{object.master.target.name}}" {% if release == object.master.target.name %} selected {% endif %}>{{object.master.target.name}} *</option>{% endif %}
+            {% for future_release in object.future_releases %}
+                <option value="{{future_release.name}}" {% if release == future_release.name %} selected {% endif %}>{{future_release.name}}</option>
             {% endfor %}
-            <option value="*">{% trans "See all tasks without release" %}</option>
-            <option value="">{% trans "All releases" %}</option>
+            <option value="*" {% if release == "*" %} selected {% endif %}>{% trans "See all tasks without release" %}</option>
+            <option value="" {% if not release %} selected {% endif %}>{% trans "All releases" %}</option>
             {% if object.master|can_manage:user %}<option id="add_new_release"  >{% trans "Add a new release" %}</option>{% endif %}
         </select>
     </div>
@@ -43,7 +43,7 @@
 </div>
 {% endblock %}
 {% block nav %}
-<div id="projecttree"></div> <div id="loading"> </div> 
+<div id="projecttree"></div> <div id="loading_{{object.id}}"> </div> 
 {% if object.master.descendants.count < 1 %}<div class="tasktip"><img src="/img/askoi.png" />{% trans "Tasks in the project are to be listed here" %}</div>{% endif %}
 {% endblock %}
 {% block content %}
@@ -85,22 +85,23 @@
             var rootdiv = oiTree.setRoot({{object.master.id}}, {{object.master.state}}, 0);
             setTaskName(rootdiv, {{object.master.id}}, "{{object.master.title}}", "{{current_view}}");
             rootdiv.className += " treeroot";
-            OIajaxCall("/project/{{object.id}}/listtasks?release="+getValue("release")+"&expand={% for ancestor in object.get_path %}{{ancestor.id}},{% endfor %}", null, "loading",  
+            OIajaxCall("/project/{{object.id}}/listtasks?release="+getValue("release")+"&expand={% for ancestor in object.get_path %}{{ancestor.id}},{% endfor %}", null, "loading_{{object.id}}",  
                 function(response){
                     populateTaskList(eval('('+response+')'));
                     {% for ancestor in object.get_path %}
                     if(oiTree.nodes[{{ancestor.id}}]) oiTree.nodes[{{ancestor.id}}].expand();
                     {% endfor %}
                     if(oiTree.nodes[{{object.id}}]) setActiveTask({{object.id}}{% if object.state < 4 and object|can_write:user %}, true{% endif %});
-                    clearDiv("loading");
+                    clearDiv("loading_{{object.id}}");
                 }
             );
         }
+        currentTask = {{object.id}};
         coloration = {{object.state}};
         follow = {% if object|is_following:user %}true{%else%}false{%endif%};
         username = '{{user.username}}';
         viewname = '{{current_view}}';
-        oiTree = new OITree("projecttree");
+        oiTree = new OITree("projecttree", onExpandNode, onShrinkNode, deleteProject, confirmEditTitle);
         initOITree();
     </script>
 </div>

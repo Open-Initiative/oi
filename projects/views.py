@@ -53,7 +53,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def getproject(request, id, view="overview"):
     if not view: view = "overview"
     project = Project.objects.get(id=id)
-    return direct_to_template(request, template="projects/project_detail.html", extra_context={'object': project, 'current_view':view, 'views':OI_PRJ_VIEWS, 'types':SPEC_TYPES, 'table_overview': OI_TABLE_OVERVIEW})
+    return direct_to_template(request, template="projects/project_detail.html", extra_context={'object': project, 'current_view':view, 'views':OI_PRJ_VIEWS, 'types':SPEC_TYPES, 'table_overview': OI_TABLE_OVERVIEW, 'release': request.session.get("release")})
 
 @OINeedsPrjPerms(OI_READ)
 def listtasks(request, id):
@@ -104,9 +104,11 @@ def listtasks(request, id):
             if request.GET.get("release"):
                 if request.GET['release'] == '*':
                     tasks = tasks.filter(Q(target__isnull=True)|Q(descendants__isnull=False, descendants__target__isnull=True)).distinct()
+                    request.session["release"] = request.GET['release']
                 
                 else:
                     tasks = tasks.filter(Q(target__name = request.GET['release'])|Q(descendants__target__name = request.GET['release'])).distinct()
+                    request.session["release"] = request.GET['release']
                     
             if request.GET.has_key("order"):
                 tasks = tasks.order_by(request.GET['order'])
@@ -128,7 +130,7 @@ def listtasks(request, id):
             lists.append(serializers.oiserialize("json", tasks,
                 extra_fields=("author.get_profile","assignee.get_profile.get_display_name","get_budget","allbid_sum",
                     "bid_set.count","target.name","target.done","target.project","created","start_date",
-                    "due_date","validation", "githubsync_set.get.repository", "githubsync_set.get.label")))
+                    "due_date","validation", "githubsync_set.get.repository", "githubsync_set.get.label","tasks.count()")))
     return HttpResponse(JSONEncoder().encode(lists)) #serializes the whole thing
 
 @OINeedsPrjPerms(OI_MANAGE)
@@ -178,7 +180,7 @@ def changerelease(request, id):
 def assignrelease(request, id):
     project = Project.objects.get(id=id)
     
-    release, created = Release.objects.get_or_create(name = request.POST["release"], project = project)
+    release = Release.objects.get(name = request.POST["release"], project = project.master)
     if release.done == True:
         return HttpResponse(_("Can't set to a release already finished"))
         
@@ -444,6 +446,9 @@ def validatorproject(request, id):
     
     bid, created = Bid.objects.get_or_create(project=project, user=user)
     
+    for task in project.descendants.filter_perm(user, OI_READ):
+        bid, created = Bid.objects.get_or_create(project=task, user=user)
+    
     project.set_perm(user, OI_BID)
     project.descendants.apply_perm(user, OI_BID)
     user.get_profile().follow_project(project.master)
@@ -616,12 +621,12 @@ def deleteproject(request, id):
     project.notify_all(request.user, "project_delete", project.title)
     project.notice_set.filter(project=project).update(project=None)
     project.delete()
-    if project.parent:
-        messages.info(request, _("The task has been deleted."))
-        return HttpResponse('/project/%s'%(project.parent.id),status=333)
-    else:
-        messages.info(request, _("The project has been deleted."))
-        return HttpResponse('/',status=333)
+#    if project.parent:
+#        messages.info(request, _("The task has been deleted."))
+    return HttpResponse("The task %s has been deleted."%(project.title))
+#    else:
+#        messages.info(request, _("The project has been deleted."))
+#        return HttpResponse('The project has been deleted.')
 
 @OINeedsPrjPerms(OI_WRITE)
 def moveproject(request, id):

@@ -7,7 +7,7 @@
     {{tasks.count}} 
     {% blocktrans count counter=tasks|length %}task inside{% plural %}tasks inside{% endblocktrans %}
     {{project.title}}
-    </div> <div id="load"></div>
+    </div> <div id="load_{{object.id}}"></div>
     <div id="prj-table-overview" class="prj-table-overview"><form id="form_overview" onsubmit="populateOverviewTable({{project.id}});return false">
         <table id="dynamicTableOverview"> 
             <tr id="headerTableOverview">
