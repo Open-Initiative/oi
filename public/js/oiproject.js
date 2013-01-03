@@ -1,5 +1,6 @@
 oiTable = null;
 function setTaskName(div, id, title, view) {
+    div.innerHTML="";
     var titleDiv = document.createElement('div');
     titleDiv.className = "treetitle";
     div.appendChild(titleDiv);
@@ -152,9 +153,17 @@ function editDate(projectid, field_name, date) {
 function editProjectTitle(projectid) {
     OIajaxCall("/project/edittitle/"+projectid, null, "prjtitle_"+projectid);
 }
-function confirmEditTitle(projectid) {
-    OIajaxCall("/project/confirmedittitle/"+projectid, "title="+getValue("title_"+projectid), "output", 
-        function(){resetProjectTitle(projectid, getValue("title_"+projectid));});
+function confirmEditTitle(projectid, title) {
+    OIajaxCall("/project/confirmedittitle/"+projectid, "title="+title, "output", 
+        function(){
+            resetProjectTitle(projectid, title);
+            if(document.getElementById("prjtitle_"+projectid)){
+            document.getElementById("prjtitle_"+projectid).innerHTML = title;
+            document.getElementById("prjtitle_"+projectid).innerHTML += ' <img onclick="editProjectTitle('+projectid+')" class="clickable" src="/img/icons/edit.png" />';
+            setTaskName(oiTree.nodes[projectid].titleDiv, projectid, title, viewname);
+            }
+        }
+    );
 }
 function resetProjectTitle(projectid, title) {
     document.getElementById("prjtitle_"+projectid).innerHTML = title;
@@ -277,9 +286,28 @@ function answerCancelBid(projectid, bidid, answer, divid) {
         function(){clearDiv(divid);});
 }
 function deleteProject(projectid) {
-    if(confirm(gettext("Are you sure you want to delete this task permanently?"))) {
-        OIajaxCall("/project/delete/"+projectid, null, "output");
-    }
+    if(currentTask == projectid){
+        if(confirm(gettext("Are you sure you want to delete this task permanently?"))) {
+            OIajaxCall("/project/delete/"+projectid, null, "output",
+                function(){
+                    var xmlhttp = new XMLHttpRequest();
+                    if(oiTree.nodes[projectid].parent) document.location = "/project/"+oiTree.nodes[projectid].parent.id;
+                    else document.location = "/";
+                }
+            );
+        }
+    }else{
+        if(confirm(gettext("Are you sure you want to delete this task permanently? grbeigeznrbni"))) {
+            OIajaxCall("/project/delete/"+projectid, null, "output", 
+                function(){
+                    var node = oiTree.nodes[projectid];
+                    node.parent.children.pop(node);
+                    node.div.parentNode.removeChild(node.div);
+                    oiTree.nodes[projectid] = null;
+                }
+            );
+        }
+    }  
 }
 function updateProgress(projectid, progress) {
     var progress = Math.min(Math.round(progress*100), 100);
@@ -303,13 +331,12 @@ function orderOverviewTable(projectid, order_by){
     populateOverviewTable(projectid);
 }
 function populateOverviewTable(projectid){
-    var divid = "load";
     var url = "/project/"+projectid+"/listtasks?listall";
     if(order) url += "&order="+order;
     url += "&page="+(page||1);
     url += "&"+prepareForm("form_overview");
     document.location.hash = '#'+prepareForm("form_overview");
-    OIajaxCall(url, null, divid, 
+    OIajaxCall(url, null, "load_"+projectid, 
         function(response){
             var header = document.getElementById('headerTableOverview');
             document.getElementById("prj-table-overview").appendChild(header);
@@ -350,7 +377,7 @@ function populateOverviewTable(projectid){
             }if(this.oiTree.nodes[projectid]) this.oiTree.nodes[projectid].className = " invisible";
         document.getElementById('projectOverviewPageNext').style.display = (page >= nbpage?"none":"inline"); 
         document.getElementById('projectOverviewPagePrev').style.display = (page > 1?"inline":"none");
-        clearDiv(divid);
+        clearDiv("load_"+projectid);
         }
     );
 }
@@ -391,29 +418,23 @@ function changeSpecType(divid, type) {
     var url = "/project/"+projectid+"/editspecdetails/"+specid+"?divid="+divid+"&type="+type;
     OIajaxCall(url, null, "spec_"+divid, 
         function(){if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceAddControl', false, 'text_'+divid);
-            if(getValue("type_"+divid)==6){
-                buildText(divid);
-                if(document.getElementById("text_"+divid)){
-                    document.getElementById("text_"+divid+"_div").style.display = "none";
-                }else{
-                    document.getElementById("text_"+divid+"_div").style.display = "inline";
-                }
-            }
+            if(getValue("type_"+divid)==6){buildText(divid);}
         });
 }
 function prepareText(divid){
     var allvalue = "<dl>";
-    allvalue += "<br /><dt><b> What I did: </b></dt><dd>"+document.getElementById("bug_report_"+divid+"_1").value+"</dd>";
-    allvalue += "<br /><dt><b> What happened: </b></dt><dd>"+document.getElementById("bug_report_"+divid+"_2").value+"</dd>";
-    allvalue += "<br /><dt><b> What should happen: </b></dt><dd>"+document.getElementById("bug_report_"+divid+"_3").value+"</dd>";
-    allvalue += "<br /><dt><b> Environnement: </b></dt><dd>"+document.getElementById("bug_report_"+divid+"_4").value+"</dd>";
+    allvalue += "<br /><dt><b>"+gettext("What I did:")+"</b></dt><dd>"+document.getElementById("bug_report_"+divid+"_1").value+"</dd>";
+    allvalue += "<br /><dt><b>"+gettext("What happened:")+"</b></dt><dd>"+document.getElementById("bug_report_"+divid+"_2").value+"</dd>";
+    allvalue += "<br /><dt><b>"+gettext("What should happen:")+"</b></dt><dd>"+document.getElementById("bug_report_"+divid+"_3").value+"</dd>";
+    allvalue += "<br /><dt><b>"+gettext("Environnement:")+"</b></dt><dd>"+document.getElementById("bug_report_"+divid+"_4").value+"</dd>";
     
     document.getElementById("text_"+divid).value = allvalue.replace(/\n/g,"<br />")+"</dl>";
 }
 function buildText(divid){
-    if(document.getElementById(divid).getElementsByTagName("dd")){
-    for(var i = 1; i <= 4; ++i){
-        document.getElementById("bug_report_"+divid+"_"+i).innerHTML = document.getElementById(divid).getElementsByTagName("dd")[i-1].innerHTML.replace(/<br( \/)*>/g, "\n");}
+    if(document.getElementById(divid).getElementsByTagName("dl")){
+        for(var i = 1; i <= 4; ++i){
+            document.getElementById("bug_report_"+divid+"_"+i).innerHTML = document.getElementById(divid).getElementsByTagName("dd")[i-1].innerHTML.replace(/<br( \/)*>/g, "\n");
+        }
     }
 }
 function saveSpec(divid, projectid, order, specid) {

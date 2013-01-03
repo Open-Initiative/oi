@@ -26,6 +26,7 @@ function OITreeNode(id, tree, parent, color) {
 }
 OITreeNode.prototype.setContent = function setContent() {
     if(this.parent) {
+//    if(){
         this.btn = document.createElement("img");
         this.btn.src = "/img/icons/treebtn"+this.color+"-closed.png";
         this.btn.id = "treebtn_"+this.id;
@@ -33,6 +34,42 @@ OITreeNode.prototype.setContent = function setContent() {
         this.btn.style.styleFloat = "left";
         this.btn.style.margin = "5px 0";
         this.div.appendChild(this.btn);
+        
+        if(this.color < 2){
+            /*create del button for all the tasks*/
+            this.del = document.createElement("img");
+            this.del.src = "/img/icons/delete.png";
+            this.del.alt= "delete task";
+            this.del.title= "delete task";
+            this.del.className = "clickable";
+            this.del.style.cssFloat = "right";
+            this.del.style.marginTop = "10px";
+            this.del.node = this;
+            this.del.onclick = function(){
+                if(oiTree.deleteCallback) oiTree.deleteCallback(this.node.id);
+            };
+            this.div.appendChild(this.del);
+            
+            /*create edit button for all the tasks*/
+            this.edit = document.createElement("img");
+            this.edit.src = "/img/icons/edit.png";
+            this.edit.alt = "edit title";
+            this.edit.title = "edit title";
+            this.edit.className = "clickable";
+            this.edit.style.cssFloat = "right";
+            this.edit.style.marginRight = "5px";
+            this.edit.style.marginLeft = "5px";
+            this.edit.style.marginTop = "10px";
+            this.edit.node = this;
+            this.edit.onclick = function(){
+                var newtitle = prompt(gettext("Please insert a title :"), "");
+                if(newtitle){
+                    if(oiTree.editCallback) oiTree.editCallback(this.node.id, newtitle);
+                }
+            };
+            this.div.appendChild(this.edit);          
+        }
+//      }       
     }
     this.titleDiv = document.getElementById(newDiv(this.div.id));
     this.titleDiv.className = "treeelt state" + this.color;
@@ -124,7 +161,7 @@ OITreeNode.prototype.expand = function expand() {
     }
     this.childDiv.style.display = "block";
     this.open = true;
-    if(onExpandNode) onExpandNode(this.id);
+    if(this.tree.expandCallback) this.tree.expandCallback(this.id);
 }
 OITreeNode.prototype.shrink = function shrink() {
     if(this.parent) {
@@ -140,11 +177,13 @@ OITreeNode.prototype.getLastChild = function getLastChild() {
     else return this.id;
 }
 
-function OITree(divid, expandCallback, shrinkCallback) {
+function OITree(divid, expandCallback, shrinkCallback, deleteCallback, editCallback) {
     this.div = document.getElementById(divid);
     this.init();
     this.expandCallback = expandCallback;
     this.shrinkCallback = shrinkCallback;
+    this.deleteCallback = deleteCallback;
+    this.editCallback = editCallback;
 }
 OITree.prototype.init = function init() {
     this.div.innerHTML = "";

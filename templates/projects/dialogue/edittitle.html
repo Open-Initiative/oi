@@ -1,3 +1,3 @@
 <input id="title_{{object.id}}" type="text" value="{{object.title}}" />
-<img class="clickable" src="/img/icons/ok-32.png" onclick="confirmEditTitle({{object.id}})" />
+<img class="clickable" src="/img/icons/ok-32.png" onclick="confirmEditTitle({{object.id}}, getValue('title_{{object.id}}'))" />
 <img class="clickable" src="/img/icons/del-32.png" onclick="resetProjectTitle({{object.id}},'{{object.title}}')" />
