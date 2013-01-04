@@ -25,11 +25,7 @@
 {% endif %}{% endwith %}
 {% if object.assignee == user %}
     {% if object.state == 3 %}
-        <div class="prj-action-wait">
-            {% with object|bids:user as bids %}
-                {% blocktrans count counter=bids|length %}Waiting for the bidder to validate{% plural %}Waiting for the bidders to validate{% endblocktrans %}
-            {% endwith %}
-        </div>
+        <div class="prj-action-wait">{% trans "Waiting for validation" %}</div>
     {% endif %}
 {% endif %}
 </div>

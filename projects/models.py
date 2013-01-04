@@ -107,15 +107,17 @@ class Project(models.Model):
     
     def check_dates(self):
         """Fixes incorrect dates : the dates should be in the right order"""
-        if self.start_date and to_date(self.created) > to_date(self.start_date):
-            self.start_date = self.created
-        for req in self.requirements.all(): #checks that the project doesn't start before the requirement is due
-            if req.due_date and to_date(req.due_date) > to_date(self.start_date):
-                self.start_date = req.due_date
-        if self.due_date and to_date(self.start_date) > to_date( self.due_date):
-            self.due_date = self.start_date
-        if self.validation and to_date(self.due_date) > to_date(self.validation):
-            self.validation = to_date(self.due_date)
+        if self.start_date:
+            if to_date(self.created) > to_date(self.start_date):
+                self.start_date = self.created
+            for req in self.requirements.all(): #checks that the project doesn't start before the requirement is due
+                if req.due_date and to_date(req.due_date) > to_date(self.start_date):
+                    self.start_date = req.due_date
+            if self.due_date:
+                if to_date(self.start_date) > to_date(self.due_date):
+                    self.due_date = self.start_date
+                if self.validation and to_date(self.due_date) > to_date(self.validation):
+                    self.validation = to_date(self.due_date)
         for dep in self.dependants.all(): #checks if dependants are impacted by date modications
             dep.check_dates()
     
