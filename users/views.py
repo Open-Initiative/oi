@@ -228,6 +228,10 @@ def getpicture(request, username):
     response = HttpResponse(mimetype='image/jpeg')
     response['X-Sendfile'] = "%suser/%s/profile.jpg"%(MEDIA_ROOT,username)
     response['Content-Length'] = os.path.getsize("%suser/%s/profile.jpg"%(MEDIA_ROOT,username))
+    try:
+        response['Content-Length'] = os.path.getsize("%suser/%s/profile.jpg"%(MEDIA_ROOT,username))
+    except OSError:
+        raise Http404
     return response
 
 @login_required
