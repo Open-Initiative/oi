@@ -475,11 +475,12 @@ div.gantttoday {
 .ganttdate {
     font-weight: normal;
 }
-div.prjtable {
+.prjtable {
     float: left;
     margin-right: 30px;
     border-right: solid 1px #0094B5;
     width: 250px;
+    min-height: 2px;
 }
 th.tableheader {
     text-transform: uppercase;
