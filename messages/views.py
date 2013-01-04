@@ -150,7 +150,10 @@ def getFile(request, filename):
     response = HttpResponse(mimetype='application/force-download')
     response['Content-Disposition'] = 'attachment; filename=%s'%filename
     response['X-Sendfile'] = "%s%s"%(MEDIA_ROOT,filename)
-    response['Content-Length'] = os.path.getsize("%s%s"%(MEDIA_ROOT,filename))
+    try:
+        response['Content-Length'] = os.path.getsize("%s%s"%(MEDIA_ROOT,filename))
+    except OSError:
+        raise Http404
     return response
 
 def listancestors(request, id):
