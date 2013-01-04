@@ -70,11 +70,12 @@ class Project(models.Model):
     author = models.ForeignKey(User, related_name='ownprojects', null=True, blank=True)
     assignee = models.ForeignKey(User, related_name='assigned_projects', null=True, blank=True)
     delegate_to = models.ForeignKey(User, related_name='delegated_projects', null=True, blank=True)
-    offer = models.DecimalField(max_digits= 12,decimal_places=2,default=0)
-    commission = models.DecimalField(max_digits= 12,decimal_places=2,default=0)
+    offer = models.DecimalField(max_digits= 12, decimal_places=2, default=0)
+    commission = models.DecimalField(max_digits= 12, decimal_places=2, default=0)
     parent = models.ForeignKey('self', blank=True, null=True, related_name='tasks')
-    ancestors = models.ManyToManyField('self',symmetrical=False, related_name='descendants', blank=True)
+    ancestors = models.ManyToManyField('self', symmetrical=False, related_name='descendants', blank=True)
     master = models.ForeignKey('self', blank=True, null=True, related_name='subprojects')
+    requirements = models.ManyToManyField('self', symmetrical=False, related_name='dependants', blank=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     start_date = models.DateTimeField(blank=True, null=True)
@@ -108,10 +109,15 @@ class Project(models.Model):
         """Fixes incorrect dates : the dates should be in the right order"""
         if self.start_date and to_date(self.created) > to_date(self.start_date):
             self.start_date = self.created
-            if self.due_date and to_date(self.start_date) >to_date( self.due_date):
-                self.due_date = self.start_date
-                if self.validation and to_date(self.due_date) > to_date(self.validation):
-                    self.validation = to_date(self.due_date)
+        for req in self.requirements.all(): #checks that the project doesn't start before the requirement is due
+            if req.due_date and to_date(req.due_date) > to_date(self.start_date):
+                self.start_date = req.due_date
+        if self.due_date and to_date(self.start_date) > to_date( self.due_date):
+            self.due_date = self.start_date
+        if self.validation and to_date(self.due_date) > to_date(self.validation):
+            self.validation = to_date(self.due_date)
+        for dep in self.dependants.all(): #checks if dependants are impacted by date modications
+            dep.check_dates()
     
     def update_tree(self):
         """checks if ancestors and descendants states and dates are consistent with the task"""
@@ -329,7 +335,11 @@ class Project(models.Model):
     
     def missing_bid(self):
         """returns how much the project still needs to be started"""
-        return max(self.get_budget() - self.bid_sum(), Decimal("0"))
+        return max(self.get_budget() - self.bid_sum(), Decimal("0")) + self.missing_requirement_bid()
+    
+    def missing_requirement_bid(self):
+        """returns the total amount missing on all requirements"""
+        return sum(map(lambda r: r.missing_bid(), self.requirements.all()))
     
     def list_guests(self):
         """returns the list of all users who have permissions on the project but are neither bidders nor assignee"""

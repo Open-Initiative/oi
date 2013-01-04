@@ -6,7 +6,7 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.syndication.views import Feed
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden, Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext as _
@@ -150,7 +150,10 @@ def getFile(request, filename):
     response = HttpResponse(mimetype='application/force-download')
     response['Content-Disposition'] = 'attachment; filename=%s'%filename
     response['X-Sendfile'] = "%s%s"%(MEDIA_ROOT,filename)
-    response['Content-Length'] = os.path.getsize("%s%s"%(MEDIA_ROOT,filename))
+    try:
+        response['Content-Length'] = os.path.getsize("%s%s"%(MEDIA_ROOT,filename))
+    except OSError:
+        raise Http404
     return response
 
 def listancestors(request, id):

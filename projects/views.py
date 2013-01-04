@@ -651,6 +651,11 @@ def moveproject(request, id):
         return HttpResponse(_("Can not change a task already started"), status=431)
     if project==parent or project in parent.ancestors.all():
         return HttpResponse(_("Can not move a task inside itself"), status=531)
+    #remove dependencies between ancestors and descendants
+    for task in project.descendants.filter(Q(requirements=parent)|Q(requirements__descendants=parent)):
+        task.requirements.remove(task.requirement.filter(Q(id=parent.id)|Q(descendants=parent)))
+    for task in project.descendants.filter(Q(dependants=parent)|Q(dependants__descendants=parent)):
+        task.dependants.remove(task.dependants.filter(Q(id=parent.id)|Q(descendants=parent)))
     project.parent = parent
     parent.inc_tasks_priority(priority)
     project.priority = priority
@@ -658,6 +663,28 @@ def moveproject(request, id):
     for task in project.descendants.all():
         task.save() #recompute ancestors
     return HttpResponse(_("Task moved"))
+
+@OINeedsPrjPerms(OI_MANAGE)
+def addrequirement(request, id):
+    """Adds a dependency to the project"""
+    project = Project.objects.get(id=id)
+    if not request.POST.get("req"):
+        return HttpResponse(_("Wrong arguments"), status=531)
+    requirement = Project.objects.get(id=request.POST["req"])
+    if project==requirement or project.descendants.filter(id=requirement.id) or project.ancestors.filter(id=requirement.id):
+        return HttpResponseForbidden(_("Can not create a dependency with an ancestor or a descendant"))
+    project.requirements.add(requirement)
+    project.check_dates()
+    return HttpResponse(u"%s : %s €"%(requirement.title, requirement.missing_bid()))
+
+@OINeedsPrjPerms(OI_MANAGE)
+def removerequirement(request, id):
+    """Removes a dependency to the project"""
+    project = Project.objects.get(id=id)
+    if not request.POST.get("req") or not project.requirements.filter(id=request.POST["req"]):
+        return HttpResponse(_("Wrong arguments"), status=531)
+    project.requirements.remove(request.POST["req"])
+    return HttpResponse("Dependency removed")
 
 @OINeedsPrjPerms(OI_MANAGE)
 def setpublicproject(request, id):

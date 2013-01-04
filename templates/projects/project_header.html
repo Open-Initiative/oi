@@ -8,7 +8,7 @@
         {% if object.state < 4 and object.bid_set.count > 0 and user == object.assignee %}
             <img src="/img/icons/delete.png" class="clickable delbtn" alt="{% trans "Cancel" %}" title="{% trans "Cancel" %}" onclick="cancelProject({{object.id}}, {{object.state}})" />
         {% endif %}
-        <div class="prjauthor">{% trans "Project created on" %} {{object.created|date:"d/m/Y"}} {% trans "by" %} <a href="/user/profile/{{object.author.username}}">{{object.author.get_profile}} </a></div>
+        <div class="prjauthor">{% trans "Task created on" %} {{object.created|date:"d/m/Y"}} {% trans "by" %} <a href="/user/profile/{{object.author.username}}">{{object.author.get_profile}} </a></div>
         <div class="cleared"></div>
         {% if object.spec_set.all %}
         {% if object.spec_set.count > 1 %}<img id="nextminispec" class="clickable minispec-arrow" src="/img/icons/next.png"/>{% endif %}
