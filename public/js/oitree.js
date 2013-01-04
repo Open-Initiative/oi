@@ -36,7 +36,7 @@ OITreeNode.prototype.setContent = function setContent(has_children) {
             this.div.appendChild(this.btn);
           } 
         
-        if(this.color < 2){
+        if(this.color < 2 && !has_children){
             /*create del button for all the tasks*/
             this.del = document.createElement("img");
             this.del.src = "/img/icons/delete.png";
@@ -45,6 +45,7 @@ OITreeNode.prototype.setContent = function setContent(has_children) {
             this.del.className = "clickable";
             this.del.style.cssFloat = "right";
             this.del.style.marginTop = "10px";
+            this.del.style.display = "none";
             this.del.node = this;
             this.del.onclick = function(){
                 if(oiTree.deleteCallback) oiTree.deleteCallback(this.node.id);
@@ -61,6 +62,7 @@ OITreeNode.prototype.setContent = function setContent(has_children) {
             this.edit.style.marginRight = "5px";
             this.edit.style.marginLeft = "5px";
             this.edit.style.marginTop = "10px";
+            this.edit.style.display = "none";
             this.edit.node = this;
             this.edit.onclick = function(){
                 var newtitle = prompt(gettext("Please insert a title :"), "");
@@ -74,8 +76,23 @@ OITreeNode.prototype.setContent = function setContent(has_children) {
     this.titleDiv = document.getElementById(newDiv(this.div.id));
     this.titleDiv.className = "treeelt state" + this.color;
     this.titleDiv.node = this;
-    this.titleDiv.onmouseover = function() {if(oiTable) oiTable.highlight(this.node.id)};
-    this.titleDiv.onmouseout = function() {if(oiTable) oiTable.unhighlight(this.node.id)};
+    
+    this.titleDiv.onmouseover = function() {
+        if(oiTable) oiTable.highlight(this.node.id);
+        if(this.node.del && this.node.edit){
+            this.node.del.style.display = "inline";
+            this.node.edit.style.display = "inline";
+        }
+    };
+    
+    this.titleDiv.onmouseout = function() {
+        if(oiTable) oiTable.unhighlight(this.node.id);
+        if(this.node.del && this.node.edit){
+            this.node.del.style.display = "none";
+            this.node.edit.style.display = "none";
+        }
+    };
+    
     this.childDiv = document.getElementById(newDiv(this.div.id));
     this.childDiv.className = "treelist";
 }

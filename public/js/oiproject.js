@@ -326,8 +326,14 @@ function populateOverviewTable(projectid){
     var url = "/project/"+projectid+"/listtasks?listall";
     if(order) url += "&order="+order;
     url += "&page="+(page||1);
-    url += "&"+prepareForm("form_overview");
-    document.location.hash = '#'+prepareForm("form_overview");
+    url += "&"+prepareForm("form_overview");    // I don't know why, but I need it for filter on overview table
+    var params = "#";
+    for(var i = 0; i < prepareForm("form_overview").split("&").length; i++){
+        if(prepareForm("form_overview").split("&")[i].split("=")[1]){
+            params += prepareForm("form_overview").split("&")[i]+"&";
+        }
+    } 
+    document.location.hash = params;
     OIajaxCall(url, null, "load_"+projectid, 
         function(response){
             var header = document.getElementById('headerTableOverview');
@@ -344,19 +350,34 @@ function populateOverviewTable(projectid){
                 for(var field = fields[j=0]; j < fields.length; field=fields[++j]){
                     if(fields[j]=="state"){
                         if(task.fields[field] == 0){
-                            task.fields["due_date"] = ""+task.fields.start_date;
+                            if(task.fields.start_date)
+                                task.fields["due_date"] = ""+task.fields.start_date;
+                            else
+                               task.fields["due_date"] = "-"; 
                         }
                         if(task.fields[field] == 1){
-                            task.fields["due_date"] = ""+task.fields.due_date;
+                            if(task.fields.due_date)
+                                task.fields["due_date"] = ""+task.fields.due_date;
+                            else
+                               task.fields["due_date"] = "-";
                         }
                         if(task.fields[field] == 2){
-                            task.fields["due_date"] = ""+task.fields.due_date;
+                            if(task.fields.due_date)
+                                task.fields["due_date"] = ""+task.fields.due_date;
+                            else
+                                task.fields["due_date"] = "-";
                         }
                         if(task.fields[field] == 3){
-                            task.fields["due_date"] = ""+task.fields.validation;
+                            if(task.fields.validation)
+                                task.fields["due_date"] = ""+task.fields.validation;
+                            else
+                                task.fields["due_date"] = "-";
                         }
                         if(task.fields[field] == 4){
-                            task.fields["due_date"] = ""+task.fields.validation;
+                            if(task.fields.validation)
+                                task.fields["due_date"] = ""+task.fields.validation;
+                            else
+                                task.fields["due_date"] = "-";
                         }
                         task.fields[field] = gettext("State"+task.fields[field]);
                     };
