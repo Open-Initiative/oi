@@ -79,21 +79,17 @@ OITreeNode.prototype.setContent = function setContent(has_children) {
     
     this.titleDiv.onmouseover = function() {
         if(oiTable) oiTable.highlight(this.node.id);
-        if(this.node.div.getElementsByTagName("img")){
-            for(var i = 0; i < this.node.div.getElementsByTagName("img").length; i++){
-                this.node.div.getElementsByTagName("img")[i].style.display = "inline";
-            }
+        if(this.node.del && this.node.edit){
+            this.node.del.style.display = "inline";
+            this.node.edit.style.display = "inline";
         }
     };
     
     this.titleDiv.onmouseout = function() {
         if(oiTable) oiTable.unhighlight(this.node.id);
-        if(this.node.div.getElementsByTagName("img")){
-            for(var i = 0; i < this.node.div.getElementsByTagName("img").length; i++){
-                if(!this.node.div.getElementsByTagName("img")[i].id){
-                    this.node.div.getElementsByTagName("img")[i].style.display = "none";
-                }
-            }
+        if(this.node.del && this.node.edit){
+            this.node.del.style.display = "none";
+            this.node.edit.style.display = "none";
         }
     };
     
