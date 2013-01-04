@@ -54,7 +54,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def getproject(request, id, view="overview"):
     if not view: view = "overview"
     project = Project.objects.get(id=id)
-    return direct_to_template(request, template="projects/project_detail.html", extra_context={'object': project, 'current_view':view, 'views':OI_PRJ_VIEWS, 'types':SPEC_TYPES, 'table_overview': OI_TABLE_OVERVIEW, 'release': request.session.get("release", {}).get(project.master.id, "")})
+    return direct_to_template(request, template="projects/project_detail.html", extra_context={'object': project, 'current_view':view, 'views':OI_PRJ_VIEWS, 'types':SPEC_TYPES, 'table_overview': OI_TABLE_OVERVIEW, 'release': request.session.get("releases", {}).get(project.master.id, "")})
 
 @OINeedsPrjPerms(OI_READ)
 def listtasks(request, id):
@@ -104,7 +104,9 @@ def listtasks(request, id):
             
             #can sort on the project for the release    
             if request.GET.get("release"):
-                request.session.get("release", {})[project.master.id] = request.GET['release']
+                releases = request.session.get("releases", {})
+                releases[project.master.id] = request.GET['release']
+                request.session["releases"] = releases
                 if request.GET['release'] == '*':
                     tasks = tasks.filter(Q(target__isnull=True)|Q(descendants__isnull=False, descendants__target__isnull=True)).distinct()
                 
