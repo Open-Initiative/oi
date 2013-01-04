@@ -31,7 +31,7 @@
     {% endif %}
     <div>
         {% trans "Show:" %}
-        <select id="release" onchange="initOITree()" title="{% trans 'Show tasks in a release' %}">
+        <select id="release" onchange="initOITree()" title="{% trans 'Show only this release' %}">
             {% for old_release in object.old_releases|dictsort:"due_date" %}
                 <option class="oldrelease" value="{{old_release.name}}" {% if release == old_release.name %} selected {% endif %}>{{old_release.name}}</option>
             {% endfor %}
@@ -39,8 +39,8 @@
             {% for future_release in object.future_releases %}
                 <option value="{{future_release.name}}" {% if release == future_release.name %} selected {% endif %}>{{future_release.name}}</option>
             {% endfor %}
-            <option value="*" {% if release == "*" %} selected {% endif %}>{% trans "See all tasks without release" %}</option>
-            <option value="" {% if release == "" %} selected {% endif %}>{% trans "All releases" %}</option>
+            <option value="*" {% if release == "*" %} selected {% endif %}>{% trans "tasks without release" %}</option>
+            <option value="" {% if release == "" %} selected {% endif %}>{% trans "all releases" %}</option>
             {% if object.master|can_manage:user %}<option id="add_new_release"  >{% trans "Add a new release" %}</option>{% endif %}
         </select>
     </div>
