@@ -4,7 +4,7 @@ div.prjbody {
     border: solid 1px #E0E0E0;
 }
 .prjheader {
-    padding: .5em;
+    padding: 1em;
 }
 .delbtn {
     float: right;
@@ -192,14 +192,14 @@ div.prj-action-wait {
     overflow: hidden;
 }
 .prjtitle {
-    font-weight: bold;
     font-size: 1.5em;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 .tasktitle {
-    font-size: 1.5em;
+    font-size: 1.7em;
     color: #D0574C;
     font-weight: bold;
-    padding-top: .2em;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
