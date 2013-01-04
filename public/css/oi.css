@@ -274,6 +274,18 @@ div.pagetitle {
     top: -1px;
     z-index: 1;
 }
+.path-element:not(:first-child):before {
+  border-bottom: 11px solid transparent;
+  border-left: 10px solid #778E9C;
+  border-top: 11px solid transparent;
+  content: " ";
+  height: 0;
+  left: 1px;
+  margin-left: 5px;
+  position: absolute;
+  top: -1px;
+  z-index: 0;
+}
 #tabs {
     float: right;
     height: 30px;

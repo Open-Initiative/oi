@@ -139,6 +139,16 @@ div.prj-action-wait {
     left: 169px;
     z-index: 1;
 }
+.prjstate:not(:first-child):before {
+    border-bottom: 11px solid transparent;
+    border-top: 11px solid transparent;
+    border-left: 10px solid #F9F9F9;
+    content: " ";
+    height: 0;
+    position: absolute;
+    top: -1px;
+    left: 0px;
+}
 .prjstate:not(.currentstate):not(:last-child):after {
     border-left: 10px solid white;
 }
