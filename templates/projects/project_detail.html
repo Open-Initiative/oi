@@ -32,7 +32,7 @@
     <div>
         {% trans "Show:" %}
         <select id="release" onchange="initOITree()" title="{% trans 'Show tasks in a release' %}">
-            {% for old_release in object.old_releases %}
+            {% for old_release in object.old_releases|dictsort:"due_date" %}
                 <option class="oldrelease" value="{{old_release.name}}" {% if release == old_release.name %} selected {% endif %}>{{old_release.name}}</option>
             {% endfor %}
             {% if object.master.target %}<option class="currentrelease" value="{{object.master.target.name}}" {% if release == object.master.target.name %} selected {% endif %}>{{object.master.target.name}} *</option>{% endif %}
