@@ -69,9 +69,9 @@
             {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
         </div>
         <div class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">{{object.title}}</div>
-        {% if object|can_write:user and object.state < 2 %}
-            <img onclick="editProjectTitle({{object.id}})" class="clickable" src="/img/icons/edit.png" alt="{% trans 'Edit the title' %}" title="{% trans 'Edit the title' %}" />
-        {% endif %}
+            {% if object|can_write:user and object.state < 2 %}
+                <img onclick="editProjectTitle({{object.id}})" class="clickable" src="/img/icons/edit.png" alt="{% trans 'Edit the title' %}" title="{% trans 'Edit the title' %}" />
+            {% endif %}
         {% include "projects/project_actions.html" %}
     </div>
     {% if object.state == 2 %}

@@ -212,7 +212,7 @@ div.prj-action-wait {
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
-    height: 2.2em;
+    white-space: nowrap;
 }
 div.prjbtm {
     width: 600px;
