@@ -186,6 +186,12 @@ def assignrelease(request, id):
         return HttpResponse(_("Can't set to a release already finished"))
         
     project.target = release
+    
+    if project.descendants.filter_perm(request.user, OI_MANAGE):
+        for task in project.descendants.filter_perm(request.user, OI_MANAGE):
+            task.target = release
+            task.save()
+    
     project.save() 
     return HttpResponse(_("Release assigned"))
     
