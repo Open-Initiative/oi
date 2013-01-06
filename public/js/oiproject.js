@@ -56,7 +56,7 @@ function populateTaskList(taskLists) {
     }
 }
 function addRelease(projectid){
-    var value = prompt(gettext("Enter your text :"));
+    var value = prompt(gettext("Please enter the release name:"));
     if(value){ 
         OIajaxCall("/project/"+projectid+"/addrelease", "release="+value, "output", 
             function(){
@@ -457,7 +457,7 @@ function prepareText(divid){
     allvalue += "<br /><dt><b>"+gettext("What I did:")+"</b></dt><dd>"+document.getElementById("bug_report_"+divid+"_1").value+"</dd>";
     allvalue += "<br /><dt><b>"+gettext("What happened:")+"</b></dt><dd>"+document.getElementById("bug_report_"+divid+"_2").value+"</dd>";
     allvalue += "<br /><dt><b>"+gettext("What should happen:")+"</b></dt><dd>"+document.getElementById("bug_report_"+divid+"_3").value+"</dd>";
-    allvalue += "<br /><dt><b>"+gettext("Environnement:")+"</b></dt><dd>"+document.getElementById("bug_report_"+divid+"_4").value+"</dd>";
+    allvalue += "<br /><dt><b>"+gettext("Environment:")+"</b></dt><dd>"+document.getElementById("bug_report_"+divid+"_4").value+"</dd>";
     
     document.getElementById("text_"+divid).value = allvalue.replace(/\n/g,"<br />")+"</dl>";
 }

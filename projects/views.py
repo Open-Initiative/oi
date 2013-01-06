@@ -634,12 +634,7 @@ def deleteproject(request, id):
     project.notify_all(request.user, "project_delete", project.title)
     project.notice_set.filter(project=project).update(project=None)
     project.delete()
-#    if project.parent:
-#        messages.info(request, _("The task has been deleted."))
-    return HttpResponse("The task %s has been deleted."%(project.title))
-#    else:
-#        messages.info(request, _("The project has been deleted."))
-#        return HttpResponse('The project has been deleted.')
+    return HttpResponse(_("The task %s has been deleted.")%(project.title))
 
 @OINeedsPrjPerms(OI_WRITE)
 def moveproject(request, id):

@@ -65,13 +65,13 @@
     </div>
     <div>
         <div class="prj-block-fav">
-            <img onclick="favProject(174)" src="/img/icons/starTrue.png" alt="suivre le projet" title="suivre le projet" class="clickable" id="fav_174"><br>
+            <img onclick="favProject(174)" src="/img/icons/starTrue.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable" id="fav_174"><br>
             {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
         </div>
         <div class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">{{object.title}}</div>
-        {% if object|can_write:user and object.state < 2 %}
-            <img onclick="editProjectTitle({{object.id}})" class="clickable" src="/img/icons/edit.png" alt="{% trans 'Edit the title' %}" title="{% trans 'Edit the title' %}" />
-        {% endif %}
+            {% if object|can_write:user and object.state < 2 %}
+                <img onclick="editProjectTitle({{object.id}})" class="clickable" src="/img/icons/edit.png" alt="{% trans 'Edit the title' %}" title="{% trans 'Edit the title' %}" />
+            {% endif %}
         {% include "projects/project_actions.html" %}
     </div>
     {% if object.state == 2 %}
