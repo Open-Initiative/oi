@@ -1386,7 +1386,7 @@ msgstr "les tâches sans version"
 
 #: templates/projects/project_detail.html:43
 msgid "all releases"
-msgstr "tous les versions"
+msgstr "toutes les versions"
 
 #: templates/projects/project_detail.html:54
 msgid "Tasks in the project are to be listed here"
