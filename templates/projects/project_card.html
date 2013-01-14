@@ -1,10 +1,10 @@
 {% load i18n %}
 <a href="/project/{{project.id}}"><div class="prjcard">
 <div class="prjtitle">{{project.title}}</div>
-<div class="prjauthor">{% trans "Project created by" %} {{project.author.get_profile}}</div>
+<div class="prjcardauthor">{% trans "Project created by" %} {{project.author.get_profile}}</div>
 <div class="cleared"></div>
 {% for spec in project.spec_set.all|dictsort:"order" %}
 <div class="cardspec">{% include 'projects/spec/minispec.html' %}</div>
 {% endfor %}
-<img class="actions" src="/img/link.png" />
+<img class="prjcardlink" src="/img/icons/next.png" />
 </div></a>

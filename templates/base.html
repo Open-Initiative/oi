@@ -49,18 +49,18 @@
                 </form></div>{% endcomment %}
             </div>
             <div id="userheader">
+                <form action="/i18n/setlang/" method="post" class="actions">
+                    {% csrf_token %}
+                    <input type="hidden" name="language" value="{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}">
+                    <input type="image" src="/img/{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}.png" />
+                </form>
+                {%if user.is_authenticated%}
                 <div id="toptext">
-                    {%if user.is_authenticated%}
-                    <a class="toplink" href="/user/myprofile"><img src="/img/icons/miniuser.png" />{% trans "My profile" %}</a> |
-                    <a class="toplink" href="/user/preferences"><img src="/img/icons/minisettings.png" />{% trans "Settings" %}</a> |
-                    <a class="toplink" href="/logout"><img src="/img/icons/minilogout.png" />{% trans "Disconnect" %} {{user}}</a> |
-                    {% endif %}
-                    <form action="/i18n/setlang/" method="post" class="actions">
-                        {% csrf_token %}
-                        <input type="hidden" name="language" value="{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}">
-                        <input type="image" src="/img/{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}.png" />
-                    </form>
+                    <a class="toplink" href="/user/myprofile"><img src="/img/icons/miniuser.png" />{% trans "My profile" %}</a>
+                    <a class="toplink" href="/user/preferences"><img src="/img/icons/minisettings.png" />{% trans "Settings" %}</a>
+                    <a class="toplink" href="/logout"><img src="/img/icons/minilogout.png" />{% trans "Disconnect" %} {{user}}</a>
                 </div>
+                {% endif %}
                 {%if user.is_authenticated%}
                 <a href="/user/myprofile">
                     <div class="usertitle">{{user.get_profile}}</div>
@@ -74,9 +74,6 @@
 <!--                    <a class="toplink" href="/user/myaccount">{% trans "Transactions" %}</a>-->
 <!--                </div>-->
                 {%else%}
-                <a href="/user/register">
-                    <div id="registerbtn" onmouseover="this.style.color='#D0574C'" onmouseout="this.style.color='white'">{% trans "Register" %}</div>
-                </a>
                 <span id="loginbox">{% trans "Login" %}</span>
                 <div id="loginarea">
                     <form method="post" action="{% url django.contrib.auth.views.login %}">{% csrf_token %}<table>
@@ -85,14 +82,17 @@
                                 <label class="loginlabel" for="username_field">{% trans "username" %}</label>
                                 <input id="username_field" type="text" name="username" tabindex=1 class="loginfield" onkeyup="if(this.value)jQuery(this).prev().fadeOut(); else jQuery(this).prev().fadeIn();" />
                             </td>
-                            <td><input id="loginbtn" type="submit" tabindex=3 value="{% trans "login" %}" /></td>
+                            <td colspan="2"><a href="/user/resetpassword" class="forgotpwd">{% trans "Forgot your password?" %}</a></td>
                         </tr>
                         <tr>
                             <td>
                                 <label class="loginlabel" for="id_password">{% trans "password" %}</label>
                                 <input type="password" name="password" id="id_password" tabindex=2 class="loginfield" onkeyup="if(this.value)jQuery(this).prev().fadeOut(); else jQuery(this).prev().fadeIn();" />
                             </td>
-                            <td><a href="/user/resetpassword" class="forgotpwd">{% trans "Forgot your password?" %}</a></td>
+                            <td><input id="loginbtn" type="submit" tabindex=3 value="{% trans "login" %}" /></td>
+                            <td><a href="/user/register">
+                                <div id="registerbtn">{% trans "Register" %}</div>
+                            </a></td>
                         </tr>
                     </table>
                     <input type="hidden" name="next" value="{{request.get_full_path}}" />

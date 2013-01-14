@@ -75,10 +75,21 @@ div.center{
 }
 #toptext a {
     color: white;
+    margin: 2px;
+    padding-right: 8px;
+}
+#toptext a:not(:last-child){
+    border-right: solid white 1px;
+}
+#toptext img {
+    position: relative;
+    top: 2px;
+    left: -2px;
+    vertical-align: -2px;
 }
 #header {
-    height: 85px;
-    padding: 3px 0;
+    height: 78px;
+    padding: 10px 0;
     background: white;
     box-shadow: 0 1px 2px #C6C7C8;
 }
@@ -88,6 +99,7 @@ div.center{
 }
 #logo {
     width:200px;
+    padding-top: 5px;
     float:left
 }
 #searchdiv {
@@ -122,12 +134,13 @@ div.center{
     top:1px;
 }
 #userheader {
-    margin-top: 5px;
-    float:right;
-    border-left:solid 1px #0094B5;
+    border-left: 1px solid #0094B5;
     color: #0094B5;
-    height: 70px;
+    float: right;
+    height: 68px;
+    margin-top: 3px;
     padding-left: 0.5em;
+    padding-top: 1px;
 }
 .usertitle {
     color: #0094B5;
@@ -138,14 +151,10 @@ div.center{
     text-transform: uppercase;
     font-size:1.1em;
     font-weight: bold;
-    padding: 0 10px;
-}
-#loginarea {
-      letter-spacing: -1px;
-      margin-right: 120px;
+    padding: 0 5px;
 }
 #loginarea td {
-    padding: 2px;
+    padding: 2px 5px;
 }
 .loginlabel {
     position: absolute;
@@ -172,16 +181,11 @@ div.center{
     margin: 5px 0 0 5px;
 }
 #registerbtn {
-    background:url('/img/register.png');
-    width:100px;
-    height:14px;
-    padding:6px 10px;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 1.1em;
+    background: none repeat scroll 0 0 #D0574C;
     color: white;
-    float: right;
-    clear: right;
+    font-weight: bold;
+    padding: 3px 5px;
+    text-transform: uppercase;
 }
 .registerline {
     repeat-x:repeat;
@@ -295,13 +299,14 @@ div.pagetitle {
     font-weight: bold;
     background: #F9F9F9;
 }
-div.tab {
+.tab {
     float: left;
-    padding: 5px;
+    height: 23px;
+    padding-top: .5em;
     min-width: 105px;
 }
-div.tab:not(:first-child) {
-    border-left: 1px solid;
+.tab:not(:first-child) {
+    border-left: 1px solid white;
 }
 div.selectedtab {
     background: #0094B5;
@@ -328,12 +333,15 @@ img.tabicon {
     margin-bottom: 1em;
     margin-top: .35em;
 }
-#navhome div{
+#navhome div {
     background: none repeat scroll 0 0 white;
     border: 1px solid #E3E3E5;
     text-transform: uppercase;
     color: #0094B5;
     padding: .5em;
+}
+#navhome div:last-child {
+    border-top: none;
 }
 .navtitlehome {
     font-size: 1.4em;
@@ -341,9 +349,7 @@ img.tabicon {
 }
 .treetitlehome:after {
     content: url("/img/icons/next.png");
-    position: relative;
-    left: 3px;
-    top: 3px;
+    float: right;
 }
 div.navtitle {
     color: #D0574C;
@@ -364,7 +370,7 @@ div.navcontent {
     background: white;
 }
 #catcherbg {
-    background: #C2DAEB;
+    background: #A0D2E9;
 }
 #catcher {
     height: 185px;
