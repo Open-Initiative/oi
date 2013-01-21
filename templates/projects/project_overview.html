@@ -4,7 +4,7 @@
 {% if tasks %}
 <div class="bottom-overview">
     <div class="overview_title">
-    {{tasks.count}} 
+    <span id="nbfiltrepage"></span>{{tasks.count}}
     {% blocktrans count counter=tasks|length %}task inside{% plural %}tasks inside{% endblocktrans %}
     {{project.title}}
     </div> <div id="load_{{object.id}}"></div>
@@ -26,15 +26,13 @@
                 {% endfor %}
             </tr>
         </table></form>
-        <span id="projectOverviewPagePrev" class="prj-overview-page-prev clickable" onclick="page = page<=1?1:page-1; populateOverviewTable({{project.id}}); document.getElementById('page').innerHTML=page">{% trans "previous" %}</span>
-        <span id="projectOverviewPageNext" class="prj-overview-page-next clickable" onclick="page = page>=nbpage?nbpage:page+1; populateOverviewTable({{project.id}}); document.getElementById('page').innerHTML=page;">{% trans "next" %}</span>
+        <span id="projectOverviewPagePrev" class="prj-overview-page-prev clickable" onclick="page = Math.max(1,page-1); populateOverviewTable({{project.id}});">{% trans "previous" %}</span>
+        <span id="projectOverviewPageNext" class="prj-overview-page-next clickable" onclick="page = Math.min(nbpage,page+1); populateOverviewTable({{project.id}});">{% trans "next" %}</span>
+        <span class=change-page-overview><span id=page></span>/<span id="nbpage"></span></span>
         <script>
-            nbtask = {{tasks.count}};
-            nbpage = Math.ceil(nbtask / 25);
+            page = 1;
             order = null;
-            page=1;
             $(".prj-table-overview").ready(populateOverviewTable({{project.id}}));
-            document.write("<span class=change-page-overview>"+"<span id=page>"+page+"</span>"+"<span>"+"/"+nbpage+"</span>"+"</span>");
         </script>
     </div>
 </div>

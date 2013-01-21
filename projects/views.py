@@ -94,6 +94,7 @@ def listtasks(request, id):
             #this queryset filter with request key 'filter_assignee' in overview table    
             if request.GET.get('filter_assignee'):
                 tasks = tasks.filter(assignee__username=request.GET['filter_assignee'])
+                request.session["nbfilterpage"] = tasks.count()
                 
             if request.GET.get('filter_budget_min') and request.GET.get('filter_budget_max'):
                 tasks = tasks.filter(Q(offer__gte=request.GET['filter_budget_min']),Q(offer__lte=request.GET['filter_budget_max']))
@@ -101,6 +102,7 @@ def listtasks(request, id):
             #this queryset filter with request key 'filter_release' in overview table  
             if request.GET.get('filter_release'):
                 tasks = tasks.filter(target__name__contains=request.GET['filter_release'])
+                request.session["nbfilterpage"] = tasks.count()
             
             #can sort on the project for the release    
             if request.GET.get("release"):
@@ -128,7 +130,8 @@ def listtasks(request, id):
                     tasks = paginator.page(1).object_list
                 except EmptyPage:
                     tasks = paginator.page(paginator.num_pages).object_list
-            
+                lists.append({'num_pages':paginator.num_pages, 'nbtask':tasks.count()})
+                    
             #appends the serialized task list to the global list
             lists.append(serializers.oiserialize("json", tasks,
                 extra_fields=("author.get_profile","assignee.get_profile.get_display_name","get_budget","allbid_sum",

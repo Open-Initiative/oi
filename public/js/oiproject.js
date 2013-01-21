@@ -325,7 +325,7 @@ function orderOverviewTable(projectid, order_by){
 function populateOverviewTable(projectid){
     var url = "/project/"+projectid+"/listtasks?listall";
     if(order) url += "&order="+order;
-    url += "&page="+(page||1);
+    url += "&page="+page;
     url += "&"+prepareForm("form_overview");    // I don't know why, but I need it for filter on overview table
     var params = "#";
     for(var i = 0; i < prepareForm("form_overview").split("&").length; i++){
@@ -340,7 +340,9 @@ function populateOverviewTable(projectid){
             document.getElementById("prj-table-overview").appendChild(header);
             document.getElementById('dynamicTableOverview').innerHTML = "";
             document.getElementById('dynamicTableOverview').appendChild(header);
-            var tasklist = eval(eval(response)[0]);
+            paginator = eval(response)[0];
+            nbpage = paginator.num_pages;
+            var tasklist = eval(eval(response)[1]);
             var fields = ["title", "state", "due_date", "assignee_get_profile_get_display_name", "offer", "target_name"];
             var views = ["overview","description","planning","team","budget","overview"];
             for(var i = 0; i < tasklist.length; i++){
@@ -386,10 +388,15 @@ function populateOverviewTable(projectid){
                     line.appendChild(document.createElement('td')).innerHTML = "<a href=/project/"+task.pk+"/view/"+views[j]+">"+task.fields[field]+"</a>";
                 }
                 document.getElementById('dynamicTableOverview').appendChild(line);
-            }if(this.oiTree.nodes[projectid]) this.oiTree.nodes[projectid].className = " invisible";
-        document.getElementById('projectOverviewPageNext').style.display = (page >= nbpage?"none":"inline"); 
-        document.getElementById('projectOverviewPagePrev').style.display = (page > 1?"inline":"none");
-        clearDiv("load_"+projectid);
+            }
+            if(this.oiTree.nodes[projectid]) this.oiTree.nodes[projectid].className = " invisible";
+            document.getElementById('projectOverviewPageNext').style.display = (page >= nbpage?"none":"inline"); 
+            document.getElementById('projectOverviewPagePrev').style.display = (page > 1?"inline":"none");
+            clearDiv("load_"+projectid);
+            document.getElementById("nbpage").innerHTML = nbpage;
+            document.getElementById('page').innerHTML = page;
+            document.getElementById("nbfiltrepage").innerHTML = paginator.nbtask+gettext(" out of ");
+                
         }
     );
 }
