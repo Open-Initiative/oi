@@ -2087,3 +2087,7 @@ msgstr "Done"
 
 msgid "past_fem_plur"
 msgstr "ed"
+
+# templates/projects/project_overview.html
+msgid "target"
+msgstr "release"

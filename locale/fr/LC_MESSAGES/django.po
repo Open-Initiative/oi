@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-04 22:17+0100\n"
+"POT-Creation-Date: 2013-01-21 12:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
 #: helpers.py:31 templates/projects/table_overview/table_state.html:4
@@ -114,7 +114,7 @@ msgstr "Publié sur"
 
 #: messages/models.py:140 messages/views.py:65 messages/views.py:78
 #: projects/models.py:433 projects/views.py:207 projects/views.py:248
-#: templates/projects/project_detail.html:116
+#: templates/projects/project_detail.html:119
 msgid "Forbidden"
 msgstr "Permissions insuffisantes"
 
@@ -427,7 +427,7 @@ msgstr "Nouvelle version ajoutée"
 msgid "Already done"
 msgstr "Déjà fait"
 
-#: projects/views.py:163 templates/projects/project_detail.html:16
+#: projects/views.py:163 templates/projects/project_detail.html:18
 msgid "Initial release"
 msgstr "Version initiale"
 
@@ -758,15 +758,15 @@ msgstr ""
 msgid "The IT community dedicated to your business"
 msgstr "La communaute informatique au service des entreprises"
 
-#: templates/base.html:55
+#: templates/base.html:60
 msgid "My profile"
 msgstr "Mon profil"
 
-#: templates/base.html:56
+#: templates/base.html:61
 msgid "Settings"
 msgstr "Préférences"
 
-#: templates/base.html:57
+#: templates/base.html:62
 msgid "Disconnect"
 msgstr "Déconnecter"
 
@@ -791,31 +791,31 @@ msgstr "Publications"
 msgid "Transactions"
 msgstr "Transactions"
 
-#: templates/base.html:79 templates/registration/login.html:25
-#: templates/users/register.html:3 templates/users/register.html.py:36
-msgid "Register"
-msgstr "S'inscrire"
-
-#: templates/base.html:81
+#: templates/base.html:78
 msgid "Login"
 msgstr "Se connecter"
 
-#: templates/base.html:86 templates/users/register.html:18
+#: templates/base.html:83 templates/users/register.html:18
 msgid "username"
 msgstr "Nom d'utilisateur"
 
-#: templates/base.html:89 templates/notification/email_body.html:21
+#: templates/base.html:86 templates/registration/login.html:27
+msgid "Forgot your password?"
+msgstr "Mot de passe oublié ?"
+
+#: templates/base.html:90
+msgid "password"
+msgstr "Mot de passe"
+
+#: templates/base.html:93 templates/notification/email_body.html:21
 #: templates/registration/login.html:21
 msgid "login"
 msgstr "Se connecter"
 
-#: templates/base.html:93
-msgid "password"
-msgstr "Mot de passe"
-
-#: templates/base.html:96 templates/registration/login.html:27
-msgid "Forgot your password?"
-msgstr "Mot de passe oublié ?"
+#: templates/base.html:95 templates/registration/login.html:25
+#: templates/users/register.html:3 templates/users/register.html.py:36
+msgid "Register"
+msgstr "S'inscrire"
 
 #: templates/base.html:142 templates/projects/dialogue/bid.html:4
 #: templates/projects/dialogue/offer.html:4 templates/users/register.html:35
@@ -1103,11 +1103,11 @@ msgstr "a changé la version d'un projet que vous suivez"
 #: templates/notification/delegate/notice.html:3
 #, python-format
 msgid ""
-"wants to delegate the task <a href=\"%(current_site)s/project/%(id)s\">%"
-"(title)s</a>to you."
+"wants to delegate the task <a href=\"%(current_site)s/project/%(id)s\">"
+"%(title)s</a>to you."
 msgstr ""
-"veut vous déléguer la tâche <a href=\"%(current_site)s/project/%(id)s\">%"
-"(title)s</a>."
+"veut vous déléguer la tâche <a href=\"%(current_site)s/project/%(id)s\">"
+"%(title)s</a>."
 
 #: templates/notification/delegate/notice.html:4
 msgid "answer"
@@ -1347,48 +1347,52 @@ msgstr "Ajouter une discussion"
 msgid "Project"
 msgstr "Projet"
 
-#: templates/projects/project_detail.html:12
+#: templates/projects/project_detail.html:13
 msgid "Project:"
 msgstr "Projet:"
 
-#: templates/projects/project_detail.html:16
+#: templates/projects/project_detail.html:18
 msgid "Current release:"
 msgstr "Version actuelle"
 
-#: templates/projects/project_detail.html:18
+#: templates/projects/project_detail.html:20
 msgid "Switch the project to another version"
 msgstr "Passer le projet à une autre version"
 
 #: templates/projects/project_detail.html:20
+msgid "Switch"
+msgstr "Changer"
+
+#: templates/projects/project_detail.html:22
 msgid "Please select the next release"
 msgstr "Merci de choisir la prochaine version"
 
-#: templates/projects/project_detail.html:27
-#: templates/projects/project_detail.html:44
+#: templates/projects/project_detail.html:29
+#: templates/projects/project_detail.html:47
 msgid "Add a new release"
 msgstr "Ajouter une nouvelle version"
 
-#: templates/projects/project_detail.html:29
+#: templates/projects/project_detail.html:31
 msgid "Close this window"
 msgstr "Fermer cette fenêtre"
 
-#: templates/projects/project_detail.html:33
+#: templates/projects/project_detail.html:36
 msgid "Show:"
 msgstr "Montrer :"
 
-#: templates/projects/project_detail.html:34
+#: templates/projects/project_detail.html:37
 msgid "Show only this release"
 msgstr "Voir uniquement cette version"
 
-#: templates/projects/project_detail.html:42
+#: templates/projects/project_detail.html:45
 msgid "tasks without release"
 msgstr "les tâches sans version"
 
-#: templates/projects/project_detail.html:43
+#: templates/projects/project_detail.html:46
 msgid "all releases"
 msgstr "toutes les versions"
 
-#: templates/projects/project_detail.html:54
+#: templates/projects/project_detail.html:57
 msgid "Tasks in the project are to be listed here"
 msgstr "Les tâches du projets seront listées ici"
 
@@ -1511,14 +1515,18 @@ msgid "Select in which release this task will be done"
 msgstr "Choisir dans quelle version cette tâche sera faite"
 
 #: templates/projects/project_header.html:69
+msgid "Edit the title"
+msgstr "Corriger le titre"
+
+#: templates/projects/project_header.html:74
+msgid "follow the project"
+msgstr "suivre le projet"
+
+#: templates/projects/project_header.html:75
 msgid " subscriber "
 msgid_plural " subscribers "
 msgstr[0] "abonné"
 msgstr[1] "abonnés"
-
-#: templates/projects/project_header.html:73
-msgid "Edit the title"
-msgstr "Corriger le titre"
 
 #: templates/projects/project_overview.html:8
 msgid "task inside"
@@ -2264,9 +2272,6 @@ msgstr "Message envoyé"
 msgid "Notice archived"
 msgstr "Notification archivée"
 
-msgid "follow the project"
-msgstr "suivre le projet"
-
 msgid "overview"
 msgstr "Suivi"
 
@@ -2281,3 +2286,27 @@ msgstr "Equipe"
 
 msgid "adj_fem"
 msgstr "e"
+
+# templates/projects/project_overview.html
+msgid "title"
+msgstr "titres"
+
+# templates/projects/project_overview.html
+msgid "state"
+msgstr "états"
+
+# templates/projects/project_overview.html
+msgid "due_date"
+msgstr "dates d'écheances"
+
+# templates/projects/project_overview.html
+msgid "assignee"
+msgstr "responsables"
+
+# templates/projects/project_overview.html
+msgid "offer"
+msgstr "offres"
+
+# templates/projects/project_overview.html
+msgid "target"
+msgstr "versions"
