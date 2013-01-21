@@ -449,7 +449,9 @@ function changeSpecType(divid, type) {
     var url = "/project/"+projectid+"/editspecdetails/"+specid+"?divid="+divid+"&type="+type;
     OIajaxCall(url, null, "spec_"+divid, 
         function(){if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceAddControl', false, 'text_'+divid);
-            if(getValue("type_"+divid)==6){buildText(divid);}
+            if(getValue("type_"+divid)==6 && divid.indexOf("spec") > -1){
+                buildText(divid);
+            }
         });
 }
 function prepareText(divid){
