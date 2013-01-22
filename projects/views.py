@@ -632,8 +632,8 @@ def answercancelproject(request, id):
 def deleteproject(request, id):
     """Deletes the project given by id"""
     project = Project.objects.get(id=id)
-    if project.bid_set.count() > 0:
-        return HttpResponse(_("Can not delete a started project. Please stop it first."))
+    if project.bid_sum() != 0:
+        return HttpResponse(_("Can not delete a started project. Please stop it first and cancel your bid."))
     if project.tasks.count() > 0:
         return HttpResponse(_("Can not delete a project containing tasks. Please delete all its tasks first."))
     
