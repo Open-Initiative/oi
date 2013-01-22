@@ -60,8 +60,10 @@ function addRelease(projectid){
     if(value){ 
         OIajaxCall("/project/"+projectid+"/addrelease", "release="+value, "output", 
             function(){
-                document.getElementById("release").appendChild(document.createElement("option")).innerHTML = value;
-                document.getElementById("nextrelease").appendChild(document.createElement("option")).innerHTML = value;
+                var newRelease = ["release","nextrelease","entitle-overview_"+projectid];
+                for(var i = 0; i < newRelease.length; i++){
+                    document.getElementById(newRelease[i]).appendChild(document.createElement("option")).innerHTML = value;
+                }
             }
         );
     }
