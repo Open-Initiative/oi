@@ -181,7 +181,7 @@ msgstr "état"
 
 # templates/projects/project_overview.html
 msgid "due_date"
-msgstr "date d'écheance"
+msgstr "écheance"
 
 # templates/projects/project_overview.html
 msgid "assignee"
