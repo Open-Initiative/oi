@@ -295,10 +295,7 @@ function deleteProject(projectid) {
                     if(oiTree.nodes[projectid].parent) document.location = "/project/"+oiTree.nodes[projectid].parent.id;
                     else document.location = "/";
                 } else {
-                    var node = oiTree.nodes[projectid];
-                    node.parent.children.pop(node);
-                    node.div.parentNode.removeChild(node.div);
-                    oiTree.nodes[projectid] = null;
+                    oiTree.deleteNode(projectid);
                 }
         });
     }
@@ -594,11 +591,6 @@ OISpot.prototype.show = function showSpot() {
     this.div.style.display = "block";
     addPopup(this.div);
 }
-//OISpot.prototype.hide = function hideSpot() {
-//    this.div.style.display = "none";
-//    if(!(window.draggedSpot || this.linkid))
-        //this.number.style.display = "none";
-//}
 OISpot.prototype.move = function moveSpot(x,y) {
     this.x = x;
     this.y = y;
@@ -613,6 +605,7 @@ OISpot.prototype.remove = function removeSpot() {
             makeObjectCallback(function(){
             this.div.parentElement.removeChild(this.div);
             this.number.parentElement.removeChild(this.number);}, this));
+            oiTree.deleteNode(this.linkid);
     }
 }
 function getSpot(element) {

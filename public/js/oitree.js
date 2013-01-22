@@ -24,6 +24,14 @@ function OITreeNode(id, tree, parent, color, has_children) {
             if(id!=this.node.id) onMoveNode(id,this.node.id);
         };
 }
+OITree.prototype.deleteNode = function(projectid){
+    var node = this.nodes[projectid];
+    if(node){
+        node.parent.children.pop(node);
+        node.div.parentNode.removeChild(node.div);
+        OITreeNode[projectid] = null;
+    }
+}
 OITreeNode.prototype.setContent = function setContent(has_children) {
     if(this.parent) {
         if(has_children){
@@ -47,8 +55,9 @@ OITreeNode.prototype.setContent = function setContent(has_children) {
             this.del.style.marginTop = "10px";
             this.del.style.display = "none";
             this.del.node = this;
+            this.projectid = this.id;
             this.del.onclick = function(){
-                if(oiTree.deleteCallback) oiTree.deleteCallback(this.node.id);
+                if(oiTree.deleteCallback){oiTree.deleteCallback(this.node.id);};
             };
             this.div.appendChild(this.del);
             
