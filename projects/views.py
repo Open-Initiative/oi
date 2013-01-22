@@ -245,6 +245,9 @@ def saveproject(request, id='0'):
         return HttpResponse(_("Please enter a title"), status=531)
     if id=='0': #new project
         project = create_new_task(parent, title, request.user)
+        if parent.target:
+            project.target = parent.target
+        #je dois agir ici
     else: #existing project
         project = Project.objects.get(id=id)
         if not project.has_perm(request.user, OI_ANSWER):
