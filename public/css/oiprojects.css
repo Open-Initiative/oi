@@ -401,6 +401,7 @@ option.oldrelease{
     background-color: white;
     border: medium solid;
     z-index: 1;
+    color: #0094B5;
 }
 #nextrelease, #release{
     overflow: hidden;
