@@ -164,11 +164,11 @@ def changerelease(request, id):
         
     if not master.target:
         master.target = Release.objects.create(name = _("Initial release"), project = master)
-    
+        
     #make a filter on the descendant master project, and update them
     master.descendants.filter(state__gte = 4, target__isnull=True).update(target=master.target)
-    master.descendants.filter(state__lt = 4, target = master.target).update(target=None)
-    
+    master.descendants.filter(state__lt = 4, target = master.target).update(target=release)
+
     #make the old release done true
     master.target.done = True
     master.target.due_date = datetime.now()
