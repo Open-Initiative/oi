@@ -474,6 +474,11 @@ class Spot(models.Model):
             self.number = (self.spec.spot_set.aggregate(maxnumber=models.Max('number'))['maxnumber'] or 0) + 1
         super(Spot, self).save(*args, **kwargs)
 
+    def isbug(self):
+        """check if the spot contains a bug report"""
+        return self.task.spec_set.filter(type=6).count() > 0
+            
+
     def delete(self):
         """renumbers other spots of same spec when a spot is deleted"""
         spec = self.spec

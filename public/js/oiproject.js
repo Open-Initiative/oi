@@ -462,10 +462,10 @@ function changeSpecType(divid, type) {
 }
 function prepareText(divid){
     var allvalue = "<dl>";
-    allvalue += "<br /><dt><b>"+gettext("What I did:")+"</b></dt><dd>"+document.getElementById("bug_report_"+divid+"_1").value+"</dd>";
-    allvalue += "<br /><dt><b>"+gettext("What happened:")+"</b></dt><dd>"+document.getElementById("bug_report_"+divid+"_2").value+"</dd>";
-    allvalue += "<br /><dt><b>"+gettext("What should happen:")+"</b></dt><dd>"+document.getElementById("bug_report_"+divid+"_3").value+"</dd>";
-    allvalue += "<br /><dt><b>"+gettext("Environment:")+"</b></dt><dd>"+document.getElementById("bug_report_"+divid+"_4").value+"</dd>";
+    allvalue += "<dt><b>"+gettext("What I did:")+"</b></dt><dd>"+document.getElementById("bug_report_"+divid+"_1").value+"</dd>";
+    allvalue += "<dt><b>"+gettext("What happened:")+"</b></dt><dd>"+document.getElementById("bug_report_"+divid+"_2").value+"</dd>";
+    allvalue += "<dt><b>"+gettext("What should happen:")+"</b></dt><dd>"+document.getElementById("bug_report_"+divid+"_3").value+"</dd>";
+    allvalue += "<dt><b>"+gettext("Environment:")+"</b></dt><dd>"+document.getElementById("bug_report_"+divid+"_4").value+"</dd>";
     
     document.getElementById("text_"+divid).value = allvalue.replace(/\n/g,"<br />")+"</dl>";
 }
@@ -502,7 +502,7 @@ function deleteSpec(projectid, specorder) {
                 div.parentNode.removeChild(div);});
     }
 }
-function OISpot(specDiv, projectid, specid, spotid, x, y, title, linkid, number) {
+function OISpot(specDiv, projectid, specid, spotid, x, y, title, linkid, number, color) {
     this.projectid = projectid;
     this.specid = specid;
     this.spotid = spotid;
@@ -525,6 +525,7 @@ function OISpot(specDiv, projectid, specid, spotid, x, y, title, linkid, number)
     this.positionelt(this.number);
     this.number.className = "spotnumber";
     this.number.style.zIndex = 1;
+    this.number.style.background = color || "#0094B5";
     this.number.onmouseover = makeObjectCallback(function(evt) {if(!window.draggedSpot)this.show();return false;}, this);
     this.number.onmousedown = makeObjectCallback(this.drag, this);
     specDiv.appendChild(this.number);

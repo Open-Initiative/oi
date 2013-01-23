@@ -30,7 +30,7 @@
 </div>
 <script>
 {% for spot in spec.spot_set.all %}
-    new OISpot(document.getElementById("spec_{{project.id}}_{{spec.order}}"), {{project.id}}, {{spec.id}}, {{spot.id}}, {{spot.offsetX}}, {{spot.offsetY}}, '{{spot.task.title}}', {{spot.task.id}}, {{spot.number}});
+    new OISpot(document.getElementById("spec_{{project.id}}_{{spec.order}}"), {{project.id}}, {{spec.id}}, {{spot.id}}, {{spot.offsetX}}, {{spot.offsetY}}, '{{spot.task.title}}', {{spot.task.id}}, {{spot.number}}{% if spot.task.state > 3 %}, "green" {% else %} {% if spot.isbug %}, "#D0574C" {% endif %} {% endif %});
 {% endfor %}
 {% if project|can_write:user and project.state < 2 %}
     document.getElementById("spec_{{project.id}}_{{spec.order}}_content").receiveNode = function receiveNode(id, event) {

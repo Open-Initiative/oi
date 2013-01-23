@@ -252,6 +252,19 @@ div.prjbtm {
 div.cardspec {
     margin: 20px 0;
 }
+.minispec dl {
+    margin: 0;
+    padding: 0;
+}
+.minispec dt {
+    margin: 0;
+    padding: 0;
+    padding-right: 35px;
+}
+.minispec dd {
+    margin: 0;
+    padding: 0 0 10px;
+}
 div.minispec {
     width: 135px;
     height: 90px;
@@ -603,7 +616,7 @@ div.sepspecfooter {
     color: white;
     font-weight: bold;
     padding: 2px 6px;
-    background: url("/img/spot1.png");
+    border-radius: 10px;
 }
 .progressbar {
     float:left;
