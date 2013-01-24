@@ -19,7 +19,7 @@ class SettingsInline(admin.TabularInline):
     extra = 0
 
 class ObserverAdmin(admin.ModelAdmin):
-    inlines = [NoticeInline, SettingsInline]
+    inlines = [SettingsInline]
 
 admin.site.register(NoticeType, NoticeTypeAdmin)
 admin.site.register(NoticeSetting, NoticeSettingAdmin)
