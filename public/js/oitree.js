@@ -74,7 +74,8 @@ OITreeNode.prototype.setContent = function setContent(has_children) {
             this.edit.style.display = "none";
             this.edit.node = this;
             this.edit.onclick = function(){
-                var newtitle = prompt(gettext("Please insert a title :"), "");
+                test = this.node;
+                var newtitle = prompt(gettext("Please insert a title :"), ""+this.node.titleDiv.firstChild.title);
                 if(newtitle){
                     if(oiTree.editCallback) oiTree.editCallback(this.node.id, newtitle);
                 }
