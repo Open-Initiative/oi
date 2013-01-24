@@ -6,5 +6,6 @@
 {% blocktrans %} has published a message on a task you follow:{% endblocktrans %} 
 {% else %}
 {% blocktrans %} has published a message on a project you follow:{% endblocktrans %}
+{% endif %}
 </br>
 <a href="{{current_site}}/project/{{notice.project.id}}">{{notice.param}}</a>

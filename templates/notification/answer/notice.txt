@@ -4,5 +4,6 @@
 {% blocktrans %} has published a message on a task you follow:{% endblocktrans %} 
 {% else %}
 {% blocktrans %} has published a message on a project you follow:{% endblocktrans %}
+{% endif %}
  {{notice.param}}
 {current_site}}/project/get/{{notice.project.id}}

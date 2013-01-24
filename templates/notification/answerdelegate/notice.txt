@@ -4,5 +4,6 @@
 {% trans "to take the task" %}
 {% else %}
 {% trans "to take the project" %} 
+{% endif %}
 {{notice.project.title}}
 {{current_site}}/project/{{notice.project.id}}

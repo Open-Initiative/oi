@@ -4,5 +4,6 @@
 {% blocktrans %}has invited you to validate the task:{% endblocktrans %} 
 {% else %}
 {% blocktrans %}has invited you to validate the project:{% endblocktrans %}
+{% endif %}
 </br>
 <a href="{{current_site}}/project/{{notice.project.id}}">{{notice.project.title}}</a>

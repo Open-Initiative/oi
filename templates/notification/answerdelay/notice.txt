@@ -4,5 +4,6 @@
 {% trans "to change the due date of the task:" %} 
 {% else %}
 {% trans "to change the due date of the project:" %}
+{% endif %}
 {{notice.project.title}}
 {{current_site}}/project/{{notice.project.id}}

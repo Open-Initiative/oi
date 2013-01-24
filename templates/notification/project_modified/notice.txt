@@ -4,6 +4,7 @@
 {% trans "has changed a task you follow:" %}
 {% else %}
 {% trans "has changed a project you follow:" %} 
+{% endif %}
 {{notice.project.title}}
 {{notice.param}}
 {{current_site}}/project/{{notice.project.id}}

@@ -4,4 +4,5 @@
 {% blocktrans %}has deleted the task{% endblocktrans %}
 {% else %}
 {% blocktrans %}has deleted the project{% endblocktrans %}  
+{% endif %}
 {{notice.param}}

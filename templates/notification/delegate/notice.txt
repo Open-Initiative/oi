@@ -4,4 +4,5 @@
  {% blocktrans with title=notice.project.title %}wants to delegate the task{{title}}to you.{% endblocktrans %}
 {% else %}
 {% blocktrans with title=notice.project.title %}wants to delegate the project{{title}}to you.{% endblocktrans %}
+{% endif %}
 {{current_site}}/project/{{notice.project.id}}
