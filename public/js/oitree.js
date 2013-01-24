@@ -86,7 +86,7 @@ OITreeNode.prototype.setContent = function setContent(has_children) {
     this.titleDiv.className = "treeelt state" + this.color;
     this.titleDiv.node = this;
     
-    this.titleDiv.onmouseover = function() {
+    this.titleDiv.parentNode.onmouseover = function() {
         if(oiTable) oiTable.highlight(this.node.id);
         if(this.node.del && this.node.edit){
             this.node.del.style.display = "inline";
@@ -94,7 +94,7 @@ OITreeNode.prototype.setContent = function setContent(has_children) {
         }
     };
     
-    this.titleDiv.onmouseout = function() {
+    this.titleDiv.parentNode.onmouseout = function() {
         if(oiTable) oiTable.unhighlight(this.node.id);
         if(this.node.del && this.node.edit){
             this.node.del.style.display = "none";
