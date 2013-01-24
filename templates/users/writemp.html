@@ -2,3 +2,4 @@
 <input type="text" id="MPsubject" /><br />
 <textarea id="MPmessage" class="norich mp" ></textarea><br />
 <button onclick="sendMP({{ params.id }});">{% trans "send" %}</button>
+<img src="/img/icons/delete.png" class="clickable" title="{% trans 'Close the window' %}" alt="{% trans 'Close the window' %}" onclick="$('#sendmp').hide()">
