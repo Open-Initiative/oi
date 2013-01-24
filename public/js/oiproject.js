@@ -74,7 +74,7 @@ function changeRelease(projectid){
     else name = getValue("nextrelease");
     if(name){
         if(confirm(
-        gettext("Are you sure you want to mark '")+ getValue("release") +gettext("' as done and work on '")+ name +gettext("'. All unfinished tasks in '")+ getValue("release") +gettext("' will be assigned to '")+ name +"'.")){
+        gettext("Are you sure you want to mark '")+ currentRelease +gettext("' as done and work on '")+ name +gettext("'. All unfinished tasks in '")+ currentRelease +gettext("' will be assigned to '")+ name +"'.")){
             OIajaxCall("/project/"+projectid+"/changerelease","release="+name,"output",function(){});
         }
     } 
@@ -158,10 +158,12 @@ function editProjectTitle(projectid) {
 function confirmEditTitle(projectid, title) {
     OIajaxCall("/project/confirmedittitle/"+projectid, "title="+title, "output", 
         function(){
-            resetProjectTitle(projectid, title);
+//            resetProjectTitle(projectid, title);
             if(document.getElementById("prjtitle_"+projectid)){
                 document.getElementById("prjtitle_"+projectid).innerHTML = title;
                 document.getElementById("prjtitle_"+projectid).innerHTML += ' <img onclick="editProjectTitle('+projectid+')" class="clickable" src="/img/icons/edit.png" />';
+                setTaskName(oiTree.nodes[projectid].titleDiv, projectid, title, viewname);
+            }else{
                 setTaskName(oiTree.nodes[projectid].titleDiv, projectid, title, viewname);
             }
         }

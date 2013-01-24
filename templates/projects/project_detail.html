@@ -108,6 +108,7 @@
                 }
             );
         }
+        currentRelease = "{{object.master.target.name}}";
         currentTask = {{object.id}};
         coloration = {{object.state}};
         follow = {% if object|is_following:user %}true{%else%}false{%endif%};
