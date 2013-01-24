@@ -1,4 +1,9 @@
 {% load i18n %}{% load oifilters %}
-{{notice.sender.get_profile}} {% trans "has changed the specification of a task you follow:" %} {{notice.project.title}} :
+{{notice.sender.get_profile}} 
+{% if object.parent %}
+{% trans "has changed the specification of a task you follow:" %} 
+{% else %}
+{% trans "has changed the specification of a project you follow:" %} 
+{{notice.project.title}} :
 {{notice.param|oiunescape}}
 {{current_site}}/project/{{notice.project.id}}

@@ -1,4 +1,8 @@
 {% load i18n %}
 <a href="{{current_site}}/user/profile/{{notice.sender.username}}">{{notice.sender.get_profile}}</a>
-{% trans "has evaluated you on task:" %} </br>
+{% if object.parent %}
+{% trans "has evaluated you on task:" %}
+{% else %}
+{% trans "has evaluated you on project:" %}
+</br>
 <a href="{{current_site}}/project/{{notice.project.id}}">{{notice.project.title}}</a> : {{notice.param}}/5

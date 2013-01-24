@@ -1,2 +1,7 @@
 {% load i18n %}
-{{notice.sender.get_profile}} {% blocktrans %}has deleted the task{% endblocktrans %} {{notice.param}}
+{{notice.sender.get_profile}} 
+{% if object.parent %}
+{% blocktrans %}has deleted the task{% endblocktrans %}
+{% else %}
+{% blocktrans %}has deleted the project{% endblocktrans %}  
+{{notice.param}}

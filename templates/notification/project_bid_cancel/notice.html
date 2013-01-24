@@ -1,4 +1,8 @@
 {% load i18n %}
 <a href="{{current_site}}/user/profile/{{sender.username}}">{{notice.sender.get_profile}}</a>
-{% trans "has cancelled his bid on a task you follow:" %} </br>
+{% if object.parent %}
+{% trans "has cancelled his bid on a task you follow:" %}
+{% else %}
+{% trans "has cancelled his bid on a project you follow:" %}
+</br>
 <a href="{{current_site}}/project/{{notice.project.id}}">{{notice.project.title}}</a>

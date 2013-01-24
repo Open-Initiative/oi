@@ -1,3 +1,8 @@
 {% load i18n %}
-{{notice.sender.get_profile}} {% blocktrans %}has invited you on a task:{% endblocktrans %}{{notice.project.title}}
+{{notice.sender.get_profile}} 
+{% if object.parent %}
+{% blocktrans %}has invited you on a task:{% endblocktrans %}
+{% else %}
+{% blocktrans %}has invited you on a project:{% endblocktrans %}
+{{notice.project.title}}
 {{current_site}}/project/get/{{notice.project.id}}

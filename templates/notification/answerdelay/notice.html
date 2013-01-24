@@ -1,5 +1,9 @@
 {% load i18n %}
 <a href="{{current_site}}/user/profile/{{notice.sender.username}}">{{notice.sender.get_profile}}</a> {% trans "has" %}
 {% ifequal answer "true" %}{% trans "accepted" %}{% else %}{% trans "refused" %}{% endifequal %}
-{% trans "to change the due date of the task:" %} </br>
+{% if object.parent %}
+{% trans "to change the due date of the task:" %} 
+{% else %}
+{% trans "to change the due date of the project:" %}
+</br>
 <a href="{{current_site}}/project/{{notice.project.id}}">{{notice.project.title}}</a>

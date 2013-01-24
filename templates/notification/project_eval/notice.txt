@@ -1,3 +1,8 @@
 {% load i18n %}
-{{notice.sender.get_profile}}{% trans "has evaluated you on task" %} {{notice.project.title}} : {{notice.param}}/5
+{{notice.sender.get_profile}}
+{% if object.parent %}
+{% trans "has evaluated you on task:" %} 
+{% else %}
+{% trans "has evaluated you on project:" %} 
+{{notice.project.title}} : {{notice.param}}/5
 {{current_site}}/project/{{notice.project.id}}

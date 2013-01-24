@@ -1,3 +1,8 @@
 {% load i18n %}
-{{notice.sender.get_profile}} {% trans "has" %} {% ifequal answer "true" %}{% trans "accepted" %}{% else %}{% trans "refused" %}{% endifequal %} {% trans "to change the due date of the task" %} {{notice.project.title}}
+{{notice.sender.get_profile}} {% trans "has" %} {% ifequal answer "true" %}{% trans "accepted" %}{% else %}{% trans "refused" %}{% endifequal %} 
+{% if object.parent %}
+{% trans "to change the due date of the task:" %} 
+{% else %}
+{% trans "to change the due date of the project:" %}
+{{notice.project.title}}
 {{current_site}}/project/{{notice.project.id}}

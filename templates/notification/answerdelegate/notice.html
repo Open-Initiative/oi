@@ -1,5 +1,8 @@
 {% load i18n %}
 <a href="{{current_site}}/user/profile/{{notice.sender.username}}">{{notice.sender.get_profile}}</a> {% trans "has" %}
 {% ifequal notice.param "true" %}{% trans "accepted" %}{% else %}{% trans "refused" %}{% endifequal %}
+{% if object.parent %}
 {% trans "to take the task" %}
+{% else %}
+{% trans "to take the project" %}
 <a href="{{current_site}}/project/{{notice.project.id}}">{{notice.project.title}}</a>
