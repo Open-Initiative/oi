@@ -1,4 +1,4 @@
 {% load i18n %}
 <a href="{{current_site}}/user/profile/{{notice.sender.username}}">{{notice.sender.get_profile}}</a>
-{% blocktrans %}has changed the release of a project you follow:{% endblocktrans %} </br>
+{% blocktrans %}has changed the release of a project you follow to:{% endblocktrans %} {{notice.param}}</br>
 <a href="{{current_site}}/project/{{notice.project.id}}">{{notice.project.title}}</a>

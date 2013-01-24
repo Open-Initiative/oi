@@ -178,7 +178,7 @@ def changerelease(request, id):
     master.target = release
     master.save()
     
-    master.notify_all(request.user, "change_release", master.target)
+    master.notify_all(request.user, "change_release", master.target.name)
     
     return HttpResponse(_("Release changed"), status=332)   
 
