@@ -69,8 +69,11 @@ function addRelease(projectid){
     }
     return value;
 }
-function changeRelease(projectid){
-    if (document.getElementById("change_release").selected) name = addRelease(projectid);
+function changeRelease(projectid, currentRelease){
+    if (document.getElementById("change_release").selected){ 
+        name = addRelease(projectid);
+        document.getElementById("change_release").selected = false;
+    }
     else name = getValue("nextrelease");
     if(name){
         if(confirm(
@@ -158,7 +161,7 @@ function editProjectTitle(projectid) {
 function confirmEditTitle(projectid, title) {
     OIajaxCall("/project/confirmedittitle/"+projectid, "title="+title, "output", 
         function(){
-//            resetProjectTitle(projectid, title);
+//            resetProjectTitle(projectid, title); // we already do that just after
             if(document.getElementById("prjtitle_"+projectid)){
                 document.getElementById("prjtitle_"+projectid).innerHTML = title;
                 document.getElementById("prjtitle_"+projectid).innerHTML += ' <img onclick="editProjectTitle('+projectid+')" class="clickable" src="/img/icons/edit.png" />';
