@@ -66,6 +66,9 @@ function newDiv(parentid) {
     document.getElementById(parentid).appendChild(newdiv);
     return divid;
 }
+Date.prototype.add = function add(timedelta) {
+    return new Date(this.getTime() + timedelta);
+}
 
 function clearDiv(divid) {
     document.getElementById(divid).innerHTML="";

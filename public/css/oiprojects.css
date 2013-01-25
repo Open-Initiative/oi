@@ -208,7 +208,7 @@ div.prj-action-wait {
 .prjtitle-block {
     font-size: 1.2em;
     color: #0094B5;
-    height: 152px;
+    height: 131px;
     overflow: hidden;
 }
 .prjtitle {
@@ -484,19 +484,21 @@ div.treenext {
 }
 div.ganttbg {
     z-index: 0;
-    background: white;
     position: relative;
-}
-div.ganttperiod {
-    height: 100%;
-    border-right: solid gray 1px;
-    margin-top: -15px;
-    float: left;
 }
 div.ganttbg0 {
     width: 100%;
-    background: #E8E8E8;
+    background: #CCCCCC;
+    opacity: .3;
     z-index: -1;
+}
+.ganttanchor {
+    position: relative;
+    top: -5px;
+    height: 20px;
+    width: 2px;
+    background: green;
+    float: left;
 }
 div.ganttbar1 {
     float: left;
@@ -533,10 +535,9 @@ div.gantttoday {
     z-index: 0;
     background: #6C6D6E;
     color: white;
-    font-weight: bold;
 }
 .ganttdate {
-    font-weight: normal;
+    font-weight: bold;
 }
 .prjtable {
     float: left;

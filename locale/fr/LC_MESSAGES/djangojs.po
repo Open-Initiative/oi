@@ -144,6 +144,10 @@ msgid "Please insert a title :"
 msgstr "Merci d'entrer un titre"
 
 # oigantt.js
+msgid "Phase0"
+msgstr "Phase de conception"
+
+# oigantt.js
 msgid "Phase1"
 msgstr "Phase de réalisation"
 
@@ -194,3 +198,61 @@ msgstr "offre"
 # templates/projects/project_overview.html
 msgid "target"
 msgstr "version"
+
+# oigantt.js
+msgid "x10"
+msgstr "D"
+
+msgid "x11"
+msgstr "L"
+
+msgid "x12"
+msgstr "M"
+
+msgid "x13"
+msgstr "M"
+
+msgid "x14"
+msgstr "J"
+
+msgid "x15"
+msgstr "V"
+
+msgid "x16"
+msgstr "S"
+
+msgid "x201"
+msgstr "Janvier"
+
+msgid "x202"
+msgstr "Février"
+
+msgid "x203"
+msgstr "Mars"
+
+msgid "x204"
+msgstr "Avril"
+
+msgid "x205"
+msgstr "Mai"
+
+msgid "x206"
+msgstr "Juin"
+
+msgid "x207"
+msgstr "Juillet"
+
+msgid "x208"
+msgstr "Août"
+
+msgid "x209"
+msgstr "Septembre"
+
+msgid "x210"
+msgstr "Octobre"
+
+msgid "x211"
+msgstr "Novembre"
+
+msgid "x212"
+msgstr "Décembre"
