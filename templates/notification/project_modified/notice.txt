@@ -1,6 +1,6 @@
 {% load i18n %}
 {{notice.sender.get_profile}} 
-{% if object.parent %}
+{% if notice.project.parent %}
 {% trans "has changed a task you follow:" %}
 {% else %}
 {% trans "has changed a project you follow:" %} 

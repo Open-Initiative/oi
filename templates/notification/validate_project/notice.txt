@@ -1,6 +1,6 @@
 {% load i18n %}
 {{notice.sender.get_profile}} 
-{% if object.parent %}
+{% if notice.project.parent %}
 {% blocktrans %}has invited you to validate the task:{% endblocktrans %} 
 {% else %}
 {% blocktrans %}has invited you to validate the project:{% endblocktrans %}

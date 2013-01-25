@@ -1,6 +1,6 @@
 {% load i18n %}{% load oifilters %}
 <a href="{{current_site}}/user/profile/{{notice.sender.username}}">{{notice.sender.get_profile}}</a>
-{% if object.parent %}
+{% if notice.project.parent %}
 {% trans "has changed the specification of a task you follow:" %} 
 {% else %}
 {% trans "has changed the specification of a project you follow:" %}

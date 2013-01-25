@@ -1,6 +1,6 @@
 {% load i18n %}
 <a href="{{current_site}}/user/profile/{{notice.sender.username}}">{{notice.sender.get_profile}}</a>
-{% if object.parent %}
+{% if notice.project.parent %}
 {% blocktrans %}has deleted the task{% endblocktrans %}
 {% else %}
 {% blocktrans %}has deleted the project{% endblocktrans %} 

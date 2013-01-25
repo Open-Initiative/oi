@@ -1,6 +1,6 @@
 {% load i18n %}
 {{notice.sender.get_profile}}
-{% if object.parent %}
+{% if notice.project.parent %}
 {% trans "has evaluated you on task:" %} 
 {% else %}
 {% trans "has evaluated you on project:" %} 

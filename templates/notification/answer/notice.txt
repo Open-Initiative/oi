@@ -1,6 +1,6 @@
 {% load i18n %}
 {{notice.sender.get_profile}} 
-{% if object.parent %}
+{% if notice.project.parent %}
 {% blocktrans %} has published a message on a task you follow:{% endblocktrans %} 
 {% else %}
 {% blocktrans %} has published a message on a project you follow:{% endblocktrans %}
