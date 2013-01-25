@@ -1,6 +1,8 @@
 {% load i18n %}
-<input id="bid_{{object.id}}" type="text" value="{{object.missing_bid|floatformat:-2}}" onFocus="this.select()"/> €<br />
-<input type="checkbox" id="acceptcgu"/>
-<label for="acceptcgu">{% trans "I have read and accepted the" %} <a href="/cgu" target="_blank">{% trans "Terms of Use" %}</a></label><br />
-<img class="clickable" src="/img/icons/ok-32.png" onclick="confirmBidProject({{object.id}})" />
-<img class="clickable" src="/img/icons/del-32.png" onclick="hide('prjdialogue_{{object.id}}')" />
+<form onsubmit="confirmBidProject({{object.id}});return false">
+    <input id="bid_{{object.id}}" type="text" value="{{object.missing_bid|floatformat:-2}}" onFocus="this.select()"/> €<br />
+    <input type="checkbox" id="acceptcgu"/>
+    <label for="acceptcgu">{% trans "I have read and accepted the" %} <a href="/cgu" target="_blank">{% trans "Terms of Use" %}</a></label><br />
+    <input type="image" class="clickable" src="/img/icons/ok-32.png" />
+    <img class="clickable" src="/img/icons/del-32.png" onclick="hide('prjdialogue_{{object.id}}')" />
+</form>
