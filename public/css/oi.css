@@ -302,8 +302,8 @@ div.pagetitle {
 .tab {
     float: left;
     height: 23px;
-    padding-top: .5em;
     min-width: 105px;
+    padding: 5px 10px 2px 0px;
 }
 .tab:not(:first-child) {
     border-left: 1px solid white;
