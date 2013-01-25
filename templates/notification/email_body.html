@@ -9,6 +9,7 @@
     </style>
 </head>
 <body>
+{% spaceless %}
 <div style="width: 630px; margin: auto; font-size: 10px; font-family: Helvetica, Arial, sans-serif; line-height: 19px; color: #333; background-color: #ffffff;color:#444444">
     <div style="border:4px #0094B5 solid"></div>
     <a href="{{current_site}}/" style="text-decoration: none">
@@ -25,7 +26,7 @@
         <p style="color: #0094B5; font-size: 18px">{% blocktrans count counter=notice|length %}You have received the following notice from{% plural %}You have received the following notices from{% endblocktrans %}<a href="{{current_site}}" style="text-decoration: none">Open Initiative</a>
         {% if observed_project %}{% trans "on project" %} {{observed_project.title}}{% endif %}:</p>
         {% for notice in notices %}{% with 'notification/'|add:notice.notice_type.label|add:'/notice.html' as template_name %}
-        <p style="font-size: 13px">{% include template_name %}</p>
+        <div style="font-size: 13px; padding-bottom: 15px;">{% include template_name %}</div>
         {% endwith %}{% endfor %}
         <p style="color: #D0574C; font-size: 14px"><a href="{{current_site}}{{notices_url}}" style="text-decoration: none; color: #D0574C">{% trans "See all notices" %}
             <img src="{{current_site}}/img/notification.png" style="border: none; position: relative; bottom: -0.5em; left: 0%"/></a>
@@ -34,5 +35,6 @@
 <div style="border-top:1px gray solid; position: relative; bottom: 6em"></div>
 <p style="font-size: 12px; color: gray; position: relative; bottom: 5em">{% trans "To change the frequency of sending of your notification, " %} <a href="{{current_site}}/notification/settings/"> {% trans "click here." %}</a></p>
 </div>
+{% endspaceless %}
 </body>
 </html>
