@@ -16,7 +16,7 @@ function addTask(tasktitle, projectid, callBack) {
     OIajaxCall("/project/save/0", params, null, 
         function(response){
             var task = eval(response)[0];
-            if(window.oiTree) {
+            if(window.oiTree && oiTree.nodes[projectid]) {
                 setTaskName(oiTree.nodes[projectid].addChild(task.pk, 0), task.pk, task.fields.title, viewname);
                 if(oiTable) {
                     oiTable.addFromTask(task, oiTree.nodes[projectid].getLastChild());
@@ -460,7 +460,7 @@ function changeSpecType(divid, type) {
     var url = "/project/"+projectid+"/editspecdetails/"+specid+"?divid="+divid+"&type="+type;
     OIajaxCall(url, null, "spec_"+divid, 
         function(){if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceAddControl', false, 'text_'+divid);
-            if(getValue("type_"+divid)==6 && divid.indexOf("spec") > -1){
+            if(getValue("type_"+divid)==6){
                 buildText(divid);
             }
         });
@@ -475,10 +475,9 @@ function prepareText(divid){
     document.getElementById("text_"+divid).value = allvalue.replace(/\n/g,"<br />")+"</dl>";
 }
 function buildText(divid){
-    if(document.getElementById(divid).getElementsByTagName("dl")){
-        for(var i = 1; i <= 4; ++i){
-            document.getElementById("bug_report_"+divid+"_"+i).innerHTML = document.getElementById(divid).getElementsByTagName("dd")[i-1].innerHTML.replace(/<br( \/)*>/g, "\n");
-        }
+    for(var i = 1; i <= 4; ++i){
+        var dd = document.getElementById("text_"+divid).getElementsByTagName("dd")[i-1];
+        if(dd) document.getElementById("bug_report_"+divid+"_"+i).innerHTML = dd.innerHTML.replace(/<br( \/)*>/g, "\n");
     }
 }
 function saveSpec(divid, projectid, order, specid) {
