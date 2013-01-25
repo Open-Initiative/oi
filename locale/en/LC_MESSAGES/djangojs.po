@@ -15,6 +15,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
+# oigantt.js
+msgid "Phase0"
+msgstr "Design phase"
+
+# oigantt.js
+msgid "Phase1"
+msgstr "Execution phase"
+
+# oigantt.js
+msgid "Phase2"
+msgstr "Validation phase"
+
 # oiproject.js
 msgid "State0"
 msgstr "Proposed"
@@ -35,3 +47,60 @@ msgstr "Delivered"
 msgid "State4"
 msgstr "Done"
 
+# oigantt.js
+msgid "x10"
+msgstr "S"
+
+msgid "x11"
+msgstr "M"
+
+msgid "x12"
+msgstr "T"
+
+msgid "x13"
+msgstr "W"
+
+msgid "x14"
+msgstr "T"
+
+msgid "x15"
+msgstr "F"
+
+msgid "x16"
+msgstr "S"
+
+msgid "x201"
+msgstr "January"
+
+msgid "x202"
+msgstr "February"
+
+msgid "x203"
+msgstr "March"
+
+msgid "x204"
+msgstr "April"
+
+msgid "x205"
+msgstr "May"
+
+msgid "x206"
+msgstr "June"
+
+msgid "x207"
+msgstr "July"
+
+msgid "x208"
+msgstr "August"
+
+msgid "x209"
+msgstr "September"
+
+msgid "x210"
+msgstr "October"
+
+msgid "x211"
+msgstr "November"
+
+msgid "x212"
+msgstr "December"
