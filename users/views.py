@@ -77,12 +77,13 @@ def setrss(request):
     return HttpResponse("Feed url saved")
 
 @login_required
-def invite(request, id):
+def invite(request, username):
     """adds a user as a contact of the current user"""
-    if request.user.get_profile().contacts.filter(user=id):
+    user = User.objects.get(username = username)
+    if request.user.get_profile().contacts.filter(user=user):
         return HttpResponse(_("Contact already added"))
-    request.user.get_profile().contacts.add(id)
-    User.objects.get(id=id).get_profile().get_default_observer().notify('invitation', sender=request.user)
+    request.user.get_profile().contacts.add(user.get_profile())
+    user.get_profile().get_default_observer().notify('invitation', sender=request.user)
     return HttpResponse(_("Invitation sent"), status=332)
 
 def resetpassword(request):

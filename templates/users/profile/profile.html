@@ -26,7 +26,7 @@
             {% ifnotequal user selected_user %}
             <img class="clickable" src="/img/icons/sendmsg.png" onclick="writeMP({{selected_user.id}})" alt="{% trans "Send a message" %}" title="{% trans "Send a message" %}" />
             {% if not user|is_contact:selected_user %}
-            <img class="clickable" src="/img/icons/addcontact.png" onclick="addContact({{selected_user.get_profile.id}})" alt="{% trans "Add to my contacts" %}" title="{% trans "Add to my contacts" %}" />
+            <img class="clickable" src="/img/icons/addcontact.png" onclick="addContact('{{selected_user.username}}')" alt="{% trans "Add to my contacts" %}" title="{% trans "Add to my contacts" %}" />
             {% endif %}
             {% endifnotequal %}
             <a href="/user/exportresume/{{selected_user.username}}"><img class="clickable" src="/img/icons/cvexport.png" alt="{% trans "Export this resume" %}" title="{% trans "Export this resume" %}" /></a>

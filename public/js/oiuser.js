@@ -43,8 +43,8 @@ function deleteDetail(id, type) {
     OIajaxCall("/user/deletedetail/"+id, "type="+type, "output", 
         function(){clearDiv(type+"_"+id);});
 }
-function addContact(userid) {
-    OIajaxCall("/user/invite/"+userid, null, "output");
+function addContact(username) {
+    OIajaxCall("/user/invite/"+username, null, "output");
 }
 function setemailing(label, send) {
     OIajaxCall("/user/setemailing", "label="+label+"&send="+send, "output");
