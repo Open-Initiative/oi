@@ -65,10 +65,10 @@
     </div>
     <div>
         <div class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">
-            {% if object|can_write:user and object.state < 2 %}
+            {{object.title}}
+            {% if object|can_write:user and object.state < 2 and not object.descendants.count %}
                 <img onclick="editProjectTitle({{object.id}})" class="clickable" src="/img/icons/edit.png" alt="{% trans 'Edit the title' %}" title="{% trans 'Edit the title' %}" />
             {% endif %}
-            {{object.title}}
         </div>
         <div class="prj-block-fav">
             <img onclick="favProject(174)" src="/img/icons/starTrue.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_174">

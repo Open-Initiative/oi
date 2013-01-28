@@ -1,4 +1,4 @@
-function OITreeNode(id, tree, parent, color, has_children) {
+function OITreeNode(id, tree, parent, color, has_children, has_right_to_edit) {
     this.id = id;
     this.tree = tree;
     this.parent = parent;
@@ -9,7 +9,7 @@ function OITreeNode(id, tree, parent, color, has_children) {
     if(parent) this.div = document.getElementById(newDiv(this.parent.childDiv.id));
     else this.div = document.getElementById(newDiv(this.tree.div.id));
     this.div.node = this;
-    this.setContent(has_children);
+    this.setContent(has_children, has_right_to_edit);
     this.resetBtn(); //No idea why it is necessary to put this in a different method
     if('onmouseenter' in this.div) //test browser support for onmouseenter
         this.div.onmouseenter = this.over;
@@ -32,7 +32,7 @@ OITree.prototype.deleteNode = function(projectid){
         OITreeNode[projectid] = null;
     }
 }
-OITreeNode.prototype.setContent = function setContent(has_children) {
+OITreeNode.prototype.setContent = function setContent(has_children, has_right_to_edit) {
     if(this.parent) {
         if(has_children){
             this.btn = document.createElement("img");
@@ -44,7 +44,7 @@ OITreeNode.prototype.setContent = function setContent(has_children) {
             this.div.appendChild(this.btn);
           } 
         
-        if(this.color < 2 && !has_children){
+        if(has_right_to_edit && !has_children){
             /*create del button for all the tasks*/
             this.del = document.createElement("img");
             this.del.src = "/img/icons/delete.png";
@@ -155,7 +155,7 @@ OITreeNode.prototype.drop = function drop(evt) {
     document.body.style.cursor = "default";
     return false;
 }
-OITreeNode.prototype.addChild = function addChild(childid, color, afterid, has_children) {
+OITreeNode.prototype.addChild = function addChild(childid, color, afterid, has_children, has_right_to_edit) {
     var node = this.tree.nodes[childid];
     if(node) {
         node.parent.children.splice(node.parent.children.indexOf(node), 1);
@@ -167,7 +167,7 @@ OITreeNode.prototype.addChild = function addChild(childid, color, afterid, has_c
             this.children.push(node);
         } else this.tree.nodes[childid] = null;
     } else {
-        node = new OITreeNode(childid, this.tree, this, color, has_children);
+        node = new OITreeNode(childid, this.tree, this, color, has_children, has_right_to_edit);
         this.tree.nodes[childid] = node;
         this.children.push(node);
     }

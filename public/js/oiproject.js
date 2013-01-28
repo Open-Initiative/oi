@@ -49,7 +49,8 @@ function populateTaskList(taskLists) {
         var tasks = eval(list);
         for(var task=tasks[i=0]; i<tasks.length; task=tasks[++i]) {
             var parentid = task.fields.parent;
-            setTaskName(oiTree.nodes[String(parentid).replace(".","")].addChild(task.pk, task.fields.state, null, task.fields.tasks_count), task.pk, task.fields.title, viewname);
+            var has_right_to_edit = task.fields.state < 2;
+            setTaskName(oiTree.nodes[String(parentid).replace(".","")].addChild(task.pk, task.fields.state, null, task.fields.tasks_count, has_right_to_edit), task.pk, task.fields.title, viewname);
             if(oiTable) oiTable.addFromTask(task, afterid||parentid, i%2);
             afterid = task.pk;
         }
