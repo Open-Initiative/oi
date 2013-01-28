@@ -66,13 +66,20 @@ col {
 span.prj-overview-page-next{
     float:right;
     padding-top: 1em;
-    font-size: 18px;
-    
+    padding-right: 40px;
+    font-size: 14px;
+}
+span.prj-overview-page-next img{
+    padding-left: 20px;
 }
 span.prj-overview-page-prev{
     float:left;
     padding-top: 1em;
-    font-size: 18px;
+    padding-left: 40px;
+    font-size: 14px;
+}
+span.prj-overview-page-prev img{
+    padding-left: 30px;
 }
 p.no-project-overview-table{
     text-align:center;

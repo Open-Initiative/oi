@@ -26,8 +26,14 @@
                 {% endfor %}
             </tr>
         </table></form>
-        <span id="projectOverviewPagePrev" class="prj-overview-page-prev clickable" onclick="page = Math.max(1,page-1); populateOverviewTable({{project.id}});">{% trans "previous" %}</span>
-        <span id="projectOverviewPageNext" class="prj-overview-page-next clickable" onclick="page = Math.min(nbpage,page+1); populateOverviewTable({{project.id}});">{% trans "next" %}</span>
+        <span id="projectOverviewPagePrev" class="prj-overview-page-prev clickable" onclick="page = Math.max(1,page-1); populateOverviewTable({{project.id}});">
+            <img src="/img/icons/previous.png">
+            <div>{% trans "previous" %}</div>
+        </span>
+        <span id="projectOverviewPageNext" class="prj-overview-page-next clickable" onclick="page = Math.min(nbpage,page+1); populateOverviewTable({{project.id}});">
+            <img src="/img/icons/next.png">
+            <div>{% trans "next" %}</div>
+        </span>
         <span class=change-page-overview><span id=page></span>/<span id="nbpage"></span></span>
         <script>
             page = 1;
