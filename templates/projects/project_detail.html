@@ -15,7 +15,7 @@
 </div>
 <div id="releaseblock">
     <div class="currentreleaseblock">
-        {% trans "Current release:" %} "{{release}}"
+        {% trans "Current release:" %}
         {% if object.master.state < 4 and object.master|can_manage:user %}<div class="switchrelease"><a onclick="$('#nextreleaseblock').show();" title="{% trans 'Switch the project to another version'%}" class="clickable">{% trans "Switch" %}<img src=></a></div>{% endif %}
         <br /> 
         <b>{{object.master.target.name|default:_("Initial release")}}</b>
@@ -107,7 +107,6 @@
                 }
             );
         }
-        //currentRelease = "{{object.master.target.name}}";
         currentTask = {{object.id}};
         coloration = {{object.state}};
         follow = {% if object|is_following:user %}true{%else%}false{%endif%};
