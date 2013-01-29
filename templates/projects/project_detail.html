@@ -15,7 +15,7 @@
 </div>
 <div id="releaseblock">
     <div class="currentreleaseblock">
-        {% trans "Current release:" %} 
+        {% trans "Current release:" %} "{{release}}"
         {% if object.master.state < 4 and object.master|can_manage:user %}<div class="switchrelease"><a onclick="$('#nextreleaseblock').show();" title="{% trans 'Switch the project to another version'%}" class="clickable">{% trans "Switch" %}<img src=></a></div>{% endif %}
         <br /> 
         <b>{{object.master.target.name|default:_("Initial release")}}</b>
@@ -44,7 +44,7 @@
                 <option value="{{future_release.name}}" {% if release == future_release.name %} selected {% endif %}>{{future_release.name}}</option>
             {% endfor %}
             <option value="*" {% if release == "*" %} selected {% endif %}>{% trans "tasks without release" %}</option>
-            <option value="" {% if release == "" %} selected {% endif %}>{% trans "all releases" %}</option>
+            <option value="**" {% if release == "**" %} selected {% endif %}>{% trans "all releases" %}</option>
             {% if object.master|can_manage:user %}<option id="add_new_release"  >{% trans "Add a new release" %}</option>{% endif %}
         </select>
     </div>

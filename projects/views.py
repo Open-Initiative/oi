@@ -109,11 +109,12 @@ def listtasks(request, id):
                 releases = request.session.get("releases", {})
                 releases[project.master.id] = request.GET['release']
                 request.session["releases"] = releases
-                if request.GET['release'] == '*':
-                    tasks = tasks.filter(Q(target__isnull=True)|Q(descendants__isnull=False, descendants__target__isnull=True)).distinct()
-                
-                else:
-                    tasks = tasks.filter(Q(target__name = request.GET['release'])|Q(descendants__target__name = request.GET['release'])).distinct()
+                if request.GET['release'] != '**':
+                    if request.GET['release'] == '*':
+                        tasks = tasks.filter(Q(target__isnull=True)|Q(descendants__isnull=False, descendants__target__isnull=True)).distinct()
+                    
+                    else:
+                        tasks = tasks.filter(Q(target__name = request.GET['release'])|Q(descendants__target__name = request.GET['release'])).distinct()
                     
             if request.GET.has_key("order"):
                 tasks = tasks.order_by(request.GET['order'])
@@ -146,7 +147,7 @@ def addrelease(request, id):
         return HttpResponse(_("Not empty release"))
     if request.POST["release"] == "Initial release":
         return HttpResponse(_("Release already existing"))
-    if request.POST["release"] == "*":
+    if request.POST["release"] == "*" or request.POST["release"] == "**":
         return HttpResponse(_("The character '*' is not allowed"))
     Release(name = request.POST["release"], project = Project.objects.get(id=id).master).save()
     return HttpResponse(_("New release added"))
