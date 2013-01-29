@@ -327,22 +327,27 @@ function orderOverviewTable(projectid, order_by){
     else order = order_by;
     populateOverviewTable(projectid);
 }
-function populateOverviewTable(projectid){
-    var url = "/project/"+projectid+"/listtasks?listall";
-    if(order) url += "&order="+order;
-    url += "&page="+page;
-    url += "&"+prepareForm("form_overview");    // I don't know why, but I need it for filter on overview table
-    var params = "#";
+function urlOverview(projectid){
+    var params = "";
+    var url = "";
+    url += "&"+prepareForm("form_overview");   // I don't know why, but I need it for filter on overview table 
     for(var i = 0; i < prepareForm("form_overview").split("&").length; i++){
         if(prepareForm("form_overview").split("&")[i].split("=")[1]){
             params += prepareForm("form_overview").split("&")[i]+"&";
         }
     } 
     document.location.hash = params;
-    OIajaxCall(url, null, "load_"+projectid, 
+    return url;
+}
+function populateOverviewTable(projectid){
+    var url = "/project/"+projectid+"/listtasks?listall";
+    if(order) url += "&order="+order;
+    url += "&page="+page;
+    var param = urlOverview(projectid);
+    OIajaxCall(url+param, null, "load_"+projectid, 
         function(response){
             var header = document.getElementById('headerTableOverview');
-            document.getElementById("prj-table-overview").appendChild(header);
+//            document.getElementById("prj-table-overview").appendChild(header);//I don't need it
             document.getElementById('dynamicTableOverview').innerHTML = "";
             document.getElementById('dynamicTableOverview').appendChild(header);
             paginator = eval(response)[0];
