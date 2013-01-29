@@ -75,34 +75,8 @@ def listtasks(request, id):
             else:
                 request.session.get("release", {})[project.master.id] = ""
                 tasks = project.tasks.filter_perm(request.user, OI_READ)
-             
-            #this queryset filter with request key 'filter_title' in overview table   
-            if request.GET.get('filter_title'):
-                tasks = tasks.filter(title__contains=request.GET['filter_title'])
-               
-            #this queryset filter with request key 'filter_state' in overview table     
-            if request.GET.get('filter_state'):
-                tasks = tasks.filter(state=request.GET['filter_state'])
-             
-            #this queryset filter with request key 'filter_echeance' in overview table    
-            if request.GET.get('filter_echeance'):
-                tasks = tasks.filter(
-                    Q(start_date__gte=datetime.now(), start_date__lte=datetime.now()+timedelta(0, int(request.GET['filter_echeance'])))|
-                    Q(due_date__gte=datetime.now(), due_date__lte=datetime.now()+timedelta(hours=0, seconds=int(request.GET['filter_echeance'])))|
-                    Q(validation__gte=datetime.now(), validation__lte=datetime.now()+timedelta(0, int(request.GET['filter_echeance']))))
-            
-            #this queryset filter with request key 'filter_assignee' in overview table    
-            if request.GET.get('filter_assignee'):
-                tasks = tasks.filter(assignee__username=request.GET['filter_assignee'])
-                request.session["nbfilterpage"] = tasks.count()
-                
-            if request.GET.get('filter_budget_min') and request.GET.get('filter_budget_max'):
-                tasks = tasks.filter(Q(offer__gte=request.GET['filter_budget_min']),Q(offer__lte=request.GET['filter_budget_max']))
-              
-            #this queryset filter with request key 'filter_release' in overview table  
-            if request.GET.get('filter_release'):
-                tasks = tasks.filter(target__name__contains=request.GET['filter_release'])
-                request.session["nbfilterpage"] = tasks.count()
+                         
+            filteroverview(request,tasks)
             
             #can sort on the project for the release    
             if request.GET.get("release"):
@@ -139,6 +113,35 @@ def listtasks(request, id):
                     "bid_set.count","target.name","target.done","target.project","created","start_date",
                     "due_date","validation", "githubsync_set.get.repository", "githubsync_set.get.label","tasks.count")))
     return HttpResponse(JSONEncoder().encode(lists)) #serializes the whole thing
+
+
+def filteroverview(request, tasks):
+    """filter on overview table"""
+    #this queryset filter with request key 'filter_title' in overview table   
+    if request.GET.get('filter_title'):
+        tasks = tasks.filter(title__contains=request.GET['filter_title'])
+       
+    #this queryset filter with request key 'filter_state' in overview table     
+    if request.GET.get('filter_state'):
+        tasks = tasks.filter(state=request.GET['filter_state'])
+     
+    #this queryset filter with request key 'filter_echeance' in overview table    
+    if request.GET.get('filter_echeance'):
+        tasks = tasks.filter(
+            Q(start_date__gte=datetime.now(), start_date__lte=datetime.now()+timedelta(0, int(request.GET['filter_echeance'])))|
+            Q(due_date__gte=datetime.now(), due_date__lte=datetime.now()+timedelta(hours=0, seconds=int(request.GET['filter_echeance'])))|
+            Q(validation__gte=datetime.now(), validation__lte=datetime.now()+timedelta(0, int(request.GET['filter_echeance']))))
+    
+    #this queryset filter with request key 'filter_assignee' in overview table    
+    if request.GET.get('filter_assignee'):
+        tasks = tasks.filter(assignee__username=request.GET['filter_assignee'])
+        
+    if request.GET.get('filter_budget_min') and request.GET.get('filter_budget_max'):
+        tasks = tasks.filter(Q(offer__gte=request.GET['filter_budget_min']),Q(offer__lte=request.GET['filter_budget_max']))
+      
+    #this queryset filter with request key 'filter_release' in overview table  
+    if request.GET.get('filter_release'):
+        tasks = tasks.filter(target__name__contains=request.GET['filter_release'])
 
 @OINeedsPrjPerms(OI_MANAGE)
 def addrelease(request, id):
