@@ -57,7 +57,7 @@ div.prj-table-overview table tr td {
 #dynamicTableOverview{
     overflow: visible;
     table-layout: fixed;
-    width: 700px;
+    width: 100%;
 }
 col { 
     background: blue;
