@@ -339,6 +339,15 @@ function urlOverview(projectid){
     document.location.hash = params;
     return url;
 }
+function paginateOverviewTable(projectid, paginator, nbpage){
+    if(this.oiTree.nodes[projectid]) this.oiTree.nodes[projectid].className = " invisible";
+    document.getElementById('projectOverviewPageNext').style.display = (page >= nbpage?"none":"inline"); 
+    document.getElementById('projectOverviewPagePrev').style.display = (page > 1?"inline":"none");
+    clearDiv("load_"+projectid);
+    document.getElementById("nbpage").innerHTML = nbpage;
+    document.getElementById('page').innerHTML = page;
+    document.getElementById("nbfiltrepage").innerHTML = paginator.nbtask+gettext(" out of ");
+}
 function populateOverviewTable(projectid){
     var url = "/project/"+projectid+"/listtasks?listall";
     if(order) url += "&order="+order;
@@ -378,14 +387,7 @@ function populateOverviewTable(projectid){
                 }
                 document.getElementById('dynamicTableOverview').appendChild(line);
             }
-            if(this.oiTree.nodes[projectid]) this.oiTree.nodes[projectid].className = " invisible";
-            document.getElementById('projectOverviewPageNext').style.display = (page >= nbpage?"none":"inline"); 
-            document.getElementById('projectOverviewPagePrev').style.display = (page > 1?"inline":"none");
-            clearDiv("load_"+projectid);
-            document.getElementById("nbpage").innerHTML = nbpage;
-            document.getElementById('page').innerHTML = page;
-            document.getElementById("nbfiltrepage").innerHTML = paginator.nbtask+gettext(" out of ");
-                
+            paginateOverviewTable(projectid, paginator, nbpage);
         }
     );
 }
