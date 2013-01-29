@@ -356,37 +356,16 @@ function populateOverviewTable(projectid){
                 line.className += "state"+task.fields["state"];
                 for(var field = fields[j=0]; j < fields.length; field=fields[++j]){
                     if(fields[j]=="state"){
-                        if(task.fields[field] == 0){
-                            if(task.fields.start_date)
-                                task.fields["due_date"] = ""+task.fields.start_date;
-                            else
-                               task.fields["due_date"] = "-"; 
-                        }
-                        if(task.fields[field] == 1){
-                            if(task.fields.due_date)
-                                task.fields["due_date"] = ""+task.fields.due_date;
-                            else
-                               task.fields["due_date"] = "-";
-                        }
-                        if(task.fields[field] == 2){
-                            if(task.fields.due_date)
-                                task.fields["due_date"] = ""+task.fields.due_date;
-                            else
-                                task.fields["due_date"] = "-";
-                        }
-                        if(task.fields[field] == 3){
-                            if(task.fields.validation)
-                                task.fields["due_date"] = ""+task.fields.validation;
-                            else
-                                task.fields["due_date"] = "-";
-                        }
-                        if(task.fields[field] == 4){
-                            if(task.fields.validation)
-                                task.fields["due_date"] = ""+task.fields.validation;
-                            else
-                                task.fields["due_date"] = "-";
-                        }
-                        task.fields[field] = gettext("State"+task.fields[field]);
+                        var state = ["start_date", "due_date", "due_date", "validation", "validation"];
+                        for(var k = 0; k < state.length; k++){
+                            if(task.fields.state == k){
+                                if(task.fields[state[k]])
+                                    task.fields["due_date"] = ""+task.fields[state[k]];
+                                else
+                                    task.fields["due_date"] = "-"; 
+                            }
+                        }
+                        task.fields[field] = gettext("State"+task.fields[field]);
                     };
                     if(fields[j]=="offer")task.fields[field] += " €";
                     if(fields[j]=="target_name"){if(!task.fields[field]) {task.fields[field]="-";}; };
