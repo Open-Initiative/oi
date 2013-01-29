@@ -488,15 +488,18 @@ function saveSpec(divid, projectid, order, specid) {
     if(getValue("filename_"+divid)) params+="&filename="+getValue("filename_"+divid);
     if(getValue("ts_"+divid)) params+="&ts="+getValue("ts_"+divid);
     if(getValue("image_"+divid)) params+="&image="+getValue("image_"+divid);
-    OIajaxCall("/project/"+projectid+"/savespec/"+specid, params, divid,
-        function(divid){
-            return function(){
-                     var div = document.getElementById(divid);
-                     while(div.childNodes.length)
-                         div.parentNode.appendChild(div.firstChild);
-                     div.parentNode.removeChild(div);
-                   }
-        }(divid));
+    OIajaxCall("/project/"+projectid+"/savespec/"+specid, params, divid, 
+        function(){
+            var div = document.getElementById(divid);
+//            var specorder =  document.getElementById(divid).getElementsByTagName("input")[3].value;
+            var length = document.getElementById(divid).getElementsByTagName("input").length;
+            var specorder =  document.getElementById(divid).getElementsByTagName("input")[length-1].value;
+            div.id="spec_"+projectid+"_"+specorder;
+            div.className = "cleared";
+            div.style.position = "relative";
+            if(document.getElementById("sepspec_"+projectid)) div.parentNode.removeChild(document.getElementById("sepspec_"+projectid));
+        }
+    );
 }
 function deleteSpec(projectid, specorder) {
     if(confirm(gettext("Are you sure you want to delete this specification permanently?"))) {
