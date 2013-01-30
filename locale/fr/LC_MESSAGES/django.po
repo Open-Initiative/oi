@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-21 12:08+0100\n"
+"POT-Creation-Date: 2013-01-30 14:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -113,8 +113,8 @@ msgid "Published on"
 msgstr "Publié sur"
 
 #: messages/models.py:140 messages/views.py:65 messages/views.py:78
-#: projects/models.py:433 projects/views.py:207 projects/views.py:248
-#: templates/projects/project_detail.html:119
+#: projects/models.py:433 projects/views.py:233 projects/views.py:277
+#: templates/projects/project_detail.html:120
 msgid "Forbidden"
 msgstr "Permissions insuffisantes"
 
@@ -138,7 +138,7 @@ msgstr "Déjà voté !"
 msgid "voted"
 msgstr "A voté"
 
-#: messages/views.py:169 projects/views.py:996
+#: messages/views.py:169 projects/views.py:1027
 msgid "Latest updates of Open Initiative "
 msgstr "L'activité la plus récente d'Open Initiative "
 
@@ -239,8 +239,8 @@ msgstr "notification"
 msgid "notices"
 msgstr "notifications"
 
-#: prjnotify/views.py:132 users/views.py:185 users/views.py:192
-#: users/views.py:207 users/views.py:214
+#: prjnotify/views.py:132 users/views.py:186 users/views.py:193
+#: users/views.py:208 users/views.py:215
 msgid "Modification saved"
 msgstr "Mofication enregistrée"
 
@@ -341,8 +341,8 @@ msgid "A user has evaluated your project"
 msgstr "Un utilisateur a évalué votre projet"
 
 #: prjnotify/management/commands/register_notice_types.py:22
-#: projects/views.py:558 projects/views.py:566 projects/views.py:577
-#: projects/views.py:615
+#: projects/views.py:589 projects/views.py:597 projects/views.py:608
+#: projects/views.py:646
 msgid "Bid cancelled"
 msgstr "Participation annulée"
 
@@ -375,7 +375,7 @@ msgid "The project has been shared with"
 msgstr "Le projet a été partagé avec"
 
 #: prjnotify/management/commands/register_notice_types.py:26
-#: projects/views.py:180
+#: projects/views.py:206
 msgid "Release changed"
 msgstr "Version modifiée"
 
@@ -403,320 +403,329 @@ msgstr "Un utilisateur a supprimé le projet"
 msgid "Recompute all descendants"
 msgstr "Recalculer tous les descendants"
 
-#: projects/models.py:501
+#: projects/models.py:506
 msgid "Refund of bid"
 msgstr "Remboursement de la participation"
 
-#: projects/views.py:143
+#: projects/views.py:169
 msgid "Not empty release"
 msgstr "Pas de version sans nom"
 
-#: projects/views.py:145
+#: projects/views.py:171
 msgid "Release already existing"
 msgstr "Version déjà existante"
 
-#: projects/views.py:147
+#: projects/views.py:173
 msgid "The character '*' is not allowed"
 msgstr "Le caractère '*' n'a pas n'est pas autorisé'"
 
-#: projects/views.py:149
+#: projects/views.py:175
 msgid "New release added"
 msgstr "Nouvelle version ajoutée"
 
-#: projects/views.py:160
+#: projects/views.py:186
 msgid "Already done"
 msgstr "Déjà fait"
 
-#: projects/views.py:163 templates/projects/project_detail.html:18
+#: projects/views.py:189 templates/projects/project_detail.html:21
 msgid "Initial release"
 msgstr "Version initiale"
 
-#: projects/views.py:188
+#: projects/views.py:214
 msgid "Can't set to a release already finished"
 msgstr "Impossible de sélectionner une version déjà finie"
 
-#: projects/views.py:198
+#: projects/views.py:224
 msgid "Release assigned"
 msgstr "Version modifiée"
 
-#: projects/views.py:238
+#: projects/views.py:264
 msgid "Can not change a finished task"
 msgstr "Impossible de modifier une tâche terminée"
 
-#: projects/views.py:242
+#: projects/views.py:268
 msgid "Please enter a title"
 msgstr "Merci d'entrer un titre"
 
-#: projects/views.py:277
+#: projects/views.py:306
 msgid "Request for delay"
 msgstr "Demande de délai"
 
-#: projects/views.py:278
+#: projects/views.py:307
 msgid "Request for delay awaiting validation"
 msgstr "Demande de délai en attente de validation"
 
-#: projects/views.py:284 projects/views.py:295
+#: projects/views.py:313 projects/views.py:324
 msgid "Date updated"
 msgstr "Date mise-à-jour"
 
-#: projects/views.py:286 projects/views.py:302 projects/views.py:312
-#: projects/views.py:329 projects/views.py:358 projects/views.py:646
-#: projects/views.py:851 projects/views.py:867 projects/views.py:925
+#: projects/views.py:315 projects/views.py:331 projects/views.py:360
+#: projects/views.py:389 projects/views.py:677 projects/views.py:882
+#: projects/views.py:898 projects/views.py:956
 msgid "Can not change a task already started"
 msgstr "Impossible de modifier une tâche démarrée"
 
-#: projects/views.py:305
+#: projects/views.py:334
 msgid "Priority changed"
 msgstr "Priorité modifiée"
 
-#: projects/views.py:319
+#: projects/views.py:341
+msgid "Can not change a task already started or has other task inside"
+msgstr "Impossible de modifier une tâche déjà démarrée ou qui possède d'autres tâches à l'interieur"
+
+#: projects/views.py:343
+msgid "Can not change a task which has other task(s) inside"
+msgstr "Impossible de modifier une tâches une qui a d'autre(s) tâche(s) à l'interieur"
+
+#: projects/views.py:350
 msgid "Title updated"
 msgstr "Titre mis-à-jour"
 
-#: projects/views.py:327
+#: projects/views.py:358
 msgid "Task already assigned"
 msgstr "Tâche déjà assignée"
 
-#: projects/views.py:332 projects/views.py:334
+#: projects/views.py:363 projects/views.py:365
 #, python-format
 msgid "The task '%s' already has an offer"
 msgstr "La tâche '%s' a déjà une offre"
 
-#: projects/views.py:340
+#: projects/views.py:371
 msgid "Please enter a valid number"
 msgstr "Merci d'entrer un nombre correct"
 
-#: projects/views.py:349
+#: projects/views.py:380
 msgid "Task taken on"
 msgstr "Tâche assignée"
 
-#: projects/views.py:360
+#: projects/views.py:391
 msgid "Only the user in charge of the project can delegate it"
 msgstr "Seul l'utilisateur responsable du projet peut le déléguer"
 
-#: projects/views.py:364 projects/views.py:458 projects/views.py:702
+#: projects/views.py:395 projects/views.py:489 projects/views.py:733
 msgid "Cannot find user"
 msgstr "Utilisateur introuvable"
 
-#: projects/views.py:367
+#: projects/views.py:398
 msgid "Sent delegation offer"
 msgstr "Proposition de délégation envoyée"
 
-#: projects/views.py:376
+#: projects/views.py:407
 msgid "The project was not delegated to you"
 msgstr "Le projet ne vous a pas été délégué"
 
-#: projects/views.py:387
+#: projects/views.py:418
 msgid "reply sent"
 msgstr "réponse envoyée"
 
-#: projects/views.py:396
+#: projects/views.py:427
 msgid "No delay was requested"
 msgstr "Aucune demande de délai n'a été envoyée"
 
-#: projects/views.py:402
+#: projects/views.py:433
 msgid "The date was not changed"
 msgstr "La date n'a pas été modifiée"
 
-#: projects/views.py:408
+#: projects/views.py:439
 msgid "Awaiting other users' validation"
 msgstr "En attente de la validation des autres utilisateurs"
 
-#: projects/views.py:413
+#: projects/views.py:444
 msgid "The date has been changed"
 msgstr "Un projet que vous suivez a été modifié"
 
-#: projects/views.py:416 projects/views.py:587 projects/views.py:623
+#: projects/views.py:447 projects/views.py:618 projects/views.py:654
 msgid "No reply received"
 msgstr "Aucune réponse reçue"
 
-#: projects/views.py:426
+#: projects/views.py:457
 msgid "Invalid amount"
 msgstr "Montant invalide"
 
-#: projects/views.py:438
+#: projects/views.py:469
 msgid "Bid"
 msgstr "Participation"
 
-#: projects/views.py:439 projects/views.py:599
+#: projects/views.py:470 projects/views.py:630
 #: templates/projects/project_budget.html:32
 msgid "Commission"
 msgstr "Commission"
 
-#: projects/views.py:447
+#: projects/views.py:478
 msgid "Bid saved"
 msgstr "Souscription enregistrée"
 
-#: projects/views.py:469
+#: projects/views.py:500
 msgid "The user has been added as a validator"
 msgstr "L'utilisateur a été ajouté comme valideur"
 
-#: projects/views.py:476
+#: projects/views.py:507
 msgid "Not enough bids"
 msgstr "Financement insuffisant"
 
-#: projects/views.py:478
+#: projects/views.py:509
 msgid "Only the assignee can start the project"
 msgstr "Seul le responsable du projet peut le démarrer"
 
-#: projects/views.py:485
+#: projects/views.py:516
 msgid "Task started"
 msgstr "Tâche démarrée"
 
-#: projects/views.py:493
+#: projects/views.py:524
 msgid "only the assignee can deliver the project!"
 msgstr "Seul le responsable du projet peut le livrer !"
 
-#: projects/views.py:498
+#: projects/views.py:529
 msgid "Task done!"
 msgstr "Tâche terminée"
 
-#: projects/views.py:508
+#: projects/views.py:539
 msgid "already validated!"
 msgstr "Déjà validé !"
 
-#: projects/views.py:512
+#: projects/views.py:543
 msgid "only bidders can validate the project!"
 msgstr "Seuls les souscripteurs du projet peuvent le valider !"
 
-#: projects/views.py:518
+#: projects/views.py:549
 msgid "Payment"
 msgstr "Paiement"
 
-#: projects/views.py:520
+#: projects/views.py:551
 msgid "Validation saved"
 msgstr "Validation enregistrée"
 
-#: projects/views.py:530
+#: projects/views.py:561
 msgid "You can not evaluate yourself"
 msgstr "Vous ne pouvez pas vous évaluer vous même"
 
-#: projects/views.py:534
+#: projects/views.py:565
 msgid "You have already evaluated this task"
 msgstr "Vous avez déjà évalué cette tâche"
 
-#: projects/views.py:540
+#: projects/views.py:571
 msgid "Evaluation saved"
 msgstr "Evaluation enregistrée"
 
-#: projects/views.py:548 projects/views.py:594
+#: projects/views.py:579 projects/views.py:625
 msgid "The project is already over"
 msgstr "Le projet est déjà terminé"
 
-#: projects/views.py:551
+#: projects/views.py:582
 msgid "You're not participating on this project"
 msgstr "Vous ne participez pas à ce projet"
 
-#: projects/views.py:585 projects/views.py:621
+#: projects/views.py:616 projects/views.py:652
 msgid "Cancelation refused. Awaiting decision"
 msgstr "Annulation refusée. En attente d'arbitrage"
 
-#: projects/views.py:596
+#: projects/views.py:627
 msgid "Only the user in charge of the project can cancel it"
 msgstr "Seul l'utilisateur responsable du projet peut l'annuler"
 
-#: projects/views.py:605
+#: projects/views.py:636
 msgid "Task cancelled. Awaiting confirmation from other users"
 msgstr "Tâche annulée. En attente de confirmation des autres utilisateurs"
 
-#: projects/views.py:630
-msgid "Can not delete a started project. Please stop it first."
-msgstr "Impossible de supprimer un projet démarré. Arrêtez le d'abord."
+#: projects/views.py:661
+msgid ""
+"Can not delete a started project. Please stop it first and cancel your bid."
+msgstr "Impossible de supprimer un projet démarré. Arrêtez le d'abord et annuler votre commission"
 
-#: projects/views.py:632
+#: projects/views.py:663
 msgid ""
 "Can not delete a project containing tasks. Please delete all its tasks first."
 msgstr ""
 "Impossible de supprimer un projet contenant des tâches. Veuillez supprimer "
 "ses tâches d'abord."
 
-#: projects/views.py:637
+#: projects/views.py:668
 #, python-format
 msgid "The task %s has been deleted."
 msgstr "La tâche %s a été supprimée."
 
-#: projects/views.py:648
+#: projects/views.py:679
 msgid "Can not move a task inside itself"
 msgstr "Impossible de déplacer une tâche vers elle-même"
 
-#: projects/views.py:660
+#: projects/views.py:691
 msgid "Task moved"
 msgstr "Tâche déplacée"
 
-#: projects/views.py:667 projects/views.py:680 projects/views.py:837
-#: projects/views.py:854 projects/views.py:875 projects/views.py:886
-#: projects/views.py:907 projects/views.py:909 projects/views.py:912
-#: projects/views.py:923 projects/views.py:935 projects/views.py:939
-#: projects/views.py:956 users/views.py:204
+#: projects/views.py:698 projects/views.py:711 projects/views.py:868
+#: projects/views.py:885 projects/views.py:906 projects/views.py:917
+#: projects/views.py:938 projects/views.py:940 projects/views.py:943
+#: projects/views.py:954 projects/views.py:966 projects/views.py:970
+#: projects/views.py:987 users/views.py:205
 msgid "Wrong arguments"
 msgstr "Arguments incorrects"
 
-#: projects/views.py:670
+#: projects/views.py:701
 msgid "Can not create a dependency with an ancestor or a descendant"
 msgstr "Impossible de créer une dépendance avec un ancêtre ou un descendant"
 
-#: projects/views.py:693
+#: projects/views.py:724
 msgid "Permissions set"
 msgstr "Permissions enregistrées"
 
-#: projects/views.py:709
+#: projects/views.py:740
 msgid "Task shared"
 msgstr "Tâche partagée"
 
-#: projects/views.py:717
+#: projects/views.py:748
 msgid "The project has to be started for the progress to be updated"
 msgstr "Le projet doit être démarré pour que l'avancement soit mis à jour"
 
-#: projects/views.py:719
+#: projects/views.py:750
 msgid "Only the user in charge of can update its progress"
 msgstr "Seul le responsable du projet peut mettre à jour son avancement"
 
-#: projects/views.py:723
+#: projects/views.py:754
 msgid "Invalid value"
 msgstr "Valeur incorrecte"
 
-#: projects/views.py:728
+#: projects/views.py:759
 msgid "Progress updated"
 msgstr "Avancement mis à jour"
 
-#: projects/views.py:754
+#: projects/views.py:785
 msgid "Settings saved"
 msgstr "Paramètre enregistré"
 
-#: projects/views.py:761
+#: projects/views.py:792
 msgid "Forbidden: could not identify requester"
 msgstr "Interdit : Imposible d'identifier le demandeur"
 
-#: projects/views.py:767
+#: projects/views.py:798
 #, python-format
 msgid "Github error: %s"
 msgstr "Erreur Github : %s"
 
-#: projects/views.py:772 templates/projects/project_github.html:7
+#: projects/views.py:803 templates/projects/project_github.html:7
 msgid "Project authorized"
 msgstr "Projet autorisé"
 
-#: projects/views.py:803
+#: projects/views.py:834
 msgid "Hook deleted"
 msgstr "Crochet supprimé"
 
-#: projects/views.py:807
+#: projects/views.py:838
 msgid "Hook created"
 msgstr "Crochet créé"
 
-#: projects/views.py:916
+#: projects/views.py:947
 msgid "Spec moved"
 msgstr "Message déplacé"
 
-#: projects/views.py:927
+#: projects/views.py:958
 msgid "Specification deleted"
 msgstr "Spécification supprimée"
 
-#: projects/views.py:954
+#: projects/views.py:985
 msgid "Annotation removed"
 msgstr "Annotation supprimée"
 
-#: projects/views.py:977
+#: projects/views.py:1008
 msgid "File deleted"
 msgstr "Fichier supprimé"
 
@@ -754,7 +763,7 @@ msgstr ""
 "informés. Ils essaieront de la corriger dès qu'ils pourront. Désolé !"
 
 #: templates/base.html:44 templates/index.html:4
-#: templates/notification/email_body.html:17
+#: templates/notification/email_body.html:18
 msgid "The IT community dedicated to your business"
 msgstr "La communaute informatique au service des entreprises"
 
@@ -807,7 +816,7 @@ msgstr "Mot de passe oublié ?"
 msgid "password"
 msgstr "Mot de passe"
 
-#: templates/base.html:93 templates/notification/email_body.html:21
+#: templates/base.html:93 templates/notification/email_body.html:22
 #: templates/registration/login.html:21
 msgid "login"
 msgstr "Se connecter"
@@ -817,8 +826,8 @@ msgstr "Se connecter"
 msgid "Register"
 msgstr "S'inscrire"
 
-#: templates/base.html:142 templates/projects/dialogue/bid.html:4
-#: templates/projects/dialogue/offer.html:4 templates/users/register.html:35
+#: templates/base.html:142 templates/projects/dialogue/bid.html:5
+#: templates/projects/dialogue/offer.html:5 templates/users/register.html:35
 msgid "Terms of Use"
 msgstr "Conditions Générales d'Utilisation"
 
@@ -988,31 +997,31 @@ msgstr "plus récents"
 msgid "Create in"
 msgstr "Créer dans"
 
-#: templates/notification/email_body.html:24
+#: templates/notification/email_body.html:25
 msgid "Hello"
 msgstr "Bonjour"
 
-#: templates/notification/email_body.html:25
+#: templates/notification/email_body.html:26
 msgid "You have received the following notice from"
 msgid_plural "You have received the following notices from"
 msgstr[0] "Vous avez reçu la notification suivante d'"
 msgstr[1] "Vous avez reçu les notifications suivante d'"
 
-#: templates/notification/email_body.html:26
+#: templates/notification/email_body.html:27
 #: templates/notification/notices.html:3 templates/notification/notices.html:9
 #: templates/users/account.html:29 templates/users/pdf/invoice.html:7
 msgid "on project"
 msgstr "sur le projet"
 
-#: templates/notification/email_body.html:30
+#: templates/notification/email_body.html:31
 msgid "See all notices"
 msgstr "Voir toutes les notifications"
 
-#: templates/notification/email_body.html:35
+#: templates/notification/email_body.html:36
 msgid "To change the frequency of sending of your notification, "
 msgstr "Pour changer la fréquence d'envoi de vos notitifcation, "
 
-#: templates/notification/email_body.html:35
+#: templates/notification/email_body.html:36
 msgid "click here."
 msgstr "cliquer ici"
 
@@ -1069,9 +1078,13 @@ msgstr "heure"
 msgid "5 minute"
 msgstr "5 minutes"
 
-#: templates/notification/answer/notice.html:5
+#: templates/notification/answer/notice.html:6
 msgid " has published a message on a task you follow:"
 msgstr " a publié un message sur la tâche que vous suivez"
+
+#: templates/notification/answer/notice.html:8
+msgid " has published a message on a project you follow:"
+msgstr " a publié un message sur le projet que vous suivez"
 
 #: templates/notification/answerdelay/notice.html:2
 #: templates/notification/answerdelegate/notice.html:2
@@ -1088,19 +1101,27 @@ msgstr "accepté"
 msgid "refused"
 msgstr "refusé"
 
-#: templates/notification/answerdelay/notice.html:4
+#: templates/notification/answerdelay/notice.html:5
 msgid "to change the due date of the task:"
 msgstr "de changer la date de livraison de la tâche :"
 
-#: templates/notification/answerdelegate/notice.html:4
+#: templates/notification/answerdelay/notice.html:7
+msgid "to change the due date of the project:"
+msgstr "de changer la date de livraison du projet :"
+
+#: templates/notification/answerdelegate/notice.html:5
 msgid "to take the task"
 msgstr "de prendre en charge la tâche"
 
+#: templates/notification/answerdelegate/notice.html:7
+msgid "to take the project"
+msgstr "de prendre en charge le projet"
+
 #: templates/notification/change_release/notice.html:3
-msgid "has changed the release of a project you follow:"
+msgid "has changed the release of a project you follow to:"
 msgstr "a changé la version d'un projet que vous suivez"
 
-#: templates/notification/delegate/notice.html:3
+#: templates/notification/delegate/notice.html:4
 #, python-format
 msgid ""
 "wants to delegate the task <a href=\"%(current_site)s/project/%(id)s\">"
@@ -1109,7 +1130,16 @@ msgstr ""
 "veut vous déléguer la tâche <a href=\"%(current_site)s/project/%(id)s\">"
 "%(title)s</a>."
 
-#: templates/notification/delegate/notice.html:4
+#: templates/notification/delegate/notice.html:6
+#, python-format
+msgid ""
+"wants to delegate the project <a href=\"%(current_site)s/project/%(id)s\">"
+"%(title)s</a> to you."
+msgstr ""
+"veut vous déléguer la tâche <a href=\"%(current_site)s/project/%(id)s\">"
+"%(title)s</a>."
+
+#: templates/notification/delegate/notice.html:9
 msgid "answer"
 msgstr "Répondre"
 
@@ -1133,49 +1163,89 @@ msgstr "dans le projet"
 msgid "has sent you a personal message:"
 msgstr "vous a envoyé un message personnel :"
 
-#: templates/notification/project_bid/notice.html:3
+#: templates/notification/project_bid/notice.html:4
 msgid "has added a bid on a task you follow:"
 msgstr "a participé à une tâche que vous suivez :"
 
-#: templates/notification/project_bid_cancel/notice.html:3
+#: templates/notification/project_bid/notice.html:6
+msgid "has added a bid on a project you follow:"
+msgstr "a participé à un projet que vous suivez :"
+
+#: templates/notification/project_bid_cancel/notice.html:4
 msgid "has cancelled his bid on a task you follow:"
 msgstr "a annulé sa participation à une tâche que vous suivez :"
 
-#: templates/notification/project_cancel/notice.html:3
+#: templates/notification/project_bid_cancel/notice.html:6
+msgid "has cancelled his bid on a project you follow:"
+msgstr "a annulé sa participation à un projet que vous suivez :"
+
+#: templates/notification/project_cancel/notice.html:4
 msgid "has cancelled a task you follow:"
 msgstr "a annulé une tâche que vous suivez :"
 
-#: templates/notification/project_delete/notice.html:3
+#: templates/notification/project_cancel/notice.html:6
+msgid "has cancelled a project you follow:"
+msgstr "a annulé un projet que vous suivez :"
+
+#: templates/notification/project_delete/notice.html:4
 msgid "has deleted the task"
 msgstr "a supprimé la tâche"
 
-#: templates/notification/project_eval/notice.html:3
+#: templates/notification/project_delete/notice.html:6
+msgid "has deleted the project"
+msgstr "a supprimé le projet"
+
+#: templates/notification/project_eval/notice.html:4
 msgid "has evaluated you on task:"
 msgstr "vous a évalué sur la tâche :"
 
-#: templates/notification/project_modified/notice.html:3
+#: templates/notification/project_eval/notice.html:6
+msgid "has evaluated you on project:"
+msgstr "vous a évalué sur le projet :"
+
+#: templates/notification/project_modified/notice.html:4
 msgid "has changed a task you follow:"
 msgstr "a modifié un tâche que vous suivez :"
 
-#: templates/notification/project_spec/notice.html:3
+#: templates/notification/project_modified/notice.html:6
+msgid "has changed a project you follow:"
+msgstr "a modifié un projet que vous suivez :"
+
+#: templates/notification/project_spec/notice.html:4
 msgid "has changed the specification of a task you follow:"
 msgstr "a modifié les spécifications d'une tâche que vous suivez :"
 
-#: templates/notification/project_state/notice.html:4
+#: templates/notification/project_spec/notice.html:6
+msgid "has changed the specification of a project you follow:"
+msgstr "a modifié les spécifications d'un projet que vous suivez :"
+
+#: templates/notification/project_state/notice.html:5
 msgid "has changed the state of a task you follow:"
 msgstr "a changé l'état d'une tâche que vous suivez :"
 
-#: templates/notification/project_state/notice.html:5
+#: templates/notification/project_state/notice.html:7
+msgid "has changed the state of a project you follow:"
+msgstr "a changé la version d'un projet que vous suivez"
+
+#: templates/notification/project_state/notice.html:10
 msgid "is now in state"
 msgstr "est maintenant en l'état"
 
-#: templates/notification/share/notice.html:3
+#: templates/notification/share/notice.html:4
 msgid "has invited you on a task:"
 msgstr "vous a invité sur la tâche:"
 
-#: templates/notification/validate_project/notice.html:3
+#: templates/notification/share/notice.html:6
+msgid "has invited you on a project:"
+msgstr "vous a invité sur le projet:"
+
+#: templates/notification/validate_project/notice.html:4
 msgid "has invited you to validate the task:"
 msgstr "vous a invité à valider la tâche:"
+
+#: templates/notification/validate_project/notice.html:6
+msgid "has invited you to validate the project:"
+msgstr "vous a invité à valider le projet:"
 
 #: templates/projects/project_actions.html:7
 msgid "Start"
@@ -1330,16 +1400,16 @@ msgstr "Engagé"
 msgid "Project created by"
 msgstr "Projet proposé par"
 
-#: templates/projects/project_description.html:14
+#: templates/projects/project_description.html:18
 #: templates/projects/project_sum.html:12
 msgid "Add a description"
 msgstr "Ajouter une description"
 
-#: templates/projects/project_description.html:16
+#: templates/projects/project_description.html:20
 msgid "linked to"
 msgstr "Lié à"
 
-#: templates/projects/project_description.html:30
+#: templates/projects/project_description.html:34
 msgid "Add a discussion"
 msgstr "Ajouter une discussion"
 
@@ -1355,44 +1425,44 @@ msgstr "Projet:"
 msgid "Current release:"
 msgstr "Version actuelle"
 
-#: templates/projects/project_detail.html:20
+#: templates/projects/project_detail.html:19
 msgid "Switch the project to another version"
 msgstr "Passer le projet à une autre version"
 
-#: templates/projects/project_detail.html:20
+#: templates/projects/project_detail.html:19
 msgid "Switch"
 msgstr "Changer"
 
-#: templates/projects/project_detail.html:22
+#: templates/projects/project_detail.html:24
 msgid "Please select the next release"
 msgstr "Merci de choisir la prochaine version"
 
-#: templates/projects/project_detail.html:29
-#: templates/projects/project_detail.html:47
+#: templates/projects/project_detail.html:30
+#: templates/projects/project_detail.html:48
 msgid "Add a new release"
 msgstr "Ajouter une nouvelle version"
 
-#: templates/projects/project_detail.html:31
+#: templates/projects/project_detail.html:32
 msgid "Close this window"
 msgstr "Fermer cette fenêtre"
 
-#: templates/projects/project_detail.html:36
+#: templates/projects/project_detail.html:37
 msgid "Show:"
 msgstr "Montrer :"
 
-#: templates/projects/project_detail.html:37
+#: templates/projects/project_detail.html:38
 msgid "Show only this release"
 msgstr "Voir uniquement cette version"
 
-#: templates/projects/project_detail.html:45
+#: templates/projects/project_detail.html:46
 msgid "tasks without release"
 msgstr "les tâches sans version"
 
-#: templates/projects/project_detail.html:46
+#: templates/projects/project_detail.html:47
 msgid "all releases"
 msgstr "toutes les versions"
 
-#: templates/projects/project_detail.html:57
+#: templates/projects/project_detail.html:58
 msgid "Tasks in the project are to be listed here"
 msgstr "Les tâches du projets seront listées ici"
 
@@ -1514,7 +1584,7 @@ msgstr "Version :"
 msgid "Select in which release this task will be done"
 msgstr "Choisir dans quelle version cette tâche sera faite"
 
-#: templates/projects/project_header.html:69
+#: templates/projects/project_header.html:70
 msgid "Edit the title"
 msgstr "Corriger le titre"
 
@@ -1539,11 +1609,11 @@ msgstr[1] "tâches à l'interieur de"
 msgid "Add"
 msgstr "Ajouter"
 
-#: templates/projects/project_overview.html:29
+#: templates/projects/project_overview.html:31
 msgid "previous"
 msgstr "précédente"
 
-#: templates/projects/project_overview.html:30
+#: templates/projects/project_overview.html:35
 msgid "next"
 msgstr "suivante"
 
@@ -1675,8 +1745,8 @@ msgstr "souscrire et voter"
 msgid "Validator"
 msgstr "Valideur"
 
-#: templates/projects/dialogue/bid.html:4
-#: templates/projects/dialogue/offer.html:4 templates/users/register.html:35
+#: templates/projects/dialogue/bid.html:5
+#: templates/projects/dialogue/offer.html:5 templates/users/register.html:35
 msgid "I have read and accepted the"
 msgstr "J'ai lu et j'accepte les"
 
@@ -1696,7 +1766,7 @@ msgstr "Une description, une explication..."
 msgid "A design, a scheme, a picture..."
 msgstr "Une maquette, un schéma, une image..."
 
-#: templates/projects/spec/edit_type2_bis.html:6
+#: templates/projects/spec/edit_type2_img.html:6
 #: templates/projects/spec/edit_type5.html:7
 #: templates/projects/spec/fileframe.html:7
 msgid "Delete"
@@ -1742,31 +1812,31 @@ msgstr "Vous pouvez ajouter un lien ou une image comme référence :"
 msgid "Describe here what is to be done in"
 msgstr "Décrire ce qui doit être fait dans"
 
-#: templates/projects/spec/spec.html:5
+#: templates/projects/spec/spec.html:4
 msgid "Download the desciption"
 msgstr "Télécharger la description"
 
-#: templates/projects/spec/spec.html:11
+#: templates/projects/spec/spec.html:10
 msgid "click here"
 msgstr "cliquer ici"
 
-#: templates/projects/spec/spec.html:18
+#: templates/projects/spec/spec.html:17
 msgid "Guest"
 msgstr "Invité"
 
-#: templates/projects/spec/spec.html:22
+#: templates/projects/spec/spec.html:21
 msgid "Delete the description"
 msgstr "Supprimer la description"
 
-#: templates/projects/spec/spec.html:23
+#: templates/projects/spec/spec.html:22
 msgid "Correct the description"
 msgstr "Corriger la description"
 
-#: templates/projects/spec/spec.html:24
+#: templates/projects/spec/spec.html:23
 msgid "Move the description up"
 msgstr "Déplacer la description vers le haut"
 
-#: templates/projects/spec/spec.html:25
+#: templates/projects/spec/spec.html:24
 msgid "Move the description down"
 msgstr "Déplacer la description vers le bas"
 
@@ -1901,7 +1971,7 @@ msgstr "Modifier le mot de passe"
 msgid "Former password"
 msgstr "Ancien mot de passe"
 
-#: templates/users/changepwd.html:13 users/views.py:99
+#: templates/users/changepwd.html:13 users/views.py:100
 msgid "New password"
 msgstr "Nouveau mot de passe"
 
@@ -2009,6 +2079,10 @@ msgstr "Répondre"
 #: templates/users/writemp.html:4
 msgid "send"
 msgstr "envoyer"
+
+#: templates/users/writemp.html:5
+msgid "Close the window"
+msgstr "Fermer cette fenêtre"
 
 #: templates/users/profile/experience.html:4
 #: templates/users/profile/training.html:4
@@ -2197,78 +2271,78 @@ msgstr "Paramètre enregistré"
 msgid "Information saved"
 msgstr "Information enregistrée"
 
-#: users/views.py:83
+#: users/views.py:84
 msgid "Contact already added"
 msgstr "Contact déjà ajouté"
 
-#: users/views.py:86
+#: users/views.py:87
 msgid "Invitation sent"
 msgstr "Invitation envoyée"
 
-#: users/views.py:93
+#: users/views.py:94
 msgid "The user doesn't exist"
 msgstr "L'utilisateur n'existe pas"
 
-#: users/views.py:95
+#: users/views.py:96
 msgid "E-mail address did not match"
 msgstr "L'adresse e-mail ne correspond pas"
 
-#: users/views.py:99
+#: users/views.py:100
 #, python-format
 msgid "Your password has been reset. Your new password is: %s"
 msgstr ""
 "Votre mot de passe a été réinitialisé. Votre nouveau mot de passe est : %s"
 
-#: users/views.py:100
+#: users/views.py:101
 msgid "The new password has been sent to you by e-mail"
 msgstr "Le nouveau mot de passe vous a été envoyé par e-mail"
 
-#: users/views.py:106
+#: users/views.py:107
 msgid "Old password did not match"
 msgstr "L'ancien mot de passe ne correspond pas"
 
-#: users/views.py:111
+#: users/views.py:112
 msgid "Your password has been updated"
 msgstr "Votre mot de passe a été mis-à-jour."
 
-#: users/views.py:121
+#: users/views.py:122
 msgid "Your email has been updated"
 msgstr "Votre adresse e-mail a été mise-à-jour"
 
-#: users/views.py:127
+#: users/views.py:128
 msgid "Please accept the terms of use"
 msgstr "Merci d'accepter les Conditions Générales d'Utilisation"
 
-#: users/views.py:129
+#: users/views.py:130
 msgid "Invalid username. Please use only letters, digits, - and _."
 msgstr ""
 "Nom d'utilisateur non valide. Merci d'utiliser des lettres, chiffres, - et _."
 
-#: users/views.py:131
+#: users/views.py:132
 msgid "Please enter a password"
 msgstr "Veuillez choisir un mot de passe"
 
-#: users/views.py:133
+#: users/views.py:134
 msgid "Passwords did not match"
 msgstr "Les mots de passe ne correspondent pas"
 
-#: users/views.py:137
+#: users/views.py:138
 msgid "This username is already used"
 msgstr "Ce nom d'utilisateur n'est pas disponible"
 
-#: users/views.py:170
+#: users/views.py:171
 msgid "Incorrect data"
 msgstr "Données incorrectes"
 
-#: users/views.py:183
+#: users/views.py:184
 msgid "Can not change other users' profiles"
 msgstr "Impossible de modifier le profil d'un autre utilisateur"
 
-#: users/views.py:249
+#: users/views.py:250
 msgid "Message sent"
 msgstr "Message envoyé"
 
-#: users/views.py:258
+#: users/views.py:259
 msgid "Notice archived"
 msgstr "Notification archivée"
 
@@ -2297,7 +2371,7 @@ msgstr "états"
 
 # templates/projects/project_overview.html
 msgid "due_date"
-msgstr "dates d'écheances"
+msgstr "écheances"
 
 # templates/projects/project_overview.html
 msgid "assignee"

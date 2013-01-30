@@ -47,6 +47,10 @@ msgstr "Delivered"
 msgid "State4"
 msgstr "Done"
 
+# oiproject.js
+msgid "State99"
+msgstr "Confused"
+
 # oigantt.js
 msgid "x10"
 msgstr "S"

@@ -175,6 +175,10 @@ msgstr "Livré"
 msgid "State4"
 msgstr "Terminé"
 
+# oiproject.js
+msgid "State99"
+msgstr "Confus"
+
 # templates/projects/project_overview.html
 msgid "title"
 msgstr "titre"
