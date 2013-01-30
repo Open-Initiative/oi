@@ -715,7 +715,7 @@ msgstr "Crochet créé"
 
 #: projects/views.py:947
 msgid "Spec moved"
-msgstr "Message déplacé"
+msgstr "Spécification déplacé"
 
 #: projects/views.py:958
 msgid "Specification deleted"

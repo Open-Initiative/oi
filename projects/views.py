@@ -890,15 +890,15 @@ def editspecdetails(request, id, specid):
 def savespec(request, id, specid='0'):
     """saves the spec"""
     project = Project.objects.get(id=id)
-    order = int(request.POST.get("order", -1))
-    if order==-1:
-        order = project.get_max_order()+1
-    else:
-        if project.state > OI_ACCEPTED:
-            return HttpResponse(_("Can not change a task already started"), status=431)
-        project.insert_spec(order)
     
     if specid=='0': #new spec
+        order = int(request.POST.get("order", -1))
+        if order==-1:
+            order = project.get_max_order()+1
+        else:
+            if project.state > OI_ACCEPTED:
+                return HttpResponse(_("Can not change a task already started"), status=431)
+            project.insert_spec(order)
         spec = Spec(text = oiescape(request.POST["text"]), author=request.user, project=project, order=order, type=1)
     else: #edit existing spec
         spec = Spec.objects.get(id=specid)

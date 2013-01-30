@@ -426,10 +426,15 @@ function moveSpec(projectid, specorder, moveUp){
         OIajaxCall("/project/"+projectid+"/movespec/"+specid,"target="+targetspecid, "output",
             function (){
                 if(moveUp){
-                    div.prevAll("div").first().before(div);
+                    var target = div.prevAll("div").first();
+                    target.before(div);
                 }else{
-                    div.nextAll("div").first().after(div);
+                    var target = div.nextAll("div").first();
+                    target.after(div);
                 }
+                var id = target.attr("id");
+                target.attr("id", div.attr("id"));
+                div.attr("id", id);
             });  
 }
 function editSpec(projectid, specorder) {
