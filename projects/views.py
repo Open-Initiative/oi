@@ -81,11 +81,9 @@ def listtasks(request, id):
             
             #this function sort on the project for the release
             tasks = releaseoverview(request, tasks, project)
-                    
-            if request.GET.has_key("order"):
-                tasks = tasks.order_by(request.GET['order'])
-            else:
-                tasks = tasks.order_by('-priority')
+            
+            #this function sort by order        
+            tasks = orderoverview(request, tasks)
                 
             #can paginate overview table     
             if request.GET.has_key('page'):
@@ -105,6 +103,14 @@ def listtasks(request, id):
                     "bid_set.count","target.name","target.done","target.project","created","start_date",
                     "due_date","validation", "githubsync_set.get.repository", "githubsync_set.get.label","tasks.count")))
     return HttpResponse(JSONEncoder().encode(lists)) #serializes the whole thing
+
+def orderoverview(request, tasks):
+    """sort with ascending order or decreasing order"""
+    if request.GET.has_key("order"):
+        tasks = tasks.order_by(request.GET['order'])
+    else:
+        tasks = tasks.order_by('-priority')
+    return tasks
 
 def releaseoverview(request, tasks, project):
     """can sort on the project for the release"""
