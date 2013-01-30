@@ -75,20 +75,12 @@ def listtasks(request, id):
             else:
                 request.session.get("release", {})[project.master.id] = ""
                 tasks = project.tasks.filter_perm(request.user, OI_READ)
-                         
-            filteroverview(request,tasks)
             
-            #can sort on the project for the release    
-            if request.GET.get("release"):
-                releases = request.session.get("releases", {})
-                releases[project.master.id] = request.GET['release']
-                request.session["releases"] = releases
-                if request.GET['release'] != '**':
-                    if request.GET['release'] == '*':
-                        tasks = tasks.filter(Q(target__isnull=True)|Q(descendants__isnull=False, descendants__target__isnull=True)).distinct()
-                    
-                    else:
-                        tasks = tasks.filter(Q(target__name = request.GET['release'])|Q(descendants__target__name = request.GET['release'])).distinct()
+            #this function is use to filter on overview tble             
+            tasks = filteroverview(request, tasks)
+            
+            #this function sort on the project for the release
+            tasks = releaseoverview(request, tasks, project)
                     
             if request.GET.has_key("order"):
                 tasks = tasks.order_by(request.GET['order'])
@@ -114,6 +106,19 @@ def listtasks(request, id):
                     "due_date","validation", "githubsync_set.get.repository", "githubsync_set.get.label","tasks.count")))
     return HttpResponse(JSONEncoder().encode(lists)) #serializes the whole thing
 
+def releaseoverview(request, tasks, project):
+    """can sort on the project for the release"""
+    if request.GET.get("release"):
+        releases = request.session.get("releases", {})
+        releases[project.master.id] = request.GET['release']
+        request.session["releases"] = releases
+        if request.GET['release'] != '**':
+            if request.GET['release'] == '*':
+                tasks = tasks.filter(Q(target__isnull=True)|Q(descendants__isnull=False, descendants__target__isnull=True)).distinct()
+            
+            else:
+                tasks = tasks.filter(Q(target__name = request.GET['release'])|Q(descendants__target__name = request.GET['release'])).distinct()
+    return tasks
 
 def filteroverview(request, tasks):
     """filter on overview table"""
@@ -142,6 +147,7 @@ def filteroverview(request, tasks):
     #this queryset filter with request key 'filter_release' in overview table  
     if request.GET.get('filter_release'):
         tasks = tasks.filter(target__name__contains=request.GET['filter_release'])
+    return tasks
 
 @OINeedsPrjPerms(OI_MANAGE)
 def addrelease(request, id):
