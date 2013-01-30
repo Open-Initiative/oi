@@ -250,11 +250,12 @@ def create_new_task(parent, title, author, githubid=None):
     # github sync
     if parent and parent.githubsync_set.all() and not githubid:
         repo = parent.get_repo()
-        if parent.githubsync_set.get().label:
-            labels = [repo.get_label(parent.githubsync_set.get().label)]
-        else:
-            labels = []
-        project.githubid = repo.create_issue(project.title, body="http://www.openinitiative.com/project/%s/view/description/"%project.id, labels=labels).id
+        if repo:
+            if parent.githubsync_set.get().label:
+                labels = [repo.get_label(parent.githubsync_set.get().label)]
+            else:
+                labels = []
+            project.githubid = repo.create_issue(project.title, body="http://www.openinitiative.com/project/%s/view/description/"%project.id, labels=labels).id
         project.save()
     return project
 
@@ -340,9 +341,9 @@ def edittitle(request, id):
     """Modifies the title of the project"""
     project = Project.objects.get(id=id)
     if project.state > OI_ACCEPTED:
-        return HttpResponse(_("Can not change a task already started or has other task inside"), status=431)
+        return HttpResponse(_("Can not change a task already started"), status=431)
     if project.descendants:
-        return HttpResponse(_("Can not change a task which has other task(s) inside"), status=431)
+        return HttpResponse(_("Can not change a task which has subtasks"), status=431)
 
     project.title = request.POST["title"]
     project.save()
