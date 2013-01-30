@@ -179,10 +179,10 @@ class Project(models.Model):
             if not (self.is_bidder(user)): #only bidders can switch to validated
                 if newstate == OI_VALIDATED:
                     return False
-            elif not (user == self.assignee): #only the assignee can switch to started or delivered
+            if not (user == self.assignee): #only the assignee can switch to started or delivered
                 if newstate == OI_STARTED or newstate == OI_DELIVERED:
                     return False
-            elif not (self.is_bidder(user)) and not (user == self.assignee): #other users can not change state
+            if not (self.is_bidder(user)) and not (user == self.assignee): #other users can not change state
                 return False
     
         #update state
@@ -196,9 +196,9 @@ class Project(models.Model):
             #update dates
             if self.state < OI_STARTED and newstate == OI_STARTED:
                 self.start_date = datetime.now()
-            elif self.state == OI_STARTED and newstate > OI_STARTED:
+            if self.state == OI_STARTED and newstate > OI_STARTED:
                 self.due_date = datetime.now()
-            elif self.state < OI_VALIDATED and newstate == OI_VALIDATED:
+            if self.state < OI_VALIDATED and newstate == OI_VALIDATED:
                 self.validation = datetime.now()
             self.check_dates()
             self.state = newstate
