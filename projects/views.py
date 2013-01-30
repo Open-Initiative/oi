@@ -84,18 +84,11 @@ def listtasks(request, id):
             
             #this function sort by order        
             tasks = orderoverview(request, tasks)
-                
-            #can paginate overview table     
-            if request.GET.has_key('page'):
-                paginator = Paginator(tasks, 25, 0, True)
-                page = request.GET.get('page')
-                try:
-                    tasks = paginator.page(page).object_list
-                except PageNotAnInteger:
-                    tasks = paginator.page(1).object_list
-                except EmptyPage:
-                    tasks = paginator.page(paginator.num_pages).object_list
-                lists.append({'num_pages':paginator.num_pages, 'nbtask':tasks.count()})
+            
+            #this function paginate on overview table
+            dict_overview = paginateoverview(request, tasks)
+            tasks = dict_overview['tasks']
+            lists.append({'num_pages':dict_overview['num_pages'] ,'nbtask':dict_overview['nbtask']})
                     
             #appends the serialized task list to the global list
             lists.append(serializers.oiserialize("json", tasks,
@@ -103,6 +96,20 @@ def listtasks(request, id):
                     "bid_set.count","target.name","target.done","target.project","created","start_date",
                     "due_date","validation", "githubsync_set.get.repository", "githubsync_set.get.label","tasks.count")))
     return HttpResponse(JSONEncoder().encode(lists)) #serializes the whole thing
+
+def paginateoverview(request, tasks):
+    """paginate tasks on overview table"""
+    paginator = Paginator(tasks, 25, 0, True)
+    if request.GET.has_key('page'):
+        paginator = Paginator(tasks, 25, 0, True)
+        page = request.GET.get('page')
+        try:
+            tasks = paginator.page(page).object_list
+        except PageNotAnInteger:
+            tasks = paginator.page(1).object_list
+        except EmptyPage:
+            tasks = paginator.page(paginator.num_pages).object_list
+    return {'num_pages':paginator.num_pages, 'nbtask':tasks.count(), 'tasks':tasks}
 
 def orderoverview(request, tasks):
     """sort with ascending order or decreasing order"""
