@@ -48,6 +48,8 @@
             </div>
             <div><span class="entitle-overview">{% trans "Requested budget:" %} </span><a href="/project/{{object.id}}/view/budget"> {{object.offer}}€ <img src="/img/icons/bluebtn.png" /></a>
             </div>
+            
+            {% if object.parent %}
             <div>
                 <span class="entitle-overview">{% trans "Release:" %}</span> <span id="assignRelease">{{object.target.name}}</span> 
                 {% if object|can_manage:user and object.state < 3 %}
@@ -61,6 +63,8 @@
                     {% endfor %}
                 </select>
             </div>
+            {% endif %}
+            
         </div>
     </div>
     <div>
