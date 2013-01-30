@@ -379,8 +379,9 @@ function populateOverviewTable(projectid){
                                     task.fields["due_date"] = "-"; 
                             }
                         }
+                        var state_for_percentage = task.fields.state;
                         task.fields[field] = gettext("State"+task.fields[field]);
-                        task.fields[field] += " "+task.fields.progress+"%";
+                        if(state_for_percentage == 2) task.fields[field] += " "+task.fields.progress+"%";
                     };
                     if(fields[j]=="offer")task.fields[field] += " €";
                     if(fields[j]=="target_name"){if(!task.fields[field]) {task.fields[field]="-";}; };
