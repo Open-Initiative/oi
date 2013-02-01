@@ -214,7 +214,7 @@ function confirmOfferProject(projectid) {
 }
 function delegateProject(projectid) {
     OIajaxCall("/project/delegate/"+projectid, null, "prjdialogue_"+projectid, 
-        function(){show("prjdialogue_"+projectid);});
+        function(){show("prjdialogue_"+projectid);document.getElementById('delegate_to_'+projectid).focus();});
 }
 function confirmDelegateProject(projectid) {
     OIajaxCall("/project/confirmdelegate/"+projectid, "delegate_to="+getValue("delegate_to_"+projectid), "output",
