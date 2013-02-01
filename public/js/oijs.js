@@ -123,8 +123,8 @@ function prepareForm(formid) {
         if(form.elements[i].type=="checkbox")
             params.push(form.elements[i].name+"="+form.elements[i].checked);
         else
-            params.push(form.elements[i].name+"="+form.elements[i].value);
-    return encodeURIComponent(params.join('&'));
+            params.push(form.elements[i].name+"="+encodeURIComponent(form.elements[i].value));
+    return params.join('&');
 }
 
 function uploadFile(field_name, url, type, win) {
