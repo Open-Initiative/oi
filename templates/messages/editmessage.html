@@ -1,6 +1,5 @@
 {% load i18n %}
 {% load oifilters %}
-{% if message|can_answer:user %}
 {% with request.GET.divid|default:"newmessage" as divid %}
 <div class="message">
     <div class="column">
@@ -30,4 +29,3 @@
     </div>
 </div>
 {% endwith %}
-{% endif %}
