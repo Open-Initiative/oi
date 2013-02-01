@@ -61,7 +61,7 @@ def savemessage(request, id):
     
     if id!='0': #existing message
         message = Message.objects.get(id=id)
-        if not message.has_perm(request.user, OI_WRITE):
+        if message.project and not message.project.has_perm(request.user, OI_ANSWER):
             return HttpResponseForbidden(_("Forbidden"))
         message.title = request.POST["title"]
         message.text = text
@@ -71,7 +71,8 @@ def savemessage(request, id):
         parent = None
         if request.POST.get("parent"): #Checking parent rights
             parent = Message.objects.get(id=request.POST["parent"])
-            #return HttpResponse(_("parent"))
+            if parent.project and not parent.project.has_perm(request.user, OI_ANSWER):
+                return HttpResponseForbidden(_("Forbidden"))
         if request.POST.get("project"):
             project = Project.objects.get(id=request.POST["project"])
             if not project.has_perm(request.user, OI_ANSWER):

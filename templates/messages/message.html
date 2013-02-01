@@ -33,7 +33,7 @@
             {% endwith %}{% endif %}
         </div>
         {% endwith %}
-        {% else %}{% for child in message.children.all|dictsortreversed:"relevance" %}{% if child|can_read:user %}
+        {% else %}{% for child in message.children.all|dictsortreversed:"relevance" %}{% if child|can_answer:user %}
         <div id="message_{{child.id}}">
             {% with child as message %}{% include "messages/messagesmall.html" %}{% endwith %}
         </div>

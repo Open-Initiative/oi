@@ -5,7 +5,7 @@
         <img class="clickable" src="/img/icons/relevantmsg.png" onclick="vote({{message.id}},1)" alt="{% trans "Message relevant" %}" title="{% trans "Message relevant" %}">
         <img class="clickable" src="/img/icons/irrelevantmsg.png" onclick="vote({{message.id}},-1)" alt="{% trans "Message irrelevant" %}" title="{% trans "Message irrelevant" %}">
     {% endif %}{% endcomment %}
-    {% if message|can_write:user %}
+    {% if message|can_answer:user %}
     <img class="clickable" src="/img/icons/delete.png" onclick="deleteMessage({{message.id}})" alt="{% trans "Delete this message" %}" title="{% trans "Delete this message" %}" />
     <img class="clickable" src="/img/icons/edit.png" onclick="editMessage({{message.id}})" alt="{% trans "Correct this message" %}" title="{% trans "Correct this message" %}" />
     {% endif %}
