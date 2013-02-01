@@ -55,7 +55,7 @@ function randid() {
 function getValue(eltid, erase){
     var elt = document.getElementById(eltid);
     if(elt==null) return null;
-    var value = elt.value.replace(/%/g,"%25").replace(/&/g,"%26").replace(/;/g,"%3B");
+    var value = encodeURIComponent(elt.value);
     if(erase) elt.value = "";
     return value;
 }
@@ -124,7 +124,7 @@ function prepareForm(formid) {
             params.push(form.elements[i].name+"="+form.elements[i].checked);
         else
             params.push(form.elements[i].name+"="+form.elements[i].value);
-    return params.join('&');
+    return encodeURIComponent(params.join('&'));
 }
 
 function uploadFile(field_name, url, type, win) {

@@ -5,7 +5,9 @@
 <div class="prjtitle"><a href="/project/{{object.id}}">{{object.title}}</a></div>
 <div id="specs_{{object.id}}">
 {% for spec in object.spec_set.all %}
+<div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared">
 {% include 'projects/spec/spec.html' %}
+</div>
 {% endfor %}
 </div>
 {% if object|can_write:user and project.state < 4 %}{% if object.spec_set.all %}

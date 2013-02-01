@@ -9,5 +9,5 @@
 <input name="specorder" id="specorder_{{divid}}" value="{{specorder|default:"-1"}}" type="hidden"/>
 <div id="spec_{{divid}}" class="cleared specedit"></div>
 
-<div id="validspec_{{divid}}" class="actions"><img class="clickable" src="/img/icons/ok-32.png" onclick="if(document.getElementById('bug_report_{{divid}}_1')){prepareText('{{divid}}')}; saveSpec('{{divid}}',{{project.id}},getValue('specorder_{{divid}}'),{{spec.id|default:0}})"/></div>
+<div id="validspec_{{divid}}" class="actions"><img class="clickable" src="/img/icons/ok-32.png" onclick="if(document.getElementById('bug_report_{{divid}}_1')){prepareText('{{divid}}')}; if(document.getElementById('text_{{divid}}')){saveSpec('{{divid}}',{{project.id}},getValue('specorder_{{divid}}'),{{spec.id|default:0}})}else{changeSpecType('{{divid}}', 1)}"/></div>
 <div class="cleared"></div>
