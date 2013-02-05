@@ -13,7 +13,7 @@ function setTaskName(div, id, title, view) {
 function addTask(tasktitle, projectid, callBack) {
     var params = "title="+tasktitle+"&inline=1&progress=0";
     if(projectid) params += "&parent="+projectid;
-    if(appname) params += "&app="+getValue("appname");
+    if(document.getElementById("appname")) params += "&app="+getValue("appname");
     OIajaxCall("/project/save/0", params, null, 
         function(response){
             var task = eval(response)[0];
