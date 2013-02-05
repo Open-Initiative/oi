@@ -177,7 +177,7 @@ function resetProjectTitle(projectid, title) {
     document.getElementById("prjtitle_"+projectid).innerHTML = title;
     document.getElementById("prjtitle_"+projectid).innerHTML += ' <img onclick="editProjectTitle('+projectid+')" class="clickable" src="/img/icons/edit.png" />';
 }
-function bidProject(projectid, rating) {
+function bidProject(projectid) {
     OIajaxCall("/project/bid/"+projectid, null, "prjdialogue_"+projectid,
         function(){show("prjdialogue_"+projectid);
         document.getElementById('bid_'+projectid).focus();});
@@ -190,7 +190,7 @@ function confirmBidProject(projectid) {
         alert(gettext("Please accept the Terms of Use"));
     }
 }
-function validatorProject(projectid, rating){
+function validatorProject(projectid){
     OIajaxCall("/project/validator/"+projectid, null, "prjdialogue_"+projectid,
         function(){show("prjdialogue_"+projectid);
         document.getElementById('validator_'+projectid).focus();});
@@ -247,7 +247,7 @@ function resetStar(id, dest) {
 function setPriority(projectid) {
     OIajaxCall("/project/setpriority/"+projectid, "priority="+getValue(projectid+"_priority"), "output");
 }
-function evalProject(projectid, rating) {
+function evalProject(projectid) {
     OIajaxCall("/project/eval/"+projectid, null, "prjdialogue_"+projectid, 
         function(){show("prjdialogue_"+projectid);});
 }
@@ -451,7 +451,7 @@ function changeSpecType(divid, type) {
     document.getElementById("type"+getValue("type_"+divid)+"_"+divid).className = "spectype";
     document.getElementById("type"+type+"_"+divid).className = "spectype spectypeselected";
     document.getElementById("type_"+divid).value = type;
-    var url = "/project/"+projectid+"/editspecdetails/"+specid+"?divid="+divid+"&type="+type;
+    var url = prjsite+"/project/"+projectid+"/editspecdetails/"+specid+"?divid="+divid+"&type="+type;
     OIajaxCall(url, null, "spec_"+divid, 
         function(){if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceAddControl', false, 'text_'+divid);
             if(getValue("type_"+divid)==6){

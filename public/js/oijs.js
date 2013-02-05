@@ -43,6 +43,7 @@ function OIajaxCall(url, params, divid, callBack) {
         }
     }
     xmlhttp.open(method, url, true);
+    xmlhttp.withCredentials = true;
     xmlhttp.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
     xmlhttp.send(params);
 }

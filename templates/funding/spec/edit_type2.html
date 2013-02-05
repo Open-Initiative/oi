@@ -1,0 +1,5 @@
+{% load oifilters %}
+{% load i18n %}
+<div>{% trans "A design, a scheme, a picture..." %}</div>
+{% include 'projects/spec/edit_type2_img.html' %}
+<textarea id="text_{{divid}}" class="speclegend">{{spec.text|oiunescape}}</textarea>

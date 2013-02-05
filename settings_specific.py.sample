@@ -2,6 +2,9 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 HOME_DIR = '/path/to/your/django/project'
 OI_DOMAIN = u'www.openinitiative.mydomain'
+SESSION_COOKIE_DOMAIN = ".openinitiative.mydomain"
+CSRF_COOKIE_DOMAIN = ".openinitiative.mydomain"
+
 
 ADMINS = (('Name', 'email'),)
 

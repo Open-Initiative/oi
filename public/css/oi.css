@@ -351,19 +351,24 @@ img.tabicon {
     content: url("/img/icons/next.png");
     float: right;
 }
-div.navtitle {
+.navtitle {
     color: #D0574C;
     font-size: 1.4em;
     font-weight: bold;
     text-transform: uppercase;
 }
-div.navcontent {
+.navcontent {
     padding: 5px;
 }
 #content {
     width: 730px;
     padding-top: 5px;
     float: left;
+}
+.related {
+    float: left;
+    width: 270px;
+    padding: .5em;
 }
 .presslide {
     padding: 5px;
@@ -495,7 +500,7 @@ div.popup {
 .actionbutton {
     background: url('/img/headersep.png');
     color: white;
-    padding: 5%;
+    padding: 4%;
     border-radius: 5px;
     font-weight: bold;
     font-size: 1.2em;

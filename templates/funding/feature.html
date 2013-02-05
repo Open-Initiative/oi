@@ -1,0 +1,139 @@
+﻿﻿{% load oifilters %}
+{% load i18n %}
+{% if task|can_read:user %}
+<div class="featuredetail invisible" id="featuredetail_{{task.id}}">
+    <div>
+        <img class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hide('featuredetail_{{task.id}}')" />
+        <h3>{% if task.missing_bid > 0 %}{% trans "Payment awaiting:" %} {{task.missing_bid|floatformat:2}} €{% endif %}</h3>
+        {% if task.state < 3 %}{% if task|can_bid:user %}{% if not task|bids:user %}
+        <div onclick="bidProject({{task.id}})" class="clickable bidaction">{% trans "Bid" %}</div>
+        {% endif %}{% endif %}{% endif %}
+    </div>
+    <div>
+        <div class="smallcolumn">
+            <div class="oired">
+                <h3>{% trans "Offer" %}</h3>
+            {% if task.assignee %}
+                <img class="contactpicture" src="/user/getpicture/{{task.assignee.username}}" />
+                <div class="username">{{task.assignee}}</div>
+                <div>
+                    {{task.offer|default:task.alloffer_sum}} €
+                    {% if task.assignee == user and task.state < 2 %}
+                        {% if task.descendants.with_offer %}
+                            {% trans "The task" %} "{{task.descendants.with_offer.0.title}}" {% trans "already has an offer" %} 
+                        {% else %}
+                            {% if task.ancestors.with_offer %}
+                                {% trans "The task" %} "{{task.ancestors.with_offer.0.title}}" {% trans "already has an offer" %}
+                            {% else %}
+                                <img class="clickable" src="/img/icons/edit2.png" onclick="show('editoffer_{{task.id}}')" /> {% trans "Change my offer" %}
+                            {% endif %} 
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div id="editoffer_{{task.id}}" class="editoffer invisible">
+                    <img class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hide('editoffer_{{task.id}}')" />
+                    <form onsubmit="OIajaxCall('/project/confirmoffer/{{task.id}}', 'offer='+getValue('offer_{{task.id}}'), 'output'); return false">
+                        <input id="offer_{{task.id}}" type="text" value="{{task.offer}}" onFocus="this.select()" class="bidfeature" />
+                        <input type="image" class="clickable" src="/img/icons/ok-32.png" />
+                        <div class="cleared" {% trans "I have read and accepted the" %} <a href="/cgu" target="_blank">{% trans "Terms of Use" %}</a></div>
+                    </form>
+                </div>
+                <div class="cleared">{% trans "Commission" %} 5% : {{task.commission|default:task.allcommission_sum}} €</div>
+            {% else %}
+                {% trans "No offer was made for this project" %}
+                {% if task.state < 2 and task|can_bid:user %}
+                <div class="bidaction clickable" onclick="offerProject({{task.id}})">{% trans "Make an offer" %}</div>
+                {% endif %}
+            {% endif %}
+            </div>
+        </div>
+        <div class="smallcolumn">
+            <h4>{% trans "includes" %}</h4>
+            {% for task in task.descendants.all %}
+            {% if task.offer %}
+                <div><a href="/project/{{task.id}}/view/budget">{{task.title}} : {{task.offer}} €</a></div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="cleared"></div>
+    </div>
+    <div>
+        <div class="smallcolumn">
+            <h4>{% trans "Dependencies" %}</h4>
+            {{task.missing_requirement_bid}} €
+            {% if task|can_manage:user %}<div style="border:solid;padding:.5em" id="test">
+                {% trans "Drop here tasks that are required for this one to start" %}
+            </div>{% endif %}
+            <script>
+                {% if task|can_write:user and task.state < 2 %}
+                    test.receiveNode = function receiveNode(id, event) {
+                        OIajaxCall("/project/{{task.id}}/addrequirement", "req="+id, newDiv("requirements_{{task.id}}"));
+                    }
+                {% endif %}
+            </script>
+        </div>
+        <div class="smallcolumn" id="requirements_{{task.id}}">
+            <h4>{% trans "Depends on" %}</h4>
+            {% for req in task.requirements.all %}
+                <div id="req_{{req.id}}">
+                    <a href="/project/{{req.id}}/view/budget">{{req.title}}: {{req.missing_bid}} €</a>
+                    <img class="clickable" src="/img/icons/delete.png" alt="{% trans 'Delete this dependency' %}" title="{% trans 'Delete this dependency' %}" onclick="OIajaxCall('/project/{{task.id}}/removerequirement', 'req={{req.id}}', 'output', function(){req_{{req.id}}.innerHTML=''})" />
+                </div>
+            {% endfor %}
+        </div>
+        <div class="cleared"></div>
+    </div>
+    <div class="smallcolumn" >
+        <div id="bids_{{task.id}}" class="participant">
+            <h3>{{task.bid_set.count}} {% trans "Bids" %}: {{task.allbid_sum}} €</h3>
+            {% for bid in task.bid_set.all %}
+            <div>
+                <img class="contactpicture" src="/user/getpicture/{{bid.user.username}}">
+                <div class="username">{{bid.user}}</div>
+                <div>{{bid.amount}} €</div>
+                {% if user == bid.user and task.state < 3 %}
+                    <div><img class="clickable" src="/img/icons/add.png" onclick="bidProject({{task.id}})" /> {% trans "Add a new bid" %}</div>
+                    <div><img class="clickable" src="/img/icons/delete.png" onclick="cancelBid({{task.id}}, {% if task.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "Cancel your bid on this task" %}" title="{% trans "Cancel your bid on this task" %}" /> {% trans "Cancel my bid" %}</div>
+                {% endif %}
+                <div class="cleared"></div>
+            </div>
+            {% empty %}
+                {% trans "No bid on this task" %}
+            {% endfor %}
+        </div>
+        {% ifequal user task.assignee %}
+        {% for bid in task.canceled_bids %}
+        <div id="question_{{task.id}}_{{bid.id}}" class="smalltext">
+            {{bid.user.username}} {% trans "wants to cancel his" %} <br /> {% trans "bid on this task" %}<br />
+            {% trans "Your offer will be reduced of" %} {{bid.amount}}.<br />
+            {% trans "Do you accept it?" %}
+            <img class="clickable" src="/img/icons/ok.png" onclick="answerCancelBid({{task.id}}, {{bid.id}}, true, 'question_{{task.id}}_{{bid.id}}')" title="{% trans "Accept" %}" alt="{% trans "Accept" %}"/>
+            <img class="clickable" src="/img/icons/delete.png" onclick="answerCancelBid({{task.id}}, {{bid.id}}, false, 'question_{{task.id}}_{{bid.id}}')" title="{%trans "Refuse" %}" alt="{%trans "Refuse" %}"/>
+        </div>
+        {% endfor %}
+        {% endifequal %}
+        {% if task|bids:user %}
+        {% ifequal task.state 11 %}
+        <div id="question_{{task.id}}_{{bid.id}}" class="smalltext">
+            {{task.assignee.username}} {% trans "wants to cancel this task." %}<br />
+            {% trans "You will be reimbursed in full." %}<br />
+            {% trans "Do you accept it?" %}
+            <img class="clickable" src="/img/icons/ok.png" onclick="answerCancelProject({{task.id}}, true, 'question_{{task.id}}')" title="{% trans "Accept" %}" alt="{% trans "Accept" %}"/>
+            <img class="clickable" src="/img/icons/delete.png" onclick="answerCancelProject({{task.id}}, false, 'question_{{task.id}}')" title="{%trans "Refuse" %}" alt="{%trans "Refuse" %}"/>
+        </div>
+        {% endifequal %}
+        {% endif %}
+    </div>
+</div>
+<div class="featureblock" title="{{task.title}}">
+    <div class="actions">
+        {% trans "missing" %} {{task.missing_bid}} €
+        {% if task|can_manage:user %}<img src="/img/icons/edit.png" alt="{% trans 'Edit this offer' %}" title="{% trans 'Edit this offer' %}" class="clickable" onclick="show('featuredetail_{{task.id}}')" />{% endif %}
+    </div>
+    <div class="featuretitle">{{task.title}}</div>
+    {% if tasks.grouper < 4 and task|can_bid:user %}<div>
+        <input id="bid_{{task.id}}" class="bidfeature" />
+        <span class="bidaction clickable" onclick="OIajaxCall('/project/confirmbid/{{task.id}}', 'bid='+getValue('bid_{{task.id}}'), 'output')">{% trans "bid" %}</span>
+    </div>{% endif %}
+</div>
+{% endif %}

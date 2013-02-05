@@ -1,0 +1,25 @@
+{% load oifilters %}
+{% load i18n %}
+<div>{% trans "Describe the bug you found..." %}</div>
+<div class="column">
+    <div class="msgtitle">{% trans "What I did:" %}</div>
+    <textarea id="bug_report_{{divid}}_1" class="speclegend"></textarea>
+
+    <div class="msgtitle">{% trans "What happened:" %}</div>
+    <textarea id="bug_report_{{divid}}_2" class="speclegend"></textarea>
+
+    <div class="msgtitle">{% trans "What should happen:" %}</div>
+    <textarea id="bug_report_{{divid}}_3" class="speclegend"></textarea>
+
+    <div class="msgtitle">{% trans "Environment:" %}</div>
+    <textarea id="bug_report_{{divid}}_4" class="speclegend"></textarea>
+
+    <div id="text_{{divid}}" class="invisible">{{spec.text|oiunescape}}</div>
+    <br />
+    {% trans "You can add a link or an image as a reference:" %}
+    <br />
+    <label for="url_{{divid}}">Url</label>
+    <input id="url_{{divid}}" type="text" value="{{spec.url|default:"http://"}}" />
+    <br />
+    {% include 'projects/spec/edit_type2_img.html' %}
+</div>

@@ -1,0 +1,40 @@
+{% load i18n %}
+{% load oifilters %}
+{% if spec.type == 5 %}
+<a href="{{spec.file.url}}"><img src="/img/icons/dlspec.png" alt="{% trans 'Download the desciption' %}" title="{% trans 'Download the desciption' %}"/></a>
+{% endif %}
+<div id="spec_{{project.id}}_{{spec.order}}_content"{% if project|can_write:user and project.state < 4 %} class="clickable" onclick="(new OISpot(this.parentNode, {{project.id}}, {{spec.id}}, 0, (event.pageX||(event.clientX + document.documentElement.scrollLeft))-this.parentNode.offsetLeft, (event.pageY||(event.clientY + document.documentElement.scrollTop))-this.parentNode.offsetTop)).edit();event.stopPropagation();"{% endif %}>
+    <input type="hidden" id="specid_{{project.id}}_{{spec.order}}" value="{{spec.id}}" />
+    {% if spec.type == 2 or spec.type == 6 %}<img style="max-width:700px" src="{% if spec.file %}{{spec.file.url}}{% endif %}" />{% endif %}
+    {% if spec.type == 3 or spec.type == 4 or spec.type == 6 and spec.url != "http://" %}
+    {{spec.text|oiunescape|default:spec.url}} <a href="{{spec.url}}" > {% trans "click here" %} </a>
+    {% else %}{{spec.text|oiunescape}}{% endif %}
+</div>
+{% if project|can_write:user and project.state < 2 %}
+<div class="specfooter">
+    {% if spec.author %}
+    <a href="/user/profile/{{spec.author.username}}" class="specauthor">{{spec.author.get_profile}}</a>
+    {% else %}
+    {% trans "Guest" %}
+    {% endif %} {{spec.created|date:"d/m/Y H:i:s"}}
+    <div class="sepspecfooter"></div>
+        <img class="clickable" src="/img/icons/delete.png" onclick="deleteSpec({{project.id}}, {{spec.order}})" alt="{% trans 'Delete the description' %}" title="{% trans 'Delete the description' %}"/>
+        <img class="clickable" src="/img/icons/edit.png" onclick="editSpec({{project.id}}, {{spec.order}})" alt="{% trans 'Correct the description' %}" title="{% trans 'Correct the description' %}"/>
+        <img class="clickable" src="/img/icons/moveSpecUp.png" onclick="moveSpec({{project.id}}, {{spec.order}}, true)" alt="{% trans 'Move the description up'%}" title="{% trans 'Move the description up'%}"/>
+        <img class="clickable" src="/img/icons/moveSpecDown.png" onclick="moveSpec({{project.id}}, {{spec.order}}, false)" alt="{% trans 'Move the description down'%}" title="{% trans 'Move the description down'%}"/>
+</div>
+{% endif %}
+<div class="sepspec"></div>
+<div class="invisible" id="newspot">{% include 'projects/spec/edit_spot.html' %}</div>
+<input type="hidden" value="{{spec.order}}">
+<script>
+{% for spot in spec.spot_set.all %}
+    new OISpot(document.getElementById("spec_{{project.id}}_{{spec.order}}"), {{project.id}}, {{spec.id}}, {{spot.id}}, {{spot.offsetX}}, {{spot.offsetY}}, '{{spot.task.title}}', {{spot.task.id}}, {{spot.number}}{% if spot.task.state > 3 %}, "green" {% else %} {% if spot.isbug %}, "#D0574C" {% endif %} {% endif %});
+{% endfor %}
+{% if project|can_write:user and project.state < 2 %}
+    document.getElementById("spec_{{project.id}}_{{spec.order}}_content").receiveNode = function receiveNode(id, event) {
+        var spot = new OISpot(document.getElementById("spec_{{project.id}}_{{spec.order}}"), {{project.id}}, {{spec.id}}, 0, (event.pageX|(event.clientX + document.documentElement.scrollLeft))-this.parentElement.offsetLeft, (event.pageY|(event.clientY + document.documentElement.scrollTop))-this.parentElement.offsetTop);
+        spot.save(id);
+    }
+{% endif %}
+</script>

@@ -1,0 +1,73 @@
+{% extends "funding/base.html" %}
+﻿﻿{% load oifilters %}
+{% load i18n %}
+{% block title %}{{object.title|default:_("Project")}}{% endblock %}
+{% block breadcrumb %}
+<div class="path-element">{{object.title}}</div>
+{% endblock %}
+{% block content %}
+{% if object|can_read:user %}
+<div class="prjbody">
+    {% with object as project %}
+    <div id="project_{{object.id}}" class="project">
+        <div id="prjdialogue_{{object.id}}" class="popup invisible"></div>
+        <div class="prjheader">
+            <div class="prjauthor">{% trans "Project created by" %} <a href="/user/profile/{{object.author.username}}">{{object.author.get_profile}}</a></div>
+            <div>
+                <div class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">
+                    {{object.title}}
+                </div>
+                <div class="prj-block-fav">
+                    <img onclick="favProject(174)" src="/img/icons/starTrue.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_174">
+                    {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
+                </div>
+            </div>
+            <div class="cleared"></div>
+            <div id="specs_{{project.id}}">
+                {%for spec in project.spec_set.all|dictsort:"order"%}
+                <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared">
+                    {%include 'funding/spec/spec.html'%}
+                </div>
+                {% endfor %}
+            </div>
+            <div id="discussions_{{project.id}}">
+                {% for message in project.message_set.all %}
+                <div id="message_{{message.id}}_box">{% include 'messages/message.html' %}</div>
+                {% endfor %}
+            </div>
+            {% if project|can_write:user %}
+            {% if project.message_set.all %}
+            <a class="actions clickable" onclick="addMessage(null, {{project.id}})">
+                <div class="moreblue" alt="{% trans "Add a discussion" %}" title="{% trans "Add a discussion" %}">+</div> {% trans "Add a discussion" %}
+            </a>
+            {% else %}{% with "Re: "|add:object.title as title %}
+            <div id="newmessage">{% include 'messages/editmessage.html' %}</div>
+            {% endwith %}{% endif %}{% endif %}
+        </div>
+    </div>
+    {% endwith %}
+</div>
+{% else %}
+{% trans "Forbidden" %}
+{% endif %}
+{% endblock %}
+{% block related %}
+<div class="prjtitle">{{object.tasks.count}} {% trans "features" %}</div>
+{% regroup object.tasks.all|dictsort:"state" by state as task_list %}
+{% for tasks in task_list %}
+<div id="features">
+{{OI_PRJ_STATES|get:tasks.grouper}}
+{% for task in tasks.list %}
+{% include 'funding/feature.html' %}
+{% endfor %}
+</div>
+{% endfor %}
+{% if object|can_answer:user %}
+<div class="treetitle">
+    <form id="newtask_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, function(taskid){OIajaxCall('/funding/{{object.id}}/task/'+taskid, null, newDiv('features'))}); return false" style="margin:5px 0;width:220px">
+        <input type="image" src="/img/icons/addtask.png" alt="{% trans 'New task' %}" title="{% trans 'New task' %}" />
+        <input type="text" id="newtask_title_{{object.id}}" class="newtask_title" value="{% trans 'New task' %}" onclick="if(this.value=='{% trans 'New task' %}')this.value=''" onblur="if(!this.value)this.value='{% trans 'New task' %}'"/>
+    </form>
+</div>
+{% endif %}
+{% endblock %}
