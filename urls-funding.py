@@ -32,7 +32,7 @@ urlpatterns = patterns('',
     # Pages des projets
     (r'^project/', include('oi.projects.urls_api')),
     # Pages des utilisateurs
-#    (r'^user/', include('oi.users.urls')),
+    (r'^user/', include('oi.users.urls')),
     # notifications
     (r'^notification/', include('oi.prjnotify.urls')),
     # Authentification par defaut

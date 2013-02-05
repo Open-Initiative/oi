@@ -22,7 +22,7 @@
                     {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
                 </div>
             </div>
-            <div class="cleared"></div>
+            <div class="cleared">{% if object|can_write:user %}<a href="edit"><div class="bidaction">{% trans "edit" %}</div></a>{% endif %}</div>
             <div id="specs_{{project.id}}">
                 {%for spec in project.spec_set.all|dictsort:"order"%}
                 <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared">
@@ -30,7 +30,7 @@
                 </div>
                 {% endfor %}
             </div>
-            <div id="discussions_{{project.id}}">
+            <div id="discussions_{{project.id}}" class="discussions">
                 {% for message in project.message_set.all %}
                 <div id="message_{{message.id}}_box">{% include 'messages/message.html' %}</div>
                 {% endfor %}
@@ -63,10 +63,10 @@
 </div>
 {% endfor %}
 {% if object|can_answer:user %}
-<div class="treetitle">
+<div class="featureblock">
     <form id="newtask_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, function(taskid){OIajaxCall('/funding/{{object.id}}/task/'+taskid, null, newDiv('features'))}); return false" style="margin:5px 0;width:220px">
         <input type="image" src="/img/icons/addtask.png" alt="{% trans 'New task' %}" title="{% trans 'New task' %}" />
-        <input type="text" id="newtask_title_{{object.id}}" class="newtask_title" value="{% trans 'New task' %}" onclick="if(this.value=='{% trans 'New task' %}')this.value=''" onblur="if(!this.value)this.value='{% trans 'New task' %}'"/>
+        <input type="text" id="newtask_title_{{object.id}}" class="newtask_title" style="border:1px solid" value="{% trans 'New task' %}" onclick="if(this.value=='{% trans 'New task' %}')this.value=''" onblur="if(!this.value)this.value='{% trans 'New task' %}'"/>
     </form>
 </div>
 {% endif %}

@@ -51,3 +51,6 @@
 {% trans "Forbidden" %}
 {% endif %}
 {% endblock %}
+{% block related %}
+<a href="/funding/{{object.id}}"><div class="bidaction">{% trans "Done" %}</div></a>
+{% endblock %}
