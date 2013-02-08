@@ -54,14 +54,14 @@
 {% block related %}
 <div class="prjtitle">{{object.tasks.count}} {% trans "features" %}</div>
 {% regroup object.tasks.all|dictsort:"state" by state as task_list %}
-{% for tasks in task_list %}
 <div id="features">
+{% for tasks in task_list %}
 {{OI_PRJ_STATES|get:tasks.grouper}}
 {% for task in tasks.list %}
 {% include 'funding/feature.html' %}
 {% endfor %}
-</div>
 {% endfor %}
+</div>
 {% if object|can_answer:user %}
 <div class="featureblock">
     <form id="newtask_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, function(taskid){OIajaxCall('/funding/{{object.id}}/task/'+taskid, null, newDiv('features'))}); return false" style="margin:5px 0;width:220px">
