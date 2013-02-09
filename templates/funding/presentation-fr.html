@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Présentation d'Open Funding{% endblock %}
+{% block pagetitle %}Présentation d'Open Funding{% endblock %}
+{% block nav %}
+<a class="clickable" href="#1" onclick="slidePres('#1')"><div class="navitem">What is Open Funding?</a></div>
+<a class="clickable" href="#2" onclick="slidePres('#2')"><div class="navitem">Follow</a></div>
+<a class="clickable" href="#3" onclick="slidePres('#3')"><div class="navitem">Give your opinion</a></div>
+<a class="clickable" href="#4" onclick="slidePres('#4')"><div class="navitem">Be part of it</a></div>
+{% endblock %}
+{% block content %}
+<div class="presslide" id="1">
+<h2>What is Open Funding?</h2>
+Open Funding is an easy and transparent way of contributing
+</div>
+<div class="presslide invisible" id="2">
+<h2>Participate</h2>
+See what features are to come next
+</div>
+<div class="presslide invisible" id="3">
+<h2>Give your opinion</h2>
+Let the developers know what features should be added
+</div>
+<div class="presslide invisible" id="4">
+<h2>Be part of it</h2>
+Open source is never obscure anymore
+</div>
+<script>
+    if(document.location.hash) slidePres(document.location.hash);
+</script>
+{% endblock %}

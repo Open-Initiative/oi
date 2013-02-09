@@ -155,6 +155,7 @@ function slideIndex(nextid) {
         jQuery('.sliderimg:visible').fadeOut();
         nextImg.delay(1000).fadeIn();
         setTimeout(function(){sliding = false;}, 2000);
+        document.getElementById('preslink').hash = '#' + nextSlide.attr('id')[10];
     }
 }
 function slidePres(id) {

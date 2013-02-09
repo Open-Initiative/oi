@@ -39,7 +39,7 @@
             window.sliding = false;
             window.setInterval(function (){if(window.slide) slideIndex()}, 5000);
         </script>
-        <a href="{%trans "/presentation" %}"><div class="slidermore" onmouseover="this.style.color='#D0574C'" onmouseout="this.style.color='white'">
+        <a id="preslink" href="{%trans "/presentation" %}#1"><div class="slidermore" onmouseover="this.style.color='#D0574C'" onmouseout="this.style.color='white'">
             {% trans "Learn More" %}
         </div></a>
         <img id="sliderimg1" src="/img/sliderimg1.png" class="sliderimg" />
@@ -51,13 +51,13 @@
 {% endblock %}
 {% block headersep %}
 <div class="registerline">
-    <a href="/user/register"><div class="registertext">{% trans "I have a project and I want to be contacted" %} <img src="/img/icons/next.png"/></div></a>
+    <a href="/user/register"><div class="registertext">{% trans "Let us know about your project!" %} <img src="/img/icons/next.png"/></div></a>
 </div>
 {% endblock %}
 {% block content %}
 <div class="column" id="actions">
     <div id="navhome">
-        <div class="navtitlehome">{% trans "Projects on Open Initiative" %}</div>
+        <div class="navtitlehome">{% trans "Projects on Open Funding" %}</div>
         <a href="#0" onclick="switchPrjList(0)"><div class="treetitlehome">{% trans "Our selection" %}</div></a>
         <a href="#1" onclick="switchPrjList(1)"><div class="treetitlehome">{% trans "Last projects" %}</div></a>
     </div>
