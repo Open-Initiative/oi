@@ -1251,7 +1251,7 @@ msgstr "financés sur"
 
 #: templates/funding/project_detail.html:25
 msgid "edit"
-msgstr "canal"
+msgstr "modifier"
 
 #: templates/funding/project_detail.html:37
 msgid "Discuss"
