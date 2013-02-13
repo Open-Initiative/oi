@@ -86,12 +86,16 @@ function hidePopups() {
         return;
     }
     var i, popup;
-    for(popup=document.popups[i=0]; i<document.popups.length; popup=document.popups[++i])
-        hide(popup.id);
+    while(popup = document.popups.pop()) hide(popup.id);
 }
 function addPopup(popup) {
     document.popups = (document.popups || []).concat(popup);
     addEvent(document, "click", hidePopups);
+}
+function showPopup(popup) {
+    document.ignoreClosePopups = true;
+    addPopup(popup);
+    show(popup.id);
 }
 function parseDate(dateString) {
     if(dateString) {

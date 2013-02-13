@@ -489,10 +489,13 @@ img.tabicon {
 div.popup {
     background: white;
     border: solid 1px;
-    left: 300px;
+    left: 50%;
     position: fixed;
     top: 150px;
+    padding: .5em;
     z-index: 1;
+    border-radius: 2px;
+    box-shadow: 3px 3px 4px;
 }
 .actions {
     clear: right;

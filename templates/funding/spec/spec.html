@@ -10,21 +10,6 @@
     {{spec.text|oiunescape|default:spec.url}} <a href="{{spec.url}}" > {% trans "click here" %} </a>
     {% else %}{{spec.text|oiunescape}}{% endif %}
 </div>
-{% if project|can_write:user and project.state < 2 %}
-<div class="specfooter">
-    {% if spec.author %}
-    <a href="/user/profile/{{spec.author.username}}" class="specauthor">{{spec.author.get_profile}}</a>
-    {% else %}
-    {% trans "Guest" %}
-    {% endif %} {{spec.created|date:"d/m/Y H:i:s"}}
-    <div class="sepspecfooter"></div>
-        <img class="clickable" src="/img/icons/delete.png" onclick="deleteSpec({{project.id}}, {{spec.order}})" alt="{% trans 'Delete the description' %}" title="{% trans 'Delete the description' %}"/>
-        <img class="clickable" src="/img/icons/edit.png" onclick="editSpec({{project.id}}, {{spec.order}})" alt="{% trans 'Correct the description' %}" title="{% trans 'Correct the description' %}"/>
-        <img class="clickable" src="/img/icons/moveSpecUp.png" onclick="moveSpec({{project.id}}, {{spec.order}}, true)" alt="{% trans 'Move the description up'%}" title="{% trans 'Move the description up'%}"/>
-        <img class="clickable" src="/img/icons/moveSpecDown.png" onclick="moveSpec({{project.id}}, {{spec.order}}, false)" alt="{% trans 'Move the description down'%}" title="{% trans 'Move the description down'%}"/>
-</div>
-{% endif %}
-<div class="sepspec"></div>
 <div class="invisible" id="newspot">{% include 'projects/spec/edit_spot.html' %}</div>
 <input type="hidden" value="{{spec.order}}">
 <script>
