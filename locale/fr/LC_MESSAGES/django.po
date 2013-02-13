@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-30 14:59+0100\n"
+"POT-Creation-Date: 2013-02-13 20:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
 #: helpers.py:31 templates/projects/table_overview/table_state.html:4
@@ -28,7 +28,8 @@ msgstr "Démarré"
 msgid "Delivered"
 msgstr "Livré"
 
-#: helpers.py:31 templates/projects/table_overview/table_state.html:8
+#: helpers.py:31 templates/funding/edit_project.html:56
+#: templates/projects/table_overview/table_state.html:8
 msgid "Done"
 msgstr "Terminé"
 
@@ -104,7 +105,7 @@ msgstr "Document"
 msgid "Bug report"
 msgstr "Rapport de bug"
 
-#: helpers.py:114
+#: helpers.py:116
 msgid "PDF Transformation Error"
 msgstr "Erreur de transformation PDF"
 
@@ -112,35 +113,37 @@ msgstr "Erreur de transformation PDF"
 msgid "Published on"
 msgstr "Publié sur"
 
-#: messages/models.py:140 messages/views.py:65 messages/views.py:78
-#: projects/models.py:433 projects/views.py:233 projects/views.py:277
+#: messages/models.py:140 messages/views.py:65 messages/views.py:75
+#: messages/views.py:79 projects/models.py:433 projects/views.py:235
+#: projects/views.py:279 templates/funding/edit_project.html:51
+#: templates/funding/project_detail.html:52
 #: templates/projects/project_detail.html:120
 msgid "Forbidden"
 msgstr "Permissions insuffisantes"
 
-#: messages/views.py:112
+#: messages/views.py:113
 msgid "Message deleted"
 msgstr "Message supprimé"
 
-#: messages/views.py:121
+#: messages/views.py:122
 msgid "Can not move a message to its answer"
 msgstr "Impossible de déplacer un message vers sa réponse"
 
-#: messages/views.py:124
+#: messages/views.py:125
 msgid "Message moved"
 msgstr "Message déplacé"
 
-#: messages/views.py:131
+#: messages/views.py:132
 msgid "already voted!"
 msgstr "Déjà voté !"
 
-#: messages/views.py:136
+#: messages/views.py:137
 msgid "voted"
 msgstr "A voté"
 
-#: messages/views.py:169 projects/views.py:1027
-msgid "Latest updates of Open Initiative "
-msgstr "L'activité la plus récente d'Open Initiative "
+#: messages/views.py:170 projects/views.py:1028
+msgid "Latest updates of Open Initiative"
+msgstr "L'activité la plus récente d'Open Initiative"
 
 #: prjnotify/decorators.py:34
 msgid "Restricted Access"
@@ -341,8 +344,8 @@ msgid "A user has evaluated your project"
 msgstr "Un utilisateur a évalué votre projet"
 
 #: prjnotify/management/commands/register_notice_types.py:22
-#: projects/views.py:589 projects/views.py:597 projects/views.py:608
-#: projects/views.py:646
+#: projects/views.py:590 projects/views.py:598 projects/views.py:609
+#: projects/views.py:647
 msgid "Bid cancelled"
 msgstr "Participation annulée"
 
@@ -435,297 +438,299 @@ msgstr "Version initiale"
 msgid "Can't set to a release already finished"
 msgstr "Impossible de sélectionner une version déjà finie"
 
-#: projects/views.py:224
+#: projects/views.py:217
+msgid "The project master can't be assigned a release"
+msgstr "Impossible d'attribuer une version au projet"
+
+#: projects/views.py:226
 msgid "Release assigned"
 msgstr "Version modifiée"
 
-#: projects/views.py:264
+#: projects/views.py:267
 msgid "Can not change a finished task"
 msgstr "Impossible de modifier une tâche terminée"
 
-#: projects/views.py:268
+#: projects/views.py:271
 msgid "Please enter a title"
 msgstr "Merci d'entrer un titre"
 
-#: projects/views.py:306
+#: projects/views.py:307
 msgid "Request for delay"
 msgstr "Demande de délai"
 
-#: projects/views.py:307
+#: projects/views.py:308
 msgid "Request for delay awaiting validation"
 msgstr "Demande de délai en attente de validation"
 
-#: projects/views.py:313 projects/views.py:324
+#: projects/views.py:314 projects/views.py:325
 msgid "Date updated"
 msgstr "Date mise-à-jour"
 
-#: projects/views.py:315 projects/views.py:331 projects/views.py:360
-#: projects/views.py:389 projects/views.py:677 projects/views.py:882
-#: projects/views.py:898 projects/views.py:956
+#: projects/views.py:316 projects/views.py:332 projects/views.py:342
+#: projects/views.py:361 projects/views.py:390 projects/views.py:678
+#: projects/views.py:883 projects/views.py:901 projects/views.py:957
 msgid "Can not change a task already started"
 msgstr "Impossible de modifier une tâche démarrée"
 
-#: projects/views.py:334
+#: projects/views.py:335
 msgid "Priority changed"
 msgstr "Priorité modifiée"
 
-#: projects/views.py:341
-msgid "Can not change a task already started or has other task inside"
-msgstr "Impossible de modifier une tâche déjà démarrée ou qui possède d'autres tâches à l'interieur"
+#: projects/views.py:344
+msgid "Can not change a task which has subtasks"
+msgstr "Impossible de modifier une tâches une qui contient des sous-tâches"
 
-#: projects/views.py:343
-msgid "Can not change a task which has other task(s) inside"
-msgstr "Impossible de modifier une tâches une qui a d'autre(s) tâche(s) à l'interieur"
-
-#: projects/views.py:350
+#: projects/views.py:351
 msgid "Title updated"
 msgstr "Titre mis-à-jour"
 
-#: projects/views.py:358
+#: projects/views.py:359
 msgid "Task already assigned"
 msgstr "Tâche déjà assignée"
 
-#: projects/views.py:363 projects/views.py:365
+#: projects/views.py:364 projects/views.py:366
 #, python-format
 msgid "The task '%s' already has an offer"
 msgstr "La tâche '%s' a déjà une offre"
 
-#: projects/views.py:371
+#: projects/views.py:372
 msgid "Please enter a valid number"
 msgstr "Merci d'entrer un nombre correct"
 
-#: projects/views.py:380
+#: projects/views.py:381
 msgid "Task taken on"
 msgstr "Tâche assignée"
 
-#: projects/views.py:391
+#: projects/views.py:392
 msgid "Only the user in charge of the project can delegate it"
 msgstr "Seul l'utilisateur responsable du projet peut le déléguer"
 
-#: projects/views.py:395 projects/views.py:489 projects/views.py:733
+#: projects/views.py:396 projects/views.py:490 projects/views.py:734
 msgid "Cannot find user"
 msgstr "Utilisateur introuvable"
 
-#: projects/views.py:398
+#: projects/views.py:399
 msgid "Sent delegation offer"
 msgstr "Proposition de délégation envoyée"
 
-#: projects/views.py:407
+#: projects/views.py:408
 msgid "The project was not delegated to you"
 msgstr "Le projet ne vous a pas été délégué"
 
-#: projects/views.py:418
+#: projects/views.py:419
 msgid "reply sent"
 msgstr "réponse envoyée"
 
-#: projects/views.py:427
+#: projects/views.py:428
 msgid "No delay was requested"
 msgstr "Aucune demande de délai n'a été envoyée"
 
-#: projects/views.py:433
+#: projects/views.py:434
 msgid "The date was not changed"
 msgstr "La date n'a pas été modifiée"
 
-#: projects/views.py:439
+#: projects/views.py:440
 msgid "Awaiting other users' validation"
 msgstr "En attente de la validation des autres utilisateurs"
 
-#: projects/views.py:444
+#: projects/views.py:445
 msgid "The date has been changed"
 msgstr "Un projet que vous suivez a été modifié"
 
-#: projects/views.py:447 projects/views.py:618 projects/views.py:654
+#: projects/views.py:448 projects/views.py:619 projects/views.py:655
 msgid "No reply received"
 msgstr "Aucune réponse reçue"
 
-#: projects/views.py:457
+#: projects/views.py:458
 msgid "Invalid amount"
 msgstr "Montant invalide"
 
-#: projects/views.py:469
+#: projects/views.py:470 templates/funding/feature.html:9
 msgid "Bid"
 msgstr "Participation"
 
-#: projects/views.py:470 projects/views.py:630
-#: templates/projects/project_budget.html:32
+#: projects/views.py:471 projects/views.py:631
+#: templates/funding/feature.html:41 templates/projects/project_budget.html:32
 msgid "Commission"
 msgstr "Commission"
 
-#: projects/views.py:478
+#: projects/views.py:479
 msgid "Bid saved"
 msgstr "Souscription enregistrée"
 
-#: projects/views.py:500
+#: projects/views.py:501
 msgid "The user has been added as a validator"
 msgstr "L'utilisateur a été ajouté comme valideur"
 
-#: projects/views.py:507
+#: projects/views.py:508
 msgid "Not enough bids"
 msgstr "Financement insuffisant"
 
-#: projects/views.py:509
+#: projects/views.py:510
 msgid "Only the assignee can start the project"
 msgstr "Seul le responsable du projet peut le démarrer"
 
-#: projects/views.py:516
+#: projects/views.py:517
 msgid "Task started"
 msgstr "Tâche démarrée"
 
-#: projects/views.py:524
+#: projects/views.py:525
 msgid "only the assignee can deliver the project!"
 msgstr "Seul le responsable du projet peut le livrer !"
 
-#: projects/views.py:529
+#: projects/views.py:530
 msgid "Task done!"
 msgstr "Tâche terminée"
 
-#: projects/views.py:539
+#: projects/views.py:540
 msgid "already validated!"
 msgstr "Déjà validé !"
 
-#: projects/views.py:543
+#: projects/views.py:544
 msgid "only bidders can validate the project!"
 msgstr "Seuls les souscripteurs du projet peuvent le valider !"
 
-#: projects/views.py:549
+#: projects/views.py:550
 msgid "Payment"
 msgstr "Paiement"
 
-#: projects/views.py:551
+#: projects/views.py:552
 msgid "Validation saved"
 msgstr "Validation enregistrée"
 
-#: projects/views.py:561
+#: projects/views.py:562
 msgid "You can not evaluate yourself"
 msgstr "Vous ne pouvez pas vous évaluer vous même"
 
-#: projects/views.py:565
+#: projects/views.py:566
 msgid "You have already evaluated this task"
 msgstr "Vous avez déjà évalué cette tâche"
 
-#: projects/views.py:571
+#: projects/views.py:572
 msgid "Evaluation saved"
 msgstr "Evaluation enregistrée"
 
-#: projects/views.py:579 projects/views.py:625
+#: projects/views.py:580 projects/views.py:626
 msgid "The project is already over"
 msgstr "Le projet est déjà terminé"
 
-#: projects/views.py:582
+#: projects/views.py:583
 msgid "You're not participating on this project"
 msgstr "Vous ne participez pas à ce projet"
 
-#: projects/views.py:616 projects/views.py:652
+#: projects/views.py:617 projects/views.py:653
 msgid "Cancelation refused. Awaiting decision"
 msgstr "Annulation refusée. En attente d'arbitrage"
 
-#: projects/views.py:627
+#: projects/views.py:628
 msgid "Only the user in charge of the project can cancel it"
 msgstr "Seul l'utilisateur responsable du projet peut l'annuler"
 
-#: projects/views.py:636
+#: projects/views.py:637
 msgid "Task cancelled. Awaiting confirmation from other users"
 msgstr "Tâche annulée. En attente de confirmation des autres utilisateurs"
 
-#: projects/views.py:661
+#: projects/views.py:662
 msgid ""
 "Can not delete a started project. Please stop it first and cancel your bid."
-msgstr "Impossible de supprimer un projet démarré. Arrêtez le d'abord et annuler votre commission"
+msgstr ""
+"Impossible de supprimer un projet démarré. Arrêtez le d'abord et annuler "
+"votre commission"
 
-#: projects/views.py:663
+#: projects/views.py:664
 msgid ""
 "Can not delete a project containing tasks. Please delete all its tasks first."
 msgstr ""
 "Impossible de supprimer un projet contenant des tâches. Veuillez supprimer "
 "ses tâches d'abord."
 
-#: projects/views.py:668
+#: projects/views.py:669
 #, python-format
 msgid "The task %s has been deleted."
 msgstr "La tâche %s a été supprimée."
 
-#: projects/views.py:679
+#: projects/views.py:680
 msgid "Can not move a task inside itself"
 msgstr "Impossible de déplacer une tâche vers elle-même"
 
-#: projects/views.py:691
+#: projects/views.py:692
 msgid "Task moved"
 msgstr "Tâche déplacée"
 
-#: projects/views.py:698 projects/views.py:711 projects/views.py:868
-#: projects/views.py:885 projects/views.py:906 projects/views.py:917
-#: projects/views.py:938 projects/views.py:940 projects/views.py:943
-#: projects/views.py:954 projects/views.py:966 projects/views.py:970
-#: projects/views.py:987 users/views.py:205
+#: projects/views.py:699 projects/views.py:712 projects/views.py:869
+#: projects/views.py:886 projects/views.py:907 projects/views.py:918
+#: projects/views.py:939 projects/views.py:941 projects/views.py:944
+#: projects/views.py:955 projects/views.py:967 projects/views.py:971
+#: projects/views.py:988 users/views.py:205
 msgid "Wrong arguments"
 msgstr "Arguments incorrects"
 
-#: projects/views.py:701
+#: projects/views.py:702
 msgid "Can not create a dependency with an ancestor or a descendant"
 msgstr "Impossible de créer une dépendance avec un ancêtre ou un descendant"
 
-#: projects/views.py:724
+#: projects/views.py:725
 msgid "Permissions set"
 msgstr "Permissions enregistrées"
 
-#: projects/views.py:740
+#: projects/views.py:741
 msgid "Task shared"
 msgstr "Tâche partagée"
 
-#: projects/views.py:748
+#: projects/views.py:749
 msgid "The project has to be started for the progress to be updated"
 msgstr "Le projet doit être démarré pour que l'avancement soit mis à jour"
 
-#: projects/views.py:750
+#: projects/views.py:751
 msgid "Only the user in charge of can update its progress"
 msgstr "Seul le responsable du projet peut mettre à jour son avancement"
 
-#: projects/views.py:754
+#: projects/views.py:755
 msgid "Invalid value"
 msgstr "Valeur incorrecte"
 
-#: projects/views.py:759
+#: projects/views.py:760
 msgid "Progress updated"
 msgstr "Avancement mis à jour"
 
-#: projects/views.py:785
+#: projects/views.py:786
 msgid "Settings saved"
 msgstr "Paramètre enregistré"
 
-#: projects/views.py:792
+#: projects/views.py:793
 msgid "Forbidden: could not identify requester"
 msgstr "Interdit : Imposible d'identifier le demandeur"
 
-#: projects/views.py:798
+#: projects/views.py:799
 #, python-format
 msgid "Github error: %s"
 msgstr "Erreur Github : %s"
 
-#: projects/views.py:803 templates/projects/project_github.html:7
+#: projects/views.py:804 templates/projects/project_github.html:7
 msgid "Project authorized"
 msgstr "Projet autorisé"
 
-#: projects/views.py:834
+#: projects/views.py:835
 msgid "Hook deleted"
 msgstr "Crochet supprimé"
 
-#: projects/views.py:838
+#: projects/views.py:839
 msgid "Hook created"
 msgstr "Crochet créé"
 
-#: projects/views.py:947
+#: projects/views.py:948
 msgid "Spec moved"
 msgstr "Spécification déplacé"
 
-#: projects/views.py:958
+#: projects/views.py:959
 msgid "Specification deleted"
 msgstr "Spécification supprimée"
 
-#: projects/views.py:985
+#: projects/views.py:986
 msgid "Annotation removed"
 msgstr "Annotation supprimée"
 
-#: projects/views.py:1008
+#: projects/views.py:1009
 msgid "File deleted"
 msgstr "Fichier supprimé"
 
@@ -762,88 +767,95 @@ msgstr ""
 "Il y a eu une erreur sur le serveur. Les administrateurs en ont été "
 "informés. Ils essaieront de la corriger dès qu'ils pourront. Désolé !"
 
-#: templates/base.html:44 templates/index.html:4
+#: templates/base.html:49 templates/index.html:4
 #: templates/notification/email_body.html:18
 msgid "The IT community dedicated to your business"
 msgstr "La communaute informatique au service des entreprises"
 
-#: templates/base.html:60
+#: templates/base.html:65 templates/funding/base.html:60
 msgid "My profile"
 msgstr "Mon profil"
 
-#: templates/base.html:61
+#: templates/base.html:66 templates/funding/base.html:61
 msgid "Settings"
 msgstr "Préférences"
 
-#: templates/base.html:62
+#: templates/base.html:67 templates/funding/base.html:62
 msgid "Disconnect"
 msgstr "Déconnecter"
 
-#: templates/base.html:71
+#: templates/base.html:76
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
-#: templates/base.html:72 templates/notification/notices.html:3
+#: templates/base.html:77 templates/notification/notices.html:3
 #: templates/notification/notices.html:9
 msgid "Notices"
 msgstr "Notifications"
 
-#: templates/base.html:73
+#: templates/base.html:78
 msgid "Personal Messages"
 msgstr "Messages personnels"
 
-#: templates/base.html:74
+#: templates/base.html:79
 msgid "Publications"
 msgstr "Publications"
 
-#: templates/base.html:75
+#: templates/base.html:80
 msgid "Transactions"
 msgstr "Transactions"
 
-#: templates/base.html:78
+#: templates/base.html:83 templates/funding/base.html:71
 msgid "Login"
 msgstr "Se connecter"
 
-#: templates/base.html:83 templates/users/register.html:18
+#: templates/base.html:88 templates/funding/base.html:76
+#: templates/users/register.html:18
 msgid "username"
 msgstr "Nom d'utilisateur"
 
-#: templates/base.html:86 templates/registration/login.html:27
+#: templates/base.html:91 templates/funding/base.html:79
+#: templates/registration/login.html:27
 msgid "Forgot your password?"
 msgstr "Mot de passe oublié ?"
 
-#: templates/base.html:90
+#: templates/base.html:95 templates/funding/base.html:83
 msgid "password"
 msgstr "Mot de passe"
 
-#: templates/base.html:93 templates/notification/email_body.html:22
+#: templates/base.html:98 templates/funding/base.html:86
+#: templates/notification/email_body.html:22
 #: templates/registration/login.html:21
 msgid "login"
 msgstr "Se connecter"
 
-#: templates/base.html:95 templates/registration/login.html:25
-#: templates/users/register.html:3 templates/users/register.html.py:36
+#: templates/base.html:100 templates/funding/base.html:88
+#: templates/registration/login.html:25 templates/users/register.html:3
+#: templates/users/register.html.py:36
 msgid "Register"
 msgstr "S'inscrire"
 
-#: templates/base.html:142 templates/projects/dialogue/bid.html:5
+#: templates/base.html:147 templates/funding/base.html:135
+#: templates/funding/feature.html:38 templates/projects/dialogue/bid.html:5
 #: templates/projects/dialogue/offer.html:5 templates/users/register.html:35
 msgid "Terms of Use"
 msgstr "Conditions Générales d'Utilisation"
 
-#: templates/base.html:143 templates/index.html:42
+#: templates/base.html:148 templates/index.html:42
+#: templates/funding/base.html:136 templates/funding/index.html:47
 msgid "/presentation"
 msgstr "/presentation-fr"
 
-#: templates/base.html:143
+#: templates/base.html:148 templates/funding/base.html:136
 msgid "Presentation"
 msgstr "Présentation"
 
-#: templates/base.html:144 templates/contact.html:3
+#: templates/base.html:149 templates/contact.html:3
+#: templates/funding/base.html:137
 msgid "Legal notice"
 msgstr "Mentions légales"
 
-#: templates/base.html:145
+#: templates/base.html:150 templates/funding/base.html:138
 msgid "Contact"
 msgstr "Contact"
 
@@ -886,7 +898,7 @@ msgstr ""
 "Open Initiative trouve le prestataire adapté à votre besoin parmi un réseau "
 "de professionnels sélectionnés"
 
-#: templates/index.html:20
+#: templates/index.html:20 templates/funding/index.html:21
 msgid "follow"
 msgstr "suivez"
 
@@ -917,7 +929,7 @@ msgstr ""
 "Contrôlez votre budget en payant les tâches au fur et à mesure de leur "
 "réalisation"
 
-#: templates/index.html:43
+#: templates/index.html:43 templates/funding/index.html:48
 msgid "Learn More"
 msgstr "En savoir plus"
 
@@ -927,23 +939,454 @@ msgstr "J'ai un projet et je veux être contacté"
 
 #: templates/index.html:59
 msgid "Projects on Open Initiative"
-msgstr "Projets sur Open Initiative "
+msgstr "Projets sur Open Initiative"
 
-#: templates/index.html:60
+#: templates/index.html:60 templates/funding/dashboard.html:9
+#: templates/funding/index.html:66
 msgid "Our selection"
 msgstr "Notre sélection"
 
-#: templates/index.html:61
+#: templates/index.html:61 templates/funding/index.html:67
 msgid "Last projects"
 msgstr "Derniers projets"
 
-#: templates/index.html:65 templates/users/dashboard.html:16
+#: templates/index.html:65 templates/funding/dashboard.html:13
+#: templates/funding/index.html:71 templates/users/dashboard.html:16
 msgid "Create"
 msgstr "Créer"
 
-#: templates/index.html:65 templates/users/dashboard.html:16
+#: templates/index.html:65 templates/funding/dashboard.html:13
+#: templates/funding/index.html:71 templates/users/dashboard.html:16
 msgid "a new project:"
 msgstr "un nouveau projet"
+
+#: templates/funding/base.html:49
+msgid "Fund your open source projects online"
+msgstr "Financez vos projets open source en ligne"
+
+#: templates/funding/dashboard.html:4 templates/funding/dashboard.html:10
+#: templates/users/dashboard.html:4 templates/users/dashboard.html.py:7
+msgid "My projects"
+msgstr "Mes projets"
+
+#: templates/funding/dashboard.html:8 templates/funding/index.html:65
+msgid "Projects on Open Funding"
+msgstr "Projets sur Open Funding"
+
+#: templates/funding/edit_project.html:4
+#: templates/funding/project_detail.html:4
+#: templates/projects/project_detail.html:4
+msgid "Project"
+msgstr "Projet"
+
+#: templates/funding/edit_project.html:15
+#: templates/funding/project_card.html:4
+#: templates/funding/project_detail.html:15
+#: templates/projects/project_card.html:4
+#: templates/projects/project_description.html:4
+msgid "Project created by"
+msgstr "Projet proposé par"
+
+#: templates/funding/edit_project.html:21
+#: templates/funding/project_detail.html:21
+#: templates/projects/project_header.html:78
+msgid "follow the project"
+msgstr "suivre le projet"
+
+#: templates/funding/edit_project.html:22
+#: templates/funding/project_detail.html:22
+#: templates/projects/project_header.html:79
+msgid " subscriber "
+msgid_plural " subscribers "
+msgstr[0] "abonné"
+msgstr[1] "abonnés"
+
+#: templates/funding/edit_project.html:40
+#: templates/projects/project_description.html:18
+#: templates/projects/project_sum.html:14
+msgid "Add a description"
+msgstr "Ajouter une description"
+
+#: templates/funding/edit_project.html:42
+#: templates/projects/project_description.html:20
+msgid "linked to"
+msgstr "Lié à"
+
+#: templates/funding/edit_project.html:58
+#: templates/projects/project_team.html:73
+msgid "All other users."
+msgstr "Tous les autres utilisateurs"
+
+#: templates/funding/edit_project.html:58
+#: templates/projects/project_team.html:73
+msgid "Public"
+msgstr "Public"
+
+#: templates/funding/edit_project.html:59
+#: templates/projects/project_team.html:74
+msgid "The public can"
+msgstr "Le public peut"
+
+#: templates/funding/edit_project.html:60
+#: templates/projects/project_team.html:75
+msgid "see the task and its content"
+msgstr "voir la tâche et son contenu"
+
+#: templates/funding/edit_project.html:61
+#: templates/projects/project_team.html:76
+msgid "add comments and tasks"
+msgstr "ajouter des commentaires et des tâches"
+
+#: templates/funding/edit_project.html:62
+#: templates/projects/project_team.html:77
+msgid "bid and vote"
+msgstr "souscrire et voter"
+
+#: templates/funding/feature.html:6 templates/funding/feature.html.py:34
+msgid "close"
+msgstr "fermer"
+
+#: templates/funding/feature.html:7 templates/projects/project_budget.html:6
+msgid "Payment awaiting:"
+msgstr "Paiement en attente"
+
+#: templates/funding/feature.html:15 templates/projects/project_budget.html:14
+msgid "Offer"
+msgstr "Devis"
+
+#: templates/funding/feature.html:23 templates/funding/feature.html.py:26
+#: templates/projects/project_budget.html:22
+#: templates/projects/project_budget.html:25
+msgid "The task"
+msgstr "La tâche"
+
+#: templates/funding/feature.html:23 templates/funding/feature.html.py:26
+#: templates/projects/project_budget.html:22
+#: templates/projects/project_budget.html:25
+msgid "already has an offer"
+msgstr "a déjà une offre"
+
+#: templates/funding/feature.html:28 templates/projects/project_budget.html:27
+msgid "Change my offer"
+msgstr "Modifier mon offre"
+
+#: templates/funding/feature.html:38 templates/projects/dialogue/bid.html:5
+#: templates/projects/dialogue/offer.html:5 templates/users/register.html:35
+msgid "I have read and accepted the"
+msgstr "J'ai lu et j'accepte les"
+
+#: templates/funding/feature.html:43 templates/projects/project_budget.html:34
+msgid "No offer was made for this project"
+msgstr "Aucun devis n'a été proposé pour ce projet"
+
+#: templates/funding/feature.html:45 templates/projects/project_budget.html:36
+msgid "Make an offer"
+msgstr "Faire une offre"
+
+#: templates/funding/feature.html:51 templates/projects/project_budget.html:42
+msgid "includes"
+msgstr "inclut"
+
+#: templates/funding/feature.html:62 templates/projects/project_budget.html:53
+msgid "Dependencies"
+msgstr "Dépendances"
+
+#: templates/funding/feature.html:65 templates/projects/project_budget.html:56
+msgid "Drop here tasks that are required for this one to start"
+msgstr "Déposer ici les tâches prérequise avant celle-ci"
+
+#: templates/funding/feature.html:76 templates/projects/project_budget.html:67
+msgid "Depends on"
+msgstr "Dépend de"
+
+#: templates/funding/feature.html:80 templates/projects/project_budget.html:71
+msgid "Delete this dependency"
+msgstr "Supprimer cette dépendance"
+
+#: templates/funding/feature.html:88 templates/projects/project_budget.html:79
+msgid "Bids"
+msgstr "Souscriptions"
+
+#: templates/funding/feature.html:95 templates/projects/project_budget.html:86
+msgid "Add a new bid"
+msgstr "Ajouter une nouvelle souscription"
+
+#: templates/funding/feature.html:96 templates/projects/project_budget.html:87
+msgid "Cancel your bid on this task"
+msgstr "Annuler votre financement à la tâche"
+
+#: templates/funding/feature.html:96 templates/projects/project_budget.html:87
+msgid "Cancel my bid"
+msgstr "Annuler mon financement"
+
+#: templates/funding/feature.html:101
+#: templates/projects/project_budget.html:92
+msgid "No bid on this task"
+msgstr "Aucun financement sur cette tâche"
+
+#: templates/funding/feature.html:107
+#: templates/projects/project_budget.html:98
+msgid "wants to cancel his"
+msgstr "veut annuler sa"
+
+#: templates/funding/feature.html:107
+#: templates/projects/project_budget.html:98
+msgid "bid on this task"
+msgstr "financement sur cette tâche"
+
+#: templates/funding/feature.html:108
+#: templates/projects/project_budget.html:99
+msgid "Your offer will be reduced of"
+msgstr "Votre offre sera réduite de"
+
+#: templates/funding/feature.html:109 templates/funding/feature.html.py:120
+#: templates/projects/project_budget.html:100
+#: templates/projects/project_budget.html:111
+#: templates/projects/project_budget.html:119
+#: templates/projects/project_team.html:29
+msgid "Do you accept it?"
+msgstr "Acceptez-vous ?"
+
+#: templates/funding/feature.html:110 templates/funding/feature.html.py:121
+#: templates/projects/project_budget.html:101
+#: templates/projects/project_budget.html:112
+#: templates/projects/project_budget.html:120
+#: templates/projects/project_team.html:30
+msgid "Accept"
+msgstr "Accepter"
+
+#: templates/funding/feature.html:111 templates/funding/feature.html.py:122
+#: templates/projects/project_budget.html:102
+#: templates/projects/project_budget.html:113
+#: templates/projects/project_budget.html:121
+#: templates/projects/project_team.html:31
+msgid "Refuse"
+msgstr "Refuser"
+
+#: templates/funding/feature.html:118
+#: templates/projects/project_budget.html:109
+msgid "wants to cancel this task."
+msgstr "veut annuler cette tâche"
+
+#: templates/funding/feature.html:119
+#: templates/projects/project_budget.html:110
+msgid "You will be reimbursed in full."
+msgstr "Vous serez intégralement remboursé."
+
+#: templates/funding/feature.html:130
+msgid "missing"
+msgstr "manquant"
+
+#: templates/funding/feature.html:131
+msgid "Edit this offer"
+msgstr "Corriger cette offre"
+
+#: templates/funding/feature.html:132
+msgid "edit title"
+msgstr "Corriger le titre"
+
+#: templates/funding/feature.html:133
+msgid "delete feature"
+msgstr "supprimer la fonctionnalité"
+
+#: templates/funding/feature.html:138
+msgid "bid"
+msgstr "Souscrire"
+
+#: templates/funding/index.html:4
+msgid "Fund your software!"
+msgstr "Financez votre logiciel"
+
+#: templates/funding/index.html:17
+msgid "fund"
+msgstr "financez"
+
+#: templates/funding/index.html:18
+msgid "your favorite open source software"
+msgstr "votre logiciel open source préféré"
+
+#: templates/funding/index.html:20
+msgid "Open Funding is the funding platform for all your open source projects"
+msgstr "Open Funding est la plate-forme de financement pour tous vos projets open source"
+
+#: templates/funding/index.html:22
+msgid "the evolution of the projects"
+msgstr "l'évolution des projets"
+
+#: templates/funding/index.html:24
+msgid "Know what feature are to be added to the software, and when"
+msgstr "Suivez les développements, et voyez les nouveautés arriver."
+
+#: templates/funding/index.html:25
+msgid "give"
+msgstr "donnez"
+
+#: templates/funding/index.html:26
+msgid "your opinion"
+msgstr "votre avis"
+
+#: templates/funding/index.html:28
+msgid "Let the developers know what features should be added"
+msgstr "Dites quelles fonctionnalités devraient être ajoutées"
+
+#: templates/funding/index.html:29
+msgid "Get involved"
+msgstr "Participez"
+
+#: templates/funding/index.html:30
+msgid "and make it happen"
+msgstr "et rendez le possible"
+
+#: templates/funding/index.html:32
+msgid "Open source is never obscure anymore"
+msgstr "L'open source ne sera plus jamais obscur"
+
+#: templates/funding/index.html:59
+msgid "Let us know about your project!"
+msgstr "Parlez-nous de votre projet !"
+
+#: templates/funding/project_card.html:9
+msgid "financed out of"
+msgstr "financés sur"
+
+#: templates/funding/project_detail.html:25
+msgid "edit"
+msgstr "canal"
+
+#: templates/funding/project_detail.html:37
+msgid "Discuss"
+msgstr "Discuter de"
+
+#: templates/funding/project_detail.html:43
+#: templates/projects/project_description.html:34
+msgid "Add a discussion"
+msgstr "Ajouter une discussion"
+
+#: templates/funding/project_detail.html:56
+msgid "features"
+msgstr "fonctionnalités"
+
+#: templates/funding/project_detail.html:69
+#: templates/funding/project_detail.html:70
+#: templates/funding/spec/edit_spot.html:7
+#: templates/projects/spec/edit_spot.html:7
+msgid "New task"
+msgstr "Nouvelle tâche"
+
+#: templates/funding/spec/edit_spot.html:4
+#: templates/projects/spec/edit_spot.html:4
+msgid "Create a task here"
+msgstr "Créer une tâche ici"
+
+#: templates/funding/spec/edit_spot.html:10
+#: templates/projects/project_overview.html:22
+#: templates/projects/spec/edit_spot.html:10
+msgid "Add"
+msgstr "Ajouter"
+
+#: templates/funding/spec/edit_spot.html:11
+#: templates/projects/project_header.html:9
+#: templates/projects/project_overview.html:23
+#: templates/projects/spec/edit_spot.html:11
+msgid "Cancel"
+msgstr "Annuler"
+
+#: templates/funding/spec/edit_type1.html:3
+#: templates/projects/spec/edit_type1.html:3
+msgid "A description, an explanation..."
+msgstr "Une description, une explication..."
+
+#: templates/funding/spec/edit_type2.html:3
+#: templates/projects/spec/edit_type2.html:3
+msgid "A design, a scheme, a picture..."
+msgstr "Une maquette, un schéma, une image..."
+
+#: templates/funding/spec/edit_type2_img.html:6
+#: templates/funding/spec/edit_type5.html:7
+#: templates/funding/spec/fileframe.html:7
+#: templates/projects/spec/edit_type2_img.html:6
+#: templates/projects/spec/edit_type5.html:7
+#: templates/projects/spec/fileframe.html:7
+msgid "Delete"
+msgstr "Supprimer"
+
+#: templates/funding/spec/edit_type3.html:3
+#: templates/projects/spec/edit_type3.html:3
+msgid "A link to another task or a web page..."
+msgstr "Un lien vers une autre tâche ou une page web..."
+
+#: templates/funding/spec/edit_type4.html:3
+#: templates/projects/spec/edit_type4.html:3
+msgid "Comming soon..."
+msgstr "Bientôt..."
+
+#: templates/funding/spec/edit_type5.html:3
+#: templates/projects/spec/edit_type5.html:3
+msgid "A file describing the job..."
+msgstr "Un fichier descrivant le travail à faire..."
+
+#: templates/funding/spec/edit_type6.html:3
+#: templates/projects/spec/edit_type6.html:3
+msgid "Describe the bug you found..."
+msgstr "Décrire le bug que vous avez trouvé..."
+
+#: templates/funding/spec/edit_type6.html:5
+#: templates/projects/spec/edit_type6.html:5
+msgid "What I did:"
+msgstr "Ce que j'ai fait :"
+
+#: templates/funding/spec/edit_type6.html:8
+#: templates/projects/spec/edit_type6.html:8
+msgid "What happened:"
+msgstr "Ce qui s'est passé :"
+
+#: templates/funding/spec/edit_type6.html:11
+#: templates/projects/spec/edit_type6.html:11
+msgid "What should happen:"
+msgstr "Ce qui aurait dû se passer :"
+
+#: templates/funding/spec/edit_type6.html:14
+#: templates/projects/spec/edit_type6.html:14
+msgid "Environment:"
+msgstr "Environnement :"
+
+#: templates/funding/spec/edit_type6.html:19
+#: templates/projects/spec/edit_type6.html:19
+msgid "You can add a link or an image as a reference:"
+msgstr "Vous pouvez ajouter un lien ou une image comme référence :"
+
+#: templates/funding/spec/editspec.html:2
+#: templates/projects/spec/editspec.html:2
+msgid "Describe here what is to be done in"
+msgstr "Décrire ce qui doit être fait dans"
+
+#: templates/funding/spec/spec.html:4 templates/projects/spec/spec.html:4
+msgid "Download the desciption"
+msgstr "Télécharger la description"
+
+#: templates/funding/spec/spec.html:10 templates/projects/spec/spec.html:10
+msgid "click here"
+msgstr "cliquer ici"
+
+#: templates/funding/spec/spec.html:18 templates/projects/spec/spec.html:17
+msgid "Guest"
+msgstr "Invité"
+
+#: templates/funding/spec/spec.html:21 templates/projects/spec/spec.html:21
+msgid "Delete the description"
+msgstr "Supprimer la description"
+
+#: templates/funding/spec/spec.html:22 templates/projects/spec/spec.html:22
+msgid "Correct the description"
+msgstr "Corriger la description"
+
+#: templates/funding/spec/spec.html:23 templates/projects/spec/spec.html:23
+msgid "Move the description up"
+msgstr "Déplacer la description vers le haut"
+
+#: templates/funding/spec/spec.html:24 templates/projects/spec/spec.html:24
+msgid "Move the description down"
+msgstr "Déplacer la description vers le bas"
 
 #: templates/messages/message.html:6
 #: templates/notification/answer/notice.html:4
@@ -1124,20 +1567,20 @@ msgstr "a changé la version d'un projet que vous suivez"
 #: templates/notification/delegate/notice.html:4
 #, python-format
 msgid ""
-"wants to delegate the task <a href=\"%(current_site)s/project/%(id)s\">"
-"%(title)s</a>to you."
+"wants to delegate the task <a href=\"%(current_site)s/project/%(id)s\">%"
+"(title)s</a>to you."
 msgstr ""
-"veut vous déléguer la tâche <a href=\"%(current_site)s/project/%(id)s\">"
-"%(title)s</a>."
+"veut vous déléguer la tâche <a href=\"%(current_site)s/project/%(id)s\">%"
+"(title)s</a>."
 
 #: templates/notification/delegate/notice.html:6
 #, python-format
 msgid ""
-"wants to delegate the project <a href=\"%(current_site)s/project/%(id)s\">"
-"%(title)s</a> to you."
+"wants to delegate the project <a href=\"%(current_site)s/project/%(id)s\">%"
+"(title)s</a> to you."
 msgstr ""
-"veut vous déléguer la tâche <a href=\"%(current_site)s/project/%(id)s\">"
-"%(title)s</a>."
+"veut vous déléguer la tâche <a href=\"%(current_site)s/project/%(id)s\">%"
+"(title)s</a>."
 
 #: templates/notification/delegate/notice.html:9
 msgid "answer"
@@ -1272,117 +1715,6 @@ msgstr "Evaluer"
 msgid "Waiting for validation"
 msgstr "Attente de validation"
 
-#: templates/projects/project_budget.html:6
-msgid "Payment awaiting:"
-msgstr "Paiement en attente"
-
-#: templates/projects/project_budget.html:14
-msgid "Offer"
-msgstr "Devis"
-
-#: templates/projects/project_budget.html:22
-#: templates/projects/project_budget.html:25
-msgid "The task"
-msgstr "La tâche"
-
-#: templates/projects/project_budget.html:22
-#: templates/projects/project_budget.html:25
-msgid "already has an offer"
-msgstr "a déjà une offre"
-
-#: templates/projects/project_budget.html:27
-msgid "Change my offer"
-msgstr "Modifier mon offre"
-
-#: templates/projects/project_budget.html:34
-msgid "No offer was made for this project"
-msgstr "Aucun devis n'a été proposé pour ce projet"
-
-#: templates/projects/project_budget.html:36
-msgid "Make an offer"
-msgstr "Faire une offre"
-
-#: templates/projects/project_budget.html:42
-msgid "includes"
-msgstr "inclut"
-
-#: templates/projects/project_budget.html:53
-msgid "Dependencies"
-msgstr "Dépendances"
-
-#: templates/projects/project_budget.html:56
-msgid "Drop here tasks that are required for this one to start"
-msgstr "Déposer ici les tâches prérequise avant celle-ci"
-
-#: templates/projects/project_budget.html:67
-msgid "Depends on"
-msgstr "Dépend de"
-
-#: templates/projects/project_budget.html:71
-msgid "Delete this dependency"
-msgstr "Supprimer cette dépendance"
-
-#: templates/projects/project_budget.html:79
-msgid "Bids"
-msgstr "Souscriptions"
-
-#: templates/projects/project_budget.html:86
-msgid "Add a new bid"
-msgstr "Ajouter une nouvelle souscription"
-
-#: templates/projects/project_budget.html:87
-msgid "Cancel your bid on this task"
-msgstr "Annuler votre financement à la tâche"
-
-#: templates/projects/project_budget.html:87
-msgid "Cancel my bid"
-msgstr "Annuler mon financement"
-
-#: templates/projects/project_budget.html:92
-msgid "No bid on this task"
-msgstr "Aucun financement sur cette tâche"
-
-#: templates/projects/project_budget.html:98
-msgid "wants to cancel his"
-msgstr "veut annuler sa"
-
-#: templates/projects/project_budget.html:98
-msgid "bid on this task"
-msgstr "financement sur cette tâche"
-
-#: templates/projects/project_budget.html:99
-msgid "Your offer will be reduced of"
-msgstr "Votre offre sera réduite de"
-
-#: templates/projects/project_budget.html:100
-#: templates/projects/project_budget.html:111
-#: templates/projects/project_budget.html:119
-#: templates/projects/project_team.html:29
-msgid "Do you accept it?"
-msgstr "Acceptez-vous ?"
-
-#: templates/projects/project_budget.html:101
-#: templates/projects/project_budget.html:112
-#: templates/projects/project_budget.html:120
-#: templates/projects/project_team.html:30
-msgid "Accept"
-msgstr "Accepter"
-
-#: templates/projects/project_budget.html:102
-#: templates/projects/project_budget.html:113
-#: templates/projects/project_budget.html:121
-#: templates/projects/project_team.html:31
-msgid "Refuse"
-msgstr "Refuser"
-
-#: templates/projects/project_budget.html:109
-msgid "wants to cancel this task."
-msgstr "veut annuler cette tâche"
-
-#: templates/projects/project_budget.html:110
-msgid "You will be reimbursed in full."
-msgstr "Vous serez intégralement remboursé."
-
 #: templates/projects/project_budget.html:118
 msgid "wants to change this task due date to"
 msgstr "veut modifier la date de livraison de cette tâche au"
@@ -1394,28 +1726,6 @@ msgstr "Budget"
 #: templates/projects/project_budget.html:127
 msgid "Engaged"
 msgstr "Engagé"
-
-#: templates/projects/project_card.html:4
-#: templates/projects/project_description.html:4
-msgid "Project created by"
-msgstr "Projet proposé par"
-
-#: templates/projects/project_description.html:18
-#: templates/projects/project_sum.html:12
-msgid "Add a description"
-msgstr "Ajouter une description"
-
-#: templates/projects/project_description.html:20
-msgid "linked to"
-msgstr "Lié à"
-
-#: templates/projects/project_description.html:34
-msgid "Add a discussion"
-msgstr "Ajouter une discussion"
-
-#: templates/projects/project_detail.html:4
-msgid "Project"
-msgstr "Projet"
 
 #: templates/projects/project_detail.html:13
 msgid "Project:"
@@ -1530,12 +1840,6 @@ msgstr "étiquette"
 msgid "Delete the task"
 msgstr "Supprimer la tâche"
 
-#: templates/projects/project_header.html:9
-#: templates/projects/project_overview.html:23
-#: templates/projects/spec/edit_spot.html:11
-msgid "Cancel"
-msgstr "Annuler"
-
 #: templates/projects/project_header.html:11
 msgid "Task created on"
 msgstr "Tâche créée le"
@@ -1576,38 +1880,23 @@ msgstr "Non précisé"
 msgid "Requested budget:"
 msgstr "Budget demandé :"
 
-#: templates/projects/project_header.html:52
+#: templates/projects/project_header.html:54
 msgid "Release:"
 msgstr "Version :"
 
-#: templates/projects/project_header.html:54
+#: templates/projects/project_header.html:56
 msgid "Select in which release this task will be done"
 msgstr "Choisir dans quelle version cette tâche sera faite"
 
-#: templates/projects/project_header.html:70
+#: templates/projects/project_header.html:74
 msgid "Edit the title"
 msgstr "Corriger le titre"
-
-#: templates/projects/project_header.html:74
-msgid "follow the project"
-msgstr "suivre le projet"
-
-#: templates/projects/project_header.html:75
-msgid " subscriber "
-msgid_plural " subscribers "
-msgstr[0] "abonné"
-msgstr[1] "abonnés"
 
 #: templates/projects/project_overview.html:8
 msgid "task inside"
 msgid_plural "tasks inside"
 msgstr[0] "tâche à l'interieur de"
 msgstr[1] "tâches à l'interieur de"
-
-#: templates/projects/project_overview.html:22
-#: templates/projects/spec/edit_spot.html:10
-msgid "Add"
-msgstr "Ajouter"
 
 #: templates/projects/project_overview.html:31
 msgid "previous"
@@ -1717,128 +2006,9 @@ msgstr[1] "Invités"
 msgid "No guest on this task"
 msgstr "Aucun invité sur cette tâche"
 
-#: templates/projects/project_team.html:73
-msgid "All other users."
-msgstr "Tous les autres utilisateurs"
-
-#: templates/projects/project_team.html:73
-msgid "Public"
-msgstr "Public"
-
-#: templates/projects/project_team.html:74
-msgid "The public can"
-msgstr "Le public peut"
-
-#: templates/projects/project_team.html:75
-msgid "see the task and its content"
-msgstr "voir la tâche et son contenu"
-
-#: templates/projects/project_team.html:76
-msgid "add comments and tasks"
-msgstr "ajouter des commentaires et des tâches"
-
-#: templates/projects/project_team.html:77
-msgid "bid and vote"
-msgstr "souscrire et voter"
-
 #: templates/projects/project_team.html:82
 msgid "Validator"
 msgstr "Valideur"
-
-#: templates/projects/dialogue/bid.html:5
-#: templates/projects/dialogue/offer.html:5 templates/users/register.html:35
-msgid "I have read and accepted the"
-msgstr "J'ai lu et j'accepte les"
-
-#: templates/projects/spec/edit_spot.html:4
-msgid "Create a task here"
-msgstr "Créer une tâche ici"
-
-#: templates/projects/spec/edit_spot.html:7
-msgid "New task"
-msgstr "Nouvelle tâche"
-
-#: templates/projects/spec/edit_type1.html:3
-msgid "A description, an explanation..."
-msgstr "Une description, une explication..."
-
-#: templates/projects/spec/edit_type2.html:3
-msgid "A design, a scheme, a picture..."
-msgstr "Une maquette, un schéma, une image..."
-
-#: templates/projects/spec/edit_type2_img.html:6
-#: templates/projects/spec/edit_type5.html:7
-#: templates/projects/spec/fileframe.html:7
-msgid "Delete"
-msgstr "Supprimer"
-
-#: templates/projects/spec/edit_type3.html:3
-msgid "A link to another task or a web page..."
-msgstr "Un lien vers une autre tâche ou une page web..."
-
-#: templates/projects/spec/edit_type4.html:3
-msgid "Comming soon..."
-msgstr "Bientôt..."
-
-#: templates/projects/spec/edit_type5.html:3
-msgid "A file describing the job..."
-msgstr "Un fichier descrivant le travail à faire..."
-
-#: templates/projects/spec/edit_type6.html:3
-msgid "Describe the bug you found..."
-msgstr "Décrire le bug que vous avez trouvé..."
-
-#: templates/projects/spec/edit_type6.html:5
-msgid "What I did:"
-msgstr "Ce que j'ai fait :"
-
-#: templates/projects/spec/edit_type6.html:8
-msgid "What happened:"
-msgstr "Ce qui s'est passé :"
-
-#: templates/projects/spec/edit_type6.html:11
-msgid "What should happen:"
-msgstr "Ce qui aurait dû se passer :"
-
-#: templates/projects/spec/edit_type6.html:14
-msgid "Environment:"
-msgstr "Environnement :"
-
-#: templates/projects/spec/edit_type6.html:19
-msgid "You can add a link or an image as a reference:"
-msgstr "Vous pouvez ajouter un lien ou une image comme référence :"
-
-#: templates/projects/spec/editspec.html:2
-msgid "Describe here what is to be done in"
-msgstr "Décrire ce qui doit être fait dans"
-
-#: templates/projects/spec/spec.html:4
-msgid "Download the desciption"
-msgstr "Télécharger la description"
-
-#: templates/projects/spec/spec.html:10
-msgid "click here"
-msgstr "cliquer ici"
-
-#: templates/projects/spec/spec.html:17
-msgid "Guest"
-msgstr "Invité"
-
-#: templates/projects/spec/spec.html:21
-msgid "Delete the description"
-msgstr "Supprimer la description"
-
-#: templates/projects/spec/spec.html:22
-msgid "Correct the description"
-msgstr "Corriger la description"
-
-#: templates/projects/spec/spec.html:23
-msgid "Move the description up"
-msgstr "Déplacer la description vers le haut"
-
-#: templates/projects/spec/spec.html:24
-msgid "Move the description down"
-msgstr "Déplacer la description vers le bas"
 
 #: templates/projects/table_overview/table_due_date.html:4
 #: templates/users/profile/experience.html:4
@@ -2010,10 +2180,6 @@ msgstr "Vous allez ajouter"
 #: templates/users/confirmpayment.html:8
 msgid "to your account. Do you confirm?"
 msgstr "à votre compte. Confirmez-vous ?"
-
-#: templates/users/dashboard.html:4 templates/users/dashboard.html.py:7
-msgid "My projects"
-msgstr "Mes projets"
 
 #: templates/users/discussions.html:4 templates/users/discussions.html.py:6
 #: templates/users/usermessages.html:3
@@ -2360,27 +2526,3 @@ msgstr "Equipe"
 
 msgid "adj_fem"
 msgstr "e"
-
-# templates/projects/project_overview.html
-msgid "title"
-msgstr "titres"
-
-# templates/projects/project_overview.html
-msgid "state"
-msgstr "états"
-
-# templates/projects/project_overview.html
-msgid "due_date"
-msgstr "écheances"
-
-# templates/projects/project_overview.html
-msgid "assignee"
-msgstr "responsables"
-
-# templates/projects/project_overview.html
-msgid "offer"
-msgstr "offres"
-
-# templates/projects/project_overview.html
-msgid "target"
-msgstr "versions"

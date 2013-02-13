@@ -129,11 +129,14 @@
     <div class="actions">
         {% trans "missing" %} {{task.missing_bid}} €
         {% if task|can_manage:user %}<img src="/img/icons/edit.png" alt="{% trans 'Edit this offer' %}" title="{% trans 'Edit this offer' %}" class="clickable" onclick="show('featuredetail_{{task.id}}')" />{% endif %}
+        <img src="/img/icons/edit.png" alt="{% trans 'edit title' %}" title="{% trans 'edit title' %}" class="clickable" onclick="var newtitle = prompt(gettext('Please insert a title :'), '{{task.title}}');if(newtitle)confirmEditTitle({{task.id}}, newtitle)" />
+        <img src="/img/icons/delete.png" alt="{% trans 'delete feature' %}" title="{% trans 'delete feature' %}" class="clickable" onclick="deleteProject({{task.id}})" />
     </div>
     <div class="featuretitle">{{task.title}}</div>
     {% if tasks.grouper < 4 and task|can_bid:user %}<div>
         <input id="bid_{{task.id}}" class="bidfeature" />
         <span class="bidaction clickable" onclick="OIajaxCall('/project/confirmbid/{{task.id}}', 'bid='+getValue('bid_{{task.id}}'), 'output')">{% trans "bid" %}</span>
     </div>{% endif %}
+
 </div>
 {% endif %}

@@ -214,7 +214,7 @@ def assignrelease(request, id):
         return HttpResponse(_("Can't set to a release already finished"))
     
     if project == project.master:
-          return HttpResponse(_("The project master can't be assigne to a release"))  
+          return HttpResponse(_("The project master can't be assigned a release"))  
     project.target = release
     
     if project.descendants.filter_perm(request.user, OI_MANAGE):

@@ -15,7 +15,7 @@ admin.autodiscover()
 
 def index(request):
     if request.user.is_authenticated():
-        return direct_to_template(request, "funding/dashboard.html")
+        return direct_to_template(request, "funding/dashboard.html", extra_context={'object_list': Project.objects.filter(promotedproject__location='fundingindex')})
     else:
         return ListView.as_view(queryset=Project.objects.filter(promotedproject__location='fundingindex'), template_name='funding/index.html')(request)
 

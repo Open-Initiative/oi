@@ -415,7 +415,7 @@ function updateGithubRepos() {
 
 function addSpec(projectid) {
     var divid = newDiv("specs_"+projectid);
-    OIajaxCall("/project/"+projectid+"/editspec/0?divid="+divid+"&specorder=-1", null, divid, 
+    OIajaxCall(prjsite+"/project/"+projectid+"/editspec/0?divid="+divid+"&specorder=-1", null, divid, 
         function(){changeSpecType(divid, 1);});
         document.getElementById(divid).scrollIntoView();
 }

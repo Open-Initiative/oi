@@ -2,6 +2,7 @@ div.prjbody {
     background: white;
     clear: left;
     border: solid 1px #E0E0E0;
+    padding-left: 10px;
 }
 .prjheader {
     padding: 1em;
@@ -672,7 +673,7 @@ div.sepspecfooter {
     width:10em;
     border:solid 1px;
     color: #6C6D6E;
-    width: 270px;
+    width: 200px;
 }
 .progress {
     float:left;
