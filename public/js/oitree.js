@@ -11,14 +11,22 @@ function OITreeNode(id, tree, parent, color, has_children, has_right_to_edit) {
     this.div.node = this;
     this.setContent(has_children, has_right_to_edit);
     this.resetBtn(); //No idea why it is necessary to put this in a different method
-    if('onmouseenter' in this.div) //test browser support for onmouseenter
+    if('onmouseenter' in this.div) {//test browser support for onmouseenter
         this.div.onmouseenter = this.over;
-    else
+        this.div.onmouseleave = this.out;
+    } else {
         this.div.onmouseover = function(evt){
             target=evt.relatedTarget;
             while(target){if(this===target)return;target=target.parentNode;}
             this.node.over.call(this, evt);
         };
+        this.div.onmouseout = function(evt){
+            target=evt.relatedTarget;
+            while(target){if(this===target)return;target=target.parentNode;}
+            this.node.out.call(this, evt);
+            return false;
+        };
+    }
     this.titleDiv.onmousedown = this.drag;
     this.titleDiv.receiveNode = function receiveNode(id) {
             if(id!=this.node.id) onMoveNode(id,this.node.id);
@@ -68,9 +76,7 @@ OITreeNode.prototype.setContent = function setContent(has_children, has_right_to
             this.edit.title = "edit title";
             this.edit.className = "clickable";
             this.edit.style.cssFloat = "right";
-            this.edit.style.marginRight = "5px";
-            this.edit.style.marginLeft = "5px";
-            this.edit.style.marginTop = "10px";
+            this.edit.style.margin = "10px 5px";
             this.edit.style.display = "none";
             this.edit.node = this;
             this.edit.onclick = function(){
@@ -80,34 +86,25 @@ OITreeNode.prototype.setContent = function setContent(has_children, has_right_to
                     if(oiTree.editCallback) oiTree.editCallback(this.node.id, newtitle);
                 }
             };
-            this.div.appendChild(this.edit);          
+            this.div.appendChild(this.edit);
         }
     }
     this.titleDiv = document.getElementById(newDiv(this.div.id));
     this.titleDiv.className = "treeelt state" + this.color;
     this.titleDiv.node = this;
-    
-    this.titleDiv.parentNode.onmouseover = function() {
-        if(oiTable) oiTable.highlight(this.node.id);
-        if(this.node.del && this.node.edit){
-            this.node.del.style.display = "inline";
-            this.node.edit.style.display = "inline";
-        }
-    };
-    
-    this.titleDiv.parentNode.onmouseout = function() {
-        if(oiTable) oiTable.unhighlight(this.node.id);
-        if(this.node.del && this.node.edit){
-            this.node.del.style.display = "none";
-            this.node.edit.style.display = "none";
-        }
-    };
-    
     this.childDiv = document.getElementById(newDiv(this.div.id));
     this.childDiv.className = "treelist";
 }
 OITreeNode.prototype.setColor = function setColor() {
     this.div.className = "treebg" + (this.parent?this.parent.children.indexOf(this):0)%2;
+}
+OITreeNode.prototype.out = function out() {
+    if(this.lastChild.className=="treenext") this.removeChild(this.lastChild);
+    if(oiTable) oiTable.unhighlight(this.node.id);
+    if(this.node.del && this.node.edit){
+        this.node.del.style.display = "none";
+        this.node.edit.style.display = "none";
+    }
 }
 OITreeNode.prototype.over = function over() {
     if(window.draggedNode && this.lastChild.className!="treenext") {
@@ -118,15 +115,12 @@ OITreeNode.prototype.over = function over() {
             if(id!=node.id) onMoveNode(id,node.parent.id, node.id);
         };
         this.appendChild(next);
-        if('onmouseleave' in this) //test browser support for onmouseleave
-            this.onmouseleave = function() {this.removeChild(this.lastChild);this.onmouseleave = null;};
-        else 
-            this.onmouseout = function(evt){
-                target=evt.relatedTarget;
-                while(target){if(this===target)return;target=target.parentNode;}
-                this.removeChild(this.lastChild);this.onmouseout = null;
-                return false;
-            };
+    } else {
+        if(oiTable) oiTable.highlight(this.node.id);
+        if(this.node.del && this.node.edit){
+            this.node.del.style.display = "inline";
+            this.node.edit.style.display = "inline";
+        }
     }
 }
 OITreeNode.prototype.drag = function drag() {
