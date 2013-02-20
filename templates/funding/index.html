@@ -7,6 +7,7 @@
 .slidertext dt {color: #1e9947}
 .slidertip {color: #0f4d42}
 .slidermore {background: #1e9947}
+#registerbtn {background: #1E9947}
 </style>
 <div id="catcherbg">
     <div id="catcher">
@@ -21,11 +22,11 @@
                     <div id="indexslide2" class="indexslide invisible"><dt>{% trans "follow" %}</dt>
                         <dd>{% trans "the evolution of the projects" %}</dd>
                     </div>
-                    <div class="slidertip invisible">{% trans "Know what feature are to be added to the software, and when" %}</div>
+                    <div class="slidertip invisible">{% trans "See the features being developped come to life" %}</div>
                     <div id="indexslide3" class="indexslide invisible"><dt>{% trans "give" %}</dt>
                         <dd>{% trans "your opinion" %}</dd>
                     </div>
-                    <div class="slidertip invisible">{% trans "Let the developers know what features should be added" %}</div>
+                    <div class="slidertip invisible">{% trans "Support the features you want most" %}</div>
                     <div id="indexslide4" class="indexslide invisible"><dt>{% trans "Get involved" %}</dt>
                         <dd>{% trans "and make it happen" %}</dd>
                     </div>
@@ -44,7 +45,7 @@
             window.sliding = false;
             window.setInterval(function (){if(window.slide) slideIndex()}, 5000);
         </script>
-        <a id="preslink" href="{%trans "/presentation" %}#1"><div class="slidermore" onmouseover="this.style.color='#D0574C'" onmouseout="this.style.color='white'">
+        <a id="preslink" href="{%trans "/presentation" %}#1"><div class="slidermore" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='white'">
             {% trans "Learn More" %}
         </div></a>
         <img id="sliderimg1" src="/img/sliderimg1.png" class="sliderimg" />

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-13 20:09+0100\n"
+"POT-Creation-Date: 2013-02-20 18:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -142,7 +142,7 @@ msgid "voted"
 msgstr "A voté"
 
 #: messages/views.py:170 projects/views.py:1028
-msgid "Latest updates of Open Initiative"
+msgid "Latest updates of Open Initiative "
 msgstr "L'activité la plus récente d'Open Initiative"
 
 #: prjnotify/decorators.py:34
@@ -545,12 +545,12 @@ msgstr "Aucune réponse reçue"
 msgid "Invalid amount"
 msgstr "Montant invalide"
 
-#: projects/views.py:470 templates/funding/feature.html:9
+#: projects/views.py:470 templates/funding/feature.html:10
 msgid "Bid"
 msgstr "Participation"
 
 #: projects/views.py:471 projects/views.py:631
-#: templates/funding/feature.html:41 templates/projects/project_budget.html:32
+#: templates/funding/feature.html:42 templates/projects/project_budget.html:32
 msgid "Commission"
 msgstr "Commission"
 
@@ -1042,104 +1042,104 @@ msgstr "ajouter des commentaires et des tâches"
 msgid "bid and vote"
 msgstr "souscrire et voter"
 
-#: templates/funding/feature.html:6 templates/funding/feature.html.py:34
+#: templates/funding/feature.html:6 templates/funding/feature.html.py:35
 msgid "close"
 msgstr "fermer"
 
-#: templates/funding/feature.html:7 templates/projects/project_budget.html:6
+#: templates/funding/feature.html:8 templates/projects/project_budget.html:6
 msgid "Payment awaiting:"
 msgstr "Paiement en attente"
 
-#: templates/funding/feature.html:15 templates/projects/project_budget.html:14
+#: templates/funding/feature.html:16 templates/projects/project_budget.html:14
 msgid "Offer"
 msgstr "Devis"
 
-#: templates/funding/feature.html:23 templates/funding/feature.html.py:26
+#: templates/funding/feature.html:24 templates/funding/feature.html.py:27
 #: templates/projects/project_budget.html:22
 #: templates/projects/project_budget.html:25
 msgid "The task"
 msgstr "La tâche"
 
-#: templates/funding/feature.html:23 templates/funding/feature.html.py:26
+#: templates/funding/feature.html:24 templates/funding/feature.html.py:27
 #: templates/projects/project_budget.html:22
 #: templates/projects/project_budget.html:25
 msgid "already has an offer"
 msgstr "a déjà une offre"
 
-#: templates/funding/feature.html:28 templates/projects/project_budget.html:27
-msgid "Change my offer"
-msgstr "Modifier mon offre"
+#: templates/funding/feature.html:29
+msgid "Edit"
+msgstr "Modifier"
 
 #: templates/funding/feature.html:38 templates/projects/dialogue/bid.html:5
 #: templates/projects/dialogue/offer.html:5 templates/users/register.html:35
 msgid "I have read and accepted the"
 msgstr "J'ai lu et j'accepte les"
 
-#: templates/funding/feature.html:43 templates/projects/project_budget.html:34
+#: templates/funding/feature.html:44 templates/projects/project_budget.html:34
 msgid "No offer was made for this project"
 msgstr "Aucun devis n'a été proposé pour ce projet"
 
-#: templates/funding/feature.html:45 templates/projects/project_budget.html:36
+#: templates/funding/feature.html:46 templates/projects/project_budget.html:36
 msgid "Make an offer"
 msgstr "Faire une offre"
 
-#: templates/funding/feature.html:51 templates/projects/project_budget.html:42
+#: templates/funding/feature.html:52 templates/projects/project_budget.html:42
 msgid "includes"
 msgstr "inclut"
 
-#: templates/funding/feature.html:62 templates/projects/project_budget.html:53
+#: templates/funding/feature.html:63 templates/projects/project_budget.html:53
 msgid "Dependencies"
 msgstr "Dépendances"
 
-#: templates/funding/feature.html:65 templates/projects/project_budget.html:56
+#: templates/funding/feature.html:66 templates/projects/project_budget.html:56
 msgid "Drop here tasks that are required for this one to start"
 msgstr "Déposer ici les tâches prérequise avant celle-ci"
 
-#: templates/funding/feature.html:76 templates/projects/project_budget.html:67
+#: templates/funding/feature.html:77 templates/projects/project_budget.html:67
 msgid "Depends on"
 msgstr "Dépend de"
 
-#: templates/funding/feature.html:80 templates/projects/project_budget.html:71
+#: templates/funding/feature.html:81 templates/projects/project_budget.html:71
 msgid "Delete this dependency"
 msgstr "Supprimer cette dépendance"
 
-#: templates/funding/feature.html:88 templates/projects/project_budget.html:79
+#: templates/funding/feature.html:89 templates/projects/project_budget.html:79
 msgid "Bids"
 msgstr "Souscriptions"
 
-#: templates/funding/feature.html:95 templates/projects/project_budget.html:86
+#: templates/funding/feature.html:96 templates/projects/project_budget.html:86
 msgid "Add a new bid"
 msgstr "Ajouter une nouvelle souscription"
 
-#: templates/funding/feature.html:96 templates/projects/project_budget.html:87
+#: templates/funding/feature.html:97 templates/projects/project_budget.html:87
 msgid "Cancel your bid on this task"
 msgstr "Annuler votre financement à la tâche"
 
-#: templates/funding/feature.html:96 templates/projects/project_budget.html:87
+#: templates/funding/feature.html:97 templates/projects/project_budget.html:87
 msgid "Cancel my bid"
 msgstr "Annuler mon financement"
 
-#: templates/funding/feature.html:101
+#: templates/funding/feature.html:102
 #: templates/projects/project_budget.html:92
 msgid "No bid on this task"
 msgstr "Aucun financement sur cette tâche"
 
-#: templates/funding/feature.html:107
+#: templates/funding/feature.html:108
 #: templates/projects/project_budget.html:98
 msgid "wants to cancel his"
 msgstr "veut annuler sa"
 
-#: templates/funding/feature.html:107
+#: templates/funding/feature.html:108
 #: templates/projects/project_budget.html:98
 msgid "bid on this task"
 msgstr "financement sur cette tâche"
 
-#: templates/funding/feature.html:108
+#: templates/funding/feature.html:109
 #: templates/projects/project_budget.html:99
 msgid "Your offer will be reduced of"
 msgstr "Votre offre sera réduite de"
 
-#: templates/funding/feature.html:109 templates/funding/feature.html.py:120
+#: templates/funding/feature.html:110 templates/funding/feature.html.py:121
 #: templates/projects/project_budget.html:100
 #: templates/projects/project_budget.html:111
 #: templates/projects/project_budget.html:119
@@ -1147,7 +1147,7 @@ msgstr "Votre offre sera réduite de"
 msgid "Do you accept it?"
 msgstr "Acceptez-vous ?"
 
-#: templates/funding/feature.html:110 templates/funding/feature.html.py:121
+#: templates/funding/feature.html:111 templates/funding/feature.html.py:122
 #: templates/projects/project_budget.html:101
 #: templates/projects/project_budget.html:112
 #: templates/projects/project_budget.html:120
@@ -1155,7 +1155,7 @@ msgstr "Acceptez-vous ?"
 msgid "Accept"
 msgstr "Accepter"
 
-#: templates/funding/feature.html:111 templates/funding/feature.html.py:122
+#: templates/funding/feature.html:112 templates/funding/feature.html.py:123
 #: templates/projects/project_budget.html:102
 #: templates/projects/project_budget.html:113
 #: templates/projects/project_budget.html:121
@@ -1163,35 +1163,35 @@ msgstr "Accepter"
 msgid "Refuse"
 msgstr "Refuser"
 
-#: templates/funding/feature.html:118
+#: templates/funding/feature.html:119
 #: templates/projects/project_budget.html:109
 msgid "wants to cancel this task."
 msgstr "veut annuler cette tâche"
 
-#: templates/funding/feature.html:119
+#: templates/funding/feature.html:120
 #: templates/projects/project_budget.html:110
 msgid "You will be reimbursed in full."
 msgstr "Vous serez intégralement remboursé."
 
-#: templates/funding/feature.html:130
-msgid "missing"
-msgstr "manquant"
-
 #: templates/funding/feature.html:131
-msgid "Edit this offer"
-msgstr "Corriger cette offre"
+msgid "Fund this feature"
+msgstr "Finnacer cette fonctionnalité"
 
-#: templates/funding/feature.html:132
+#: templates/funding/feature.html:140
 msgid "edit title"
 msgstr "Corriger le titre"
 
-#: templates/funding/feature.html:133
+#: templates/funding/feature.html:141
 msgid "delete feature"
 msgstr "supprimer la fonctionnalité"
 
-#: templates/funding/feature.html:138
-msgid "bid"
-msgstr "Souscrire"
+#: templates/funding/feature.html:144
+msgid "To be funded:"
+msgstr "A financer :"
+
+#: templates/funding/feature.html:145
+msgid "Edit this offer"
+msgstr "Corriger cette offre"
 
 #: templates/funding/index.html:4
 msgid "Fund your software!"
@@ -1207,15 +1207,17 @@ msgstr "votre logiciel open source préféré"
 
 #: templates/funding/index.html:20
 msgid "Open Funding is the funding platform for all your open source projects"
-msgstr "Open Funding est la plate-forme de financement pour tous vos projets open source"
+msgstr ""
+"Open Funding est la plate-forme de financement pour tous vos projets open "
+"source"
 
 #: templates/funding/index.html:22
 msgid "the evolution of the projects"
 msgstr "l'évolution des projets"
 
 #: templates/funding/index.html:24
-msgid "Know what feature are to be added to the software, and when"
-msgstr "Suivez les développements, et voyez les nouveautés arriver."
+msgid "See the features being developped come to life"
+msgstr "Voyez les nouvelles fonctionnalités avant qu'elles apparaissent"
 
 #: templates/funding/index.html:25
 msgid "give"
@@ -1226,8 +1228,8 @@ msgid "your opinion"
 msgstr "votre avis"
 
 #: templates/funding/index.html:28
-msgid "Let the developers know what features should be added"
-msgstr "Dites quelles fonctionnalités devraient être ajoutées"
+msgid "Support the features you want most"
+msgstr "Soutenez les fonctionnalités que vous attendez le plus"
 
 #: templates/funding/index.html:29
 msgid "Get involved"
@@ -1235,7 +1237,7 @@ msgstr "Participez"
 
 #: templates/funding/index.html:30
 msgid "and make it happen"
-msgstr "et rendez le possible"
+msgstr "Donnez vie au projet"
 
 #: templates/funding/index.html:32
 msgid "Open source is never obscure anymore"
@@ -1244,6 +1246,36 @@ msgstr "L'open source ne sera plus jamais obscur"
 #: templates/funding/index.html:59
 msgid "Let us know about your project!"
 msgstr "Parlez-nous de votre projet !"
+
+#: templates/funding/project_actions.html:5
+#: templates/projects/project_actions.html:7
+msgid "Start"
+msgstr "Démarrer"
+
+#: templates/funding/project_actions.html:8
+msgid "Fund"
+msgstr "Financer"
+
+#: templates/funding/project_actions.html:9
+#: templates/projects/project_actions.html:11
+#: templates/projects/project_budget.html:8
+msgid "Bid_verb"
+msgstr "Souscrire"
+
+#: templates/funding/project_actions.html:12
+#: templates/projects/project_actions.html:16
+msgid "Deliver"
+msgstr "Livrer"
+
+#: templates/funding/project_actions.html:15
+#: templates/projects/project_actions.html:20
+msgid "Validate"
+msgstr "Valider"
+
+#: templates/funding/project_actions.html:18
+#: templates/projects/project_actions.html:28
+msgid "Waiting for validation"
+msgstr "Attente de validation"
 
 #: templates/funding/project_card.html:9
 msgid "financed out of"
@@ -1367,26 +1399,6 @@ msgstr "Télécharger la description"
 #: templates/funding/spec/spec.html:10 templates/projects/spec/spec.html:10
 msgid "click here"
 msgstr "cliquer ici"
-
-#: templates/funding/spec/spec.html:18 templates/projects/spec/spec.html:17
-msgid "Guest"
-msgstr "Invité"
-
-#: templates/funding/spec/spec.html:21 templates/projects/spec/spec.html:21
-msgid "Delete the description"
-msgstr "Supprimer la description"
-
-#: templates/funding/spec/spec.html:22 templates/projects/spec/spec.html:22
-msgid "Correct the description"
-msgstr "Corriger la description"
-
-#: templates/funding/spec/spec.html:23 templates/projects/spec/spec.html:23
-msgid "Move the description up"
-msgstr "Déplacer la description vers le haut"
-
-#: templates/funding/spec/spec.html:24 templates/projects/spec/spec.html:24
-msgid "Move the description down"
-msgstr "Déplacer la description vers le bas"
 
 #: templates/messages/message.html:6
 #: templates/notification/answer/notice.html:4
@@ -1690,30 +1702,13 @@ msgstr "vous a invité à valider la tâche:"
 msgid "has invited you to validate the project:"
 msgstr "vous a invité à valider le projet:"
 
-#: templates/projects/project_actions.html:7
-msgid "Start"
-msgstr "Démarrer"
-
-#: templates/projects/project_actions.html:11
-#: templates/projects/project_budget.html:8
-msgid "Bid_verb"
-msgstr "Souscrire"
-
-#: templates/projects/project_actions.html:16
-msgid "Deliver"
-msgstr "Livrer"
-
-#: templates/projects/project_actions.html:20
-msgid "Validate"
-msgstr "Valider"
-
 #: templates/projects/project_actions.html:23
 msgid "Evaluate"
 msgstr "Evaluer"
 
-#: templates/projects/project_actions.html:28
-msgid "Waiting for validation"
-msgstr "Attente de validation"
+#: templates/projects/project_budget.html:27
+msgid "Change my offer"
+msgstr "Modifier mon offre"
 
 #: templates/projects/project_budget.html:118
 msgid "wants to change this task due date to"
@@ -2009,6 +2004,26 @@ msgstr "Aucun invité sur cette tâche"
 #: templates/projects/project_team.html:82
 msgid "Validator"
 msgstr "Valideur"
+
+#: templates/projects/spec/spec.html:17
+msgid "Guest"
+msgstr "Invité"
+
+#: templates/projects/spec/spec.html:21
+msgid "Delete the description"
+msgstr "Supprimer la description"
+
+#: templates/projects/spec/spec.html:22
+msgid "Correct the description"
+msgstr "Corriger la description"
+
+#: templates/projects/spec/spec.html:23
+msgid "Move the description up"
+msgstr "Déplacer la description vers le haut"
+
+#: templates/projects/spec/spec.html:24
+msgid "Move the description down"
+msgstr "Déplacer la description vers le bas"
 
 #: templates/projects/table_overview/table_due_date.html:4
 #: templates/users/profile/experience.html:4
