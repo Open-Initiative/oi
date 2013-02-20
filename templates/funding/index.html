@@ -3,6 +3,7 @@
 {% load oifilters %}
 {% block title %}{% trans "Fund your software!" %}{% endblock %}
 {% block announcement %}
+{% if user.is_anonymous %}
 <style>
 .slidertext dt {color: #1e9947}
 .slidertip {color: #0f4d42}
@@ -12,7 +13,6 @@
 <div id="catcherbg">
     <div id="catcher">
         <div id="slider" class="slider" onmouseover="window.slide=false" onmouseout="if(event.target.id=='slider')window.slide=true">
-
             <div class="slidertext">
                 <dl>
                     <div id="indexslide1" class="indexslide"><dt>{% trans "fund" %}</dt>
@@ -54,38 +54,47 @@
 <!--        <img id="sliderimg4" src="/img/sliderimg4.png" class="sliderimg invisible" />-->
     </div>
 </div>
+{% endif %}
 {% endblock %}
 {% block headersep %}
+{% if user.is_anonymous %}
 <div class="registerline">
-    <a href="/user/register"><div class="registertext">{% trans "Let us know about your project!" %} <img src="/img/icons/next.png"/></div></a>
+    <a href="/user/register"><div class="registertext">{% trans "Register now!" %}</div></a>
+</div>
+{% endif %}
+{% endblock %}
+{% block related %}
+<div class="clickable actionbutton" onclick="var prjtitle=prompt(gettext('Please enter a title for your project')); if(prjtitle) addTask(prjtitle, null, function(taskid){document.location = '/funding/'+taskid+'/edit'});">
+    <img class="actions" src="/img/icons/descriptionwhite.png" />
+    <div><img src="/img/icons/add.png" /> {% trans "submit" %}</div>
+    {% trans "your project" %}
+    <input id="appname" type="hidden" value="funding" />
 </div>
 {% endblock %}
-{% block nav %}
-<div class="column" id="actions">
+{% block content %}
+<div id="actions">
     <div id="navhome">
         <div class="navtitlehome">{% trans "Projects on Open Funding" %}</div>
         <a href="#0" onclick="switchPrjList(0)"><div class="treetitlehome">{% trans "Our selection" %}</div></a>
         <a href="#1" onclick="switchPrjList(1)"><div class="treetitlehome">{% trans "Last projects" %}</div></a>
+        {% if user.is_authenticated %}<a href="#2" onclick="switchPrjList(2)"><div class="treetitlehome">{% trans "My projects" %}</div></a>{% endif %}
     </div>
-    <div class="actionbutton"><form onsubmit="if(getValue('newproject_title')) addTask(getValue('newproject_title'), null, function(taskid){document.location = '/funding/'+taskid});return false">
-        <img class="actions" src="/img/icons/descriptionwhite.png" />
-        <div>{% trans "Create" %}</div>{% trans "a new project:" %}
-        <input id="newproject_title"/><input id="newproject_add" type="image" src="/img/icons/add.png" />
-        <input id="appname" type="hidden" value="funding" />
-    </form></div>
 </div>
-{% endblock %}
-{% block content %}
 <div class="invisible prjlist" id="prjlist0">
 {% for project in object_list %}
 {% include 'funding/project_card.html' %}
 {% endfor %}
 </div>
-<div class="invisible prjlist" id="prjlist1">
+<div class="{% if user.is_authenticated %}invisible {% endif %}prjlist" id="prjlist1">
 {% for project in object_list %}
 {% include 'funding/project_card.html' %}
 {% endfor %}
 </div>
+{% if user.is_authenticated %}<div class="prjlist" id="prjlist2">
+{% for project in user.get_profile.get_observed_projects.distinct %}
+{% include 'funding/project_card.html' %}
+{% endfor %}
+</div>{% endif %}
 <script>
     ajaxParams = document.location.hash;
     listid = ajaxParams.substring(1) || "0";

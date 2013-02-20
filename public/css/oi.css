@@ -193,6 +193,10 @@ div.center{
     margin: auto;
     width: 1020px;
 }
+.registerline:after {
+    content: url("/img/icons/next.png");
+    vertical-align: -1.8em;
+}
 .registertext {
     padding: 7px;
     font-size: 1.4em;
@@ -468,7 +472,7 @@ img.tabicon {
 }
 .slider dd {
     width: 600px;
-    height: 50px;
+    height: 30px;
     color: #0094B5;
 }
 .headersep {
@@ -508,7 +512,7 @@ div.popup {
     padding: 4%;
     border-radius: 5px;
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 1.8em;
 }
 .actionbutton div {
     margin-bottom: .3em;
