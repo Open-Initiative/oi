@@ -4,10 +4,11 @@
 <div class="featuredetail invisible" id="featuredetail_{{task.id}}" onclick="document.ignoreClosePopups = true;">
     <div>
         <img class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hide('featuredetail_{{task.id}}')" />
-        {% if task.missing_bid > 0 and task.state < 3 and task|can_bid:user and not task|bids:user %}
+        {% if task.state < 3 %}
         <h3>{% trans "Payment awaiting:" %} {{task.missing_bid|floatformat:2}} €</h3>
-        
-        <div onclick="bidProject({{task.id}})" class="clickable bidaction">{% trans "Bid" %}</div>
+        {% if task|can_bid:user and not task|bids:user %}
+        <div onclick="bidProject({{task.id}})" class="clickable bidaction">{% trans "Support this feature" %}</div>
+        {% endif %}
         {% endif %}
     </div>
     <div>
@@ -136,10 +137,10 @@
 </div>
 {% endif %}
 <div class="featureblock" title="{{task.title}}">
-    <div class="actions">
+    {% if task|can_write:user %}<div class="actions">
         <img src="/img/icons/edit.png" alt="{% trans 'edit title' %}" title="{% trans 'edit title' %}" class="clickable" onclick="var newtitle = prompt(gettext('Please insert a title :'), '{{task.title}}');if(newtitle)confirmEditTitle({{task.id}}, newtitle)" />
         <img src="/img/icons/delete.png" alt="{% trans 'delete feature' %}" title="{% trans 'delete feature' %}" class="clickable" onclick="deleteProject({{task.id}})" />
-    </div>
+    </div>{% endif %}
     <div class="featuretitle">{{task.title}}</div>
     {% trans "To be funded:" %} {{task.missing_bid}} €
     {% if task|can_manage:user %}<img src="/img/icons/next.png" alt="{% trans 'Edit this offer' %}" title="{% trans 'Edit this offer' %}" class="clickable" onclick="showPopup(featuredetail_{{task.id}})" />{% endif %}

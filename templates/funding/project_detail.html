@@ -34,11 +34,10 @@
                 {% for message in project.message_set.all %}
                 <div id="message_{{message.id}}_box">{% include 'messages/message.html' %}</div>
                 {% empty %}
-                {% trans "Discuss" %} {{object.title}}
-<!--                <div id="newmessage">{% include 'messages/editmessage.html' %}</div>-->
+                {% if project|can_answer:user %}{% trans "Discuss" %} {{object.title}}{% endif %}
                 {% endfor %}
             </div>
-            {% if project|can_write:user %}
+            {% if project|can_answer:user %}
             <a class="actions clickable" onclick="addMessage(null, {{project.id}})">
                 <div class="moreblue" alt="{% trans "Add a discussion" %}" title="{% trans "Add a discussion" %}">+</div> {% trans "Add a discussion" %}
             </a>

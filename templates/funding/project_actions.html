@@ -5,8 +5,8 @@
     <div class="clickable prj-btn" onclick="startProject({{task.id}})">{% trans "Start" %}</div>
 {% endif %}
 {% if task.state < 4 and task|can_bid:user and not task|bids:user %}
-    <span class="bidaction clickable" onclick="showPopup(bidpopup_{{task.id}})">{% trans "Fund" %}</span>
-    <span class="bidaction clickable" onclick="OIajaxCall('/project/confirmbid/{{task.id}}', 'bid=0', 'output')">{% trans "Bid_verb" %}</span>
+    <span class="bidaction clickable" onclick="showPopup(bidpopup_{{task.id}})">{% trans "Support" %}</span>
+    <span class="bidaction clickable" onclick="OIajaxCall('/project/confirmbid/{{task.id}}', 'bid=0', 'output')">{% trans "Like" %}</span>
 {% endif %}
 {% if task.state == 2 and task.assignee == user %}
     <div class="clickable prj-btn" onclick="deliverProject({{task.id}})">{% trans "Deliver" %}</div>
