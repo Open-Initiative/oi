@@ -903,9 +903,8 @@ msgid "follow"
 msgstr "suivez"
 
 #: templates/index.html:21
-msgid "the progress of your project in real time with agile methodology"
-msgstr ""
-"l'avancement de votre projet en temps réel grâce à une méthodologie agile"
+msgid "your project in real time with agile methodology"
+msgstr "votre projet en temps réel grâce à une méthode agile"
 
 #: templates/index.html:23
 msgid ""
