@@ -1233,7 +1233,7 @@ msgid "your opinion"
 msgstr "votre avis"
 
 #: templates/funding/index.html:29
-msgid "Vote for the features you expect the most and fund them"
+msgid "Vote for the features you expect the most and fund them."
 msgstr "Votez pour les fonctionnalités que vous attendez le plus et financez les."
 
 #: templates/funding/index.html:30
@@ -1242,11 +1242,11 @@ msgstr "Participez"
 
 #: templates/funding/index.html:31
 msgid "and make it happen"
-msgstr "Donnez vie au projet"
+msgstr "et donnez vie au projet"
 
 #: templates/funding/index.html:33
-msgid "Open source is never obscure anymore"
-msgstr "L'open source ne sera plus jamais obscur"
+msgid "Open source is never obscure anymore."
+msgstr "L'open source ne sera plus jamais obscur."
 
 #: templates/funding/index.html:62
 msgid "Register now!"
