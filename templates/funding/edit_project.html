@@ -25,17 +25,18 @@
             <div class="cleared"></div>
         </div>
         <div id="specs_{{project.id}}" class="prjdesc">
-            {%for spec in project.spec_set.all|dictsort:"order"%}
-            <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared">
-                {%include 'projects/spec/spec.html'%}
-            </div>
-            {% endfor %}
-            {% if project|can_write:user and project.state < 4 %}
-            {% with "newspec" as divid %}{% if not project.spec_set.all %}
-            <div id="{{divid}}">{% include 'projects/spec/editspec.html' %}</div>
-            <script>changeSpecType("newspec", 1);</script>
-            <div id="sepspec_{{object.id}}" class="sepspec"></div>
-            {% endif %}{% endwith %}{% endif %}
+<!--{% comment %}            {%for spec in project.spec_set.all|dictsort:"order"%}-->
+<!--            <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared">-->
+<!--                {%include 'projects/spec/spec.html'%}-->
+<!--            </div>-->
+<!--            {% endfor %}-->
+<!--            {% if project|can_write:user and project.state < 4 %}-->
+<!--            {% with "newspec" as divid %}{% if not project.spec_set.all %}-->
+<!--            <div id="{{divid}}">{% include 'projects/spec/editspec.html' %}</div>-->
+<!--            <script>changeSpecType("newspec", 1);</script>-->
+<!--            <div id="sepspec_{{object.id}}" class="sepspec"></div>-->
+<!--            {% endif %}{% endwith %}{% endif %} {% endcomment %}-->
+                {% include "funding/spec/feature_form.html" %}
         </div>
         {% if project|can_write:user and project.state < 4 %}<a class="clickable" onclick="addSpec({{project.id}})"><img src="/img/icons/add.png" /> {% trans "Add a description" %}</a>{% endif %}
         {% if object.spot_set.all %}

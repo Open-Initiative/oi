@@ -658,6 +658,9 @@ div.sepspecfooter {
     background: white;
     display: inline-block;
 }
+.projectbaseline {
+    width: 40em;
+}
 .spotnumber {
     height: 16px;
     width: 8px;

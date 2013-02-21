@@ -28,6 +28,7 @@ urlpatterns = patterns('',
     (r'^presentation$', direct_to_template, {'template': "funding/presentation.html"}),
     (r'^presentation-fr$', direct_to_template, {'template': "funding/presentation-fr.html"}),
     # Pages des messages
+    (r'^message/', include('oi.messages.urls')),
     (r'^funding/', include('oi.funding.urls')),
     # Pages des projets
     (r'^project/', include('oi.projects.urls_api')),
