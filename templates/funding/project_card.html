@@ -1,0 +1,15 @@
+{% load i18n %}
+<a href="/funding/{{project.id}}"><div class="prjcard">
+<div class="prjtitle">{{project.title}}</div>
+<div class="prjcardauthor">{% trans "Project created by" %} {{project.author.get_profile}}</div>
+<div class="cleared"></div>
+{% for spec in project.spec_set.all|dictsort:"order" %}
+<div class="cardspec">{% include 'funding/spec/minispec.html' %}</div>
+{% endfor %}
+{{project.allbid_sum}} € {% trans "financed out of" %} {{project.get_budget}} €
+<div class="progressbar">
+    <span id="progressbar_{{object.id}}" class="progress" style="width:{{object.progress|default:0|floatformat:0}}%;"></span>
+    <span id="progresslabel_{{object.id}}" class="progresstitle" >{{object.progress|default:0|floatformat:0}}%</span>
+</div>
+<img class="prjcardlink" src="/img/icons/next.png" />
+</div></a>

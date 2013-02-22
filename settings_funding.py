@@ -1,10 +1,10 @@
 #coding: utf-8
-# Settings for the main platform
+# Specific to the funding platform
 # Django settings for oi project.
 from settings_common import *
 
-ROOT_URLCONF = 'oi.urls'
-SITE_NAME = "Open Initiative"
+ROOT_URLCONF = 'oi.urls-funding'
+SITE_NAME = "Open Funding"
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -25,6 +25,7 @@ INSTALLED_APPS = (
 #    'haystack',
     'oi.messages',
     'oi.projects',
+    'oi.funding',
     'oi.users',
     'oi.prjnotify',
     'django.contrib.messages',

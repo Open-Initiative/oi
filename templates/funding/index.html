@@ -1,0 +1,104 @@
+{% extends "funding/base.html" %}
+{% load i18n %}
+{% load oifilters %}
+{% block title %}{% trans "Fund your software!" %}{% endblock %}
+{% block announcement %}
+{% if user.is_anonymous %}
+<style>
+.slidertext dt {color: #1e9947}
+.slidertip {color: #0f4d42}
+.slidermore {background: #1e9947}
+#registerbtn {background: #1E9947}
+</style>
+<div id="catcherbg">
+    <div id="catcher">
+        <div id="slider" class="slider" onmouseover="window.slide=false" onmouseout="if(event.target.id=='slider')window.slide=true">
+            <div class="slidertext">
+                <dl>
+                    <div id="indexslide1" class="indexslide"><dt>{% trans "fund" %}</dt>
+                        <dd>{% trans "your favorite open source software" %}</dd>
+                    </div>
+                    <div class="slidertip">{% trans "Open Funding enables you to contribute to the funding of the open source software you need." %}</div>
+                    <div id="indexslide2" class="indexslide invisible"><dt>{% trans "follow" %}</dt>
+                        <dd>{% trans "the evolution of the projects" %}</dd>
+                    </div>
+                    <div class="slidertip invisible">{% trans "Find out the new features before they appear." %}</div>
+                    <div id="indexslide3" class="indexslide invisible"><dt>{% trans "give" %}</dt>
+                        <dd>{% trans "your opinion" %}</dd>
+                    </div>
+                    <div class="slidertip invisible">{% trans "Vote for the features you expect the most and fund them." %}</div>
+                    <div id="indexslide4" class="indexslide invisible"><dt>{% trans "Get involved" %}</dt>
+                        <dd>{% trans "and make it happen" %}</dd>
+                    </div>
+                    <div class="slidertip invisible">{% trans "Open source is never obscure anymore." %}</div>
+                </dl>
+            </div>
+            <div class="clickable slidericons">
+                <div id="slidericon1" class="slidericon slidericonselected" onclick="slideIndex(1)"></div>
+                <div id="slidericon2" class="slidericon" onclick="slideIndex(2)"></div>
+                <div id="slidericon3" class="slidericon" onclick="slideIndex(3)"></div>
+                <div id="slidericon4" class="slidericon" onclick="slideIndex(4)"></div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            window.slide = true;
+            window.sliding = false;
+            window.setInterval(function (){if(window.slide) slideIndex()}, 8000);
+        </script>
+        <a id="preslink" href="{%trans "/presentation" %}#1"><div class="slidermore" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='white'">
+            {% trans "Learn More" %}
+        </div></a>
+<!--        <img id="sliderimg1" src="/img/sliderimg1.png" class="sliderimg" />-->
+<!--        <img id="sliderimg2" src="/img/sliderimg2.png" class="sliderimg invisible" />-->
+<!--        <img id="sliderimg3" src="/img/sliderimg3.png" class="sliderimg invisible" />-->
+<!--        <img id="sliderimg4" src="/img/sliderimg4.png" class="sliderimg invisible" />-->
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+{% block headersep %}
+{% if user.is_anonymous %}
+<div class="registerline">
+    <a href="/user/register"><div class="registertext">{% trans "Register now!" %}</div></a>
+</div>
+{% endif %}
+{% endblock %}
+{% block related %}
+<div class="clickable actionbutton" onclick="var prjtitle=prompt(gettext('Please enter a title for your project')); if(prjtitle) addTask(prjtitle, null, function(taskid){document.location = '/funding/'+taskid+'/edit'});">
+    <img class="actions" src="/img/icons/descriptionwhite.png" />
+    <div><img src="/img/icons/add.png" /> {% trans "submit" %}</div>
+    {% trans "your project" %}
+    <input id="appname" type="hidden" value="funding" />
+</div>
+{% endblock %}
+{% block content %}
+<div id="actions">
+    <div id="navhome">
+        <div class="navtitlehome">{% trans "Projects on Open Funding" %}</div>
+        <a href="#0" onclick="switchPrjList(0)"><div class="treetitlehome">{% trans "Our selection" %}</div></a>
+        <a href="#1" onclick="switchPrjList(1)"><div class="treetitlehome">{% trans "Last projects" %}</div></a>
+        {% if user.is_authenticated %}<a href="#2" onclick="switchPrjList(2)"><div class="treetitlehome">{% trans "My projects" %}</div></a>{% endif %}
+    </div>
+</div>
+<div class="invisible prjlist" id="prjlist0">
+{% for project in object_list %}
+{% include 'funding/project_card.html' %}
+{% endfor %}
+</div>
+<div class="{% if user.is_authenticated %}invisible {% endif %}prjlist" id="prjlist1">
+{% for project in object_list %}
+{% include 'funding/project_card.html' %}
+{% endfor %}
+</div>
+{% if user.is_authenticated %}<div class="prjlist" id="prjlist2">
+{% for project in user.get_profile.get_observed_projects.distinct %}
+{% include 'funding/project_card.html' %}
+{% endfor %}
+</div>{% endif %}
+<script>
+    ajaxParams = document.location.hash;
+    listid = ajaxParams.substring(1) || "0";
+    switchPrjList(listid);
+</script>
+<div class="cleared" style="width:100%"></div>
+{% endblock %}

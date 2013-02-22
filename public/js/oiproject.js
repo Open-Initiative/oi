@@ -13,6 +13,7 @@ function setTaskName(div, id, title, view) {
 function addTask(tasktitle, projectid, callBack) {
     var params = "title="+tasktitle+"&inline=1&progress=0";
     if(projectid) params += "&parent="+projectid;
+    if(document.getElementById("appname")) params += "&app="+getValue("appname");
     OIajaxCall("/project/save/0", params, null, 
         function(response){
             var task = eval(response)[0];
@@ -177,7 +178,7 @@ function resetProjectTitle(projectid, title) {
     document.getElementById("prjtitle_"+projectid).innerHTML = title;
     document.getElementById("prjtitle_"+projectid).innerHTML += ' <img onclick="editProjectTitle('+projectid+')" class="clickable" src="/img/icons/edit.png" />';
 }
-function bidProject(projectid, rating) {
+function bidProject(projectid) {
     OIajaxCall("/project/bid/"+projectid, null, "prjdialogue_"+projectid,
         function(){show("prjdialogue_"+projectid);
         document.getElementById('bid_'+projectid).focus();});
@@ -190,7 +191,7 @@ function confirmBidProject(projectid) {
         alert(gettext("Please accept the Terms of Use"));
     }
 }
-function validatorProject(projectid, rating){
+function validatorProject(projectid){
     OIajaxCall("/project/validator/"+projectid, null, "prjdialogue_"+projectid,
         function(){show("prjdialogue_"+projectid);
         document.getElementById('validator_'+projectid).focus();});
@@ -247,7 +248,7 @@ function resetStar(id, dest) {
 function setPriority(projectid) {
     OIajaxCall("/project/setpriority/"+projectid, "priority="+getValue(projectid+"_priority"), "output");
 }
-function evalProject(projectid, rating) {
+function evalProject(projectid) {
     OIajaxCall("/project/eval/"+projectid, null, "prjdialogue_"+projectid, 
         function(){show("prjdialogue_"+projectid);});
 }
@@ -414,7 +415,7 @@ function updateGithubRepos() {
 
 function addSpec(projectid) {
     var divid = newDiv("specs_"+projectid);
-    OIajaxCall("/project/"+projectid+"/editspec/0?divid="+divid+"&specorder=-1", null, divid, 
+    OIajaxCall(prjsite+"/project/"+projectid+"/editspec/0?divid="+divid+"&specorder=-1", null, divid, 
         function(){changeSpecType(divid, 1);});
         document.getElementById(divid).scrollIntoView();
 }
@@ -451,7 +452,7 @@ function changeSpecType(divid, type) {
     document.getElementById("type"+getValue("type_"+divid)+"_"+divid).className = "spectype";
     document.getElementById("type"+type+"_"+divid).className = "spectype spectypeselected";
     document.getElementById("type_"+divid).value = type;
-    var url = "/project/"+projectid+"/editspecdetails/"+specid+"?divid="+divid+"&type="+type;
+    var url = prjsite+"/project/"+projectid+"/editspecdetails/"+specid+"?divid="+divid+"&type="+type;
     OIajaxCall(url, null, "spec_"+divid, 
         function(){if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceAddControl', false, 'text_'+divid);
             if(getValue("type_"+divid)==6){
@@ -573,7 +574,7 @@ OISpot.prototype.edit = function editSpot() {
     this.show();
 }
 OISpot.prototype.fillDiv = function fillDiv() {
-    if(this.linkid) OIajaxCall('/project/'+this.linkid+'/summarize', null, this.div.id);
+    if(this.linkid) OIajaxCall(prjsite+'/project/'+this.linkid+'/summarize', null, this.div.id);
 }
 OISpot.prototype.saveTask = function saveTaskSpot() {
     addTask(encodeURIComponent(this.div.getElementsByClassName("newtask_title")[0].value), this.projectid, makeObjectCallback(this.save, this));

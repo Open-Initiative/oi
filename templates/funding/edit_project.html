@@ -1,0 +1,66 @@
+{% extends "funding/base.html" %}
+﻿﻿{% load oifilters %}
+{% load i18n %}
+{% block title %}{{object.title|default:_("Project")}}{% endblock %}
+{% block breadcrumb %}
+<div class="path-element">{{object.title}}</div>
+{% endblock %}
+{% block content %}
+{% if object|can_write:user %}
+<div class="prjbody">
+    {% with object as project %}
+    <div id="project_{{object.id}}" class="project">
+        <div id="prjdialogue_{{object.id}}" class="popup invisible"></div>
+        <div class="prjheader">
+            <div class="prjauthor">{% trans "Project created by" %} <a href="/user/profile/{{object.author.username}}">{{object.author.get_profile}}</a></div>
+            <div>
+                <div class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">
+                    {{object.title}}
+                </div>
+                <div class="prj-block-fav">
+                    <img onclick="favProject(174)" src="/img/icons/starTrue.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_174">
+                    {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
+                </div>
+            </div>
+            <div class="cleared"></div>
+        </div>
+        <div id="specs_{{project.id}}" class="prjdesc">
+<!--{% comment %}            {%for spec in project.spec_set.all|dictsort:"order"%}-->
+<!--            <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared">-->
+<!--                {%include 'projects/spec/spec.html'%}-->
+<!--            </div>-->
+<!--            {% endfor %}-->
+<!--            {% if project|can_write:user and project.state < 4 %}-->
+<!--            {% with "newspec" as divid %}{% if not project.spec_set.all %}-->
+<!--            <div id="{{divid}}">{% include 'projects/spec/editspec.html' %}</div>-->
+<!--            <script>changeSpecType("newspec", 1);</script>-->
+<!--            <div id="sepspec_{{object.id}}" class="sepspec"></div>-->
+<!--            {% endif %}{% endwith %}{% endif %} {% endcomment %}-->
+                {% include "funding/spec/feature_form.html" %}
+        </div>
+        {% if project|can_write:user and project.state < 4 %}<a class="clickable" onclick="addSpec({{project.id}})"><img src="/img/icons/add.png" /> {% trans "Add a description" %}</a>{% endif %}
+        {% if object.spot_set.all %}
+        <div class="actions cleared">{% trans "linked to" %}</div>
+        <div class="cleared"></div>
+        {% for spot in object.spot_set.all %} {% with spot.spec as spec %}<div class="minispec"><a href="/project/{{spot.spec.project.id}}">{{spot.spec.project.title|truncatewords:4}}{% include 'projects/spec/minispec.html' %}</a></div>
+        {% endwith %}{% endfor %}
+        {% endif %}
+    </div>
+    {% endwith %}
+</div>
+{% else %}
+{% trans "Forbidden" %}
+{% endif %}
+{% endblock %}
+{% block related %}
+{% with object as project %}
+<a href="/funding/{{object.id}}"><div class="bidaction">{% trans "Done" %}</div></a>
+<div class="smallcolumn" id="public">
+    <img src="/img/askoi.png" title="{% trans 'All other users.' %}" alt="{% trans 'All other users.' %}" class="head-help"><h3>{% trans "Public" %}</h3>
+    {% trans "The public can" %}
+    <br /><input id="public_read_{{project.id}}" type="checkbox" {% if project.public_read %}checked="checked"{% endif %} {% if not project.assignee == user and not project|can_write:user  %}disabled="true"{% endif %} onclick="OIajaxCall('/project/{{project.id}}/setpublic', 'read='+this.checked, 'output')" /><label for="public_read_{{project.id}}">{% trans "see the task and its content" %}</label>
+    <br /><input id="public_answer_{{project.id}}" type="checkbox" {% if project.public_answer %}checked="checked"{% endif %} {% if not project.assignee == user and not project|can_write:user %}disabled="true"{% endif %} onclick="OIajaxCall('/project/{{project.id}}/setpublic', 'answer='+this.checked, 'output')" /><label for="public_answer_{{project.id}}">{% trans "add comments and tasks" %}</label>
+    <br /><input id="public_bid_{{project.id}}" type="checkbox" {% if project.public_bid %}checked="checked"{% endif %} {% if not project.assignee == user and not project|can_write:user %}disabled="true"{% endif %} onclick="OIajaxCall('/project/{{project.id}}/setpublic', 'bid='+this.checked, 'output')" /><label for="public_bid_{{project.id}}">{% trans "bid and vote" %}</label>
+</div>
+{% endwith %}
+{% endblock %}

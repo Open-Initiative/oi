@@ -1,0 +1,20 @@
+{% load i18n %}
+{% load oifilters %}
+<div>
+{% if task.state < 2 and task.assignee == user and task.is_ready_to_start %}
+    <div class="clickable prj-btn" onclick="startProject({{task.id}})">{% trans "Start" %}</div>
+{% endif %}
+{% if task.state < 4 and task|can_bid:user and not task|bids:user %}
+    <span class="bidaction clickable" onclick="showPopup(bidpopup_{{task.id}})">{% trans "Support" %}</span>
+    <span class="bidaction clickable" onclick="OIajaxCall('/project/confirmbid/{{task.id}}', 'bid=0', 'output')">{% trans "Like" %}</span>
+{% endif %}
+{% if task.state == 2 and task.assignee == user %}
+    <div class="clickable prj-btn" onclick="deliverProject({{task.id}})">{% trans "Deliver" %}</div>
+{% endif %}
+{% with task|bids:user as bids %}{% if bids and task.state == 3 and not bids.0.validated %}
+    <div class="clickable prj-btn" onclick="validateProject({{task.id}})">{% trans "Validate" %}</div>
+{% endif %}{% endwith %}
+{% if task.assignee == user and task.state == 3 %}
+    <div class="prj-action-wait">{% trans "Waiting for validation" %}</div>
+{% endif %}
+</div>

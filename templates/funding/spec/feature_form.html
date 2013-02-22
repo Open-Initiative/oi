@@ -1,0 +1,51 @@
+{% load i18n %}
+﻿﻿{% load oifilters %}
+<div class="cleared"><img src="/img/askoi.png" />{% trans "Describe here what is to be done in" %} <span class="prjtitle">{{project.title}}</span></div>
+
+<input name="spectype" id="type_{{project.id}}_1" value="2" type="hidden"/>
+<input name="specid" id="specid_{{project.id}}_1" value="{{project.spec_set.all.0.id|default:0}}" type="hidden"/>
+<input name="projectid" id="projectid_{{project.id}}_1" value="{{project.id}}" type="hidden"/>
+<input name="specorder" id="specorder_{{project.id}}_1" value="1" type="hidden"/>
+<div>{% trans "A picture presenting your project" %}</div>
+<div id="{{project.id}}_1">
+    <input id="filename_{{project.id}}_1" name="filename" type="hidden" />
+    <input id="ts_{{project.id}}_1" name="ts" type="hidden" />
+    <span id="filespan_{{project.id}}_1" {% if not spec.file %}class="invisible" {% endif %}>
+        <img src='/img/icons/delete.png' alt='{% trans "Delete" %}' title='{% trans "Delete" %}' onclick='changeFile("{{project.id}}_1")' />
+        {{spec.file.name|cleanfilename}}
+    </span>
+    <div id="filediv_{{project.id}}_1" {% if spec.file %}class="invisible" {% endif %}style="float: left;">
+        <form id="form_{{project.id}}_1" method="post" enctype="multipart/form-data" action="/project/{{project.id}}/uploadfile/{{spec.id|default:0}}" target="filedest_{{project.id}}_1">
+            {% csrf_token %}
+            <input id="divid_{{project.id}}_1" name="divid" type="hidden" value="{{project.id}}_1" />
+            <input id="file_{{project.id}}_1" name="file" type="file" onchange="hide('validspec_{{project.id}}_1');document.getElementById('form_{{project.id}}_1').submit()" />
+        </form>
+    </div>
+    <iframe id="filedest_{{project.id}}_1" name="filedest_{{project.id}}_1" class="filedest"></iframe>
+    <input id="text_{{project.id}}_1" type="hidden" />
+</div>
+
+<div id="validspec_{{project.id}}_1" class="actions"><img class="clickable" src="/img/icons/ok-32.png" onclick="saveSpec('{{project.id}}_1',{{project.id}},getValue('specorder_{{project.id}}_1'),{{project.spec_set.all.0.id|default:0}})"/></div>
+<div class="cleared"></div>
+
+<input name="spectype" id="type_{{project.id}}_2" value="1" type="hidden"/>
+<input name="specid" id="specid_{{project.id}}_2" value="{{project.spec_set.all.1.id|default:0}}" type="hidden"/>
+<input name="projectid" id="projectid_{{project.id}}_2" value="{{project.id}}" type="hidden"/>
+<input name="specorder" id="specorder_{{project.id}}_2" value="2" type="hidden"/>
+<div>{% trans "A short description of your project and why it is great" %}</div>
+<div id="{{project.id}}_2" class="column"><input id="text_{{project.id}}_2" class="projectbaseline" value="{{project.spec_set.all.1.text|oiunescape}}" /></div>
+
+<div id="validspec_{{project.id}}_2" class="actions"><img class="clickable" src="/img/icons/ok-32.png" onclick="saveSpec('{{project.id}}_2',{{project.id}}, getValue('specorder_{{project.id}}_2'),{{project.spec_set.all.1.id|default:0}})"/></div>
+<div class="cleared"></div>
+
+<input name="spectype" id="type_{{project.id}}_3" value="1" type="hidden"/>
+<input name="specid" id="specid_{{project.id}}_3" value="{{project.spec_set.all.2.id|default:0}}" type="hidden"/>
+<input name="projectid" id="projectid_{{project.id}}_3" value="{{project.id}}" type="hidden"/>
+<input name="specorder" id="specorder_{{project.id}}_3" value="3" type="hidden"/>
+<div>{% trans "A long description including : who you are, why you do it, how it can be used..." %}</div>
+<div id="{{project.id}}_3" class="column"><textarea id="text_{{project.id}}_3" class="norich">{{project.spec_set.all.2.text|oiunescape}}</textarea></div>
+
+<div id="validspec_{{project.id}}_3" class="actions"><img class="clickable" src="/img/icons/ok-32.png" onclick="if(document.getElementById('text_{{project.id}}_3')){saveSpec('{{project.id}}_3',{{project.id}},getValue('specorder_{{project.id}}_3'),{{project.spec_set.all.2.id|default:0}})}else{changeSpecType('{{project.id}}_3', 1)}"/></div>
+<div class="cleared"></div>
+<script>tinyMCE.execCommand('mceAddControl', false, "text_{{project.id}}_3")</script>
+

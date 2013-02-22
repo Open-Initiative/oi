@@ -25,11 +25,11 @@
     <script type="text/javascript" src="/js/oitree.js"></script>
     <script type="text/javascript" src="/js/oitable.js"></script>
     <script type="text/javascript" src="/js/oigantt.js"></script>
-    <script>
+   <script>
         sites = { {% for site in Sites.all %}"{{site.name}}" : "{{site.domain}}", {% endfor %} };
         prjsite = "http://" + sites["Open Initiative"];
         follow = {% if object|is_following:user %}true{%else%}false{%endif%};
-    </script>
+   </script>
     <title>{% block title %}{% endblock %} - Open Initiative</title>
 </head>
 
@@ -44,14 +44,10 @@
         <div class="center">
             {% block header %}
             <div style='width:0;float: left;font-size: 12px;font-weight: bold;left: 185px;padding: 1px;position: relative;top: 56px;'>BETA</div>
-            <div id="logo"><a href="/"><img style="height:75px" src="/img/logo.png" /></a></div>
+            <div id="logo"><a href="/"><img style="height:75px" src="/img/logo_funding.png" /></a></div>
             <div id="searchdiv">
-                <div id="baseline">{% trans "The IT community dedicated to your business" %}</div>
+                <div id="baseline">{% trans "Fund your open source projects online" %}</div>
                 <img src="/img/baseunderline.png" />
-                {% comment %}<div id="search"><form name="searchform" action="/search" method="GET">
-                    <input class="searchbox" name="q" type="text" value="Rechercher..." onclick="value=''" />
-                    <input id="searchbtn" type="image" src="/img/icons/search.png" />
-                </form></div>{% endcomment %}
             </div>
             <div id="userheader">
                 <form action="/i18n/setlang/" method="post" class="actions">
@@ -71,13 +67,6 @@
                     <div class="usertitle">{{user.get_profile}}</div>
                     {{user.get_profile.title}}
                 </a>
-<!--                <div id="userlinks">-->
-<!--                    <a class="homelink" href="/user/dashboard">{% trans "Dashboard" %}</a> |-->
-<!--                    <a class="homelink" href="/notification">{% trans "Notices" %}</a> |-->
-<!--                    <a class="homelink" href="/user/discussions">{% trans "Personal Messages" %}</a> <br/>-->
-<!--                    <a class="toplink" href="/user/myblog">{% trans "Publications" %}</a> |-->
-<!--                    <a class="toplink" href="/user/myaccount">{% trans "Transactions" %}</a>-->
-<!--                </div>-->
                 {%else%}
                 <span id="loginbox">{% trans "Login" %}</span>
                 <div id="loginarea">
@@ -124,9 +113,6 @@
         <div class="cleared"></div>
     </div>
     <div class="center">
-       <script>
-            follow = {% if object|is_following:user %}true{%else%}false{%endif%};
-       </script>
         <div class="column">
             <div id="actions"> 
                 {% block actions %}{% endblock %}
@@ -140,8 +126,11 @@
         <div id="content">
             {% block content %}{% endblock %}
         </div>
-        <div class="cleared"></div>
-    </div>    
+        <div class="related">
+            {% block related %}{% endblock %}
+        </div>
+    </div>
+    <div class="cleared"></div>
     <div id="footer">
         <a class="footlink" href="/cgu">{% trans "Terms of Use" %}</a> |
         <a class="footlink" href="{%trans "/presentation" %}">{% trans "Presentation" %}</a> |

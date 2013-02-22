@@ -1,18 +1,18 @@
 ﻿# coding: utf-8
 from django.conf import settings
-from django.db.models import signals
+from django.db.models.signals import post_syncdb
+from south.signals import post_migrate
 from django.utils.translation import ugettext_noop as _
 from django.contrib.sites.models import Site
-from oi.settings import OI_DOMAIN
 
-def register_site(app, created_models, verbosity, **kwargs):
-    if Site.objects.count() > 0:
-        site = Site.objects.get_current()
-    else:
-        site = Site()
-    site.domain = OI_DOMAIN
-    site.name = u"Open Initiative"
-    site.save()
+def register_site(app, created_models=None, verbosity=None, **kwargs):
+    for (name, domain) in settings.OI_DOMAINS:
+        site, created = Site.objects.get_or_create(name = name)
+        site.domain = domain
+        site.save()
+        if created:
+            print "%s registered"%name
     
-signals.post_syncdb.connect(register_site)
+post_syncdb.connect(register_site)
+post_migrate.connect(register_site)
 

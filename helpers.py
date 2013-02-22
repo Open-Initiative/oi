@@ -83,15 +83,17 @@ class OIAction:
 def to_date(value):
     return DateTimeField.to_python(DateTimeField(), value)
 
-def ajax_login_required(function=None, keep_field=None):
+def ajax_login_required(function=None, keep_fields=None):
     """Similar decorator as login_required, using 333 as redirect Http code to be captured by javascript"""
     def decorator(f):
         @wraps(f, assigned=available_attrs(f))
         def new_f(request, id, *args, **kwargs):
             if request.user.is_authenticated():
                 return f(request, id, *args, **kwargs)
-            if keep_field and request.POST.has_key(keep_field):
-                request.session[keep_field] = request.POST[keep_field]
+            if keep_fields:
+                for field in keep_fields:
+                    if field and request.POST.has_key(field):
+                        request.session[field] = request.POST[field]
                 return HttpResponse('%s?%s=%s'%(LOGIN_URL, REDIRECT_FIELD_NAME, request.build_absolute_uri()),status=333)
             return HttpResponse('%s?%s=/%s/get/%s'%(LOGIN_URL, REDIRECT_FIELD_NAME, request.get_full_path().split('/')[1],id),status=333)
         return new_f

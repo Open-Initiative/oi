@@ -23,7 +23,7 @@ div.prjauthor {
     height: 110px;
 }
 div.prjdesc {
-    padding-left: 5px;
+    padding-left: 10px;
 }
 .minispec-arrow {
     float: right;
@@ -229,6 +229,14 @@ div.prj-action-wait {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.featuretitle {
+    font-size: 1.2em;
+    color: #0094B5;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 div.prjbtm {
     width: 600px;
     height:17px;
@@ -256,6 +264,14 @@ div.prjbtm {
 }
 div.cardspec {
     margin: 20px 0;
+}
+.featureblock {
+    padding: 10px;
+    margin-top: .5em;
+    background: white;
+    overflow: hidden;
+    border: 1px solid #E3E3E5;
+    border-radius: 3px;
 }
 .minispec dl {
     margin: 0;
@@ -426,6 +442,31 @@ option.oldrelease{
     text-overflow: ellipsis;
     width: 55%;
 }
+#features {
+    position: relative;
+}
+.featuredetail {
+    background: none repeat scroll 0 0 white;
+    border: 1px solid #E3E3E5;
+    border-radius: 3px;
+    box-shadow: 3px 3px 4px;
+    left: -30em;
+    position: absolute;
+}
+.editoffer {
+    position: absolute;
+    z-index: 1;
+    background: white;
+    border: 1px solid;
+    border-radius: 3px;
+    margin-top: 0.5em;
+    padding: 10px;
+}
+.bidfeature {
+    float: left;
+/*    margin: 0.2em;*/
+    width: 50px;
+}
 .bidaction {
     background: #D0574C;
     color: white;
@@ -438,6 +479,7 @@ option.oldrelease{
 }
 .bidaction:after {
     content: url("/img/icons/whitebtn.png");
+    vertical-align: -2px;
 }
 .oired, .oired a, .oired h3 {
     color: #D0574C;
@@ -616,6 +658,9 @@ div.sepspecfooter {
     background: white;
     display: inline-block;
 }
+.projectbaseline {
+    width: 40em;
+}
 .spotnumber {
     height: 16px;
     width: 8px;
@@ -630,7 +675,7 @@ div.sepspecfooter {
     width:10em;
     border:solid 1px;
     color: #6C6D6E;
-    width: 270px;
+    width: 200px;
 }
 .progress {
     float:left;

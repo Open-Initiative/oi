@@ -193,6 +193,10 @@ div.center{
     margin: auto;
     width: 1020px;
 }
+.registerline:after {
+    content: url("/img/icons/next.png");
+    vertical-align: -1.8em;
+}
 .registertext {
     padding: 7px;
     font-size: 1.4em;
@@ -323,11 +327,11 @@ img.tabicon {
     height:1px;
 }
 #actions{
-    width: 275px;
+    max-width: 275px;
 }
 #nav {
     background:#D7E7F0;
-    width:275px;
+    max-width:280px;
 }
 #navhome {
     margin-bottom: 1em;
@@ -351,19 +355,24 @@ img.tabicon {
     content: url("/img/icons/next.png");
     float: right;
 }
-div.navtitle {
+.navtitle {
     color: #D0574C;
     font-size: 1.4em;
     font-weight: bold;
     text-transform: uppercase;
 }
-div.navcontent {
+.navcontent {
     padding: 5px;
 }
 #content {
     width: 730px;
     padding-top: 5px;
     float: left;
+}
+.related {
+    float: left;
+    width: 265px;
+    padding: .5em;
 }
 .presslide {
     padding: 5px;
@@ -377,6 +386,7 @@ div.navcontent {
     width: 1020px;
     margin: auto;
     clear: left;
+    position: relative;
 }
 .catcherleft {
     float: left;
@@ -402,8 +412,8 @@ div.navcontent {
 }
 .slidermore {
     position: absolute;
-    left: 750px;
-    top: 230px;
+    left: 550px;
+    top: 130px;
     background: none repeat scroll 0 0 #D0574C;
     font-size: 1.1em;
     font-weight: bold;
@@ -431,7 +441,7 @@ div.navcontent {
 }
 .slidericons {
     position: absolute;
-    top: 250px;
+    top: 150px;
 }
 .slidericon {
     float: left;
@@ -453,6 +463,7 @@ div.navcontent {
     font-weight: bold;
     color: #D0574C;
     font-size: 2em;
+    white-space: nowrap;
 }
 .slider dl {
     margin-bottom: 0;
@@ -461,7 +472,7 @@ div.navcontent {
 }
 .slider dd {
     width: 600px;
-    height: 50px;
+    height: 30px;
     color: #0094B5;
 }
 .headersep {
@@ -482,10 +493,13 @@ div.navcontent {
 div.popup {
     background: white;
     border: solid 1px;
-    left: 300px;
+    left: 50%;
     position: fixed;
     top: 150px;
+    padding: .5em;
     z-index: 1;
+    border-radius: 2px;
+    box-shadow: 3px 3px 4px;
 }
 .actions {
     clear: right;
@@ -495,10 +509,10 @@ div.popup {
 .actionbutton {
     background: url('/img/headersep.png');
     color: white;
-    padding: 5%;
+    padding: 4%;
     border-radius: 5px;
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 1.8em;
 }
 .actionbutton div {
     margin-bottom: .3em;

@@ -1,0 +1,32 @@
+{% extends "funding/base.html" %}
+{% block title %}Présentation d'Open Funding{% endblock %}
+{% block pagetitle %}Présentation d'Open Funding{% endblock %}
+{% block nav %}
+<div id="navhome">
+    <a href="#1" onclick="slidePres('#1')"><div>Qu'est-ce-qu'Open Funding?</div></a>
+    <a href="#2" onclick="slidePres('#2')"><div>Suivez l'évolution des projets</div></a>
+    <a href="#3" onclick="slidePres('#3')"><div>Donnez votre avis</div></a>
+    <a href="#4" onclick="slidePres('#4')"><div>Participez</div></a>
+</div>
+{% endblock %}
+{% block content %}
+<div class="presslide" id="1">
+    <h2>Qu'est-ce-qu'Open Funding?</h2>
+    Open Funding est la plate-forme de financement pour tous vos projets open source. Contribuez aux projets et voyez l'avancement que vous entrainez. Accompagnez les projets sur le long terme !
+</div>
+<div class="presslide invisible" id="2">
+    <h2>Suivez l'évolution des projets</h2>
+    Avec Open Funding vous pouvez connaitre les nouvelles fonctionnalités proposées par les développeurs. Vous pouvez suivre les développements, et savoir quand les nouveautés arrivent.
+</div>
+<div class="presslide invisible" id="3">
+    <h2>Donnez votre avis</h2>
+    Proposez de nouvelles fonctionnalités, votez pour celle que vous souhaitez avoir, et surtout apportez les financements qui les rendent possibles..
+</div>
+<div class="presslide invisible" id="4">
+    <h2>Participez</h2>
+    Vous pouvez maintenant influencer votre projet open source, et entrer dans la danse. L'open source ne sera plus jamais obscur.
+</div>
+<script>
+    if(document.location.hash) slidePres(document.location.hash);
+</script>
+{% endblock %}

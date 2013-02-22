@@ -43,6 +43,7 @@ function OIajaxCall(url, params, divid, callBack) {
         }
     }
     xmlhttp.open(method, url, true);
+    xmlhttp.withCredentials = true;
     xmlhttp.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
     xmlhttp.send(params);
 }
@@ -85,12 +86,16 @@ function hidePopups() {
         return;
     }
     var i, popup;
-    for(popup=document.popups[i=0]; i<document.popups.length; popup=document.popups[++i])
-        hide(popup.id);
+    while(popup = document.popups.pop()) hide(popup.id);
 }
 function addPopup(popup) {
     document.popups = (document.popups || []).concat(popup);
     addEvent(document, "click", hidePopups);
+}
+function showPopup(popup) {
+    document.ignoreClosePopups = true;
+    addPopup(popup);
+    show(popup.id);
 }
 function parseDate(dateString) {
     if(dateString) {
@@ -154,6 +159,7 @@ function slideIndex(nextid) {
         jQuery('.sliderimg:visible').fadeOut();
         nextImg.delay(1000).fadeIn();
         setTimeout(function(){sliding = false;}, 2000);
+        document.getElementById('preslink').hash = '#' + nextSlide.attr('id')[10];
     }
 }
 function slidePres(id) {

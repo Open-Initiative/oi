@@ -214,7 +214,7 @@ def assignrelease(request, id):
         return HttpResponse(_("Can't set to a release already finished"))
     
     if project == project.master:
-          return HttpResponse(_("The project master can't be assigne to a release"))  
+          return HttpResponse(_("The project master can't be assigned a release"))  
     project.target = release
     
     if project.descendants.filter_perm(request.user, OI_MANAGE):
@@ -259,7 +259,7 @@ def create_new_task(parent, title, author, githubid=None):
         project.save()
     return project
 
-@ajax_login_required(keep_field='title')
+@ajax_login_required(keep_fields=('title','app'))
 def saveproject(request, id='0'):
     """Saves the edited project and redirects to it"""
     parent = Project.objects.get(id=request.POST["parent"]) if request.POST.get("parent") else None
@@ -273,7 +273,6 @@ def saveproject(request, id='0'):
         project = create_new_task(parent, title, request.user)
         if parent and parent.target:
             project.target = parent.target
-        #je dois agir ici
     else: #existing project
         project = Project.objects.get(id=id)
         if not project.has_perm(request.user, OI_ANSWER):
@@ -286,7 +285,6 @@ def saveproject(request, id='0'):
     project.state = OI_PROPOSED
     project.check_dates()
     project.save()
-    
 
     #notify users about this project
     project.notify_all(request.user, "new_project", "")
@@ -295,7 +293,7 @@ def saveproject(request, id='0'):
     if request.POST.get("inline","0") == "1":
         return HttpResponse(serializers.serialize("json", [project]))
     else:
-        return HttpResponseRedirect('/project/%s'%project.id)
+        return HttpResponseRedirect('/%s/%s'%(request.session.get("app", "project"), project.id))
 
 @OINeedsPrjPerms(OI_MANAGE)
 def editdate(request, id):
