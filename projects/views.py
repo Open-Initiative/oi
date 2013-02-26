@@ -340,7 +340,7 @@ def edittitle(request, id):
     project = Project.objects.get(id=id)
     if project.state > OI_ACCEPTED:
         return HttpResponse(_("Can not change a task already started"), status=431)
-    if project.descendants:
+    if project.descendants.all():
         return HttpResponse(_("Can not change a task which has subtasks"), status=431)
 
     project.title = request.POST["title"]
