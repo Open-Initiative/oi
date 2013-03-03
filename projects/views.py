@@ -336,12 +336,10 @@ def setpriority(request, id):
 
 @OINeedsPrjPerms(OI_WRITE)
 def edittitle(request, id):
-    """Modifies the title of the project"""
+    """Changes the title of the project"""
     project = Project.objects.get(id=id)
-    if project.state > OI_ACCEPTED:
-        return HttpResponse(_("Can not change a task already started"), status=431)
-    if project.descendants.all():
-        return HttpResponse(_("Can not change a task which has subtasks"), status=431)
+    if project.state > OI_STARTED:
+        return HttpResponse(_("Can not change a finished task"), status=431)
 
     project.title = request.POST["title"]
     project.save()

@@ -1,4 +1,5 @@
 oiTable = null;
+oiTree = null;
 function setTaskName(div, id, title, view) {
     div.innerHTML="";
     var titleDiv = document.createElement('div');
@@ -157,26 +158,15 @@ function setActiveTask(projectid, canAdd) {
 function editDate(projectid, field_name, date) {
     OIajaxCall("/project/editdate/"+projectid, "field_name="+field_name+"&date="+date.dateFormat("Y-m-d"), "output");
 }
-function editProjectTitle(projectid) {
-    OIajaxCall("/project/edittitle/"+projectid, null, "prjtitle_"+projectid);
-}
 function confirmEditTitle(projectid, title) {
-    OIajaxCall("/project/confirmedittitle/"+projectid, "title="+title, "output", 
-        function(){
-//            resetProjectTitle(projectid, title); // we already do that just after
-            if(document.getElementById("prjtitle_"+projectid)){
-                document.getElementById("prjtitle_"+projectid).innerHTML = title;
-                document.getElementById("prjtitle_"+projectid).innerHTML += ' <img onclick="editProjectTitle('+projectid+')" class="clickable" src="/img/icons/edit.png" />';
-                setTaskName(oiTree.nodes[projectid].titleDiv, projectid, title, viewname);
-            }else{
-                setTaskName(oiTree.nodes[projectid].titleDiv, projectid, title, viewname);
-            }
-        }
-    );
+    OIajaxCall("/project/confirmedittitle/"+projectid, "title="+title, "output", function(){resetProjectTitle(projectid, title);});
 }
 function resetProjectTitle(projectid, title) {
-    document.getElementById("prjtitle_"+projectid).innerHTML = title;
-    document.getElementById("prjtitle_"+projectid).innerHTML += ' <img onclick="editProjectTitle('+projectid+')" class="clickable" src="/img/icons/edit.png" />';
+    if(document.getElementById("prjtitle_"+projectid)){
+        document.getElementById("prjtitle_"+projectid).innerHTML = title;
+        document.getElementById("prjtitle_"+projectid).innerHTML += '<img onclick="document.getElementById(\'prjtitle_'+projectid+'\').innerHTML = document.getElementById(\'edittitle\').innerHTML" class="clickable" src="/img/icons/edit.png" />';
+    }
+    if(oiTree) setTaskName(oiTree.nodes[projectid].titleDiv, projectid, title, viewname);
 }
 function bidProject(projectid) {
     OIajaxCall("/project/bid/"+projectid, null, "prjdialogue_"+projectid,
