@@ -24,7 +24,7 @@
         <div id="sendmp" class="popup invisible"></div>
         <div class="actions">
             {% ifnotequal user selected_user %}
-            <img class="clickable" src="/img/icons/sendmsg.png" onclick="writeMP({{selected_user.id}})" alt="{% trans "Send a message" %}" title="{% trans "Send a message" %}" />
+            <img class="clickable" src="/img/icons/sendmsg.png" onclick="writeMP('{{selected_user.username}}')" alt="{% trans "Send a message" %}" title="{% trans "Send a message" %}" />
             {% if not user|is_contact:selected_user %}
             <img class="clickable" src="/img/icons/addcontact.png" onclick="addContact('{{selected_user.username}}')" alt="{% trans "Add to my contacts" %}" title="{% trans "Add to my contacts" %}" />
             {% endif %}

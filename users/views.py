@@ -242,9 +242,9 @@ def invoice(request):
     return response
 
 @login_required
-def sendMP(request, id):
+def sendMP(request, username):
     """sends a private to the selected user, from the current user"""
-    mp = PersonalMessage(from_user=request.user, to_user=User.objects.get(id=id), text=request.POST['message'], subject=request.POST['subject'])
+    mp = PersonalMessage(from_user=request.user, to_user=User.objects.get(username = username), text=request.POST['message'], subject=request.POST['subject'])
     mp.save()
     mp.to_user.get_profile().get_default_observer().notify('personal_message', param=mp.subject, sender=mp.from_user)
     return HttpResponse(_("Message sent"), status=332)

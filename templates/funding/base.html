@@ -28,7 +28,6 @@
    <script>
         sites = { {% for site in Sites.all %}"{{site.name}}" : "{{site.domain}}", {% endfor %} };
         prjsite = "http://" + sites["Open Initiative"];
-        follow = {% if object|is_following:user %}true{%else%}false{%endif%};
    </script>
     <title>{% block title %}{% endblock %} - Open Initiative</title>
 </head>

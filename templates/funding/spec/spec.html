@@ -10,7 +10,7 @@
     {{spec.text|oiunescape|default:spec.url}} <a href="{{spec.url}}" > {% trans "click here" %} </a>
     {% else %}{{spec.text|oiunescape}}{% endif %}
 </div>
-<div class="invisible" id="newspot">{% include 'projects/spec/edit_spot.html' %}</div>
+<div class="invisible" id="newspot">{% include 'funding/spec/edit_spot.html' %}</div>
 <input type="hidden" value="{{spec.order}}">
 <script>
 {% for spot in spec.spot_set.all %}

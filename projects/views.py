@@ -338,8 +338,11 @@ def setpriority(request, id):
 def edittitle(request, id):
     """Changes the title of the project"""
     project = Project.objects.get(id=id)
+    
     if project.state > OI_STARTED:
         return HttpResponse(_("Can not change a finished task"), status=431)
+    if project.state > OI_ACCEPTED:
+        return HttpResponse(_("Can not change a task already started"), status=431)
 
     project.title = request.POST["title"]
     project.save()
@@ -895,7 +898,7 @@ def savespec(request, id, specid='0'):
         if order==-1:
             order = project.get_max_order()+1
         else:
-            if project.state > OI_ACCEPTED:
+            if project.state > OI_STARTED:
                 return HttpResponse(_("Can not change a task already started"), status=431)
             project.insert_spec(order)
         spec = Spec(text = oiescape(request.POST["text"]), author=request.user, project=project, order=order, type=1)
@@ -926,6 +929,10 @@ def savespec(request, id, specid='0'):
     spec.save()
 
     #notify users about this spec change
+    if request.POST.has_key("funding"):
+        project.notify_all(request.user, "project_spec", spec.text)
+        return render_to_response('funding/spec/spec.html',{'user': request.user, 'project' : project, 'spec' : spec})
+    
     project.notify_all(request.user, "project_spec", spec.text)
     return render_to_response('projects/spec/spec.html',{'user': request.user, 'project' : project, 'spec' : spec})
 

@@ -465,17 +465,17 @@ function buildText(divid){
         if(dd) document.getElementById("bug_report_"+divid+"_"+i).innerHTML = dd.innerHTML.replace(/<br( \/)*>/g, "\n");
     }
 }
-function saveSpec(divid, projectid, order, specid) {
+function saveSpec(divid, projectid, order, specid, funding) {
     tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
     var params = "text="+getValue("text_"+divid).replace(/\+/gi,"%2B") + "&order="+order + "&type="+getValue("type_"+divid);
     if(getValue("url_"+divid)) params+="&url="+getValue("url_"+divid);
     if(getValue("filename_"+divid)) params+="&filename="+getValue("filename_"+divid);
     if(getValue("ts_"+divid)) params+="&ts="+getValue("ts_"+divid);
     if(getValue("image_"+divid)) params+="&image="+getValue("image_"+divid);
+    if(funding) params+="&funding="+funding;
     OIajaxCall("/project/"+projectid+"/savespec/"+specid, params, divid, 
         function(){
             var div = document.getElementById(divid);
-//            var specorder =  document.getElementById(divid).getElementsByTagName("input")[3].value;
             var length = document.getElementById(divid).getElementsByTagName("input").length;
             var specorder =  document.getElementById(divid).getElementsByTagName("input")[length-1].value;
             div.id="spec_"+projectid+"_"+specorder;

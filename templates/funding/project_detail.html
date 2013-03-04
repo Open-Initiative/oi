@@ -14,15 +14,15 @@
         <div class="prjheader">
             <div class="prjauthor">{% trans "Project created by" %} <a href="/user/profile/{{object.author.username}}">{{object.author.get_profile}}</a></div>
             <div>
-                <div class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">
+                <div class="tasktitle_funding" id="prjtitle_{{object.id}}" title="{{object.title}}">
                     {{object.title}}
                 </div>
                 <div class="prj-block-fav">
-                    <img onclick="favProject(174)" src="/img/icons/starTrue.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_174">
+                    <img onclick="favProject(174)" src="/img/icons/starTrueFunding.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_174">
                     {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
                 </div>
             </div>
-            <div class="cleared">{% if object|can_write:user %}<a href="edit"><div class="bidaction">{% trans "edit" %}</div></a>{% endif %}</div>
+            <div id="funding_all_spec" class="cleared">{% if object|can_write:user %}<a href="edit"><div class="bidaction_funding">{% trans "edit" %}</div></a>{% endif %}</div>
             <div id="specs_{{project.id}}" class="prjdesc">
                 {%for spec in project.spec_set.all|dictsort:"order"%}
                 <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared">
@@ -38,7 +38,7 @@
                 {% endfor %}
             </div>
             {% if project|can_answer:user %}
-            <a class="actions clickable" onclick="addMessage(null, {{project.id}})">
+            <a class="actions_funding clickable" onclick="addMessage(null, {{project.id}})">
                 <div class="moreblue" alt="{% trans "Add a discussion" %}" title="{% trans "Add a discussion" %}">+</div> {% trans "Add a discussion" %}
             </a>
             {% endif %}
@@ -64,7 +64,7 @@
 </div>
 {% if object|can_answer:user %}
 <div class="featureblock">
-    <form id="newtask_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, function(taskid){OIajaxCall('/funding/{{object.id}}/task/'+taskid, null, newDiv('features'))}); return false" style="margin:5px 0;width:220px">
+    <form id="newtask_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features'))}); return false" style="margin:5px 0;width:220px">
         <input type="image" src="/img/icons/addtask.png" alt="{% trans 'New task' %}" title="{% trans 'New task' %}" />
         <input type="text" id="newtask_title_{{object.id}}" class="newtask_title" style="border:1px solid" value="{% trans 'New task' %}" onclick="if(this.value=='{% trans 'New task' %}')this.value=''" onblur="if(!this.value)this.value='{% trans 'New task' %}'"/>
     </form>

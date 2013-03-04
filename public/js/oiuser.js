@@ -52,12 +52,12 @@ function setemailing(label, send) {
 function saveContactInfo() {
     OIajaxCall("/user/savecontactinfo", prepareForm("contact_form"), "output");
 }
-function writeMP(userid) {
-    OIajaxCall("/user/writemp/"+userid, null, "sendmp", 
+function writeMP(username) {
+    OIajaxCall("/user/writemp/"+username, null, "sendmp", 
         function(){show("sendmp");});
 }
-function sendMP(userid) {
-    OIajaxCall("/user/sendmp/"+userid, "message="+getValue("MPmessage")+"&subject="+getValue("MPsubject"), "output",
+function sendMP(username) {
+    OIajaxCall("/user/sendmp/"+username, "message="+getValue("MPmessage")+"&subject="+getValue("MPsubject"), "output",
         function(){hide("sendmp");});
 }
 function archiveNotice(noticeid) {

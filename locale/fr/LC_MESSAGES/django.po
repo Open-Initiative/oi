@@ -1634,7 +1634,7 @@ msgstr "a accepté votre invitation."
 
 #: templates/notification/new_project/notice.html:3
 msgid "has created a new task:"
-msgstr "a créé un nouveau projet"
+msgstr "a créé une nouvelle tâche"
 
 #: templates/notification/new_project/notice.html:5
 msgid "in project"

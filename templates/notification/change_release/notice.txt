@@ -1,5 +1,5 @@
 {% load i18n %}
-{{notice.sender.get_profile}} {% blocktrans %}has changed the release of a project you follow to:{% endblocktrans %}
+{{notice.sender.get_profile}} {% blocktrans %}has put Open Initiative release's on:{% endblocktrans %}
 {{notice.param}}
 {{notice.project.title}}
 {{current_site}}/project/get/{{notice.project.id}}

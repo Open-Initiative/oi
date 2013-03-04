@@ -221,6 +221,14 @@ div.prj-action-wait {
     font-weight: bold;
     text-transform: uppercase;
 }
+.tasktitle_funding {
+    font-size: 1.7em;
+    color: green;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 .tasktitle {
     font-size: 1.7em;
     color: #D0574C;
@@ -477,12 +485,25 @@ option.oldrelease{
     margin: 5px;
     border-radius: 4px;
 }
+.bidaction_funding {
+    background: green;
+    color: white;
+    font-weight: bold;
+    padding: 3px;
+    text-transform: uppercase;
+    display: table;
+    margin: 5px;
+    border-radius: 4px;
+}
 .bidaction:after {
     content: url("/img/icons/whitebtn.png");
     vertical-align: -2px;
 }
 .oired, .oired a, .oired h3 {
     color: #D0574C;
+}
+.oiredfunding, .oiredfunding a, .oiredfunding h3 {
+    color: green;
 }
 .newspot {
     padding: 2px;
