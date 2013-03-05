@@ -40,6 +40,7 @@ class UserProfile(models.Model):
     personal_website = models.URLField(max_length=200, blank=True, null=True)
     github_username = models.CharField(max_length=100, blank=True, null=True)
     github_password = models.CharField(max_length=100, blank=True, null=True)
+    tax_rate = models.DecimalField(max_digits= 12, decimal_places=2, blank=True, null=True)
     
     def get_titles(self):
         """suggests titles for the user, based on resume details"""
@@ -201,7 +202,7 @@ class Payment(models.Model):
 class UserProfileForm(ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('address','postcode','city','country','mobile','phone','personal_website', 'github_username', 'github_password')
+        fields = ('address','postcode','city','country','mobile','phone','personal_website', 'github_username', 'github_password','tax_rate')
         widgets = {'github_password': PasswordInput(),}
 
 class SkillForm(ModelForm):
