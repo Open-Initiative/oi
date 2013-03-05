@@ -40,7 +40,13 @@
                         <input type="image" class="clickable" src="/img/icons/ok-32.png" />
                     </form>
                 </div>
-                <div class="cleared">{% trans "Commission" %} 5% : {{task.commission|default:task.allcommission_sum}} €</div>
+                
+                <div class="cleared tax">{% trans "Commission" %} 5% : {{task.commission|default:task.allcommission_sum}}€</div>
+                
+                <div class="cleared tax">{% if task.assignee.get_profile.tax_rate %}{% trans "Rate tax assignee" %}  {{task.assignee.get_profile.tax_rate}}%  : {{task.offer_with_tva|default:task.get_tax|floatformat:2}}€{% else %} {% trans "Fill your avt rate please" %}<a href="/user/preferences"><img src="/img/icons/edit.png" /></a> {% endif %}</div>
+                
+                <div class="cleared tax">{% if task.assignee.get_profile.tax_rate %}{% trans "Tax on avt assignee" %} 19.6%  : {{task.get_taxoncommssions|floatformat:2}}€{% else %} {% trans "Fill your avt rate please" %}<a href="/user/preferences"><img src="/img/icons/edit.png" /></a> {% endif %}</div>
+                
             {% else %}
                 {% trans "No offer was made for this project" %}
                 {% if task.state < 2 and task|can_bid:user %}
@@ -49,14 +55,14 @@
             {% endif %}
             </div>
         </div>
-        <div class="smallcolumn">
-            <h4>{% trans "includes" %}</h4>
-            {% for task in task.descendants.all %}
-            {% if task.offer %}
-                <div><a href="/project/{{task.id}}/view/budget">{{task.title}} : {{task.offer}} €</a></div>
-            {% endif %}
-            {% endfor %}
-        </div>
+<!--        <div class="smallcolumn">-->
+<!--            <h4>{% trans "includes" %}</h4>-->
+<!--            {% for task in task.descendants.all %}-->
+<!--            {% if task.offer %}-->
+<!--                <div><a href="/project/{{task.id}}/view/budget">{{task.title}} : {{task.offer}} €</a></div>-->
+<!--            {% endif %}-->
+<!--            {% endfor %}-->
+<!--        </div>-->
         <div class="cleared"></div>
     </div>
 <!--    <div>-->

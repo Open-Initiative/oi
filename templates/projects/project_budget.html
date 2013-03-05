@@ -29,7 +29,13 @@
                         {% endif %}
                     </div>
                 {% endif %}
-                <div class="cleared">{% trans "Commission" %} 5% : {{project.commission|default:project.allcommission_sum}} €</div>
+                
+                <div class="cleared tax">{% trans "Commission" %} 5% : {{project.commission|default:project.allcommission_sum}}€</div>
+                
+                <div class="cleared tax">{% if project.assignee.get_profile.tax_rate %}{% trans "Rate tax assignee" %} {{project.assignee.get_profile.tax_rate}}% : {{project.offer_with_tva|default:project.get_tax|floatformat:2}}€{% else %} {% trans "Fill your avt rate please" %}<a href="/user/preferences"><img src="/img/icons/edit.png" /></a> {% endif %}</div>
+                
+                <div class="cleared tax">{% if project.assignee.get_profile.tax_rate %}{% trans "Tax on avt assignee" %} 19.6%  : {{project.get_taxoncommssions|floatformat:2}}€{% else %} {% trans "Fill your avt rate please" %}<a href="/user/preferences"><img src="/img/icons/edit.png" /></a> {% endif %}</div>
+                
             {% else %}
                 {% trans "No offer was made for this project" %}
                 {% if project.state < 2 and project|can_bid:user %}
