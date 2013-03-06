@@ -1,5 +1,6 @@
 {% load oifilters %}
 {% load i18n %}
+{% if not message.parent %}
 <div id="message_{{message.id}}" class="msgblue">
     <a href="/user/profile/{{message.author.username}}"><div class="column">
         <img class="contactpicture" src="/user/getpicture/{{message.author.username}}" /><br />
@@ -21,6 +22,30 @@
         </div>
         <div class="msgbtm"></div>
     </div>
+{% endif %}
+{% if message.parent %}
+<div id="message_{{message.id}}" class="msgblue">
+    <a href="/user/profile/{{message.author.username}}"><div class="column">
+        <img class="contactpicture" src="/user/getpicture/{{message.author.username}}" /><br />
+        <div class="author">{% if message.author %}{{message.author}}{% else %}{% trans "guest" %}{% endif %}<br />
+        {{message.created|date:"d/m/Y"}}</div>
+    </a></div>
+    <div class="msgbubble">
+        <div class="msgtop">
+            <div class="clickable msgtitle" onclick="shrinkMessage({{message.id}}, {{depth|default:0}})">
+                {{message.title}}
+            </div>
+        </div>
+        <div class="msgbody">
+            <div id="msgdialogue_{{message.id}}"></div>
+            <div class="msgtext">
+                {{message.text|oiunescape}}
+            </div>
+        {% include "messages/message_actions.html" %}
+        </div>
+        <div class="msgbtm"></div>
+    </div>
+{% endif %}
     <div id="children_{{message.id}}" class="childrenlist">
         {% with depth|default:10 as depth %}{% if message.children.all|length == 1 %}
         {% with message.children.all|first as message %}

@@ -62,7 +62,7 @@
 {% endfor %}
 {% endfor %}
 </div>
-{% if object|can_answer:user %}
+{% if object|can_answer:user and user.is_authenticated %}
 <div class="featureblock">
     <form id="newtask_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features'))}); return false" style="margin:5px 0;width:220px">
         <input type="image" src="/img/icons/addtask.png" alt="{% trans 'New task' %}" title="{% trans 'New task' %}" />
