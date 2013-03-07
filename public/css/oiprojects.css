@@ -458,8 +458,9 @@ option.oldrelease{
     border: 1px solid #E3E3E5;
     border-radius: 3px;
     box-shadow: 3px 3px 4px;
-    left: -30em;
+    left: 44em;
     position: absolute;
+    width: 20em;
 }
 .editoffer {
     position: absolute;
