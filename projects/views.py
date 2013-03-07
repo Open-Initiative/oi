@@ -448,8 +448,8 @@ def answerdelay(request, id):
     #if neither true nor false
     return HttpResponse(_("No reply received"), status=531)
 
-@OINeedsPrjPerms(OI_BID)
 @ajax_login_required
+@OINeedsPrjPerms(OI_BID)
 def bidproject(request, id):
     """Makes a new bid on the project"""
     project = Project.objects.get(id=id)
