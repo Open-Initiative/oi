@@ -26,7 +26,9 @@
             <div id="specs_{{project.id}}" class="prjdesc">
                 {%for spec in project.spec_set.all|dictsort:"order"%}
                 <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared">
-                    {%include 'funding/spec/spec.html'%}
+                    {% with project as object %}
+                        {%include 'funding/spec/spec.html'%}
+                    {% endwith %}
                 </div>
                 {% endfor %}
             </div>
