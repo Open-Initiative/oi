@@ -429,11 +429,16 @@ function moveSpec(projectid, specorder, moveUp){
                 div.attr("id", id);
             });  
 }
-function editSpec(projectid, specorder) {
+function editSpec(projectid, specorder, funding) {
     var specid = getValue("specid_"+projectid+"_"+specorder);
     var divid = "spec_"+projectid+"_"+specorder;
-    OIajaxCall("/project/"+projectid+"/editspec/"+specid+"?divid="+divid, null, divid,
+    if(!funding){
+        OIajaxCall("/project/"+projectid+"/editspec/"+specid+"?divid="+divid, null, divid,
         function(){changeSpecType(divid, getValue("type_"+divid));});
+    }else{
+        OIajaxCall("/funding/"+projectid+"/editspec/"+specid+"?divid="+divid, null, divid,
+        function(){changeSpecType(divid, getValue("type_"+divid));});
+    }
 }
 function changeSpecType(divid, type) {
     if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);

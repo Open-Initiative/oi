@@ -243,7 +243,7 @@ div.prj-action-wait {
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: nowrap;s
 }
 div.prjbtm {
     width: 600px;
@@ -460,7 +460,8 @@ option.oldrelease{
     box-shadow: 3px 3px 4px;
     left: 44em;
     position: absolute;
-    width: 20em;
+    width: auto;
+    z-index: 10;
 }
 .editoffer {
     position: absolute;
