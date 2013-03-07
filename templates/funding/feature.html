@@ -133,7 +133,7 @@
         {% endif %}
     </div>
 </div>
-{% if task.state < 4 and task|can_bid:user %}
+{% if task.state < 4 and task|can_bid:user or not user.is_authenticated %}
 <div id="bidpopup_{{task.id}}" class="popup invisible" onclick="document.ignoreClosePopups = true;">
     {% trans "Fund this feature" %}
     <form onsubmit="OIajaxCall('/project/confirmbid/{{task.id}}', 'bid='+getValue('bid_{{task.id}}'), 'output');return false">
