@@ -17,10 +17,14 @@
         {% endfor %}
         {% if task|can_write:user and task.state < 4 %}
         {% with "newspec" as divid %}{% if not task.spec_set.all %}
-        <div id="{{divid}}">{% include 'funding/spec/editspec.html' %}</div>
-        <div id="sepspec_{{task.id}}" class="sepspec"></div>
+        <div id="{{divid}}">
+            {% with task as object %}
+                {% include 'funding/spec/editspec.html' %}
+            {% endwith %}
+        </div>
+        <div class="sepspec"></div>
         {% endif %}{% endwith %}{% endif %}
-        <div id="sepspec_{{task.id}}" class="sepspec"></div>
+        {% if task.spec_set.all %}<div class="sepspec"></div>{% endif %}
     </div>
     {% if task|can_write:user and task.state < 4 %}
         <a class="clickable" onclick="addSpec({{task.id}})"><img src="/img/icons/add.png" /> 
