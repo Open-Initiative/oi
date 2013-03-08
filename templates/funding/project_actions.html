@@ -11,6 +11,8 @@
     
     {% if object|can_write:user %}<span class="clickable prj-btn" onclick="showPopup(spec_{{task.id}}_details)">{% trans "Description" %}</span>{% endif %}
     
+    {% if not object|can_write:user and task.spec_set.all %}<span class="clickable prj-btn" onclick="showPopup(spec_{{task.id}}_details)">{% trans "See descriptions" %}</span>{% endif %}
+    
 {% if task.state == 2 and task.assignee == user %}
     <div class="clickable prj-btn" onclick="deliverProject({{task.id}})">{% trans "Deliver" %}</div>
 {% endif %}
