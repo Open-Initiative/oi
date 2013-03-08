@@ -113,9 +113,8 @@
     </div>
     <div class="center">
         <div class="column">
-            <!--change action block by related block-->
             <div id="actions"> 
-                {% block related %}{% endblock %}
+                {% block actions %}{% endblock %}
             </div>
             
             <div id="nav">
@@ -126,9 +125,9 @@
         <div id="content">
             {% block content %}{% endblock %}
         </div>
-<!--        <div class="related">-->
-<!--            {% block relateed %}{% endblock %}-->
-<!--        </div>-->
+        <div class="related">
+            {% block related %}{% endblock %}
+        </div>
     </div>
     <div class="cleared"></div>
     <div id="footer">
