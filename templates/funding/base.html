@@ -56,8 +56,7 @@
                 </form>
                 {%if user.is_authenticated%}
                 <div id="toptext">
-                    <a class="toplink" href="/user/myprofile"><img src="/img/icons/miniuser.png" />{% trans "My profile" %}</a>
-                    <a class="toplink" href="/user/preferences"><img src="/img/icons/minisettings.png" />{% trans "Settings" %}</a>
+                    <a class="toplink" href="/user/myaccount"><img src="/img/icons/minisettings.png" />{% trans "My account" %}</a>
                     <a class="toplink" href="/logout"><img src="/img/icons/minilogout.png" />{% trans "Disconnect" %} {{user}}</a>
                 </div>
                 {% endif %}
@@ -83,7 +82,7 @@
                                 <input type="password" name="password" id="id_password" tabindex=2 class="loginfield" onkeyup="if(this.value)jQuery(this).prev().fadeOut(); else jQuery(this).prev().fadeIn();" />
                             </td>
                             <td><input id="loginbtn" type="submit" tabindex=3 value="{% trans "login" %}" /></td>
-                            <td><a href="/user/register">
+                            <td><a href="/user/accounts/register">
                                 <div id="registerbtn">{% trans "Register" %}</div>
                             </a></td>
                         </tr>

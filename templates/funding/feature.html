@@ -20,7 +20,7 @@
                 <div class="username">{{task.assignee}}</div>
                 <div>
                     {{task.offer|default:task.alloffer_sum}} €
-                    <span class="cleared tax">{% if task.assignee.get_profile.tax_rate %}{% trans "Tax" %}  {{task.assignee.get_profile.tax_rate}}% : ({{task.offer_with_tva|default:task.get_offer_tax|floatformat:2}}€){% else %} {% trans "Fill your tax rate please" %}<a href="/user/preferences"><img src="/img/icons/edit.png" /></a> {% endif %}</span>
+                    <span class="cleared tax">{% if task.assignee.get_profile.tax_rate %}{% trans "Tax" %} {{task.assignee.get_profile.tax_rate}}% : ({{task.offer_with_tva|default:task.get_offer_tax|floatformat:2}}€){% else %} {% trans "Fill your tax rate please" %}<a href="/user/myaccount"><img src="/img/icons/edit.png" /></a> {% endif %}</span>
                     {% if task.assignee == user and task.state < 2 %}
                         {% if task.descendants.with_offer %}
                             {% trans "The task" %} "{{task.descendants.with_offer.0.title}}" {% trans "already has an offer" %} 
@@ -44,8 +44,7 @@
                 <br/>
                 <div class="cleared">{% trans "Commission" %} 5% : {{task.commission|default:task.allcommission_sum}}€</div>
                 
-                <div class="cleared tax">{% trans "Tax" %} 19.6%: ({{task.get_commssion_tax|floatformat:2}}€)<a href="/user/preferences"><img src="/img/icons/edit.png" /></a> {% endif %}</div>
-                
+                <div class="cleared tax">{% trans "Tax" %} 19.6%: ({{task.get_commssion_tax|floatformat:2}}€)</div>
             {% else %}
                 {% trans "No offer was made for this project" %}
                 {% if task.state < 2 and task|can_bid:user %}
@@ -107,12 +106,12 @@
     </form>
 </div>
 {% endif %}
-<div class="featureblock" title="{{task.title}}">
+<div id="featureDiv_{{task.id}}" class="featureblock" title="{{task.title}}">
     {% if task|can_write:user and task.state < 4 %}<div class="actions">
-        <img src="/img/icons/edit.png" alt="{% trans 'edit title' %}" title="{% trans 'edit title' %}" class="clickable" onclick="var newtitle = prompt(gettext('Please insert a title :'), '{{task.title}}');if(newtitle)confirmEditTitle({{task.id}}, newtitle)" />
+        <img src="/img/icons/edit.png" alt="{% trans 'edit title' %}" title="{% trans 'edit title' %}" class="clickable" onclick="var newtitle = prompt(gettext('Please insert a title :'), '{{task.title}}');if(newtitle){confirmEditTitle({{task.id}}, newtitle);}" />
         <img src="/img/icons/delete.png" alt="{% trans 'delete feature' %}" title="{% trans 'delete feature' %}" class="clickable" onclick="deleteProject({{task.id}})" />
     </div>{% endif %}
-    <div class="featuretitle">{{task.title}}</div>
+    <div id="feature_{{task.id}}" class="featuretitle">{{task.title}}</div>
     {% if task|can_manage:user or task.spec_set.count%}<a class="clickable" onclick="showPopup(spec_{{task.id}}_details)">{% trans "Description" %}</a>{% endif %}
     <div>
         {{task.get_budget|default:0|floatformat:"-2"}} € {% trans "needed" %}<br />
@@ -123,7 +122,6 @@
         </div>
         {% if task|can_manage:user %}<a class="clickable" onclick="showPopup(featuredetail_{{task.id}})">{% trans "Funding details" %}</a>{% endif %}
     </div>
-
     {% include 'funding/project_actions.html' %}
 </div>
 
@@ -138,3 +136,4 @@
         $("#bidpopup_{{task.id}}").draggable();
     });
 </script>
+{% endif %}

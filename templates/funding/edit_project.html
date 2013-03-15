@@ -7,7 +7,7 @@
 {% endblock %}
 {% block content %}
 {% if object|can_write:user %}
-<div class="prjbody">
+<div class="pagebody">
     {% with object as project %}
     <div id="project_{{object.id}}" class="project">
         <div id="prjdialogue_{{object.id}}" class="popup invisible"></div>
@@ -16,7 +16,7 @@
             <div>
                 <div class="tasktitle_funding" id="prjtitle_{{object.id}}" title="{{object.title}}">
                     {{object.title}}
-                    {% if object|can_write:user and object.state < 3 %}
+                    {% if object|can_write:user and object.state < 2 %}
                     <img onclick="document.getElementById('prjtitle_{{object.id}}').innerHTML = document.getElementById('edittitle').innerHTML" class="clickable" src="/img/icons/edit.png" alt="{% trans 'Edit the title' %}" title="{% trans 'Edit the title' %}" />
                 </div>
                 <div id="edittitle" class="invisible">

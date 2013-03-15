@@ -132,3 +132,5 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
     "oi.projects.context_processors.constants",
 )
+
+ACCOUNT_ACTIVATION_DAYS = 7

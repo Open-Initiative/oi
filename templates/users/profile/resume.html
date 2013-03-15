@@ -36,7 +36,7 @@
                 {{selected_user.get_profile.city|default:""}}<br/>
                 ({{selected_user.get_profile.country|default:_("location unknown")}})
                 {% ifequal user selected_user %}
-                <a href="/user/preferences"><img src="/img/icons/edit.png" /></a>
+                <a href="/user/myaccount"><img src="/img/icons/edit.png" /></a>
                 {% endifequal %}
                 <br />
                 {% trans "Birth date:" %} <span id="birthdate">{{selected_user.get_profile.birthdate|date:"d/m/Y"}}</span>
@@ -49,7 +49,7 @@
     <h2 class="resumetitle">{% trans "Personal web site" %}</h2>
     <a href="{{selected_user.get_profile.personal_website|default:""}}">{{selected_user.get_profile.personal_website|default:""}}</a>
     {% ifequal user selected_user %}
-        <a href="/user/preferences"><img src="/img/icons/edit.png" /></a>
+        <a href="/user/myaccount"><img src="/img/icons/edit.png" /></a>
     {% endifequal %}
 </div>
 <div id="skill" class="userblock">

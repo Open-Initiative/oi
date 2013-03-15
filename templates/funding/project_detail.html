@@ -7,7 +7,7 @@
 {% endblock %}
 {% block content %}
 {% if object|can_read:user %}
-<div class="prjbody">
+<div class="pagebody">
     {% with object as project %}
     <div id="project_{{object.id}}" class="project">
         <div id="prjdialogue_{{object.id}}" class="popup invisible"></div>
@@ -71,4 +71,5 @@
     </form>
 </div>
 {% endif %}
+<script>currentTask = {{object.id}};</script>
 {% endblock %}

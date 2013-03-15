@@ -51,7 +51,7 @@ def userprofile(request, username):
 def userprefs(request):
     """user settings page"""
     extra_context={'contact_form':UserProfileForm(instance=request.user.get_profile())}
-    return direct_to_template(request, template='users/preferences.html', extra_context=extra_context)
+    return direct_to_template(request, template='users/myaccount.html', extra_context=extra_context)
 
 @login_required
 def setemailing(request):
@@ -60,6 +60,14 @@ def setemailing(request):
     send = (request.POST["send"] == "true")
     setting = Observer.objects.get(request.user).get_setting.update(send=send)
     return HttpResponse(_("Setting saved"))
+
+@login_required
+def savename(request):
+    """saves user contact information"""
+    request.user.last_name = request.POST['lastname']
+    request.user.first_name = request.POST['firstname']
+    request.user.save()
+    return HttpResponse(_("Name saved"))
 
 @login_required
 def savecontactinfo(request):
@@ -110,7 +118,7 @@ def changepassword(request):
     request.user.set_password(request.POST['newpassword'])
     request.user.save()
     messages.info(request, _("Your password has been updated"))
-    return HttpResponseRedirect("/user/preferences")
+    return HttpResponseRedirect("/user/myaccount")
 
 @login_required
 def changeemail(request):
@@ -120,7 +128,7 @@ def changeemail(request):
     request.user.email = request.POST['newemail'] #TODO check for email validity
     request.user.save()
     messages.info(request, _("Your email has been updated"))
-    return HttpResponseRedirect("/user/preferences")
+    return HttpResponseRedirect("/user/myaccount")
 
 def createuser(request):
     """creates a new user"""
@@ -295,8 +303,8 @@ def updatepayment(request):
     return HttpResponse('OK')
     
 @login_required
-def myaccount(request):
+def paymenthistory(request):
     if request.GET:
         request.user.get_profile().update_payment(dict(request.GET.items())) #to obtain a mutable version of the QueryDict
-        return(HttpResponseRedirect("/user/myaccount"))
-    return direct_to_template(request, template="users/account.html")
+        return(HttpResponseRedirect("/user/paymenthistory"))
+    return direct_to_template(request, template="users/paymenthistory.html")

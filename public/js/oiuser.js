@@ -49,8 +49,19 @@ function addContact(username) {
 function setemailing(label, send) {
     OIajaxCall("/user/setemailing", "label="+label+"&send="+send, "output");
 }
+function saveName() {
+    OIajaxCall("/user/savename", prepareForm("contact_name"), "output", function(){
+        document.getElementById("contact_lastname").innerHTML = document.getElementById("contact_lastname_info").value;
+        document.getElementById("contact_firstname").innerHTML = document.getElementById("contact_firstname_info").value;
+    });
+}
 function saveContactInfo() {
-    OIajaxCall("/user/savecontactinfo", prepareForm("contact_form"), "output");
+    OIajaxCall("/user/savecontactinfo", prepareForm("contact_form"), "output", function(){
+        var contact = prepareForm("contact_form").split("&");
+        for(var i = 0; i < contact.length; i++){
+            document.getElementById("contact_"+contact[i].split("=")[0]).innerHTML = contact[i].split("=")[1];
+        }
+    });
 }
 function writeMP(username) {
     OIajaxCall("/user/writemp/"+username, null, "sendmp", 

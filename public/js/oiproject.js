@@ -166,6 +166,7 @@ function resetProjectTitle(projectid, title) {
         document.getElementById("prjtitle_"+projectid).innerHTML = title;
         document.getElementById("prjtitle_"+projectid).innerHTML += '<img onclick="document.getElementById(\'prjtitle_'+projectid+'\').innerHTML = document.getElementById(\'edittitle\').innerHTML" class="clickable" src="/img/icons/edit.png" />';
     }
+    if(document.getElementById("features")) document.getElementById('feature_'+projectid).innerHTML = title;
     if(oiTree) setTaskName(oiTree.nodes[projectid].titleDiv, projectid, title, viewname);
 }
 function bidProject(projectid) {
@@ -292,7 +293,9 @@ function deleteProject(projectid) {
                     if(oiTree.nodes[projectid].parent) document.location = "/project/"+oiTree.nodes[projectid].parent.id;
                     else document.location = "/";
                 } else {
-                    oiTree.deleteNode(projectid);
+                       var feature = document.getElementById("featureDiv_"+projectid);
+                       if(feature) feature.parentNode.removeChild(feature);
+                       if(oiTree) oiTree.deleteNode(projectid);
                 }
         });
     }
