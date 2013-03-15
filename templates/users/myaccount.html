@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "My account" %}{% endblock %}
+{% block content %}
+
+<div class="pagebody">
+
+    <table id="userprofile">
+        <tr>
+            <td width="70%">
+                <h1 id="fullname">
+                    {{user.get_profile.get_display_name}}
+                    <img class="clickable" src="/img/icons/edit.png" onclick="selectNameDisplay()" />
+                </h1>
+                <h2>{{user.username}}</h2>
+            </td>
+            <td>
+                <div class="userpicture">
+                    <img id="user_picture" width="125" height="150" src="/user/getpicture/{{selected_user.username}}" />
+                    
+                    <img class="clickable" src="/img/icons/edit.png" onclick="show('profile_picture')" />
+                    <div id="profile_picture" class="invisible">
+                        <form id="profile_picture_form" method="post" enctype="multipart/form-data" action="/user/uploadpicture" target="picturedest">
+                            {% csrf_token %}
+                            <input id="picture" name="picture" type="file" size="1" onchange="document.getElementById('profile_picture_form').submit();hide('profile_picture')" />
+                        </form>
+                    </div>
+                    <iframe id="picturedest" name="picturedest" class="filedest"></iframe>
+                    
+                </div>
+                <div class="actions">
+
+                    <br />
+                    {% trans "Birth date:" %} <span id="birthdate">{{user.get_profile.birthdate|date:"d/m/Y"}}</span>
+                    {% include "users/profile/edit_date.html" %}
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div>
+        <h2>{% trans "Name" %}</h2>
+        <div id="block_name_info">
+            <span id="contact_lastname">{{user.last_name}}</span> <span id="contact_firstname">{{user.first_name}}</span>
+            <br/>
+            <br/>
+        </div>
+        <div id="block_name" class="invisible">
+            <div class="actions">
+                <img class="clickable" src="/img/icons/ok-32.png" onclick="saveName();$('#block_name').hide();$('#block_name_info').show()" />
+                <input type="image" class="clickable" src="/img/icons/del-32.png" onclick="document.forms['contact_name'].reset()" />
+            </div>
+            <form id="contact_name">
+                <table>
+                    <tr>
+                        <td><label for="lastname">{% trans "Last name" %}</label></td>
+                        <td><input type="text" id="contact_lastname_info" name="lastname" value="{{user.last_name}}" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="firstname">{% trans "First name" %}</label></td>
+                        <td><input type="text" id="contact_firstname_info" name="firstname" value="{{user.first_name}}" /></td>
+                    </tr>
+                </table>
+            </form>
+            <br/>
+        </div>
+        <div onclick="$('#block_name').toggle();$('#block_name_info').toggle()" class="clickable"><b>{% trans "Edit this information" %}</b> <img class="clickable" src="/img/icons/edit.png"/></div>
+    
+    
+        <h2>{% trans "Contact information" %}</h2>
+        <div id="block_contact_info">
+            <span id="contact_address">{{user.get_profile.address}}</span>
+            <br/>
+            <span id="contact_postcode">{{user.get_profile.postcode}}</span> - <span id="contact_city">{{user.get_profile.city}}</span>
+            <br/>
+            <span id="contact_country">{{user.get_profile.country}}</span>
+            <br/>
+            <span id="contact_mobile">{{user.get_profile.mobile}}</span> - <span id="contact_phone">{{user.phone}}</span>
+            <br/>
+            <span id="contact_personel_website">{{user.get_profile.personal_website}}</span>
+            <br/>
+            <span id="contact_tax_rate">{{user.get_profile.tax_rate}}</span>
+        </div>
+        <div id="block_contact" class="invisible">
+            <div class="actions">
+                <img class="clickable" src="/img/icons/ok-32.png" onclick="saveContactInfo();$('#block_contact').hide();$('#block_contact_info').show()" />
+                <input type="image" class="clickable" src="/img/icons/del-32.png" onclick="document.forms['contact_form'].reset()" />
+            </div>
+            <form id="contact_form">
+                <table>{{contact_form.as_table}}</table>
+            </form>
+        </div>
+        <br/>
+        <div onclick="$('#block_contact').toggle();$('#block_contact_info').toggle()" class="clickable"><b>{% trans "Edit this information" %}</b> <img class="clickable" src="/img/icons/edit.png"/></div>
+        
+        <h2>{% trans "Your account" %}</h2>
+        <div id="block_account">
+            <div>
+            
+                <div class="invisible" id="deposit">
+                        {% trans "You don't have enough money on your account. Please indicate below how much you want to add:" %}
+                    </div>
+                    <p>{% trans "You have" %} {{user.get_profile.balance}} {% trans "in your account" %}</p>
+                    <p>{% trans "Add money in your account" %}</p>
+                    <form method="post" action="/user/confirmpayment">
+                        {% csrf_token %}
+                        <input type="text" name="amount" id="amount" class="smallinput accountinput" value="0"/>
+                        <input type="image" src="/img/icons/ok-32.png" id="submit2" name="submit2">
+                    </form>
+                </div>
+    
+            <br/>
+        </div>
+        
+        <br/>
+    </div>
+    <div>
+        <a href="/user/changepassword">{% trans "Change your password" %}</a>
+    </div>
+    <div>
+        {{user.email}}
+        <a href="/user/changeemail">{% trans "Change your e-mail address" %}</a>
+    </div>
+    <div>
+        <a href="/notification/settings">{% trans "Notification settings" %}</a>
+<!--    <div>-->
+<!--        <h2>Privacy settings</h2>-->
+<!--    </div>-->
+</div>
+<script>
+    ajaxParams = document.location.hash.split("/");
+    if(ajaxParams[0] == "#deposit"){
+        show('deposit');
+        document.getElementById('amount').value = ajaxParams[1];
+    }
+</script>
+{% endblock %}
