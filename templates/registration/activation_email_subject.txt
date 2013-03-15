@@ -1,0 +1,7 @@
+{% load i18n %}
+Open Initiative
+{% trans "The IT community dedicated to your business" %}
+
+{% trans "Hello" %}
+{% trans "Activate your account" %}
+{% trans "To come back in our web site, please go to" %}{{current_site}}/
