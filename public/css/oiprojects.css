@@ -1,8 +1,3 @@
-div.prjbody {
-    background: white;
-    clear: left;
-    border: solid 1px #E0E0E0;
-}
 .prjheader {
     padding: 1em;
 }
@@ -223,7 +218,7 @@ div.prj-action-wait {
 }
 .tasktitle_funding {
     font-size: 1.7em;
-    color: green;
+    color: #1E9947;
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -488,7 +483,7 @@ option.oldrelease{
     border-radius: 4px;
 }
 .bidaction_funding {
-    background: green;
+    background: #1E9947;
     color: white;
     font-weight: bold;
     padding: 3px;
@@ -505,7 +500,7 @@ option.oldrelease{
     color: #D0574C;
 }
 .oiredfunding, .oiredfunding a, .oiredfunding h3 {
-    color: green;
+    color: #1E9947;
 }
 .newspot {
     padding: 2px;
