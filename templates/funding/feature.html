@@ -20,7 +20,7 @@
                 <div class="username">{{task.assignee}}</div>
                 <div>
                     {{task.offer|default:task.alloffer_sum}} €
-                    <span class="cleared tax">{% if task.assignee.get_profile.tax_rate %}{% trans "Tax" %}  {{task.assignee.get_profile.tax_rate}}% : ({{task.offer_with_tva|default:task.get_tax|floatformat:2}}€){% else %} {% trans "Fill your avt rate please" %}<a href="/user/myaccount"><img src="/img/icons/edit.png" /></a> {% endif %}</span>
+                    <span class="cleared tax">{% if task.assignee.get_profile.tax_rate %}{% trans "Tax" %} {{task.assignee.get_profile.tax_rate}}% : ({{task.offer_with_tva|default:task.get_offer_tax|floatformat:2}}€){% else %} {% trans "Fill your tax rate please" %}<a href="/user/myaccount"><img src="/img/icons/edit.png" /></a> {% endif %}</span>
                     {% if task.assignee == user and task.state < 2 %}
                         {% if task.descendants.with_offer %}
                             {% trans "The task" %} "{{task.descendants.with_offer.0.title}}" {% trans "already has an offer" %} 
@@ -44,8 +44,7 @@
                 <br/>
                 <div class="cleared">{% trans "Commission" %} 5% : {{task.commission|default:task.allcommission_sum}}€</div>
                 
-                <div class="cleared tax">{% if task.assignee.get_profile.tax_rate %}{% trans "Tax" %} 19.6%: ({{task.get_taxoncommssions|floatformat:2}}€){% else %} {% trans "Fill your avt rate please" %}<a href="/user/myaccount"><img src="/img/icons/edit.png" /></a> {% endif %}</div>
-                
+                <div class="cleared tax">{% trans "Tax" %} 19.6%: ({{task.get_commssion_tax|floatformat:2}}€)</div>
             {% else %}
                 {% trans "No offer was made for this project" %}
                 {% if task.state < 2 and task|can_bid:user %}
@@ -54,42 +53,8 @@
             {% endif %}
             </div>
         </div>
-<!--        <div class="smallcolumn">-->
-<!--            <h4>{% trans "includes" %}</h4>-->
-<!--            {% for task in task.descendants.all %}-->
-<!--            {% if task.offer %}-->
-<!--                <div><a href="/project/{{task.id}}/view/budget">{{task.title}} : {{task.offer}} €</a></div>-->
-<!--            {% endif %}-->
-<!--            {% endfor %}-->
-<!--        </div>-->
         <div class="cleared"></div>
     </div>
-<!--    <div>-->
-<!--        <div class="smallcolumn">-->
-<!--            <h4>{% trans "Dependencies" %}</h4>-->
-<!--            {{task.missing_requirement_bid}} €-->
-<!--            {% if task|can_manage:user %}<div style="border:solid;padding:.5em" id="test">-->
-<!--                {% trans "Drop here tasks that are required for this one to start" %}-->
-<!--            </div>{% endif %}-->
-<!--            <script>-->
-<!--                {% if task|can_write:user and task.state < 2 %}-->
-<!--                    test.receiveNode = function receiveNode(id, event) {-->
-<!--                        OIajaxCall("/project/{{task.id}}/addrequirement", "req="+id, newDiv("requirements_{{task.id}}"));-->
-<!--                    }-->
-<!--                {% endif %}-->
-<!--            </script>-->
-<!--        </div>-->
-<!--        <div class="smallcolumn" id="requirements_{{task.id}}">-->
-<!--            <h4>{% trans "Depends on" %}</h4>-->
-<!--            {% for req in task.requirements.all %}-->
-<!--                <div id="req_{{req.id}}">-->
-<!--                    <a href="/project/{{req.id}}/view/budget">{{req.title}}: {{req.missing_bid}} €</a>-->
-<!--                    <img class="clickable" src="/img/icons/delete.png" alt="{% trans 'Delete this dependency' %}" title="{% trans 'Delete this dependency' %}" onclick="OIajaxCall('/project/{{task.id}}/removerequirement', 'req={{req.id}}', 'output', function(){req_{{req.id}}.innerHTML=''})" />-->
-<!--                </div>-->
-<!--            {% endfor %}-->
-<!--        </div>-->
-<!--        <div class="cleared"></div>-->
-<!--    </div>-->
     <div class="smallcolumn" >
         <div id="bids_{{task.id}}" class="participant">
             <h3>{{task.bid_set.count}} {% trans "Bids" %}: {{task.allbid_sum}} €</h3>
@@ -136,7 +101,7 @@
 <div id="bidpopup_{{task.id}}" class="popup invisible" onclick="document.ignoreClosePopups = true;">
     {% trans "Fund this feature" %}
     <form onsubmit="OIajaxCall('/project/confirmbid/{{task.id}}', 'bid='+getValue('bid_{{task.id}}'), 'output');return false">
-        <input id="bid_{{task.id}}" name="bid_{{task.id}}" class="bidfeature" value="{{task.missing_bid}}" />
+        <input id="bid_{{task.id}}" name="bid_{{task.id}}" class="bidfeature" value="{{task.missing_bid|floatformat:"-2"}}" />
         <input type="image" src="/img/icons/ok-32.png" />
     </form>
 </div>
@@ -147,14 +112,21 @@
         <img src="/img/icons/delete.png" alt="{% trans 'delete feature' %}" title="{% trans 'delete feature' %}" class="clickable" onclick="deleteProject({{task.id}})" />
     </div>{% endif %}
     <div id="feature_{{task.id}}" class="featuretitle">{{task.title}}</div>
-    {% trans "To be funded:" %} {{task.missing_bid}} €
-    {% if task|can_manage:user %}<img src="/img/icons/next.png" alt="{% trans 'Edit this offer' %}" title="{% trans 'Edit this offer' %}" class="clickable" onclick="showPopup(featuredetail_{{task.id}})" />{% endif %}
+    {% if task|can_manage:user or task.spec_set.count%}<a class="clickable" onclick="showPopup(spec_{{task.id}}_details)">{% trans "Description" %}</a>{% endif %}
+    <div>
+        {{task.get_budget|default:0|floatformat:"-2"}} € {% trans "needed" %}<br />
+        {{task.allbid_sum|default:0|floatformat:"-2"}} € {% trans "funded" %}<br />
+        <div class="progressbar">
+            <span id="progressbar_{{object.id}}" class="progress" style="width:{{task.get_funding_progress|default:0|floatformat:0}}%;"></span>
+            <span id="progresslabel_{{object.id}}" class="progresstitle" >{% trans "Missing" %} {{task.missing_bid|floatformat:"-2"}} €</span>
+        </div>
+        {% if task|can_manage:user %}<a class="clickable" onclick="showPopup(featuredetail_{{task.id}})">{% trans "Funding details" %}</a>{% endif %}
+    </div>
     {% include 'funding/project_actions.html' %}
 </div>
-{% endif %}
 
 <div id="spec_{{task.id}}_details" class="featuredetail invisible" onclick="document.ignoreClosePopups = true;">
-    {% include 'funding/spec/descrpition_popup.html' %}
+    {% include 'funding/spec/description_popup.html' %}
 </div>
 
 <script>
@@ -164,3 +136,4 @@
         $("#bidpopup_{{task.id}}").draggable();
     });
 </script>
+{% endif %}

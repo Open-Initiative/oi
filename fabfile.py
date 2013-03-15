@@ -15,6 +15,7 @@ def deploy_pp():
     local("git push")
     with cd("oi"):
         run("git merge devel")
+        run("./manage.py syncdb")
         run("./manage.py migrate")
         run("./manage.py register_notice_types")
         
@@ -23,6 +24,7 @@ def deploy_PROD():
     local("git push prod")
     with cd("oi"):
         run("git merge master")
+        run("./manage.py syncdb")
         run("./manage.py migrate")
         run("./manage.py register_notice_types")
 

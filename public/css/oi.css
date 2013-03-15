@@ -20,7 +20,7 @@ body {
     margin:0;
     font-family: "ProximaNova",Verdana,Arial,Helvetica,sans-serif;
     font-size: 14px;
-    color: #778e9c;
+    color: #475E6C;
     background: #F9F9F9;
 }
 .pagebody {
@@ -167,7 +167,7 @@ div.center{
 }
 .loginfield {
     width: 130px;
-    border: solid 1px #778e9c;
+    border: solid 1px #475E6C;
     font-size: .8em;
 }
 #loginbtn {
