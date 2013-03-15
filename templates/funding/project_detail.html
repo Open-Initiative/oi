@@ -18,35 +18,34 @@
                     {{object.title}}
                 </div>
                 <div class="prj-block-fav">
-                    <img onclick="favProject(174)" src="/img/icons/starTrueFunding.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_174">
+                    <img onclick="favProject(174)" src="/img/icons/starTrueFunding.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_174" />
                     {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
                 </div>
             </div>
-            <div id="funding_all_spec" class="cleared">{% if object|can_write:user %}<a href="edit"><div class="bidaction_funding">{% trans "edit" %}</div></a>{% endif %}</div>
-            <div id="specs_{{project.id}}" class="prjdesc">
-                {%for spec in project.spec_set.all|dictsort:"order"%}
-                <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared">
-                    {% with project as object %}
-                        {%include 'funding/spec/spec.html'%}
-                    {% endwith %}
-                </div>
-                {% endfor %}
-            </div>
-            <div id="discussions_{{project.id}}" class="discussions">
-                {% for message in project.message_set.all %}
-                <div id="message_{{message.id}}_box">{% include 'messages/message.html' %}</div>
-                {% empty %}
-                {% if project|can_answer:user %}{% trans "Discuss" %} {{object.title}}{% endif %}
-                {% endfor %}
-            </div>
-            {% if project|can_answer:user %}
-            <a class="actions_funding clickable" onclick="addMessage(null, {{project.id}})">
-                <div class="moreblue" alt="{% trans "Add a discussion" %}" title="{% trans "Add a discussion" %}">+</div> {% trans "Add a discussion" %}
-            </a>
-            {% endif %}
+            <div class="cleared"></div>
+            {% if object|can_write:user %}<a href="edit"><div class="bidaction_funding">{% trans "edit" %}</div></a>{% endif %}
         </div>
-        <div class="cleared"></div>
+        <div id="specs_{{project.id}}" class="prjdesc">
+            {%for spec in project.spec_set.all|dictsort:"order"%}
+            <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared">
+                {% with project as object %}{%include 'funding/spec/spec.html'%}{% endwith %}
+            </div>
+            {% endfor %}
+        </div>
+        <div id="discussions_{{project.id}}" class="discussions">
+            {% for message in project.message_set.all %}
+            <div id="message_{{message.id}}_box">{% include 'messages/message.html' %}</div>
+            {% empty %}
+            {% if project|can_answer:user %}{% trans "Discuss" %} {{object.title}}{% endif %}
+            {% endfor %}
+        </div>
+        {% if project|can_answer:user %}
+        <a class="actions_funding clickable" onclick="addMessage(null, {{project.id}})">
+            <div class="moreblue" alt="{% trans "Add a discussion" %}" title="{% trans "Add a discussion" %}">+</div> {% trans "Add a discussion" %}
+        </a>
+        {% endif %}
     </div>
+    <div class="cleared"></div>
     {% endwith %}
 </div>
 {% else %}

@@ -44,7 +44,7 @@ OI_NO_EVAL = -2
 OI_ACCEPT_DELAY = -3
 OI_COMMISSION = Decimal(".05")
 OI_COM_ON_BID = OI_COMMISSION/(OI_COMMISSION+1)
-OI_AVT = Decimal(".196")
+OI_VAT_RATE = Decimal("19.6")
 
 # Maximum displayed depth of a discussion
 OI_PAGE_SIZE = 10
@@ -65,13 +65,6 @@ VIDEO_TYPE = 4
 DOC_TYPE = 5
 BUG_REPORT_TYPE = 6
 SPEC_TYPES =  {TEXT_TYPE:_("Text"), IMAGE_TYPE:_("Image"), URL_TYPE:_("url link"), VIDEO_TYPE:_("Video"), DOC_TYPE:_("Document"), BUG_REPORT_TYPE:_("Bug report")}
-
-#XXX deprecated
-##Spot types
-#NOTE_TYPE = 1
-#TASK_TYPE = 2
-#MESSAGE_TYPE = 3
-#SPOT_TYPES =  {NOTE_TYPE:_("Note"), TASK_TYPE:_("Task"), MESSAGE_TYPE:_("Discussion")}
 
 class OIAction:
     def show(self, project, user):

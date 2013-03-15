@@ -12,7 +12,7 @@ div.prjbody {
 }
 div.prjauthor {
     float: right;
-    color: #778E9C;
+    color: #475E6C;
 }
 .prjdetail {
     text-align: right;
@@ -268,7 +268,7 @@ div.prjbtm {
     left: 200px;
 }
 .prjcardauthor {
-    color: #778E9C;
+    color: #475E6C;
 }
 div.cardspec {
     margin: 20px 0;

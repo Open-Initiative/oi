@@ -5,7 +5,7 @@
 {% endif %}
 <div id="spec_{{object.id}}_{{spec.order}}_content"{% if object|can_write:user and object.state < 4 %} class="clickable" onclick="(new OISpot(this.parentNode, {{object.id}}, {{spec.id}}, 0, (event.pageX||(event.clientX + document.documentElement.scrollLeft))-this.parentNode.offsetLeft, (event.pageY||(event.clientY + document.documentElement.scrollTop))-this.parentNode.offsetTop)).edit();event.stopPropagation();"{% endif %}>
     <input type="hidden" id="specid_{{object.id}}_{{spec.order}}" value="{{spec.id}}" />
-    {% if spec.type == 2 or spec.type == 6 %}<img style="max-width:700px" src="{% if spec.file %}{{spec.file.url}}{% endif %}" />{% endif %}
+    {% if spec.type == 2 or spec.type == 6 and spec.file %}<img style="max-width:700px" src="{{spec.file.url}}" />{% endif %}
     {% if spec.type == 3 or spec.type == 4 or spec.type == 6 and spec.url != "http://" %}
     {{spec.text|oiunescape|default:spec.url}} <a href="{{spec.url}}" > {% trans "click here" %} </a>
     {% else %}{{spec.text|oiunescape}}{% endif %}
@@ -27,7 +27,7 @@
 </div>
 
 <div class="invisible" id="newspot">{% include 'funding/spec/edit_spot.html' %}</div>
-<input type="hidden" value="{{spec.order}}">
+<input type="hidden" value="{{spec.order}}" />
 <script>
 {% for spot in spec.spot_set.all %}
     new OISpot(document.getElementById("spec_{{object.id}}_{{spec.order}}"), {{object.id}}, {{spec.id}}, {{spot.id}}, {{spot.offsetX}}, {{spot.offsetY}}, '{{spot.object.title}}', {{spot.object.id}}, {{spot.number}}{% if spot.object.state > 3 %}, "green" {% else %} {% if spot.isbug %}, "#D0574C" {% endif %} {% endif %});

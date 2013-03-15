@@ -12,7 +12,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext as _
 from django.db.models.query import QuerySet
 from oi.settings import MEDIA_ROOT
-from oi.helpers import OI_ALL_PERMS, OI_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_ANSWER, OI_BID, OI_MANAGE, OI_COMMISSION, OI_COM_ON_BID, OI_CANCELLED_BID, OI_AVT
+from oi.helpers import OI_ALL_PERMS, OI_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_ANSWER, OI_BID, OI_MANAGE, OI_COMMISSION, OI_COM_ON_BID, OI_CANCELLED_BID, OI_VAT_RATE
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS, OI_TABLE_OVERVIEW
 from oi.helpers import SPEC_TYPES, TEXT_TYPE, to_date
 from oi.prjnotify.models import Observer
@@ -71,8 +71,6 @@ class Project(models.Model):
     assignee = models.ForeignKey(User, related_name='assigned_projects', null=True, blank=True)
     delegate_to = models.ForeignKey(User, related_name='delegated_projects', null=True, blank=True)
     offer = models.DecimalField(max_digits= 12, decimal_places=2, default=0)
-    avt = models.DecimalField(max_digits= 12, decimal_places=2, default=0)
-    offer_with_avt = models.DecimalField(max_digits= 12, decimal_places=2, default=0)
     commission = models.DecimalField(max_digits= 12, decimal_places=2, default=0)
     parent = models.ForeignKey('self', blank=True, null=True, related_name='tasks')
     ancestors = models.ManyToManyField('self', symmetrical=False, related_name='descendants', blank=True)
@@ -324,50 +322,29 @@ class Project(models.Model):
     def alloffer_sum(self):
         """sums up all offers on the project's tasks"""
         return self.descendants.aggregate(models.Sum("offer"))["offer__sum"] or Decimal("0")
-        
+    
     def allcommission_sum(self):
         """sums up all commissions on the project's tasks"""
         return self.descendants.aggregate(models.Sum("commission"))["commission__sum"] or Decimal("0")
-     
-    #calcule la some des taxes sur les projets descendants   
-    def alltax_sum(self):
-        """sums up all avt tax on the project's tasks"""
-        return self.descendants.aggregate(models.Sum("offer_with_avt"))["offer_with_avt__sum"] or Decimal("0")
     
-    def alltaxtaxoncommssions_sum(self):
-        """sums up all avt tax on the project's tasks"""
-        return self.descendants.aggregate(models.Sum("avt"))["avt__sum"] or Decimal("0")
-    
-    #calcule la some des taxes commissions sur les projets descendants #ne me donne pas la some exacte    
-#    def alltaxtaxoncommssions_sum(self):
-#        """sums up all commissions on the project's tasks"""
-#        for task in self.descendants.all():
-#            if task.offer:
-#                avt_sum = (task.offer * OI_COMMISSION) * OI_AVT
-#        return avt_sum or Decimal("0")
-        
-    def get_tax(self):
+    def get_offer_tax(self):
         """sums up all commissions on the project's tasks"""
-        if self.offer:
-            self.offer_with_avt = self.offer * (self.assignee.get_profile().tax_rate / 100)
-            self.save()
-        return self.offer_with_avt or self.alltax_sum()
-       
-    def get_taxoncommssions(self):
-        """sums up all commissions on the project's tasks"""
-        #tva est une variable que j'ai créé est qui ne me sert pas, je dois la retirer mais là je l'utilise pour un test
-        self.avt = ((self.offer * OI_COMMISSION) * OI_AVT)
-        self.save()
-        return self.avt or self.alltaxtaxoncommssions_sum()
-        
-#    def get_taxoncommssions(self):
-#        """sums up all commissions on the project's tasks"""
-#        return ((self.offer * OI_COMMISSION) * OI_AVT) or self.alltaxtaxoncommssions_sum()
+        return (self.offer or self.alloffer_sum()) * self.assignee.get_profile().tax_rate / 100
     
+    def get_commission_tax(self):
+        """sums up all commissions on the project's tasks"""
+        return (self.commission or self.allcommission_sum()) * OI_VAT_RATE / 100
+        
     def get_budget(self):
         """return the total budget of the project, either itself or summing its tasks, and including commission"""
-        tax_rate = self.assignee.get_profile().tax_rate or 0
-        return ((self.offer * (tax_rate / 100)) + (self.commission * OI_AVT) + self.offer + self.commission) or (self.alloffer_sum() + self.allcommission_sum() + self.get_taxoncommssions() + self.get_tax())
+        return (self.offer or self.alloffer_sum()) + self.get_offer_tax() + (self.commission or self.allcommission_sum()) + self.get_commission_tax()
+    
+    def get_funding_progress(self):
+        """Returns the percentage of offer already in bids"""
+        if self.get_budget():
+            return min(self.allbid_sum() / self.get_budget() * 100, 100)
+        else:
+            return None
     
     def bid_sum(self):
         """returns the sum of all bids on this project"""
