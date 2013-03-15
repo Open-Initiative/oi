@@ -202,8 +202,7 @@ class Payment(models.Model):
 class UserProfileForm(ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('address','postcode','city','country','mobile','phone','personal_website', 'github_username', 'github_password','tax_rate')
-        widgets = {'github_password': PasswordInput(),}
+        fields = ('address','postcode','city','country','mobile','phone','personal_website','tax_rate')
 
 class SkillForm(ModelForm):
     class Meta:
