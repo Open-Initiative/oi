@@ -1,5 +1,9 @@
+.slidertext dt {color: #1e9947}
+.slidertip {color: #0f4d42}
+.slidermore {background: #1e9947}
+#registerbtn {background: #1E9947}
 .prjheader {
-    padding: 1em;
+    padding: 2em;
 }
 .delbtn {
     float: right;
@@ -217,22 +221,30 @@ div.prj-action-wait {
     text-transform: uppercase;
 }
 .tasktitle {
-    font-size: 1.7em;
-    color: #D0574C;
+    font-size: 2.5em;
+    color: #1E9947;
     font-weight: bold;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 .featuretitle {
-    font-size: 1.2em;
     color: #0094B5;
+    font-size: 1.5em;
     font-weight: bold;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;s
+    margin-bottom: .5em;
 }
-div.prjbtm {
+.funded {
+    font-size: 2em;
+    font-weight: bold;
+}
+.amount {
+    font-weight: bold;
+}
+.featurebtns {
+    clear: both;
+    margin: 1em;
+}
+.prjbtm {
     width: 600px;
     height:17px;
     background: url('/img/prjbtm.png');
@@ -262,11 +274,12 @@ div.cardspec {
 }
 .featureblock {
     padding: 10px;
-    margin-top: .5em;
+    margin-top: 1.5em;
     background: white;
     overflow: hidden;
     border: 1px solid #E3E3E5;
     border-radius: 3px;
+    text-align: center;
 }
 .minispec dl {
     margin: 0;
@@ -461,11 +474,40 @@ option.oldrelease{
 }
 .bidfeature {
     float: left;
-/*    margin: 0.2em;*/
     width: 50px;
 }
+.statebtns {
+    padding-left: 0.5em;
+}
+.statebtn {
+    background: none repeat scroll 0 0 #0094B5;
+    border-radius: 3px 3px 3px 3px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    width: 30%;
+    float: left;
+    margin: 3px;
+    padding: 0.4em 0;
+}
+.supportbtn {
+    background: none repeat scroll 0 0 #1E9947;
+    border-radius: 4px 4px 4px 4px;
+    color: white;
+    display: block;
+    font-size: 1.8em;
+    font-weight: bold;
+    margin: auto;
+    padding: 0.5em;
+    text-transform: uppercase;
+    width: 70%;
+}
+.supportbtn:after {
+    content: url("/img/icons/whitebtn.png");
+    vertical-align: 2px;
+}
 .bidaction {
-    background: #D0574C;
+    background: #1E9947;
     color: white;
     font-weight: bold;
     padding: 3px;
@@ -478,8 +520,8 @@ option.oldrelease{
     content: url("/img/icons/whitebtn.png");
     vertical-align: -2px;
 }
-.oired, .oired a, .oired h3 {
-    color: #D0574C;
+.oigreen, .oigreen a, .oigreen h3 {
+    color: #1E9947;
 }
 .newspot {
     padding: 2px;
@@ -667,17 +709,20 @@ div.sepspecfooter {
     border-radius: 10px;
 }
 .progressbar {
+    position: relative;
     float:left;
-    font-size:.6em;
-    width:10em;
     border:solid 1px;
     color: #6C6D6E;
-    width: 200px;
+    width: 100%;
+    border-radius: 3px;
+    font-size: 0.8em;
 }
 .progress {
     float:left;
-    background:green;
-    height: 1em;
+    background:#1E9947;
+    color: white;
+    font-weight: bold;
+    text-align: center;
 }
 .progresstitle {
     font-size: 1.5em;

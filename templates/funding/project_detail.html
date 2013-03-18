@@ -14,7 +14,7 @@
         <div class="prjheader">
             <div class="prjauthor">{% trans "Project created by" %} <a href="/user/profile/{{object.author.username}}">{{object.author.get_profile}}</a></div>
             <div>
-                <div class="tasktitle_funding" id="prjtitle_{{object.id}}" title="{{object.title}}">
+                <div class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">
                     {{object.title}}
                 </div>
                 <div class="prj-block-fav">
@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="cleared"></div>
-            {% if object|can_write:user %}<a href="edit"><div class="bidaction_funding">{% trans "edit" %}</div></a>{% endif %}
+            {% if object|can_write:user %}<a href="edit"><div class="bidaction">{% trans "edit" %}</div></a>{% endif %}
         </div>
         <div id="specs_{{project.id}}" class="prjdesc">
             {%for spec in project.spec_set.all|dictsort:"order"%}
@@ -40,7 +40,7 @@
             {% endfor %}
         </div>
         {% if project|can_answer:user %}
-        <a class="actions_funding clickable" onclick="addMessage(null, {{project.id}})">
+        <a class="clickable" onclick="addMessage(null, {{project.id}})">
             <div class="moreblue" alt="{% trans "Add a discussion" %}" title="{% trans "Add a discussion" %}">+</div> {% trans "Add a discussion" %}
         </a>
         {% endif %}
@@ -53,21 +53,26 @@
 {% endif %}
 {% endblock %}
 {% block related %}
-<div class="prjtitle">{{object.tasks.count}} {% trans "features" %}</div>
+<div class="statebtns">
+    <div class="clickable statebtn">{% trans "Proposed" %}</div>
+    <div class="clickable statebtn invisible">{% trans "In progress" %}</div>
+    <div class="clickable statebtn invisible">{% trans "Finished" %}</div>
+    <div class="cleared"></div>
+</div>
 {% regroup object.tasks.all|dictsort:"state" by state as task_list %}
-<div id="features">
 {% for tasks in task_list %}
-{{OI_PRJ_STATES|get:tasks.grouper}}
+<div id="features_{{tasks.grouper}}">
 {% for task in tasks.list %}
 {% include 'funding/feature.html' %}
 {% endfor %}
-{% endfor %}
 </div>
+{% endfor %}
 {% if object|can_answer:user %}
 <div class="featureblock">
+    <div id="feature_{{task.id}}" class="featuretitle">{% trans "Propose a new feature" %}</div>
     <form id="newtask_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features'))}); return false" style="margin:5px 0;width:220px">
-        <input type="image" src="/img/icons/addtask.png" alt="{% trans 'New task' %}" title="{% trans 'New task' %}" />
-        <input type="text" id="newtask_title_{{object.id}}" class="newtask_title" style="border:1px solid" value="{% trans 'New task' %}" onclick="if(this.value=='{% trans 'New task' %}')this.value=''" onblur="if(!this.value)this.value='{% trans 'New task' %}'"/>
+        <input type="image" src="/img/icons/addtask.png" alt="{% trans 'New feature' %}" title="{% trans 'New feature' %}" />
+        <input type="text" id="newtask_title_{{object.id}}" class="newtask_title" style="border:1px solid" value="{% trans 'Feature name' %}" onclick="if(this.value=='{% trans 'Feature name' %}')this.value=''" onblur="if(!this.value)this.value='{% trans 'Feature name' %}'"/>
     </form>
 </div>
 {% endif %}

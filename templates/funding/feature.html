@@ -1,4 +1,4 @@
-﻿﻿{% load oifilters %}
+{% load oifilters %}
 {% load i18n %}
 {% if task|can_read:user %}
 <div class="featuredetail invisible" id="featuredetail_{{task.id}}" onclick="document.ignoreClosePopups = true;">
@@ -7,7 +7,7 @@
         {% if task.state < 3 %}
         <h3 style="width:300px">{% trans "Payment awaiting:" %} {{task.missing_bid|floatformat:2}} €</h3>
         {% if task|can_bid:user and not task|bids:user %}
-        <div onclick="OIajaxCall('/project/confirmbid/{{task.id}}', null, 'output', null)" class="clickable bidaction_funding">{% trans "Support this feature" %}</div>
+        <div onclick="OIajaxCall('/project/confirmbid/{{task.id}}', null, 'output', null)" class="clickable bidaction">{% trans "Support this feature" %}</div>
         {% endif %}
         {% endif %}
     </div>
@@ -20,7 +20,7 @@
                 <div class="username">{{task.assignee}}</div>
                 <div>
                     {{task.offer|default:task.alloffer_sum}} €
-                    <span class="cleared tax">{% if task.assignee.get_profile.tax_rate %}{% trans "Tax" %} {{task.assignee.get_profile.tax_rate}}% : ({{task.offer_with_tva|default:task.get_offer_tax|floatformat:2}}€){% else %} {% trans "Fill your tax rate please" %}<a href="/user/myaccount"><img src="/img/icons/edit.png" /></a> {% endif %}</span>
+                    <span class="cleared tax">{% if task.assignee.get_profile.tax_rate %}{% trans "Tax" %} {{task.assignee.get_profile.tax_rate}}% : ({{task.offer_with_tva|default:task.get_offer_tax|floatformat:2}}€){% else %} {% trans "Please provide your tax rate" %}<a href="/user/myaccount"><img src="/img/icons/edit.png" /></a> {% endif %}</span>
                     {% if task.assignee == user and task.state < 2 %}
                         {% if task.descendants.with_offer %}
                             {% trans "The task" %} "{{task.descendants.with_offer.0.title}}" {% trans "already has an offer" %} 
@@ -28,7 +28,7 @@
                             {% if task.ancestors.with_offer %}
                                 {% trans "The task" %} "{{task.ancestors.with_offer.0.title}}" {% trans "already has an offer" %}
                             {% else %}
-                                <span class="bidaction_funding clickable" onclick="show('editoffer_{{task.id}}')"> {% trans "Edit" %}</span>
+                                <span class="bidaction clickable" onclick="show('editoffer_{{task.id}}')"> {% trans "Edit" %}</span>
                             {% endif %} 
                         {% endif %}
                     {% endif %}
@@ -48,7 +48,7 @@
             {% else %}
                 {% trans "No offer was made for this project" %}
                 {% if task.state < 2 and task|can_bid:user %}
-                <div class="bidaction_funding clickable" onclick="offerProject({{task.id}})">{% trans "Make an offer" %}</div>
+                <div class="bidaction clickable" onclick="offerProject({{task.id}})">{% trans "Make an offer" %}</div>
                 {% endif %}
             {% endif %}
             </div>
@@ -114,15 +114,18 @@
     <div id="feature_{{task.id}}" class="featuretitle">{{task.title}}</div>
     {% if task|can_manage:user or task.spec_set.count%}<a class="clickable" onclick="showPopup(spec_{{task.id}}_details)">{% trans "Description" %}</a>{% endif %}
     <div>
-        {{task.get_budget|default:0|floatformat:"-2"}} € {% trans "needed" %}<br />
-        {{task.allbid_sum|default:0|floatformat:"-2"}} € {% trans "funded" %}<br />
+        <div><span class="funded">{{task.allbid_sum|default:0|floatformat:"-2"}} €</span> {% trans "funded" %}</div>
+        {% include 'funding/project_actions.html' %}
         <div class="progressbar">
-            <span id="progressbar_{{object.id}}" class="progress" style="width:{{task.get_funding_progress|default:0|floatformat:0}}%;"></span>
-            <span id="progresslabel_{{object.id}}" class="progresstitle" >{% trans "Missing" %} {{task.missing_bid|floatformat:"-2"}} €</span>
+            <span id="progressbar_{{object.id}}" class="progress" style="width:{{task.get_funding_progress|default:0|floatformat:0}}%;">{{task.get_funding_progress|default:0|floatformat:0}}%</span>
+            <span id="progresslabel_{{object.id}}" class="progresstitle" ></span>
+        </div>
+        <div class="cleared">
+            <span class="amount">{{task.get_budget|default:0|floatformat:"-2"}} €</span> {% trans "needed" %} -
+            <span class="amount">{{task.missing_bid|floatformat:"-2"}} €</span> {% trans "to go" %}
         </div>
         {% if task|can_manage:user %}<a class="clickable" onclick="showPopup(featuredetail_{{task.id}})">{% trans "Funding details" %}</a>{% endif %}
     </div>
-    {% include 'funding/project_actions.html' %}
 </div>
 
 <div id="spec_{{task.id}}_details" class="featuredetail invisible" onclick="document.ignoreClosePopups = true;">

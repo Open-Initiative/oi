@@ -511,11 +511,6 @@ div.popup {
     float: right;
     margin: 5px;
 }
-.actions_funding {
-/*    clear: right;*/
-    float: left;
-    margin: 5px;
-}
 .actionbutton {
     background: url('/img/headersep.png');
     color: white;

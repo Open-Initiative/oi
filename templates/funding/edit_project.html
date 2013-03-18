@@ -14,7 +14,7 @@
         <div class="prjheader">
             <div class="prjauthor">{% trans "Project created by" %} <a href="/user/profile/{{object.author.username}}">{{object.author.get_profile}}</a></div>
             <div>
-                <div class="tasktitle_funding" id="prjtitle_{{object.id}}" title="{{object.title}}">
+                <div class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">
                     {{object.title}}
                     {% if object|can_write:user and object.state < 2 %}
                     <img onclick="document.getElementById('prjtitle_{{object.id}}').innerHTML = document.getElementById('edittitle').innerHTML" class="clickable" src="/img/icons/edit.png" alt="{% trans 'Edit the title' %}" title="{% trans 'Edit the title' %}" />
@@ -64,7 +64,7 @@
 {% endblock %}
 {% block related %}
 {% with object as project %}
-<a href="/funding/{{object.id}}"><div class="bidaction_funding">{% trans "Done" %}</div></a>
+<a href="/funding/{{object.id}}"><div class="bidaction">{% trans "Done" %}</div></a>
 <div class="smallcolumn" id="public">
     <img src="/img/askoi.png" title="{% trans 'All other users.' %}" alt="{% trans 'All other users.' %}" class="head-help"><h3>{% trans "Public" %}</h3>
     {% trans "The public can" %}

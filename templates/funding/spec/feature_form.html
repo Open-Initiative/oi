@@ -48,7 +48,7 @@
 
 <div class="cleared"></div>
 
-<!--this block valid all the specid-->
+<!--this block validates all the specid-->
 <div id="validspec_{{project.id}}_3" class="actions"><img class="clickable" src="/img/icons/ok-32.png" onclick="
 if(document.getElementById('file_{{project.id}}_1').value){saveSpec('{{project.id}}_1',{{project.id}},getValue('specorder_{{project.id}}_1'),{{specs.0.id|default:0}}, 'funding')}else{saveSpec('{{project.id}}_1',{{project.id}},getValue('specorder_{{project.id}}_2'),{{specs.0.id|default:0}}, 'funding')};
 saveSpec('{{project.id}}_2',{{project.id}}, getValue('specorder_{{project.id}}_2'),{{specs.1.id|default:0}}, 'funding');

@@ -4,12 +4,6 @@
 {% block title %}{% trans "Fund your software!" %}{% endblock %}
 {% block announcement %}
 {% if user.is_anonymous %}
-<style>
-.slidertext dt {color: #1e9947}
-.slidertip {color: #0f4d42}
-.slidermore {background: #1e9947}
-#registerbtn {background: #1E9947}
-</style>
 <div id="catcherbg">
     <div id="catcher">
         <div id="slider" class="slider" onmouseover="window.slide=false" onmouseout="if(event.target.id=='slider')window.slide=true">
@@ -18,7 +12,7 @@
                     <div id="indexslide1" class="indexslide"><dt>{% trans "fund" %}</dt>
                         <dd>{% trans "your favorite open source software" %}</dd>
                     </div>
-                    <div class="slidertip">{% trans "Open Funding enables you to contribute to the funding of the open source software you need." %}</div>
+                    <div class="slidertip">{% trans "Open Funding enables you to contribute to the funding of the free software you need." %}</div>
                     <div id="indexslide2" class="indexslide invisible"><dt>{% trans "follow" %}</dt>
                         <dd>{% trans "the evolution of the projects" %}</dd>
                     </div>
@@ -30,7 +24,7 @@
                     <div id="indexslide4" class="indexslide invisible"><dt>{% trans "Get involved" %}</dt>
                         <dd>{% trans "and make it happen" %}</dd>
                     </div>
-                    <div class="slidertip invisible">{% trans "Open source is never obscure anymore." %}</div>
+                    <div class="slidertip invisible">{% trans "Free software is never obscure anymore." %}</div>
                 </dl>
             </div>
             <div class="clickable slidericons">
@@ -48,10 +42,10 @@
         <a id="preslink" href="{%trans "/presentation" %}#1"><div class="slidermore" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='white'">
             {% trans "Learn More" %}
         </div></a>
-<!--        <img id="sliderimg1" src="/img/sliderimg1.png" class="sliderimg" />-->
-<!--        <img id="sliderimg2" src="/img/sliderimg2.png" class="sliderimg invisible" />-->
-<!--        <img id="sliderimg3" src="/img/sliderimg3.png" class="sliderimg invisible" />-->
-<!--        <img id="sliderimg4" src="/img/sliderimg4.png" class="sliderimg invisible" />-->
+        <img id="sliderimg1" src="/img/fundingg1.png" class="sliderimg" />
+        <img id="sliderimg2" src="/img/funding2.png" class="sliderimg invisible" />
+        <img id="sliderimg3" src="/img/funding3.png" class="sliderimg invisible" />
+        <img id="sliderimg4" src="/img/funding4.png" class="sliderimg invisible" />
     </div>
 </div>
 {% endif %}

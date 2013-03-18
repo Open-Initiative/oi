@@ -2,17 +2,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-07 17:55+0100\n"
+"POT-Creation-Date: 2013-03-19 00:11+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
-#: helpers.py:31 templates/projects/table_overview/table_state.html:4
+#: helpers.py:31 templates/funding/project_detail.html:57
+#: templates/projects/table_overview/table_state.html:4
 msgid "Proposed"
 msgstr "Proposé"
 
@@ -105,7 +106,7 @@ msgstr "Document"
 msgid "Bug report"
 msgstr "Rapport de bug"
 
-#: helpers.py:116
+#: helpers.py:109
 msgid "PDF Transformation Error"
 msgstr "Erreur de transformation PDF"
 
@@ -117,14 +118,14 @@ msgstr "Publié sur"
 #: projects/views.py:870 projects/views.py:887 projects/views.py:908
 #: projects/views.py:919 projects/views.py:944 projects/views.py:946
 #: projects/views.py:949 projects/views.py:960 projects/views.py:972
-#: projects/views.py:976 projects/views.py:993 users/views.py:205
+#: projects/views.py:976 projects/views.py:993 users/views.py:213
 msgid "Wrong arguments"
 msgstr "Arguments incorrects"
 
 #: messages/models.py:140 messages/views.py:65 messages/views.py:75
-#: messages/views.py:79 projects/models.py:471 projects/views.py:235
+#: messages/views.py:79 projects/models.py:448 projects/views.py:235
 #: projects/views.py:279 templates/funding/edit_project.html:62
-#: templates/funding/project_detail.html:53
+#: templates/funding/project_detail.html:52
 #: templates/projects/project_detail.html:120
 msgid "Forbidden"
 msgstr "Permissions insuffisantes"
@@ -250,8 +251,8 @@ msgstr "notification"
 msgid "notices"
 msgstr "notifications"
 
-#: prjnotify/views.py:132 users/views.py:186 users/views.py:193
-#: users/views.py:208 users/views.py:215
+#: prjnotify/views.py:132 users/views.py:194 users/views.py:201
+#: users/views.py:216 users/views.py:223
 msgid "Modification saved"
 msgstr "Mofication enregistrée"
 
@@ -414,7 +415,7 @@ msgstr "Un utilisateur a supprimé le projet"
 msgid "Recompute all descendants"
 msgstr "Recalculer tous les descendants"
 
-#: projects/models.py:544
+#: projects/models.py:521
 msgid "Refund of bid"
 msgstr "Remboursement de la participation"
 
@@ -554,7 +555,7 @@ msgid "Bid"
 msgstr "Participation"
 
 #: projects/views.py:472 projects/views.py:632
-#: templates/funding/feature.html:44 templates/projects/project_budget.html:33
+#: templates/funding/feature.html:45 templates/projects/project_budget.html:36
 msgid "Commission"
 msgstr "Commission"
 
@@ -768,15 +769,17 @@ msgstr ""
 msgid "The IT community dedicated to your business"
 msgstr "La communaute informatique au service des entreprises"
 
-#: templates/base.html:64 templates/funding/base.html:59
+#: templates/base.html:64
 msgid "My profile"
 msgstr "Mon profil"
 
-#: templates/base.html:65 templates/funding/base.html:60
-msgid "Settings"
-msgstr "Préférences"
+#: templates/base.html:65 templates/funding/base.html:59
+#: templates/users/myaccount.html:3 templates/users/paymenthistory.html:3
+#: templates/users/paymenthistory.html:22
+msgid "My account"
+msgstr "Mon compte"
 
-#: templates/base.html:66 templates/funding/base.html:61
+#: templates/base.html:66 templates/funding/base.html:60
 msgid "Disconnect"
 msgstr "Déconnecter"
 
@@ -801,57 +804,61 @@ msgstr "Publications"
 msgid "Transactions"
 msgstr "Transactions"
 
-#: templates/base.html:82 templates/funding/base.html:70
+#: templates/base.html:82 templates/funding/base.html:69
 msgid "Login"
 msgstr "Se connecter"
 
-#: templates/base.html:87 templates/funding/base.html:75
+#: templates/base.html:87 templates/funding/base.html:74
 #: templates/users/register.html:18
 msgid "username"
 msgstr "Nom d'utilisateur"
 
-#: templates/base.html:90 templates/funding/base.html:78
+#: templates/base.html:90 templates/funding/base.html:77
 #: templates/registration/login.html:27
 msgid "Forgot your password?"
 msgstr "Mot de passe oublié ?"
 
-#: templates/base.html:94 templates/funding/base.html:82
+#: templates/base.html:94 templates/funding/base.html:81
 msgid "password"
 msgstr "Mot de passe"
 
-#: templates/base.html:97 templates/funding/base.html:85
+#: templates/base.html:97 templates/funding/base.html:84
 #: templates/notification/email_body.html:22
 #: templates/registration/login.html:21
 msgid "login"
 msgstr "Se connecter"
 
-#: templates/base.html:99 templates/funding/base.html:87
-#: templates/registration/login.html:25 templates/users/register.html:3
-#: templates/users/register.html.py:36
+#: templates/base.html:99 templates/funding/base.html:86
+#: templates/registration/activate.html:3
+#: templates/registration/activation_complete.html:3
+#: templates/registration/login.html:25
+#: templates/registration/registration_complete.html:3
+#: templates/registration/registration_form.html:23
+#: templates/users/register.html:3 templates/users/register.html.py:36
 msgid "Register"
 msgstr "S'inscrire"
 
-#: templates/base.html:146 templates/funding/base.html:134
-#: templates/funding/feature.html:39 templates/projects/dialogue/bid.html:5
+#: templates/base.html:146 templates/funding/base.html:133
+#: templates/funding/feature.html:40 templates/projects/dialogue/bid.html:5
 #: templates/projects/dialogue/offer.html:5 templates/users/register.html:35
 msgid "Terms of Use"
 msgstr "Conditions Générales d'Utilisation"
 
 #: templates/base.html:147 templates/index.html:42
-#: templates/funding/base.html:135 templates/funding/index.html:48
+#: templates/funding/base.html:134 templates/funding/index.html:42
 msgid "/presentation"
 msgstr "/presentation-fr"
 
-#: templates/base.html:147 templates/funding/base.html:135
+#: templates/base.html:147 templates/funding/base.html:134
 msgid "Presentation"
 msgstr "Présentation"
 
 #: templates/base.html:148 templates/contact.html:3
-#: templates/funding/base.html:136
+#: templates/funding/base.html:135
 msgid "Legal notice"
 msgstr "Mentions légales"
 
-#: templates/base.html:149 templates/funding/base.html:137
+#: templates/base.html:149 templates/funding/base.html:136
 msgid "Contact"
 msgstr "Contact"
 
@@ -894,7 +901,7 @@ msgstr ""
 "Open Initiative trouve le prestataire adapté à votre besoin parmi un réseau "
 "de professionnels sélectionnés"
 
-#: templates/index.html:20 templates/funding/index.html:22
+#: templates/index.html:20 templates/funding/index.html:16
 msgid "follow"
 msgstr "suivez"
 
@@ -924,7 +931,7 @@ msgstr ""
 "Contrôlez votre budget en payant les tâches au fur et à mesure de leur "
 "réalisation"
 
-#: templates/index.html:43 templates/funding/index.html:49
+#: templates/index.html:43 templates/funding/index.html:43
 msgid "Learn More"
 msgstr "En savoir plus"
 
@@ -937,11 +944,11 @@ msgid "Projects on Open Initiative"
 msgstr "Projets sur Open Initiative"
 
 #: templates/index.html:60 templates/funding/dashboard.html:9
-#: templates/funding/index.html:78
+#: templates/funding/index.html:72
 msgid "Our selection"
 msgstr "Notre sélection"
 
-#: templates/index.html:61 templates/funding/index.html:79
+#: templates/index.html:61 templates/funding/index.html:73
 msgid "Last projects"
 msgstr "Derniers projets"
 
@@ -960,12 +967,12 @@ msgid "Fund your open source projects online"
 msgstr "Financez vos projets open source en ligne"
 
 #: templates/funding/dashboard.html:4 templates/funding/dashboard.html:10
-#: templates/funding/index.html:80 templates/users/dashboard.html:4
+#: templates/funding/index.html:74 templates/users/dashboard.html:4
 #: templates/users/dashboard.html.py:7
 msgid "My projects"
 msgstr "Mes projets"
 
-#: templates/funding/dashboard.html:8 templates/funding/index.html:77
+#: templates/funding/dashboard.html:8 templates/funding/index.html:71
 msgid "Projects on Open Funding"
 msgstr "Projets sur Open Funding"
 
@@ -978,7 +985,7 @@ msgstr "Projet"
 #: templates/funding/edit_project.html:15
 #: templates/funding/project_card.html:4
 #: templates/funding/project_detail.html:15
-#: templates/funding/spec/descrpition_popup.html:9
+#: templates/funding/spec/description_popup.html:9
 #: templates/projects/project_card.html:4
 #: templates/projects/project_description.html:4
 msgid "Project created by"
@@ -1039,8 +1046,8 @@ msgstr "ajouter des commentaires et des tâches"
 msgid "bid and vote"
 msgstr "souscrire et voter"
 
-#: templates/funding/feature.html:6 templates/funding/feature.html.py:36
-#: templates/funding/spec/descrpition_popup.html:5
+#: templates/funding/feature.html:6 templates/funding/feature.html.py:37
+#: templates/funding/spec/description_popup.html:5
 msgid "close"
 msgstr "fermer"
 
@@ -1050,270 +1057,245 @@ msgstr "Paiement en attente"
 
 #: templates/funding/feature.html:10
 msgid "Support this feature"
-msgstr "Soutenir cette fonctionnalité"
+msgstr "Soutenir cette évolution"
 
 #: templates/funding/feature.html:17 templates/projects/project_budget.html:14
 msgid "Offer"
 msgstr "Devis"
 
-#: templates/funding/feature.html:25 templates/funding/feature.html.py:28
-#: templates/projects/project_budget.html:22
+#: templates/funding/feature.html:23 templates/funding/feature.html.py:47
+#: templates/projects/project_budget.html:20
+#: templates/projects/project_budget.html:38
+msgid "Tax"
+msgstr "Taxe"
+
+#: templates/funding/feature.html:23
+msgid "Please provide your tax rate"
+msgstr "Merci d'indiquer votre taux de tva"
+
+#: templates/funding/feature.html:26 templates/funding/feature.html.py:29
 #: templates/projects/project_budget.html:25
+#: templates/projects/project_budget.html:28
 msgid "The task"
 msgstr "La tâche"
 
-#: templates/funding/feature.html:25 templates/funding/feature.html.py:28
-#: templates/projects/project_budget.html:22
+#: templates/funding/feature.html:26 templates/funding/feature.html.py:29
 #: templates/projects/project_budget.html:25
+#: templates/projects/project_budget.html:28
 msgid "already has an offer"
 msgstr "a déjà une offre"
 
-#: templates/funding/feature.html:30
+#: templates/funding/feature.html:31
 msgid "Edit"
 msgstr "Modifier"
 
-#: templates/funding/feature.html:39 templates/projects/dialogue/bid.html:5
+#: templates/funding/feature.html:40 templates/projects/dialogue/bid.html:5
 #: templates/projects/dialogue/offer.html:5 templates/users/register.html:35
 msgid "I have read and accepted the"
 msgstr "J'ai lu et j'accepte les"
 
-#: templates/funding/feature.html:46 templates/projects/project_budget.html:35
-msgid "Rate tax assignee"
-msgstr "Le taux de taxe du responsable"
-
-#: templates/funding/feature.html:46 templates/funding/feature.html.py:48
-#: templates/projects/project_budget.html:35
-#: templates/projects/project_budget.html:37
-msgid "Fill your avt rate please"
-msgstr "Remplissez le champs pour le taux de tva, merci"
-
-#: templates/funding/feature.html:48 templates/projects/project_budget.html:37
-msgid "Tax on avt assignee"
-msgstr "Taxe sur le taux du responsable"
-
-#: templates/funding/feature.html:51 templates/projects/project_budget.html:40
+#: templates/funding/feature.html:49 templates/projects/project_budget.html:41
 msgid "No offer was made for this project"
 msgstr "Aucun devis n'a été proposé pour ce projet"
 
-#: templates/funding/feature.html:53 templates/projects/project_budget.html:42
+#: templates/funding/feature.html:51 templates/projects/project_budget.html:43
 msgid "Make an offer"
 msgstr "Faire une offre"
 
-#: templates/funding/feature.html:59 templates/projects/project_budget.html:48
-msgid "includes"
-msgstr "inclut"
-
-#: templates/funding/feature.html:70 templates/projects/project_budget.html:59
-msgid "Dependencies"
-msgstr "Dépendances"
-
-#: templates/funding/feature.html:73 templates/projects/project_budget.html:62
-msgid "Drop here tasks that are required for this one to start"
-msgstr "Déposer ici les tâches prérequise avant celle-ci"
-
-#: templates/funding/feature.html:84 templates/projects/project_budget.html:73
-msgid "Depends on"
-msgstr "Dépend de"
-
-#: templates/funding/feature.html:88 templates/projects/project_budget.html:77
-msgid "Delete this dependency"
-msgstr "Supprimer cette dépendance"
-
-#: templates/funding/feature.html:96 templates/projects/project_budget.html:85
+#: templates/funding/feature.html:60 templates/projects/project_budget.html:86
 msgid "Bids"
 msgstr "Souscriptions"
 
-#: templates/funding/feature.html:103
-#: templates/projects/project_budget.html:92
+#: templates/funding/feature.html:67 templates/projects/project_budget.html:93
 msgid "Add a new bid"
 msgstr "Ajouter une nouvelle souscription"
 
-#: templates/funding/feature.html:104
-#: templates/projects/project_budget.html:93
+#: templates/funding/feature.html:68 templates/projects/project_budget.html:94
 msgid "Cancel your bid on this task"
 msgstr "Annuler votre financement à la tâche"
 
-#: templates/funding/feature.html:104
-#: templates/projects/project_budget.html:93
+#: templates/funding/feature.html:68 templates/projects/project_budget.html:94
 msgid "Cancel my bid"
 msgstr "Annuler mon financement"
 
-#: templates/funding/feature.html:109
-#: templates/projects/project_budget.html:98
+#: templates/funding/feature.html:73 templates/projects/project_budget.html:99
 msgid "No bid on this task"
 msgstr "Aucun financement sur cette tâche"
 
-#: templates/funding/feature.html:115
-#: templates/projects/project_budget.html:104
+#: templates/funding/feature.html:79
+#: templates/projects/project_budget.html:105
 msgid "wants to cancel his"
 msgstr "veut annuler sa"
 
-#: templates/funding/feature.html:115
-#: templates/projects/project_budget.html:104
+#: templates/funding/feature.html:79
+#: templates/projects/project_budget.html:105
 msgid "bid on this task"
 msgstr "financement sur cette tâche"
 
-#: templates/funding/feature.html:116
-#: templates/projects/project_budget.html:105
+#: templates/funding/feature.html:80
+#: templates/projects/project_budget.html:106
 msgid "Your offer will be reduced of"
 msgstr "Votre offre sera réduite de"
 
-#: templates/funding/feature.html:117 templates/funding/feature.html.py:128
-#: templates/projects/project_budget.html:106
-#: templates/projects/project_budget.html:117
-#: templates/projects/project_budget.html:125
+#: templates/funding/feature.html:81 templates/funding/feature.html.py:92
+#: templates/projects/project_budget.html:107
+#: templates/projects/project_budget.html:118
+#: templates/projects/project_budget.html:126
 #: templates/projects/project_team.html:29
 msgid "Do you accept it?"
 msgstr "Acceptez-vous ?"
 
-#: templates/funding/feature.html:118 templates/funding/feature.html.py:129
-#: templates/projects/project_budget.html:107
-#: templates/projects/project_budget.html:118
-#: templates/projects/project_budget.html:126
+#: templates/funding/feature.html:82 templates/funding/feature.html.py:93
+#: templates/projects/project_budget.html:108
+#: templates/projects/project_budget.html:119
+#: templates/projects/project_budget.html:127
 #: templates/projects/project_team.html:30
 msgid "Accept"
 msgstr "Accepter"
 
-#: templates/funding/feature.html:119 templates/funding/feature.html.py:130
-#: templates/projects/project_budget.html:108
-#: templates/projects/project_budget.html:119
-#: templates/projects/project_budget.html:127
+#: templates/funding/feature.html:83 templates/funding/feature.html.py:94
+#: templates/projects/project_budget.html:109
+#: templates/projects/project_budget.html:120
+#: templates/projects/project_budget.html:128
 #: templates/projects/project_team.html:31
 msgid "Refuse"
 msgstr "Refuser"
 
-#: templates/funding/feature.html:126
-#: templates/projects/project_budget.html:115
+#: templates/funding/feature.html:90
+#: templates/projects/project_budget.html:116
 msgid "wants to cancel this task."
 msgstr "veut annuler cette tâche"
 
-#: templates/funding/feature.html:127
-#: templates/projects/project_budget.html:116
+#: templates/funding/feature.html:91
+#: templates/projects/project_budget.html:117
 msgid "You will be reimbursed in full."
 msgstr "Vous serez intégralement remboursé."
 
-#: templates/funding/feature.html:138
+#: templates/funding/feature.html:102
 msgid "Fund this feature"
-msgstr "Finnacer cette fonctionnalité"
+msgstr "Finnacer cette évolution"
 
-#: templates/funding/feature.html:147
+#: templates/funding/feature.html:111
 msgid "edit title"
 msgstr "Corriger le titre"
 
-#: templates/funding/feature.html:148
+#: templates/funding/feature.html:112
 msgid "delete feature"
-msgstr "supprimer la fonctionnalité"
+msgstr "supprimer l'évolution"
 
-#: templates/funding/feature.html:151
-msgid "To be funded:"
-msgstr "A financer :"
+#: templates/funding/feature.html:115 users/models.py:176
+msgid "Description"
+msgstr "Description"
 
-#: templates/funding/feature.html:152
-msgid "Edit this offer"
-msgstr "Corriger cette offre"
+#: templates/funding/feature.html:117
+msgid "funded"
+msgstr "financés"
+
+#: templates/funding/feature.html:124
+msgid "needed"
+msgstr "nécessaires"
+
+#: templates/funding/feature.html:125
+msgid "to go"
+msgstr "restant"
+
+#: templates/funding/feature.html:127
+msgid "Funding details"
+msgstr "Détails du financement"
 
 #: templates/funding/index.html:4
 msgid "Fund your software!"
 msgstr "Financez votre logiciel"
 
-#: templates/funding/index.html:18
+#: templates/funding/index.html:12
 msgid "fund"
 msgstr "financez"
 
-#: templates/funding/index.html:19
+#: templates/funding/index.html:13
 msgid "your favorite open source software"
 msgstr "votre logiciel open source préféré"
 
-#: templates/funding/index.html:21
+#: templates/funding/index.html:15
 msgid ""
-"Open Funding enables you to contribute to the funding of the open source "
-"software you need."
+"Open Funding enables you to contribute to the funding of the free software "
+"you need."
 msgstr ""
-"Open Funding vous permet de participer au financement du logiciel open "
-"source dont vous avez besoin."
+"Open Funding vous permet de participer au financement du logiciel libre dont vous avez besoin."
 
-#: templates/funding/index.html:23
+#: templates/funding/index.html:17
 msgid "the evolution of the projects"
 msgstr "l'évolution des projets"
 
-#: templates/funding/index.html:25
+#: templates/funding/index.html:19
 msgid "Find out the new features before they appear."
-msgstr "Découvrez les nouvelles fonctionnalités avant leur apparition."
+msgstr "Découvrez les nouvelles évolutions avant leur apparition."
 
-#: templates/funding/index.html:26
+#: templates/funding/index.html:20
 msgid "give"
 msgstr "donnez"
 
-#: templates/funding/index.html:27
+#: templates/funding/index.html:21
 msgid "your opinion"
 msgstr "votre avis"
 
-#: templates/funding/index.html:29
+#: templates/funding/index.html:23
 msgid "Vote for the features you expect the most and fund them."
 msgstr ""
-"Votez pour les fonctionnalités que vous attendez le plus et financez les."
+"Votez pour les évolutions que vous attendez le plus et financez les."
 
-#: templates/funding/index.html:30
+#: templates/funding/index.html:24
 msgid "Get involved"
 msgstr "Participez"
 
-#: templates/funding/index.html:31
+#: templates/funding/index.html:25
 msgid "and make it happen"
 msgstr "et donnez vie au projet"
 
-#: templates/funding/index.html:33
-msgid "Open source is never obscure anymore."
-msgstr "L'open source ne sera plus jamais obscur."
+#: templates/funding/index.html:27
+msgid "Free software is never obscure anymore."
+msgstr "Le logiciel libre ne sera plus jamais obscur."
 
-#: templates/funding/index.html:62
+#: templates/funding/index.html:56
 msgid "Register now!"
 msgstr "S'inscrire !"
 
-#: templates/funding/index.html:69
+#: templates/funding/index.html:63
 msgid "submit"
 msgstr "déposer"
 
-#: templates/funding/index.html:70
+#: templates/funding/index.html:64
 msgid "your project"
 msgstr "votre projet"
 
 #: templates/funding/project_actions.html:5
+msgid "Support"
+msgstr "Soutenir"
+
+#: templates/funding/project_actions.html:8
 #: templates/projects/project_actions.html:7
 msgid "Start"
 msgstr "Démarrer"
 
-#: templates/funding/project_actions.html:8
-msgid "Support"
-msgstr "Soutenir"
-
-#: templates/funding/project_actions.html:9
-msgid "Like"
-msgstr "J'aime"
-
-#: templates/funding/project_actions.html:12 users/models.py:176
-msgid "Description"
-msgstr "Description"
-
-#: templates/funding/project_actions.html:15
+#: templates/funding/project_actions.html:12
 #: templates/projects/project_actions.html:16
 msgid "Deliver"
 msgstr "Livrer"
 
-#: templates/funding/project_actions.html:18
+#: templates/funding/project_actions.html:15
 #: templates/projects/project_actions.html:20
 msgid "Validate"
 msgstr "Valider"
 
-#: templates/funding/project_actions.html:21
+#: templates/funding/project_actions.html:18
 #: templates/projects/project_actions.html:28
 msgid "Waiting for validation"
 msgstr "Attente de validation"
 
 #: templates/funding/project_card.html:9
-msgid "financed out of"
+msgid "funded out of"
 msgstr "financés sur"
 
-#: templates/funding/project_detail.html:25
+#: templates/funding/project_detail.html:26
 msgid "edit"
 msgstr "modifier"
 
@@ -1326,18 +1308,27 @@ msgstr "Discuter de"
 msgid "Add a discussion"
 msgstr "Ajouter une discussion"
 
-#: templates/funding/project_detail.html:57
-msgid "features"
-msgstr "fonctionnalités"
+#: templates/funding/project_detail.html:58
+msgid "In progress"
+msgstr "En cours"
 
-#: templates/funding/project_detail.html:70
-#: templates/funding/project_detail.html:71
-#: templates/funding/spec/edit_spot.html:7
-#: templates/projects/spec/edit_spot.html:7
-msgid "New task"
-msgstr "Nouvelle tâche"
+#: templates/funding/project_detail.html:59
+msgid "Finished"
+msgstr "Terminées"
 
-#: templates/funding/spec/descrpition_popup.html:27
+#: templates/funding/project_detail.html:72
+msgid "Propose a new feature"
+msgstr "Proposez une évolution"
+
+#: templates/funding/project_detail.html:74
+msgid "New feature"
+msgstr "Nouvelle évolution"
+
+#: templates/funding/project_detail.html:75
+msgid "Feature name"
+msgstr "Nom de l'évolution"
+
+#: templates/funding/spec/description_popup.html:31
 #: templates/projects/project_description.html:18
 #: templates/projects/project_sum.html:14
 msgid "Add a description"
@@ -1347,6 +1338,11 @@ msgstr "Ajouter une description"
 #: templates/projects/spec/edit_spot.html:4
 msgid "Create a task here"
 msgstr "Créer une tâche ici"
+
+#: templates/funding/spec/edit_spot.html:7
+#: templates/projects/spec/edit_spot.html:7
+msgid "New task"
+msgstr "Nouvelle tâche"
 
 #: templates/funding/spec/edit_spot.html:10
 #: templates/projects/project_overview.html:22
@@ -1426,7 +1422,7 @@ msgstr "Environnement :"
 msgid "You can add a link or an image as a reference:"
 msgstr "Vous pouvez ajouter un lien ou une image comme référence :"
 
-#: templates/funding/spec/editspec.html:2
+#: templates/funding/spec/editspec.html:3
 #: templates/funding/spec/feature_form.html:4
 #: templates/projects/spec/editspec.html:2
 msgid "Describe here what is to be done in"
@@ -1548,7 +1544,7 @@ msgstr[1] "Vous avez reçu les notifications suivante d'"
 
 #: templates/notification/email_body.html:27
 #: templates/notification/notices.html:3 templates/notification/notices.html:9
-#: templates/users/account.html:29 templates/users/pdf/invoice.html:7
+#: templates/users/paymenthistory.html:29 templates/users/pdf/invoice.html:7
 msgid "on project"
 msgstr "sur le projet"
 
@@ -1663,20 +1659,20 @@ msgstr "a mis Open Initiative dans la version:"
 #: templates/notification/delegate/notice.html:4
 #, python-format
 msgid ""
-"wants to delegate the task <a href=\"%(current_site)s/project/%(id)s\">"
-"%(title)s</a>to you."
+"wants to delegate the task <a href=\"%(current_site)s/project/%(id)s\">%"
+"(title)s</a>to you."
 msgstr ""
-"veut vous déléguer la tâche <a href=\"%(current_site)s/project/%(id)s\">"
-"%(title)s</a>."
+"veut vous déléguer la tâche <a href=\"%(current_site)s/project/%(id)s\">%"
+"(title)s</a>."
 
 #: templates/notification/delegate/notice.html:6
 #, python-format
 msgid ""
-"wants to delegate the project <a href=\"%(current_site)s/project/%(id)s\">"
-"%(title)s</a> to you."
+"wants to delegate the project <a href=\"%(current_site)s/project/%(id)s\">%"
+"(title)s</a> to you."
 msgstr ""
-"veut vous déléguer la tâche <a href=\"%(current_site)s/project/%(id)s\">"
-"%(title)s</a>."
+"veut vous déléguer la tâche <a href=\"%(current_site)s/project/%(id)s\">%"
+"(title)s</a>."
 
 #: templates/notification/delegate/notice.html:9
 msgid "answer"
@@ -1795,19 +1791,44 @@ msgstr "Souscrire"
 msgid "Evaluate"
 msgstr "Evaluer"
 
-#: templates/projects/project_budget.html:27
+#: templates/projects/project_budget.html:20
+#: templates/projects/project_budget.html:38
+msgid "Fill your avt rate please"
+msgstr "Remplissez le champs pour le taux de tva, merci"
+
+#: templates/projects/project_budget.html:30
 msgid "Change my offer"
 msgstr "Modifier mon offre"
 
-#: templates/projects/project_budget.html:124
+#: templates/projects/project_budget.html:49
+msgid "includes"
+msgstr "inclut"
+
+#: templates/projects/project_budget.html:60
+msgid "Dependencies"
+msgstr "Dépendances"
+
+#: templates/projects/project_budget.html:63
+msgid "Drop here tasks that are required for this one to start"
+msgstr "Déposer ici les tâches prérequise avant celle-ci"
+
+#: templates/projects/project_budget.html:74
+msgid "Depends on"
+msgstr "Dépend de"
+
+#: templates/projects/project_budget.html:78
+msgid "Delete this dependency"
+msgstr "Supprimer cette dépendance"
+
+#: templates/projects/project_budget.html:125
 msgid "wants to change this task due date to"
 msgstr "veut modifier la date de livraison de cette tâche au"
 
-#: templates/projects/project_budget.html:133
+#: templates/projects/project_budget.html:134
 msgid "Budget"
 msgstr "Budget"
 
-#: templates/projects/project_budget.html:133
+#: templates/projects/project_budget.html:134
 msgid "Engaged"
 msgstr "Engagé"
 
@@ -2108,6 +2129,25 @@ msgstr "Ce mois"
 msgid "Price range"
 msgstr "Tranche de prix"
 
+#: templates/registration/activate.html:6
+msgid ""
+"Your registration has failed, because you wait too long after have received "
+"your mail to identify you"
+msgstr "Votre inscription a échoué, parce que vous avez attendu trop longtemps après avoir reçu l'e-mail d'identification"
+
+#: templates/registration/activate.html:9
+#: templates/registration/registration_complete.html:9
+msgid "Click here to come back to the web site"
+msgstr "Cliquer ici pour revenir au site web"
+
+#: templates/registration/activation_complete.html:6
+msgid "Your account is activated."
+msgstr "Votre compte est activé"
+
+#: templates/registration/activation_complete.html:9
+msgid "Click here to finish your resgistration"
+msgstr "Cliquez ici pour terminer votre inscription"
+
 #: templates/registration/login.html:3
 msgid "Connection"
 msgstr "Connexion"
@@ -2118,6 +2158,18 @@ msgstr ""
 "Votre nom d'utilisateur et mot de passe ne correspondent pas. Veuillez "
 "réessayer."
 
+#: templates/registration/registration_complete.html:6
+msgid "You go to receive an email to validate your registration."
+msgstr "Vous allez recevoir un e-mail pour valider votre inscription"
+
+#: templates/registration/registration_form.html:10
+msgid "Please fix errors in registration form."
+msgstr "Merci de corriger les erreurs dans le formulaire"
+
+#: templates/registration/registration_form.html:21
+msgid "I have read and accepted the terms of use by registering this form."
+msgstr "En validant ce formulaire, vous reconnaissez avoir lu et accepté les conditions d'utilisation."
+
 #: templates/search/search.html:4
 msgid "Results for"
 msgstr "Résultats pour"
@@ -2125,43 +2177,6 @@ msgstr "Résultats pour"
 #: templates/search/search.html:18
 msgid "No results found."
 msgstr "Aucun résultat trouvé."
-
-#: templates/users/account.html:3 templates/users/account.html.py:22
-msgid "My account"
-msgstr "Mon compte"
-
-#: templates/users/account.html:5 templates/users/account.html.py:34
-#: templates/users/pdf/invoice.html:12
-msgid "Balance:"
-msgstr "solde :"
-
-#: templates/users/account.html:6
-msgid "Fund my account"
-msgstr "Alimenter mon compte"
-
-#: templates/users/account.html:9
-msgid ""
-"You don't have enough money on your account. Please indicate below how much "
-"you want to add:"
-msgstr ""
-"Vous n'avez pas assez d'argent sur votre compte. Merci d'indiquer ci-dessous "
-"le montant que vous souhaitez ajouter :"
-
-#: templates/users/account.html:18
-msgid "Go back to my dashboard"
-msgstr "Retourner à mon tableau de bord"
-
-#: templates/users/account.html:23
-msgid "History"
-msgstr "Historique"
-
-#: templates/users/account.html:37
-msgid "My invoices"
-msgstr "Mes factures"
-
-#: templates/users/account.html:38
-msgid "Download current period history"
-msgstr "Télécharger l'en-cours"
 
 #: templates/users/blog.html:4
 msgid "My Publications"
@@ -2193,7 +2208,7 @@ msgstr "Publications"
 msgid "No publication"
 msgstr "Pas de publication"
 
-#: templates/users/changeemail.html:3 templates/users/preferences.html:21
+#: templates/users/changeemail.html:3 templates/users/myaccount.html:122
 msgid "Change your e-mail address"
 msgstr "Modifier votre adresse e-mail"
 
@@ -2213,7 +2228,7 @@ msgstr "Confirmer la nouvelle adresse e-mail"
 msgid "Set new address"
 msgstr "Modifier l'adresse"
 
-#: templates/users/changepwd.html:3 templates/users/preferences.html:17
+#: templates/users/changepwd.html:3 templates/users/myaccount.html:118
 msgid "Change your password"
 msgstr "Modifier le mot de passe"
 
@@ -2221,7 +2236,7 @@ msgstr "Modifier le mot de passe"
 msgid "Former password"
 msgstr "Ancien mot de passe"
 
-#: templates/users/changepwd.html:13 users/views.py:100
+#: templates/users/changepwd.html:13 users/views.py:108
 msgid "New password"
 msgstr "Nouveau mot de passe"
 
@@ -2274,25 +2289,74 @@ msgstr "Messages reçus"
 msgid "No message received"
 msgstr "Pas de message reçu"
 
-#: templates/users/preferences.html:3
-msgid "User settings"
-msgstr "Préférences"
+#: templates/users/myaccount.html:34 templates/users/profile/resume.html:42
+msgid "Birth date:"
+msgstr "Date de naissance :"
 
-#: templates/users/preferences.html:7
-msgid "Contact information"
-msgstr "Informations de contact"
+#: templates/users/myaccount.html:42
+msgid "Name"
+msgstr "Nom"
 
-#: templates/users/preferences.html:24
-msgid "Notification settings"
-msgstr "Paramètres de notifications"
-
-#: templates/users/register.html:10
+#: templates/users/myaccount.html:56 templates/users/register.html:10
 msgid "Last name"
 msgstr "Nom de famille"
 
-#: templates/users/register.html:14
+#: templates/users/myaccount.html:60 templates/users/register.html:14
 msgid "First name"
 msgstr "Prénom"
+
+#: templates/users/myaccount.html:67 templates/users/myaccount.html.py:94
+msgid "Edit this information"
+msgstr "Modifier ces informations"
+
+#: templates/users/myaccount.html:70
+msgid "Contact information"
+msgstr "Informations de contact"
+
+#: templates/users/myaccount.html:96
+msgid "Your account"
+msgstr "Votre compte"
+
+#: templates/users/myaccount.html:101 templates/users/paymenthistory.html:9
+msgid ""
+"You don't have enough money on your account. Please indicate below how much "
+"you want to add:"
+msgstr ""
+"Vous n'avez pas assez d'argent sur votre compte. Merci d'indiquer ci-dessous "
+"le montant que vous souhaitez ajouter :"
+
+#: templates/users/myaccount.html:103
+msgid "You have"
+msgstr "Vous avez"
+
+#: templates/users/myaccount.html:103
+msgid "in your account"
+msgstr "dans votre compte"
+
+#: templates/users/myaccount.html:104
+msgid "Add money in your account"
+msgstr "Alimenter votre compte"
+
+#: templates/users/myaccount.html:125
+msgid "Notification settings"
+msgstr "Paramètres de notifications"
+
+#: templates/users/paymenthistory.html:5
+#: templates/users/paymenthistory.html:34 templates/users/pdf/invoice.html:12
+msgid "Balance:"
+msgstr "solde :"
+
+#: templates/users/paymenthistory.html:6
+msgid "Fund my account"
+msgstr "Alimenter mon compte"
+
+#: templates/users/paymenthistory.html:18
+msgid "Go back to my dashboard"
+msgstr "Retourner à mon tableau de bord"
+
+#: templates/users/paymenthistory.html:23
+msgid "History"
+msgstr "Historique"
 
 #: templates/users/register.html:22
 msgid "Password"
@@ -2379,10 +2443,6 @@ msgstr "Mes derniers projets"
 #: templates/users/profile/resume.html:37
 msgid "location unknown"
 msgstr "localisation non précisée"
-
-#: templates/users/profile/resume.html:42
-msgid "Birth date:"
-msgstr "Date de naissance :"
 
 #: templates/users/profile/resume.html:49
 msgid "Personal web site"
@@ -2500,7 +2560,7 @@ msgstr "Diplôme"
 msgid "University"
 msgstr "Université"
 
-#: users/models.py:244
+#: users/models.py:243
 #, python-format
 msgid "%s's blog"
 msgstr "blog de %s"
@@ -2509,90 +2569,88 @@ msgstr "blog de %s"
 msgid "Setting saved"
 msgstr "Paramètre enregistré"
 
-#: users/views.py:69
+#: users/views.py:70
+msgid "Name saved"
+msgstr "Nom enregistrée"
+
+#: users/views.py:77
 msgid "Information saved"
 msgstr "Information enregistrée"
 
-#: users/views.py:84
+#: users/views.py:92
 msgid "Contact already added"
 msgstr "Contact déjà ajouté"
 
-#: users/views.py:87
+#: users/views.py:95
 msgid "Invitation sent"
 msgstr "Invitation envoyée"
 
-#: users/views.py:94
+#: users/views.py:102
 msgid "The user doesn't exist"
 msgstr "L'utilisateur n'existe pas"
 
-#: users/views.py:96
+#: users/views.py:104
 msgid "E-mail address did not match"
 msgstr "L'adresse e-mail ne correspond pas"
 
-#: users/views.py:100
+#: users/views.py:108
 #, python-format
 msgid "Your password has been reset. Your new password is: %s"
 msgstr ""
 "Votre mot de passe a été réinitialisé. Votre nouveau mot de passe est : %s"
 
-#: users/views.py:101
+#: users/views.py:109
 msgid "The new password has been sent to you by e-mail"
 msgstr "Le nouveau mot de passe vous a été envoyé par e-mail"
 
-#: users/views.py:107
+#: users/views.py:115
 msgid "Old password did not match"
 msgstr "L'ancien mot de passe ne correspond pas"
 
-#: users/views.py:112
+#: users/views.py:120
 msgid "Your password has been updated"
 msgstr "Votre mot de passe a été mis-à-jour."
 
-#: users/views.py:122
+#: users/views.py:130
 msgid "Your email has been updated"
 msgstr "Votre adresse e-mail a été mise-à-jour"
 
-#: users/views.py:128
+#: users/views.py:136
 msgid "Please accept the terms of use"
 msgstr "Merci d'accepter les Conditions Générales d'Utilisation"
 
-#: users/views.py:130
+#: users/views.py:138
 msgid "Invalid username. Please use only letters, digits, - and _."
 msgstr ""
 "Nom d'utilisateur non valide. Merci d'utiliser des lettres, chiffres, - et _."
 
-#: users/views.py:132
+#: users/views.py:140
 msgid "Please enter a password"
 msgstr "Veuillez choisir un mot de passe"
 
-#: users/views.py:134
+#: users/views.py:142
 msgid "Passwords did not match"
 msgstr "Les mots de passe ne correspondent pas"
 
-#: users/views.py:138
+#: users/views.py:146
 msgid "This username is already used"
 msgstr "Ce nom d'utilisateur n'est pas disponible"
 
-#: users/views.py:171
+#: users/views.py:179
 msgid "Incorrect data"
 msgstr "Données incorrectes"
 
-#: users/views.py:184
+#: users/views.py:192
 msgid "Can not change other users' profiles"
 msgstr "Impossible de modifier le profil d'un autre utilisateur"
 
-#: users/views.py:250
+#: users/views.py:258
 msgid "Message sent"
 msgstr "Message envoyé"
 
-#: users/views.py:259
+#: users/views.py:267
 msgid "Notice archived"
 msgstr "Notification archivée"
-
-msgid "Can not change a task which has subtasks"
-msgstr "Impossible de modifier une tâches une qui contient des sous-tâches"
-
-msgid "has changed the release of a project you follow to:"
-msgstr "a changé la version d'un projet que vous suivez"
 
 msgid "overview"
 msgstr "Suivi"
