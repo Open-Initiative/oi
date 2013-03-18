@@ -93,7 +93,6 @@ class UserProfile(models.Model):
             profile = payment.user.get_profile()
             profile.balance -= payment.amount #remove old amount from balance before updating account
             payment.amount = Decimal(info['amount'])
-            profile = payment.user.get_profile()
             profile.balance += payment.amount
             profile.save()
             payment.reason = _("online payment")

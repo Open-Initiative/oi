@@ -48,8 +48,10 @@ def userprofile(request, username):
     return direct_to_template(request, template="users/profile/profile.html", extra_context = extra_context)
 
 @login_required
-def userprefs(request):
+def myaccount(request):
     """user settings page"""
+    if request.GET:
+        request.user.get_profile().update_payment(dict(request.GET.items())) #to obtain a mutable version of the QueryDict
     extra_context={'contact_form':UserProfileForm(instance=request.user.get_profile())}
     return direct_to_template(request, template='users/myaccount.html', extra_context=extra_context)
 
@@ -301,10 +303,3 @@ def updatepayment(request):
     payment = Payment.objects.get(id=request.POST['orderID'])
     payment.user.get_profile().update_payment(dict(request.POST.items())) #to obtain a mutable version of the QueryDict
     return HttpResponse('OK')
-    
-@login_required
-def paymenthistory(request):
-    if request.GET:
-        request.user.get_profile().update_payment(dict(request.GET.items())) #to obtain a mutable version of the QueryDict
-        return(HttpResponseRedirect("/user/paymenthistory"))
-    return direct_to_template(request, template="users/paymenthistory.html")
