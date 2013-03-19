@@ -61,7 +61,7 @@
 </div>
 {% regroup object.tasks.all|dictsort:"state" by state as task_list %}
 {% for tasks in task_list %}
-<div id="features_{{tasks.grouper}}">
+<div class="features" id="features_{{tasks.grouper}}">
 {% for task in tasks.list %}
 {% include 'funding/feature.html' %}
 {% endfor %}
@@ -70,7 +70,7 @@
 {% if object|can_answer:user %}
 <div class="featureblock">
     <div id="feature_{{task.id}}" class="featuretitle">{% trans "Propose a new feature" %}</div>
-    <form id="newtask_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features'))}); return false" style="margin:5px 0;width:220px">
+    <form id="newtask_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); return false" style="margin:5px 0;width:220px">
         <input type="image" src="/img/icons/addtask.png" alt="{% trans 'New feature' %}" title="{% trans 'New feature' %}" />
         <input type="text" id="newtask_title_{{object.id}}" class="newtask_title" style="border:1px solid" value="{% trans 'Feature name' %}" onclick="if(this.value=='{% trans 'Feature name' %}')this.value=''" onblur="if(!this.value)this.value='{% trans 'Feature name' %}'"/>
     </form>
