@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-19 19:09+0100\n"
+"POT-Creation-Date: 2013-03-19 19:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -123,7 +123,7 @@ msgid "Wrong arguments"
 msgstr "Arguments incorrects"
 
 #: messages/models.py:140 messages/views.py:65 messages/views.py:75
-#: messages/views.py:79 projects/models.py:448 projects/views.py:235
+#: messages/views.py:79 projects/models.py:451 projects/views.py:235
 #: projects/views.py:279 templates/funding/edit_project.html:62
 #: templates/funding/project_detail.html:52
 #: templates/projects/project_detail.html:120
@@ -415,7 +415,7 @@ msgstr "Un utilisateur a supprimé le projet"
 msgid "Recompute all descendants"
 msgstr "Recalculer tous les descendants"
 
-#: projects/models.py:521
+#: projects/models.py:524
 msgid "Refund of bid"
 msgstr "Remboursement de la participation"
 
@@ -943,13 +943,16 @@ msgstr "S'inscrire !"
 
 #: templates/index.html:61
 msgid "Open Funding, the funding platform for all your free software"
-msgstr "Open Funding, la plate-forme de financement de tous vos logiciels libres"
+msgstr ""
+"Open Funding, la plate-forme de financement de tous vos logiciels libres"
 
 #: templates/index.html:62
 msgid ""
 "Fund your free software on Open Funding, the funding platform for all your "
 "free software!"
-msgstr "Financez vos logiciels libres sur Open Funding, la plate-forme de financement de tous vos logiciels libres"
+msgstr ""
+"Financez vos logiciels libres sur Open Funding, la plate-forme de "
+"financement de tous vos logiciels libres"
 
 #: templates/index.html:65
 msgid "Projects on Open Initiative"
@@ -991,20 +994,20 @@ msgid "Project created by"
 msgstr "Projet proposé par"
 
 #: templates/funding/edit_project.html:20
-#: templates/projects/project_header.html:74
-#: templates/projects/project_header.html:85
+#: templates/projects/project_header.html:77
+#: templates/projects/project_header.html:88
 msgid "Edit the title"
 msgstr "Corriger le titre"
 
 #: templates/funding/edit_project.html:31
 #: templates/funding/project_detail.html:21
-#: templates/projects/project_header.html:89
+#: templates/projects/project_header.html:91
 msgid "follow the project"
 msgstr "suivre le projet"
 
 #: templates/funding/edit_project.html:32
 #: templates/funding/project_detail.html:22
-#: templates/projects/project_header.html:90
+#: templates/projects/project_header.html:92
 msgid " subscriber "
 msgid_plural " subscribers "
 msgstr[0] "abonné"
@@ -1059,9 +1062,10 @@ msgid ""
 "is developped, so that you can validate it is done."
 msgstr ""
 "En finançant cette évolution, vous permettez à ce logiciel de s'améliorer. "
-"Vous aurez la possibilité de valider que le développement est fait de la manière "
-"que vous voulez. Un e-mail vous sera envoyé pour vous permettre de tester l'évolution "
-"lorsqu'elle sera développée, pour que vous puissiez validez qu'elle est faite."
+"Vous aurez la possibilité de valider que le développement est fait de la "
+"manière que vous voulez. Un e-mail vous sera envoyé pour vous permettre de "
+"tester l'évolution lorsqu'elle sera développée, pour que vous puissiez "
+"validez qu'elle est faite."
 
 #: templates/funding/feature.html:17
 msgid "Thanks for supporting this software!"
@@ -1125,8 +1129,9 @@ msgid "Tax"
 msgstr "Taxe"
 
 #: templates/funding/feature_budget.html:21
-msgid "Please provide your tax rate"
-msgstr "Merci d'indiquer votre taux de tva"
+#: templates/projects/project_budget.html:20
+msgid "No tax rate provided"
+msgstr "Taux de TVA non fourni"
 
 #: templates/funding/feature_budget.html:24
 #: templates/funding/feature_budget.html:27
@@ -1155,89 +1160,89 @@ msgid "By making an offer, you agree to the"
 msgstr "En faisant une offre, vous acceptez les"
 
 #: templates/funding/feature_budget.html:55
-#: templates/projects/project_budget.html:41
+#: templates/projects/project_budget.html:40
 msgid "No offer was made for this project"
 msgstr "Aucun devis n'a été proposé pour ce projet"
 
 #: templates/funding/feature_budget.html:57
-#: templates/projects/project_budget.html:43
+#: templates/projects/project_budget.html:42
 msgid "Make an offer"
 msgstr "Faire une offre"
 
 #: templates/funding/feature_budget.html:66
-#: templates/projects/project_budget.html:86
+#: templates/projects/project_budget.html:85
 msgid "Bids"
 msgstr "Souscriptions"
 
 #: templates/funding/feature_budget.html:73
-#: templates/projects/project_budget.html:93
+#: templates/projects/project_budget.html:92
 msgid "Add a new bid"
 msgstr "Ajouter une nouvelle souscription"
 
 #: templates/funding/feature_budget.html:74
-#: templates/projects/project_budget.html:94
+#: templates/projects/project_budget.html:93
 msgid "Cancel your bid on this task"
 msgstr "Annuler votre financement à la tâche"
 
 #: templates/funding/feature_budget.html:74
-#: templates/projects/project_budget.html:94
+#: templates/projects/project_budget.html:93
 msgid "Cancel my bid"
 msgstr "Annuler mon financement"
 
 #: templates/funding/feature_budget.html:79
-#: templates/projects/project_budget.html:99
+#: templates/projects/project_budget.html:98
 msgid "No bid on this task"
 msgstr "Aucun financement sur cette tâche"
 
 #: templates/funding/feature_budget.html:85
-#: templates/projects/project_budget.html:105
+#: templates/projects/project_budget.html:104
 msgid "wants to cancel his"
 msgstr "veut annuler sa"
 
 #: templates/funding/feature_budget.html:85
-#: templates/projects/project_budget.html:105
+#: templates/projects/project_budget.html:104
 msgid "bid on this task"
 msgstr "financement sur cette tâche"
 
 #: templates/funding/feature_budget.html:86
-#: templates/projects/project_budget.html:106
+#: templates/projects/project_budget.html:105
 msgid "Your offer will be reduced of"
 msgstr "Votre offre sera réduite de"
 
 #: templates/funding/feature_budget.html:87
 #: templates/funding/feature_budget.html:98
-#: templates/projects/project_budget.html:107
-#: templates/projects/project_budget.html:118
-#: templates/projects/project_budget.html:126
+#: templates/projects/project_budget.html:106
+#: templates/projects/project_budget.html:117
+#: templates/projects/project_budget.html:125
 #: templates/projects/project_team.html:29
 msgid "Do you accept it?"
 msgstr "Acceptez-vous ?"
 
 #: templates/funding/feature_budget.html:88
 #: templates/funding/feature_budget.html:99
-#: templates/projects/project_budget.html:108
-#: templates/projects/project_budget.html:119
-#: templates/projects/project_budget.html:127
+#: templates/projects/project_budget.html:107
+#: templates/projects/project_budget.html:118
+#: templates/projects/project_budget.html:126
 #: templates/projects/project_team.html:30
 msgid "Accept"
 msgstr "Accepter"
 
 #: templates/funding/feature_budget.html:89
 #: templates/funding/feature_budget.html:100
-#: templates/projects/project_budget.html:109
-#: templates/projects/project_budget.html:120
-#: templates/projects/project_budget.html:128
+#: templates/projects/project_budget.html:108
+#: templates/projects/project_budget.html:119
+#: templates/projects/project_budget.html:127
 #: templates/projects/project_team.html:31
 msgid "Refuse"
 msgstr "Refuser"
 
 #: templates/funding/feature_budget.html:96
-#: templates/projects/project_budget.html:116
+#: templates/projects/project_budget.html:115
 msgid "wants to cancel this task."
 msgstr "veut annuler cette tâche"
 
 #: templates/funding/feature_budget.html:97
-#: templates/projects/project_budget.html:117
+#: templates/projects/project_budget.html:116
 msgid "You will be reimbursed in full."
 msgstr "Vous serez intégralement remboursé."
 
@@ -1838,44 +1843,39 @@ msgstr "Souscrire"
 msgid "Evaluate"
 msgstr "Evaluer"
 
-#: templates/projects/project_budget.html:20
-#: templates/projects/project_budget.html:38
-msgid "Fill your avt rate please"
-msgstr "Remplissez le champs pour le taux de tva, merci"
-
 #: templates/projects/project_budget.html:30
 msgid "Change my offer"
 msgstr "Modifier mon offre"
 
-#: templates/projects/project_budget.html:49
+#: templates/projects/project_budget.html:48
 msgid "includes"
 msgstr "inclut"
 
-#: templates/projects/project_budget.html:60
+#: templates/projects/project_budget.html:59
 msgid "Dependencies"
 msgstr "Dépendances"
 
-#: templates/projects/project_budget.html:63
+#: templates/projects/project_budget.html:62
 msgid "Drop here tasks that are required for this one to start"
 msgstr "Déposer ici les tâches prérequise avant celle-ci"
 
-#: templates/projects/project_budget.html:74
+#: templates/projects/project_budget.html:73
 msgid "Depends on"
 msgstr "Dépend de"
 
-#: templates/projects/project_budget.html:78
+#: templates/projects/project_budget.html:77
 msgid "Delete this dependency"
 msgstr "Supprimer cette dépendance"
 
-#: templates/projects/project_budget.html:125
+#: templates/projects/project_budget.html:124
 msgid "wants to change this task due date to"
 msgstr "veut modifier la date de livraison de cette tâche au"
 
-#: templates/projects/project_budget.html:134
+#: templates/projects/project_budget.html:133
 msgid "Budget"
 msgstr "Budget"
 
-#: templates/projects/project_budget.html:134
+#: templates/projects/project_budget.html:133
 msgid "Engaged"
 msgstr "Engagé"
 
@@ -2020,23 +2020,23 @@ msgstr "Responsable :"
 msgid "Nobody"
 msgstr "Personne"
 
-#: templates/projects/project_header.html:44
+#: templates/projects/project_header.html:45
 msgid "Deadline:"
 msgstr "Échéance"
 
-#: templates/projects/project_header.html:46
+#: templates/projects/project_header.html:47
 msgid "Not set"
 msgstr "Non précisé"
 
-#: templates/projects/project_header.html:49
+#: templates/projects/project_header.html:51
 msgid "Requested budget:"
 msgstr "Budget demandé :"
 
-#: templates/projects/project_header.html:54
+#: templates/projects/project_header.html:57
 msgid "Release:"
 msgstr "Version :"
 
-#: templates/projects/project_header.html:56
+#: templates/projects/project_header.html:59
 msgid "Select in which release this task will be done"
 msgstr "Choisir dans quelle version cette tâche sera faite"
 
