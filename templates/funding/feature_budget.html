@@ -18,7 +18,7 @@
             <div class="username">{{task.assignee}}</div>
             <div>
                 {{task.offer|default:task.alloffer_sum}} €
-                <span class="cleared tax">{% if task.assignee.get_profile.tax_rate %}{% trans "Tax" %} {{task.assignee.get_profile.tax_rate}}% : ({{task.offer_with_tva|default:task.get_offer_tax|floatformat:2}}€){% else %} {% trans "Please provide your tax rate" %}<a href="/user/myaccount"><img src="/img/icons/edit.png" /></a> {% endif %}</span>
+                <span class="cleared tax">{% if task.assignee.get_profile.tax_rate %}{% trans "Tax" %} {{task.assignee.get_profile.tax_rate}}% : ({{task.offer_with_tva|default:task.get_offer_tax|floatformat:2}}€){% else %} {% trans "No tax rate provided" %}<a href="/user/myaccount"><img src="/img/icons/edit.png" /></a> {% endif %}</span>
                 {% if task.assignee == user and task.state < 2 %}
                     {% if task.descendants.with_offer %}
                         {% trans "The task" %} "{{task.descendants.with_offer.0.title}}" {% trans "already has an offer" %} 

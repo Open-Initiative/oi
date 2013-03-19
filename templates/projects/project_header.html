@@ -41,12 +41,15 @@
                 {% else %}{% trans "Nobody" %}{% endif %}
                 <img src="/img/icons/bluebtn.png" /></a>
             </div>
-            <div><span class="entitle-overview">{% trans "Deadline:" %} </span><a href="/project/{{object.id}}/view/planning">
+            <div>
+                <span class="entitle-overview">{% trans "Deadline:" %} </span><a href="/project/{{object.id}}/view/planning">
                 {% if object.due_date %}{{object.due_date|date:"d/m/Y"}}
                 {% else %}{% trans "Not set" %}{% endif %}
                 <img src="/img/icons/bluebtn.png" /></a>
             </div>
-            <div><span class="entitle-overview">{% trans "Requested budget:" %} </span><a href="/project/{{object.id}}/view/budget"> {{object.offer}}€ <img src="/img/icons/bluebtn.png" /></a>
+            <div>
+                <span class="entitle-overview">{% trans "Requested budget:" %} </span>
+                <a href="/project/{{object.id}}/view/budget"> {{object.offer}}€<img src="/img/icons/bluebtn.png" /></a>
             </div>
             
             {% if object.parent %}
@@ -84,7 +87,6 @@
         {% if object|can_write:user and object.state < 3 %}
                 <img onclick="editProjectTitle({{object.id}})" class="clickable" src="/img/icons/edit.png" alt="{% trans 'Edit the title' %}" title="{% trans 'Edit the title' %}" />
             {% endif %}
-        </div>
         <div class="prj-block-fav">
             <img onclick="favProject(174)" src="/img/icons/starTrue.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_174">
             {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}

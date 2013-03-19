@@ -329,7 +329,10 @@ class Project(models.Model):
     
     def get_offer_tax(self):
         """sums up all commissions on the project's tasks"""
-        return (self.offer or self.alloffer_sum()) * (self.assignee.get_profile().tax_rate or 0) / 100
+        if self.assignee:
+            return (self.offer or self.alloffer_sum()) * (self.assignee.get_profile().tax_rate or 0) / 100
+        else:
+            return 0
     
     def get_commission_tax(self):
         """sums up all commissions on the project's tasks"""
