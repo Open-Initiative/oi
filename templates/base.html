@@ -26,8 +26,9 @@
     <script type="text/javascript" src="/js/oitable.js"></script>
     <script type="text/javascript" src="/js/oigantt.js"></script>
     <script>
-        sites = { {% for site in Sites.all %}"{{site.name}}" : "{{site.domain}}", {% endfor %} };
+        sites = {{Sites|safe}};
         prjsite = "http://" + sites["Open Initiative"];
+        fundingsite = "http://" + sites["Open Funding"];
     </script>
     <title>{% block title %}{% endblock %} - Open Initiative</title>
 </head>
