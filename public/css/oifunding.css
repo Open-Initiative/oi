@@ -450,7 +450,7 @@ option.oldrelease{
     text-overflow: ellipsis;
     width: 55%;
 }
-#features {
+.features {
     position: relative;
 }
 .featuredetail {
