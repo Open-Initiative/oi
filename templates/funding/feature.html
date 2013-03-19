@@ -20,6 +20,7 @@
         <input id="bid_{{task.id}}" name="bid_{{task.id}}" class="bidfeature" value="{{task.missing_bid|floatformat:"-2"}}" /> €
         <input type="image" src="/img/icons/ok-32.png" />
     </form>
+    {% trans "By funding this feature, you agree to the" %} <a href="/cgu" target="_blank">{% trans "Terms of Use" %}</a>
 </div>
 {% endif %}
 

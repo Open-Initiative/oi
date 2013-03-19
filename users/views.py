@@ -127,7 +127,7 @@ def changeemail(request):
     """updates user's email address"""
     if request.POST['newemail'] != request.POST['confirmemail']:
         return HttpResponse('Addresses did not match')
-    request.user.email = request.POST['newemail'] #TODO check for email validity
+    request.user.email = request.POST['newemail']
     request.user.save()
     messages.info(request, _("Your email has been updated"))
     return HttpResponseRedirect("/user/myaccount")
@@ -201,6 +201,14 @@ def settitle(request):
     request.user.get_profile().title = request.POST["title"]
     request.user.get_profile().save()
     return HttpResponse(_("Modification saved"))
+
+@login_required
+def settaxrate(request):
+    """changes user's tax rate"""
+    profile = request.user.get_profile()
+    profile.tax_rate = request.POST["taxrate"]
+    profile.save()
+    return HttpResponse(_("Tax rate saved"))
 
 @login_required
 def listnamedisplays(request):
