@@ -1,0 +1,96 @@
+{% load oifilters %}
+{% load i18n %}
+<div>
+    <img class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hide('featurebudget_{{task.id}}')" />
+    {% if task.state < 3 %}
+    <h3 style="width:300px">{% trans "Payment awaiting:" %} {{task.missing_bid|floatformat:2}} €</h3>
+    {% if task|can_bid:user and not task|bids:user %}
+    <div onclick="OIajaxCall('/project/confirmbid/{{task.id}}', null, 'output', null)" class="clickable bidaction">{% trans "Support this feature" %}</div>
+    {% endif %}
+    {% endif %}
+</div>
+<div>
+    <div class="smallcolumn">
+        <div class="oiredfunding">
+            <h3>{% trans "Offer" %}</h3>
+        {% if task.assignee %}
+            <img class="contactpicture" src="/user/getpicture/{{task.assignee.username}}" />
+            <div class="username">{{task.assignee}}</div>
+            <div>
+                {{task.offer|default:task.alloffer_sum}} €
+                <span class="cleared tax">{% if task.assignee.get_profile.tax_rate %}{% trans "Tax" %} {{task.assignee.get_profile.tax_rate}}% : ({{task.offer_with_tva|default:task.get_offer_tax|floatformat:2}}€){% else %} {% trans "Please provide your tax rate" %}<a href="/user/myaccount"><img src="/img/icons/edit.png" /></a> {% endif %}</span>
+                {% if task.assignee == user and task.state < 2 %}
+                    {% if task.descendants.with_offer %}
+                        {% trans "The task" %} "{{task.descendants.with_offer.0.title}}" {% trans "already has an offer" %} 
+                    {% else %}
+                        {% if task.ancestors.with_offer %}
+                            {% trans "The task" %} "{{task.ancestors.with_offer.0.title}}" {% trans "already has an offer" %}
+                        {% else %}
+                            <span class="bidaction clickable" onclick="show('editoffer_{{task.id}}')"> {% trans "Edit" %}</span>
+                        {% endif %} 
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div id="editoffer_{{task.id}}" class="editoffer invisible">
+                <img class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hide('editoffer_{{task.id}}')" />
+                <form onsubmit="OIajaxCall('/project/confirmoffer/{{task.id}}', 'offer='+getValue('offer_{{task.id}}'), 'output'); return false">
+                    <input id="offer_{{task.id}}" type="text" value="{{task.offer}}" onFocus="this.select()" class="bidfeature" />
+                    <div class="cleared"> {% trans "I have read and accepted the" %} <a href="/cgu" target="_blank">{% trans "Terms of Use" %}</a></div>
+                    <input type="image" class="clickable" src="/img/icons/ok-32.png" />
+                </form>
+            </div>
+            <br/>
+            <div class="cleared">{% trans "Commission" %} 5% : {{task.commission|default:task.allcommission_sum}}€</div>
+            
+            <div class="cleared tax">{% trans "Tax" %} 19.6%: ({{task.get_commssion_tax|floatformat:2}}€)</div>
+        {% else %}
+            {% trans "No offer was made for this project" %}
+            {% if task.state < 2 and task|can_bid:user %}
+            <div class="bidaction clickable" onclick="offerProject({{task.id}})">{% trans "Make an offer" %}</div>
+            {% endif %}
+        {% endif %}
+        </div>
+    </div>
+    <div class="cleared"></div>
+</div>
+<div class="smallcolumn" >
+    <div id="bids_{{task.id}}" class="participant">
+        <h3>{{task.bid_set.count}} {% trans "Bids" %}: {{task.allbid_sum}} €</h3>
+        {% for bid in task.bid_set.all %}
+        <div>
+            <img class="contactpicture" src="/user/getpicture/{{bid.user.username}}">
+            <div class="username">{{bid.user}}</div>
+            <div>{{bid.amount}} €</div>
+            {% if user == bid.user and task.state < 3 %}
+                <div><img class="clickable" src="/img/icons/add.png" onclick="bidProject({{task.id}})" /> {% trans "Add a new bid" %}</div>
+                <div><img class="clickable" src="/img/icons/delete.png" onclick="cancelBid({{task.id}}, {% if task.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "Cancel your bid on this task" %}" title="{% trans "Cancel your bid on this task" %}" /> {% trans "Cancel my bid" %}</div>
+            {% endif %}
+            <div class="cleared"></div>
+        </div>
+        {% empty %}
+            {% trans "No bid on this task" %}
+        {% endfor %}
+    </div>
+    {% ifequal user task.assignee %}
+    {% for bid in task.canceled_bids %}
+    <div id="question_{{task.id}}_{{bid.id}}" class="smalltext">
+        {{bid.user.username}} {% trans "wants to cancel his" %} <br /> {% trans "bid on this task" %}<br />
+        {% trans "Your offer will be reduced of" %} {{bid.amount}}.<br />
+        {% trans "Do you accept it?" %}
+        <img class="clickable" src="/img/icons/ok.png" onclick="answerCancelBid({{task.id}}, {{bid.id}}, true, 'question_{{task.id}}_{{bid.id}}')" title="{% trans "Accept" %}" alt="{% trans "Accept" %}"/>
+        <img class="clickable" src="/img/icons/delete.png" onclick="answerCancelBid({{task.id}}, {{bid.id}}, false, 'question_{{task.id}}_{{bid.id}}')" title="{%trans "Refuse" %}" alt="{%trans "Refuse" %}"/>
+    </div>
+    {% endfor %}
+    {% endifequal %}
+    {% if task|bids:user %}
+    {% ifequal task.state 11 %}
+    <div id="question_{{task.id}}_{{bid.id}}" class="smalltext">
+        {{task.assignee.username}} {% trans "wants to cancel this task." %}<br />
+        {% trans "You will be reimbursed in full." %}<br />
+        {% trans "Do you accept it?" %}
+        <img class="clickable" src="/img/icons/ok.png" onclick="answerCancelProject({{task.id}}, true, 'question_{{task.id}}')" title="{% trans "Accept" %}" alt="{% trans "Accept" %}"/>
+        <img class="clickable" src="/img/icons/delete.png" onclick="answerCancelProject({{task.id}}, false, 'question_{{task.id}}')" title="{%trans "Refuse" %}" alt="{%trans "Refuse" %}"/>
+    </div>
+    {% endifequal %}
+    {% endif %}
+</div>

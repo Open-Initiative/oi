@@ -11,6 +11,17 @@
     {% include 'funding/feature_description.html' %}
 </div>
 {% endif %}
+{% if task.state < 4 and task|can_bid:user or not user.is_authenticated %}
+<div id="bidpopup_{{task.id}}" class="popup invisible" onclick="document.ignoreClosePopups = true;">
+        <img class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hide('bidpopup_{{task.id}}')" />
+    <p>{% trans "By funding this feature you will enable improvements to this software. You will be given the chance to validate that the development is done the way you want. An e-mail will let you know that you can test the feature when it is developped, so that you can validate it is done."%}</p><p>{% trans "Thanks for supporting this software!" %}</p>
+    <form onsubmit="OIajaxCall('/project/confirmbid/{{task.id}}', 'bid='+getValue('bid_{{task.id}}'), 'output');return false">
+        <label for="bid_{{task.id}}">{% trans "Please enter the amount you want to fund:" %}</label><br />
+        <input id="bid_{{task.id}}" name="bid_{{task.id}}" class="bidfeature" value="{{task.missing_bid|floatformat:"-2"}}" /> €
+        <input type="image" src="/img/icons/ok-32.png" />
+    </form>
+</div>
+{% endif %}
 
 <div id="featureDiv_{{task.id}}" class="featureblock" title="{{task.title}}">
     {% if task|can_write:user and task.state < 4 %}<div class="actions">
