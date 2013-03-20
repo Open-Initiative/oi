@@ -13,7 +13,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import get_app, Count, Avg
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect, HttpResponse, Http404
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.views.generic.simple import direct_to_template
 from oi.prjnotify.models import Notice, NoticeType, Observer
@@ -242,7 +242,7 @@ def uploadpicture(request):
 
 def getpicture(request, username):
     """Downloads given user's profile picture"""
-    if not username or not User.objects.get(username=username).get_profile().picture:
+    if not username or not get_object_or_404(User, username=username).get_profile().picture:
         return HttpResponseRedirect('/img/defaultusr.png') #default picture
     response = HttpResponse(mimetype='image/jpeg')
     response['X-Sendfile'] = "%suser/%s/profile.jpg"%(MEDIA_ROOT,username)
