@@ -2,7 +2,7 @@
 {% load oifilters %}
 <div class="featurebtns">
 {% if task.state < 4 and task|can_bid:user and not task|bids:user or not user.is_authenticated %}
-    <span class="supportbtn clickable" onclick="showPopup(bidpopup_{{task.id}})">{% trans "Support" %}</span>
+    <span class="supportbtn clickable" onclick="showPopup(document.getElementById('bidpopup_{{task.id}}'))">{% trans "Support" %}</span>
 {% endif %}
 {% if task.state < 2 and task.assignee == user and task.is_ready_to_start %}
     <div class="clickable prj-btn" onclick="startProject({{task.id}})">{% trans "Start" %}</div>

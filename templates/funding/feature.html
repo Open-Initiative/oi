@@ -30,7 +30,7 @@
         <img src="/img/icons/delete.png" alt="{% trans 'delete feature' %}" title="{% trans 'delete feature' %}" class="clickable" onclick="deleteProject({{task.id}})" />
     </div>{% endif %}
     <div id="feature_{{task.id}}" class="featuretitle">{{task.title}}</div>
-    {% if task|can_manage:user or task.spec_set.count%}<a class="clickable" onclick="showPopup(featuredesc_{{task.id}})">{% trans "Description" %}</a>{% endif %}
+    {% if task|can_manage:user or task.spec_set.count%}<a class="clickable" onclick="showPopup(document.getElementById('featuredesc_{{task.id}}'))">{% trans "Description" %}</a>{% endif %}
     <div>
         <div><span class="funded">{{task.allbid_sum|default:0|floatformat:"-2"}} €</span> {% trans "funded" %}</div>
         {% include 'funding/project_actions.html' %}
@@ -42,7 +42,7 @@
             <span class="amount">{{task.get_budget|default:0|floatformat:"-2"}} €</span> {% trans "needed" %} -
             <span class="amount">{{task.missing_bid|floatformat:"-2"}} €</span> {% trans "to go" %}
         </div>
-        {% if task|can_manage:user %}<a class="clickable" onclick="showPopup(featurebudget_{{task.id}})">{% trans "Funding details" %}</a>{% endif %}
+        {% if task|can_manage:user %}<a class="clickable" onclick="showPopup(document.getElementById('featurebudget_{{task.id}}'))">{% trans "Funding details" %}</a>{% endif %}
     </div>
 </div>
 
