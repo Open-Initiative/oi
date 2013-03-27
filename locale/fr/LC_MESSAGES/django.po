@@ -975,8 +975,8 @@ msgid "a new project:"
 msgstr "un nouveau projet"
 
 #: templates/funding/base.html:48
-msgid "Fund your open source projects online"
-msgstr "Financez vos projets open source en ligne"
+msgid "The crowdfunding platform for free software"
+msgstr "La plate-forme de financement participatif du logiciel libre"
 
 #: templates/funding/edit_project.html:4
 #: templates/funding/project_detail.html:4
