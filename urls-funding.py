@@ -8,7 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Page d'accueil
-    (r'^$', ListView.as_view, {'queryset':Project.objects.filter(promotedproject__location='fundingindex'), 'template_name':'funding/index.html'}),
+    (r'^$', ListView.as_view(queryset=Project.objects.filter(promotedproject__location='fundingindex'), template_name='funding/index.html')),
     # contenu statique
     (r'^cgu$', direct_to_template, {'template': "cgu.html"}),    
     (r'^contact$', direct_to_template, {'template': "contact.html"}),
