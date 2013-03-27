@@ -3,6 +3,7 @@
 # Django settings for oi project.
 from settings_common import *
 
+REDIRECT_URL = "/funding/"
 ROOT_URLCONF = 'oi.urls-funding'
 SITE_NAME = "Open Funding"
 

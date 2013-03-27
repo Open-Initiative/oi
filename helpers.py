@@ -13,7 +13,7 @@ from django.utils.decorators import available_attrs
 from django.utils.http import urlquote
 from django.utils.translation import ugettext_lazy as _
 from ho import pisa
-from oi.settings import MEDIA_ROOT, TEMPLATE_DIRS, LOGIN_URL, SHA_KEY
+from django.conf import settings
 
 # Constantes de transmission de pertinence
 OI_SCORE_ANONYMOUS = 1. #Score du vote anonyme
@@ -87,8 +87,8 @@ def ajax_login_required(function=None, keep_fields=None):
                 for field in keep_fields:
                     if field and request.POST.has_key(field):
                         request.session[field] = request.POST[field]
-                return HttpResponse('%s?%s=%s'%(LOGIN_URL, REDIRECT_FIELD_NAME, request.build_absolute_uri()),status=333)
-            return HttpResponse('%s?%s=/%s/get/%s'%(LOGIN_URL, REDIRECT_FIELD_NAME, request.get_full_path().split('/')[1],id),status=333)
+                return HttpResponse('%s?%s=%s'%(settings.LOGIN_URL, REDIRECT_FIELD_NAME, request.build_absolute_uri()),status=333)
+            return HttpResponse('%s?%s=%s%s'%(settings.LOGIN_URL, REDIRECT_FIELD_NAME, settings.REDIRECT_URL, id),status=333)
         return new_f
     if function:
         return decorator(function)
@@ -97,13 +97,13 @@ def ajax_login_required(function=None, keep_fields=None):
 def fetch_resources(uri, rel):
     """Url transformation for pdf generation"""
     if uri.startswith("/user/getpicture"):  #special case for user pictures
-        return MEDIA_ROOT + uri.replace("/getpicture", "") + "/profile.jpg"
-    return TEMPLATE_DIRS + "users/pdf/" + uri
+        return settings.MEDIA_ROOT + uri.replace("/getpicture", "") + "/profile.jpg"
+    return settings.TEMPLATE_DIRS + "users/pdf/" + uri
     
 def render_to_pdf(template, extra_context):
     """renders a template to a pdf"""
     resbuffer = StringIO.StringIO()
-    css = open(TEMPLATE_DIRS+"users/pdf/resume.css").read()
+    css = open(settings.TEMPLATE_DIRS+"users/pdf/resume.css").read()
     pdf = pisa.CreatePDF(render_to_string(template, extra_context), dest=resbuffer, link_callback=fetch_resources, default_css=css)
     if pdf.err:
         raise Exception(_("PDF Transformation Error"))
@@ -116,5 +116,5 @@ def computeSHA(params):
         if params[key]: #removes empty values
             new_dict[key.upper()] = params[key] #Turns keys uppercase
     keys = sorted(new_dict.keys()) #sort them alphabetically
-    chain = SHA_KEY.join(map(lambda key: "%s=%s"%(key, new_dict[key]), keys))+SHA_KEY #generates chain to compute SHA signature from
+    chain = settings.SHA_KEY.join(map(lambda key: "%s=%s"%(key, new_dict[key]), keys))+settings.SHA_KEY #generates chain to compute SHA signature from
     return sha256(chain.encode("utf-8")).hexdigest().upper() #computes and turns signature uppercase
