@@ -942,17 +942,17 @@ msgid "Register now!"
 msgstr "S'inscrire !"
 
 #: templates/index.html:61
-msgid "Open Funding, the funding platform for all your free software"
+msgid "Open Funding, the crowdfunding platform for all your free software"
 msgstr ""
-"Open Funding, la plate-forme de financement de tous vos logiciels libres"
+"Open Funding, la plate-forme de financement participatif de tous vos logiciels libres"
 
 #: templates/index.html:62
 msgid ""
-"Fund your free software on Open Funding, the funding platform for all your "
+"Fund your free software on Open Funding, the crowdfunding platform for all your "
 "free software!"
 msgstr ""
 "Financez vos logiciels libres sur Open Funding, la plate-forme de "
-"financement de tous vos logiciels libres"
+"financement participatif de tous vos logiciels libres"
 
 #: templates/index.html:65
 msgid "Projects on Open Initiative"
