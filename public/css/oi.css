@@ -480,6 +480,12 @@ img.tabicon {
     height: 30px;
     color: #0094B5;
 }
+.teampicture {
+    float: left;
+    height: 100px;
+    margin-left: 0.2em;
+    margin-right: 0.6em;
+}
 .headersep {
     background: url('/img/headersep.png');
     clear: left;

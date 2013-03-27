@@ -11,16 +11,39 @@
 {% endblock %}
 {% block content %}
 <div class="presslide" id="1">
-<h2>{% trans "What is Open Funding?" %}</h2>
-{% trans "Open Funding is the funding platform for all your open source projects. Contribute to the projects, and see the progress you make. Be part of the project on the long run!" %}
+    <h2>{% trans "What is Open Funding?" %}</h2>
+    {% trans "Open Funding is the funding platform for all your open source projects. Contribute to the projects, and see the progress you make. Be part of the project on the long run!" %}
+    <h2>{% trans "The team" %}</h2>
+    <div class="column">
+        <img class="teampicture" src="/img/team/sylvain.png" />
+        <div class="column">
+            <div class="usertitle">Sylvain</div>
+            <div class="cleared">{% trans "Founder" %}</div>
+        </div>
+    </div>
+    <div class="column">
+        <img class="teampicture" src="/img/team/maxi.png" /> 
+        <div class="column">
+            <div class="usertitle">Maxi</div>
+            <div class="cleared">{% trans "UX developer" %}</div>
+        </div>
+    </div>
+    <div class="column">
+        <img class="teampicture" src="/img/team/daniel.png" /> 
+        <div class="column">
+            <div class="usertitle">Daniel</div>
+            <div class="cleared">{% trans "Product manager" %}</div>
+        </div>
+    </div>
+    <div class="cleared"></div>
 </div>
 <div class="presslide invisible" id="2">
-<h2>{% trans "How does it work?" %}</h2>
-{% trans "With Open Funding you can see the features that are proposed by or to the developers. You can see the progress made on them and know when they are coming." %}
+    <h2>{% trans "How does it work?" %}</h2>
+    {% trans "With Open Funding you can see the features that are proposed by or to the developers. You can see the progress made on them and know when they are coming." %}
 </div>
 <div class="presslide invisible" id="3">
-<h2>{% trans "Get involved" %}</h2>
-{% trans "Now you can have an influence on your open source project, and be part of the game. Open source is never obscure anymore." %}
+    <h2>{% trans "Get involved" %}</h2>
+    {% trans "Now you can have an influence on your open source project, and be part of the game. Open source is never obscure anymore." %}
 </div>
 <script>
     if(document.location.hash) slidePres(document.location.hash);

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-27 22:32+0100\n"
+"POT-Creation-Date: 2013-03-27 23:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1280,10 +1280,11 @@ msgstr "l'évolution des projets"
 
 #: templates/funding/index.html:19
 msgid "Find out the new features of each project and suggest your ideas."
-msgstr "Découvrez les nouvelles évolutions de chaque projet et suggérez vos idées."
+msgstr ""
+"Découvrez les nouvelles évolutions de chaque projet et suggérez vos idées."
 
 #: templates/funding/index.html:20 templates/funding/presentation.html:9
-#: templates/funding/presentation.html:22
+#: templates/funding/presentation.html:45
 msgid "Get involved"
 msgstr "Participez"
 
@@ -1292,8 +1293,12 @@ msgid "and make it happen"
 msgstr "et donnez vie au projet"
 
 #: templates/funding/index.html:23
-msgid "Join the community supporting free software! Free software is never obscure anymore."
-msgstr "Rejoignez la communauté qui soutient le logiciel libre ! Le logiciel libre ne sera plus jamais obscur."
+msgid ""
+"Join the community supporting free software! Free software is never obscure "
+"anymore."
+msgstr ""
+"Rejoignez la communauté qui soutient le logiciel libre ! Le logiciel libre "
+"ne sera plus jamais obscur."
 
 #: templates/funding/index.html:57
 msgid "submit"
@@ -1326,7 +1331,7 @@ msgid "What is Open Funding?"
 msgstr "Qu'est-ce qu'Open Funding ?"
 
 #: templates/funding/presentation.html:8
-#: templates/funding/presentation.html:18
+#: templates/funding/presentation.html:41
 msgid "How does it work?"
 msgstr "Comment ça marche ?"
 
@@ -1336,31 +1341,72 @@ msgid ""
 "Contribute to the projects, and see the progress you make. Be part of the "
 "project on the long run!"
 msgstr ""
-"<p>Open Funding est la plate-forme de cofinancement de tous vos logiciels libres."
-"Elle vous permet de partager le financement de la création informatique en contribuant aux projets et en suivant leur évolution.</p>"
-"<p>Que vous soyez utilisateur ou développeur ce site est pour vous ! Open Funding est l’intermédiaire entre ceux qui cherchent des logiciels libres et veulent les soutenir, et ceux qui ont des projets à développer et cherchent des financements.</p>"
-"<p>Avec Open Funding, vous pouvez contribuer de cette façon au soutien du logiciel libre. Accompagnez les projets sur le long terme et suggérez-nous des projets que vous aimeriez voir financés sur la plate-forme.</p>"
+"<p>Open Funding est la plate-forme de cofinancement de tous vos logiciels "
+"libres.Elle vous permet de partager le financement de la création "
+"informatique en contribuant aux projets et en suivant leur évolution.</"
+"p><p>Que vous soyez utilisateur ou développeur ce site est pour vous ! Open "
+"Funding est l’intermédiaire entre ceux qui cherchent des logiciels libres et "
+"veulent les soutenir, et ceux qui ont des projets à développer et cherchent "
+"des financements.</p><p>Avec Open Funding, vous pouvez contribuer de cette "
+"façon au soutien du logiciel libre. Accompagnez les projets sur le long "
+"terme et suggérez-nous des projets que vous aimeriez voir financés sur la "
+"plate-forme.</p>"
 
-#: templates/funding/presentation.html:19
+#: templates/funding/presentation.html:16
+msgid "The team"
+msgstr "L'équipe"
+
+#: templates/funding/presentation.html:21
+msgid "Founder"
+msgstr "Fondateur"
+
+#: templates/funding/presentation.html:28
+msgid "UX developer"
+msgstr "Développeur UX"
+
+#: templates/funding/presentation.html:35
+msgid "Product manager"
+msgstr "Directeur produit"
+
+#: templates/funding/presentation.html:42
 msgid ""
 "With Open Funding you can see the features that are proposed by or to the "
 "developers. You can see the progress made on them and know when they are "
 "coming."
 msgstr ""
-"<p>Si vous avez un projet de logiciel libre, proposez-le sur la plate-forme avec la liste des évolutions prévues et le montant nécessaire pour leur développement, et communiquez les auprès de la communauté.</p>"
-"<p>Les utilisateurs apportent du financement à la hauteur qu'ils souhaitent sur les évolutions qui les intéressent. Une fois le montant demandé atteint, le porteur de projet peut démarrer les développements."
-"Le développeur indique la livraison lorsque le travail est terminé. Les utilisateurs ont alors 14 jours pour valider la réception ou demander des corrections. Il n'est payé qu'après validation par les utilisateurs.</p>"
-"<p>De cette manière Open Funding assure aux utilisateurs la conclusion du développement et au développeur le paiement des développements une fois ceux-ci réalisés. L’accès à la plate-forme est entièrement gratuit pour l’utilisateur comme pour le prestataire. Open Funding prélève une commission limitée à 5% déduite du montant versé au prestataire une fois la mission achevée."
-"Le règlement n'est effectué qu’en cas de validation du développement par les utilisateurs, donc le projet est la garantie de voir le projet évoluer dans le sens de vos besoins.</p>"
+"<p>Si vous avez un projet de logiciel libre, proposez-le sur la plate-forme "
+"avec la liste des évolutions prévues et le montant nécessaire pour leur "
+"développement, et communiquez les auprès de la communauté.</p><p>Les "
+"utilisateurs apportent du financement à la hauteur qu'ils souhaitent sur les "
+"évolutions qui les intéressent. Une fois le montant demandé atteint, le "
+"porteur de projet peut démarrer les développements.Le développeur indique la "
+"livraison lorsque le travail est terminé. Les utilisateurs ont alors 14 "
+"jours pour valider la réception ou demander des corrections. Il n'est payé "
+"qu'après validation par les utilisateurs.</p><p>De cette manière Open "
+"Funding assure aux utilisateurs la conclusion du développement et au "
+"développeur le paiement des développements une fois ceux-ci réalisés. "
+"L’accès à la plate-forme est entièrement gratuit pour l’utilisateur comme "
+"pour le prestataire. Open Funding prélève une commission limitée à 5% "
+"déduite du montant versé au prestataire une fois la mission achevée.Le "
+"règlement n'est effectué qu’en cas de validation du développement par les "
+"utilisateurs, donc le projet est la garantie de voir le projet évoluer dans "
+"le sens de vos besoins.</p>"
 
-#: templates/funding/presentation.html:23
+#: templates/funding/presentation.html:46
 msgid ""
 "Now you can have an influence on your open source project, and be part of "
 "the game. Open source is never obscure anymore."
 msgstr ""
-"<p>Le developpement informatique demande du temps et des efforts aux créateurs, mais vous pouvez participer aux projets en les soutenant sur Open Funding. En tant qu’intermédiaire, nous proposons une plate-forme fiable, autant pour les porteurs de projets que pour les utilisateurs.</p>"
-"<p>Connaissez en direct les nouvelles fonctionnalités proposées et suivez les développements quand les nouveautés arrivent. Proposez de nouvelles fonctionnalités, donnez votre avis et apportez les financements qui les rendent possibles.</p>"
-"<p>Open Funding vous permet de découvrir et cofinancer la création de projets. Rejoignez la communauté qui soutient le logiciel libre!</p>"
+"<p>Le developpement informatique demande du temps et des efforts aux "
+"créateurs, mais vous pouvez participer aux projets en les soutenant sur Open "
+"Funding. En tant qu’intermédiaire, nous proposons une plate-forme fiable, "
+"autant pour les porteurs de projets que pour les utilisateurs.</"
+"p><p>Connaissez en direct les nouvelles fonctionnalités proposées et suivez "
+"les développements quand les nouveautés arrivent. Proposez de nouvelles "
+"fonctionnalités, donnez votre avis et apportez les financements qui les "
+"rendent possibles.</p><p>Open Funding vous permet de découvrir et cofinancer "
+"la création de projets. Rejoignez la communauté qui soutient le logiciel "
+"libre!</p>"
 
 #: templates/funding/project_actions.html:5
 msgid "Support"
@@ -2750,17 +2796,17 @@ msgstr "Message envoyé"
 msgid "Notice archived"
 msgstr "Notification archivée"
 
-msgid "overview"
-msgstr "Suivi"
+#~ msgid "overview"
+#~ msgstr "Suivi"
 
-msgid "planning"
-msgstr "Planning"
+#~ msgid "planning"
+#~ msgstr "Planning"
 
-msgid "budget"
-msgstr "Budget"
+#~ msgid "budget"
+#~ msgstr "Budget"
 
-msgid "team"
-msgstr "Equipe"
+#~ msgid "team"
+#~ msgstr "Equipe"
 
-msgid "adj_fem"
-msgstr "e"
+#~ msgid "adj_fem"
+#~ msgstr "e"
