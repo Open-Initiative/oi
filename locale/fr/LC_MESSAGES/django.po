@@ -1261,8 +1261,8 @@ msgid "fund"
 msgstr "financez"
 
 #: templates/funding/index.html:13
-msgid "your favorite open source software"
-msgstr "votre logiciel open source préféré"
+msgid "your favorite free software"
+msgstr "votre logiciel libre préféré"
 
 #: templates/funding/index.html:15
 msgid ""
