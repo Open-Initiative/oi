@@ -1,11 +1,18 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.views.generic.simple import direct_to_template
 from django.views.generic.list_detail import object_detail
 from oi.projects.models import Project, OINeedsPrjPerms, Spec
 from oi.helpers import OI_READ, OI_WRITE, SPEC_TYPES
 
-
+def get_project(request, id):
+    """get the main project page"""
+    project = Project.objects.get(id=id)
+    if project.parent:
+        return HttpResponseRedirect('/funding/%s'%project.master.id)
+    return direct_to_template(request, template="funding/project_detail.html", extra_context={'object': project, 'types': SPEC_TYPES})
+    
 def get_feature(request, id):
+    """gets the feature block"""
     task = Project.objects.get(id=id)
     if not task.has_perm(request.user, OI_READ):
         raise Http404
@@ -13,7 +20,7 @@ def get_feature(request, id):
     
 @OINeedsPrjPerms(OI_WRITE)
 def editspec(request, id, specid):
-    """Edit template of a spec contains a spec details edit template"""
+    """Edit template of a spec in a feature popup"""
     spec=None
     order = request.GET.get("specorder")
     if specid!='0':
