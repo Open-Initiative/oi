@@ -18,7 +18,8 @@
         {% if task|can_write:user and task.state < 4 %}
         {% with "newspec" as divid %}{% if not task.spec_set.all %}
         <div id="{{divid}}">
-            {% with task as object %}
+            {% comment %} doesn't work for the with task as project {% endcomment %}
+            {% with task as project %} 
                 {% include 'funding/spec/editspec.html' %}
             {% endwith %}
         </div>
