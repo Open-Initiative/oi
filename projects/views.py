@@ -915,6 +915,10 @@ def savespec(request, id, specid='0'):
     
     filename = request.POST.get("filename")
     
+    if request.POST.has_key("funding"):
+        if not filename:
+            spec.type = 1
+    
     if not filename and not spec.file and spec.type in (2,5):
         return HttpResponse(_("Wrong arguments"), status=531)
     if filename:
