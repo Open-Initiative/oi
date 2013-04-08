@@ -70,7 +70,7 @@
             <div class="username">{{bid.user}}</div>
             <div>{{bid.amount}} €</div>
             {% if user == bid.user and task.state < 3 %}
-                <div><img class="clickable" src="/img/icons/add.png" onclick="bidProject({{task.id}})" /> {% trans "Add a new bid" %}</div>
+                <div><img class="clickable" src="/img/icons/add.png" onclick="bidProject({{task.id}}, 'funding')" /> {% trans "Add a new bid" %}</div>
                 <div><img class="clickable" src="/img/icons/delete.png" onclick="cancelBid({{task.id}}, {% if task.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "Cancel your bid on this task" %}" title="{% trans "Cancel your bid on this task" %}" /> {% trans "Cancel my bid" %}</div>
             {% endif %}
             <div class="cleared"></div>
