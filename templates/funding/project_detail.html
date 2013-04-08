@@ -53,26 +53,53 @@
 {% endif %}
 {% endblock %}
 {% block related %}
-<div class="statebtns">
-    <div class="clickable statebtn">{% trans "Proposed" %}</div>
-    <div class="clickable statebtn invisible">{% trans "In progress" %}</div>
-    <div class="clickable statebtn invisible">{% trans "Finished" %}</div>
+
+<div class="statebtns"> 
+    {% if object.all_descending_start_funding %}<div onclick="featureShowHide('features_0')" id="featureid_proposed" class="clickable statebtn">{% trans "Proposed" %}</div>{% endif %}
+    {% if object.all_descending_progress_funding %}<div onclick="featureShowHide('features_3')" id="featureid_progress" class="clickable statebtn">{% trans "In progress" %}</div>{% endif %}
+    {% if object.all_descending_finish_funding %}<div onclick="featureShowHide('features_4')" id="featureid_finish" class="clickable statebtn">{% trans "Finished" %}</div>{% endif %}
     <div class="cleared"></div>
 </div>
-{% regroup object.tasks.all|dictsort:"state" by state as task_list %}
-{% for tasks in task_list %}
-<div class="features" id="features_{{tasks.grouper}}">
-{% for task in tasks.list %}
-{% include 'funding/feature.html' %}
-{% endfor %}
-</div>
-{% endfor %}
+
+{% if not object.all_descending_start_funding %}<div class="features" id="features_0"></div>{% endif %}
+    
+{% if object.all_descending_start_funding %}
+    <div class="features" id="features_0">
+        {% for task in object.all_descending_start_funding %}
+            <div class="cleared"></div>
+            {% include 'funding/feature.html' %}
+        {% endfor %}
+    </div>
+    <div class="cleared"></div>
+{% endif %}
+
+{% if object.all_descending_progress_funding %}
+    <div class="features" id="features_3">
+        {% for task in object.all_descending_progress_funding %}
+            <div class="cleared"></div>
+            {% include 'funding/feature.html' %}
+        {% endfor %}
+    </div>
+    <div class="cleared"></div>
+{% endif %}
+
+{% if object.all_descending_finish_funding %}
+    <div class="features" id="features_4">
+        {% for task in object.all_descending_finish_funding %}
+            <div class="cleared"></div>
+            {% include 'funding/feature.html' %}
+        {% endfor %}
+    </div>
+    <div class="cleared"></div>
+{% endif %}
+    
 {% if object|can_answer:user %}
 <div class="featureblock">
-    <div id="feature_{{task.id}}" class="featuretitle">{% trans "Propose a new feature" %}</div>
+    <div id="feature_{{object.id}}" class="featuretitle">{% trans "Propose a new feature" %}</div>
     <form id="newtask_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); return false" style="margin:5px 0;width:220px">
         <input type="image" src="/img/icons/addtask.png" alt="{% trans 'New feature' %}" title="{% trans 'New feature' %}" />
-        <input type="text" id="newtask_title_{{object.id}}" class="newtask_title" style="border:1px solid" value="{% trans 'Feature name' %}" onclick="if(this.value=='{% trans 'Feature name' %}')this.value=''" onblur="if(!this.value)this.value='{% trans 'Feature name' %}'"/>
+        <label class="inputnewtask" for="newtask_title_{{object.id}}">{% trans 'Feature name' %}</label>
+        <input type="text" id="newtask_title_{{object.id}}" class="newtask_title" style="border:1px solid" {% comment %}onkeyup="if(this.value)jQuery(this).prev().toggle(); else jQuery(this).prev().toggle()"{% endcomment %};/>
     </form>
 </div>
 {% endif %}
