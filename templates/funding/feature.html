@@ -3,6 +3,7 @@
 {% if task|can_read:user %}
 {% if task|can_manage:user %}
 <div id="featurebudget_{{task.id}}" class="featuredetail invisible" onclick="document.ignoreClosePopups = true;">
+    <div id="prjdialogue_{{task.id}}" class="popup invisible"></div>
     {% include 'funding/feature_budget.html' %}
 </div>
 {% endif %}
@@ -48,8 +49,8 @@
 
 <script>
     $(function() {
-        $("#featuredetail_{{task.id}}").draggable();
-        $("#spec_{{task.id}}_details").draggable();
+        $("#featuredesc_{{task.id}}").draggable();
+        $("#featurebudget_{{task.id}}").draggable();
         $("#bidpopup_{{task.id}}").draggable();
     });
 </script>
