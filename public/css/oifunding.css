@@ -274,7 +274,8 @@ div.cardspec {
 }
 .featureblock {
     padding: 10px;
-    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    margin-top: 0.5em;
     background: white;
     overflow: hidden;
     border: 1px solid #E3E3E5;
@@ -477,7 +478,7 @@ option.oldrelease{
     width: 50px;
 }
 .statebtns {
-    padding-left: 0.5em;
+    margin-right: -3px;
 }
 .statebtn {
     background: none repeat scroll 0 0 #0094B5;
@@ -485,9 +486,9 @@ option.oldrelease{
     color: white;
     font-weight: bold;
     text-align: center;
-    width: 30%;
+    width: 32.2%;
     float: left;
-    margin: 3px;
+    margin: 0 3px 3px 0;
     padding: 0.4em 0;
 }
 .supportbtn {
@@ -731,4 +732,7 @@ div.sepspecfooter {
 }
 .tax{
     font-size: 11px;
+}
+.inputnewtask{
+    color: #0094B5;
 }
