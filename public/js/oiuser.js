@@ -59,7 +59,7 @@ function saveContactInfo() {
     OIajaxCall("/user/savecontactinfo", prepareForm("contact_form"), "output", function(){
         var contact = prepareForm("contact_form").split("&");
         for(var i = 0; i < contact.length; i++){
-            document.getElementById("contact_"+contact[i].split("=")[0]).innerHTML = contact[i].split("=")[1];
+            document.getElementById("contact_"+contact[i].split("=")[0]).innerHTML = decodeURIComponent(contact[i].split("=")[1]);
         }
     });
 }
