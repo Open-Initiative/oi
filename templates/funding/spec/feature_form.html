@@ -49,13 +49,12 @@
 <div class="cleared"></div>
 
 <!--this block validates all the specid-->
-<div id="validspec_{{project.id}}_3" class="actions"><img class="clickable" src="/img/icons/ok-32.png" onclick="
-link = '/funding/{{object.id}}'; 
+<div id="validspec_{{project.id}}_3" class="actions"><img class="clickable" src="/img/icons/ok-32.png" onclick=" 
 saveSpec('{{project.id}}_1',{{project.id}},getValue('specorder_{{project.id}}_1'),{{specs.0.id|default:0}}, 'funding');
 saveSpec('{{project.id}}_2',{{project.id}},getValue('specorder_{{project.id}}_2'),{{specs.1.id|default:0}}, 'funding');
 saveSpec('{{project.id}}_3',{{project.id}},getValue('specorder_{{project.id}}_3'),{{specs.2.id|default:0}}, 'funding');
-setTimeout('document.location.href=link', 3000)"/></div>
+"/></div>
 <div class="cleared"></div>
 
-<script>tinyMCE.execCommand('mceAddControl', false, "text_{{project.id}}_3");</script>
+<script>tinyMCE.execCommand('mceAddControl', false, "text_{{project.id}}_3"); cptFunding = 0;</script>
 {% endwith %}

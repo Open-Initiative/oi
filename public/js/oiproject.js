@@ -496,6 +496,10 @@ function saveSpec(divid, projectid, order, specid, funding) {
             div.className = "cleared";
             div.style.position = "relative";
             if(document.getElementById("sepspec_"+projectid)) div.parentNode.removeChild(document.getElementById("sepspec_"+projectid));
+            if(funding){
+                cptFunding++;
+                if(cptFunding==3)document.location.href="/funding/"+projectid;
+            }
         }
     );
 }
