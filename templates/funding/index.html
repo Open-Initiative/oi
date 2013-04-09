@@ -69,9 +69,9 @@
 <div id="actions">
     <div id="navhome">
         <div class="navtitlehome">{% trans "Projects on Open Funding" %}</div>
-        <a href="#1" onclick="switchPrjList(1)"><div class="treetitlehome">{% trans "Our selection" %}</div></a>
-        <a href="#2" onclick="switchPrjList(2)"><div class="treetitlehome">{% trans "Last projects" %}</div></a>
-        {% if user.is_authenticated %}<a href="#3" onclick="switchPrjList(3)"><div class="treetitlehome">{% trans "My projects" %}</div></a>{% endif %}
+        <a href="#1" onclick="switchPrjList(1, 'listid_1')"><div id="listid_1" class="treetitlehome">{% trans "Our selection" %}</div></a>
+        <a href="#2" onclick="switchPrjList(2, 'listid_2')"><div id="listid_2" class="treetitlehome">{% trans "Last projects" %}</div></a>
+        {% if user.is_authenticated %}<a href="#3" onclick="switchPrjList(3, 'listid_3')"><div id="listid_3" class="treetitlehome">{% trans "My projects" %}</div></a>{% endif %}
     </div>
 </div>
 

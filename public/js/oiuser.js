@@ -75,9 +75,25 @@ function archiveNotice(noticeid) {
     OIajaxCall("/user/archivenotice", "notice="+noticeid, "output", 
         function(){clearDiv("notice_"+noticeid);});
 }
-function switchPrjList(listid) {
+function switchPrjList(listid, headid) {
     jQuery(".prjlist").slideUp();
     jQuery("#prjlist"+listid).slideDown();
+    if(headid){
+        var block_headid = ["listid_1","listid_2","listid_3"];
+        for(var i = 0; i < block_headid.length; i++){
+            if(headid == block_headid[i]){
+                if(document.getElementById(block_headid[i]).style.fontWeight != "bold"){
+                    document.getElementById(block_headid[i]).style.fontSize = "16px";
+                    document.getElementById(block_headid[i]).style.fontWeight = "bold";
+                }
+            }else{
+                if(document.getElementById(block_headid[i]).style.fontWeight == "bold"){
+                    document.getElementById(block_headid[i]).style.fontSize = "14px";
+                    document.getElementById(block_headid[i]).style.fontWeight = "";
+                }
+            }
+        }
+    }
 }
 function saveSetting(observerid, use_default, noticeField, send){
     var param = "";
