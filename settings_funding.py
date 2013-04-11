@@ -31,4 +31,4 @@ INSTALLED_APPS = (
     'oi.users',
     'oi.prjnotify',
     'django.contrib.messages',
-)+ SPECIFIC_INSTALLED_APPS
+) #+ SPECIFIC_INSTALLED_APPS
