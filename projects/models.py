@@ -430,15 +430,16 @@ class Project(models.Model):
     def all_descendants_assignees(self):
         return User.objects.filter(assigned_projects__ancestors=self).distinct()
         
-    #descendanding task for funding    
-    def all_descending_start_funding(self):
-        return self.descendants.filter(state = 0)
+    #descendanding task for funding
+    #if error, delete '__'    
+    def all_started_descendants(self):
+        return self.descendants.select_related('author', 'assignee', 'delegate_to', 'parent', 'master', 'target').filter(state = 0)
         
     def all_descending_progress_funding(self):
-        return self.descendants.filter(state__lte=3).exclude(state = 0)
+        return self.descendants.select_related('author', 'assignee', 'delegate_to', 'parent', 'master', 'target').filter(state__lte=3).exclude(state = 0)
         
     def all_descending_finish_funding(self):
-        return self.descendants.filter(state = 4)
+        return self.descendants.select_related('author', 'assignee', 'delegate_to', 'parent', 'master', 'target').filter(state = 4)
 
 #Structure de contrôle des permissions
 class ProjectACL(models.Model):

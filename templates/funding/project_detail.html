@@ -61,7 +61,6 @@
     <div class="cleared"></div>
 </div>
 
-{% if not object.all_descending_start_funding %}<div class="features" id="features_0"></div>{% endif %}
     
 {% if object.all_descending_start_funding %}
     <div class="features" id="features_0">
@@ -71,6 +70,8 @@
         {% endfor %}
     </div>
     <div class="cleared"></div>
+{% else %}
+    <div class="features" id="features_0"></div>
 {% endif %}
 
 {% if object.all_descending_progress_funding %}
