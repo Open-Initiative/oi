@@ -63,6 +63,16 @@ function saveContactInfo() {
         }
     });
 }
+function resetName(){
+    document.getElementById("contact_lastname_info").value = "";
+    document.getElementById("contact_firstname_info").value = "";
+}
+function resetContactInfo() {
+    var contact = prepareForm("contact_form").split("&");
+    for(var i = 0; i < contact.length; i++){
+        document.getElementById("id_"+contact[i].split("=")[0]).value = "";
+    }
+}
 function writeMP(username) {
     OIajaxCall("/user/writemp/"+username, null, "sendmp", 
         function(){show("sendmp");});

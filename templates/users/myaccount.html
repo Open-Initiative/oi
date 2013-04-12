@@ -48,7 +48,7 @@
         <div id="block_name" class="invisible">
             <div class="actions">
                 <img class="clickable" src="/img/icons/ok-32.png" onclick="saveName();$('#block_name').hide();$('#block_name_info').show()" />
-                <input type="image" class="clickable" src="/img/icons/del-32.png" onclick="document.forms['contact_name'].reset()" />
+                <input type="image" class="clickable" src="/img/icons/del-32.png" onclick="resetName()" />
             </div>
             <form id="contact_name">
                 <table>
@@ -84,7 +84,7 @@
         <div id="block_contact" class="invisible">
             <div class="actions">
                 <img class="clickable" src="/img/icons/ok-32.png" onclick="saveContactInfo();$('#block_contact').hide();$('#block_contact_info').show()" />
-                <input type="image" class="clickable" src="/img/icons/del-32.png" onclick="document.forms['contact_form'].reset()" />
+                <input type="image" class="clickable" src="/img/icons/del-32.png" onclick="resetContactInfo()" />
             </div>
             <form id="contact_form">
                 <table>{{contact_form.as_table}}</table>
