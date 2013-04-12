@@ -163,7 +163,7 @@ function confirmEditTitle(projectid, title) {
 }
 function resetProjectTitle(projectid, title) {
     if(document.getElementById("prjtitle_"+projectid)){
-        document.getElementById("prjtitle_"+projectid).innerHTML = title;
+        document.getElementById("prjtitle_"+projectid).innerHTML = decodeURIComponent(title);
         document.getElementById("prjtitle_"+projectid).innerHTML += '<img onclick="document.getElementById(\'prjtitle_'+projectid+'\').innerHTML = document.getElementById(\'edittitle\').innerHTML" class="clickable" src="/img/icons/edit.png" />';
     }
     if(document.getElementById("feature_"+projectid)) document.getElementById('feature_'+projectid).innerHTML = title;
