@@ -7,7 +7,7 @@
     {% endif %}{% endcomment %}
     {% if user.is_authenticated %}
         {% if not message.parent %}
-            {% if message|can_answer:user %}
+            {% if message|can_answer:user and message.author == user %}
             <img class="clickable" src="/img/icons/delete.png" onclick="deleteMessage({{message.id}})" alt="{% trans "Delete this message" %}" title="{% trans "Delete this message" %}" />
             <img class="clickable" src="/img/icons/edit.png" onclick="editMessage({{message.id}})" alt="{% trans "Correct this message" %}" title="{% trans "Correct this message" %}" />
             {% endif %}
@@ -15,7 +15,7 @@
             <div class="clickable more{% if message.rfp %}red{% else %}blue{% endif %}" onclick="addMessage({{message.id}})" alt="{% trans "Answer this message" %}" title="{% trans "Answer this message" %}">+</div>
             {% endif %}
         {% else %}
-            {% if message.parent|can_answer:user %}
+            {% if message.parent|can_answer:user and message.author == user %}
             <img class="clickable" src="/img/icons/delete.png" onclick="deleteMessage({{message.id}})" alt="{% trans "Delete this message" %}" title="{% trans "Delete this message" %}" />
             <img class="clickable" src="/img/icons/edit.png" onclick="editMessage({{message.id}})" alt="{% trans "Correct this message" %}" title="{% trans "Correct this message" %}" />
             {% endif %}
