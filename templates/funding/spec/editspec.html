@@ -13,4 +13,9 @@
 
 <div id="validspec_{{divid}}" class="actions"><img class="clickable" src="/img/icons/ok-32.png" onclick="saveSpec('{{divid}}',{{project.id}},getValue('specorder_{{divid}}'),{{spec.id|default:0}})"/></div>
 <div class="cleared"></div>
+<script>
+    $(document).ready(function() {
+        changeSpecType('{{divid}}', 1);
+});
+</script>
 {% endif %}
