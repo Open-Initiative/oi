@@ -16,22 +16,17 @@
                     <div id="indexslide2" class="indexslide invisible"><dt>{% trans "follow" %}</dt>
                         <dd>{% trans "the evolution of the projects" %}</dd>
                     </div>
-                    <div class="slidertip invisible">{% trans "Find out the new features before they appear." %}</div>
-                    <div id="indexslide3" class="indexslide invisible"><dt>{% trans "give" %}</dt>
-                        <dd>{% trans "your opinion" %}</dd>
-                    </div>
-                    <div class="slidertip invisible">{% trans "Vote for the features you expect the most and fund them." %}</div>
-                    <div id="indexslide4" class="indexslide invisible"><dt>{% trans "Get involved" %}</dt>
+                    <div class="slidertip invisible">{% trans "Find out the new features of each project and suggest your ideas." %}</div>
+                    <div id="indexslide3" class="indexslide invisible"><dt>{% trans "Get involved" %}</dt>
                         <dd>{% trans "and make it happen" %}</dd>
                     </div>
-                    <div class="slidertip invisible">{% trans "Free software is never obscure anymore." %}</div>
+                    <div class="slidertip invisible">{% trans "Join the community supporting free software! Free software is never obscure anymore." %}</div>
                 </dl>
             </div>
             <div class="clickable slidericons">
                 <div id="slidericon1" class="slidericon slidericonselected" onclick="slideIndex(1)"></div>
                 <div id="slidericon2" class="slidericon" onclick="slideIndex(2)"></div>
                 <div id="slidericon3" class="slidericon" onclick="slideIndex(3)"></div>
-                <div id="slidericon4" class="slidericon" onclick="slideIndex(4)"></div>
             </div>
         </div>
         <script type="text/javascript">
@@ -39,13 +34,12 @@
             window.sliding = false;
             window.setInterval(function (){if(window.slide) slideIndex()}, 8000);
         </script>
-        <a id="preslink" href="{%trans "/presentation" %}#1"><div class="slidermore" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='white'">
+        <a id="preslink" href="/presentation#1"><div class="slidermore" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='white'">
             {% trans "Learn More" %}
         </div></a>
         <img id="sliderimg1" src="/img/funding1.png" class="sliderimg" />
         <img id="sliderimg2" src="/img/funding2.png" class="sliderimg invisible" />
         <img id="sliderimg3" src="/img/funding3.png" class="sliderimg invisible" />
-        <img id="sliderimg4" src="/img/funding4.png" class="sliderimg invisible" />
     </div>
 </div>
 {% endif %}
