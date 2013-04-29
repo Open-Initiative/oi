@@ -54,8 +54,8 @@
 {% block actions %}
 <div style="width:215px">
 <div class="clickable actionbutton" onclick="$('#prjlist0').toggle(); $('#prjlist3').toggle()">
-    <img class="actions" src="/img/icons/descriptionwhite.png" />
-    <div><img src="/img/icons/add.png" /> {% trans "submit" %}</div>
+    <img style="margin-top:15px" class="actions" src="/img/icons/descriptionwhite.png" />
+    <div>{% trans "submit" %}</div>
     {% trans "your project" %}
     <input id="appname" type="hidden" value="funding" />
 </div></div>
@@ -75,7 +75,7 @@
 {% block content %}
 <div class="actions">
     <div id="navhome">
-        <div class="navtitlehome">{% trans "Projects on Open Funding" %}</div>
+        <div style="width: 200px;" class="navtitlehome">{% trans "Projects on Open Funding" %}</div>
         {% comment %}
             {% if user.is_authenticated %}
                 <a href="#1" onclick="switchPrjList(1, 'listid_1')"><div id="listid_1" class="treetitlehome">{% trans "Our selection" %}</div></a>
