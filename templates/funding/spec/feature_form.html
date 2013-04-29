@@ -1,7 +1,7 @@
 {% load i18n %}
 ﻿﻿{% load oifilters %}
 {% with project.spec_set.all|dictsort:"order" as specs %}
-<div class="cleared"><img src="/img/askoi.png" />{% trans "Describe here what is to be done in" %} <span class="prjtitle">{{project.title}}</span></div>
+<div class="cleared"><img src="/img/askoi.png" />{% trans "Describe here what is to be done in" %} <span class="prjtitle">{{project.title}}</span><div class="cleared sepsearch"></div></div>
 
 <input name="spectype" id="type_{{project.id}}_1" value="2" type="hidden"/>
 <input name="specid" id="specid_{{project.id}}_1" value="{{specs.0.id|default:0}}" type="hidden"/>
@@ -28,7 +28,7 @@
 
 <div id="validspec_{{project.id}}_1" class="actions"></div>
 
-<div class="cleared"></div>
+<div class="cleared sepsearch"></div>
 
 <input name="spectype" id="type_{{project.id}}_2" value="1" type="hidden"/>
 <input name="specid" id="specid_{{project.id}}_2" value="{{specs.1.id|default:0}}" type="hidden"/>
@@ -37,14 +37,29 @@
 <div><b>{% trans "A short description of your project and why it is great" %}</b></div>
 <div id="{{project.id}}_2" class="column"><input id="text_{{project.id}}_2" class="projectbaseline" value="{{specs.1.text|oiunescape}}" /></div>
 
-<div class="cleared"></div>
-<br>
+<div class="cleared sepsearch"></div>
+
 <input name="spectype" id="type_{{project.id}}_3" value="1" type="hidden"/>
 <input name="specid" id="specid_{{project.id}}_3" value="{{specs.2.id|default:0}}" type="hidden"/>
 <input name="projectid" id="projectid_{{project.id}}_3" value="{{project.id}}" type="hidden"/>
 <input name="specorder" id="specorder_{{project.id}}_3" value="3" type="hidden"/>
 <div><b>{% trans "A long description including : who you are, why you do it, how it can be used..." %}</b></div>
 <div id="{{project.id}}_3" class="column"><textarea id="text_{{project.id}}_3" class="norich">{{specs.2.text|oiunescape}}</textarea></div>
+
+<div class="cleared sepsearch"></div>
+
+{% block related %}
+{% with object as project %}
+<!--<a href="/funding/{{object.id}}"><div class="bidaction">{% trans "Done" %}</div></a>-->
+<div class="smallcolumn" id="public">
+    <img src="/img/askoi.png" title="{% trans 'All other users.' %}" alt="{% trans 'All other users.' %}" class="head-help"><h3>{% trans "Public" %}</h3>
+    {% trans "The public can" %}
+    <br /><input id="public_read_{{project.id}}" type="checkbox" {% if project.public_read %}checked="checked"{% endif %} {% if not project.assignee == user and not project|can_write:user  %}disabled="true"{% endif %} onclick="OIajaxCall('/project/{{project.id}}/setpublic', 'read='+this.checked, 'output')" /><label for="public_read_{{project.id}}">{% trans "see the task and its content" %}</label>
+    <br /><input id="public_answer_{{project.id}}" type="checkbox" {% if project.public_answer %}checked="checked"{% endif %} {% if not project.assignee == user and not project|can_write:user %}disabled="true"{% endif %} onclick="OIajaxCall('/project/{{project.id}}/setpublic', 'answer='+this.checked, 'output')" /><label for="public_answer_{{project.id}}">{% trans "add comments and tasks" %}</label>
+    <br /><input id="public_bid_{{project.id}}" type="checkbox" {% if project.public_bid %}checked="checked"{% endif %} {% if not project.assignee == user and not project|can_write:user %}disabled="true"{% endif %} onclick="OIajaxCall('/project/{{project.id}}/setpublic', 'bid='+this.checked, 'output')" /><label for="public_bid_{{project.id}}">{% trans "bid and vote" %}</label>
+</div>
+{% endwith %}
+{% endblock %}
 
 <div class="cleared"></div>
 

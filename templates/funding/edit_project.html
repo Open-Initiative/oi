@@ -51,15 +51,3 @@
 <script>document.location.href="/funding/{{object.id}}";</script>
 {% endif %}
 {% endblock %}
-{% block related %}
-{% with object as project %}
-<!--<a href="/funding/{{object.id}}"><div class="bidaction">{% trans "Done" %}</div></a>-->
-<div class="smallcolumn" id="public">
-    <img src="/img/askoi.png" title="{% trans 'All other users.' %}" alt="{% trans 'All other users.' %}" class="head-help"><h3>{% trans "Public" %}</h3>
-    {% trans "The public can" %}
-    <br /><input id="public_read_{{project.id}}" type="checkbox" {% if project.public_read %}checked="checked"{% endif %} {% if not project.assignee == user and not project|can_write:user  %}disabled="true"{% endif %} onclick="OIajaxCall('/project/{{project.id}}/setpublic', 'read='+this.checked, 'output')" /><label for="public_read_{{project.id}}">{% trans "see the task and its content" %}</label>
-    <br /><input id="public_answer_{{project.id}}" type="checkbox" {% if project.public_answer %}checked="checked"{% endif %} {% if not project.assignee == user and not project|can_write:user %}disabled="true"{% endif %} onclick="OIajaxCall('/project/{{project.id}}/setpublic', 'answer='+this.checked, 'output')" /><label for="public_answer_{{project.id}}">{% trans "add comments and tasks" %}</label>
-    <br /><input id="public_bid_{{project.id}}" type="checkbox" {% if project.public_bid %}checked="checked"{% endif %} {% if not project.assignee == user and not project|can_write:user %}disabled="true"{% endif %} onclick="OIajaxCall('/project/{{project.id}}/setpublic', 'bid='+this.checked, 'output')" /><label for="public_bid_{{project.id}}">{% trans "bid and vote" %}</label>
-</div>
-{% endwith %}
-{% endblock %}
