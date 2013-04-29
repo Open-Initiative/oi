@@ -65,7 +65,6 @@ div.center{
     background: #dce8ea;
     text-align: center;
     font-size: .9em;
-    margin-top: 20px;
     padding: 10px;
 }
 #toptext {
@@ -333,6 +332,7 @@ img.tabicon {
 }
 #actions{
     max-width: 275px;
+    float: right;
 }
 #nav {
     background:#D7E7F0;
@@ -350,7 +350,7 @@ img.tabicon {
     padding: .5em;
 }
 #navhome div:last-child {
-    border-top: none;
+/*    border-top: none;*/
 }
 .navtitlehome {
     font-size: 1.4em;
@@ -373,10 +373,11 @@ img.tabicon {
     width: 730px;
     padding-top: 5px;
     float: left;
+    padding-bottom: 20px;
 }
 .related {
     float: left;
-    width: 265px;
+    width: 255px;
     padding: .5em;
 }
 .presslide {

@@ -736,3 +736,7 @@ div.sepspecfooter {
 .inputnewtask{
     color: #0094B5;
 }
+#actions-f{
+    width: 215px;
+    float: right;
+}

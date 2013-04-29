@@ -51,23 +51,41 @@
 </div>
 {% endif %}
 {% endblock %}
-{% block related %}
-<div class="clickable actionbutton" onclick="switchPrjList(0)">
+{% block actions %}
+<div style="width:215px">
+<div class="clickable actionbutton" onclick="$('#prjlist0').toggle(); $('#prjlist3').toggle()">
     <img class="actions" src="/img/icons/descriptionwhite.png" />
     <div><img src="/img/icons/add.png" /> {% trans "submit" %}</div>
     {% trans "your project" %}
     <input id="appname" type="hidden" value="funding" />
-</div>
+</div></div>
 {% endblock %}
+
+{% comment %}
+{% block related %}
+<!--<div class="clickable actionbutton" onclick="switchPrjList(0)">-->
+<!--    <img class="actions" src="/img/icons/descriptionwhite.png" />-->
+<!--    <div><img src="/img/icons/add.png" /> {% trans "submit" %}</div>-->
+<!--    {% trans "your project" %}-->
+<!--    <input id="appname" type="hidden" value="funding" />-->
+<!--</div>-->
+{% endblock %}
+{% endcomment %}
+
 {% block content %}
-<div id="actions">
+<div class="actions">
     <div id="navhome">
         <div class="navtitlehome">{% trans "Projects on Open Funding" %}</div>
-        <a href="#1" onclick="switchPrjList(1, 'listid_1')"><div id="listid_1" class="treetitlehome">{% trans "Our selection" %}</div></a>
-        <a href="#2" onclick="switchPrjList(2, 'listid_2')"><div id="listid_2" class="treetitlehome">{% trans "Last projects" %}</div></a>
-        {% if user.is_authenticated %}<a href="#3" onclick="switchPrjList(3, 'listid_3')"><div id="listid_3" class="treetitlehome">{% trans "My projects" %}</div></a>{% endif %}
+        {% comment %}
+            {% if user.is_authenticated %}
+                <a href="#1" onclick="switchPrjList(1, 'listid_1')"><div id="listid_1" class="treetitlehome">{% trans "Our selection" %}</div></a>
+                <a href="#2" onclick="switchPrjList(2, 'listid_2')"><div id="listid_2" class="treetitlehome">{% trans "Last projects" %}</div></a>
+                <a href="#3" onclick="switchPrjList(3, 'listid_3')"><div id="listid_3" class="treetitlehome">{% trans "My projects" %}</div></a>
+            {% endif %}
+        {% endcomment %}
     </div>
 </div>
+<div class="cleared"></div>
 
 <div class="invisible prjlist" id="prjlist1">
 {% for project in object_list %}
