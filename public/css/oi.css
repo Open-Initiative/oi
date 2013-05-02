@@ -65,6 +65,7 @@ div.center{
     background: #dce8ea;
     text-align: center;
     font-size: .9em;
+    margin-top: 20px;
     padding: 10px;
 }
 #toptext {
@@ -332,7 +333,6 @@ img.tabicon {
 }
 #actions{
     max-width: 275px;
-    float: right;
 }
 #nav {
     background:#D7E7F0;
@@ -373,11 +373,10 @@ img.tabicon {
     width: 730px;
     padding-top: 5px;
     float: left;
-    padding-bottom: 20px;
 }
 .related {
     float: left;
-    width: 255px;
+    width: 265px;
     padding: .5em;
 }
 .presslide {
