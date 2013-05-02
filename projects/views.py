@@ -271,6 +271,10 @@ def saveproject(request, id='0'):
         return HttpResponse(_("Please enter a title"), status=531)
     if id=='0': #new project
         project = create_new_task(parent, title, request.user)
+        
+        if request.POST.get("offer"):
+            project.offer = request.POST["offer"]
+            
         target_name = request.session.get("releases", {}).get(project.master.id, "")
         if target_name:
             if target_name != "*" and target_name != "**":

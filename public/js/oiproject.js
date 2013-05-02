@@ -11,8 +11,9 @@ function setTaskName(div, id, title, view) {
     newTaskForm.id = "newtask_"+id;
     div.parentNode.insertBefore(newTaskForm,div.nextSibling);
 }
-function addTask(tasktitle, projectid, callBack) {
+function addTask(tasktitle, projectid, offer, callBack) {
     var params = "title="+tasktitle+"&inline=1&progress=0";
+    if(offer) params += "&offer="+offer; 
     if(projectid) params += "&parent="+projectid;
     if(document.getElementById("appname")) params += "&app="+getValue("appname");
     OIajaxCall("/project/save/0", params, null, 

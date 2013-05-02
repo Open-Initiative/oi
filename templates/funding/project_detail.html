@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="cleared"></div>
-            {% if object|can_write:user %}<a href="edit"><div class="bidaction">{% trans "edit" %}</div></a>{% endif %}
+            {% if object|can_write:user %}<a href="edit"><div class="bidaction">{% trans "edit" %}</div><a href="manage"><div class="bidaction">{% trans "manage" %}</div></a>{% endif %}
         </div>
         <div id="specs_{{project.id}}" class="prjdesc">
             {%for spec in project.spec_set.all|dictsort:"order"%}
@@ -55,14 +55,14 @@
 {% block related %}
 
 <div class="statebtns"> 
-    {% if object.all_started_descendants %}<div onclick="featureShowHide('features_0')" id="featureid_proposed" class="clickable statebtn">{% trans "Proposed" %}</div>{% endif %}
-    {% if object.all_progress_descendants %}<div onclick="featureShowHide('features_3')" id="featureid_progress" class="clickable statebtn">{% trans "In progress" %}</div>{% endif %}
-    {% if object.all_finish_descendants %}<div onclick="featureShowHide('features_4')" id="featureid_finish" class="clickable statebtn">{% trans "Finished" %}</div>{% endif %}
+    {% if object.all_started_tasks %}<div onclick="featureShowHide('features_0')" id="featureid_proposed" class="clickable statebtn">{% trans "Proposed" %}</div>{% endif %}
+    {% if object.all_progress_tasks %}<div onclick="featureShowHide('features_3')" id="featureid_progress" class="clickable statebtn">{% trans "In progress" %}</div>{% endif %}
+    {% if object.all_finish_tasks %}<div onclick="featureShowHide('features_4')" id="featureid_finish" class="clickable statebtn">{% trans "Finished" %}</div>{% endif %}
     <div class="cleared"></div>
 </div>
 
-{% if not object.all_started_descendants %}<div class="features" id="features_0"></div>{% endif %}  
-{% if object.all_started_descendants %}
+{% if not object.all_started_tasks %}<div class="features" id="features_0"></div>{% endif %}  
+{% if object.all_started_tasks %}
     <div class="features" id="features_0">
         {% for task in object.all_started_tasks %}
             <div class="cleared"></div>
@@ -74,7 +74,7 @@
 
 {% if object.all_progress_tasks %}
     <div class="features" id="features_3">
-        {% for task in object.all_progress_descendants %}
+        {% for task in object.all_progress_tasks %}
             <div class="cleared"></div>
             {% include 'funding/feature.html' %}
         {% endfor %}
@@ -84,23 +84,13 @@
 
 {% if object.all_finish_tasks %}
     <div class="features" id="features_4">
-        {% for task in object.all_finish_descendants %}
+        {% for task in object.all_finish_tasks %}
             <div class="cleared"></div>
             {% include 'funding/feature.html' %}
         {% endfor %}
     </div>
     <div class="cleared"></div>
 {% endif %}
-    
-{% if object|can_answer:user %}
-<div class="featureblock">
-    <div id="feature_{{object.id}}" class="featuretitle">{% trans "Propose a new feature" %}</div>
-    <form id="newtask_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); return false" style="margin:5px 0;width:220px">
-        <input type="image" src="/img/icons/addtask.png" alt="{% trans 'New feature' %}" title="{% trans 'New feature' %}" />
-        <label class="inputnewtask" for="newtask_title_{{object.id}}">{% trans 'Feature name' %}</label>
-        <input type="text" id="newtask_title_{{object.id}}" class="newtask_title" style="border:1px solid" {% comment %}onkeyup="if(this.value)jQuery(this).prev().toggle(); else jQuery(this).prev().toggle()"{% endcomment %};/>
-    </form>
-</div>
-{% endif %}
+
 <script>currentTask = {{object.id}};</script>
 {% endblock %}

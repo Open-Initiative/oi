@@ -459,7 +459,7 @@ option.oldrelease{
     border: 1px solid #E3E3E5;
     border-radius: 3px;
     box-shadow: 3px 3px 4px;
-    left: -35em;
+    left: auto;
     position: absolute;
     width: auto;
     z-index: 10;
@@ -486,7 +486,7 @@ option.oldrelease{
     color: white;
     font-weight: bold;
     text-align: center;
-    width: 32.2%;
+    width: 32%;
     float: left;
     margin: 0 3px 3px 0;
     padding: 0.4em 0;

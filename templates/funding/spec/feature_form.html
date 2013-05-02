@@ -50,7 +50,6 @@
 
 {% block related %}
 {% with object as project %}
-<!--<a href="/funding/{{object.id}}"><div class="bidaction">{% trans "Done" %}</div></a>-->
 <div class="smallcolumn" id="public">
     <img src="/img/askoi.png" title="{% trans 'All other users.' %}" alt="{% trans 'All other users.' %}" class="head-help"><h3>{% trans "Public" %}</h3>
     {% trans "The public can" %}
@@ -63,7 +62,6 @@
 
 <div class="cleared"></div>
 
-<!--this block validates all the specid-->
 <div id="validspec_{{project.id}}_3" class="actions"><img class="clickable" src="/img/icons/ok-32.png" onclick=" 
 saveSpec('{{project.id}}_1',{{project.id}},getValue('specorder_{{project.id}}_1'),{{specs.0.id|default:0}}, 'funding');
 saveSpec('{{project.id}}_2',{{project.id}},getValue('specorder_{{project.id}}_2'),{{specs.1.id|default:0}}, 'funding');

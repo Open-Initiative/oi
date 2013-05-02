@@ -60,10 +60,12 @@ function getValue(eltid, erase){
     if(erase) elt.value = "";
     return value;
 }
-function newDiv(parentid) {
+function newDiv(parentid, style) {
     var divid = randid();
     var newdiv = document.createElement('div');
     newdiv.setAttribute('id',divid);
+    //test
+    newdiv.setAttribute('style',style);
     document.getElementById(parentid).appendChild(newdiv);
     return divid;
 }

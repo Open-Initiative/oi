@@ -10,6 +10,7 @@ urlpatterns = patterns('oi.funding.views',
     (r'^(?P<id>\d+)/$', 'get_project'),
     (r'^(?P<object_id>\d+)/edit$', object_detail, {'template_name': 'funding/edit_project.html', 'queryset': Project.objects.all(), 'extra_context': {'types': SPEC_TYPES}}),
     (r'^bid/(?P<object_id>\d+)$', object_detail, {'template_name': 'funding/dialogue/bid.html','queryset': Project.objects.all()}),
+    (r'^(?P<object_id>\d+)/manage$', object_detail, {'template_name': 'funding/manage_project.html', 'queryset': Project.objects.all(), 'extra_context': {'types': SPEC_TYPES}}),
     (r'^(?P<id>\d+)/task$', 'get_feature'),
     (r'^(?P<id>\d+)/editspec/(?P<specid>\d+)$', 'editspec'),
 )
