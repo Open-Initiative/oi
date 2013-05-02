@@ -1,0 +1,125 @@
+{% extends "funding/base.html" %}
+﻿﻿{% load oifilters %}
+{% load i18n %}
+{% block title %}{{object.title|default:_("Project")}}{% endblock %}
+{% block breadcrumb %}
+<div class="path-element">{{object.title}}</div>
+{% endblock %}
+{% block content %}
+{% if object|can_write:user %}
+<div class="pagebody">
+    {% with object as project %}
+    <div id="project_{{object.id}}" class="project">
+        <div id="prjdialogue_{{object.id}}" class="popup invisible"></div>
+        <div class="prjheader">
+            <div class="prjauthor">{% trans "Project created by" %} <a href="/user/profile/{{object.author.username}}">{{object.author.get_profile}}</a></div>
+            <div>
+                <div class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">
+                    {{object.title}}
+                    {% if object|can_write:user and object.state < 2 %}
+                    <img onclick="document.getElementById('prjtitle_{{object.id}}').innerHTML = document.getElementById('edittitle').innerHTML" class="clickable" src="/img/icons/edit.png" alt="{% trans 'Edit the title' %}" title="{% trans 'Edit the title' %}" />
+                </div>
+                <div id="edittitle" class="invisible">
+                    <form onsubmit="confirmEditTitle({{object.id}}, getValue('title_{{object.id}}'));return false">
+                        <input id="title_{{object.id}}" type="text" value="{{object.title}}" />
+                        <input type="image" class="clickable" src="/img/icons/ok-32.png"/>
+                        <img class="clickable" src="/img/icons/del-32.png" onclick="resetProjectTitle({{object.id}},'{{object.title}}')" />
+                    </form>
+                    {% endif %}
+                </div>
+                <div class="prj-block-fav">
+                    <img onclick="favProject(174)" src="/img/icons/starTrueFunding.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_174">
+                    {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
+                </div>
+            </div>
+            <div class="cleared"></div>
+        </div>
+        <div id="specs_{{project.id}}" class="prjdesc" style="padding-right: 10px;">
+            <div style="border: 1px solid #E0E0E0;">
+                <p style="font-size: 16px; font-weight: bold">{% trans "What you have to do :" %}</p>
+                <p>{% trans "Your users can also provide according to their needs. Specify the title, make a description that explains its characteristics and determine the expected price for each." %}</p>
+            </div>
+            <br/>
+            
+            {% if not object.all_started_tasks %}<div class="features" id="features_0"></div>{% endif %} 
+            <div class="cleared"></div> 
+            {% if object.all_started_tasks %}
+                <div class="statebtn" style="width: 100%">{% trans "Proposed" %}</div>
+                <div class="cleared"></div>
+                <div class="features" id="features_0" style="width:auto">
+                    {% for task in object.all_started_tasks %}
+                        <div style="width:230px; float:left;margin-left: 3px; margin-right: 3px;">
+                        {% include 'funding/feature.html' %}
+                        <script>currentTask = {{object.id}}</script>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <div class="cleared"></div>
+            {% if object.all_progress_tasks %}
+                <div class="statebtn" style="width: 100%">{% trans "In progress" %}</div>
+                <div class="cleared"></div>
+                <div class="features" id="features_3" style="width:auto">
+                    {% for task in object.all_progress_tasks %}
+                        <div style="width:230px; float:left;margin-left: 3px; margin-right: 3px;">
+                        {% include 'funding/feature.html' %}
+                        <script>currentTask = {{object.id}}</script>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <div class="cleared"></div>
+            {% if object.all_finish_tasks %}
+                <div class="statebtn" style="width: 100%">{% trans "Finished" %}</div>
+                <div class="cleared"></div>
+                <div class="features" id="features_4" style="width:auto">
+                    {% for task in object.all_finish_tasks %}
+                        <div style="width:230px; float:left;margin-left: 3px; margin-right: 3px;">
+                        {% include 'funding/feature.html' %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+<!--            this block is for the new release-->
+{% if object|can_answer:user %}
+<div class="cleared"></div>
+<div class="featureblock" style="width:235px">
+    <div id="feature_{{object.id}}" class="featuretitle">{% trans "Propose a new feature" %}</div>
+    <form id="newtask_{{object.id}}" 
+    onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, getValue('offer_{{object.id}}'), 
+    function(taskid){
+    OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0','width:230px; float:left;margin-left: 3px; margin-right: 3px;'))}); return false"
+    
+     style="margin:5px 0;width:220px">
+     
+        <input type="image" src="/img/icons/addtask.png" alt="{% trans 'New feature' %}" title="{% trans 'New feature' %}" />
+        <label class="inputnewtask" for="newtask_title_{{object.id}}">{% trans 'Feature name' %}</label>
+        <input type="text" id="newtask_title_{{object.id}}" class="newtask_title" style="border:1px solid";/>
+        
+        <br/><br/>
+        
+        <label class="inputnewtask" for="offer_{{object.id}}">{% trans 'Feature price' %} €</label>
+        <input type="text" id="offer_{{object.id}}" class="newtask_title" style="border:1px solid";/>
+        
+        <p><a href="/cgu">{% trans "By adding this change you acknowledge that you have read and accepted the terms of uses" %}</a></p>
+        
+        <img 
+        onclick="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, getValue('offer_{{object.id}}'), function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0','width:230px; float:left;margin-left: 3px; margin-right: 3px;'))});"
+        style="float: right;" src="/img/icons/ok-32.png" class="clickable">
+   
+    </form>
+</div>
+<a href="/funding/{{object.id}}"><div class="bidaction" style="background: #0094B5;">{% trans "Done" %}</div></a>
+{% endif %}
+    </div>
+</div>
+{% endwith %}
+</div>
+{% else %}
+{% trans "Forbidden" %}
+<script>document.location.href="/funding/{{object.id}}";</script>
+{% endif %}
+{% endblock %}
