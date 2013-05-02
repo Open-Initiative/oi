@@ -103,7 +103,7 @@
 {% endfor %}
 </div>{% endif %}
 <div class="invisible prjlist" id="prjlist0">
-    <form onsubmit="if(getValue('prjtitle')) addTask(getValue('prjtitle'), null, function(taskid){document.location = '/funding/'+taskid+'/edit'});return false" >
+    <form onsubmit="if(getValue('prjtitle')) addTask(getValue('prjtitle'), null, null,function(taskid){document.location = '/funding/'+taskid+'/edit'});return false" >
         {% trans "Please enter your project title :" %}
         <input id="prjtitle"/>
         <input type="image" src="/img/icons/ok-32.png" />
