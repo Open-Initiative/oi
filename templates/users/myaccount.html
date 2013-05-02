@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "funding/base.html" %}
 {% load i18n %}
 {% block title %}{% trans "My account" %}{% endblock %}
 {% block content %}
@@ -16,10 +16,10 @@
             </td>
             <td>
                 <div class="userpicture">
-                    <img id="user_picture" width="125" height="150" src="/user/getpicture/{{user.username}}" />
+                    <img style="border: 1px solid #E0E0E0" id="user_picture" width="125" height="150" src="/user/getpicture/{{user.username}}" />
                     
-                    <img class="clickable" src="/img/icons/edit.png" onclick="show('profile_picture')" />
-                    <div id="profile_picture" class="invisible">
+                    <img class="clickable" src="/img/icons/edit.png" onclick="$('#profile_picture').toggle()" />
+                    <div id="profile_picture">
                         <form id="profile_picture_form" method="post" enctype="multipart/form-data" action="/user/uploadpicture" target="picturedest">
                             {% csrf_token %}
                             <input id="picture" name="picture" type="file" size="1" onchange="document.getElementById('profile_picture_form').submit();hide('profile_picture')" />
