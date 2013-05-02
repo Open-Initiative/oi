@@ -9,6 +9,7 @@
         "{{eval.comment}}"<br />{% show_stars eval.rating %} 
     </div>
     {% endfor %}
+    {% comment %}
     <h3>{% trans "My latest posts" %}</h3>
     <div>
         {% for message in selected_user.get_profile.blog.children.all|slice:":5" %}
@@ -22,5 +23,6 @@
         {% for project in selected_user.ownprojects.all|filter_read:user|dictsortreversed:"modified"|slice:":5" %}
             <div><a  href="/project/{{project.id}}">{{project.title}}</a></div>
         {% endfor %}
+    {% endcomment %}
 </div>
 
