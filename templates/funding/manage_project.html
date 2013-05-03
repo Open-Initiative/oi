@@ -37,7 +37,11 @@
         <div id="specs_{{project.id}}" class="prjdesc" style="padding-right: 10px;">
             <div style="border: 1px solid #E0E0E0;">
                 <p style="font-size: 16px; font-weight: bold">{% trans "What you have to do :" %}</p>
-                <p>{% trans "Your users can also provide according to their needs. Specify the title, make a description that explains its characteristics and determine the expected price for each." %}</p>
+                <p>
+                    {% trans "You can create and edit new developments for your projects. Specify the title, make a description that explains its characteristics and determine the expected price for each.
+Your users can suggest other developments on the project page, you can accept / rephrase if you wish.
+" %}
+                </p>
             </div>
             <br/>
             
@@ -86,8 +90,8 @@
 <!--            this block is for the new release-->
 {% if object|can_answer:user %}
 <div class="cleared"></div>
-<div class="statebtn" style="width: 100%">{% trans "Create new feature" %}</div>
-<div class="featureblock" style="width:235px;float:right">
+<div class="statebtn" style="width: 100%; margin-bottom: 13px;">{% trans "Create new feature" %}</div>
+<div class="featureblock" style="width:235px;margin-left: auto;margin-right: auto;">
     <div id="feature_{{object.id}}" class="featuretitle">{% trans "Propose a new feature" %}</div>
     <form id="newtask_{{object.id}}" 
     onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, getValue('offer_{{object.id}}'), 
@@ -114,6 +118,7 @@
     </form>
 </div>
 <div class="cleared"></div>
+<a href="/funding/{{object.id}}/edit"><div class="bidaction" style="background: #0094B5;float:left">{% trans "Edit your project" %}</div></a>
 <a href="/funding/{{object.id}}"><div class="bidaction" style="background: #0094B5;float:right">{% trans "Done" %}</div></a>
 <div class="cleared"></div>
 {% endif %}

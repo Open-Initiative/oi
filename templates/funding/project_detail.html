@@ -24,8 +24,8 @@
             </div>
             <div class="cleared"></div>
             {% if object|can_write:user %}
-                <a href="edit"><div class="bidaction">{% trans "edit" %}</div></a>
-                <a href="manage"><div class="bidaction">{% trans "manage" %}</div></a>
+                <a href="edit"><div class="bidaction">{% trans "Edit your project" %}</div></a>
+                <a href="manage"><div class="bidaction">{% trans "Manage your feature" %}</div></a>
             {% endif %}
         </div>
         <div id="specs_{{project.id}}" class="prjdesc">
