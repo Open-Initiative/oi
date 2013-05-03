@@ -69,5 +69,5 @@ saveSpec('{{project.id}}_3',{{project.id}},getValue('specorder_{{project.id}}_3'
 "/></div>
 <div class="cleared"></div>
 
-<script>tinyMCE.execCommand('mceAddControl', false, "text_{{project.id}}_3"); cptFunding = 0;</script>
+<script>tinyMCE.execCommand('mceAddControl', false, "text_{{project.id}}_3"); cptFunding = 0; hasChild = {{project.descendants.count}};</script>
 {% endwith %}

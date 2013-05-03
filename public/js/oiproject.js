@@ -499,7 +499,13 @@ function saveSpec(divid, projectid, order, specid, funding) {
             if(document.getElementById("sepspec_"+projectid)) div.parentNode.removeChild(document.getElementById("sepspec_"+projectid));
             if(funding){
                 cptFunding++;
-                if(cptFunding==3)document.location.href="/funding/"+projectid;
+                if(cptFunding==3){
+                    if(hasChild > 0){
+                        document.location.href="/funding/"+projectid;
+                    }else{
+                        document.location.href="/funding/"+projectid+"/manage";
+                    }
+                }
             }
         }
     );
