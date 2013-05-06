@@ -511,7 +511,7 @@ option.oldrelease{
     background: #1E9947;
     color: white;
     font-weight: bold;
-    padding: 3px;
+    padding: 5px;
     text-transform: uppercase;
     display: table;
     margin: 5px;
@@ -739,4 +739,31 @@ div.sepspecfooter {
 #actions-f{
     width: 215px;
     float: right;
+}
+.linebar{
+    left: 60px;
+    position: relative;
+    border-left: 1px solid #E0E0E0;
+}
+.bordermanage{
+    width:230px; 
+    float:left;
+    margin-left: 3px; 
+    margin-right: 3px;
+}
+.bordertitlemanage{
+    border: 1px solid #E0E0E0;
+    float: left;
+    width: 45%;
+    padding: 10px;
+    margin-top: 0.5em;
+}
+.fundingright{
+    float: right;
+}
+.fundingleft{
+    float: left;
+}
+.boderline{
+    border:1px solid !important;
 }

@@ -439,7 +439,7 @@ class Project(models.Model):
         
     def all_finish_tasks(self):
         return self.descendants.select_related('author', 'assignee', 'delegate_to', 'parent', 'master', 'target').filter(state = 4)
-
+        
 #Structure de contrôle des permissions
 class ProjectACL(models.Model):
     user = models.ForeignKey(User)

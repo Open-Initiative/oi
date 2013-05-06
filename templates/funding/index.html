@@ -73,7 +73,7 @@
 {% endcomment %}
 
 {% block content %}
-<div class="pagebody" style="position: relative;left: 60px;">
+<div class="linebar">
 <div class="actions">
     <div id="navhome">
         <div style="width: 200px;" class="navtitlehome">{% trans "Projects on Open Funding" %}</div>
@@ -98,11 +98,15 @@
 {% include 'funding/project_card.html' %}
 {% endfor %}
 </div>
+{% for project in object_list %}
+{% include 'projects/project_card.html' %}
+{% endfor %}
 {% if user.is_authenticated %}<div class="prjlist" id="prjlist3">
 {% for project in user.get_profile.get_observed_projects.distinct %}
 {% include 'funding/project_card.html' %}
 {% endfor %}
-</div>{% endif %}
+{% endif %}
+</div>
 <div class="invisible prjlist" id="prjlist0">
     <form onsubmit="if(getValue('prjtitle')) addTask(getValue('prjtitle'), null, null,function(taskid){document.location = '/funding/'+taskid+'/edit'});return false" >
         {% trans "Please enter your project title :" %}
