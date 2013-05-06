@@ -16,7 +16,10 @@ def get_feature(request, id):
     task = Project.objects.get(id=id)
     if not task.has_perm(request.user, OI_READ):
         raise Http404
-    return direct_to_template(request, template="funding/feature.html", extra_context={'object': task.master, 'task': task})
+    if request.POST.has_key("manage"):
+        return direct_to_template(request, template="funding/feature_manage.html", extra_context={'object': task.master, 'task': task})
+    else:
+        return direct_to_template(request, template="funding/feature.html", extra_context={'object': task.master, 'task': task})
     
 @OINeedsPrjPerms(OI_WRITE)
 def editspec(request, id, specid):

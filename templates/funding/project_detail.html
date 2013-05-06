@@ -97,11 +97,11 @@
 
 
 <div class="featureblock">
-    <div class="featuretitle" id="feature_{{project.id}}">{% trans "Propose a new feature" %}</div>
-    <form style="margin:5px 0;width:220px" onsubmit="addTask(getValue('newtask_title_{{project.id}}', true), {{project.id}}, function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); return false" id="newtask_{{project.id}}">
+    <div class="featuretitle" id="feature_{{object.id}}">{% trans "Propose a new feature" %}</div>
+    <form style="margin:5px 0;width:220px" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, null,function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); return false" id="newtask_{{object.id}}">
         <input type="image" title="New feature" alt="New feature" src="/img/icons/addtask.png">
-        <label for="newtask_title_{{project.id}}" class="inputnewtask">{% trans "Feature name" %}</label>
-        <input type="text" style="border:1px solid" class="newtask_title" id="newtask_title_{{project.id}}">
+        <label for="newtask_title_{{object.id}}" class="inputnewtask">{% trans "Feature name" %}</label>
+        <input type="text" style="border:1px solid" class="newtask_title" id="newtask_title_{{object.id}}">
     </form>
 </div>
 
