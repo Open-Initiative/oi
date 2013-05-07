@@ -1,8 +1,13 @@
 {% load i18n %}
 {% load oifilters %}
 <div class="featurebtns">
-{% if task.state < 4 and task|can_bid:user and not task|bids:user or not user.is_authenticated %}
-{% endif %}
+    {% if task.state < 4 and task.assignee == user %}
+        <form onsubmit="OIajaxCall('/project/confirmoffer/{{task.id}}', 'offer='+getValue('offer_manage_{{task.id}}'), 'output', function(){hide('offer_manage_{{task.id}}')}); return false">
+            <input type="text" id="offer_manage_{{task.id}}" value="{{task.offer}}" onFocus="this.select()" class="smallinput invisible" />
+            <span id="changesum_{{task.id}}">{% trans "Change the sum of this feature" %}</span>
+            <img src="/img/icons/edit.png" class="clickable" onclick="$('#offer_manage_{{task.id}}').toggle(); $('#changesum_{{task.id}}').toggle()">
+        </form>
+    {% endif %}
 {% if task.state < 2 and task.assignee == user and task.is_ready_to_start %}
     <div class="clickable prj-btn" onclick="startProject({{task.id}})">{% trans "Start" %}</div>
 {% endif %}
