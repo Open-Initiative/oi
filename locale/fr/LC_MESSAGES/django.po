@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-03 15:51+0200\n"
+"POT-Creation-Date: 2013-05-07 15:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
-#: helpers.py:31 templates/funding/manage_project.html:50
+#: helpers.py:31 templates/funding/manage_project.html:71
 #: templates/funding/project_detail.html:61
 #: templates/projects/table_overview/table_state.html:4
 msgid "Proposed"
@@ -30,7 +30,7 @@ msgstr "Démarré"
 msgid "Delivered"
 msgstr "Livré"
 
-#: helpers.py:31 templates/funding/manage_project.html:120
+#: helpers.py:31 templates/funding/manage_project.html:117
 #: templates/projects/table_overview/table_state.html:8
 msgid "Done"
 msgstr "Terminé"
@@ -115,7 +115,7 @@ msgstr "Erreur de transformation PDF"
 msgid "Published on"
 msgstr "Publié sur"
 
-#: funding/views.py:29 projects/views.py:708 projects/views.py:721
+#: funding/views.py:32 projects/views.py:708 projects/views.py:721
 #: projects/views.py:878 projects/views.py:895 projects/views.py:916
 #: projects/views.py:931 projects/views.py:956 projects/views.py:958
 #: projects/views.py:961 projects/views.py:972 projects/views.py:984
@@ -126,7 +126,7 @@ msgstr "Arguments incorrects"
 #: messages/models.py:140 messages/views.py:65 messages/views.py:75
 #: messages/views.py:79 projects/models.py:461 projects/views.py:235
 #: projects/views.py:287 templates/funding/edit_project.html:50
-#: templates/funding/manage_project.html:128
+#: templates/funding/manage_project.html:134
 #: templates/funding/project_detail.html:55
 #: templates/projects/project_detail.html:120
 msgid "Forbidden"
@@ -843,6 +843,8 @@ msgstr "S'inscrire"
 
 #: templates/base.html:147 templates/funding/base.html:135
 #: templates/funding/feature.html:24 templates/funding/feature_budget.html:45
+#: templates/funding/feature_manage.html:24
+#: templates/funding/manage_project.html:60
 #: templates/funding/dialogue/bid.html:5
 #: templates/projects/dialogue/bid.html:5
 #: templates/projects/dialogue/offer.html:5 templates/users/register.html:35
@@ -1031,10 +1033,11 @@ msgstr "Lié à"
 #: templates/funding/feature.html:17 templates/funding/feature_budget.html:4
 #: templates/funding/feature_budget.html:35
 #: templates/funding/feature_description.html:5
+#: templates/funding/feature_manage.html:17
 msgid "close"
 msgstr "fermer"
 
-#: templates/funding/feature.html:18
+#: templates/funding/feature.html:18 templates/funding/feature_manage.html:18
 msgid ""
 "By funding this feature you will enable improvements to this software. You "
 "will be given the chance to validate that the development is done the way "
@@ -1047,43 +1050,44 @@ msgstr ""
 "tester l'évolution lorsqu'elle sera développée, pour que vous puissiez "
 "validez qu'elle est faite."
 
-#: templates/funding/feature.html:18
+#: templates/funding/feature.html:18 templates/funding/feature_manage.html:18
 msgid "Thanks for supporting this software!"
 msgstr "Merci pour votre soutien à ce logiciel !"
 
-#: templates/funding/feature.html:20
+#: templates/funding/feature.html:20 templates/funding/feature_manage.html:20
 msgid "Please enter the amount you want to fund:"
 msgstr "Merci d'indiquer le montant que vous souhaitez financer :"
 
-#: templates/funding/feature.html:24
+#: templates/funding/feature.html:24 templates/funding/feature_manage.html:24
 msgid "By funding this feature, you agree to the"
 msgstr "En finançant cette évolution, vous acceptez les"
 
-#: templates/funding/feature.html:30
+#: templates/funding/feature.html:30 templates/funding/feature_manage.html:30
 msgid "edit title"
 msgstr "Corriger le titre"
 
-#: templates/funding/feature.html:31
+#: templates/funding/feature.html:31 templates/funding/feature_manage.html:31
 msgid "delete feature"
 msgstr "supprimer l'évolution"
 
-#: templates/funding/feature.html:34 users/models.py:175
+#: templates/funding/feature.html:34 templates/funding/feature_manage.html:34
+#: users/models.py:175
 msgid "Description"
 msgstr "Description"
 
-#: templates/funding/feature.html:36
+#: templates/funding/feature.html:36 templates/funding/feature_manage.html:36
 msgid "funded"
 msgstr "financés"
 
-#: templates/funding/feature.html:43
+#: templates/funding/feature.html:43 templates/funding/feature_manage.html:43
 msgid "needed"
 msgstr "nécessaires"
 
-#: templates/funding/feature.html:44
+#: templates/funding/feature.html:44 templates/funding/feature_manage.html:44
 msgid "to go"
 msgstr "restant"
 
-#: templates/funding/feature.html:46
+#: templates/funding/feature.html:46 templates/funding/feature_manage.html:46
 msgid "Funding details"
 msgstr "Détails du financement"
 
@@ -1226,7 +1230,7 @@ msgstr "veut annuler cette tâche"
 msgid "You will be reimbursed in full."
 msgstr "Vous serez intégralement remboursé."
 
-#: templates/funding/feature_description.html:33
+#: templates/funding/feature_description.html:32
 #: templates/projects/project_description.html:18
 #: templates/projects/project_sum.html:14
 msgid "Add a description"
@@ -1290,7 +1294,7 @@ msgstr "votre projet"
 msgid "Projects on Open Funding"
 msgstr "Projets sur Open Funding"
 
-#: templates/funding/index.html:109
+#: templates/funding/index.html:121
 msgid "Please enter your project title :"
 msgstr "Merci d'entrer le titre de votre projet"
 
@@ -1298,43 +1302,52 @@ msgstr "Merci d'entrer le titre de votre projet"
 msgid "What you have to do :"
 msgstr "Ce que vous devez faire :"
 
-#: templates/funding/manage_project.html:64
+#: templates/funding/manage_project.html:41
+msgid ""
+"You can create and edit new developments for your projects. Specify the "
+"title, make a description that explains its characteristics and determine "
+"the expected price for each. Your users can suggest other developments on "
+"the project page, you can accept / rephrase if you wish."
+msgstr ""
+"Vous pouvez créer et editer de nouvelles évolutions pour votre projet. Spécifier le "
+"titre, faire une description qui explique ces caractéristiques et determine "
+"le prix attendu pour chacun. Vos utilisateurs pourront suggérer d'autres développements sur "
+"la page projet, vous pouvez accepter / reformuler si vous le souhaitez."
+
+#: templates/funding/manage_project.html:47
+#: templates/funding/project_detail.html:100
+msgid "Propose a new feature"
+msgstr "Proposez une évolution"
+
+#: templates/funding/manage_project.html:50
+#: templates/funding/project_detail.html:103
+msgid "Feature name"
+msgstr "Nom de l'évolution"
+
+#: templates/funding/manage_project.html:56
+msgid "Feature price"
+msgstr "Prix de l'évolution"
+
+#: templates/funding/manage_project.html:60
+msgid ""
+"By adding this change you acknowledge that you have read and accepted the"
+msgstr ""
+"En ajoutant ce changement, vous reconnaissez que vous avez lu et accepté les "
+
+#: templates/funding/manage_project.html:72
 #: templates/funding/project_detail.html:62
 msgid "In progress"
 msgstr "En cours"
 
-#: templates/funding/manage_project.html:78
+#: templates/funding/manage_project.html:73
 #: templates/funding/project_detail.html:63
 msgid "Finished"
 msgstr "Terminées"
 
-#: templates/funding/manage_project.html:92
-msgid "Create new feature"
-msgstr "Proposez une évolution"
-
-#: templates/funding/manage_project.html:94
-msgid "Propose a new feature"
-msgstr "Proposez une évolution"
-
-#: templates/funding/manage_project.html:102
-msgid "New feature"
-msgstr "Nouvelle évolution"
-
-#: templates/funding/manage_project.html:103
-msgid "Feature name"
-msgstr "Nom de l'évolution"
-
-#: templates/funding/manage_project.html:108
-msgid "Feature price"
-msgstr "Prix de l'évolution"
-
-#: templates/funding/manage_project.html:111
-msgid ""
-"By adding this change you acknowledge that you have read and accepted the "
-"terms of uses"
-msgstr ""
-"En ajoutant ce changement, vous reconnaissez que vous avez lu et acceptéles "
-"conditions d'utilisations"
+#: templates/funding/manage_project.html:116
+#: templates/funding/project_detail.html:27
+msgid "Edit your project"
+msgstr "Editer votre projet"
 
 #: templates/funding/presentation.html:3 templates/funding/presentation.html:4
 msgid "Presentation of Open Funding"
@@ -1428,35 +1441,39 @@ msgid "Support"
 msgstr "Soutenir"
 
 #: templates/funding/project_actions.html:8
+#: templates/funding/project_actions_manage.html:12
 #: templates/projects/project_actions.html:7
 msgid "Start"
 msgstr "Démarrer"
 
 #: templates/funding/project_actions.html:12
+#: templates/funding/project_actions_manage.html:16
 #: templates/projects/project_actions.html:16
 msgid "Deliver"
 msgstr "Livrer"
 
 #: templates/funding/project_actions.html:15
+#: templates/funding/project_actions_manage.html:19
 #: templates/projects/project_actions.html:20
 msgid "Validate"
 msgstr "Valider"
 
 #: templates/funding/project_actions.html:18
+#: templates/funding/project_actions_manage.html:22
 #: templates/projects/project_actions.html:28
 msgid "Waiting for validation"
 msgstr "Attente de validation"
+
+#: templates/funding/project_actions_manage.html:7
+msgid "Change the sum of this feature"
+msgstr "Modifier l'offre de cette évolution"
 
 #: templates/funding/project_card.html:9
 msgid "funded out of"
 msgstr "financés sur"
 
-#: templates/funding/project_detail.html:27
-msgid "Edit your project"
-msgstr "Editer votre projet"
-
 #: templates/funding/project_detail.html:28
-msgid "Manage your feature"
+msgid "Manage your features"
 msgstr "Gérer vos évolutions"
 
 #: templates/funding/project_detail.html:42
@@ -1621,26 +1638,6 @@ msgstr "Télécharger la description"
 #: templates/funding/spec/spec.html:11 templates/projects/spec/spec.html:10
 msgid "click here"
 msgstr "cliquer ici"
-
-#: templates/funding/spec/spec.html:19 templates/projects/spec/spec.html:17
-msgid "Guest"
-msgstr "Invité"
-
-#: templates/funding/spec/spec.html:24 templates/projects/spec/spec.html:21
-msgid "Delete the description"
-msgstr "Supprimer la description"
-
-#: templates/funding/spec/spec.html:25 templates/projects/spec/spec.html:22
-msgid "Correct the description"
-msgstr "Corriger la description"
-
-#: templates/funding/spec/spec.html:26 templates/projects/spec/spec.html:23
-msgid "Move the description up"
-msgstr "Déplacer la description vers le haut"
-
-#: templates/funding/spec/spec.html:27 templates/projects/spec/spec.html:24
-msgid "Move the description down"
-msgstr "Déplacer la description vers le bas"
 
 #: templates/messages/message.html:7 templates/messages/message.html.py:30
 #: templates/notification/answer/notice.html:4
@@ -2271,6 +2268,26 @@ msgstr "Aucun invité sur cette tâche"
 msgid "Validator"
 msgstr "Valideur"
 
+#: templates/projects/spec/spec.html:17
+msgid "Guest"
+msgstr "Invité"
+
+#: templates/projects/spec/spec.html:21
+msgid "Delete the description"
+msgstr "Supprimer la description"
+
+#: templates/projects/spec/spec.html:22
+msgid "Correct the description"
+msgstr "Corriger la description"
+
+#: templates/projects/spec/spec.html:23
+msgid "Move the description up"
+msgstr "Déplacer la description vers le haut"
+
+#: templates/projects/spec/spec.html:24
+msgid "Move the description down"
+msgstr "Déplacer la description vers le bas"
+
 #: templates/projects/table_overview/table_due_date.html:4
 #: templates/users/profile/experience.html:4
 #: templates/users/profile/training.html:4
@@ -2815,6 +2832,12 @@ msgstr "Message envoyé"
 #: users/views.py:277
 msgid "Notice archived"
 msgstr "Notification archivée"
+
+msgid "Create new feature"
+msgstr "Proposez une évolution"
+
+msgid "New feature"
+msgstr "Nouvelle évolution"
 
 msgid "edit"
 msgstr "modifier"
