@@ -53,7 +53,7 @@
 {% endblock %}
 {% block actions %}
 <div style="width:215px">
-<div class="clickable actionbutton" onclick="$('#prjlist0').toggle(); $('#prjlist3').toggle()">
+<div class="clickable actionbutton" onclick="$('#prjlist0').toggle(); $('#promoted_project').toggle(); $('#prjlist3').toggle()">
     <img style="margin-top:15px" class="actions" src="/img/icons/descriptionwhite.png" />
     <div>{% trans "submit" %}</div>
     {% trans "your project" %}
@@ -100,16 +100,17 @@
         {% endfor %}
     </div>
     {% endcomment %}
-
-    {% for project in object_list %}
-        {% include 'funding/project_card.html' %}
-    {% endfor %}
+    <div id="promoted_project">
+        {% for project in object_list %}
+            {% include 'funding/project_card.html' %}
+        {% endfor %}
+    </div>
     {% if user.is_authenticated %}
         <div class="prjlist" id="prjlist3">
             {% for project in user.get_profile.get_observed_projects.distinct %}
                 {% include 'funding/project_card.html' %}
             {% endfor %}
-<!--        </div>-->
+        </div>
     {% endif %}
 <!--</div>--> <!--the linebar show only without this end div-->
     
