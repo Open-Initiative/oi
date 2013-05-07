@@ -74,39 +74,45 @@
 
 {% block content %}
 <div class="linebar">
-<div class="actions">
-    <div id="navhome">
-        <div style="width: 200px;" class="navtitlehome">{% trans "Projects on Open Funding" %}</div>
-        {% comment %}
+    <div class="actions">
+        <div id="navhome">
+            <div style="width: 200px;" class="navtitlehome">{% trans "Projects on Open Funding" %}</div>
+            {% comment %}
             {% if user.is_authenticated %}
                 <a href="#1" onclick="switchPrjList(1, 'listid_1')"><div id="listid_1" class="treetitlehome">{% trans "Our selection" %}</div></a>
                 <a href="#2" onclick="switchPrjList(2, 'listid_2')"><div id="listid_2" class="treetitlehome">{% trans "Last projects" %}</div></a>
                 <a href="#3" onclick="switchPrjList(3, 'listid_3')"><div id="listid_3" class="treetitlehome">{% trans "My projects" %}</div></a>
             {% endif %}
-        {% endcomment %}
+            {% endcomment %}
+        </div>
     </div>
-</div>
-<div class="cleared"></div>
+    <div class="cleared"></div>
 
-<div class="invisible prjlist" id="prjlist1">
-{% for project in object_list %}
-{% include 'funding/project_card.html' %}
-{% endfor %}
-</div>
-<div class="{% if user.is_authenticated %}invisible {% endif %}prjlist" id="prjlist2">
-{% for project in object_list %}
-{% include 'funding/project_card.html' %}
-{% endfor %}
-</div>
-{% for project in object_list %}
-{% include 'funding/project_card.html' %}
-{% endfor %}
-{% if user.is_authenticated %}<div class="prjlist" id="prjlist3">
-{% for project in user.get_profile.get_observed_projects.distinct %}
-{% include 'funding/project_card.html' %}
-{% endfor %}
-{% endif %}
-</div>
+    {% comment %}
+    <div class="invisible prjlist" id="prjlist1">
+        {% for project in object_list %}
+            {% include 'funding/project_card.html' %}
+        {% endfor %}
+    </div>
+    <div class="{% if user.is_authenticated %}invisible {% endif %}prjlist" id="prjlist2">
+        {% for project in object_list %}
+            {% include 'funding/project_card.html' %}
+        {% endfor %}
+    </div>
+    {% endcomment %}
+
+    {% for project in object_list %}
+        {% include 'funding/project_card.html' %}
+    {% endfor %}
+    {% if user.is_authenticated %}
+        <div class="prjlist" id="prjlist3">
+            {% for project in user.get_profile.get_observed_projects.distinct %}
+                {% include 'funding/project_card.html' %}
+            {% endfor %}
+<!--        </div>-->
+    {% endif %}
+<!--</div>--> <!--the linebar show only without this end div-->
+    
 <div class="invisible prjlist" id="prjlist0">
     <form onsubmit="if(getValue('prjtitle')) addTask(getValue('prjtitle'), null, null,function(taskid){document.location = '/funding/'+taskid+'/edit'});return false" >
         {% trans "Please enter your project title :" %}

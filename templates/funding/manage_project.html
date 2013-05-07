@@ -74,7 +74,7 @@
                 <div class="cleared"></div>
             </div>
 
-            {% if not object.all_started_tasks %}<div class="features" id="features_0"></div>{% endif %}  
+            {% if not object.all_started_tasks %}<div class="features" id="features_0"><div id="nofeatures"></div></div>{% endif %}  
             {% if object.all_started_tasks %}
                 <div class="features" id="features_0">
                     {% for task in object.all_started_tasks %}
@@ -122,7 +122,7 @@
     {% endwith %}
 </div>
 <script>
-    if(document.getElementById("features_0")){
+    if(!document.getElementById("nofeatures")){
         featureShowHide('features_0');
     }else if(document.getElementById("features_3")){
         featureShowHide('features_3');
