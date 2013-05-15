@@ -272,9 +272,6 @@ def saveproject(request, id='0'):
     if id=='0': #new project
         project = create_new_task(parent, title, request.user)
         
-        if request.POST.get("offer"):
-            project.offer = request.POST["offer"]
-            
         target_name = request.session.get("releases", {}).get(project.master.id, "")
         if target_name:
             if target_name != "*" and target_name != "**":
@@ -287,7 +284,7 @@ def saveproject(request, id='0'):
             return HttpResponseForbidden(_("Forbidden"))
         project.title = request.POST["title"]
 
-    for field in ["start_date","due_date","validaton","progress"]:
+    for field in ["start_date","due_date","validaton","progress", "offer"]:
         if request.POST.has_key(field) and len(request.POST[field])>0:
             project.__setattr__(field, request.POST[field])
     project.state = OI_PROPOSED
