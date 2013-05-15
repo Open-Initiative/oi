@@ -480,6 +480,24 @@ img.tabicon {
     height: 30px;
     color: #0094B5;
 }
+.fundingdesc {
+    border: 1px solid #E3E3E5;
+    font-size: 160%;
+    margin: 0.5em 15%;
+    padding: 0.5em;
+    text-align: center;
+}
+.fundingtitle {
+    font-size: 120%;
+    font-weight: bold;
+}
+.fundinggreen {
+    color: #1E9947;
+}
+.fundinglogo {
+    float: left;
+    margin-top: .3em;
+}
 .teampicture {
     float: left;
     height: 100px;

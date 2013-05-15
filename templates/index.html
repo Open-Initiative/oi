@@ -55,12 +55,18 @@
         {% trans "Register now!" %}
     </div></a>
 </div>
+<div class="pagebody"><a href="http://{{Sites|get:"Open Funding"}}">
+    <div class="center">
+        <div class="fundingdesc">
+            <img src="/img/logo_funding.png" class="fundinglogo" alt="Open Funding, la plate-forme de financement participatif de tous vos logiciels libres" title="Open Funding, la plate-forme de financement participatif de tous vos logiciels libres">
+            {% trans "Fund your <b>free software</b> on" %}
+            <div class="fundingtitle">Open <span class="fundinggreen">Funding</span></div>
+            {% trans "the <b>crowdfunding</b> platform for all your free software" %}
+        </div>
+    </div>
+</a></div>
 {% endblock %}
 {% block actions %}
-<a href="http://{{Sites|get:"Open Funding"}}"><div class="pagebody">
-    <img src="/img/logo_funding.png" style="margin: 1em 2em 0;" alt="{% trans 'Open Funding, the crowdfunding platform for all your free software' %}" title="{% trans 'Open Funding, the crowdfunding platform for all your free software' %}">
-    <p style="text-align: center">{% trans "Fund your free software on Open Funding, the crowdfunding platform for all your free software!" %}</p>
-</div></a>
 <div id="navhome">
     <div class="navtitlehome">{% trans "Projects on Open Initiative" %}</div>
     <a href="#0" onclick="switchPrjList(0)"><div class="treetitlehome">{% trans "Our selection" %}</div></a>

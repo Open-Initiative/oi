@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-07 15:05+0200\n"
+"POT-Creation-Date: 2013-05-15 20:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
 #: helpers.py:31 templates/funding/manage_project.html:71
@@ -115,17 +115,17 @@ msgstr "Erreur de transformation PDF"
 msgid "Published on"
 msgstr "Publié sur"
 
-#: funding/views.py:32 projects/views.py:708 projects/views.py:721
-#: projects/views.py:878 projects/views.py:895 projects/views.py:916
-#: projects/views.py:931 projects/views.py:956 projects/views.py:958
-#: projects/views.py:961 projects/views.py:972 projects/views.py:984
-#: projects/views.py:988 projects/views.py:1005 users/views.py:223
+#: funding/views.py:32 projects/views.py:705 projects/views.py:718
+#: projects/views.py:875 projects/views.py:892 projects/views.py:913
+#: projects/views.py:928 projects/views.py:953 projects/views.py:955
+#: projects/views.py:958 projects/views.py:969 projects/views.py:981
+#: projects/views.py:985 projects/views.py:1002 users/views.py:223
 msgid "Wrong arguments"
 msgstr "Arguments incorrects"
 
 #: messages/models.py:140 messages/views.py:65 messages/views.py:75
 #: messages/views.py:79 projects/models.py:461 projects/views.py:235
-#: projects/views.py:287 templates/funding/edit_project.html:50
+#: projects/views.py:284 templates/funding/edit_project.html:50
 #: templates/funding/manage_project.html:134
 #: templates/funding/project_detail.html:55
 #: templates/projects/project_detail.html:120
@@ -152,7 +152,7 @@ msgstr "Déjà voté !"
 msgid "voted"
 msgstr "A voté"
 
-#: messages/views.py:170 projects/views.py:1045
+#: messages/views.py:170 projects/views.py:1042
 msgid "Latest updates of Open Initiative "
 msgstr "L'activité la plus récente d'Open Initiative"
 
@@ -355,8 +355,8 @@ msgid "A user has evaluated your project"
 msgstr "Un utilisateur a évalué votre projet"
 
 #: prjnotify/management/commands/register_notice_types.py:22
-#: projects/views.py:599 projects/views.py:607 projects/views.py:618
-#: projects/views.py:656
+#: projects/views.py:596 projects/views.py:604 projects/views.py:615
+#: projects/views.py:653
 msgid "Bid cancelled"
 msgstr "Participation annulée"
 
@@ -457,7 +457,7 @@ msgstr "Impossible d'attribuer une version au projet"
 msgid "Release assigned"
 msgstr "Version modifiée"
 
-#: projects/views.py:267 projects/views.py:351
+#: projects/views.py:267 projects/views.py:348
 msgid "Can not change a finished task"
 msgstr "Impossible de modifier une tâche terminée"
 
@@ -465,272 +465,272 @@ msgstr "Impossible de modifier une tâche terminée"
 msgid "Please enter a title"
 msgstr "Merci d'entrer un titre"
 
-#: projects/views.py:315
+#: projects/views.py:312
 msgid "Request for delay"
 msgstr "Demande de délai"
 
-#: projects/views.py:316
+#: projects/views.py:313
 msgid "Request for delay awaiting validation"
 msgstr "Demande de délai en attente de validation"
 
-#: projects/views.py:322 projects/views.py:333
+#: projects/views.py:319 projects/views.py:330
 msgid "Date updated"
 msgstr "Date mise-à-jour"
 
-#: projects/views.py:324 projects/views.py:340 projects/views.py:353
-#: projects/views.py:370 projects/views.py:399 projects/views.py:687
-#: projects/views.py:892 projects/views.py:910 projects/views.py:974
+#: projects/views.py:321 projects/views.py:337 projects/views.py:350
+#: projects/views.py:367 projects/views.py:396 projects/views.py:684
+#: projects/views.py:889 projects/views.py:907 projects/views.py:971
 msgid "Can not change a task already started"
 msgstr "Impossible de modifier une tâche démarrée"
 
-#: projects/views.py:343
+#: projects/views.py:340
 msgid "Priority changed"
 msgstr "Priorité modifiée"
 
-#: projects/views.py:360
+#: projects/views.py:357
 msgid "Title updated"
 msgstr "Titre mis-à-jour"
 
-#: projects/views.py:368
+#: projects/views.py:365
 msgid "Task already assigned"
 msgstr "Tâche déjà assignée"
 
-#: projects/views.py:373 projects/views.py:375
+#: projects/views.py:370 projects/views.py:372
 #, python-format
 msgid "The task '%s' already has an offer"
 msgstr "La tâche '%s' a déjà une offre"
 
-#: projects/views.py:381
+#: projects/views.py:378
 msgid "Please enter a valid number"
 msgstr "Merci d'entrer un nombre correct"
 
-#: projects/views.py:390
+#: projects/views.py:387
 msgid "Task taken on"
 msgstr "Tâche assignée"
 
-#: projects/views.py:401
+#: projects/views.py:398
 msgid "Only the user in charge of the project can delegate it"
 msgstr "Seul l'utilisateur responsable du projet peut le déléguer"
 
-#: projects/views.py:405 projects/views.py:499 projects/views.py:743
+#: projects/views.py:402 projects/views.py:496 projects/views.py:740
 msgid "Cannot find user"
 msgstr "Utilisateur introuvable"
 
-#: projects/views.py:408
+#: projects/views.py:405
 msgid "Sent delegation offer"
 msgstr "Proposition de délégation envoyée"
 
-#: projects/views.py:417
+#: projects/views.py:414
 msgid "The project was not delegated to you"
 msgstr "Le projet ne vous a pas été délégué"
 
-#: projects/views.py:428
+#: projects/views.py:425
 msgid "reply sent"
 msgstr "réponse envoyée"
 
-#: projects/views.py:437
+#: projects/views.py:434
 msgid "No delay was requested"
 msgstr "Aucune demande de délai n'a été envoyée"
 
-#: projects/views.py:443
+#: projects/views.py:440
 msgid "The date was not changed"
 msgstr "La date n'a pas été modifiée"
 
-#: projects/views.py:449
+#: projects/views.py:446
 msgid "Awaiting other users' validation"
 msgstr "En attente de la validation des autres utilisateurs"
 
-#: projects/views.py:454
+#: projects/views.py:451
 msgid "The date has been changed"
 msgstr "Un projet que vous suivez a été modifié"
 
-#: projects/views.py:457 projects/views.py:628 projects/views.py:664
+#: projects/views.py:454 projects/views.py:625 projects/views.py:661
 msgid "No reply received"
 msgstr "Aucune réponse reçue"
 
-#: projects/views.py:467
+#: projects/views.py:464
 msgid "Invalid amount"
 msgstr "Montant invalide"
 
-#: projects/views.py:479
+#: projects/views.py:476
 msgid "Bid"
 msgstr "Participation"
 
-#: projects/views.py:480 projects/views.py:640
+#: projects/views.py:477 projects/views.py:637
 #: templates/funding/feature_budget.html:51
 #: templates/projects/project_budget.html:36
 msgid "Commission"
 msgstr "Commission"
 
-#: projects/views.py:488
+#: projects/views.py:485
 msgid "Bid saved"
 msgstr "Souscription enregistrée"
 
-#: projects/views.py:510
+#: projects/views.py:507
 msgid "The user has been added as a validator"
 msgstr "L'utilisateur a été ajouté comme valideur"
 
-#: projects/views.py:517
+#: projects/views.py:514
 msgid "Not enough bids"
 msgstr "Financement insuffisant"
 
-#: projects/views.py:519
+#: projects/views.py:516
 msgid "Only the assignee can start the project"
 msgstr "Seul le responsable du projet peut le démarrer"
 
-#: projects/views.py:526
+#: projects/views.py:523
 msgid "Task started"
 msgstr "Tâche démarrée"
 
-#: projects/views.py:534
+#: projects/views.py:531
 msgid "only the assignee can deliver the project!"
 msgstr "Seul le responsable du projet peut le livrer !"
 
-#: projects/views.py:539
+#: projects/views.py:536
 msgid "Task done!"
 msgstr "Tâche terminée"
 
-#: projects/views.py:549
+#: projects/views.py:546
 msgid "already validated!"
 msgstr "Déjà validé !"
 
-#: projects/views.py:553
+#: projects/views.py:550
 msgid "only bidders can validate the project!"
 msgstr "Seuls les souscripteurs du projet peuvent le valider !"
 
-#: projects/views.py:559
+#: projects/views.py:556
 msgid "Payment"
 msgstr "Paiement"
 
-#: projects/views.py:561
+#: projects/views.py:558
 msgid "Validation saved"
 msgstr "Validation enregistrée"
 
-#: projects/views.py:571
+#: projects/views.py:568
 msgid "You can not evaluate yourself"
 msgstr "Vous ne pouvez pas vous évaluer vous même"
 
-#: projects/views.py:575
+#: projects/views.py:572
 msgid "You have already evaluated this task"
 msgstr "Vous avez déjà évalué cette tâche"
 
-#: projects/views.py:581
+#: projects/views.py:578
 msgid "Evaluation saved"
 msgstr "Evaluation enregistrée"
 
-#: projects/views.py:589 projects/views.py:635
+#: projects/views.py:586 projects/views.py:632
 msgid "The project is already over"
 msgstr "Le projet est déjà terminé"
 
-#: projects/views.py:592
+#: projects/views.py:589
 msgid "You're not participating on this project"
 msgstr "Vous ne participez pas à ce projet"
 
-#: projects/views.py:626 projects/views.py:662
+#: projects/views.py:623 projects/views.py:659
 msgid "Cancelation refused. Awaiting decision"
 msgstr "Annulation refusée. En attente d'arbitrage"
 
-#: projects/views.py:637
+#: projects/views.py:634
 msgid "Only the user in charge of the project can cancel it"
 msgstr "Seul l'utilisateur responsable du projet peut l'annuler"
 
-#: projects/views.py:646
+#: projects/views.py:643
 msgid "Task cancelled. Awaiting confirmation from other users"
 msgstr "Tâche annulée. En attente de confirmation des autres utilisateurs"
 
-#: projects/views.py:671
+#: projects/views.py:668
 msgid ""
 "Can not delete a started project. Please stop it first and cancel your bid."
 msgstr ""
 "Impossible de supprimer un projet démarré. Arrêtez le d'abord et annuler "
 "votre commission"
 
-#: projects/views.py:673
+#: projects/views.py:670
 msgid ""
 "Can not delete a project containing tasks. Please delete all its tasks first."
 msgstr ""
 "Impossible de supprimer un projet contenant des tâches. Veuillez supprimer "
 "ses tâches d'abord."
 
-#: projects/views.py:678
+#: projects/views.py:675
 #, python-format
 msgid "The task %s has been deleted."
 msgstr "La tâche %s a été supprimée."
 
-#: projects/views.py:689
+#: projects/views.py:686
 msgid "Can not move a task inside itself"
 msgstr "Impossible de déplacer une tâche vers elle-même"
 
-#: projects/views.py:701
+#: projects/views.py:698
 msgid "Task moved"
 msgstr "Tâche déplacée"
 
-#: projects/views.py:711
+#: projects/views.py:708
 msgid "Can not create a dependency with an ancestor or a descendant"
 msgstr "Impossible de créer une dépendance avec un ancêtre ou un descendant"
 
-#: projects/views.py:734
+#: projects/views.py:731
 msgid "Permissions set"
 msgstr "Permissions enregistrées"
 
-#: projects/views.py:750
+#: projects/views.py:747
 msgid "Task shared"
 msgstr "Tâche partagée"
 
-#: projects/views.py:758
+#: projects/views.py:755
 msgid "The project has to be started for the progress to be updated"
 msgstr "Le projet doit être démarré pour que l'avancement soit mis à jour"
 
-#: projects/views.py:760
+#: projects/views.py:757
 msgid "Only the user in charge of can update its progress"
 msgstr "Seul le responsable du projet peut mettre à jour son avancement"
 
-#: projects/views.py:764
+#: projects/views.py:761
 msgid "Invalid value"
 msgstr "Valeur incorrecte"
 
-#: projects/views.py:769
+#: projects/views.py:766
 msgid "Progress updated"
 msgstr "Avancement mis à jour"
 
-#: projects/views.py:795
+#: projects/views.py:792
 msgid "Settings saved"
 msgstr "Paramètre enregistré"
 
-#: projects/views.py:802
+#: projects/views.py:799
 msgid "Forbidden: could not identify requester"
 msgstr "Interdit : Imposible d'identifier le demandeur"
 
-#: projects/views.py:808
+#: projects/views.py:805
 #, python-format
 msgid "Github error: %s"
 msgstr "Erreur Github : %s"
 
-#: projects/views.py:813 templates/projects/project_github.html:7
+#: projects/views.py:810 templates/projects/project_github.html:7
 msgid "Project authorized"
 msgstr "Projet autorisé"
 
-#: projects/views.py:844
+#: projects/views.py:841
 msgid "Hook deleted"
 msgstr "Crochet supprimé"
 
-#: projects/views.py:848
+#: projects/views.py:845
 msgid "Hook created"
 msgstr "Crochet créé"
 
-#: projects/views.py:965
+#: projects/views.py:962
 msgid "Spec moved"
 msgstr "Spécification déplacé"
 
-#: projects/views.py:976
+#: projects/views.py:973
 msgid "Specification deleted"
 msgstr "Spécification supprimée"
 
-#: projects/views.py:1003
+#: projects/views.py:1000
 msgid "Annotation removed"
 msgstr "Annotation supprimée"
 
-#: projects/views.py:1026
+#: projects/views.py:1023
 msgid "File deleted"
 msgstr "Fichier supprimé"
 
@@ -947,37 +947,31 @@ msgstr "En savoir plus"
 msgid "Register now!"
 msgstr "S'inscrire !"
 
-#: templates/index.html:61
-msgid "Open Funding, the crowdfunding platform for all your free software"
-msgstr ""
-"Open Funding, la plate-forme de financement participatif de tous vos "
-"logiciels libres"
-
 #: templates/index.html:62
-msgid ""
-"Fund your free software on Open Funding, the crowdfunding platform for all "
-"your free software!"
-msgstr ""
-"Financez vos logiciels libres sur Open Funding, la plate-forme de "
-"financement participatif de tous vos logiciels libres"
+msgid "Fund your <b>free software</b> on"
+msgstr "Financez vos <b>logiciels libres</b> sur"
 
-#: templates/index.html:65
+#: templates/index.html:64
+msgid "the <b>crowdfunding</b> platform for all your free software"
+msgstr "la plate-forme de <b>financement participatif</b> de tous vos logiciels libres"
+
+#: templates/index.html:71
 msgid "Projects on Open Initiative"
 msgstr "Projets sur Open Initiative"
 
-#: templates/index.html:66
+#: templates/index.html:72
 msgid "Our selection"
 msgstr "Notre sélection"
 
-#: templates/index.html:67
+#: templates/index.html:73
 msgid "Last projects"
 msgstr "Derniers projets"
 
-#: templates/index.html:71 templates/users/dashboard.html:16
+#: templates/index.html:77 templates/users/dashboard.html:16
 msgid "Create"
 msgstr "Créer"
 
-#: templates/index.html:71 templates/users/dashboard.html:16
+#: templates/index.html:77 templates/users/dashboard.html:16
 msgid "a new project:"
 msgstr "un nouveau projet"
 
@@ -1309,10 +1303,11 @@ msgid ""
 "the expected price for each. Your users can suggest other developments on "
 "the project page, you can accept / rephrase if you wish."
 msgstr ""
-"Vous pouvez créer et editer de nouvelles évolutions pour votre projet. Spécifier le "
-"titre, faire une description qui explique ces caractéristiques et determine "
-"le prix attendu pour chacun. Vos utilisateurs pourront suggérer d'autres développements sur "
-"la page projet, vous pouvez accepter / reformuler si vous le souhaitez."
+"Vous pouvez créer et editer de nouvelles évolutions pour votre projet. "
+"Spécifier le titre, faire une description qui explique ces caractéristiques "
+"et determine le prix attendu pour chacun. Vos utilisateurs pourront suggérer "
+"d'autres développements sur la page projet, vous pouvez accepter / "
+"reformuler si vous le souhaitez."
 
 #: templates/funding/manage_project.html:47
 #: templates/funding/project_detail.html:100
@@ -1365,9 +1360,14 @@ msgstr "Comment ça marche ?"
 
 #: templates/funding/presentation.html:15
 msgid ""
-"Open Funding is the funding platform for all your open source projects. "
-"Contribute to the projects, and see the progress you make. Be part of the "
-"project on the long run!"
+"<p>Open Funding is the co-funding platform for all your free software. Here "
+"you can help fund the software development by contributing to the projects "
+"and following their evolution.</p><p>Whether a user or a developer, this is "
+"the place for you! Open Funding is the intermediate between those who look "
+"for free software solutions and those who have projects to develop and are "
+"looking for funding.</p><p>With Open Funding, you can contribute and support "
+"free software development. Be part of the projects on the long run and tell "
+"us the projects you’d like to see funded!</p>"
 msgstr ""
 "<p>Open Funding est la plate-forme de cofinancement de tous vos logiciels "
 "libres.Elle vous permet de partager le financement de la création "
@@ -1398,9 +1398,20 @@ msgstr "Directeur produit"
 
 #: templates/funding/presentation.html:42
 msgid ""
-"With Open Funding you can see the features that are proposed by or to the "
-"developers. You can see the progress made on them and know when they are "
-"coming."
+"<p>If you have a free software project, propose it on the platform with the "
+"list of features and the amount of money needed to develop each of them. You "
+"promote the project to the community and then users deposit their "
+"contributions according to their interests on the features.</p><p>Once the "
+"requested amount is reached, you can start developing. The developer "
+"determines the delivery date when the project is finished. Users then have "
+"14 days to confirm reception or request corrections. The developer is paid "
+"only after validation by the users.</p><p>This way Open Funding secures the "
+"conclusion of the project to the users and the payment to developers once "
+"the work is done. Access to the platform is completely free for users and "
+"developers. Open Funding’ fees are limited to a 5% commission deducted from "
+"the amount paid to the beneficiary when the mission is completed. The payment "
+"only happens in case the users validate the project, so that the "
+"software is guaranteed to answer to your needs.</p>"
 msgstr ""
 "<p>Si vous avez un projet de logiciel libre, proposez-le sur la plate-forme "
 "avec la liste des évolutions prévues et le montant nécessaire pour leur "
@@ -1422,8 +1433,14 @@ msgstr ""
 
 #: templates/funding/presentation.html:46
 msgid ""
-"Now you can have an influence on your open source project, and be part of "
-"the game. Open source is never obscure anymore."
+"Free software development takes time and effort, that’s why you too can "
+"participate in the projects and support them on Open Funding. As an "
+"intermediate we propose a secure platform for both the project developers "
+"and users.</p><p>Get to know all the new and proposed features and follow "
+"the latest developments when they arrive. Propose new functionalities, give "
+"your opinion and contribute in their funding to make them possible.</"
+"p><p>Open Funding allows you to fund the creation of projects. Join the "
+"community supporting free software!"
 msgstr ""
 "<p>Le developpement informatique demande du temps et des efforts aux "
 "créateurs, mais vous pouvez participer aux projets en les soutenant sur Open "
@@ -1821,20 +1838,20 @@ msgstr "a mis Open Initiative dans la version:"
 #: templates/notification/delegate/notice.html:4
 #, python-format
 msgid ""
-"wants to delegate the task <a href=\"%(current_site)s/project/%(id)s\">"
-"%(title)s</a>to you."
+"wants to delegate the task <a href=\"%(current_site)s/project/%(id)s\">%"
+"(title)s</a>to you."
 msgstr ""
-"veut vous déléguer la tâche <a href=\"%(current_site)s/project/%(id)s\">"
-"%(title)s</a>."
+"veut vous déléguer la tâche <a href=\"%(current_site)s/project/%(id)s\">%"
+"(title)s</a>."
 
 #: templates/notification/delegate/notice.html:6
 #, python-format
 msgid ""
-"wants to delegate the project <a href=\"%(current_site)s/project/%(id)s\">"
-"%(title)s</a> to you."
+"wants to delegate the project <a href=\"%(current_site)s/project/%(id)s\">%"
+"(title)s</a> to you."
 msgstr ""
-"veut vous déléguer la tâche <a href=\"%(current_site)s/project/%(id)s\">"
-"%(title)s</a>."
+"veut vous déléguer la tâche <a href=\"%(current_site)s/project/%(id)s\">%"
+"(title)s</a>."
 
 #: templates/notification/delegate/notice.html:9
 msgid "answer"
@@ -2832,24 +2849,6 @@ msgstr "Message envoyé"
 #: users/views.py:277
 msgid "Notice archived"
 msgstr "Notification archivée"
-
-msgid "Create new feature"
-msgstr "Proposez une évolution"
-
-msgid "New feature"
-msgstr "Nouvelle évolution"
-
-msgid "edit"
-msgstr "modifier"
-
-msgid "My latest posts"
-msgstr "Mes dernières publications"
-
-msgid "See all publications"
-msgstr "Voir toutes les publications"
-
-msgid "My latest projects"
-msgstr "Mes derniers projets"
 
 msgid "overview"
 msgstr "Suivi"
