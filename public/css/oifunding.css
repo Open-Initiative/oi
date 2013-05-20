@@ -1,7 +1,23 @@
-.slidertext dt {color: #1e9947}
-.slidertip {color: #0f4d42}
-.slidermore {background: #1e9947}
-#registerbtn {background: #1E9947}
+.slidertext dt {
+    color: #1e9947
+}
+.slidertip {
+    color: #0f4d42
+}
+.slidermore {
+    background: #1e9947
+}
+#registerbtn {
+    background: #1E9947
+}
+.projectlisttitle {
+  color: #1E9947;
+  font-size: 200%;
+  font-weight: bold;
+  margin: 0.5em;
+  text-align: center;
+  text-transform: uppercase;
+}
 .prjheader {
     padding: 2em;
 }
@@ -250,27 +266,31 @@ div.prj-action-wait {
     background: url('/img/prjbtm.png');
 }
 .prjcard {
-    width: 210px;
-    height: 350px;
-    margin: 5px;
-    padding: 10px;
-    float: left;
-    background: white;
-    overflow: hidden;
+    background: none repeat scroll 0 0 white;
     border: 1px solid #E3E3E5;
-    border-radius: 3px;
+    border-radius: 3px 3px 3px 3px;
+    float: left;
+    height: 350px;
+    margin: 1em;
+    overflow: hidden;
+    padding: 1.2em;
     position: relative;
+    width: 275px;
 }
 .prjcardlink {
     position: absolute;
-    top: 336px;
-    left: 200px;
+    top: 350px;
+    left: 280px;
 }
 .prjcardauthor {
     color: #475E6C;
 }
 div.cardspec {
     margin: 20px 0;
+}
+.fundingprogress {
+    position: absolute;
+    top: 335px;
 }
 .featureblock {
     padding: 10px;
@@ -714,7 +734,7 @@ div.sepspecfooter {
     float:left;
     border:solid 1px;
     color: #6C6D6E;
-    width: 100%;
+    width: 90%;
     border-radius: 3px;
     font-size: 0.8em;
 }
@@ -724,10 +744,10 @@ div.sepspecfooter {
     color: white;
     font-weight: bold;
     text-align: center;
+    height: 1em;
 }
 .progresstitle {
-    font-size: 1.5em;
-    margin: -2px 2px;
+    margin: 2px;
     position: absolute;
 }
 .tax{

@@ -538,10 +538,11 @@ div.popup {
 .actionbutton {
     background: url('/img/headersep.png');
     color: white;
-    padding: 4%;
+    padding: 2% 4%;
     border-radius: 5px;
     font-weight: bold;
     font-size: 1.8em;
+    font-size: 100%;
 }
 .actionbutton div {
     margin-bottom: .3em;

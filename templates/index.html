@@ -55,16 +55,16 @@
         {% trans "Register now!" %}
     </div></a>
 </div>
-<div class="pagebody"><a href="http://{{Sites|get:"Open Funding"}}">
+<div class="pagebody">
     <div class="center">
-        <div class="fundingdesc">
-            <img src="/img/logo_funding.png" class="fundinglogo" alt="Open Funding, la plate-forme de financement participatif de tous vos logiciels libres" title="Open Funding, la plate-forme de financement participatif de tous vos logiciels libres">
+        <a href="http://{{Sites|get:"Open Funding"}}"><div class="fundingdesc">
+            <img src="/img/logo_funding.png" class="fundinglogo" alt="Open Funding, {% trans "the <b>crowdfunding</b> platform for all your free software" %}" title="Open Funding, {% trans "the <b>crowdfunding</b> platform for all your free software" %}" />
             {% trans "Fund your <b>free software</b> on" %}
             <div class="fundingtitle">Open <span class="fundinggreen">Funding</span></div>
             {% trans "the <b>crowdfunding</b> platform for all your free software" %}
-        </div>
+        </div></a>
     </div>
-</a></div>
+</div>
 {% endblock %}
 {% block actions %}
 <div id="navhome">

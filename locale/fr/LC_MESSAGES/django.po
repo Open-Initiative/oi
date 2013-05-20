@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-15 20:26+0200\n"
+"POT-Creation-Date: 2013-05-20 17:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -947,13 +947,15 @@ msgstr "En savoir plus"
 msgid "Register now!"
 msgstr "S'inscrire !"
 
+#: templates/index.html:61 templates/index.html.py:64
+msgid "the <b>crowdfunding</b> platform for all your free software"
+msgstr ""
+"la plate-forme de <b>financement participatif</b> de tous vos logiciels "
+"libres"
+
 #: templates/index.html:62
 msgid "Fund your <b>free software</b> on"
 msgstr "Financez vos <b>logiciels libres</b> sur"
-
-#: templates/index.html:64
-msgid "the <b>crowdfunding</b> platform for all your free software"
-msgstr "la plate-forme de <b>financement participatif</b> de tous vos logiciels libres"
 
 #: templates/index.html:71
 msgid "Projects on Open Initiative"
@@ -1276,19 +1278,28 @@ msgstr ""
 "Rejoignez la communauté qui soutient le logiciel libre ! Le logiciel libre "
 "ne sera plus jamais obscur."
 
-#: templates/funding/index.html:58
+#: templates/funding/index.html:56
 msgid "submit"
 msgstr "déposer"
 
-#: templates/funding/index.html:59
+#: templates/funding/index.html:57
 msgid "your project"
 msgstr "votre projet"
 
-#: templates/funding/index.html:79
-msgid "Projects on Open Funding"
-msgstr "Projets sur Open Funding"
+#: templates/funding/index.html:61
+msgid "helps you fund your <b>free software</b>."
+msgstr "vous aide à financer vos <b>logiciels libres</b>."
 
-#: templates/funding/index.html:121
+#: templates/funding/index.html:62
+msgid "<b>Start</b> you own project now!"
+msgstr "<b>Démarrez</b> votre projet !"
+
+
+#: templates/funding/index.html:70
+msgid "Lastest projects"
+msgstr "Derniers projets"
+
+#: templates/funding/index.html:85
 msgid "Please enter your project title :"
 msgstr "Merci d'entrer le titre de votre projet"
 
@@ -1360,17 +1371,17 @@ msgstr "Comment ça marche ?"
 
 #: templates/funding/presentation.html:15
 msgid ""
-"<p>Open Funding is the co-funding platform for all your free software. Here "
-"you can help fund the software development by contributing to the projects "
-"and following their evolution.</p><p>Whether a user or a developer, this is "
-"the place for you! Open Funding is the intermediate between those who look "
-"for free software solutions and those who have projects to develop and are "
-"looking for funding.</p><p>With Open Funding, you can contribute and support "
-"free software development. Be part of the projects on the long run and tell "
-"us the projects you’d like to see funded!</p>"
+"<p>Open Funding is the crowdfunding platform for all your free software. "
+"Here you can help fund the software development by contributing to the "
+"projects and following their evolution.</p><p>Whether a user or a developer, "
+"this is the place for you! Open Funding is the intermediate between those "
+"who look for free software solutions and those who have projects to develop "
+"and are looking for funding.</p><p>With Open Funding, you can contribute and "
+"support free software development. Be part of the projects on the long run "
+"and tell us the projects you’d like to see funded!</p>"
 msgstr ""
-"<p>Open Funding est la plate-forme de cofinancement de tous vos logiciels "
-"libres.Elle vous permet de partager le financement de la création "
+"<p>Open Funding est la plate-forme de financement participatif de tous vos "
+"logiciels libres.Elle vous permet de partager le financement de la création "
 "informatique en contribuant aux projets et en suivant leur évolution.</"
 "p><p>Que vous soyez utilisateur ou développeur ce site est pour vous ! Open "
 "Funding est l’intermédiaire entre ceux qui cherchent des logiciels libres et "
@@ -1409,8 +1420,8 @@ msgid ""
 "conclusion of the project to the users and the payment to developers once "
 "the work is done. Access to the platform is completely free for users and "
 "developers. Open Funding’ fees are limited to a 5% commission deducted from "
-"the amount paid to the beneficiary when the mission is completed. The payment "
-"only happens in case the users validate the project, so that the "
+"the amount paid to the beneficiary when the mission is completed. The "
+"payment only happens in case the users validate the project, so that the "
 "software is guaranteed to answer to your needs.</p>"
 msgstr ""
 "<p>Si vous avez un projet de logiciel libre, proposez-le sur la plate-forme "
@@ -1485,7 +1496,7 @@ msgstr "Attente de validation"
 msgid "Change the sum of this feature"
 msgstr "Modifier l'offre de cette évolution"
 
-#: templates/funding/project_card.html:9
+#: templates/funding/project_card.html:11
 msgid "funded out of"
 msgstr "financés sur"
 
