@@ -287,6 +287,10 @@ div.prj-action-wait {
 }
 div.cardspec {
     margin: 0;
+    max-height: 10em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .fundingprogress {
     position: absolute;
@@ -333,8 +337,7 @@ div.minispec {
     max-width:100%
 }
 .cardspec img{
-    max-width: 100%
-    max-height: 12em;
+    max-width: 100%;
 }
 .state0, .state0 a {
     color: #0094B5;
