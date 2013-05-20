@@ -3,7 +3,6 @@
 {% load oifilters %}
 {% block title %}{% trans "Fund your software!" %}{% endblock %}
 {% block announcement %}
-{% if user.is_anonymous %}
 <div id="catcherbg">
     <div id="catcher">
         <div id="slider" class="slider" onmouseover="window.slide=false" onmouseout="if(event.target.id=='slider')window.slide=true">
@@ -42,10 +41,8 @@
         <img id="sliderimg3" src="/img/funding3.png" class="sliderimg invisible" />
     </div>
 </div>
-{% endif %}
 {% endblock %}
 {% block headersep %}
-{% if user.is_anonymous %}
 <div class="registerline">
     <a href="/user/accounts/register"><div class="registertext">{% trans "Register now!" %}</div></a>
 </div>
@@ -64,7 +61,6 @@
         </div></a>
     </div>
 </div>
-{% endif %}
 {% endblock %}
 {% block content %}
 <div class="projectlisttitle">{% trans "Lastest projects" %}</div>

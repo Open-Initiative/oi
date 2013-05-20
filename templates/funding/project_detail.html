@@ -7,7 +7,7 @@
 {% endblock %}
 {% block content %}
 {% if object|can_read:user %}
-<div class="pagebody">
+<div class="prjbody">
     {% with object as project %}
     <div id="project_{{object.id}}" class="project">
         <div id="prjdialogue_{{object.id}}" class="popup invisible"></div>
@@ -51,60 +51,55 @@
     <div class="cleared"></div>
     {% endwith %}
 </div>
-{% else %}
-{% trans "Forbidden" %}
-{% endif %}
-{% endblock %}
-{% block related %}
+<div class="column">
+    <div class="statebtns"> 
+        {% if object.all_started_tasks %}<div onclick="featureShowHide('features_0')" id="featureid_proposed" class="clickable statebtn">{% trans "Proposed" %}</div>{% endif %}
+        {% if object.all_progress_tasks %}<div onclick="featureShowHide('features_3')" id="featureid_progress" class="clickable statebtn">{% trans "In progress" %}</div>{% endif %}
+        {% if object.all_finish_tasks %}<div onclick="featureShowHide('features_4')" id="featureid_finish" class="clickable statebtn">{% trans "Finished" %}</div>{% endif %}
+        <div class="cleared"></div>
+    </div>
 
-<div class="statebtns"> 
-    {% if object.all_started_tasks %}<div onclick="featureShowHide('features_0')" id="featureid_proposed" class="clickable statebtn">{% trans "Proposed" %}</div>{% endif %}
-    {% if object.all_progress_tasks %}<div onclick="featureShowHide('features_3')" id="featureid_progress" class="clickable statebtn">{% trans "In progress" %}</div>{% endif %}
-    {% if object.all_finish_tasks %}<div onclick="featureShowHide('features_4')" id="featureid_finish" class="clickable statebtn">{% trans "Finished" %}</div>{% endif %}
-    <div class="cleared"></div>
+    {% if not object.all_started_tasks %}<div class="features" id="features_0"><div id="nofeatures"></div></div>{% endif %}  
+    {% if object.all_started_tasks %}
+        <div class="features" id="features_0">
+            {% for task in object.all_started_tasks %}
+                <div class="cleared"></div>
+                {% include 'funding/feature.html' %}
+            {% endfor %}
+        </div>
+        <div class="cleared"></div>
+    {% endif %}
+
+    {% if object.all_progress_tasks %}
+        <div class="features" id="features_3">
+            {% for task in object.all_progress_tasks %}
+                <div class="cleared"></div>
+                {% include 'funding/feature.html' %}
+            {% endfor %}
+        </div>
+        <div class="cleared"></div>
+    {% endif %}
+
+    {% if object.all_finish_tasks %}
+        <div class="features" id="features_4">
+            {% for task in object.all_finish_tasks %}
+                <div class="cleared"></div>
+                {% include 'funding/feature.html' %}
+            {% endfor %}
+        </div>
+        <div class="cleared"></div>
+    {% endif %}
+
+
+    <div class="featureblock">
+        <div class="featuretitle" id="feature_{{object.id}}">{% trans "Propose a new feature" %}</div>
+        <form style="margin:5px 0;width:220px" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, null,function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); return false" id="newtask_{{object.id}}">
+            <input type="image" title="New feature" alt="New feature" src="/img/icons/addtask.png">
+            <label for="newtask_title_{{object.id}}" class="inputnewtask">{% trans "Feature name" %}</label>
+            <input type="text" style="border:1px solid" class="newtask_title" id="newtask_title_{{object.id}}">
+        </form>
+    </div>
 </div>
-
-{% if not object.all_started_tasks %}<div class="features" id="features_0"><div id="nofeatures"></div></div>{% endif %}  
-{% if object.all_started_tasks %}
-    <div class="features" id="features_0">
-        {% for task in object.all_started_tasks %}
-            <div class="cleared"></div>
-            {% include 'funding/feature.html' %}
-        {% endfor %}
-    </div>
-    <div class="cleared"></div>
-{% endif %}
-
-{% if object.all_progress_tasks %}
-    <div class="features" id="features_3">
-        {% for task in object.all_progress_tasks %}
-            <div class="cleared"></div>
-            {% include 'funding/feature.html' %}
-        {% endfor %}
-    </div>
-    <div class="cleared"></div>
-{% endif %}
-
-{% if object.all_finish_tasks %}
-    <div class="features" id="features_4">
-        {% for task in object.all_finish_tasks %}
-            <div class="cleared"></div>
-            {% include 'funding/feature.html' %}
-        {% endfor %}
-    </div>
-    <div class="cleared"></div>
-{% endif %}
-
-
-<div class="featureblock">
-    <div class="featuretitle" id="feature_{{object.id}}">{% trans "Propose a new feature" %}</div>
-    <form style="margin:5px 0;width:220px" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, null,function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); return false" id="newtask_{{object.id}}">
-        <input type="image" title="New feature" alt="New feature" src="/img/icons/addtask.png">
-        <label for="newtask_title_{{object.id}}" class="inputnewtask">{% trans "Feature name" %}</label>
-        <input type="text" style="border:1px solid" class="newtask_title" id="newtask_title_{{object.id}}">
-    </form>
-</div>
-
 
 <script>
     currentTask = {{object.id}};
@@ -116,4 +111,7 @@
         featureShowHide('features_4');
     }
 </script>
+{% else %}
+{% trans "Forbidden" %}
+{% endif %}
 {% endblock %}

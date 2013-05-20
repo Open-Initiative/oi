@@ -10,6 +10,9 @@
 #registerbtn {
     background: #1E9947
 }
+#content {
+    width: 100%;
+}
 .projectlisttitle {
   color: #1E9947;
   font-size: 200%;
@@ -474,6 +477,12 @@ option.oldrelease{
     overflow: hidden;
     text-overflow: ellipsis;
     width: 55%;
+}
+.prjbody {
+    background: none repeat scroll 0 0 white;
+    border: 1px solid #E0E0E0;
+    float: left;
+    width: 730px;
 }
 .features {
     position: relative;
