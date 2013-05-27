@@ -43,9 +43,11 @@
 </div>
 {% endblock %}
 {% block headersep %}
+{% if not user.is_authenticated %}
 <div class="registerline">
     <a href="/user/accounts/register"><div class="registertext">{% trans "Register now!" %}</div></a>
 </div>
+{% endif %}
 <div class="pagebody">
     <div class="center">
         <a><div class="fundingdesc">
