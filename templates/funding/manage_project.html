@@ -80,7 +80,6 @@
                     {% for task in object.all_started_tasks %}
                         <div class="bordermanage">
                         {% include 'funding/feature_manage.html' %}
-                        <script>//currentTask = {{object.id}}</script>
                         </div>
                     {% endfor %}
                 </div>
@@ -92,7 +91,6 @@
                     {% for task in object.all_progress_tasks %}
                         <div class="bordermanage">
                         {% include 'funding/feature_manage.html' %}
-                        <script>//currentTask = {{object.id}}</script>
                         </div>
                     {% endfor %}
                 </div>

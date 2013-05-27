@@ -51,11 +51,6 @@
 <div class="pagebody">
     <div class="center">
         <a><div class="fundingdesc">
-            <div class="actions clickable actionbutton" onclick="$('#prjlist0').toggle(); $('#promoted_project').toggle(); $('#prjlist3').toggle()">
-                <div>{% trans "submit" %}</div>
-                {% trans "your project" %}
-                <input id="appname" type="hidden" value="funding" />
-            </div>
             <div class="fundingtitle">Open <span class="fundinggreen">Funding</span></div>
             <div>{% trans "helps you fund your <b>free software</b>." %}</div>
             <div>{% trans "<b>Start</b> you own project now!" %}</div>
@@ -65,6 +60,14 @@
 </div>
 {% endblock %}
 {% block content %}
+
+<div class="actions clickable actionbutton" onclick="$('#prjlist0').toggle(); $('#promoted_project').toggle(); $('#prjlist3').toggle()">
+                <div>{% trans "submit" %}</div>
+                {% trans "your project" %}
+                <input id="appname" type="hidden" value="funding" />
+            </div>
+            <div class="cleared"></div>
+
 <div class="projectlisttitle">{% trans "Lastest projects" %}</div>
 <div id="promoted_project">
     {% for project in object_list %}
@@ -79,6 +82,7 @@
 </div>
 {% endif %}
 <div class="invisible prjlist" id="prjlist0">
+    <div class="projectlisttitle">{% trans "Submit your project" %}</div>
     <form onsubmit="if(getValue('prjtitle')) addTask(getValue('prjtitle'), null, null,function(taskid){document.location = '/funding/'+taskid+'/edit'});return false" >
         {% trans "Please enter your project title :" %}
         <input id="prjtitle"/>
