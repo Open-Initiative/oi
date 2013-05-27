@@ -431,7 +431,7 @@ class Project(models.Model):
         return User.objects.filter(assigned_projects__ancestors=self).distinct()
         
     #descendanding task for funding    
-    def all_started_tasks(self):
+    def all_not_started_tasks(self):
         return self.descendants.select_related('author', 'assignee', 'delegate_to', 'parent', 'master', 'target').filter(state = 0)
         
     def all_progress_tasks(self):
