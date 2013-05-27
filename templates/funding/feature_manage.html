@@ -28,7 +28,7 @@
 <div id="featureDiv_{{task.id}}" class="featureblock" title="{{task.title}}">
     {% if task|can_write:user and task.state < 4 %}<div class="actions">
         {% if task.state < 2 %}<img src="/img/icons/edit.png" alt="{% trans 'edit title' %}" title="{% trans 'edit title' %}" class="clickable" onclick="var newtitle = prompt(gettext('Please insert a title :'), '{{task.title}}');if(newtitle){confirmEditTitle({{task.id}}, newtitle);}" />{% endif %}
-        <img src="/img/icons/delete.png" alt="{% trans 'delete feature' %}" title="{% trans 'delete feature' %}" class="clickable" onclick="deleteProject({{task.id}})" />
+        <img src="/img/icons/delete.png" alt="{% trans 'delete feature' %}" title="{% trans 'delete feature' %}" class="clickable" onclick="deleteFeature({{task.id}})" />
     </div>{% endif %}
     <div id="feature_{{task.id}}" class="featuretitle">{{task.title}}</div>
     {% if task|can_manage:user or task.spec_set.count%}<a class="clickable" onclick="showPopup(document.getElementById('featuredesc_{{task.id}}'))">{% trans "Description" %}</a>{% endif %}

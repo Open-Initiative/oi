@@ -300,8 +300,6 @@ function deleteProject(projectid) {
                     if(oiTree.nodes[projectid].parent) document.location = "/project/"+oiTree.nodes[projectid].parent.id;
                     else document.location = "/";
                 } else {
-                       var feature = document.getElementById("featureDiv_"+projectid);
-                       if(feature) feature.parentNode.removeChild(feature);
                        if(oiTree) oiTree.deleteNode(projectid);
                 }
         });
