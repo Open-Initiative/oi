@@ -284,9 +284,13 @@ def saveproject(request, id='0'):
             return HttpResponseForbidden(_("Forbidden"))
         project.title = request.POST["title"]
 
+    if request.POST.get("offer") and not request.POST["offer"].isdigit():
+        return HttpResponse(_("Not the correct value"), status=531)
+
     for field in ["start_date","due_date","validaton","progress", "offer"]:
         if request.POST.has_key(field) and len(request.POST[field])>0:
             project.__setattr__(field, request.POST[field])
+            
     project.state = OI_PROPOSED
     project.check_dates()
     project.save()
