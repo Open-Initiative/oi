@@ -269,6 +269,10 @@ def saveproject(request, id='0'):
     title = request.POST.get("title") or request.session.get('title')
     if not title:
         return HttpResponse(_("Please enter a title"), status=531)
+    
+    if request.POST.get("offer") and not request.POST["offer"].isdigit():
+        return HttpResponse(_("Not the correct value"), status=431)    
+    
     if id=='0': #new project
         project = create_new_task(parent, title, request.user)
         
@@ -283,9 +287,6 @@ def saveproject(request, id='0'):
         if not project.has_perm(request.user, OI_ANSWER):
             return HttpResponseForbidden(_("Forbidden"))
         project.title = request.POST["title"]
-
-    if request.POST.get("offer") and not request.POST["offer"].isdigit():
-        return HttpResponse(_("Not the correct value"), status=531)
 
     for field in ["start_date","due_date","validaton","progress", "offer"]:
         if request.POST.has_key(field) and len(request.POST[field])>0:
