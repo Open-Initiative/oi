@@ -485,6 +485,7 @@ option.oldrelease{
     width: 730px;
 }
 .features {
+    max-width: 275px;
     position: relative;
 }
 .featuredetail {
