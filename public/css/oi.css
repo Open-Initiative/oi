@@ -602,8 +602,9 @@ div.morelink {
 .op_icon img{
     margin-left: 20px;
     margin-right: 20px;
+    margin-bottom: 5px;
 }
 .op_larger{
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
 }

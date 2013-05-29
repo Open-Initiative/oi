@@ -103,7 +103,7 @@ def fetch_resources(uri, rel):
 def render_to_pdf(template, extra_context):
     """renders a template to a pdf"""
     resbuffer = StringIO.StringIO()
-    css = open(settings.TEMPLATE_DIRS+"users/pdf/resume.css").read()
+    css = open(settings.TEMPLATE_DIRS[0]+"users/pdf/resume.css").read()
     pdf = pisa.CreatePDF(render_to_string(template, extra_context), dest=resbuffer, link_callback=fetch_resources, default_css=css)
     if pdf.err:
         raise Exception(_("PDF Transformation Error"))

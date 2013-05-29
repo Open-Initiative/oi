@@ -271,7 +271,7 @@ def saveproject(request, id='0'):
         return HttpResponse(_("Please enter a title"), status=531)
     
     if request.POST.get("offer") and not request.POST["offer"].isdigit():
-        return HttpResponse(_("Not the correct value"), status=431)    
+        return HttpResponse(_("Please enter a digital value"), status=431)    
     
     if id=='0': #new project
         project = create_new_task(parent, title, request.user)
