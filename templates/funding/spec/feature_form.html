@@ -11,11 +11,11 @@
 <div id="{{project.id}}_1">
     <input id="filename_{{project.id}}_1" name="filename" type="hidden" />
     <input id="ts_{{project.id}}_1" name="ts" type="hidden" />
-    <span id="filespan_{{project.id}}_1" {% if not spec.file %}class="invisible" {% endif %}>
+    <span id="filespan_{{project.id}}_1" {% if not specs.0.file %}class="invisible" {% endif %}>
         <img src='/img/icons/delete.png' alt='{% trans "Delete" %}' title='{% trans "Delete" %}' onclick='changeFile("{{project.id}}_1")' />
-        {{spec.file.name|cleanfilename}}
+        {{specs.0.file.name|cleanfilename}}
     </span>
-    <div id="filediv_{{project.id}}_1" {% if spec.file %}class="invisible" {% endif %}style="float: left;">
+    <div id="filediv_{{project.id}}_1" {% if specs.0.file %}class="invisible" {% endif %}style="float: left;">
         <form id="form_{{project.id}}_1" method="post" enctype="multipart/form-data" action="/project/{{project.id}}/uploadfile/{{spec.id|default:0}}" target="filedest_{{project.id}}_1">
             {% csrf_token %}
             <input id="divid_{{project.id}}_1" name="divid" type="hidden" value="{{project.id}}_1" />

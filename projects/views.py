@@ -926,7 +926,7 @@ def savespec(request, id, specid='0'):
     filename = request.POST.get("filename")
     
     if request.POST.has_key("funding"):
-        if not filename:
+        if not filename and not spec.file:
             spec.type = 1
     
     if not filename and not spec.file and spec.type in (2,5):
