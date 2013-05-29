@@ -488,6 +488,9 @@ option.oldrelease{
     max-width: 275px;
     position: relative;
 }
+.features_manage {
+    position: relative;
+}
 .featuredetail {
     background: none repeat scroll 0 0 white;
     border: 1px solid #E3E3E5;

@@ -76,7 +76,7 @@
 
             {% if not object.all_not_started_tasks %}<div class="features" id="features_0"><div id="nofeatures"></div></div>{% endif %}  
             {% if object.all_not_started_tasks %}
-                <div class="features" id="features_0">
+                <div class="features_manage" id="features_0">
                     {% for task in object.all_not_started_tasks %}
                         <div class="bordermanage">
                         {% include 'funding/feature_manage.html' %}
@@ -87,7 +87,7 @@
             {% endif %}
 
             {% if object.all_progress_tasks %}
-                <div class="features" id="features_3">
+                <div class="features_manage" id="features_3">
                     {% for task in object.all_progress_tasks %}
                         <div class="bordermanage">
                         {% include 'funding/feature_manage.html' %}
@@ -98,7 +98,7 @@
             {% endif %}
 
             {% if object.all_finish_tasks %}
-                <div class="features" id="features_4">
+                <div class="features_manage" id="features_4">
                     {% for task in object.all_finish_tasks %}
                         <div class="bordermanage">
                         {% include 'funding/feature_manage.html' %}
