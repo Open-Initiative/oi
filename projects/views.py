@@ -263,7 +263,7 @@ def create_new_task(parent, title, author, githubid=None):
 def saveproject(request, id='0'):
     """Saves the edited project and redirects to it"""
     parent = Project.objects.get(id=request.POST["parent"]) if request.POST.get("parent") else None
-    if (parent and parent.state==OI_VALIDATED):
+    if (parent and parent.state > 3):
         return HttpResponse(_("Can not change a finished task"), status=431)
 
     title = request.POST.get("title") or request.session.get('title')
