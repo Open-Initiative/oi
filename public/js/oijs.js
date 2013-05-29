@@ -56,7 +56,7 @@ function randid() {
 function getValue(eltid, erase){
     var elt = document.getElementById(eltid);
     if(elt==null) return null;
-    var value = encodeURIComponent(elt.value);
+    var value = elt.value;
     if(erase) elt.value = "";
     return value;
 }
