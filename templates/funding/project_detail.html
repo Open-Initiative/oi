@@ -43,7 +43,7 @@
             {% endfor %}
         </div>
         {% if project|can_answer:user %}
-        <a class="clickable" onclick="addMessage(null, {{project.id}})">
+        <a class="clickable op_larger" onclick="addMessage(null, {{project.id}})">
             <div class="moreblue" alt="{% trans "Add a discussion" %}" title="{% trans "Add a discussion" %}">+</div> {% trans "Add a discussion" %}
         </a>
         {% endif %}
