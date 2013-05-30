@@ -804,3 +804,6 @@ div.sepspecfooter {
 .boderline{
     border:1px solid !important;
 }
+.form_center{
+    text-align: center;
+}
