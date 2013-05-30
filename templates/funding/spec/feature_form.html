@@ -35,7 +35,7 @@
 <input name="projectid" id="projectid_{{project.id}}_2" value="{{project.id}}" type="hidden"/>
 <input name="specorder" id="specorder_{{project.id}}_2" value="2" type="hidden"/>
 <div><b>{% trans "A short description of your project and why it is great" %}</b></div>
-<div id="{{project.id}}_2" class="column"><input id="text_{{project.id}}_2" class="projectbaseline" value="{{specs.1.text|oiunescape}}" /></div>
+<div id="{{project.id}}_2" class="column"><input id="text_{{project.id}}_2" class="projectbaseline" value="{{specs.1.text|oiunescape}}" maxlength="200" /></div>
 
 <div class="cleared sepsearch"></div>
 
