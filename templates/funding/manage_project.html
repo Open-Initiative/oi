@@ -45,7 +45,7 @@
             {% if object|can_answer:user %}            
                 <div class="featureblock fundingright" style="width:45%;">
                     <div id="feature_{{object.id}}" class="featuretitle">{% trans "Propose a new feature" %}</div>
-                    <form id="newtask_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, getValue('offer_{{object.id}}'), function(taskid){OIajaxCall('/funding/'+taskid+'/task', 'manage='+'manage', newDiv('features_0','width:230px; float:left;margin-left: 3px; margin-right: 3px;'))}); document.getElementById('offer_{{object.id}}').value = ''; return false">
+                    <form id="newtask_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, getValue('offer_{{object.id}}'), function(taskid){OIajaxCall('/funding/'+taskid+'/task', 'manage='+'manage', newDiv('features_0','width:32%; float:left;margin-left: 3px; margin-right: 3px;'))}); document.getElementById('offer_{{object.id}}').value = ''; return false">
                      
                         <label class="inputnewtask" for="newtask_title_{{object.id}}">{% trans 'Feature name' %}</label>
                         <div class="cleared"></div>
