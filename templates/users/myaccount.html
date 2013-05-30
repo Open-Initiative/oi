@@ -40,7 +40,7 @@
     </table>
 
     <div>
-        <h2>{% trans "Name" %}</h2>
+        <h2>{% trans "Name" %} <img onclick="$('#block_name').toggle();$('#block_name_info').toggle()" class="clickable" src="/img/icons/edit.png"/></h2>
         <div id="block_name_info">
             <span id="contact_lastname">{{user.last_name}}</span> <span id="contact_firstname">{{user.first_name}}</span>
             <br/>
@@ -65,10 +65,9 @@
             </form>
             <br/>
         </div>
-        <div onclick="$('#block_name').toggle();$('#block_name_info').toggle()" class="clickable"><b>{% trans "Edit this information" %}</b> <img class="clickable" src="/img/icons/edit.png"/></div>
     
-    
-        <h2>{% trans "Contact information" %} <img alt="{% trans 'Padlock' %}" title="{% trans 'Your details will only be shared with those who finance your project. Project leaders and users will have the personal information of another to approve the payment, corrections and validation projects.' %}" class="" src="/img/icons/padlock.png"/> </h2>
+        <h2>{% trans "Contact information" %} <img alt="{% trans 'Padlock' %}" title="{% trans 'Your details will only be shared with those who finance your project. Project leaders and users will have the personal information of another to approve the payment, corrections and validation projects.' %}" class="" src="/img/icons/padlock.png"/> <img onclick="$('#block_contact').toggle();$('#block_contact_info').toggle()" class="clickable" src="/img/icons/edit.png"/> 
+        </h2>
         
         <div id="block_contact_info">
             <table>
@@ -108,7 +107,6 @@
             </form>
         </div>
         <br/>
-        <div onclick="$('#block_contact').toggle();$('#block_contact_info').toggle()" class="clickable"><b>{% trans "Edit this information" %}</b> <img class="clickable" src="/img/icons/edit.png"/></div>
         
         <h2>{% trans "Your account" %}</h2>
         
