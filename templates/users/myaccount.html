@@ -5,35 +5,36 @@
 
 <div class="pagebody navcontent">
 
+<div class="profile_picture">
+    <div class="userpicture">
+        <img style="border: 1px solid #E0E0E0" id="user_picture" width="125" height="150" src="/user/getpicture/{{user.username}}" />
+        <img class="clickable" src="/img/icons/edit.png" onclick="$('#profile_picture').toggle()" />
+        <div id="profile_picture">
+            <form id="profile_picture_form" method="post" enctype="multipart/form-data" action="/user/uploadpicture" target="picturedest">
+                {% csrf_token %}
+                <input id="picture" name="picture" type="file" size="1" onchange="document.getElementById('profile_picture_form').submit();hide('profile_picture')" />
+            </form>
+        </div>
+        <iframe id="picturedest" name="picturedest" class="filedest"></iframe>
+    </div>
+                
+    <div class="actions">
+        <br />
+        {% trans "Birth date:" %} <span id="birthdate">{{user.get_profile.birthdate|date:"d/m/Y"}}</span>
+        {% include "users/profile/edit_date.html" %}
+    </div>
+</div>
+
     <table id="userprofile">
         <tr>
-            <td width="70%">
+            <td>
                 <h1 id="fullname">
-                    {{user.get_profile.get_display_name}}
+                    {{user.get_profile.get_display_name}} 
                     <img class="clickable" src="/img/icons/edit.png" onclick="selectNameDisplay()" />
                 </h1>
                 <h2>{{user.username}}</h2>
             </td>
             <td>
-                <div class="userpicture">
-                    <img style="border: 1px solid #E0E0E0" id="user_picture" width="125" height="150" src="/user/getpicture/{{user.username}}" />
-                    
-                    <img class="clickable" src="/img/icons/edit.png" onclick="$('#profile_picture').toggle()" />
-                    <div id="profile_picture">
-                        <form id="profile_picture_form" method="post" enctype="multipart/form-data" action="/user/uploadpicture" target="picturedest">
-                            {% csrf_token %}
-                            <input id="picture" name="picture" type="file" size="1" onchange="document.getElementById('profile_picture_form').submit();hide('profile_picture')" />
-                        </form>
-                    </div>
-                    <iframe id="picturedest" name="picturedest" class="filedest"></iframe>
-                    
-                </div>
-                <div class="actions">
-
-                    <br />
-                    {% trans "Birth date:" %} <span id="birthdate">{{user.get_profile.birthdate|date:"d/m/Y"}}</span>
-                    {% include "users/profile/edit_date.html" %}
-                </div>
             </td>
         </tr>
     </table>
@@ -53,11 +54,11 @@
             <form id="contact_name">
                 <table>
                     <tr>
-                        <td><label for="lastname">{% trans "Last name" %}</label></td>
+                        <td class="username"><label for="lastname">{% trans "Last name" %}</label></td>
                         <td><input type="text" id="contact_lastname_info" name="lastname" value="{{user.last_name}}" /></td>
                     </tr>
                     <tr>
-                        <td><label for="firstname">{% trans "First name" %}</label></td>
+                        <td class="username"><label for="firstname">{% trans "First name" %}</label></td>
                         <td><input type="text" id="contact_firstname_info" name="firstname" value="{{user.first_name}}" /></td>
                     </tr>
                 </table>
@@ -67,20 +68,36 @@
         <div onclick="$('#block_name').toggle();$('#block_name_info').toggle()" class="clickable"><b>{% trans "Edit this information" %}</b> <img class="clickable" src="/img/icons/edit.png"/></div>
     
     
-        <h2>{% trans "Contact information" %}</h2>
+        <h2>{% trans "Contact information" %} <img alt="{% trans 'Padlock' %}" title="{% trans 'Your details will only be shared with those who finance your project. Project leaders and users will have the personal information of another to approve the payment, corrections and validation projects.' %}" class="" src="/img/icons/padlock.png"/> </h2>
+        
         <div id="block_contact_info">
-            <span id="contact_address">{{user.get_profile.address}}</span>
-            <br/>
-            <span id="contact_postcode">{{user.get_profile.postcode}}</span> - <span id="contact_city">{{user.get_profile.city}}</span>
-            <br/>
-            <span id="contact_country">{{user.get_profile.country}}</span>
-            <br/>
-            <span id="contact_mobile">{{user.get_profile.mobile}}</span> - <span id="contact_phone">{{user.phone}}</span>
-            <br/>
-            <span id="contact_personal_website">{{user.get_profile.personal_website}}</span>
-            <br/>
-            <span id="contact_tax_rate">{{user.get_profile.tax_rate}}</span>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="username">{% trans "Address" %} :</td> <td><span id="contact_address">{{user.get_profile.address}}</span></t>
+                    </tr>
+                    <tr>
+                        <td class="username">{% trans "Post Code" %} :</td> <td><span id="contact_postcode">{{user.get_profile.postcode}}</span> - <span id="contact_city">{{user.get_profile.city}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="username">{% trans "Contry" %} :</td> <td><span id="contact_country">{{user.get_profile.country}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="username">{% trans "Mobile" %} :</td> <td><span id="contact_mobile">{{user.get_profile.mobile}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="username">{% trans "Fixe Phone" %} :</td> <td><span id="contact_phone">{{user.get_profile.phone}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="username">{% trans "Personal Website" %} :</td> <td><span id="contact_personal_website">{{user.get_profile.personal_website}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="username">{% trans "Developper Tax" %} :</td> <td><span id="contact_tax_rate">{{user.get_profile.tax_rate}}</span></td>
+                    </tr>
+                <tbody>
+            </table>
         </div>
+        
         <div id="block_contact" class="invisible">
             <div class="actions">
                 <img class="clickable" src="/img/icons/ok-32.png" onclick="saveContactInfo();$('#block_contact').hide();$('#block_contact_info').show()" />
@@ -94,13 +111,18 @@
         <div onclick="$('#block_contact').toggle();$('#block_contact_info').toggle()" class="clickable"><b>{% trans "Edit this information" %}</b> <img class="clickable" src="/img/icons/edit.png"/></div>
         
         <h2>{% trans "Your account" %}</h2>
+        
+        <p>{% trans "When you create an account you can also determine the credit you will have. With this credit you can help crowd fund your favorite projects. You set the amount and you administrate according to your interests." %}</p>
+        
+        <p>{% trans "We have a secure system that will keep your account and your investments safe!" %}</p>
+        
         <div id="block_account">
             <div>
             
                 <div class="invisible" id="deposit">
                         {% trans "You don't have enough money on your account. Please indicate below how much you want to add:" %}
                     </div>
-                    <p>{% trans "You have" %} {{user.get_profile.balance}} {% trans "in your account" %}</p>
+                    <p>{% trans "You have" %} <b>{{user.get_profile.balance}}€</b> {% trans "in your account" %}</p>
                     <p>{% trans "Add money in your account" %}</p>
                     <form method="post" action="/user/confirmpayment">
                         {% csrf_token %}
@@ -108,7 +130,7 @@
                         <input type="image" src="/img/icons/ok-32.png" id="submit2" name="submit2">
                     </form>
                     <br/>
-                    <p><a href="/user/paymenthistory">{% trans "Payment history" %}</a></p>
+                    <p>{% trans "Clik here to see your" %} <a href="/user/paymenthistory"> {% trans "Payment history" %}</a></p>
                 </div>
     
             <br/>
