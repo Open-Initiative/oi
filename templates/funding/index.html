@@ -61,14 +61,14 @@
 {% endblock %}
 {% block content %}
 
-<div class="actions clickable actionbutton" onclick="$('#prjlist0').fadeToggle(); $('#promoted_project').fadeToggle(); $('#prjlist3').fadeToggle(); $('#oi_last_project').fadeToggle()()">
-                <div>{% trans "submit" %}</div> <!--bouton-->
+<div class="actions clickable actionbutton" onclick="$('#prjlist0').fadeToggle(); $('#promoted_project').fadeToggle(); $('#prjlist3').fadeToggle(); $('#oi_last_project').fadeToggle()">
+                <div>{% trans "submit" %}</div>
                 {% trans "your project" %}
                 <input id="appname" type="hidden" value="funding" />
             </div>
             <div class="cleared"></div>
 
-<div id="oi_last_project" class="projectlisttitle">{% trans "Lastest projects" %}</div>  <!--a partir de là-->
+<div id="oi_last_project" class="projectlisttitle">{% trans "Lastest projects" %}</div>
 <div id="promoted_project">
     {% for project in object_list %}
         {% include 'funding/project_card.html' %}
