@@ -74,7 +74,7 @@
                 <div class="cleared"></div>
             </div>
 
-            {% if not object.all_not_started_tasks %}<div class="features" id="features_0"><div id="nofeatures"></div></div>{% endif %}  
+            {% if not object.all_not_started_tasks %}<div class="features_manage" id="features_0"><div id="nofeatures"></div></div>{% endif %}  
             {% if object.all_not_started_tasks %}
                 <div class="features_manage" id="features_0">
                     {% for task in object.all_not_started_tasks %}

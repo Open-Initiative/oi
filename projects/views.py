@@ -291,7 +291,9 @@ def saveproject(request, id='0'):
     for field in ["start_date","due_date","validaton","progress", "offer"]:
         if request.POST.has_key(field) and len(request.POST[field])>0:
             project.__setattr__(field, request.POST[field])
-            
+            if field == "offer":
+                project.commission = Decimal("0"+request.POST[field]) * OI_COMMISSION
+                
     project.state = OI_PROPOSED
     project.check_dates()
     project.save()

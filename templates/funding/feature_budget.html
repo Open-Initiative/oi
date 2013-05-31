@@ -50,7 +50,7 @@
             <br/>
             <div class="cleared">{% trans "Commission" %} 5% : {{task.commission|default:task.allcommission_sum}}€</div>
             
-            <div class="cleared tax">{% trans "Tax" %} 19.6%: ({{task.get_commssion_tax|floatformat:2}}€)</div>
+            <div class="cleared tax">{% trans "Tax" %} 19.6%: ({{task.get_commission_tax|floatformat:2}}€)</div>
         {% else %}
             {% trans "No offer was made for this project" %}
             {% if task.state < 2 and task|can_bid:user %}

@@ -17,7 +17,7 @@
                 <div class="username">{{project.assignee}}</div>
                 <div>
                     {{project.offer|default:project.alloffer_sum}} €
-                    <span class="cleared tax">{% if task.assignee.get_profile.tax_rate %}{% trans "Tax" %} {{task.assignee.get_profile.tax_rate}}% : ({{task.offer_with_tva|default:task.get_offer_tax|floatformat:2}}€){% else %} {% trans "No tax rate provided" %}<a href="/user/myaccount"><img src="/img/icons/edit.png" /></a> {% endif %}</span>
+                    <span class="cleared tax">{% if project.assignee.get_profile.tax_rate %}{% trans "Tax" %} {{project.assignee.get_profile.tax_rate}}% : ({{project.offer_with_tva|default:project.get_offer_tax|floatformat:2}}€){% else %} {% trans "No tax rate provided" %}<a href="/user/myaccount"><img src="/img/icons/edit.png" /></a> {% endif %}</span>
                 </div>
                 {% if project.assignee == user and project.state < 2 %}
                     <div>
@@ -35,7 +35,7 @@
                 <br/>
                 <div class="cleared">{% trans "Commission" %} 5% : {{project.commission|default:project.allcommission_sum}}€</div>
                 
-                <div class="cleared tax">{% trans "Tax" %} 19.6%: ({{task.get_commssion_tax|floatformat:2}}€)</div>
+                <div class="cleared tax">{% trans "Tax" %} 19.6%: ({{project.get_commission_tax|floatformat:2}}€)</div>
             {% else %}
                 {% trans "No offer was made for this project" %}
                 {% if project.state < 2 and project|can_bid:user %}

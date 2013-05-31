@@ -43,6 +43,15 @@
             <span class="amount">{{task.get_budget|default:0|floatformat:"-2"}} €</span> {% trans "needed" %} -
             <span class="amount">{{task.missing_bid|floatformat:"-2"}} €</span> {% trans "to go" %}
         </div>
+        
+        {% if task.state < 4 and task.assignee == user %}
+        <form onsubmit="OIajaxCall('/project/confirmoffer/{{task.id}}', 'offer='+getValue('offer_manage_{{task.id}}'), 'output', function(){hide('offer_manage_{{task.id}}')}); return false">
+            <input type="text" id="offer_manage_{{task.id}}" value="{{task.offer}}" onFocus="this.select()" class="smallinput invisible" />
+            <span id="changesum_{{task.id}}">{% trans "Change the sum of this feature" %}</span>
+            <img src="/img/icons/edit.png" class="clickable" onclick="$('#offer_manage_{{task.id}}').toggle(); $('#changesum_{{task.id}}').toggle()">
+        </form>
+    {% endif %}
+        
         {% if task|can_manage:user %}<a class="clickable" onclick="showPopup(document.getElementById('featurebudget_{{task.id}}'))">{% trans "Funding details" %}</a>{% endif %}
     </div>
 </div>
