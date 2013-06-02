@@ -45,7 +45,7 @@
             {% if object|can_answer:user %}            
                 <div class="featureblock fundingright" style="width:45%;">
                     <div id="feature_{{object.id}}" class="featuretitle">{% trans "Propose a new feature" %}</div>
-                    <form id="newtask_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, getValue('offer_{{object.id}}'), function(taskid){OIajaxCall('/funding/'+taskid+'/task', 'manage='+'manage', newDiv('features_0','width:230px; float:left;margin-left: 3px; margin-right: 3px;'))}); return false">
+                    <form id="newtask_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, getValue('offer_{{object.id}}'), function(taskid){OIajaxCall('/funding/'+taskid+'/task', 'manage='+'manage', newDiv('features_0','width:32%; float:left;margin-left: 3px; margin-right: 3px;'))}); document.getElementById('offer_{{object.id}}').value = ''; return false">
                      
                         <label class="inputnewtask" for="newtask_title_{{object.id}}">{% trans 'Feature name' %}</label>
                         <div class="cleared"></div>
@@ -53,9 +53,9 @@
                         
                         <br/><br/>
                         
-                        <label class="inputnewtask" for="offer_{{object.id}}">{% trans 'Feature price' %} €</label>
+                        <label class="inputnewtask" for="offer_{{object.id}}">{% trans 'Feature price' %}</label>
                         <div class="cleared"></div>
-                        <input type="text" id="offer_{{object.id}}" class="newtask_title boderline"/>
+                        <input style="width: 50px;text-align: right;" type="text" id="offer_{{object.id}}" class="newtask_title boderline"/> €
                         
                         <p>{% trans "By adding this change you acknowledge that you have read and accepted the" %} <a href="/cgu">{% trans "Terms of Use" %}</a></p>
                         
@@ -68,19 +68,18 @@
             <br/>
             <div class="cleared"></div>
             <div class="statebtns"> 
-                {% if object.all_started_tasks %}<div onclick="featureShowHide('features_0')" id="featureid_proposed" class="clickable statebtn">{% trans "Proposed" %}</div>{% endif %}
+                {% if object.all_not_started_tasks %}<div onclick="featureShowHide('features_0')" id="featureid_proposed" class="clickable statebtn">{% trans "Proposed" %}</div>{% endif %}
                 {% if object.all_progress_tasks %}<div onclick="featureShowHide('features_3')" id="featureid_progress" class="clickable statebtn">{% trans "In progress" %}</div>{% endif %}
                 {% if object.all_finish_tasks %}<div onclick="featureShowHide('features_4')" id="featureid_finish" class="clickable statebtn">{% trans "Finished" %}</div>{% endif %}
                 <div class="cleared"></div>
             </div>
 
-            {% if not object.all_started_tasks %}<div class="features" id="features_0"><div id="nofeatures"></div></div>{% endif %}  
-            {% if object.all_started_tasks %}
-                <div class="features" id="features_0">
-                    {% for task in object.all_started_tasks %}
+            {% if not object.all_not_started_tasks %}<div class="features_manage" id="features_0"><div id="nofeatures"></div></div>{% endif %}  
+            {% if object.all_not_started_tasks %}
+                <div class="features_manage" id="features_0">
+                    {% for task in object.all_not_started_tasks %}
                         <div class="bordermanage">
                         {% include 'funding/feature_manage.html' %}
-                        <script>currentTask = {{object.id}}</script>
                         </div>
                     {% endfor %}
                 </div>
@@ -88,11 +87,10 @@
             {% endif %}
 
             {% if object.all_progress_tasks %}
-                <div class="features" id="features_3">
+                <div class="features_manage" id="features_3">
                     {% for task in object.all_progress_tasks %}
                         <div class="bordermanage">
                         {% include 'funding/feature_manage.html' %}
-                        <script>currentTask = {{object.id}}</script>
                         </div>
                     {% endfor %}
                 </div>
@@ -100,7 +98,7 @@
             {% endif %}
 
             {% if object.all_finish_tasks %}
-                <div class="features" id="features_4">
+                <div class="features_manage" id="features_4">
                     {% for task in object.all_finish_tasks %}
                         <div class="bordermanage">
                         {% include 'funding/feature_manage.html' %}

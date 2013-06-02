@@ -263,12 +263,16 @@ def create_new_task(parent, title, author, githubid=None):
 def saveproject(request, id='0'):
     """Saves the edited project and redirects to it"""
     parent = Project.objects.get(id=request.POST["parent"]) if request.POST.get("parent") else None
-    if (parent and parent.state==OI_VALIDATED):
+    if (parent and parent.state > 3):
         return HttpResponse(_("Can not change a finished task"), status=431)
 
     title = request.POST.get("title") or request.session.get('title')
     if not title:
         return HttpResponse(_("Please enter a title"), status=531)
+    
+    if request.POST.get("offer") and not request.POST["offer"].isdigit():
+        return HttpResponse(_("Please enter a digital value"), status=431)    
+    
     if id=='0': #new project
         project = create_new_task(parent, title, request.user)
         
@@ -287,6 +291,9 @@ def saveproject(request, id='0'):
     for field in ["start_date","due_date","validaton","progress", "offer"]:
         if request.POST.has_key(field) and len(request.POST[field])>0:
             project.__setattr__(field, request.POST[field])
+            if field == "offer":
+                project.commission = Decimal("0"+request.POST[field]) * OI_COMMISSION
+                
     project.state = OI_PROPOSED
     project.check_dates()
     project.save()
@@ -921,7 +928,7 @@ def savespec(request, id, specid='0'):
     filename = request.POST.get("filename")
     
     if request.POST.has_key("funding"):
-        if not filename:
+        if not filename and not spec.file:
             spec.type = 1
     
     if not filename and not spec.file and spec.type in (2,5):

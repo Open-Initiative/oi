@@ -486,6 +486,8 @@ img.tabicon {
     margin: 0.5em 15%;
     padding: 0.5em;
     text-align: center;
+    background-color: white;
+    margin-bottom: 3%;
 }
 .fundingtitle {
     font-size: 120%;
@@ -598,4 +600,13 @@ div.morelink {
 }
 .askoi {
     margin: -11px 0;
+}
+.op_icon img{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 5px;
+}
+.op_larger{
+    font-size: 16px;
+    font-weight: bold;
 }

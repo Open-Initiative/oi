@@ -43,13 +43,18 @@
 </div>
 {% endblock %}
 {% block headersep %}
+{% if not user.is_authenticated %}
 <div class="registerline">
     <a href="/user/accounts/register"><div class="registertext">{% trans "Register now!" %}</div></a>
 </div>
-<div class="pagebody">
+{% endif %}
+
+{% endblock %}
+{% block content %}
+
     <div class="center">
         <a><div class="fundingdesc">
-            <div class="actions clickable actionbutton" onclick="$('#prjlist0').toggle(); $('#promoted_project').toggle(); $('#prjlist3').toggle()">
+            <div class="actions clickable actionbutton" onclick="$('#prjlist0').fadeToggle(); $('#promoted_project').fadeToggle(); $('#prjlist3').fadeToggle(); $('#oi_last_project').fadeToggle()">
                 <div>{% trans "submit" %}</div>
                 {% trans "your project" %}
                 <input id="appname" type="hidden" value="funding" />
@@ -60,10 +65,8 @@
             <div class="cleared"></div>
         </div></a>
     </div>
-</div>
-{% endblock %}
-{% block content %}
-<div class="projectlisttitle">{% trans "Latest projects" %}</div>
+<div id="oi_last_project" class="projectlisttitle">{% trans "Latest projects" %}</div>
+>>>>>>> 3e6aebe4cdb8cddefa5312425cd1c44cef99831a
 <div id="promoted_project">
     {% for project in object_list %}
         {% include 'funding/project_card.html' %}
@@ -77,7 +80,8 @@
 </div>
 {% endif %}
 <div class="invisible prjlist" id="prjlist0">
-    <form onsubmit="if(getValue('prjtitle')) addTask(getValue('prjtitle'), null, null,function(taskid){document.location = '/funding/'+taskid+'/edit'});return false" >
+    <div class="projectlisttitle">{% trans "Submit your project" %}</div>
+    <form class="form_center" onsubmit="if(getValue('prjtitle')) addTask(getValue('prjtitle'), null, null,function(taskid){document.location = '/funding/'+taskid+'/edit'});return false" >
         {% trans "Please enter your project title :" %}
         <input id="prjtitle"/>
         <input type="image" src="/img/icons/ok-32.png" />

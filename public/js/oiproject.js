@@ -78,7 +78,7 @@ function changeRelease(projectid, currentRelease){
         name = addRelease(projectid);
         document.getElementById("change_release").selected = false;
     }
-    else name = getValue("nextrelease");
+    else name = encodeURIComponent(getValue("nextrelease"));
     if(name){
         if(confirm(
         gettext("Are you sure you want to mark '")+ currentRelease +gettext("' as done and work on '")+ name +gettext("'. All unfinished tasks in '")+ currentRelease +gettext("' will be assigned to '")+ name +"'.")){
@@ -87,7 +87,7 @@ function changeRelease(projectid, currentRelease){
     } 
 }
 function assignRelease(projectid){
-    var value = getValue("entitle-overview_"+projectid);
+    var value = encodeURIComponent(getValue("entitle-overview_"+projectid));
     if(!value) return
     OIajaxCall("/project/"+projectid+"/assignrelease", "release="+value, "output", 
         function(){
@@ -300,8 +300,6 @@ function deleteProject(projectid) {
                     if(oiTree.nodes[projectid].parent) document.location = "/project/"+oiTree.nodes[projectid].parent.id;
                     else document.location = "/";
                 } else {
-                       var feature = document.getElementById("featureDiv_"+projectid);
-                       if(feature) feature.parentNode.removeChild(feature);
                        if(oiTree) oiTree.deleteNode(projectid);
                 }
         });

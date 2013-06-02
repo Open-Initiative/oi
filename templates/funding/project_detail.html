@@ -43,7 +43,7 @@
             {% endfor %}
         </div>
         {% if project|can_answer:user %}
-        <a class="clickable" onclick="addMessage(null, {{project.id}})">
+        <a class="clickable op_larger" onclick="addMessage(null, {{project.id}})">
             <div class="moreblue" alt="{% trans "Add a discussion" %}" title="{% trans "Add a discussion" %}">+</div> {% trans "Add a discussion" %}
         </a>
         {% endif %}
@@ -53,16 +53,16 @@
 </div>
 <div class="column">
     <div class="statebtns"> 
-        {% if object.all_started_tasks %}<div onclick="featureShowHide('features_0')" id="featureid_proposed" class="clickable statebtn">{% trans "Proposed" %}</div>{% endif %}
+        {% if object.all_not_started_tasks %}<div onclick="featureShowHide('features_0')" id="featureid_proposed" class="clickable statebtn">{% trans "Proposed" %}</div>{% endif %}
         {% if object.all_progress_tasks %}<div onclick="featureShowHide('features_3')" id="featureid_progress" class="clickable statebtn">{% trans "In progress" %}</div>{% endif %}
         {% if object.all_finish_tasks %}<div onclick="featureShowHide('features_4')" id="featureid_finish" class="clickable statebtn">{% trans "Finished" %}</div>{% endif %}
         <div class="cleared"></div>
     </div>
 
-    {% if not object.all_started_tasks %}<div class="features" id="features_0"><div id="nofeatures"></div></div>{% endif %}  
-    {% if object.all_started_tasks %}
+    {% if not object.all_not_started_tasks %}<div class="features" id="features_0"><div id="nofeatures"></div></div>{% endif %}  
+    {% if object.all_not_started_tasks %}
         <div class="features" id="features_0">
-            {% for task in object.all_started_tasks %}
+            {% for task in object.all_not_started_tasks %}
                 <div class="cleared"></div>
                 {% include 'funding/feature.html' %}
             {% endfor %}

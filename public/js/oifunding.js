@@ -13,3 +13,13 @@ function featureShowHide (divid){
         }
     }
 }
+
+function deleteFeature(projectid) {
+    if(confirm(gettext("Are you sure you want to delete this task permanently?"))) {
+        OIajaxCall("/project/delete/"+projectid, null, "output",
+            function(){
+                var feature = document.getElementById("featureDiv_"+projectid);
+                if(feature) feature.parentNode.removeChild(feature);
+        });
+    }
+}
