@@ -1296,7 +1296,7 @@ msgstr "<b>Démarrez</b> votre projet !"
 
 
 #: templates/funding/index.html:70
-msgid "Lastest projects"
+msgid "Latest projects"
 msgstr "Derniers projets"
 
 #: templates/funding/index.html:85
