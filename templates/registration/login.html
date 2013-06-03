@@ -2,6 +2,9 @@
 {% load i18n %}
 {% block title %}{% trans "Connection" %}{% endblock %}
 {% block content %}
+
+{% if not user.is_authenticated %}
+
 {% if form.errors %}
 <p>{% trans "Your username and password didn't match. Please try again." %}</p>
 {% endif %}
@@ -25,4 +28,9 @@
     {% trans "Register" %}
 </div></a>
 <a href="/user/resetpassword">{% trans "Forgot your password?" %}</a>
+
+{% else %}
+<script>document.location.href = "/"</script>
+{% endif %}
+
 {% endblock %}
