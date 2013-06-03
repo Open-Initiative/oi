@@ -39,7 +39,7 @@
             <span id="progressbar_{{object.id}}" class="progress" style="width:{{task.get_funding_progress|default:0|floatformat:0}}%;">{{task.get_funding_progress|default:0|floatformat:0}}%</span>
             <span id="progresslabel_{{object.id}}" class="progresstitle" ></span>
         </div>
-        <div class="cleared">
+        <div class="cleared funding_space">
             <span class="amount">{{task.get_budget|default:0|floatformat:"-2"}} €</span> {% trans "needed" %} -
             <span class="amount">{{task.missing_bid|floatformat:"-2"}} €</span> {% trans "to go" %}
         </div>

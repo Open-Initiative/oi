@@ -24,13 +24,13 @@
             </div>
             <div class="cleared"></div>
             {% if object|can_write:user %}
-                <a href="edit"><div class="bidaction">{% trans "Edit your project" %}</div></a>
+                <a href="edit"><div style="float: left;" class="bidaction">{% trans "Edit your project" %}</div></a>
                 <a href="manage"><div class="bidaction">{% trans "Manage your features" %}</div></a>
             {% endif %}
         </div>
         <div id="specs_{{project.id}}" class="prjdesc">
             {%for spec in project.spec_set.all|dictsort:"order"%}
-            <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared">
+            <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared funding_space">
                 {% with project as object %}{%include 'funding/spec/spec.html'%}{% endwith %}
             </div>
             {% endfor %}

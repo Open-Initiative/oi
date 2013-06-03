@@ -133,6 +133,23 @@ div.prj-block-action {
     position: relative;
     vertical-align: -3px;
 }
+.funding_btn {
+    background-color: #0094B5;
+    border-radius: 3px;
+    padding: 5px;
+    font-size:1.2em; 
+    color:white; 
+    display: table;
+    clear: left;
+    font-weight: bold;
+    margin-top: 1.5em;
+}
+.funding_btn:before {
+    content: url('/img/icons/previouswhite.png');
+    left: 2px;
+    position: relative;
+    vertical-align: -3px;
+}
 div.prj-action-wait {
     background-color: gray;
     border-radius: 5px 5px 5px 5px;
@@ -537,7 +554,7 @@ option.oldrelease{
     margin: auto;
     padding: 0.5em;
     text-transform: uppercase;
-    width: 70%;
+    width: 75%;
 }
 .supportbtn:after {
     content: url("/img/icons/whitebtn.png");
@@ -811,4 +828,12 @@ div.sepspecfooter {
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 100%;/*so no need it*/
+}
+.funding_space {
+    margin-bottom: 4px;
+}
+.margin_auto {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
 }
