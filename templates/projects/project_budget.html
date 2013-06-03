@@ -17,7 +17,7 @@
                 <div class="username">{{project.assignee}}</div>
                 <div>
                     {{project.offer|default:project.alloffer_sum}} €
-                    <span class="cleared tax">{% if project.assignee.get_profile.tax_rate %}{% trans "Tax" %} {{project.assignee.get_profile.tax_rate}}% : ({{project.offer_with_tva|default:project.get_offer_tax|floatformat:2}}€){% else %} {% trans "No tax rate provided" %}<a href="/user/myaccount"><img src="/img/icons/edit.png" /></a> {% endif %}</span>
+                    <span class="cleared"></span>
                 </div>
                 {% if project.assignee == user and project.state < 2 %}
                     <div>

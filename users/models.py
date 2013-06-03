@@ -201,7 +201,7 @@ class Payment(models.Model):
 class UserProfileForm(ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('address','postcode','city','country','mobile','phone','personal_website','tax_rate')
+        fields = ('address','postcode','city','country','mobile','phone','personal_website')
 
 class SkillForm(ModelForm):
     class Meta:

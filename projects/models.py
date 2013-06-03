@@ -327,20 +327,13 @@ class Project(models.Model):
         """sums up all commissions on the project's tasks"""
         return self.descendants.aggregate(models.Sum("commission"))["commission__sum"] or Decimal("0")
     
-    def get_offer_tax(self):
-        """sums up all commissions on the project's tasks"""
-        if self.assignee:
-            return (self.offer or self.alloffer_sum()) * (self.assignee.get_profile().tax_rate or 0) / 100
-        else:
-            return 0
-    
     def get_commission_tax(self):
         """sums up all commissions on the project's tasks"""
         return (self.commission or self.allcommission_sum()) * OI_VAT_RATE / 100
         
     def get_budget(self):
         """return the total budget of the project, either itself or summing its tasks, and including commission"""
-        return (self.offer or self.alloffer_sum()) + self.get_offer_tax() + (self.commission or self.allcommission_sum()) + self.get_commission_tax()
+        return (self.offer or self.alloffer_sum()) + (self.commission or self.allcommission_sum()) + self.get_commission_tax()
     
     def get_funding_progress(self):
         """Returns the percentage of offer already in bids"""
