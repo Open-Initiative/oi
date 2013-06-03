@@ -296,10 +296,11 @@ div.minispec {
     text-overflow: ellipsis;
 }
 .minispec img {
-    max-width:100%
+    max-width:100%;
 }
 .cardspec img{
-    max-width:100%
+    max-width:100%;
+    max-height:10em;
 }
 .state0, .state0 a {
     color: #0094B5;

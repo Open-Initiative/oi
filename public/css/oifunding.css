@@ -290,10 +290,9 @@ div.prj-action-wait {
 }
 div.cardspec {
     margin: 0;
-    max-height: 10em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+/*    overflow: hidden;*/
+/*    text-overflow: ellipsis;*/
+/*    white-space: nowrap;*/
 }
 .fundingprogress {
     position: absolute;
@@ -806,4 +805,10 @@ div.sepspecfooter {
 }
 .form_center{
     text-align: center;
+}
+.funding_minispec{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;/*so no need it*/
 }
