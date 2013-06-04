@@ -53,6 +53,16 @@
     {% endif %}
         
         {% if task|can_manage:user %}<a class="clickable" onclick="showPopup(document.getElementById('featurebudget_{{task.id}}'))">{% trans "Funding details" %}</a>{% endif %}
+        
+        
+        <div class="cleared funding_space"></div>
+        <div>
+            <form>
+               <label id="public_read_{{task.id}}_">{% trans "Visible feature to the users" %}</label> 
+               <input id="public_read_{{task.id}}" type="checkbox" {% if task.public_read %}checked="checked"{% endif %} onclick="visibleFeature({{task.id}})">
+            </form>
+        </div>
+        
     </div>
 </div>
 
@@ -62,5 +72,8 @@
         $("#featurebudget_{{task.id}}").draggable();
         $("#bidpopup_{{task.id}}").draggable();
     });
+    if(!document.getElementById('public_read_{{task.id}}').checked){
+        document.getElementById("featureDiv_{{task.id}}").style.opacity = 0.4;
+    }
 </script>
 {% endif %}

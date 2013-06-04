@@ -23,3 +23,15 @@ function deleteFeature(projectid) {
         });
     }
 }
+
+function visibleFeature(projectid){
+    OIajaxCall('/project/'+projectid+'/setpublic', 'read='+document.getElementById('public_read_'+projectid).checked, 'output', 
+        function(){
+            if(!document.getElementById('public_read_'+projectid).checked){
+                document.getElementById("featureDiv_"+projectid).style.opacity = 0.4;
+            }else{
+               document.getElementById("featureDiv_"+projectid).style.opacity = 1; 
+            }
+        }
+    );
+}
