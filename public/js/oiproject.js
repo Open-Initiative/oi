@@ -483,7 +483,7 @@ function saveAllSpec(projectid){
     var specid = document.getElementsByName("specid");
     var specorder = document.getElementsByName("specorder");
     for (var i = 0; i < specid.length; i++){
-        saveSpec(projectid+"_"+i+1, projectid, specorder[i].value, specid[i].value, "funding");
+        saveSpec(projectid+"_"+(i+1), projectid, specorder[i].value, specid[i].value, "funding");
     }
     return specid.length;
 }
