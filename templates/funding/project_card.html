@@ -5,7 +5,7 @@
     <div class="cleared"></div>
     {% with project.spec_set.all|dictsort:"order" as specs%}
     {% with specs.0 as spec %}<a href="/funding/{{project.id}}"><div class="cardspec">{% include 'funding/spec/minispec.html' %}</div></a>{% endwith %}
-    {% with specs.1 as spec %}<div class="cardspec">{% include 'funding/spec/minispec.html' %}</div>{% endwith %}
+    {% with specs.1 as spec %}<div class="cardspec" style="height: 8.5em;">{% include 'funding/spec/minispec.html' %}</div>{% endwith %}
     {% endwith %}
     <div class="fundingprogress">
         {{project.allbid_sum|floatformat:"-2"}} € {% trans "funded out of" %} {{project.get_budget|floatformat:"-2"}} €
