@@ -7,44 +7,57 @@
 {% endblock %}
 {% block content %}
 {% if object|can_read:user %}
-<div class="prjbody">
-    {% with object as project %}
-    <div id="project_{{object.id}}" class="project">
-        <div id="prjdialogue_{{object.id}}" class="popup invisible"></div>
-        <div class="prjheader">
-            <div class="prjauthor">{% trans "Project created by" %} <a href="/user/profile/{{object.author.username}}">{{object.author.get_profile}}</a></div>
-            <div>
-                <div class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">
-                    {{object.title}}
+
+<div style="float: left;width: 730px;">
+
+    <div class="prjbody">
+        {% with object as project %}
+        <div id="project_{{object.id}}" class="project">
+            <div id="prjdialogue_{{object.id}}" class="popup invisible"></div>
+            <div class="prjheader">
+                <div class="prjauthor">{% trans "Project created by" %} <a href="/user/profile/{{object.author.username}}">{{object.author.get_profile}}</a></div>
+                <div>
+                    <div class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">
+                        {{object.title}}
+                    </div>
+                    <div class="prj-block-fav">
+                        <img onclick="favProject(174)" src="/img/icons/starTrueFunding.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_174" />
+                        {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
+                    </div>
                 </div>
-                <div class="prj-block-fav">
-                    <img onclick="favProject(174)" src="/img/icons/starTrueFunding.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_174" />
-                    {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
-                </div>
+                <div class="cleared"></div>
+                {% if object|can_write:user %}
+                    <a href="edit"><div style="float: left;" class="bidaction">{% trans "Edit your project" %}</div></a>
+                    <a href="manage"><div class="bidaction">{% trans "Manage your features" %}</div></a>
+                {% endif %}
             </div>
-            <div class="cleared"></div>
-            {% if object|can_write:user %}
-                <a href="edit"><div style="float: left;" class="bidaction">{% trans "Edit your project" %}</div></a>
-                <a href="manage"><div class="bidaction">{% trans "Manage your features" %}</div></a>
-            {% endif %}
-        </div>
-        <div id="specs_{{project.id}}" class="prjdesc">
-        
-            {%for spec in project.spec_set.all|dictsort:"order"%}
-                {% if project.all_project_with_languages.count == 2 and spec.language == request.LANGUAGE_CODE %}
-                <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared funding_space">
-                    {% with project as object %}{%include 'funding/spec/spec.html'%}{% endwith %}
-                </div>
-                {% else %}
-                    {% if spec.language == None and project.all_project_with_languages.count == 0 %}
+            <div id="specs_{{project.id}}" class="prjdesc">
+            
+                {%for spec in project.spec_set.all|dictsort:"order"%}
+                    {% if project.all_project_with_languages.count == 2 and spec.language == request.LANGUAGE_CODE %}
                     <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared funding_space">
                         {% with project as object %}{%include 'funding/spec/spec.html'%}{% endwith %}
                     </div>
+                    {% else %}
+                        {% if spec.language == None and project.all_project_with_languages.count == 0 %}
+                        <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared funding_space">
+                            {% with project as object %}{%include 'funding/spec/spec.html'%}{% endwith %}
+                        </div>
+                        {% endif %}
                     {% endif %}
-                {% endif %}
-            {% endfor %}
+                {% endfor %}
+                
+            </div>
+            
             
         </div>
+        <div class="cleared"></div>
+        {% endwith %}
+    </div>
+    
+{% with object as project %}
+    <div class="cleared"></div>
+    <div>
         <div id="discussions_{{project.id}}" class="discussions">
             {% for message in project.message_set.all %}
             <div id="message_{{message.id}}_box">{% include 'messages/message.html' %}</div>
@@ -53,14 +66,15 @@
             {% endfor %}
         </div>
         {% if project|can_answer:user %}
-        <a class="clickable op_larger" onclick="addMessage(null, {{project.id}})">
-            <div class="moreblue" alt="{% trans "Add a discussion" %}" title="{% trans "Add a discussion" %}">+</div> {% trans "Add a discussion" %}
-        </a>
+            <a class="clickable op_larger" onclick="addMessage(null, {{project.id}})">
+                <div class="moreblue funding_msg_position" alt="{% trans "Add a discussion" %}" title="{% trans "Add a discussion" %}">+</div> {% trans "Add a discussion" %}
+            </a>
         {% endif %}
     </div>
-    <div class="cleared"></div>
-    {% endwith %}
+{% endwith %}
+
 </div>
+
 <div class="column">
     <div class="statebtns"> 
         {% if object.all_not_started_tasks %}<div onclick="featureShowHide('features_0')" id="featureid_proposed" class="clickable statebtn">{% trans "Proposed" %}</div>{% endif %}
