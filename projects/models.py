@@ -16,6 +16,7 @@ from oi.helpers import OI_ALL_PERMS, OI_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS, OI_TABLE_OVERVIEW
 from oi.helpers import SPEC_TYPES, TEXT_TYPE, to_date
 from oi.prjnotify.models import Observer
+from django.utils import translation
 
 class ProjectQuerySet(QuerySet):
     def with_offer(self):
@@ -433,6 +434,9 @@ class Project(models.Model):
     def all_finish_tasks(self):
         return self.descendants.select_related('author', 'assignee', 'delegate_to', 'parent', 'master', 'target').filter(state = 4)
         
+    def all_project_with_languages(self):
+        return self.spec_set.filter(language=translation.get_language())
+        
 #Structure de contrôle des permissions
 class ProjectACL(models.Model):
     user = models.ForeignKey(User)
@@ -473,6 +477,7 @@ class Spec(models.Model):
     order = models.IntegerField()
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+    language = models.CharField(max_length=10, blank=True, null=True)
     
     #saves project as well
     def save(self, *args, **kwargs):

@@ -29,11 +29,21 @@
             {% endif %}
         </div>
         <div id="specs_{{project.id}}" class="prjdesc">
+        
             {%for spec in project.spec_set.all|dictsort:"order"%}
-            <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared funding_space">
-                {% with project as object %}{%include 'funding/spec/spec.html'%}{% endwith %}
-            </div>
+                {% if project.all_project_with_languages.count == 2 and spec.language == request.LANGUAGE_CODE %}
+                <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared funding_space">
+                    {% with project as object %}{%include 'funding/spec/spec.html'%}{% endwith %}
+                </div>
+                {% else %}
+                    {% if spec.language == None and project.all_project_with_languages.count == 0 %}
+                    <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared funding_space">
+                        {% with project as object %}{%include 'funding/spec/spec.html'%}{% endwith %}
+                    </div>
+                    {% endif %}
+                {% endif %}
             {% endfor %}
+            
         </div>
         <div id="discussions_{{project.id}}" class="discussions">
             {% for message in project.message_set.all %}
