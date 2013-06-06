@@ -1276,7 +1276,7 @@ msgstr ""
 
 #: templates/funding/index.html:19
 msgid "join"
-msgstr "Rejoingez"
+msgstr "Rejoignez"
 
 #: templates/funding/index.html:20
 msgid "the community supporting free software!"
