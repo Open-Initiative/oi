@@ -6,7 +6,7 @@
 
     <h3 style="width:300px; margin-top:0px">{{task.title}}</h3>
 
-    <div class="prjauthor">{% trans "Project created by" %} <a href="/user/profile/{{task.author.username}}">{{task.author.get_profile}}</a></div>
+    <div class="prjauthor">{% trans "Project created by" %} {{task.author.get_profile}}</div>
     <div id="specs_{{task.id}}">
         {%for spec in task.spec_set.all|dictsort:"order"%}
         <div style="position:relative" id="spec_{{task.id}}_{{spec.order}}" class="cleared">

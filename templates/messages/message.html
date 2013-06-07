@@ -2,11 +2,11 @@
 {% load i18n %}
 {% if not message.parent %}
 <div id="message_{{message.id}}" class="msgblue">
-    <a href="/user/profile/{{message.author.username}}"><div class="column">
+    <span><div class="column">
         <img class="contactpicture" src="/user/getpicture/{{message.author.username}}" /><br />
         <div class="author">{% if message.author %}{{message.author}}{% else %}{% trans "guest" %}{% endif %}<br />
         {{message.created|date:"d/m/Y"}}</div>
-    </a></div>
+    </span></div>
     <div class="msgbubble">
         <div class="msgtop">
             <div class="clickable msgtitle" onclick="shrinkMessage({{message.id}}, {{depth|default:0}})">
