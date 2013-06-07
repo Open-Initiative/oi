@@ -33,7 +33,7 @@
             </div>
             <div id="specs_{{project.id}}" class="prjdesc">
                 {% for spec in project.spec_set.all|dictsort:"order" %}
-                    {% if spec.order < 1 %}
+                    {% if spec.order < 2 %}
                         <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared funding_space">
                             {% with project as object %}{%include 'funding/spec/spec.html'%}{% endwith %}
                         </div>
