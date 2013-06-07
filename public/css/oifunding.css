@@ -356,7 +356,7 @@ div.minispec {
     max-width:100%
 }
 .cardspec img{
-    max-width: 100%;
+    max-width: 60%;
 }
 .state0, .state0 a {
     color: #0094B5;
@@ -824,10 +824,8 @@ div.sepspecfooter {
     text-align: center;
 }
 .funding_minispec{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 100%;/*so no need it*/
+    word-wrap: break-word;
+    text-align: justify;
 }
 .funding_space {
     margin-bottom: 4px;
@@ -845,4 +843,12 @@ div.sepspecfooter {
     color: black;
     font-size: 17px;
     font-weight: bolder;
+    word-wrap: break-word;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+.funding_long{
+    word-wrap: break-word;
+    margin-left: 3px;
+    margin-right: 3px;
 }
