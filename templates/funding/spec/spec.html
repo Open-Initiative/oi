@@ -18,7 +18,7 @@
 {% comment %}
 <div class="specfooter">
     {% if spec.author %}
-    <a href="/user/profile/{{spec.author.username}}" class="specauthor">{{spec.author.get_profile}}</a>
+    <span class="specauthor">{{spec.author.get_profile}}</span>
     {% else %}
     {% trans "Guest" %}
     {% endif %} {{spec.created|date:"d/m/Y H:i:s"}}

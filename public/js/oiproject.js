@@ -478,9 +478,23 @@ function buildText(divid){
         if(dd) document.getElementById("bug_report_"+divid+"_"+i).innerHTML = dd.innerHTML.replace(/<br( \/)*>/g, "\n");
     }
 }
+
+function saveAllSpec(projectid){
+    var specid = document.getElementsByName("specid");
+    var specorder = document.getElementsByName("specorder");
+    var i;
+    var j;
+    for (i = 0; i < specid.length; i++){
+        j = i+1;
+        saveSpec(projectid+"_"+j, projectid, specorder[i].value, specid[i].value, "funding");
+    }
+    return specid.length;
+}
+
 function saveSpec(divid, projectid, order, specid, funding) {
     tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
     var params = "text="+getValue("text_"+divid).replace(/\+/gi,"%2B") + "&order="+order + "&type="+getValue("type_"+divid);
+    if(getValue("language_"+projectid) && order > 3) params +="&language="+getValue("language_"+projectid);
     if(getValue("url_"+divid)) params+="&url="+getValue("url_"+divid);
     if(getValue("filename_"+divid)) params+="&filename="+getValue("filename_"+divid);
     if(getValue("ts_"+divid)) params+="&ts="+getValue("ts_"+divid);
@@ -497,7 +511,7 @@ function saveSpec(divid, projectid, order, specid, funding) {
             if(document.getElementById("sepspec_"+projectid)) div.parentNode.removeChild(document.getElementById("sepspec_"+projectid));
             if(funding){
                 cptFunding++;
-                if(cptFunding==3){
+                if(cptFunding==5){
                     if(hasChild > 0){
                         document.location.href="/funding/"+projectid;
                     }else{

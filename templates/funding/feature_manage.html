@@ -56,7 +56,7 @@
         
         
         <div class="cleared funding_space"></div>
-        <div>
+        <div id="still_visible_{{task.id}}">
             <form>
                <label id="public_read_{{task.id}}_">{% trans "Visible feature to the users" %}</label> 
                <input id="public_read_{{task.id}}" type="checkbox" {% if task.public_read %}checked="checked"{% endif %} onclick="visibleFeature({{task.id}})">

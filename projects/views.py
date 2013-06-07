@@ -913,12 +913,19 @@ def savespec(request, id, specid='0'):
             if project.state > OI_STARTED:
                 return HttpResponse(_("Can not change a task already started"), status=431)
             project.insert_spec(order)
-        spec = Spec(text = oiescape(request.POST["text"]), author=request.user, project=project, order=order, type=1)
+
+        spec = Spec(text = oiescape(request.POST["text"]), author=request.user, project=project, order=order, type=1, language = request.POST.get("language"))
+
     else: #edit existing spec
         spec = Spec.objects.get(id=specid)
         if spec.project.id != int(id):
             return HttpResponse(_("Wrong arguments"), status=531)
         spec.text = request.POST.get("legend") or oiescape(request.POST["text"])
+        if request.POST.get("language"): 
+            spec.language = request.POST.get("language")
+            
+#        if spec.order == 1 or spec.order == 2: #only works if spec already exit
+#            spec.language = None
         
     if request.POST.has_key("url"):
         spec.url = request.POST["url"]

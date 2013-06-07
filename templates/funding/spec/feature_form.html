@@ -1,6 +1,6 @@
 {% load i18n %}
 ﻿﻿{% load oifilters %}
-{% with project.spec_set.all|dictsort:"order" as specs %}
+{% with project.spec_set.all|dictsort:"order" as specs %}{{specs.2.order}}
 <div class="cleared"><img src="/img/askoi.png" />{% trans "Describe here what is to be done in" %} <span class="prjtitle">{{project.title}}</span><div class="cleared sepsearch"></div></div>
 
 <input name="spectype" id="type_{{project.id}}_1" value="2" type="hidden"/>
@@ -46,7 +46,13 @@
 <div><b>{% trans "A long description including : who you are, why you do it, how it can be used..." %}</b></div>
 <div id="{{project.id}}_3" class="column"><textarea id="text_{{project.id}}_3" class="norich">{{specs.2.text|oiunescape}}</textarea></div>
 
-<div class="cleared sepsearch"></div>
+<div id="feature_form_added_{{project.id}}" class="invisible">
+    {% include 'funding/spec/feature_form_added.html' %}
+</div>
+
+<div class="cleared sepsearch">
+    <h6 onclick="document.getElementById('feature_form_added_{{project.id}}').style.display = 'block'" class="clickable" style="width: 38%;">{% trans "Add this description in an other language" %} <div class="moreblue">+</div></h6>
+</div>
 
 {% block related %}
 {% with object as project %}
@@ -63,9 +69,8 @@
 <div class="cleared"></div>
 
 <div id="validspec_{{project.id}}_3" class="actions"><img class="clickable" src="/img/icons/ok-32.png" onclick=" 
-saveSpec('{{project.id}}_1',{{project.id}},getValue('specorder_{{project.id}}_1'),{{specs.0.id|default:0}}, 'funding');
-saveSpec('{{project.id}}_2',{{project.id}},getValue('specorder_{{project.id}}_2'),{{specs.1.id|default:0}}, 'funding');
-saveSpec('{{project.id}}_3',{{project.id}},getValue('specorder_{{project.id}}_3'),{{specs.2.id|default:0}}, 'funding');
+saveAllSpec({{project.id}})
+
 "/></div>
 <div class="cleared"></div>
 
