@@ -32,16 +32,19 @@
                 {% endif %}
             </div>
             <div id="specs_{{project.id}}" class="prjdesc">
-            
+                {% for spec in project.spec_set.all|dictsort:"order" %}
+                    {% if spec.order < 1 %}
+                        <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared funding_space">
+                            {% with project as object %}{%include 'funding/spec/spec.html'%}{% endwith %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
                 {%for spec in project.all_specs_with_languages|dictsort:"order"%}
                     <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared funding_space">
                         {% with project as object %}{%include 'funding/spec/spec.html'%}{% endwith %}
                     </div>
                 {% endfor %}
-                
             </div>
-            
-            
         </div>
         <div class="cleared"></div>
         {% endwith %}
