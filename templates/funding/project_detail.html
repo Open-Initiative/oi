@@ -33,18 +33,10 @@
             </div>
             <div id="specs_{{project.id}}" class="prjdesc">
             
-                {%for spec in project.spec_set.all|dictsort:"order"%}
-                    {% if project.all_project_with_languages.count == 2 and spec.language == request.LANGUAGE_CODE %}
+                {%for spec in project.all_specs_with_languages|dictsort:"order"%}
                     <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared funding_space">
                         {% with project as object %}{%include 'funding/spec/spec.html'%}{% endwith %}
                     </div>
-                    {% else %}
-                        {% if spec.language == None and project.all_project_with_languages.count == 0 %}
-                        <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared funding_space">
-                            {% with project as object %}{%include 'funding/spec/spec.html'%}{% endwith %}
-                        </div>
-                        {% endif %}
-                    {% endif %}
                 {% endfor %}
                 
             </div>

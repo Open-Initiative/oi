@@ -434,8 +434,8 @@ class Project(models.Model):
     def all_finish_tasks(self):
         return self.descendants.select_related('author', 'assignee', 'delegate_to', 'parent', 'master', 'target').filter(state = 4)
         
-    def all_project_with_languages(self):
-        return self.spec_set.filter(language=translation.get_language())
+    def all_specs_with_languages(self):
+        return self.spec_set.filter(language=translation.get_language()) or self.spec_set.filter(language=None)
         
 #Structure de contrôle des permissions
 class ProjectACL(models.Model):
