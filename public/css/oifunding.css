@@ -1,14 +1,15 @@
 .slidertext dt {
-    color: #1e9947
+    color: #1e9947;
 }
 .slidertip {
-    color: #0f4d42
+    color: #0f4d42;
+    font-size: 0.8em;
 }
 .slidermore {
-    background: #1e9947
+    background: #1e9947;
 }
 #registerbtn {
-    background: #1E9947
+    background: #1E9947;
 }
 #content {
     width: 100%;
