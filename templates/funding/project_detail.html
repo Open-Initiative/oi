@@ -81,11 +81,9 @@
     {% if not object.all_not_started_tasks %}<div class="features" id="features_0"><div id="nofeatures"></div></div>{% endif %}  
     {% if object.all_not_started_tasks %}
         <div class="features" id="features_0">
-            {% for task in object.all_not_started_tasks %}
+            {% for task in object.all_not_started_tasks.filter_read %}
                 <div class="cleared"></div>
-                {% if task|can_read:user %}
-                    {% include 'funding/feature.html' %}
-                {% endif %}
+                {% include 'funding/feature.html' %}
             {% endfor %}
         </div>
         <div class="cleared"></div>
@@ -93,11 +91,9 @@
 
     {% if object.all_progress_tasks %}
         <div class="features" id="features_3">
-            {% for task in object.all_progress_tasks %}
+            {% for task in object.all_progress_tasks.filter_read %}
                 <div class="cleared"></div>
-                {% if task|can_read:user %}
-                    {% include 'funding/feature.html' %}
-                {% endif %}
+                {% include 'funding/feature.html' %}
             {% endfor %}
         </div>
         <div class="cleared"></div>
@@ -105,11 +101,9 @@
 
     {% if object.all_finish_tasks %}
         <div class="features" id="features_4">
-            {% for task in object.all_finish_tasks %}
+            {% for task in object.all_finish_tasks.filter_read %}
                 <div class="cleared"></div>
-                {% if task|can_read:user %}
-                    {% include 'funding/feature.html' %}
-                {% endif %}
+                {% include 'funding/feature.html' %}
             {% endfor %}
         </div>
         <div class="cleared"></div>

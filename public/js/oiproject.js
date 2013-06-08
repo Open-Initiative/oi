@@ -482,11 +482,8 @@ function buildText(divid){
 function saveAllSpec(projectid){
     var specid = document.getElementsByName("specid");
     var specorder = document.getElementsByName("specorder");
-    var i;
-    var j;
-    for (i = 0; i < specid.length; i++){
-        j = i+1;
-        saveSpec(projectid+"_"+j, projectid, specorder[i].value, specid[i].value, "funding");
+    for (var i = 0; i < specid.length; i++){
+        saveSpec(projectid+"_"+i+1, projectid, specorder[i].value, specid[i].value, "funding");
     }
     return specid.length;
 }
