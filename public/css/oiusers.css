@@ -21,8 +21,8 @@ div.userpicture {
 }
 .contactpicture {
     float: left;
-    width: 50px;
-    height: 60px;
+    max-width: 50px;
+    max-height: 60px;
     margin-left: .2em;
     margin-right: .6em;
 }
