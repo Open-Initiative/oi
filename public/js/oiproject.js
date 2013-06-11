@@ -490,7 +490,7 @@ function saveAllSpec(projectid){
 
 function saveSpec(divid, projectid, order, specid, funding) {
     tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
-    var params = "text="+getValue("text_"+divid).replace(/\+/gi,"%2B") + "&order="+order + "&type="+getValue("type_"+divid);
+    var params = "text="+encodeURIComponent(getValue("text_"+divid).replace(/\+/gi,"%2B")) + "&order="+order + "&type="+getValue("type_"+divid);
     if(getValue("language_"+projectid) && order > 3) params +="&language="+getValue("language_"+projectid);
     if(getValue("url_"+divid)) params+="&url="+getValue("url_"+divid);
     if(getValue("filename_"+divid)) params+="&filename="+getValue("filename_"+divid);
