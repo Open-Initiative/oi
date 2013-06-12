@@ -450,6 +450,7 @@ function editSpec(projectid, specorder, funding) {
 }
 function changeSpecType(divid, type) {
     if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
+    var text = getValue("text_"+divid);
     var projectid = getValue("projectid_"+divid);
     var specid = getValue("specid_"+divid);
     document.getElementById("type"+getValue("type_"+divid)+"_"+divid).className = "spectype";
@@ -457,10 +458,10 @@ function changeSpecType(divid, type) {
     document.getElementById("type_"+divid).value = type;
     var url = prjsite+"/project/"+projectid+"/editspecdetails/"+specid+"?divid="+divid+"&type="+type;
     OIajaxCall(url, null, "spec_"+divid, 
-        function(){if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceAddControl', false, 'text_'+divid);
-            if(getValue("type_"+divid)==6){
-                buildText(divid);
-            }
+        function(){
+            if(getValue("type_"+divid)==6) buildText(divid);
+            else document.getElementById("text_"+divid).value = text;
+            if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceAddControl', false, 'text_'+divid);
         });
 }
 function prepareText(divid){

@@ -33,19 +33,11 @@
             </div>
             <div id="editoffer_{{task.id}}" class="editoffer invisible">
                 <img class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hide('editoffer_{{task.id}}')" />
-                {% if user.get_profile.tax_rate == None %}
-                {% trans "Please provide your vat rate" %}
-                <form onsubmit="OIajaxCall('/user/settaxrate', 'taxrate='+getValue('taxrate'), 'output', document.location.reload()); return false">
-                    <input id="taxrate" type="text" class="bidfeature"/> %
-                    <input type="image" class="clickable" src="/img/icons/ok-32.png" />
-                </form>
-                {% else %}
                 <form onsubmit="OIajaxCall('/project/confirmoffer/{{task.id}}', 'offer='+getValue('offer_{{task.id}}'), 'output'); return false">
                     <input id="offer_{{task.id}}" type="text" value="{{task.offer}}" onFocus="this.select()" class="bidfeature" />
                     <div class="cleared"> {% trans "By making an offer, you agree to the" %} <a href="/cgu" target="_blank">{% trans "Terms of Use" %}</a></div>
                     <input type="image" class="clickable" src="/img/icons/ok-32.png" />
                 </form>
-                {% endif %}
             </div>
             <br/>
             <div class="cleared">{% trans "Commission" %} 5% : {{task.commission|default:task.allcommission_sum}}€</div>
