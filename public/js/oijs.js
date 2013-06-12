@@ -252,7 +252,7 @@ tinyMCE.init({
         plugins : "advlink,emotions,iespell,inlinepopups,media,searchreplace,print,contextmenu,paste,noneditable,nonbreaking,xhtmlxtras,advlist",
 
         // Theme options
-        theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontselect, bullist,numlist,|,image,|,forecolor,backcolor,|,emotions",
+        theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontselect, bullist,numlist,|,image,|,forecolor,backcolor,|,emotions,link",
         theme_advanced_buttons2 : "",
         theme_advanced_toolbar_location : "top",
         theme_advanced_toolbar_align : "left",
