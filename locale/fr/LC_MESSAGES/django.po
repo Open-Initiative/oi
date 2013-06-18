@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-18 18:54+0200\n"
+"POT-Creation-Date: 2013-06-18 21:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -845,17 +845,17 @@ msgstr "Se connecter"
 msgid "Register"
 msgstr "S'inscrire"
 
-#: templates/base.html:148 templates/index-root.html:96
+#: templates/base.html:148 templates/index-root.html:84
 #: templates/funding/base.html:134
 msgid "Follow us on facebook"
 msgstr "Suivez nous sur facebook"
 
-#: templates/base.html:149 templates/index-root.html:97
+#: templates/base.html:149 templates/index-root.html:85
 #: templates/funding/base.html:135
 msgid "Follow us on twitter"
 msgstr "Suivez nous sur Twitter"
 
-#: templates/base.html:151 templates/index-root.html:99
+#: templates/base.html:151 templates/index-root.html:87
 #: templates/funding/base.html:137 templates/funding/feature.html:24
 #: templates/funding/feature_budget.html:38
 #: templates/funding/feature_manage.html:24
@@ -866,23 +866,23 @@ msgstr "Suivez nous sur Twitter"
 msgid "Terms of Use"
 msgstr "Conditions Générales d'Utilisation"
 
-#: templates/base.html:152 templates/index-root.html:100
+#: templates/base.html:152 templates/index-root.html:88
 #: templates/index.html:42 templates/funding/base.html:138
 msgid "/presentation"
 msgstr "/presentation"
 
 # "/presentation-fr"
-#: templates/base.html:152 templates/index-root.html:100
+#: templates/base.html:152 templates/index-root.html:88
 #: templates/funding/base.html:138
 msgid "Presentation"
 msgstr "Présentation"
 
 #: templates/base.html:153 templates/contact.html:3
-#: templates/index-root.html:101 templates/funding/base.html:139
+#: templates/index-root.html:89 templates/funding/base.html:139
 msgid "Legal notice"
 msgstr "Mentions légales"
 
-#: templates/base.html:154 templates/index-root.html:102
+#: templates/base.html:154 templates/index-root.html:90
 #: templates/funding/base.html:140
 msgid "Contact"
 msgstr "Contact"
@@ -895,50 +895,46 @@ msgstr "site hébergé par"
 msgid "design by"
 msgstr "design by"
 
-#: templates/index-root.html:41 templates/index-root.html.py:52
-msgid "Just IT, but made differently"
+#: templates/index-root.html:44
+msgid "IT Services, but made differently"
+msgstr "Le service informatique autrement"
+
+#: templates/index-root.html:46
+msgid ""
+"Open Initiative develops and implements tools to offer another vision of IT "
+"services"
 msgstr ""
+"Open Initiative développe et met en oeuvre des outils pour proposer une "
+"autre vision du service informatique."
 
-#: templates/index-root.html:54
-msgid "Open Initiative develops and implements tools to offer another vision of IT services."
-msgstr "Open Initiative développe et met en oeuvre des outils pour proposer une autre vision du service informatique."
-
-#: templates/index-root.html:54
-msgid "You have a project and you're looking for a developer? You are a developer and want to participate in a project?"
-msgstr "Vous avez un projet et vous cherchez un développeur ? Vous êtes un développeur et vous voulez participer à un projet ?"
-
-#: templates/index-root.html:63
-msgid "Follow us on our blog!"
-msgstr "Suivez nous sur notre blog !"
-
-#: templates/index-root.html:71
+#: templates/index-root.html:59
 msgid "the agile project management platform to make your projects happen"
 msgstr "la plate-forme de gestion de projet agile où vos projets prennent vie"
 
-#: templates/index-root.html:72
+#: templates/index-root.html:60
 msgid "Manage your projects on"
 msgstr "Gérer vos projets sur"
 
-#: templates/index-root.html:74
-msgid "the <b>agile</b> project management platform"
-msgstr "la plate-forme de gestion de projet <b>agile</b>"
+#: templates/index-root.html:62
+msgid "the <b>agile</b> project management platform where your projects happen"
+msgstr "la plate-forme de gestion de projet <b>agile</b> où vos projets prennent vie"
 
-#: templates/index-root.html:79 templates/index-root.html.py:82
+#: templates/index-root.html:67 templates/index-root.html.py:70
 #: templates/index.html:61 templates/index.html.py:64
 msgid "the <b>crowdfunding</b> platform for all your free software"
 msgstr ""
 "la plate-forme de <b>financement participatif</b> de tous vos logiciels "
 "libres"
 
-#: templates/index-root.html:80 templates/index.html:62
+#: templates/index-root.html:68 templates/index.html:62
 msgid "Fund your <b>free software</b> on"
 msgstr "Financez vos <b>logiciels libres</b> sur"
 
-#: templates/index-root.html:87
+#: templates/index-root.html:75 templates/index-root.html.py:76
 msgid "the conference rethinking management"
 msgstr "la conférence qui repense le management"
 
-#: templates/index-root.html:88
+#: templates/index-root.html:76
 msgid "coorganizes the"
 msgstr "coorganise la"
 
@@ -1475,7 +1471,20 @@ msgid ""
 "support free software development. Be part of the projects on the long run "
 "and tell us the projects you’d like to see funded!</p>"
 msgstr ""
-"<p>Open Funding est la plate-forme de financement participatif des logiciels libres. Sur Open Funding vous pouvez financer ensemble les évolutions des projets de logiciels libres portés par les développeurs, en contribuant et en suivant leurs progrès.</p><p>Contrairement aux plates-formes qui proposent de faire des dons aux porteurs de projets, Open Funding propose de financer une prestation de service. Les développeurs s’engagent ainsi sur les résultats et peuvent se faire financer plusieurs fonctionnalités au cours du temps. L'objectif est d'apporter un nouveau modèle économique aux développeurs de logiciel libre.</p><p>Que vous soyez utilisateur ou développeur ce site est pour vous ! Nous sommes l’intermédiaire entre ceux qui cherchent des logiciels libres et veulent les soutenir, et ceux qui ont des projets à développer et cherchent des financements.</p><p>Avec Open Funding, vous pouvez accompagner les projets sur le long terme et contribuer au soutien du logiciel libre en finançant ses évolutions.</p>"
+"<p>Open Funding est la plate-forme de financement participatif des logiciels "
+"libres. Sur Open Funding vous pouvez financer ensemble les évolutions des "
+"projets de logiciels libres portés par les développeurs, en contribuant et "
+"en suivant leurs progrès.</p><p>Contrairement aux plates-formes qui "
+"proposent de faire des dons aux porteurs de projets, Open Funding propose de "
+"financer une prestation de service. Les développeurs s’engagent ainsi sur "
+"les résultats et peuvent se faire financer plusieurs fonctionnalités au "
+"cours du temps. L'objectif est d'apporter un nouveau modèle économique aux "
+"développeurs de logiciel libre.</p><p>Que vous soyez utilisateur ou "
+"développeur ce site est pour vous ! Nous sommes l’intermédiaire entre ceux "
+"qui cherchent des logiciels libres et veulent les soutenir, et ceux qui ont "
+"des projets à développer et cherchent des financements.</p><p>Avec Open "
+"Funding, vous pouvez accompagner les projets sur le long terme et contribuer "
+"au soutien du logiciel libre en finançant ses évolutions.</p>"
 
 #: templates/funding/presentation.html:27
 msgid ""
@@ -1534,7 +1543,21 @@ msgid ""
 "payment only happens in case the users validate the project, so that the "
 "software is guaranteed to answer to your needs.</p>"
 msgstr ""
-"<p>Les développeurs proposent sur la plateforme leurs projets de logiciel libre avec la liste des évolutions prévues et le montant nécessaire pour leur développement. Les utilisateurs apportent du financement à la hauteur qu'ils souhaitent sur les évolutions qui les intéressent. Une fois le montant demandé atteint, le porteur de projet peut démarrer les développements. Il indique la livraison lorsque le travail est terminé. Les utilisateurs ont alors 14 jours pour valider la réception ou demander des corrections. Le développeur n'est payé qu'après validation par les utilisateurs.</p><p>En tant qu’intermédiaire Open Funding assure aux utilisateurs la conclusion du développement, et au développeur le paiement une fois le travail réalisé.</p><p>Open Funding prélève une commission limitée à 5% déduite du montant versé au prestataire une fois la mission achevée. Le règlement n'est effectué qu’en cas de validation du développement par les utilisateurs, donc le projet est la garantie de voir le projet évoluer dans le sens de vos besoins.</p>"
+"<p>Les développeurs proposent sur la plateforme leurs projets de logiciel "
+"libre avec la liste des évolutions prévues et le montant nécessaire pour "
+"leur développement. Les utilisateurs apportent du financement à la hauteur "
+"qu'ils souhaitent sur les évolutions qui les intéressent. Une fois le "
+"montant demandé atteint, le porteur de projet peut démarrer les "
+"développements. Il indique la livraison lorsque le travail est terminé. Les "
+"utilisateurs ont alors 14 jours pour valider la réception ou demander des "
+"corrections. Le développeur n'est payé qu'après validation par les "
+"utilisateurs.</p><p>En tant qu’intermédiaire Open Funding assure aux "
+"utilisateurs la conclusion du développement, et au développeur le paiement "
+"une fois le travail réalisé.</p><p>Open Funding prélève une commission "
+"limitée à 5% déduite du montant versé au prestataire une fois la mission "
+"achevée. Le règlement n'est effectué qu’en cas de validation du "
+"développement par les utilisateurs, donc le projet est la garantie de voir "
+"le projet évoluer dans le sens de vos besoins.</p>"
 
 #: templates/funding/presentation.html:63
 msgid ""
@@ -1608,7 +1631,7 @@ msgstr ""
 #: templates/funding/presentation.html:73
 msgid ""
 "<h4>Licence</h4><p>Tous les résultats de projets sur Open Funding sont "
-"publiés sous licence libre. Chaque développeur doit préciser la license sous "
+"publiés sous licence libre. Chaque développeur doit préciser la licence sous "
 "laquelle ses développements seront placés.</p><h4>Rémuneration d’Open "
 "Funding</h4><p>En tant qu’intermédiaire entre développeurs et utilisateurs, "
 "Open Funding reçoit une commission du 5% HT du cout total de l’évolution "
@@ -1619,7 +1642,9 @@ msgstr ""
 
 #: templates/funding/presentation.html:77
 msgid "You can start today improving free software with us!"
-msgstr "Vous pouvez commencer aujourd’hui à faire progresser le logiciel libre avec nous."
+msgstr ""
+"Vous pouvez commencer aujourd’hui à faire progresser le logiciel libre avec "
+"nous."
 
 #: templates/funding/project_actions.html:5
 msgid "Support"
@@ -3077,6 +3102,16 @@ msgstr "Message envoyé"
 #: users/views.py:277
 msgid "Notice archived"
 msgstr "Notification archivée"
+
+#~ msgid ""
+#~ "You have a project and you're looking for a developer? You are a "
+#~ "developer and want to participate in a project?"
+#~ msgstr ""
+#~ "Vous avez un projet et vous cherchez un développeur ? Vous êtes un "
+#~ "développeur et vous voulez participer à un projet ?"
+
+#~ msgid "Follow us on our blog!"
+#~ msgstr "Suivez nous sur notre blog !"
 
 msgid "overview"
 msgstr "Suivi"

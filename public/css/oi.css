@@ -629,35 +629,12 @@ div.morelink {
 .rootlogo {
     margin-bottom: 1.5em;
 }
-.rootcatcher {
-    text-align: center;
-    font-size: 1.3em;
-}
-.roottitle {
-    color: #D0574C;
-    font-size: 1.5em;
-    font-weight: bold;
-    padding-top: 0.5em;
-    text-transform: uppercase;
-}
-.rootsubtitle {
-    color: #0094B5;
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-bottom: .5em;
-}
-.roottip {
-    color: #68274E;
-}
-.rootcontact {
-    background: #D0574C;
-    border-radius: 3px;
-    color: white;
-    font-weight: bold;
-    padding: 5px 12px;
-    text-transform: uppercase;
+#rootcatcher {
+    height: 150px;
+    width: 1020px;
+    margin: auto;
+    clear: left;
     position: relative;
-    top: .5em;
 }
 .oired {
     color: #D0574C;
