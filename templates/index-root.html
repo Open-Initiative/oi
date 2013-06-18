@@ -34,6 +34,13 @@
         {% endfor %}
         <div><span id="output" class="info"></span></div>
     </div>
+    <div class="center">
+        <form action="/i18n/setlang/" method="post" class="actions">
+            {% csrf_token %}
+            <input type="hidden" name="language" value="{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}">
+            <input type="image" src="/img/{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}.png" />
+        </form>
+    </div>
     <div class="space"></div>
     <div id="catcherbg">
         <div id="rootcatcher">
