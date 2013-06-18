@@ -34,49 +34,33 @@
         {% endfor %}
         <div><span id="output" class="info"></span></div>
     </div>
-    <div id="header">
-        <div class="center">
-            <div id="logo"><a href="/"><img style="height:75px" src="/img/logo.png" /></a></div>
-            <div id="searchdiv">
-                <div id="baseline">{% trans "Just IT, but made differently" %}</div>
-                <img src="/img/baseunderline.png" />
-            </div>
-        </div>
-    </div>
+    <div class="space"></div>
     <div id="catcherbg">
-        <div id="catcher">
-            <div id="slider" class="slider" onmouseover="window.slide=false" onmouseout="if(event.target.id=='slider')window.slide=true">
-                <div class="slidertext">
-                    <dl>
-                        <div id="indexslide1" class="indexslide"><dt>{% trans "Open Initiative" %}</dt>
-                            <dd>{% trans "Just IT, but made differently" %}</dd>
-                        </div>
-                        <div class="slidertip">{% trans "Open Initiative develops tools to make IT differently" %}</div>
-                    </dl>
-                </div>
-            </div>
+        <div id="catcher" class="rootcatcher">
+            <div class="roottitle">Open Initiative</div>
+                <div class="rootsubtitle">{% trans "Just IT, but made differently" %}</div>
+                <div class="roottip">{% trans "Open Initiative develops and implements tools to offer another vision of IT services." %}</div>
+                <div class="roottip">{% trans "You have a project and you're looking for a developer?" %}</div>
+                <div class="roottip">{% trans "You are a developer and want to participate in a project?" %}</div>
+                <span class="rootcontact">{% trans "Contact us!" %}</span>
         </div>
     </div>
     <div class="headersep">
-        <div class="registerline">
-            <a href=""><div class="registertext">
-                {% trans "Follow us on our blog!" %}
-            </div></a>
-        </div>
+        <div class="space"></div>
     </div>
     <div class="center">
         <div>
             <div>
                 <a href="http://{{Sites|get:"Open Initiative Projects"}}"><div class="rootdesc">
-                    <div><img src="/img/logo.png" alt="Open Initiative Projects, {% trans "the agile project management platform to make your projects happen" %}" title="Open Initiative Projects, {% trans "the agile project management platform to make your projects happen" %}" /></div>
+                    <div class="rootlogo"><img src="/img/logo.png" alt="Open Initiative Projects, {% trans "the agile project management platform to make your projects happen" %}" title="Open Initiative Projects, {% trans "the agile project management platform to make your projects happen" %}" /></div>
                     {% trans "Manage your projects on" %}
                     <div class="fundingtitle">Open <span class="oired">Initiative</span></div>
-                    {% trans "the <b>agile</b> project management platform" %}
+                    {% trans "the <b>agile</b> project management platform where your projects happen" %}
                 </div></a>
             </div>
             <div>
                 <a href="http://{{Sites|get:"Open Funding"}}"><div class="rootdesc">
-                    <div><img src="/img/logo_funding.png" alt="Open Funding, {% trans "the <b>crowdfunding</b> platform for all your free software" %}" title="Open Funding, {% trans "the <b>crowdfunding</b> platform for all your free software" %}" /></div>
+                    <div class="rootlogo"><img src="/img/logo_funding.png" alt="Open Funding, {% trans "the <b>crowdfunding</b> platform for all your free software" %}" title="Open Funding, {% trans "the <b>crowdfunding</b> platform for all your free software" %}" /></div>
                     {% trans "Fund your <b>free software</b> on" %}
                     <div class="fundingtitle">Open <span class="fundinggreen">Funding</span></div>
                     {% trans "the <b>crowdfunding</b> platform for all your free software" %}
@@ -84,8 +68,8 @@
             </div>
             <div>
                 <a href="http://flat-conference.com/"><div class="rootdesc">
-                    <div><img src="" alt="The Flat Conference, {% trans "the conference rethinking management" %}" title="The Flat Conference, {% trans "the conference rethinking management" %}" /></div>
-                    Open Initiative {% trans "coorganizes the" %} Flat Conference!
+                    <div class="rootlogo"><img src="" alt="The Flat Conference, {% trans "the conference rethinking management" %}" title="The Flat Conference, {% trans "the conference rethinking management" %}" /></div>
+                    Open Initiative {% trans "coorganizes the" %} <b>Flat Conference</b>, {% trans "the conference rethinking management" %}
                 </div></a>
             </div>
         </div>

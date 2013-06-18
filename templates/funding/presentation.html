@@ -2,50 +2,82 @@
 {% load i18n %}
 {% block title %}{% trans "Presentation of Open Funding" %}{% endblock %}
 {% block pagetitle %}{% trans "Presentation of Open Funding" %}{% endblock %}
-{% block nav %}
-<div id="navhome">
-    <a href="#1" onclick="slidePres('#1')"><div>{% trans "What is Open Funding?" %}</div></a>
-    <a href="#2" onclick="slidePres('#2')"><div class="navitem">{% trans "How does it work?" %}</div></a>
-    <a href="#3" onclick="slidePres('#3')"><div class="navitem">{% trans "Get involved" %}</div></a>
-</div>
-{% endblock %}
 {% block content %}
-<div class="presslide" id="1">
-    <h2>{% trans "What is Open Funding?" %}</h2>
-    {% trans "<p>Open Funding is the crowdfunding platform for all your free software. Here you can help fund the software development by contributing to the projects and following their evolution.</p><p>Whether a user or a developer, this is the place for you! Open Funding is the intermediate between those who look for free software solutions and those who have projects to develop and are looking for funding.</p><p>With Open Funding, you can contribute and support free software development. Be part of the projects on the long run and tell us the projects you’d like to see funded!</p>" %}
-    <h2>{% trans "The team" %}</h2>
-    <div class="column">
-        <img class="teampicture" src="/img/team/sylvain.png" />
-        <div class="column">
-            <div class="usertitle">Sylvain</div>
-            <div class="cleared">{% trans "Founder" %}</div>
-        </div>
-    </div>
-    <div class="column">
-        <img class="teampicture" src="/img/team/maxi.png" /> 
-        <div class="column">
-            <div class="usertitle">Maxi</div>
-            <div class="cleared">{% trans "UX developer" %}</div>
-        </div>
-    </div>
-    <div class="column">
-        <img class="teampicture" src="/img/team/daniel.png" /> 
-        <div class="column">
-            <div class="usertitle">Daniel</div>
-            <div class="cleared">{% trans "Product manager" %}</div>
-        </div>
-    </div>
-    <div class="cleared"></div>
+<div class="presnav">
+    <div class="presnavtitle">{% trans "What is Open Funding?" %}</div>
+    <a href="#11" onclick="slidePres('#11')"><div class="presnavsection">{% trans "Description" %}</div></a>
+    <a href="#12" onclick="slidePres('#12')"><div class="presnavsection">{% trans "Why free software?" %}</div></a>
+    <a href="#13" onclick="slidePres('#13')"><div class="presnavsection">{% trans "The team" %}</div></a>
+    <div class="presnavtitle">{% trans "How does it work?" %}</div>
+    <a href="#21" onclick="slidePres('#21')"><div class="presnavsection">{% trans "The principle" %}</div></a>
+    <a href="#22" onclick="slidePres('#22')"><div class="presnavsection">{% trans "Creating a project" %}</div></a>
+    <a href="#23" onclick="slidePres('#23')"><div class="presnavsection">{% trans "Funding a project" %}</div></a>
+    <a href="#24" onclick="slidePres('#24')"><div class="presnavsection">{% trans "Licence and fees" %}</div></a>
+    <a href="#3" onclick="slidePres('#3')"><div class="presnavtitle">{% trans "Get involved" %}</div></a>
 </div>
-<div class="presslide invisible" id="2">
-    <h2>{% trans "How does it work?" %}</h2>
-    {% trans "<p>If you have a free software project, propose it on the platform with the list of features and the amount of money needed to develop each of them. You promote the project to the community and then users deposit their contributions according to their interests on the features.</p><p>Once the requested amount is reached, you can start developing. The developer determines the delivery date when the project is finished. Users then have 14 days to confirm reception or request corrections. The developer is paid only after validation by the users.</p><p>This way Open Funding secures the conclusion of the project to the users and the payment to developers once the work is done. Access to the platform is completely free for users and developers. Open Funding’ fees are limited to a 5% commission deducted from the amount paid to the beneficiary when the mission is completed. The payment only happens in case the users validate the project, so that the software is guaranteed to answer to your needs.</p>" %}
+<div class="prjbody">
+    <div class="presslide" id="11">
+        <h2>{% trans "What is Open Funding?" %}</h2>
+        <h3>{% trans "Description" %}</h3>
+        {% trans "<p>Open Funding is the crowdfunding platform for all your free software. Here you can help fund the software development by contributing to the projects and following their evolution.</p><p>Whether a user or a developer, this is the place for you! Open Funding is the intermediate between those who look for free software solutions and those who have projects to develop and are looking for funding.</p><p>With Open Funding, you can contribute and support free software development. Be part of the projects on the long run and tell us the projects you’d like to see funded!</p>" %}
+    </div>
+    <div class="presslide invisible" id="12">
+        <h2>{% trans "What is Open Funding?" %}</h2>
+        <h3>{% trans "Why free software?" %}</h3>
+        {% trans "<p>Le logiciel libre trouve sa source dans les années 1980, quand certains utilisateurs d’ordinateurs ont voulu pouvoir modifier les logiciels qui leur permettaient d’utiliser ces ordinateurs. Ils ont donc autorisé les utilisateurs de leurs programmes à les modifier et redistribuer. De nombreuses personnes se sont mises à contribuer à ces logiciels, et il est rapidement apparu que ce système présentait de nombreux avantages.</p><p>Aujourd’hui le logiciel libre apparait comme un modèle crédible qui a prouvé son efficacité. En réutilisant ce qui a été fait par d’autres, les développeurs peuvent créer rapidement de nouvelles applications et contribuer à leur tour au bien commun que constitue le logiciel libre. Mais ces développeurs ont besoin de vivre. Aujourd’hui de nombreux développeurs vendent des services autour de leur logiciel, mais ces revenus ne sont pas directement liés au travail de développement lui-même.</p><p>Open Funding vous permet de participer au développement du logiciel libre en contribuant au financement des fonctionnalités que vous avez besoin de voir ajoutées aux logiciels libres. Aujourd’hui le logiciel est un fondement de notre société. Pas une machine ne tourne sans logiciel. Le logiciel est simplement la recette qui fait tourner de nombreux pans de nos activités.</p><p>Chez Open Initiative, nous croyons que cette recette est l’affaire de tous, et qu’elle ne doit pas être laissée à des intérêts financiers, ou à quelques techniciens éclairés. Open Funding vous permet donc de participer à la constitution du logiciel libre, que vous soyez un développeur qui veut vivre de son travail, ou un utilisateur qui veut un logiciel qui réponde enfin à ses besoins.</p>" %}
+    </div>
+    <div class="presslide invisible" id="13">
+        <h2>{% trans "What is Open Funding?" %}</h2>
+        <h3>{% trans "The team" %}</h3>
+        <div class="column">
+            <img class="teampicture" src="/img/team/sylvain.png" />
+            <div class="column">
+                <div class="usertitle">Sylvain</div>
+                <div class="cleared">{% trans "Founder" %}</div>
+            </div>
+        </div>
+        <div class="column">
+            <img class="teampicture" src="/img/team/maxi.png" /> 
+            <div class="column">
+                <div class="usertitle">Maxi</div>
+                <div class="cleared">{% trans "UX developer" %}</div>
+            </div>
+        </div>
+        <div class="column">
+            <img class="teampicture" src="/img/team/daniel.png" /> 
+            <div class="column">
+                <div class="usertitle">Daniel</div>
+                <div class="cleared">{% trans "Product manager" %}</div>
+            </div>
+        </div>
+        <div class="cleared"></div>
+    </div>
+    <div class="presslide invisible" id="21">
+        <h2>{% trans "How does it work?" %}</h2>
+        <h3>{% trans "The principle" %}</h3>
+        {% trans "<p>If you have a free software project, propose it on the platform with the list of features and the amount of money needed to develop each of them. You promote the project to the community and then users deposit their contributions according to their interests on the features.</p><p>Once the requested amount is reached, you can start developing. The developer determines the delivery date when the project is finished. Users then have 14 days to confirm reception or request corrections. The developer is paid only after validation by the users.</p><p>This way Open Funding secures the conclusion of the project to the users and the payment to developers once the work is done. Access to the platform is completely free for users and developers. Open Funding’ fees are limited to a 5% commission deducted from the amount paid to the beneficiary when the mission is completed. The payment only happens in case the users validate the project, so that the software is guaranteed to answer to your needs.</p>" %}
+    </div>
+    <div class="presslide invisible" id="22">
+        <h2>{% trans "How does it work?" %}</h2>
+        <h3>{% trans "Creating a project" %}</h3>
+        {% trans "<p>Si vous avez un projet de logiciel libre, vous le proposez sur la plate-forme avec la liste des évolutions prévues. Vous expliquez en quoi consiste votre projet et ses fonctionnalités dans la page de création. Pour chacune vous determinez le montant nécessaire pour leur développement. À ce somme TTC, nous ajoutons le 5% HT de la commission Open Funding.</p><p>Vous pouvez ajouter plusieurs évolutions pour chaque projet.</p><h4>J’ai créé le projet, et après ?</h4><p>Avant de le publier sur la plate-forme nous allons prendre contact avec vous par mail et après par telephone. Nous souhaitons établir un contact avec les porteurs de projets pour connaitre un peu plus d’eux directement, et les assister dans la communication qu’ils souhaitent apporter au projet.</p><p>Une fois que nous avons validé ensemble la marche à suivre, c’est le moment de communiquer votre projet auprès de la communauté. Chaque développeur est libre de communiquer comme il le souhaite et transmettre l’information à ses utilisateurs pour faire connaître et financer le projet. Néanmoins, nous sommes toujours disponibles pour vous guider pendant cette démarche.</p><p>Vous pouvez nous contacter : contact@openintitiative.com</p><h4>J’ai réuni les fonds, et après ?</h4><p>Quand une évolution achève le montant estimé, vous pouvez démarrer le développement. Le temps de développement correspond à celui précisé dans la déscription de l’évolution. À tout moment, vous pouvez communiquer avec les financeurs sur la plateforme pour discuter son progrès.</p><p>Une fois vous finissez le développement, vous délivrez le produit. Chaque developpeur determine avec ses financeurs le meilleur moyen pour livrer le résultat. Le produit peut etre integré à la prochaine version du logiciel, être un fork, être livré comme patch, etc</p><p>Les utilisateurs ont 14 jours pour valider ou démander des corrections de votre produit. Si après les 14 jours il manque la validation de la parte d’un utilisateur, le produit sera validé automatiquement et le développeur sera payé. A chaque fois qu'un utilisateur valide le développement, la somme qu'il a payée est versée au développeur.</p><p>Open Funding reçoit la commission de 5% HT du coût total de l’évolution.</p>" %}
+    </div>
+    <div class="presslide invisible" id="23">
+        <h2>{% trans "How does it work?" %}</h2>
+        <h3>{% trans "Funding a project" %}</h3>
+        {% trans "<p>Open funding est le lieu pour financer les projets de logiciel libre portés par développeurs, fonctionnalité par fonctionnalité. Sur le site nous recevons des projets de différentes catégories de logiciel libre. Vous trouverez les derniers projets sur la page d’accueil.</p><h4>Pourquoi financer un projet ?</h4><p>Libre ne veut pas dire gratuit ! Les projets que vous trouvez sur Open Funding sont portés par des développeurs qui dédient leur temps et leurs efforts au développement informatique. Financer un projet sur Open Funding c’est apporter une solution à vos besoins de logiciel libre et récompenser les developpeurs au niveau qu’ils méritent.</p><p>Vous pouvez suivre les progrès du projet que vous soutenez et prendre contact avec le créateur à tout moment. C’est vous qui validez le produit quand il est fini et confirmez que le résultat reçu correspond à l’évolution attendait.</p><h4>Financer évolution par évolution</h4><p>Sur Open funding, vous pouvez trouver les fonctionnalités qui ameliorent vos logiciels libres préférés. Une fois vous créez un compte sur le site, vous êtes prêt pour participer. S’il existe une évolution d’un projet qui vous intéresse, vous cliquez sur le bouton « soutenir » et vous définissez le montant que vous souhaitez apporter. En finançant les évolutions, vous acceptez les Conditions Générales d’Utilisation.</p><p>Vous avez un crédit dans votre compte qui vous permet de financer les projets sur le site. Vous pouvez alimenter votre crédit en tout moment dans la section Mon Compte. De cette manière vous aidez à cofinancer vos projets préférés en ajoutant le montant desiré en fonction de vos  intérêts. Votre crédit est modifiable en tout moment.</p><p>Notre système sécurisé permet de garder votre compte et vos financements en sécurité.</p><h4>Proposer une évolution</h4><p>Vous pouvez apporter ou suggérez d'autres fontcionnalités pour un projet qui vous intéresse. Sur la page des projets vous pouvez ajouter une nouvelle fonctionnalité, avec sa description et l’information pertinente. C’est le développeur qui accepte ou reformule votre proposition. Vous serez notifié des modifications de votre suggestion.</p>" %}
+    </div>
+    <div class="presslide invisible" id="24">
+        <h2>{% trans "How does it work?" %}</h2>
+        <h3>{% trans "Licence and fees" %}</h3>
+        {% trans "<h4>Licence</h4><p>Tous les résultats de projets sur Open Funding sont publiés sous licence libre. Chaque développeur doit préciser la licence sous laquelle ses développements seront placés.</p><h4>Rémuneration d’Open Funding</h4><p>En tant qu’intermédiaire entre développeurs et utilisateurs, Open Funding reçoit une commission du 5% HT du cout total de l’évolution financée. Cette commission est facturée aux développeurs, une fois le montant determiné pour la fonctionnalité atteint. Open Funding ne perçoit rien si l’évolution n’arrive pas au financement prévu.</p>" %}
+    </div>
+    <div class="presslide invisible" id="3">
+        <h2>{% trans "Get involved" %}</h2>
+        {% trans "You can start today improving free software with us!" %}
+    </div>
+    <script>
+        if(document.location.hash) slidePres(document.location.hash);
+    </script>
 </div>
-<div class="presslide invisible" id="3">
-    <h2>{% trans "Get involved" %}</h2>
-    {% trans "Free software development takes time and effort, that’s why you too can participate in the projects and support them on Open Funding. As an intermediate we propose a secure platform for both the project developers and users.</p><p>Get to know all the new and proposed features and follow the latest developments when they arrive. Propose new functionalities, give your opinion and contribute in their funding to make them possible.</p><p>Open Funding allows you to fund the creation of projects. Join the community supporting free software!" %}
-</div>
-<script>
-    if(document.location.hash) slidePres(document.location.hash);
-</script>
 {% endblock %}
