@@ -13,7 +13,7 @@
     <a href="#22" onclick="slidePres('#22')"><div class="presnavsection">{% trans "Creating a project" %}</div></a>
     <a href="#23" onclick="slidePres('#23')"><div class="presnavsection">{% trans "Funding a project" %}</div></a>
     <a href="#24" onclick="slidePres('#24')"><div class="presnavsection">{% trans "Licence and fees" %}</div></a>
-    <a href="#3" onclick="slidePres('#3')"><div class="presnavtitle">{% trans "Get involved" %}</div></a>
+    <a href="#31" onclick="slidePres('#31')"><div class="presnavtitle">{% trans "Get involved" %}</div></a>
 </div>
 <div class="prjbody">
     <div class="presslide" id="11">
@@ -72,12 +72,12 @@
         <h3>{% trans "Licence and fees" %}</h3>
         {% trans "<h4>Licence</h4><p>Tous les résultats de projets sur Open Funding sont publiés sous licence libre. Chaque développeur doit préciser la licence sous laquelle ses développements seront placés.</p><h4>Rémuneration d’Open Funding</h4><p>En tant qu’intermédiaire entre développeurs et utilisateurs, Open Funding reçoit une commission du 5% HT du cout total de l’évolution financée. Cette commission est facturée aux développeurs, une fois le montant determiné pour la fonctionnalité atteint. Open Funding ne perçoit rien si l’évolution n’arrive pas au financement prévu.</p>" %}
     </div>
-    <div class="presslide invisible" id="3">
+    <div class="presslide invisible" id="31">
         <h2>{% trans "Get involved" %}</h2>
         {% trans "You can start today improving free software with us!" %}
     </div>
     <script>
-        if(document.location.hash) slidePres(document.location.hash);
+        if(document.location.hash) slidePres(document.location.hash+"1");
     </script>
 </div>
 {% endblock %}
