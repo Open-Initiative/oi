@@ -610,3 +610,17 @@ div.morelink {
     font-size: 16px;
     font-weight: bold;
 }
+
+.rootdesc {
+    background-color: white;
+    border: 1px solid #E3E3E5;
+    float: left;
+    font-size: 160%;
+    margin: 1%;
+    padding: 0.5em;
+    text-align: center;
+    width: 28%;
+}
+.oired {
+    color: #68274E;
+}
