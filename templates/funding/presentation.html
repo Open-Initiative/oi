@@ -75,9 +75,22 @@
     <div class="presslide invisible" id="31">
         <h2>{% trans "Get involved" %}</h2>
         {% trans "You can start today improving free software with us!" %}
+        <div class="cleared actions clickable actionbutton" onclick="$('#prjlist0').fadeToggle(); $('#promoted_project').fadeToggle(); $('#prjlist3').fadeToggle(); $('#oi_last_project').fadeToggle()">
+            <div>{% trans "submit" %}</div>
+            {% trans "your project" %}
+            <input id="appname" type="hidden" value="funding" />
+        </div>
+        <div class="invisible prjlist" id="prjlist0">
+            <div class="projectlisttitle">{% trans "Submit your project" %}</div>
+            <form class="form_center" onsubmit="if(getValue('prjtitle')) addTask(getValue('prjtitle'), null, null,function(taskid){document.location = '/funding/'+taskid+'/edit'});return false" >
+                {% trans "Please enter your project title :" %}
+                <input id="prjtitle"/>
+                <input type="image" src="/img/icons/ok-32.png" />
+            </form>
+        </div>
     </div>
     <script>
-        if(document.location.hash) slidePres(document.location.hash+"1");
+        if(document.location.hash) slidePres(document.location.hash+(document.location.hash.length>2?"":"1"));
     </script>
 </div>
 {% endblock %}
