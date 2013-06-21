@@ -31,7 +31,7 @@
         <img src="/img/icons/delete.png" alt="{% trans 'delete feature' %}" title="{% trans 'delete feature' %}" class="clickable" onclick="deleteProject({{task.id}})" />
     </div>{% endif %}
     <div id="feature_{{task.id}}" class="featuretitle">{{task.title}}</div>
-    {% if task|can_manage:user or task.spec_set.count%}<a class="clickable" onclick="showPopup(document.getElementById('featuredesc_{{task.id}}'))">{% trans "Description" %}</a>{% endif %}
+    {% if task|can_manage:user or task.spec_set.count%}<a class="clickable" onclick="{% if task|can_write:user and task.state < 4 and not task.spec_set.all %}addSpec('{{task.id}}');{% endif %}showPopup(document.getElementById('featuredesc_{{task.id}}'))">{% trans "Description" %}</a>{% endif %}
     <div>
         <div><span class="funded">{{task.allbid_sum|default:0|floatformat:"-2"}} €</span> {% trans "funded" %}</div>
         {% include 'funding/project_actions.html' %}

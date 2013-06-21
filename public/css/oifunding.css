@@ -29,9 +29,6 @@
 }
 .presnavsection {
 }
-.specfooter {
-    color: #1E9947;
-}
 .projectlisttitle {
   color: #1E9947;
   font-size: 200%;
@@ -761,7 +758,7 @@ div.specfooter {
     float: right;
     text-align: right;
     background: #D7E7F0;
-    color: #D0574C;
+    color: #1E9947;
     padding: 3px;
 }
 div.sepspecfooter {

@@ -887,7 +887,6 @@ def editspec(request, id, specid):
 @OINeedsPrjPerms(OI_WRITE)
 def editspecdetails(request, id, specid):
     """Edit template of a spec detail, ie: text, image, file..."""
-    divid = request.GET["divid"]
     type = int(request.GET["type"])
     project = Project.objects.get(id=id)
     spec=None
@@ -897,7 +896,7 @@ def editspecdetails(request, id, specid):
         spec = Spec.objects.get(id=specid)
         if spec.project.id != int(id):
             return HttpResponse(_("Wrong arguments"), status=531)
-    return direct_to_template(request, template='projects/spec/edit_type%s.html'%(type), extra_context={'user': request.user, 'divid': divid, 'project':project, 'spec':spec})
+    return direct_to_template(request, template='projects/spec/edit_type%s.html'%(type), extra_context={'user': request.user, 'divid': request.GET["divid"], 'project':project, 'spec':spec})
 
 @login_required
 @OINeedsPrjPerms(OI_WRITE)
@@ -918,15 +917,12 @@ def savespec(request, id, specid='0'):
 
     else: #edit existing spec
         spec = Spec.objects.get(id=specid)
-        if spec.project.id != int(id):
+        if spec.project.id != int(id): #checks project id
             return HttpResponse(_("Wrong arguments"), status=531)
         spec.text = request.POST.get("legend") or oiescape(request.POST["text"])
         if request.POST.get("language"): 
             spec.language = request.POST.get("language")
             
-#        if spec.order == 1 or spec.order == 2: #only works if spec already exit
-#            spec.language = None
-        
     if request.POST.has_key("url"):
         spec.url = request.POST["url"]
     if request.POST.has_key("type"):
@@ -941,7 +937,7 @@ def savespec(request, id, specid='0'):
     if not filename and not spec.file and spec.type in (2,5):
         return HttpResponse(_("Wrong arguments"), status=531)
     if filename:
-#        filename = normalize("NFC", filename)
+#        filename = normalize("NFC", filename) #this encoding should work with next version of xsendfile
         filename = normalize("NFKD", filename).encode('ascii', 'ignore').replace('"', '')
         if spec.file:
             spec.file.delete()

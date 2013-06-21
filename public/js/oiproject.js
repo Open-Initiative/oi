@@ -437,16 +437,11 @@ function moveSpec(projectid, specorder, moveUp){
                 div.attr("id", id);
             });  
 }
-function editSpec(projectid, specorder, funding) {
+function editSpec(projectid, specorder, type) {
     var specid = getValue("specid_"+projectid+"_"+specorder);
     var divid = "spec_"+projectid+"_"+specorder;
-    if(!funding){
-        OIajaxCall("/project/"+projectid+"/editspec/"+specid+"?divid="+divid, null, divid,
-        function(){changeSpecType(divid, getValue("type_"+divid));});
-    }else{
-        OIajaxCall("/funding/"+projectid+"/editspec/"+specid+"?divid="+divid, null, divid,
-        function(){changeSpecType(divid, getValue("type_"+divid));});
-    }
+    OIajaxCall(prjsite+"/project/"+projectid+"/editspec/"+specid+"?divid="+divid, null, divid,
+        function(){changeSpecType(divid, type);});
 }
 function changeSpecType(divid, type) {
     if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
@@ -456,11 +451,10 @@ function changeSpecType(divid, type) {
     document.getElementById("type"+getValue("type_"+divid)+"_"+divid).className = "spectype";
     document.getElementById("type"+type+"_"+divid).className = "spectype spectypeselected";
     document.getElementById("type_"+divid).value = type;
-    var url = prjsite+"/project/"+projectid+"/editspecdetails/"+specid+"?divid="+divid+"&type="+type;
+    var url = prjsite+"/project/"+projectid+"/editspecdetails/"+specid+"?divid="+divid+"&type="+type+"&ts="+(new Date()).getTime();
     OIajaxCall(url, null, "spec_"+divid, 
         function(){
             if(getValue("type_"+divid)==6) buildText(divid);
-            else document.getElementById("text_"+divid).value = text;
             if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceAddControl', false, 'text_'+divid);
         });
 }
