@@ -25,7 +25,7 @@
 </div>
 {% endif %}
 
-<div id="featureDiv_{{task.id}}" class="featureblock" title="{{task.title}}">
+<div id="featureDiv_{{task.id}}" class="featureblock" title="{{task.title}}"{% if not task.public_read %} style="opacity:.4"{% endif %}>
     {% if task|can_write:user and task.state < 4 %}<div class="actions">
         {% if task.state < 2 %}<img src="/img/icons/edit.png" alt="{% trans 'edit title' %}" title="{% trans 'edit title' %}" class="clickable" onclick="var newtitle = prompt(gettext('Please insert a title :'), '{{task.title}}');if(newtitle){confirmEditTitle({{task.id}}, newtitle);}" />{% endif %}
         <img src="/img/icons/delete.png" alt="{% trans 'delete feature' %}" title="{% trans 'delete feature' %}" class="clickable" onclick="deleteFeature({{task.id}})" />
@@ -72,8 +72,5 @@
         $("#featurebudget_{{task.id}}").draggable();
         $("#bidpopup_{{task.id}}").draggable();
     });
-    if(!document.getElementById('public_read_{{task.id}}').checked){
-        document.getElementById("featureDiv_{{task.id}}").style.opacity = 0.4;
-    }
 </script>
 {% endif %}
