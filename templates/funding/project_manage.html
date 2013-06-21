@@ -76,35 +76,29 @@
 
             {% if not object.all_not_started_tasks %}<div class="features_manage" id="features_0"><div id="nofeatures"></div></div>{% endif %}  
             {% if object.all_not_started_tasks %}
-                <div class="features_manage" id="features_0">
+                <ul class="features_manage" id="features_0">
                     {% for task in object.all_not_started_tasks %}
-                        <div class="bordermanage">
                         {% include 'funding/feature_manage.html' %}
-                        </div>
                     {% endfor %}
-                </div>
+                </ul>
                 <div class="cleared"></div>
             {% endif %}
 
             {% if object.all_progress_tasks %}
-                <div class="features_manage" id="features_3">
+                <ul class="features_manage" id="features_3">
                     {% for task in object.all_progress_tasks %}
-                        <div class="bordermanage">
                         {% include 'funding/feature_manage.html' %}
-                        </div>
                     {% endfor %}
-                </div>
+                </ul>
                 <div class="cleared"></div>
             {% endif %}
 
             {% if object.all_finish_tasks %}
-                <div class="features_manage" id="features_4">
+                <ul class="features_manage" id="features_4">
                     {% for task in object.all_finish_tasks %}
-                        <div class="bordermanage">
                         {% include 'funding/feature_manage.html' %}
-                        </div>
                     {% endfor %}
-                </div>
+                </ul>
                 <div class="cleared"></div>
             {% endif %}
             
@@ -127,6 +121,14 @@
     }else if(document.getElementById("features_4")){
         featureShowHide('features_4');
     }
+    function test(event, ui) {
+        alert(ui.item);
+        alert(ui.originalPosition.top);
+    }
+    jQuery(".features_manage").sortable({update: function(event,ui){
+        var params = jQuery(this).sortable("toArray").map(function(id,index) {return id+"="+index}).join("&");
+        OIajaxCall("/project/{{object.id}}/sort", params, "output");
+    }})
 </script>
 {% else %}
 {% trans "Forbidden" %}

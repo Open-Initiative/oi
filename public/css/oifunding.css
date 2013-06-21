@@ -522,6 +522,7 @@ option.oldrelease{
 }
 .features_manage {
     position: relative;
+    list-style-type: none;
 }
 .featuredetail {
     background: none repeat scroll 0 0 white;
@@ -814,7 +815,7 @@ div.sepspecfooter {
     position: relative;
     border-left: 1px solid #E0E0E0;
 }
-.bordermanage{
+.featurebox{
     width:  32%; 
     float:  left;
     margin-left: 3px; 

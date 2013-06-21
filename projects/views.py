@@ -346,6 +346,20 @@ def setpriority(request, id):
     project.save()
     return HttpResponse(_("Priority changed"))
 
+@OINeedsPrjPerms(OI_MANAGE)
+def sorttasks(request, id):
+    """Sorts tasks in a project by setting priority to each of it"""
+    project = Project.objects.get(id=id)
+    if project.parent:
+        return HttpResponse(_("Cannot sort tasks inside a task"), status=431)
+    if project.state > OI_DELIVERED:
+        return HttpResponse(_("Can not change a finished project"), status=431)
+        
+    for param,value in request.POST.items():
+        if param.startswith("task_"):
+            Project.objects.filter(id=param[5:]).update(priority=value)
+    return HttpResponse(_("Features sorted"))
+
 @OINeedsPrjPerms(OI_WRITE)
 def edittitle(request, id):
     """Changes the title of the project"""

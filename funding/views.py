@@ -12,6 +12,13 @@ def get_project(request, id):
         return HttpResponseRedirect('/funding/%s'%project.master.id)
     return direct_to_template(request, template="funding/project_detail.html", extra_context={'object': project, 'types': SPEC_TYPES})
     
+def manage_project(request, id):
+    """get the main project page"""
+    project = get_object_or_404(Project, pk=id)
+    if project.parent:
+        return HttpResponseRedirect('/funding/%s'%project.master.id)
+    return direct_to_template(request, template="funding/project_manage.html", extra_context={'object': project, 'types': SPEC_TYPES})
+    
 def get_feature(request, id):
     """gets the feature block"""
     task = Project.objects.get(id=id)
