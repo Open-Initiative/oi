@@ -3,6 +3,7 @@
 import os
 from time import time
 from datetime import datetime
+from unicodedata import normalize
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.syndication.views import Feed
@@ -140,11 +141,12 @@ def uploadFile(request):
     """uploads an image on the server"""
     uploadedfile = request.FILES['image']
     ts = time()
-    image = open("%s%.0f_%s"%(MEDIA_ROOT,ts,uploadedfile.name), 'wb+')
+    filename = normalize("NFKD", uploadedfile.name).encode('ascii', 'ignore').replace('"', '').replace('-', '_')
+    image = open("%s%.0f_%s"%(MEDIA_ROOT,ts,filename), 'wb+')
     for chunk in uploadedfile.chunks():
         image.write(chunk)
     image.close()
-    return render_to_response('messages/setFile.html', {'filename':"%.0f_%s"%(ts,uploadedfile.name)})
+    return render_to_response('messages/setFile.html', {'filename':"%.0f_%s"%(ts,filename)})
 
 def getFile(request, filename):
     """gets a file in the FS for download"""
