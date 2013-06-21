@@ -15,15 +15,9 @@
             {% endwith %}
         </div>
         {% endfor %}
-        {% if task|can_write:user and task.state < 4 %}
-        {% with "newspec" as divid %}{% if not task.spec_set.all %}
-        <div id="{{divid}}">
-            {% comment %} doesn't work for the with task as project {% endcomment %}
-            {% with task as project %} 
-                {% include 'funding/spec/editspec.html' %}
-            {% endwith %}
-        </div>
-        {% endif %}{% endwith %}{% endif %}
+        {% if task|can_write:user and task.state < 4 and not task.spec_set.all %}
+        <script>addSpec('{{task.id}}');</script>
+        {% endif %}
         {% if task.spec_set.all %}<div class="sepspec"></div>{% endif %}
     </div>
     {% if task|can_write:user and task.state < 4 %}
