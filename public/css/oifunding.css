@@ -332,8 +332,9 @@ div.cardspec {
     top: 335px;
 }
 .featureblock {
+    height: 17em;
     padding: 10px;
-    margin-bottom: 1.5em;
+    margin-bottom: .5em;
     margin-top: 0.5em;
     background: white;
     overflow: hidden;
@@ -523,6 +524,7 @@ option.oldrelease{
 .features_manage {
     position: relative;
     list-style-type: none;
+    padding: 0;
 }
 .featuredetail {
     background: none repeat scroll 0 0 white;
@@ -551,14 +553,13 @@ option.oldrelease{
     margin-right: -3px;
 }
 .statebtn {
-    background: none repeat scroll 0 0 #0094B5;
     border-radius: 3px 3px 3px 3px;
     color: white;
     font-weight: bold;
     text-align: center;
-    width: 32%;
+    width: 5.5em;
     float: left;
-    margin: 0 3px 3px 0;
+    margin: 0 1%;
     padding: 0.4em 0;
 }
 .supportbtn {
