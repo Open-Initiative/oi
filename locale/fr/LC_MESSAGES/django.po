@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-18 21:33+0200\n"
+"POT-Creation-Date: 2013-06-22 16:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,8 +12,8 @@ msgstr ""
 "Language: \n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
-#: helpers.py:31 templates/funding/manage_project.html:71
-#: templates/funding/project_detail.html:75
+#: helpers.py:31 templates/funding/project_detail.html:75
+#: templates/funding/project_manage.html:71
 #: templates/projects/table_overview/table_state.html:4
 msgid "Proposed"
 msgstr "Proposé"
@@ -30,7 +30,7 @@ msgstr "Démarré"
 msgid "Delivered"
 msgstr "Livré"
 
-#: helpers.py:31 templates/funding/manage_project.html:115
+#: helpers.py:31 templates/funding/project_manage.html:109
 #: templates/projects/table_overview/table_state.html:8
 msgid "Done"
 msgstr "Terminé"
@@ -115,44 +115,44 @@ msgstr "Erreur de transformation PDF"
 msgid "Published on"
 msgstr "Publié sur"
 
-#: funding/views.py:33 projects/views.py:712 projects/views.py:725
-#: projects/views.py:882 projects/views.py:899 projects/views.py:922
-#: projects/views.py:942 projects/views.py:967 projects/views.py:969
-#: projects/views.py:972 projects/views.py:983 projects/views.py:995
-#: projects/views.py:999 projects/views.py:1016 users/views.py:223
+#: funding/views.py:40 projects/views.py:726 projects/views.py:739
+#: projects/views.py:896 projects/views.py:912 projects/views.py:935
+#: projects/views.py:952 projects/views.py:977 projects/views.py:979
+#: projects/views.py:982 projects/views.py:993 projects/views.py:1005
+#: projects/views.py:1009 projects/views.py:1026 users/views.py:223
 msgid "Wrong arguments"
 msgstr "Arguments incorrects"
 
-#: messages/models.py:140 messages/views.py:65 messages/views.py:75
-#: messages/views.py:79 projects/models.py:460 projects/views.py:235
+#: messages/models.py:140 messages/views.py:66 messages/views.py:76
+#: messages/views.py:80 projects/models.py:460 projects/views.py:235
 #: projects/views.py:288 templates/funding/edit_project.html:50
-#: templates/funding/manage_project.html:132
 #: templates/funding/project_detail.html:134
+#: templates/funding/project_manage.html:134
 #: templates/projects/project_detail.html:120
 msgid "Forbidden"
 msgstr "Permissions insuffisantes"
 
-#: messages/views.py:113
+#: messages/views.py:114
 msgid "Message deleted"
 msgstr "Message supprimé"
 
-#: messages/views.py:122
+#: messages/views.py:123
 msgid "Can not move a message to its answer"
 msgstr "Impossible de déplacer un message vers sa réponse"
 
-#: messages/views.py:125
+#: messages/views.py:126
 msgid "Message moved"
 msgstr "Message déplacé"
 
-#: messages/views.py:132
+#: messages/views.py:133
 msgid "already voted!"
 msgstr "Déjà voté !"
 
-#: messages/views.py:137
+#: messages/views.py:138
 msgid "voted"
 msgstr "A voté"
 
-#: messages/views.py:170 projects/views.py:1056
+#: messages/views.py:172 projects/views.py:1066
 msgid "Latest updates of Open Initiative "
 msgstr "L'activité la plus récente d'Open Initiative"
 
@@ -355,8 +355,8 @@ msgid "A user has evaluated your project"
 msgstr "Un utilisateur a évalué votre projet"
 
 #: prjnotify/management/commands/register_notice_types.py:22
-#: projects/views.py:603 projects/views.py:611 projects/views.py:622
-#: projects/views.py:660
+#: projects/views.py:617 projects/views.py:625 projects/views.py:636
+#: projects/views.py:674
 msgid "Bid cancelled"
 msgstr "Participation annulée"
 
@@ -457,7 +457,7 @@ msgstr "Impossible d'attribuer une version au projet"
 msgid "Release assigned"
 msgstr "Version modifiée"
 
-#: projects/views.py:267 projects/views.py:355
+#: projects/views.py:267 projects/views.py:369
 msgid "Can not change a finished task"
 msgstr "Impossible de modifier une tâche terminée"
 
@@ -481,9 +481,9 @@ msgstr "Demande de délai en attente de validation"
 msgid "Date updated"
 msgstr "Date mise-à-jour"
 
-#: projects/views.py:328 projects/views.py:344 projects/views.py:357
-#: projects/views.py:374 projects/views.py:403 projects/views.py:691
-#: projects/views.py:896 projects/views.py:914 projects/views.py:985
+#: projects/views.py:328 projects/views.py:344 projects/views.py:371
+#: projects/views.py:388 projects/views.py:417 projects/views.py:705
+#: projects/views.py:909 projects/views.py:927 projects/views.py:995
 msgid "Can not change a task already started"
 msgstr "Impossible de modifier une tâche démarrée"
 
@@ -491,250 +491,262 @@ msgstr "Impossible de modifier une tâche démarrée"
 msgid "Priority changed"
 msgstr "Priorité modifiée"
 
-#: projects/views.py:364
+#: projects/views.py:354
+msgid "Cannot sort tasks inside a task"
+msgstr "Impossible de trier les tâches à l'intérieur d'une autre tâche"
+
+#: projects/views.py:356
+msgid "Can not change a finished project"
+msgstr "Impossible de modifier un projet terminée"
+
+#: projects/views.py:361
+msgid "Features sorted"
+msgstr "Évolutions triées"
+
+#: projects/views.py:378
 msgid "Title updated"
 msgstr "Titre mis-à-jour"
 
-#: projects/views.py:372
+#: projects/views.py:386
 msgid "Task already assigned"
 msgstr "Tâche déjà assignée"
 
-#: projects/views.py:377 projects/views.py:379
+#: projects/views.py:391 projects/views.py:393
 #, python-format
 msgid "The task '%s' already has an offer"
 msgstr "La tâche '%s' a déjà une offre"
 
-#: projects/views.py:385
+#: projects/views.py:399
 msgid "Please enter a valid number"
 msgstr "Merci d'entrer un nombre correct"
 
-#: projects/views.py:394
+#: projects/views.py:408
 msgid "Task taken on"
 msgstr "Tâche assignée"
 
-#: projects/views.py:405
+#: projects/views.py:419
 msgid "Only the user in charge of the project can delegate it"
 msgstr "Seul l'utilisateur responsable du projet peut le déléguer"
 
-#: projects/views.py:409 projects/views.py:503 projects/views.py:747
+#: projects/views.py:423 projects/views.py:517 projects/views.py:761
 msgid "Cannot find user"
 msgstr "Utilisateur introuvable"
 
-#: projects/views.py:412
+#: projects/views.py:426
 msgid "Sent delegation offer"
 msgstr "Proposition de délégation envoyée"
 
-#: projects/views.py:421
+#: projects/views.py:435
 msgid "The project was not delegated to you"
 msgstr "Le projet ne vous a pas été délégué"
 
-#: projects/views.py:432
+#: projects/views.py:446
 msgid "reply sent"
 msgstr "réponse envoyée"
 
-#: projects/views.py:441
+#: projects/views.py:455
 msgid "No delay was requested"
 msgstr "Aucune demande de délai n'a été envoyée"
 
-#: projects/views.py:447
+#: projects/views.py:461
 msgid "The date was not changed"
 msgstr "La date n'a pas été modifiée"
 
-#: projects/views.py:453
+#: projects/views.py:467
 msgid "Awaiting other users' validation"
 msgstr "En attente de la validation des autres utilisateurs"
 
-#: projects/views.py:458
+#: projects/views.py:472
 msgid "The date has been changed"
 msgstr "Un projet que vous suivez a été modifié"
 
-#: projects/views.py:461 projects/views.py:632 projects/views.py:668
+#: projects/views.py:475 projects/views.py:646 projects/views.py:682
 msgid "No reply received"
 msgstr "Aucune réponse reçue"
 
-#: projects/views.py:471
+#: projects/views.py:485
 msgid "Invalid amount"
 msgstr "Montant invalide"
 
-#: projects/views.py:483
+#: projects/views.py:497
 msgid "Bid"
 msgstr "Participation"
 
-#: projects/views.py:484 projects/views.py:644
+#: projects/views.py:498 projects/views.py:658
 #: templates/funding/feature_budget.html:43
 #: templates/projects/project_budget.html:36
 msgid "Commission"
 msgstr "Commission"
 
-#: projects/views.py:492
+#: projects/views.py:506
 msgid "Bid saved"
 msgstr "Souscription enregistrée"
 
-#: projects/views.py:514
+#: projects/views.py:528
 msgid "The user has been added as a validator"
 msgstr "L'utilisateur a été ajouté comme valideur"
 
-#: projects/views.py:521
+#: projects/views.py:535
 msgid "Not enough bids"
 msgstr "Financement insuffisant"
 
-#: projects/views.py:523
+#: projects/views.py:537
 msgid "Only the assignee can start the project"
 msgstr "Seul le responsable du projet peut le démarrer"
 
-#: projects/views.py:530
+#: projects/views.py:544
 msgid "Task started"
 msgstr "Tâche démarrée"
 
-#: projects/views.py:538
+#: projects/views.py:552
 msgid "only the assignee can deliver the project!"
 msgstr "Seul le responsable du projet peut le livrer !"
 
-#: projects/views.py:543
+#: projects/views.py:557
 msgid "Task done!"
 msgstr "Tâche terminée"
 
-#: projects/views.py:553
+#: projects/views.py:567
 msgid "already validated!"
 msgstr "Déjà validé !"
 
-#: projects/views.py:557
+#: projects/views.py:571
 msgid "only bidders can validate the project!"
 msgstr "Seuls les souscripteurs du projet peuvent le valider !"
 
-#: projects/views.py:563
+#: projects/views.py:577
 msgid "Payment"
 msgstr "Paiement"
 
-#: projects/views.py:565
+#: projects/views.py:579
 msgid "Validation saved"
 msgstr "Validation enregistrée"
 
-#: projects/views.py:575
+#: projects/views.py:589
 msgid "You can not evaluate yourself"
 msgstr "Vous ne pouvez pas vous évaluer vous même"
 
-#: projects/views.py:579
+#: projects/views.py:593
 msgid "You have already evaluated this task"
 msgstr "Vous avez déjà évalué cette tâche"
 
-#: projects/views.py:585
+#: projects/views.py:599
 msgid "Evaluation saved"
 msgstr "Evaluation enregistrée"
 
-#: projects/views.py:593 projects/views.py:639
+#: projects/views.py:607 projects/views.py:653
 msgid "The project is already over"
 msgstr "Le projet est déjà terminé"
 
-#: projects/views.py:596
+#: projects/views.py:610
 msgid "You're not participating on this project"
 msgstr "Vous ne participez pas à ce projet"
 
-#: projects/views.py:630 projects/views.py:666
+#: projects/views.py:644 projects/views.py:680
 msgid "Cancelation refused. Awaiting decision"
 msgstr "Annulation refusée. En attente d'arbitrage"
 
-#: projects/views.py:641
+#: projects/views.py:655
 msgid "Only the user in charge of the project can cancel it"
 msgstr "Seul l'utilisateur responsable du projet peut l'annuler"
 
-#: projects/views.py:650
+#: projects/views.py:664
 msgid "Task cancelled. Awaiting confirmation from other users"
 msgstr "Tâche annulée. En attente de confirmation des autres utilisateurs"
 
-#: projects/views.py:675
+#: projects/views.py:689
 msgid ""
 "Can not delete a started project. Please stop it first and cancel your bid."
 msgstr ""
 "Impossible de supprimer un projet démarré. Arrêtez le d'abord et annuler "
 "votre commission"
 
-#: projects/views.py:677
+#: projects/views.py:691
 msgid ""
 "Can not delete a project containing tasks. Please delete all its tasks first."
 msgstr ""
 "Impossible de supprimer un projet contenant des tâches. Veuillez supprimer "
 "ses tâches d'abord."
 
-#: projects/views.py:682
+#: projects/views.py:696
 #, python-format
 msgid "The task %s has been deleted."
 msgstr "La tâche %s a été supprimée."
 
-#: projects/views.py:693
+#: projects/views.py:707
 msgid "Can not move a task inside itself"
 msgstr "Impossible de déplacer une tâche vers elle-même"
 
-#: projects/views.py:705
+#: projects/views.py:719
 msgid "Task moved"
 msgstr "Tâche déplacée"
 
-#: projects/views.py:715
+#: projects/views.py:729
 msgid "Can not create a dependency with an ancestor or a descendant"
 msgstr "Impossible de créer une dépendance avec un ancêtre ou un descendant"
 
-#: projects/views.py:738
+#: projects/views.py:752
 msgid "Permissions set"
 msgstr "Permissions enregistrées"
 
-#: projects/views.py:754
+#: projects/views.py:768
 msgid "Task shared"
 msgstr "Tâche partagée"
 
-#: projects/views.py:762
+#: projects/views.py:776
 msgid "The project has to be started for the progress to be updated"
 msgstr "Le projet doit être démarré pour que l'avancement soit mis à jour"
 
-#: projects/views.py:764
+#: projects/views.py:778
 msgid "Only the user in charge of can update its progress"
 msgstr "Seul le responsable du projet peut mettre à jour son avancement"
 
-#: projects/views.py:768
+#: projects/views.py:782
 msgid "Invalid value"
 msgstr "Valeur incorrecte"
 
-#: projects/views.py:773
+#: projects/views.py:787
 msgid "Progress updated"
 msgstr "Avancement mis à jour"
 
-#: projects/views.py:799
+#: projects/views.py:813
 msgid "Settings saved"
 msgstr "Paramètre enregistré"
 
-#: projects/views.py:806
+#: projects/views.py:820
 msgid "Forbidden: could not identify requester"
 msgstr "Interdit : Imposible d'identifier le demandeur"
 
-#: projects/views.py:812
+#: projects/views.py:826
 #, python-format
 msgid "Github error: %s"
 msgstr "Erreur Github : %s"
 
-#: projects/views.py:817 templates/projects/project_github.html:7
+#: projects/views.py:831 templates/projects/project_github.html:7
 msgid "Project authorized"
 msgstr "Projet autorisé"
 
-#: projects/views.py:848
+#: projects/views.py:862
 msgid "Hook deleted"
 msgstr "Crochet supprimé"
 
-#: projects/views.py:852
+#: projects/views.py:866
 msgid "Hook created"
 msgstr "Crochet créé"
 
-#: projects/views.py:976
+#: projects/views.py:986
 msgid "Spec moved"
 msgstr "Spécification déplacé"
 
-#: projects/views.py:987
+#: projects/views.py:997
 msgid "Specification deleted"
 msgstr "Spécification supprimée"
 
-#: projects/views.py:1014
+#: projects/views.py:1024
 msgid "Annotation removed"
 msgstr "Annotation supprimée"
 
-#: projects/views.py:1037
+#: projects/views.py:1047
 msgid "File deleted"
 msgstr "Fichier supprimé"
 
@@ -845,44 +857,44 @@ msgstr "Se connecter"
 msgid "Register"
 msgstr "S'inscrire"
 
-#: templates/base.html:148 templates/index-root.html:84
+#: templates/base.html:148 templates/index-root.html:91
 #: templates/funding/base.html:134
 msgid "Follow us on facebook"
 msgstr "Suivez nous sur facebook"
 
-#: templates/base.html:149 templates/index-root.html:85
+#: templates/base.html:149 templates/index-root.html:92
 #: templates/funding/base.html:135
 msgid "Follow us on twitter"
 msgstr "Suivez nous sur Twitter"
 
-#: templates/base.html:151 templates/index-root.html:87
+#: templates/base.html:151 templates/index-root.html:94
 #: templates/funding/base.html:137 templates/funding/feature.html:24
 #: templates/funding/feature_budget.html:38
-#: templates/funding/feature_manage.html:24
-#: templates/funding/manage_project.html:60
+#: templates/funding/feature_manage.html:25
+#: templates/funding/project_manage.html:60
 #: templates/funding/dialogue/bid.html:5
 #: templates/projects/dialogue/bid.html:5
 #: templates/projects/dialogue/offer.html:5 templates/users/register.html:35
 msgid "Terms of Use"
 msgstr "Conditions Générales d'Utilisation"
 
-#: templates/base.html:152 templates/index-root.html:88
+#: templates/base.html:152 templates/index-root.html:95
 #: templates/index.html:42 templates/funding/base.html:138
 msgid "/presentation"
 msgstr "/presentation"
 
 # "/presentation-fr"
-#: templates/base.html:152 templates/index-root.html:88
+#: templates/base.html:152 templates/index-root.html:95
 #: templates/funding/base.html:138
 msgid "Presentation"
 msgstr "Présentation"
 
 #: templates/base.html:153 templates/contact.html:3
-#: templates/index-root.html:89 templates/funding/base.html:139
+#: templates/index-root.html:96 templates/funding/base.html:139
 msgid "Legal notice"
 msgstr "Mentions légales"
 
-#: templates/base.html:154 templates/index-root.html:90
+#: templates/base.html:154 templates/index-root.html:97
 #: templates/funding/base.html:140
 msgid "Contact"
 msgstr "Contact"
@@ -895,11 +907,11 @@ msgstr "site hébergé par"
 msgid "design by"
 msgstr "design by"
 
-#: templates/index-root.html:44
+#: templates/index-root.html:51
 msgid "IT Services, but made differently"
 msgstr "Le service informatique autrement"
 
-#: templates/index-root.html:46
+#: templates/index-root.html:53
 msgid ""
 "Open Initiative develops and implements tools to offer another vision of IT "
 "services"
@@ -907,34 +919,35 @@ msgstr ""
 "Open Initiative développe et met en oeuvre des outils pour proposer une "
 "autre vision du service informatique."
 
-#: templates/index-root.html:59
+#: templates/index-root.html:66
 msgid "the agile project management platform to make your projects happen"
 msgstr "la plate-forme de gestion de projet agile où vos projets prennent vie"
 
-#: templates/index-root.html:60
+#: templates/index-root.html:67
 msgid "Manage your projects on"
 msgstr "Gérer vos projets sur"
 
-#: templates/index-root.html:62
+#: templates/index-root.html:69
 msgid "the <b>agile</b> project management platform where your projects happen"
-msgstr "la plate-forme de gestion de projet <b>agile</b> où vos projets prennent vie"
+msgstr ""
+"la plate-forme de gestion de projet <b>agile</b> où vos projets prennent vie"
 
-#: templates/index-root.html:67 templates/index-root.html.py:70
+#: templates/index-root.html:74 templates/index-root.html.py:77
 #: templates/index.html:61 templates/index.html.py:64
 msgid "the <b>crowdfunding</b> platform for all your free software"
 msgstr ""
 "la plate-forme de <b>financement participatif</b> de tous vos logiciels "
 "libres"
 
-#: templates/index-root.html:68 templates/index.html:62
+#: templates/index-root.html:75 templates/index.html:62
 msgid "Fund your <b>free software</b> on"
 msgstr "Financez vos <b>logiciels libres</b> sur"
 
-#: templates/index-root.html:75 templates/index-root.html.py:76
+#: templates/index-root.html:82 templates/index-root.html.py:83
 msgid "the conference rethinking management"
 msgstr "la conférence qui repense le management"
 
-#: templates/index-root.html:76
+#: templates/index-root.html:83
 msgid "coorganizes the"
 msgstr "coorganise la"
 
@@ -1024,38 +1037,38 @@ msgid "The crowdfunding platform for free software"
 msgstr "La plate-forme de financement participatif du logiciel libre"
 
 #: templates/funding/edit_project.html:4
-#: templates/funding/manage_project.html:4
 #: templates/funding/project_detail.html:4
+#: templates/funding/project_manage.html:4
 #: templates/projects/project_detail.html:4
 msgid "Project"
 msgstr "Projet"
 
 #: templates/funding/edit_project.html:15
 #: templates/funding/feature_description.html:9
-#: templates/funding/manage_project.html:15
 #: templates/funding/project_card.html:4
 #: templates/funding/project_detail.html:18
+#: templates/funding/project_manage.html:15
 #: templates/projects/project_card.html:4
 #: templates/projects/project_description.html:4
 msgid "Project created by"
 msgstr "Projet proposé par"
 
 #: templates/funding/edit_project.html:20
-#: templates/funding/manage_project.html:20
+#: templates/funding/project_manage.html:20
 #: templates/projects/project_header.html:77
 msgid "Edit the title"
 msgstr "Corriger le titre"
 
 #: templates/funding/edit_project.html:31
-#: templates/funding/manage_project.html:31
 #: templates/funding/project_detail.html:24
+#: templates/funding/project_manage.html:31
 #: templates/projects/project_header.html:92
 msgid "follow the project"
 msgstr "suivre le projet"
 
 #: templates/funding/edit_project.html:32
-#: templates/funding/manage_project.html:32
 #: templates/funding/project_detail.html:25
+#: templates/funding/project_manage.html:32
 #: templates/projects/project_header.html:93
 msgid " subscriber "
 msgid_plural " subscribers "
@@ -1070,11 +1083,11 @@ msgstr "Lié à"
 #: templates/funding/feature.html:17 templates/funding/feature_budget.html:4
 #: templates/funding/feature_budget.html:35
 #: templates/funding/feature_description.html:5
-#: templates/funding/feature_manage.html:17
+#: templates/funding/feature_manage.html:18
 msgid "close"
 msgstr "fermer"
 
-#: templates/funding/feature.html:18 templates/funding/feature_manage.html:18
+#: templates/funding/feature.html:18 templates/funding/feature_manage.html:19
 msgid ""
 "By funding this feature you will enable improvements to this software. You "
 "will be given the chance to validate that the development is done the way "
@@ -1087,45 +1100,45 @@ msgstr ""
 "tester l'évolution lorsqu'elle sera développée, pour que vous puissiez "
 "validez qu'elle est faite."
 
-#: templates/funding/feature.html:18 templates/funding/feature_manage.html:18
+#: templates/funding/feature.html:18 templates/funding/feature_manage.html:19
 msgid "Thanks for supporting this software!"
 msgstr "Merci pour votre soutien à ce logiciel !"
 
-#: templates/funding/feature.html:20 templates/funding/feature_manage.html:20
+#: templates/funding/feature.html:20 templates/funding/feature_manage.html:21
 msgid "Please enter the amount you want to fund:"
 msgstr "Merci d'indiquer le montant que vous souhaitez financer :"
 
-#: templates/funding/feature.html:24 templates/funding/feature_manage.html:24
+#: templates/funding/feature.html:24 templates/funding/feature_manage.html:25
 msgid "By funding this feature, you agree to the"
 msgstr "En finançant cette évolution, vous acceptez les"
 
-#: templates/funding/feature.html:30 templates/funding/feature_manage.html:30
+#: templates/funding/feature.html:30 templates/funding/feature_manage.html:31
 msgid "edit title"
 msgstr "Corriger le titre"
 
-#: templates/funding/feature.html:31 templates/funding/feature_manage.html:31
+#: templates/funding/feature.html:31 templates/funding/feature_manage.html:32
 msgid "delete feature"
 msgstr "supprimer l'évolution"
 
-#: templates/funding/feature.html:34 templates/funding/feature_manage.html:34
+#: templates/funding/feature.html:34 templates/funding/feature_manage.html:35
 #: templates/funding/presentation.html:8
 #: templates/funding/presentation.html:21 users/models.py:175
 msgid "Description"
 msgstr "Description"
 
-#: templates/funding/feature.html:36 templates/funding/feature_manage.html:36
+#: templates/funding/feature.html:36 templates/funding/feature_manage.html:37
 msgid "funded"
 msgstr "financés"
 
-#: templates/funding/feature.html:43 templates/funding/feature_manage.html:43
+#: templates/funding/feature.html:43 templates/funding/feature_manage.html:44
 msgid "needed"
 msgstr "nécessaires"
 
-#: templates/funding/feature.html:44 templates/funding/feature_manage.html:44
+#: templates/funding/feature.html:44 templates/funding/feature_manage.html:45
 msgid "to go"
 msgstr "restant"
 
-#: templates/funding/feature.html:46 templates/funding/feature_manage.html:55
+#: templates/funding/feature.html:46 templates/funding/feature_manage.html:56
 msgid "Funding details"
 msgstr "Détails du financement"
 
@@ -1257,17 +1270,17 @@ msgstr "veut annuler cette tâche"
 msgid "You will be reimbursed in full."
 msgstr "Vous serez intégralement remboursé."
 
-#: templates/funding/feature_description.html:32
+#: templates/funding/feature_description.html:21
 #: templates/projects/project_description.html:18
 #: templates/projects/project_sum.html:14
 msgid "Add a description"
 msgstr "Ajouter une description"
 
-#: templates/funding/feature_manage.html:50
+#: templates/funding/feature_manage.html:51
 msgid "Change the sum of this feature"
 msgstr "Modifier l'offre de cette évolution"
 
-#: templates/funding/feature_manage.html:61
+#: templates/funding/feature_manage.html:62
 msgid "Visible feature to the users"
 msgstr "Évolution visible par les utilisateurs"
 
@@ -1326,11 +1339,11 @@ msgstr ""
 "qui financez et validez les développements. Venez faire progresser le "
 "logiciel libre avec nous !"
 
-#: templates/funding/index.html:58
+#: templates/funding/index.html:58 templates/funding/presentation.html:80
 msgid "submit"
 msgstr "déposer"
 
-#: templates/funding/index.html:59
+#: templates/funding/index.html:59 templates/funding/presentation.html:81
 msgid "your project"
 msgstr "votre projet"
 
@@ -1346,65 +1359,13 @@ msgstr "<b>Démarrez</b> votre projet !"
 msgid "Latest projects"
 msgstr "Derniers projets"
 
-#: templates/funding/index.html:82
+#: templates/funding/index.html:82 templates/funding/presentation.html:85
 msgid "Submit your project"
 msgstr "Déposer votre projet"
 
-#: templates/funding/index.html:84
+#: templates/funding/index.html:84 templates/funding/presentation.html:87
 msgid "Please enter your project title :"
 msgstr "Merci d'entrer le titre de votre projet"
-
-#: templates/funding/manage_project.html:39
-msgid "What you have to do :"
-msgstr "Ce que vous devez faire :"
-
-#: templates/funding/manage_project.html:41
-msgid ""
-"You can create and edit new developments for your projects. Specify the "
-"title, make a description that explains its characteristics and determine "
-"the expected price for each. Your users can suggest other developments on "
-"the project page, you can accept / rephrase if you wish."
-msgstr ""
-"Vous pouvez créer et editer de nouvelles évolutions pour votre projet. "
-"Spécifier le titre, faire une description qui explique ces caractéristiques "
-"et determine le prix attendu pour chacun. Vos utilisateurs pourront suggérer "
-"d'autres développements sur la page projet, vous pouvez accepter / "
-"reformuler si vous le souhaitez."
-
-#: templates/funding/manage_project.html:47
-#: templates/funding/project_detail.html:114
-msgid "Propose a new feature"
-msgstr "Proposez une évolution"
-
-#: templates/funding/manage_project.html:50
-#: templates/funding/project_detail.html:117
-msgid "Feature name"
-msgstr "Nom de l'évolution"
-
-#: templates/funding/manage_project.html:56
-msgid "Feature price"
-msgstr "Prix de l'évolution"
-
-#: templates/funding/manage_project.html:60
-msgid ""
-"By adding this change you acknowledge that you have read and accepted the"
-msgstr ""
-"En ajoutant ce changement, vous reconnaissez que vous avez lu et accepté les "
-
-#: templates/funding/manage_project.html:72
-#: templates/funding/project_detail.html:76
-msgid "In progress"
-msgstr "En cours"
-
-#: templates/funding/manage_project.html:73
-#: templates/funding/project_detail.html:77
-msgid "Finished"
-msgstr "Terminées"
-
-#: templates/funding/manage_project.html:114
-#: templates/funding/project_detail.html:30
-msgid "Edit your project"
-msgstr "Editer votre projet"
 
 #: templates/funding/presentation.html:3 templates/funding/presentation.html:4
 msgid "Presentation of Open Funding"
@@ -1412,136 +1373,104 @@ msgstr "Présentation d'Open Funding"
 
 #: templates/funding/presentation.html:7
 #: templates/funding/presentation.html:20
-#: templates/funding/presentation.html:25
-#: templates/funding/presentation.html:30
+#: templates/funding/presentation.html:26
+#: templates/funding/presentation.html:31
 msgid "What is Open Funding?"
 msgstr "Qu'est-ce qu'Open Funding ?"
 
 #: templates/funding/presentation.html:9
-#: templates/funding/presentation.html:26
+#: templates/funding/presentation.html:27
 msgid "Why free software?"
 msgstr "Pourquoi le logiciel libre"
 
 #: templates/funding/presentation.html:10
-#: templates/funding/presentation.html:31
+#: templates/funding/presentation.html:32
 msgid "The team"
 msgstr "L'équipe"
 
 #: templates/funding/presentation.html:11
-#: templates/funding/presentation.html:56
-#: templates/funding/presentation.html:61
-#: templates/funding/presentation.html:66
-#: templates/funding/presentation.html:71
+#: templates/funding/presentation.html:57
+#: templates/funding/presentation.html:62
+#: templates/funding/presentation.html:67
+#: templates/funding/presentation.html:72
 msgid "How does it work?"
 msgstr "Comment ça marche ?"
 
 #: templates/funding/presentation.html:12
-#: templates/funding/presentation.html:57
+#: templates/funding/presentation.html:58
 msgid "The principle"
 msgstr "Le principe"
 
 #: templates/funding/presentation.html:13
-#: templates/funding/presentation.html:62
+#: templates/funding/presentation.html:63
 msgid "Creating a project"
 msgstr "Créer un projet"
 
 #: templates/funding/presentation.html:14
-#: templates/funding/presentation.html:67
+#: templates/funding/presentation.html:68
 msgid "Funding a project"
 msgstr "Financer un projet"
 
 #: templates/funding/presentation.html:15
-#: templates/funding/presentation.html:72
 msgid "Licence and fees"
 msgstr "Licence et frais"
 
 #: templates/funding/presentation.html:16
-#: templates/funding/presentation.html:76
+#: templates/funding/presentation.html:77
 msgid "Get involved"
 msgstr "Participez"
 
-#: templates/funding/presentation.html:22
+#: templates/funding/presentation.html:28
 msgid ""
-"<p>Open Funding is the crowdfunding platform for all your free software. "
-"Here you can help fund the software development by contributing to the "
-"projects and following their evolution.</p><p>Whether a user or a developer, "
-"this is the place for you! Open Funding is the intermediate between those "
-"who look for free software solutions and those who have projects to develop "
-"and are looking for funding.</p><p>With Open Funding, you can contribute and "
-"support free software development. Be part of the projects on the long run "
-"and tell us the projects you’d like to see funded!</p>"
+"<p>Free software has its origins in the 1980s, when some computer users "
+"wanted to be able to change the software that run these computers. So they "
+"authorized the users to modify their programs and redistribute them. Many "
+"people started to contribute to the software, and it quickly became clear "
+"that this system had many advantages.</p><p>Today free software appears as a "
+"credible model that has proved its efficiency. By reusing what has been done "
+"by others, developers can quickly create new applications and contribute to "
+"the common good that free software is. But these developers need to live. "
+"Today many developers sell services around their software, but these "
+"revenues are not directly related to the development work itself.</p><p>Open "
+"Funding allows you to participate in free software development by helping to "
+"fund the features you need to see added to the free software you use. Today, "
+"software is a foundation of our society. There is no machine running without "
+"software. The software is simply a recipe that makes many areas of our "
+"activities run.</p><p>At Open Initiative, we believe that this is everyone's "
+"business, and it should not be left to financial interests or some "
+"enlightened technicians. Open Funding allows you to participate in the "
+"construction of free software if you are a developer who wants to live of "
+"your work or a user who wants software finally fitting your needs.</p>"
 msgstr ""
-"<p>Open Funding est la plate-forme de financement participatif des logiciels "
-"libres. Sur Open Funding vous pouvez financer ensemble les évolutions des "
-"projets de logiciels libres portés par les développeurs, en contribuant et "
-"en suivant leurs progrès.</p><p>Contrairement aux plates-formes qui "
-"proposent de faire des dons aux porteurs de projets, Open Funding propose de "
-"financer une prestation de service. Les développeurs s’engagent ainsi sur "
-"les résultats et peuvent se faire financer plusieurs fonctionnalités au "
-"cours du temps. L'objectif est d'apporter un nouveau modèle économique aux "
-"développeurs de logiciel libre.</p><p>Que vous soyez utilisateur ou "
-"développeur ce site est pour vous ! Nous sommes l’intermédiaire entre ceux "
-"qui cherchent des logiciels libres et veulent les soutenir, et ceux qui ont "
-"des projets à développer et cherchent des financements.</p><p>Avec Open "
-"Funding, vous pouvez accompagner les projets sur le long terme et contribuer "
-"au soutien du logiciel libre en finançant ses évolutions.</p>"
+"<p>Le logiciel libre trouve sa source dans les années 1980, quand certains utilisateurs d’ordinateurs ont voulu pouvoir modifier les logiciels qui leur permettaient d’utiliser ces ordinateurs. Ils ont donc autorisé les utilisateurs de leurs programmes à les modifier et redistribuer. De nombreuses personnes se sont mises à contribuer à ces logiciels, et il est rapidement apparu que ce système présentait de nombreux avantages.</p><p>Aujourd’hui le logiciel libre apparait comme un modèle crédible qui a prouvé son efficacité. En réutilisant ce qui a été fait par d’autres, les développeurs peuvent créer rapidement de nouvelles applications et contribuer à leur tour au bien commun que constitue le logiciel libre. Mais ces développeurs ont besoin de vivre. Aujourd’hui de nombreux développeurs vendent des services autour de leur logiciel, mais ces revenus ne sont pas directement liés au travail de développement lui-même.</p><p>Open Funding vous permet de participer au développement du logiciel libre en contribuant au financement des fonctionnalités que vous avez besoin de voir ajoutées aux logiciels libres. Aujourd’hui le logiciel est un fondement de notre société. Pas une machine ne tourne sans logiciel. Le logiciel est simplement la recette qui fait tourner de nombreux pans de nos activités.</p><p>Chez Open Initiative, nous croyons que cette recette est l’affaire de tous, et qu’elle ne doit pas être laissée à des intérêts financiers, ou à quelques techniciens éclairés. Open Funding vous permet donc de participer à la constitution du logiciel libre, que vous soyez un développeur qui veut vivre de son travail, ou un utilisateur qui veut un logiciel qui réponde enfin à ses besoins.</p>"
 
-#: templates/funding/presentation.html:27
-msgid ""
-"<p>Le logiciel libre trouve sa source dans les années 1980, quand certains "
-"utilisateurs d’ordinateurs ont voulu pouvoir modifier les logiciels qui leur "
-"permettaient d’utiliser ces ordinateurs. Ils ont donc autorisé les "
-"utilisateurs de leurs programmes à les modifier et redistribuer. De "
-"nombreuses personnes se sont mises à contribuer à ces logiciels, et il est "
-"rapidement apparu que ce système présentait de nombreux avantages.</"
-"p><p>Aujourd’hui le logiciel libre apparait comme un modèle crédible qui a "
-"prouvé son efficacité. En réutilisant ce qui a été fait par d’autres, les "
-"développeurs peuvent créer rapidement de nouvelles applications et "
-"contribuer à leur tour au bien commun que constitue le logiciel libre. Mais "
-"ces développeurs ont besoin de vivre. Aujourd’hui de nombreux développeurs "
-"vendent des services autour de leur logiciel, mais ces revenus ne sont pas "
-"directement liés au travail de développement lui-même.</p><p>Open Funding "
-"vous permet de participer au développement du logiciel libre en contribuant "
-"au financement des fonctionnalités que vous avez besoin de voir ajoutées aux "
-"logiciels libres. Aujourd’hui le logiciel est un fondement de notre société. "
-"Pas une machine ne tourne sans logiciel. Le logiciel est simplement la "
-"recette qui fait tourner de nombreux pans de nos activités.</p><p>Chez Open "
-"Initiative, nous croyons que cette recette est l’affaire de tous, et qu’elle "
-"ne doit pas être laissée à des intérêts financiers, ou à quelques "
-"techniciens éclairés. Open Funding vous permet donc de participer à la "
-"constitution du logiciel libre, que vous soyez un développeur qui veut vivre "
-"de son travail, ou un utilisateur qui veut un logiciel qui réponde enfin à "
-"ses besoins.</p>"
-msgstr ""
-
-#: templates/funding/presentation.html:36
+#: templates/funding/presentation.html:37
 msgid "Founder"
 msgstr "Fondateur"
 
-#: templates/funding/presentation.html:43
+#: templates/funding/presentation.html:44
 msgid "UX developer"
 msgstr "Développeur UX"
 
-#: templates/funding/presentation.html:50
+#: templates/funding/presentation.html:51
 msgid "Product manager"
 msgstr "Directeur produit"
 
-#: templates/funding/presentation.html:58
+#: templates/funding/presentation.html:59
 msgid ""
-"<p>If you have a free software project, propose it on the platform with the "
-"list of features and the amount of money needed to develop each of them. You "
-"promote the project to the community and then users deposit their "
-"contributions according to their interests on the features.</p><p>Once the "
-"requested amount is reached, you can start developing. The developer "
-"determines the delivery date when the project is finished. Users then have "
-"14 days to confirm reception or request corrections. The developer is paid "
-"only after validation by the users.</p><p>This way Open Funding secures the "
-"conclusion of the project to the users and the payment to developers once "
-"the work is done. Access to the platform is completely free for users and "
-"developers. Open Funding’ fees are limited to a 5% commission deducted from "
-"the amount paid to the beneficiary when the mission is completed. The "
-"payment only happens in case the users validate the project, so that the "
-"software is guaranteed to answer to your needs.</p>"
+"<p>The developers propose their free software projects on the platform with "
+"a list of features and the amount of money they need to develop each of "
+"them. Users will fund the features with the amount they want according to "
+"their interests. Once the requested amount is reached, the project owner can "
+"start the development. The developer determines the delivery date when the "
+"project is finished. Users then have 14 days to validate the result or "
+"request corrections. The developer is paid only after validation by the "
+"users.</p><p>This way Open Funding secures the conclusion of the project to "
+"the users and the payment to developers once the work is done.</p><p>Open "
+"Funding fees are limited to a 5&#37; commission deducted from the amount paid to "
+"the beneficiary when the mission is completed. The payment only happens in "
+"case the users validate the project, so that the software is guaranteed to "
+"answer your needs.</p>"
 msgstr ""
 "<p>Les développeurs proposent sur la plateforme leurs projets de logiciel "
 "libre avec la liste des évolutions prévues et le montant nécessaire pour "
@@ -1554,93 +1483,67 @@ msgstr ""
 "utilisateurs.</p><p>En tant qu’intermédiaire Open Funding assure aux "
 "utilisateurs la conclusion du développement, et au développeur le paiement "
 "une fois le travail réalisé.</p><p>Open Funding prélève une commission "
-"limitée à 5% déduite du montant versé au prestataire une fois la mission "
+"limitée à 5&#37; déduite du montant versé au prestataire une fois la mission "
 "achevée. Le règlement n'est effectué qu’en cas de validation du "
 "développement par les utilisateurs, donc le projet est la garantie de voir "
 "le projet évoluer dans le sens de vos besoins.</p>"
 
-#: templates/funding/presentation.html:63
+#: templates/funding/presentation.html:64
 msgid ""
-"<p>Si vous avez un projet de logiciel libre, vous le proposez sur la plate-"
-"forme avec la liste des évolutions prévues. Vous expliquez en quoi consiste "
-"votre projet et ses fonctionnalités dans la page de création. Pour chacune "
-"vous determinez le montant nécessaire pour leur développement. À ce somme "
-"TTC, nous ajoutons le 5% HT de la commission Open Funding.</p><p>Vous pouvez "
-"ajouter plusieurs évolutions pour chaque projet.</p><h4>J’ai créé le projet, "
-"et après ?</h4><p>Avant de le publier sur la plate-forme nous allons prendre "
-"contact avec vous par mail et après par telephone. Nous souhaitons établir "
-"un contact avec les porteurs de projets pour connaitre un peu plus d’eux "
-"directement, et les assister dans la communication qu’ils souhaitent "
-"apporter au projet.</p><p>Une fois que nous avons validé ensemble la marche "
-"à suivre, c’est le moment de communiquer votre projet auprès de la "
-"communauté. Chaque développeur est libre de communiquer comme il le souhaite "
-"et transmettre l’information à ses utilisateurs pour faire connaître et "
-"financer le projet. Néanmoins, nous sommes toujours disponibles pour vous "
-"guider pendant cette démarche.</p><p>Vous pouvez nous contacter : "
-"contact@openintitiative.com</p><h4>J’ai réuni les fonds, et après ?</"
-"h4><p>Quand une évolution achève le montant estimé, vous pouvez démarrer le "
-"développement. Le temps de développement correspond à celui précisé dans la "
-"déscription de l’évolution. À tout moment, vous pouvez communiquer avec les "
-"financeurs sur la plateforme pour discuter son progrès.</p><p>Une fois vous "
-"finissez le développement, vous délivrez le produit. Chaque developpeur "
-"determine avec ses financeurs le meilleur moyen pour livrer le résultat. Le "
-"produit peut etre integré à la prochaine version du logiciel, être un fork, "
-"être livré comme patch, etc</p><p>Les utilisateurs ont 14 jours pour valider "
-"ou démander des corrections de votre produit. Si après les 14 jours il "
-"manque la validation de la parte d’un utilisateur, le produit sera validé "
-"automatiquement et le développeur sera payé. A chaque fois qu'un utilisateur "
-"valide le développement, la somme qu'il a payée est versée au développeur.</"
-"p><p>Open Funding reçoit la commission de 5% HT du coût total de l’évolution."
-"</p>"
+"<p>If you have a free software project, you propose it on the platform with "
+"a list of its features. You explain your project and its features in the "
+"creation page, and for each feature you determine the amount required for "
+"their development. You can add several features for each project. We add our "
+"commission to this sum: 5&#37; exclusive of taxes.</p><h4>I created a "
+"project, what now?</h4><p>Before publishing your project on the platform we "
+"will contact you by email and then by telephone. We wish to establish "
+"contact with project owners to learn a bit more from them directly, and "
+"assist them in the way they will promote the project.</p><p>Once we have "
+"validated this together, it’s time to share your project with the community. "
+"Each developer is free to communicate as they wish and transmit the "
+"information to users to promote and fund the project. However, we are always "
+"available to guide you through this process.</p><p>You can contact us: "
+"contact@openintitiative.com</p><h4>I gathered the funds, what now?</"
+"h4><p>When a feature reaches the estimated amount, you can start the "
+"development. The development time is specified in the description of "
+"evolution. At any time, you can communicate with funders on the platform to "
+"discuss its progress.</p><p>Once the development is done, you deliver the "
+"product. Each developer determines with his funders the best way to deliver "
+"the result. The product can be integrated into the next version of the "
+"software, but it can also be a fork, be delivered as a patch, etc.</"
+"p><p>Users have 14 days to accept or request corrections to the product. If "
+"after 14 days there there’s no validation of a funder, the product will be "
+"validated automatically and the developer will be paid. Each time a user "
+"validates the development, the amount will be paid to the developer.</"
+"p><p>Open Funding receives 5&#37; commission excluding taxes of the "
+"feature’s total cost.</p>"
 msgstr ""
+"<p>Si vous avez un projet de logiciel libre, vous le proposez sur la plate-forme avec la liste des évolutions prévues. Vous expliquez en quoi consiste votre projet et ses fonctionnalités dans la page de création. Pour chacune vous determinez le montant nécessaire pour leur développement. À ce somme TTC, nous ajoutons le 5&#37; HT de la commission Open Funding.</p><p>Vous pouvez ajouter plusieurs évolutions pour chaque projet.</p><h4>J’ai créé le projet, et après ?</h4><p>Avant de le publier sur la plate-forme nous allons prendre contact avec vous par mail et après par telephone. Nous souhaitons établir un contact avec les porteurs de projets pour connaitre un peu plus d’eux directement, et les assister dans la communication qu’ils souhaitent apporter au projet.</p><p>Une fois que nous avons validé ensemble la marche à suivre, c’est le moment de communiquer votre projet auprès de la communauté. Chaque développeur est libre de communiquer comme il le souhaite et transmettre l’information à ses utilisateurs pour faire connaître et financer le projet. Néanmoins, nous sommes toujours disponibles pour vous guider pendant cette démarche.</p><p>Vous pouvez nous contacter : contact@openintitiative.com</p><h4>J’ai réuni les fonds, et après ?</h4><p>Quand une évolution achève le montant estimé, vous pouvez démarrer le développement. Le temps de développement correspond à celui précisé dans la déscription de l’évolution. À tout moment, vous pouvez communiquer avec les financeurs sur la plateforme pour discuter son progrès.</p><p>Une fois vous finissez le développement, vous délivrez le produit. Chaque developpeur determine avec ses financeurs le meilleur moyen pour livrer le résultat. Le produit peut etre integré à la prochaine version du logiciel, être un fork, être livré comme patch, etc</p><p>Les utilisateurs ont 14 jours pour valider ou démander des corrections de votre produit. Si après les 14 jours il manque la validation de la parte d’un utilisateur, le produit sera validé automatiquement et le développeur sera payé. A chaque fois qu'un utilisateur valide le développement, la somme qu'il a payée est versée au développeur.</p><p>Open Funding reçoit la commission de 5&#37; HT du coût total de l’évolution.</p>"
 
-#: templates/funding/presentation.html:68
+#: templates/funding/presentation.html:69
 msgid ""
-"<p>Open funding est le lieu pour financer les projets de logiciel libre "
-"portés par développeurs, fonctionnalité par fonctionnalité. Sur le site nous "
-"recevons des projets de différentes catégories de logiciel libre. Vous "
-"trouverez les derniers projets sur la page d’accueil.</p><h4>Pourquoi "
-"financer un projet ?</h4><p>Libre ne veut pas dire gratuit ! Les projets que "
-"vous trouvez sur Open Funding sont portés par des développeurs qui dédient "
-"leur temps et leurs efforts au développement informatique. Financer un "
-"projet sur Open Funding c’est apporter une solution à vos besoins de "
-"logiciel libre et récompenser les developpeurs au niveau qu’ils méritent.</"
-"p><p>Vous pouvez suivre les progrès du projet que vous soutenez et prendre "
-"contact avec le créateur à tout moment. C’est vous qui validez le produit "
-"quand il est fini et confirmez que le résultat reçu correspond à l’évolution "
-"attendait.</p><h4>Financer évolution par évolution</h4><p>Sur Open funding, "
-"vous pouvez trouver les fonctionnalités qui ameliorent vos logiciels libres "
-"préférés. Une fois vous créez un compte sur le site, vous êtes prêt pour "
-"participer. S’il existe une évolution d’un projet qui vous intéresse, vous "
-"cliquez sur le bouton « soutenir » et vous définissez le montant que vous "
-"souhaitez apporter. En finançant les évolutions, vous acceptez les "
-"Conditions Générales d’Utilisation.</p><p>Vous avez un crédit dans votre "
-"compte qui vous permet de financer les projets sur le site. Vous pouvez "
-"alimenter votre crédit en tout moment dans la section Mon Compte. De cette "
-"manière vous aidez à cofinancer vos projets préférés en ajoutant le montant "
-"desiré en fonction de vos  intérêts. Votre crédit est modifiable en tout "
-"moment.</p><p>Notre système sécurisé permet de garder votre compte et vos "
-"financements en sécurité.</p><h4>Proposer une évolution</h4><p>Vous pouvez "
-"apporter ou suggérez d'autres fontcionnalités pour un projet qui vous "
-"intéresse. Sur la page des projets vous pouvez ajouter une nouvelle "
-"fonctionnalité, avec sa description et l’information pertinente. C’est le "
-"développeur qui accepte ou reformule votre proposition. Vous serez notifié "
-"des modifications de votre suggestion.</p>"
+"<p>Open Funding is the place to fund free software projects created by developers, feature by feature. On the site we receive projects of different categories of free software. You can find the latest projects on the home page.</p><h4>Why should I fund a project?</h4><p>Free software is free as in “free speech,” not as in “free beer”. Projects that you find on Open Funding are created by developers who dedicate their time and efforts to development. Funding a project on Open Funding is bringing a solution to your free software needs and rewarding developers to the level they deserve.</p><p>You can follow the progress of the projects you support and contact the creator at any time. You validate the product when it is finished and confirm that the result is as expected.</p><h4>Funding feature by feature</h4><p>On Open Funding, you can find features that improve your favorite free software. Once you create an account on the website, you are ready to participate. If there is a feature of a project that interests you, click on the 'support' button and you set the amount you want to help fund. When you fund features you accept the Terms of Use.</p><p>You have credit in your account that allows you to fund projects on the site. You can increase your credit at any time in the My Account section. This way you help funding your favorite projects with the amount according to your interests. You can modify you credit at any time.</p><p>Our secured system allows you to keep your account and funding secure.</p><h4>Propose a new feature</h4><p>You can make or suggest new  features to a project you like. On the project page you can add a new feature with its description and relevant information. The developer then accepts or modifies your proposal. You will be notified of any change to your suggestion.</p>"
 msgstr ""
+"<p>Open funding est le lieu pour financer les projets de logiciel libre portés par développeurs, fonctionnalité par fonctionnalité. Sur le site nous recevons des projets de différentes catégories de logiciel libre. Vous trouverez les derniers projets sur la page d’accueil.</p><h4>Pourquoi financer un projet ?</h4><p>Libre ne veut pas dire gratuit ! Les projets que vous trouvez sur Open Funding sont portés par des développeurs qui dédient leur temps et leurs efforts au développement informatique. Financer un projet sur Open Funding c’est apporter une solution à vos besoins de logiciel libre et récompenser les developpeurs au niveau qu’ils méritent.</p><p>Vous pouvez suivre les progrès du projet que vous soutenez et prendre contact avec le créateur à tout moment. C’est vous qui validez le produit quand il est fini et confirmez que le résultat reçu correspond à l’évolution attendait.</p><h4>Financer évolution par évolution</h4><p>Sur Open funding, vous pouvez trouver les fonctionnalités qui ameliorent vos logiciels libres préférés. Une fois vous créez un compte sur le site, vous êtes prêt pour participer. S’il existe une évolution d’un projet qui vous intéresse, vous cliquez sur le bouton « soutenir » et vous définissez le montant que vous souhaitez apporter. En finançant les évolutions, vous acceptez les Conditions Générales d’Utilisation.</p><p>Vous avez un crédit dans votre compte qui vous permet de financer les projets sur le site. Vous pouvez alimenter votre crédit en tout moment dans la section Mon Compte. De cette manière vous aidez à cofinancer vos projets préférés en ajoutant le montant desiré en fonction de vos  intérêts. Votre crédit est modifiable en tout moment.</p><p>Notre système sécurisé permet de garder votre compte et vos financements en sécurité.</p><h4>Proposer une évolution</h4><p>Vous pouvez apporter ou suggérez d'autres fontcionnalités pour un projet qui vous intéresse. Sur la page des projets vous pouvez ajouter une nouvelle fonctionnalité, avec sa description et l’information pertinente. C’est le développeur qui accepte ou reformule votre proposition. Vous serez notifié des modifications de votre suggestion.</p>"
 
 #: templates/funding/presentation.html:73
-msgid ""
-"<h4>Licence</h4><p>Tous les résultats de projets sur Open Funding sont "
-"publiés sous licence libre. Chaque développeur doit préciser la licence sous "
-"laquelle ses développements seront placés.</p><h4>Rémuneration d’Open "
-"Funding</h4><p>En tant qu’intermédiaire entre développeurs et utilisateurs, "
-"Open Funding reçoit une commission du 5% HT du cout total de l’évolution "
-"financée. Cette commission est facturée aux développeurs, une fois le "
-"montant determiné pour la fonctionnalité atteint. Open Funding ne perçoit "
-"rien si l’évolution n’arrive pas au financement prévu.</p>"
-msgstr ""
+msgid "License and fees"
+msgstr "Licence et frais"
 
-#: templates/funding/presentation.html:77
+#: templates/funding/presentation.html:74
+msgid ""
+"<h4>License</h4><p>All projects published on Open Funding are distributed "
+"with a free license. Each developer must specify the license under which his "
+"development will be placed.</p><h4>Fees</h4><p>As an intermediary between "
+"developers and users, Open Funding receives a commission of 5&#37; excluding "
+"tax of the total cost of the funded development. This fee is charged to "
+"developers once the amount determined for the feature is achieved. Open "
+"Funding does not charge if the feature doesn’t reach the expected funding.</"
+"p>"
+msgstr ""
+"<h4>Licence</h4><p>Tous les résultats de projets sur Open Funding sont publiés sous licence libre. Chaque développeur doit préciser la licence sous laquelle ses développements seront placés.</p><h4>Rémuneration d’Open Funding</h4><p>En tant qu’intermédiaire entre développeurs et utilisateurs, Open Funding reçoit une commission du 5% HT du cout total de l’évolution financée. Cette commission est facturée aux développeurs, une fois le montant determiné pour la fonctionnalité atteint. Open Funding ne perçoit rien si l’évolution n’arrive pas au financement prévu.</p>"
+
+#: templates/funding/presentation.html:78
 msgid "You can start today improving free software with us!"
 msgstr ""
 "Vous pouvez commencer aujourd’hui à faire progresser le logiciel libre avec "
@@ -1678,6 +1581,11 @@ msgstr "Attente de validation"
 msgid "funded out of"
 msgstr "financés sur"
 
+#: templates/funding/project_detail.html:30
+#: templates/funding/project_manage.html:108
+msgid "Edit your project"
+msgstr "Editer votre projet"
+
 #: templates/funding/project_detail.html:31
 msgid "Manage your features"
 msgstr "Gérer vos évolutions"
@@ -1690,6 +1598,53 @@ msgstr "Discuter de"
 #: templates/projects/project_description.html:34
 msgid "Add a discussion"
 msgstr "Ajouter une discussion"
+
+#: templates/funding/project_detail.html:76
+#: templates/funding/project_manage.html:72
+msgid "In progress"
+msgstr "En cours"
+
+#: templates/funding/project_detail.html:77
+#: templates/funding/project_manage.html:73
+msgid "Finished"
+msgstr "Terminées"
+
+#: templates/funding/project_detail.html:114
+#: templates/funding/project_manage.html:47
+msgid "Propose a new feature"
+msgstr "Proposez une évolution"
+
+#: templates/funding/project_detail.html:117
+#: templates/funding/project_manage.html:50
+msgid "Feature name"
+msgstr "Nom de l'évolution"
+
+#: templates/funding/project_manage.html:39
+msgid "What you have to do :"
+msgstr "Ce que vous devez faire :"
+
+#: templates/funding/project_manage.html:41
+msgid ""
+"You can create and edit new developments for your projects. Specify the "
+"title, make a description that explains its characteristics and determine "
+"the expected price for each. Your users can suggest other developments on "
+"the project page, you can accept / rephrase if you wish."
+msgstr ""
+"Vous pouvez créer et editer de nouvelles évolutions pour votre projet. "
+"Spécifier le titre, faire une description qui explique ces caractéristiques "
+"et determine le prix attendu pour chacun. Vos utilisateurs pourront suggérer "
+"d'autres développements sur la page projet, vous pouvez accepter / "
+"reformuler si vous le souhaitez."
+
+#: templates/funding/project_manage.html:56
+msgid "Feature price"
+msgstr "Prix de l'évolution"
+
+#: templates/funding/project_manage.html:60
+msgid ""
+"By adding this change you acknowledge that you have read and accepted the"
+msgstr ""
+"En ajoutant ce changement, vous reconnaissez que vous avez lu et accepté les "
 
 #: templates/funding/dialogue/bid.html:5
 #: templates/projects/dialogue/bid.html:5
@@ -1720,71 +1675,6 @@ msgstr "Ajouter"
 msgid "Cancel"
 msgstr "Annuler"
 
-#: templates/funding/spec/edit_type1.html:3
-#: templates/projects/spec/edit_type1.html:3
-msgid "A description, an explanation..."
-msgstr "Une description, une explication..."
-
-#: templates/funding/spec/edit_type2.html:3
-#: templates/projects/spec/edit_type2.html:3
-msgid "A design, a scheme, a picture..."
-msgstr "Une maquette, un schéma, une image..."
-
-#: templates/funding/spec/edit_type2_img.html:6
-#: templates/funding/spec/edit_type5.html:7
-#: templates/funding/spec/feature_form.html:15
-#: templates/funding/spec/fileframe.html:7
-#: templates/projects/spec/edit_type2_img.html:6
-#: templates/projects/spec/edit_type5.html:7
-#: templates/projects/spec/fileframe.html:7
-msgid "Delete"
-msgstr "Supprimer"
-
-#: templates/funding/spec/edit_type3.html:3
-#: templates/projects/spec/edit_type3.html:3
-msgid "A link to another task or a web page..."
-msgstr "Un lien vers une autre tâche ou une page web..."
-
-#: templates/funding/spec/edit_type4.html:3
-#: templates/projects/spec/edit_type4.html:3
-msgid "Comming soon..."
-msgstr "Bientôt..."
-
-#: templates/funding/spec/edit_type5.html:3
-#: templates/projects/spec/edit_type5.html:3
-msgid "A file describing the job..."
-msgstr "Un fichier descrivant le travail à faire..."
-
-#: templates/funding/spec/edit_type6.html:3
-#: templates/projects/spec/edit_type6.html:3
-msgid "Describe the bug you found..."
-msgstr "Décrire le bug que vous avez trouvé..."
-
-#: templates/funding/spec/edit_type6.html:5
-#: templates/projects/spec/edit_type6.html:5
-msgid "What I did:"
-msgstr "Ce que j'ai fait :"
-
-#: templates/funding/spec/edit_type6.html:8
-#: templates/projects/spec/edit_type6.html:8
-msgid "What happened:"
-msgstr "Ce qui s'est passé :"
-
-#: templates/funding/spec/edit_type6.html:11
-#: templates/projects/spec/edit_type6.html:11
-msgid "What should happen:"
-msgstr "Ce qui aurait dû se passer :"
-
-#: templates/funding/spec/edit_type6.html:14
-#: templates/projects/spec/edit_type6.html:14
-msgid "Environment:"
-msgstr "Environnement :"
-
-#: templates/funding/spec/edit_type6.html:19
-#: templates/projects/spec/edit_type6.html:19
-msgid "You can add a link or an image as a reference:"
-msgstr "Vous pouvez ajouter un lien ou une image comme référence :"
-
 #: templates/funding/spec/feature_form.html:4
 #: templates/projects/spec/editspec.html:2
 msgid "Describe here what is to be done in"
@@ -1793,6 +1683,14 @@ msgstr "Décrire ce qui doit être fait dans"
 #: templates/funding/spec/feature_form.html:10
 msgid "A picture presenting your project"
 msgstr "Une image présentant votre projet"
+
+#: templates/funding/spec/feature_form.html:15
+#: templates/funding/spec/fileframe.html:7
+#: templates/projects/spec/edit_type2_img.html:6
+#: templates/projects/spec/edit_type5.html:7
+#: templates/projects/spec/fileframe.html:7
+msgid "Delete"
+msgstr "Supprimer"
 
 #: templates/funding/spec/feature_form.html:37
 #: templates/funding/spec/feature_form_added.html:20
@@ -2512,6 +2410,50 @@ msgstr "Aucun invité sur cette tâche"
 msgid "Validator"
 msgstr "Valideur"
 
+#: templates/projects/spec/edit_type1.html:3
+msgid "A description, an explanation..."
+msgstr "Une description, une explication..."
+
+#: templates/projects/spec/edit_type2.html:3
+msgid "A design, a scheme, a picture..."
+msgstr "Une maquette, un schéma, une image..."
+
+#: templates/projects/spec/edit_type3.html:3
+msgid "A link to another task or a web page..."
+msgstr "Un lien vers une autre tâche ou une page web..."
+
+#: templates/projects/spec/edit_type4.html:3
+msgid "Comming soon..."
+msgstr "Bientôt..."
+
+#: templates/projects/spec/edit_type5.html:3
+msgid "A file describing the job..."
+msgstr "Un fichier descrivant le travail à faire..."
+
+#: templates/projects/spec/edit_type6.html:3
+msgid "Describe the bug you found..."
+msgstr "Décrire le bug que vous avez trouvé..."
+
+#: templates/projects/spec/edit_type6.html:5
+msgid "What I did:"
+msgstr "Ce que j'ai fait :"
+
+#: templates/projects/spec/edit_type6.html:8
+msgid "What happened:"
+msgstr "Ce qui s'est passé :"
+
+#: templates/projects/spec/edit_type6.html:11
+msgid "What should happen:"
+msgstr "Ce qui aurait dû se passer :"
+
+#: templates/projects/spec/edit_type6.html:14
+msgid "Environment:"
+msgstr "Environnement :"
+
+#: templates/projects/spec/edit_type6.html:19
+msgid "You can add a link or an image as a reference:"
+msgstr "Vous pouvez ajouter un lien ou une image comme référence :"
+
 #: templates/projects/table_overview/table_due_date.html:4
 #: templates/users/profile/experience.html:4
 #: templates/users/profile/training.html:4
@@ -3102,16 +3044,6 @@ msgstr "Message envoyé"
 #: users/views.py:277
 msgid "Notice archived"
 msgstr "Notification archivée"
-
-#~ msgid ""
-#~ "You have a project and you're looking for a developer? You are a "
-#~ "developer and want to participate in a project?"
-#~ msgstr ""
-#~ "Vous avez un projet et vous cherchez un développeur ? Vous êtes un "
-#~ "développeur et vous voulez participer à un projet ?"
-
-#~ msgid "Follow us on our blog!"
-#~ msgstr "Suivez nous sur notre blog !"
 
 msgid "overview"
 msgstr "Suivi"
