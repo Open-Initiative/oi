@@ -332,7 +332,6 @@ div.cardspec {
     top: 335px;
 }
 .featureblock {
-    height: 17em;
     padding: 10px;
     margin-bottom: .5em;
     margin-top: 0.5em;
@@ -817,7 +816,8 @@ div.sepspecfooter {
     border-left: 1px solid #E0E0E0;
 }
 .featurebox{
-    width:  32%; 
+    width:  32%;
+    height: 18em;
     float:  left;
     margin-left: 3px; 
     margin-right: 3px;
