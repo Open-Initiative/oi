@@ -1,26 +1,20 @@
-{% extends "base.html" %}
+{% extends "funding/base.html" %}
 {% load i18n %}
 {% load oifilters %}
 {% block title %}{{selected_user.username}}{% endblock %}
-{% block nav %}
-    <div>
-        <h3>{% trans "My Contacts" %} ({{selected_user.get_profile.contacts.count}})</h3>
-        {% for contact in selected_user.get_profile.contacts.all %}
-        <div class="contactinfo">
-            <img class="contactpicture" src="/user/getpicture/{{contact.user.username}}" />
-            <a href="/user/profile/{{contact.user.username}}">{{contact.user.get_profile}}</a><br />
-            {% if contact.title %}
-            {{contact.title}}
-            {% else %}
-            {{contact.get_titles|first}}
-            {% endif %}
-        </div>
-        {% endfor %}
-        <div class="cleared"></div>
-    </div>
-{% endblock %}
 {% block content %}
-    <div class="userpage" >
+    <div class="userpicture">
+        <img style="border: 1px solid #E0E0E0" id="user_picture" width="125" height="150" src="/user/getpicture/{{user.username}}" />
+        <img class="clickable" src="/img/icons/edit.png" onclick="$('#profile_picture').toggle()" />
+        <div id="profile_picture">
+            <form id="profile_picture_form" method="post" enctype="multipart/form-data" action="/user/uploadpicture" target="picturedest">
+                {% csrf_token %}
+                <input id="picture" name="picture" type="file" size="1" onchange="document.getElementById('profile_picture_form').submit();hide('profile_picture')" />
+            </form>
+        </div>
+        <iframe id="picturedest" name="picturedest" class="filedest"></iframe>
+    </div>
+    <div class="" >
         <div id="sendmp" class="popup invisible"></div>
         <div class="actions">
             {% ifnotequal user selected_user %}
@@ -31,7 +25,6 @@
             {% endifnotequal %}
             <a href="/user/exportresume/{{selected_user.username}}"><img class="clickable" src="/img/icons/cvexport.png" alt="{% trans "Export this resume" %}" title="{% trans "Export this resume" %}" /></a>
         </div>
-        {% include "users/profile/resume.html" %}
     </div>
     {% include "users/profile/related.html" %}
 {% endblock %}

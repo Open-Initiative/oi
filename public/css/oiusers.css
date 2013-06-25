@@ -3,6 +3,17 @@ div.userpage {
     float: left;
     margin:0 20px;
 }
+.userbody {
+    padding: 1em;
+}
+.creditblock {
+    float: left;
+    text-align: center;
+    width: 36%;
+}
+.credittip {
+    border: 1px solid #E0E0E0;
+}
 div.userblock {
     clear: left;
     padding: 10px;

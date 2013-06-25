@@ -247,7 +247,7 @@ div.column {
 }
 .largecolumn {
     float: left;
-    width: 420px;
+    width: 60%;
     margin: 2px;
 }
 div.smallcolumn {
