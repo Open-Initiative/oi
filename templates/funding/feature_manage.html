@@ -37,7 +37,7 @@
             <div><span class="funded">{{task.allbid_sum|default:0|floatformat:"-2"}} €</span> {% trans "funded" %}</div>
             {% include 'funding/project_actions_manage.html' %}
             <div class="progressbar">
-                <span id="progressbar_{{object.id}}" class="progress" style="width:{{task.get_funding_progress|default:0|floatformat:0}}%;">{{task.get_funding_progress|default:0|floatformat:0}}%</span>
+                <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%;">{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%</span>
                 <span id="progresslabel_{{object.id}}" class="progresstitle" ></span>
             </div>
             <div class="cleared funding_space">

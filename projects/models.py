@@ -44,6 +44,18 @@ class ProjectQuerySet(QuerySet):
     def apply_public(self, permission, public):
         """sets public on all projects in queryset"""
         return self.update(**{"public_"+permission: public})
+    
+    def allbid_sum(self):
+        """get the sum of all bids of a set of projects"""
+        return self.aggregate(models.Sum("bid__amount"))["bid__amount__sum"] or Decimal("0")
+        
+    def allbudget(self):
+        """get the sum of all bids of a set of projects"""
+        offer = self.aggregate(models.Sum("offer"))["offer__sum"]
+        if not offer:
+            return Decimal("0")
+        commission = self.aggregate(models.Sum("commission"))["commission__sum"] or Decimal("0")
+        return offer + commission + commission * OI_VAT_RATE / 100
 
 #Add function for the list
 class ProjectManager(models.Manager):
@@ -332,16 +344,16 @@ class Project(models.Model):
         """sums up all commissions on the project's tasks"""
         return (self.commission or self.allcommission_sum()) * OI_VAT_RATE / 100
         
+    def get_selfbudget(self):
+        """return the budget of the project itself, including commission"""
+        return self.offer + self.commission + self.commission * OI_VAT_RATE / 100
+        
     def get_budget(self):
         """return the total budget of the project, either itself or summing its tasks, and including commission"""
-        return (self.offer or self.alloffer_sum()) + (self.commission or self.allcommission_sum()) + self.get_commission_tax()
-    
-    def get_funding_progress(self):
-        """Returns the percentage of offer already in bids"""
-        if self.get_budget():
-            return min(self.allbid_sum() / self.get_budget() * 100, 100)
+        if self.offer:
+            return self.get_selfbudget()
         else:
-            return None
+            return self.descendants.all().allbudget()
     
     def bid_sum(self):
         """returns the sum of all bids on this project"""

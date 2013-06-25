@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load oifilters %}
 <div class="prjcard">
     <a href="/funding/{{project.id}}"><div class="prjtitle">{{project.title}}</div></a>
     <div class="prjcardauthor">{% trans "Project created by" %} {{project.author.get_profile}}</div>
@@ -7,13 +8,16 @@
     {% with specs.0 as spec %}<a href="/funding/{{project.id}}"><div class="cardspec">{% include 'funding/spec/minispec.html' %}</div></a>{% endwith %}
     {% with specs.1 as spec %}<div class="cardspec" style="height: 8.5em;overflow:hidden">{% include 'funding/spec/minispec.html' %}</div>{% endwith %}
     {% endwith %}
+    {% with project.descendants|filter_read:user as descendants %}
     <div class="fundingprogress">
-        {{project.allbid_sum|floatformat:"-2"}} € {% trans "funded out of" %} {{project.get_budget|floatformat:"-2"}} €
+        {{descendants.allbid_sum|add:project.bid_sum|floatformat:"-2"}} € {% trans "funded out of" %}
+        {{project.get_selfbudget|default:descendants.allbudget|floatformat:"-2"}} €
         <div class="progressbar">
-            <span id="progressbar_{{object.id}}" class="progress" style="width:{{project.get_funding_progress|default:0|floatformat:0}}%;"></span>
-            <span id="progresslabel_{{object.id}}" class="progresstitle" >{{project.get_funding_progress|default:0|floatformat:0}}%</span>
+            <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio descendants.allbid_sum|add:project.bid_sum project.get_selfbudget|default:descendants.allbudget 100 %}%;"></span>
+            <span id="progresslabel_{{object.id}}" class="progresstitle" >{% widthratio descendants.allbid_sum|add:project.bid_sum project.get_selfbudget|default:descendants.allbudget 100 %} %</span>
         </div>
     </div>
+    {% endwith %}
     <img class="prjcardlink" src="/img/icons/next.png" />
 </div>
 
