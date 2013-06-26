@@ -10,6 +10,24 @@ function editDetail(type, divid, id) {
 function saveDetail(divid, id) {
     OIajaxCall("/user/savedetail/"+id, prepareForm("form_"+divid), divid);
 }
+function editBio() {
+    jQuery('#bio').hide();
+    jQuery('#bio_edit').fadeIn();
+    tinyMCE.execCommand('mceAddControl', false, 'bio_textedit');
+}
+function saveBio() {
+    tinyMCE.execCommand('mceRemoveControl', false, 'bio_textedit');
+    OIajaxCall("/user/savebio", "bio="+encodeURIComponent(getValue('bio_textedit')), "output", function(){
+        jQuery('#bio_edit').hide();
+        jQuery('#bio').fadeIn();
+        document.getElementById("bio").innerHTML = getValue('bio_textedit');
+    });
+}
+function cancelBio() {
+    jQuery('#bio_edit').hide();
+    jQuery('#bio').fadeIn();
+    tinyMCE.execCommand('mceRemoveControl', false, 'bio_textedit');
+}
 function setRSS(divid, id) {
     OIajaxCall("/user/setrss/", "rss="+getValue("rssfeed"), "output");
 }

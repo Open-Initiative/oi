@@ -37,6 +37,13 @@ div.userpicture {
     margin-left: .2em;
     margin-right: .6em;
 }
+.profilepicture {
+    float: left;
+    max-width: 150px;
+    max-height: 150px;
+    margin-left: .2em;
+    margin-right: .6em;
+}
 .usercontent {
     width:400px;
     float: left;
@@ -80,4 +87,15 @@ div.blogicon {
 .profile_picture{
     position: relative;
     right: 40%;
+}
+.profile_column {
+    width: 12em;
+    margin-right: 1em;
+}
+.profile_info {
+    border: solid 2px #E0E0E0;
+    border-left:none;
+    border-right:none;
+    margin: .5em 0;
+    padding: .5em 0
 }

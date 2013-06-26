@@ -3,28 +3,51 @@
 {% load oifilters %}
 {% block title %}{{selected_user.username}}{% endblock %}
 {% block content %}
-    <div class="userpicture">
-        <img style="border: 1px solid #E0E0E0" id="user_picture" width="125" height="150" src="/user/getpicture/{{user.username}}" />
+<div class="prjbody">
+    <div class="column profile_column">
+        <img class="profilepicture" src="/user/getpicture/{{selected_user.username}}" />
+        <div class="cleared"></div>
+        {% ifequal user selected_user %}
         <img class="clickable" src="/img/icons/edit.png" onclick="$('#profile_picture').toggle()" />
-        <div id="profile_picture">
+        <div id="profile_picture" class="cleared filebox invisible">
             <form id="profile_picture_form" method="post" enctype="multipart/form-data" action="/user/uploadpicture" target="picturedest">
                 {% csrf_token %}
-                <input id="picture" name="picture" type="file" size="1" onchange="document.getElementById('profile_picture_form').submit();hide('profile_picture')" />
+                <input id="picture" name="picture" type="file" size="1" onchange="document.getElementById('profile_picture_form').submit();hide('profile_picture')" class="filepicker" />
             </form>
         </div>
         <iframe id="picturedest" name="picturedest" class="filedest"></iframe>
-    </div>
-    <div class="" >
-        <div id="sendmp" class="popup invisible"></div>
-        <div class="actions">
+        {% endifequal %}
+        <div class="profile_info">
+            <img src="/img/logosmall.png" class="column">
+            <div>{{selected_user.get_profile.get_created_projects.count}} {% trans "Projects created" %}</div>
+            <div>{{selected_user.bid_projects.count}} {% trans "Projects funded" %}</div>
             {% ifnotequal user selected_user %}
-            <img class="clickable" src="/img/icons/sendmsg.png" onclick="writeMP('{{selected_user.username}}')" alt="{% trans "Send a message" %}" title="{% trans "Send a message" %}" />
-            {% if not user|is_contact:selected_user %}
-            <img class="clickable" src="/img/icons/addcontact.png" onclick="addContact('{{selected_user.username}}')" alt="{% trans "Add to my contacts" %}" title="{% trans "Add to my contacts" %}" />
-            {% endif %}
+            <a class="clickable" onclick="writeMP('{{selected_user.username}}')">{% trans "Contact me!" %}</a>
             {% endifnotequal %}
-            <a href="/user/exportresume/{{selected_user.username}}"><img class="clickable" src="/img/icons/cvexport.png" alt="{% trans "Export this resume" %}" title="{% trans "Export this resume" %}" /></a>
         </div>
     </div>
-    {% include "users/profile/related.html" %}
+    <div class="column">
+        <a href="/user/myaccount"><img class="actions" src="/img/icons/edit.png" /></a>
+        <h1>{{selected_user.get_profile}}</h1>
+        <div>{{selected_user.get_profile.personal_website}}</div>
+        <div>{{selected_user.get_profile.city}}, {{selected_user.get_profile.country}}</div>
+        <img class="actions" src="/img/icons/edit.png" onclick="editBio()"/>
+        <div id="bio">{% autoescape off %}{{selected_user.get_profile.bio|oiunescape}}{% endautoescape %}</div>
+        <div id="bio_edit" class="invisible">
+            <div class="actions">
+                <img class="clickable" src="/img/icons/ok-32.png" onclick="saveBio()"/>
+                <img class="clickable" src="/img/icons/delete.png" onclick="cancelBio()"/>
+            </div>
+            <textarea rows="12" id="bio_textedit" class="norich">{{selected_user.get_profile.bio|oiunescape}}</textarea>
+        </div>
+    </div>
+</div>
+<div class="related">
+    <div class="tasktitle">{% trans "Projects created" %}</div>
+    {% for project in selected_user.get_profile.get_created_projects %}
+        {% include 'funding/project_card.html' %}
+    {% endfor %}
+    <div class="tasktitle">{% trans "Projects funded" %}</div>
+</div>
+<div id="sendmp" class="popup invisible"></div>
 {% endblock %}

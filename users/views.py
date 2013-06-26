@@ -132,6 +132,13 @@ def changeemail(request):
     messages.info(request, _("Your email has been updated"))
     return HttpResponseRedirect("/user/myaccount")
 
+@login_required
+def savebio(request):
+    """updates user's bio"""
+    request.user.get_profile().bio = request.POST['bio']
+    request.user.get_profile().save()
+    return HttpResponse(_("Modification saved"))
+
 def createuser(request):
     """creates a new user"""
     if request.POST.get("acceptcgu") != "on":

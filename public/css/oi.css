@@ -241,7 +241,7 @@ div.center{
     font-weight: bold;
     color: white;
 }
-div.column {
+.column {
     float: left;
     margin: 5px;
 }
@@ -379,7 +379,7 @@ img.tabicon {
 }
 .related {
     float: left;
-    width: 265px;
+    width: 26%;
     padding: .5em;
 }
 .presslide {
@@ -590,6 +590,15 @@ div.morelink {
     width:0;
     border:0;
     padding:0;
+}
+.filebox {
+    overflow: hidden;
+}
+.filepicker {
+    border: transparent;
+    background: transparent;
+    position: relative;
+    left: -4.1em;
 }
 .filedest {
     visibility: hidden;

@@ -38,6 +38,7 @@ class UserProfile(models.Model):
     rss_feed = models.URLField(verify_exists=False, blank=True)
     last_feed = models.DateTimeField(null=True, blank=True)
     personal_website = models.URLField(max_length=200, blank=True, null=True)
+    bio = models.TextField(blank=True)
     github_username = models.CharField(max_length=100, blank=True, null=True)
     github_password = models.CharField(max_length=100, blank=True, null=True)
     tax_rate = models.DecimalField(max_digits= 12, decimal_places=2, blank=True, null=True)
@@ -130,6 +131,10 @@ class UserProfile(models.Model):
     def get_observed_projects(self):
         """ filter all projects followed by the user"""
         return Project.objects.filter(observer__user=self.user)
+    
+    def get_created_projects(self):
+        """ filter all projects created by the user, excluding tasks"""
+        return self.user.ownprojects.filter(parent=None)
         
     def follow_project(self, project):
         """make the user follow the project"""
