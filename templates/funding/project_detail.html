@@ -5,17 +5,16 @@
 {% block breadcrumb %}
 <div class="path-element">{{object.title}}</div>
 {% endblock %}
+
 {% block content %}
 {% if object|can_read:user %}
-
 <div style="float: left;width: 730px;">
-
     <div class="prjbody">
         {% with object as project %}
         <div id="project_{{object.id}}" class="project">
             <div id="prjdialogue_{{object.id}}" class="popup invisible"></div>
             <div class="prjheader">
-                <div class="prjauthor">{% trans "Project created by" %} {{object.author.get_profile}}</div>
+                <div class="prjauthor">{% trans "Project created by" %} <a href="/user/profile/{{project.author.username}}">{{project.author.get_profile}}</a></div>
                 <div>
                     <div class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">
                         {{object.title}}
