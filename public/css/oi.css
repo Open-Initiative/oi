@@ -352,9 +352,6 @@ img.tabicon {
     color: #0094B5;
     padding: .5em;
 }
-#navhome div:last-child {
-/*    border-top: none;*/
-}
 .navtitlehome {
     font-size: 1.4em;
     font-weight: bold;
@@ -378,8 +375,8 @@ img.tabicon {
     float: left;
 }
 .related {
-    float: left;
-    width: 26%;
+    float: right;
+    width: 28%;
     padding: .5em;
 }
 .presslide {
