@@ -3,11 +3,11 @@
 {% block title %}{% trans "My account" %}{% endblock %}
 {% block content %}
 <div class="pagebody userbody">
-    <h1 id="fullname">
-        {{user.get_profile.get_display_name}} 
-        <img class="clickable" src="/img/icons/edit.png" onclick="selectNameDisplay()" />
-    </h1>
     <div class="largecolumn">
+        <h1 id="fullname">
+            {{user.get_profile.get_display_name}} 
+            <img class="clickable" src="/img/icons/edit.png" onclick="selectNameDisplay()" />
+        </h1>
         <h4>login: {{user.username}}</h4>
         <div>
             <h3>{% trans "Name" %} <img onclick="$('#block_name').toggle();$('#block_name_info').toggle()" class="clickable" src="/img/icons/edit.png"/></h3>
@@ -17,7 +17,7 @@
             <div id="block_name" class="invisible">
                 <div class="actions">
                     <img class="clickable" src="/img/icons/ok-32.png" onclick="saveName();$('#block_name').hide();$('#block_name_info').show()" />
-                    <input type="image" class="clickable" src="/img/icons/del-32.png" onclick="resetName()" />
+                    <input type="image" class="clickable" src="/img/icons/delete.png" onclick="$('#block_name').hide();$('#block_name_info').show()" />
                 </div>
                 <form id="contact_name">
                     <table>
@@ -75,6 +75,7 @@
                 </form>
             </div>
         </div>
+        <br/><br/>
         <div>
             <a href="/user/changepassword">{% trans "Change your password" %}</a>
         </div>

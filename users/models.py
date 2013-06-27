@@ -135,7 +135,11 @@ class UserProfile(models.Model):
     def get_created_projects(self):
         """ filter all projects created by the user, excluding tasks"""
         return self.user.ownprojects.filter(parent=None)
-        
+    
+    def get_funded_projects(self):
+        """ filter all projects in which the user has a bid on a task"""
+        return Project.objects.filter(subprojects__bid__user=self.user).distinct()
+    
     def follow_project(self, project):
         """make the user follow the project"""
         if Observer.objects.filter(user=self.user, project__descendants=project):

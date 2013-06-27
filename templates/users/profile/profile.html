@@ -6,9 +6,8 @@
 <div class="prjbody">
     <div class="column profile_column">
         <img class="profilepicture" src="/user/getpicture/{{selected_user.username}}" />
-        <div class="cleared"></div>
         {% ifequal user selected_user %}
-        <img class="clickable" src="/img/icons/edit.png" onclick="$('#profile_picture').toggle()" />
+        <img class="clickable" style="position:relative;top:90px" src="/img/icons/edit.png" onclick="$('#profile_picture').toggle()" />
         <div id="profile_picture" class="cleared filebox invisible">
             <form id="profile_picture_form" method="post" enctype="multipart/form-data" action="/user/uploadpicture" target="picturedest">
                 {% csrf_token %}
@@ -17,21 +16,22 @@
         </div>
         <iframe id="picturedest" name="picturedest" class="filedest"></iframe>
         {% endifequal %}
-        <div class="profile_info">
+        <div class="profile_info cleared">
             <img src="/img/logosmall.png" class="column">
             <div>{{selected_user.get_profile.get_created_projects.count}} {% trans "Projects created" %}</div>
-            <div>{{selected_user.bid_projects.count}} {% trans "Projects funded" %}</div>
+            <div>{{selected_user.get_profile.get_funded_projects.count}} {% trans "Projects funded" %}</div>
             {% ifnotequal user selected_user %}
             <a class="clickable" onclick="writeMP('{{selected_user.username}}')">{% trans "Contact me!" %}</a>
             {% endifnotequal %}
         </div>
     </div>
-    <div class="column">
-        <a href="/user/myaccount"><img class="actions" src="/img/icons/edit.png" /></a>
-        <h1>{{selected_user.get_profile}}</h1>
+    <div class="profilecolumn">
+        <h1>{{selected_user.get_profile}} <a href="/user/myaccount"><img src="/img/icons/edit.png" /></a></h1>
         <div>{{selected_user.get_profile.personal_website}}</div>
         <div>{{selected_user.get_profile.city}}, {{selected_user.get_profile.country}}</div>
-        <img class="actions" src="/img/icons/edit.png" onclick="editBio()"/>
+        
+        <h2>{% trans "My bio" %}
+        <img src="/img/icons/edit.png" onclick="editBio()"/></h2>
         <div id="bio">{% autoescape off %}{{selected_user.get_profile.bio|oiunescape}}{% endautoescape %}</div>
         <div id="bio_edit" class="invisible">
             <div class="actions">
@@ -43,11 +43,14 @@
     </div>
 </div>
 <div class="related">
-    <div class="tasktitle">{% trans "Projects created" %}</div>
-    {% for project in selected_user.get_profile.get_created_projects %}
+    {% if selected_user.get_profile.get_created_projects|filter_read:user %}<div class="tasktitle">{% trans "Projects created" %}</div>{% endif %}
+    {% for project in selected_user.get_profile.get_created_projects|filter_read:user %}
         {% include 'funding/project_card.html' %}
     {% endfor %}
-    <div class="tasktitle">{% trans "Projects funded" %}</div>
+    {% if selected_user.get_profile.get_funded_projects|filter_read:user %}<div class="tasktitle">{% trans "Projects funded" %}</div>{% endif %}
+    {% for project in selected_user.get_profile.get_funded_projects|filter_read:user %}
+        {% include 'funding/project_card.html' %}
+    {% endfor %}
 </div>
 <div id="sendmp" class="popup invisible"></div>
 {% endblock %}

@@ -99,3 +99,11 @@ div.blogicon {
     margin: .5em 0;
     padding: .5em 0
 }
+#bio {
+    width: 450px;
+}
+.profilecolumn {
+    float: left;
+    width: 70%;
+    margin: 2px;
+}
