@@ -438,13 +438,13 @@ class Project(models.Model):
         
     #descendanding task for funding    
     def all_not_started_tasks(self):
-        return self.descendants.select_related('author', 'assignee', 'delegate_to', 'parent', 'master', 'target').filter(state = 0).order_by('priority')
+        return self.descendants.select_related('author', 'assignee', 'delegate_to', 'parent', 'master', 'target').filter(state__lte=1).order_by('priority')
         
     def all_progress_tasks(self):
-        return self.descendants.select_related('author', 'assignee', 'delegate_to', 'parent', 'master', 'target').filter(state__lte=3).exclude(state = 0).order_by('priority')
+        return self.descendants.select_related('author', 'assignee', 'delegate_to', 'parent', 'master', 'target').filter(state__lte=3, state__gt=1).order_by('priority')
         
     def all_finish_tasks(self):
-        return self.descendants.select_related('author', 'assignee', 'delegate_to', 'parent', 'master', 'target').filter(state = 4).order_by('priority')
+        return self.descendants.select_related('author', 'assignee', 'delegate_to', 'parent', 'master', 'target').filter(state__gte=4).order_by('priority')
         
     def all_specs_with_languages(self):
         """returns all project spec with the current language if available
