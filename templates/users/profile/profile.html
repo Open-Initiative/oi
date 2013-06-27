@@ -7,7 +7,7 @@
     <div class="column profile_column">
         <img class="profilepicture" src="/user/getpicture/{{selected_user.username}}" />
         {% ifequal user selected_user %}
-        <img class="clickable" style="position:relative;top:90px" src="/img/icons/edit.png" onclick="$('#profile_picture').toggle()" />
+        <img class="clickable" src="/img/icons/edit.png" onclick="$('#profile_picture').toggle()" />
         <div id="profile_picture" class="cleared filebox invisible">
             <form id="profile_picture_form" method="post" enctype="multipart/form-data" action="/user/uploadpicture" target="picturedest">
                 {% csrf_token %}
