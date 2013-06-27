@@ -28,13 +28,13 @@ class ProjectQuerySet(QuerySet):
         if user.is_superuser: #Super user has all permissions on all tasks
             return self.all()
         if permission==OI_READ:
-            return self.filter(models.Q(public_read=True)|models.Q(projectacl__user=user if user.is_authenticated() else None, projectacl__permission=permission)).distinct()
+            return self.filter(pk__in=self.filter(models.Q(public_read=True)|models.Q(projectacl__user=user if user.is_authenticated() else None, projectacl__permission=permission)))
         elif permission==OI_ANSWER:
-            return self.filter(models.Q(public_answer=True)|models.Q(projectacl__user=user if user.is_authenticated() else None, projectacl__permission=permission)).distinct()
+            return self.filter(pk__in=self.filter(models.Q(public_answer=True)|models.Q(projectacl__user=user if user.is_authenticated() else None, projectacl__permission=permission)))
         if permission==OI_BID:
-            return self.filter(models.Q(public_bid=True)|models.Q(projectacl__user=user if user.is_authenticated() else None, projectacl__permission=permission)).distinct()
+            return self.filter(pk__in=self.filter(models.Q(public_bid=True)|models.Q(projectacl__user=user if user.is_authenticated() else None, projectacl__permission=permission)))
         else:
-            return self.filter(projectacl__user=user if user.is_authenticated() else None, projectacl__permission=permission).distinct()
+            return self.filter(pk__in=self.filter(projectacl__user=user if user.is_authenticated() else None, projectacl__permission=permission))
             
     def apply_perm(self, user, perm):
         """sets perm on all projects in queryset"""
