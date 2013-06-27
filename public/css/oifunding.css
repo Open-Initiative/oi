@@ -59,6 +59,9 @@ div.prjauthor {
 div.prjdesc {
     padding-left: 10px;
 }
+.prjdesc img {
+    max-width: 700px;
+}
 .minispec-arrow {
     float: right;
     margin: 40px 5px;
