@@ -26,12 +26,17 @@
         </div>
     </div>
     <div class="profilecolumn">
-        <h1>{{selected_user.get_profile}} <a href="/user/myaccount"><img src="/img/icons/edit.png" /></a></h1>
+        <h1>
+            {{selected_user.get_profile}}
+            {% ifequal user selected_user %}<a href="/user/myaccount"><img src="/img/icons/edit.png" /></a>{% endifequal %}
+        </h1>
         <div>{{selected_user.get_profile.personal_website}}</div>
         <div>{{selected_user.get_profile.city}}, {{selected_user.get_profile.country}}</div>
         
-        <h2>{% trans "My bio" %}
-        <img src="/img/icons/edit.png" onclick="editBio()"/></h2>
+        <h2>
+            {% trans "My bio" %}
+            {% ifequal user selected_user %}<img src="/img/icons/edit.png" onclick="editBio()"/>{% endifequal %}
+            </h2>
         <div id="bio">{% autoescape off %}{{selected_user.get_profile.bio|oiunescape}}{% endautoescape %}</div>
         <div id="bio_edit" class="invisible">
             <div class="actions">
