@@ -1,6 +1,6 @@
 {% load i18n %}
 ﻿﻿{% load oifilters %}
-{% with project.spec_set.all|dictsort:"order" as specs %}{{specs.2.order}}
+{% with project.spec_set.all|dictsort:"order" as specs %}
 <div class="cleared"><img src="/img/askoi.png" />{% trans "Describe here what is to be done in" %} <span class="prjtitle">{{project.title}}</span><div class="cleared sepsearch"></div></div>
 
 <input name="spectype" id="type_{{project.id}}_1" value="2" type="hidden"/>
