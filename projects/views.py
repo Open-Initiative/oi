@@ -1089,7 +1089,7 @@ class OIFeed(Feed):
         return item.title
 
     def item_description(self, item):
-        desc = ""
+        desc = _("Created by") + " " + item.author.get_profile().get_display_name()
         for spec in item.spec_set.all():
             desc += "\n- " + summarize(spec.text)
         return desc

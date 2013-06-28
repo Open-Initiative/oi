@@ -35,7 +35,7 @@
         
         <h2>
             {% trans "My bio" %}
-            {% ifequal user selected_user %}<img src="/img/icons/edit.png" onclick="editBio()"/>{% endifequal %}
+            {% ifequal user selected_user %}<img src="/img/icons/edit.png" onclick="editBio()" class="clickable"/>{% endifequal %}
             </h2>
         <div id="bio">{% autoescape off %}{{selected_user.get_profile.bio|oiunescape}}{% endautoescape %}</div>
         <div id="bio_edit" class="invisible">
