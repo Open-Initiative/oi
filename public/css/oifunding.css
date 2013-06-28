@@ -873,3 +873,9 @@ div.sepspecfooter {
     margin-left: 3px;
     margin-right: 3px;
 }
+.discussion_column {
+    clear: left;
+    width: 65%;
+    float: left;
+    margin: 5px;
+}

@@ -99,7 +99,7 @@
 </div>
 
 {% with object as project %}
-<div class="column">
+<div class="discussion_column">
     <div id="discussions_{{project.id}}" class="discussions">
         {% for message in project.message_set.all %}
         <div id="message_{{message.id}}_box">{% include 'messages/message.html' %}</div>
