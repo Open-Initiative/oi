@@ -32,10 +32,15 @@
             <img src="/img/icons/delete.png" alt="{% trans 'delete feature' %}" title="{% trans 'delete feature' %}" class="clickable" onclick="deleteFeature({{task.id}})" />
         </div>{% endif %}
         <div id="feature_{{task.id}}" class="featuretitle">{{task.title}}</div>
-        {% if task|can_manage:user or task.spec_set.count%}<a class="clickable" onclick="showPopup(document.getElementById('featuredesc_{{task.id}}'))">{% trans "Description" %}</a>{% endif %}
+        
+        {% for spec in task.spec_set.all %}
+            <p class="ellipsis">{{spec.text|oiunescape|slice:":100"}} {% if spec.text|length > 101 %}...{% endif %}</p>
+        {% endfor %}
+        
+        {% if task|can_manage:user or task.spec_set.count%}<a style="display: block; text-align: right" class="clickable" onclick="showPopup(document.getElementById('featuredesc_{{task.id}}'))">{% trans "See more" %}</a>{% endif %}
         <div>
             <div><span class="funded">{{task.allbid_sum|default:0|floatformat:"-2"}} €</span> {% trans "funded" %}</div>
-            {% include 'funding/project_actions_manage.html' %}
+            
             <div class="progressbar">
                 <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%;">{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%</span>
                 <span id="progresslabel_{{object.id}}" class="progresstitle" ></span>
@@ -46,12 +51,14 @@
             </div>
             
             {% if task.state < 4 and task.assignee == user %}
-            <form class="funding_space" onsubmit="OIajaxCall('/project/confirmoffer/{{task.id}}', 'offer='+getValue('offer_manage_{{task.id}}'), 'output', function(){hide('offer_manage_{{task.id}}')}); return false">
-                <input type="text" id="offer_manage_{{task.id}}" value="{{task.offer}}" onFocus="this.select()" class="smallinput invisible" />
-                <span id="changesum_{{task.id}}">{% trans "Change the sum of this feature" %}</span>
-                <img src="/img/icons/edit.png" class="clickable" onclick="$('#offer_manage_{{task.id}}').toggle(); $('#changesum_{{task.id}}').toggle()">
-            </form>
-        {% endif %}
+                <form class="funding_space" onsubmit="OIajaxCall('/project/confirmoffer/{{task.id}}', 'offer='+getValue('offer_manage_{{task.id}}'), 'output', function(){hide('offer_manage_{{task.id}}')}); return false">
+                    <input type="text" id="offer_manage_{{task.id}}" value="{{task.offer}}" onFocus="this.select()" class="smallinput invisible" />
+                    <span id="changesum_{{task.id}}">{% trans "Change the sum of this feature" %}</span>
+                    <img src="/img/icons/edit.png" class="clickable" onclick="$('#offer_manage_{{task.id}}').toggle(); $('#changesum_{{task.id}}').toggle()">
+                </form>
+            {% endif %}
+            
+            {% include 'funding/project_actions_manage.html' %}
             
             {% if task|can_manage:user %}<a class="clickable" onclick="showPopup(document.getElementById('featurebudget_{{task.id}}'))">{% trans "Funding details" %}</a>{% endif %}
             

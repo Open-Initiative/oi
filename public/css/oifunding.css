@@ -145,7 +145,7 @@ div.prj-block-action {
     display: table;
     clear: left;
     font-weight: bold;
-    margin-top: 1.5em;
+/*    margin-top: 1.5em;*/
 }
 .prj-btn:after {
     content: url('/img/icons/nextwhite.png');
@@ -162,7 +162,7 @@ div.prj-block-action {
     display: table;
     clear: left;
     font-weight: bold;
-    margin-top: 1.5em;
+/*    margin-top: 1.5em;*/
 }
 .funding_btn:before {
     content: url('/img/icons/previouswhite.png');
@@ -570,16 +570,16 @@ option.oldrelease{
     border-radius: 4px 4px 4px 4px;
     color: white;
     display: block;
-    font-size: 1.8em;
+    font-size: 1.3em;
     font-weight: bold;
     margin: auto;
-    padding: 0.5em;
+    padding: 0.1em;
     text-transform: uppercase;
-    width: 75%;
+    width: 60%;
 }
 .supportbtn:after {
     content: url("/img/icons/whitebtn.png");
-    vertical-align: 2px;
+    vertical-align: -1px;
 }
 .bidaction {
     background: #1E9947;
@@ -855,7 +855,7 @@ div.sepspecfooter {
 .margin_auto {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 10px;
+    margin-bottom: 10px;
 }
 .funding_msg_position{
     left: -73%;
@@ -882,10 +882,10 @@ div.sepspecfooter {
 }
 .column-right{
     background-color: #F5F3F3;
+    padding: 1%;
 }
 .myprofile{
     border: solid #D3CFCF 1px;
-    padding: 1%;
     border-radius: 2px;
 }
 .help-fuding{
@@ -914,4 +914,12 @@ div.sepspecfooter {
 .edit_title{
     font-size: 1.6em;
     text-align: center;
+}
+.ellipsis p{
+    margin: 0;
+}
+.center_btn{
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
 }

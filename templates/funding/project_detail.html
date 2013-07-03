@@ -46,7 +46,7 @@
     
     
     <div class="">
-    <div class="statebtns" style="margin-left: auto;margin-right: auto;width: 40%;"> 
+    <div class="statebtns center_btn"> 
         {% if object.all_not_started_tasks %}<div onclick="featureShowHide('features_0')" id="featureid_proposed" class="clickable statebtn">{% trans "Proposed" %}</div>{% endif %}
         {% if object.all_progress_tasks %}<div onclick="featureShowHide('features_3')" id="featureid_progress" class="clickable statebtn">{% trans "In progress" %}</div>{% endif %}
         {% if object.all_finish_tasks %}<div onclick="featureShowHide('features_4')" id="featureid_finish" class="clickable statebtn">{% trans "Finished" %}</div>{% endif %}
