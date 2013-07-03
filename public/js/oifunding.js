@@ -35,3 +35,14 @@ function visibleFeature(projectid){
         }
     );
 }
+function seeMore(divid1, divid2){
+    if(document.getElementById(divid1) && document.getElementById(divid2)){
+        if(document.getElementById(divid1).className == "invisible" && document.getElementById(divid2).className == ""){
+            document.getElementById(divid1).className = "";
+            document.getElementById(divid2).className = "invisible"
+        }else{
+            document.getElementById(divid2).className = "";
+            document.getElementById(divid1).className = "invisible"
+        }
+    }
+}

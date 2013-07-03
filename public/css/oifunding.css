@@ -57,7 +57,8 @@ div.prjauthor {
     height: 110px;
 }
 div.prjdesc {
-    padding-left: 10px;
+    padding-left: 1%;
+    padding-right: 1%;
 }
 .prjdesc img {
     max-width: 700px;
@@ -772,7 +773,7 @@ div.sepspecfooter {
     display: inline-block;
 }
 .projectbaseline {
-    width: 40em;
+    width: 34em;
 }
 .spotnumber {
     height: 16px;
@@ -820,7 +821,7 @@ div.sepspecfooter {
 }
 .featurebox{
     width:  32%;
-    height: 18em;
+/*    height: 18em;*/
     float:  left;
     margin-left: 3px; 
     margin-right: 3px;
@@ -849,7 +850,7 @@ div.sepspecfooter {
     text-align: justify;
 }
 .funding_space {
-    margin-bottom: 4px;
+    margin-bottom: 1%;
 }
 .margin_auto {
     margin-left: auto;
@@ -878,4 +879,39 @@ div.sepspecfooter {
     width: 65%;
     float: left;
     margin: 5px;
+}
+.column-right{
+    background-color: #F5F3F3;
+}
+.myprofile{
+    border: solid #D3CFCF 1px;
+    padding: 1%;
+    border-radius: 2px;
+}
+.help-fuding{
+    background-color: #A0D2E9;
+    border-radius: 5px 5px 5px 5px;
+    color: black;
+    float: right;
+    font-size: 11px;
+    left: -18%;
+    padding: 0.5%;
+    position: relative;
+    width: 24%;
+}
+.detail_subtitle{
+    color:#0094B5; 
+    font-size:25px; 
+    padding-left: 1%;
+    margin-top: 5%;
+}
+.edit_add_new_language{
+    font-weight: bold;
+    margin-left: 8%;
+    padding-top: 1%;
+    width: 35%;
+}
+.edit_title{
+    font-size: 1.6em;
+    text-align: center;
 }

@@ -13,7 +13,6 @@
     <div id="project_{{object.id}}" class="project">
         <div id="prjdialogue_{{object.id}}" class="popup invisible"></div>
         <div class="prjheader">
-            <div class="prjauthor">{% trans "Project created by" %} <a href="/user/profile/{{project.author.username}}">{{project.author.get_profile}}</a></div>
             <div>
                 <div class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">
                     {{object.title}}
@@ -24,10 +23,6 @@
                 </div>
             </div>
             <div class="cleared"></div>
-            {% if object|can_write:user %}
-                <a href="edit"><div style="float: left;" class="bidaction">{% trans "Edit your project" %}</div></a>
-                <a href="manage"><div class="bidaction">{% trans "Manage your features" %}</div></a>
-            {% endif %}
         </div>
         <div id="specs_{{project.id}}" class="prjdesc">
             {% for spec in project.spec_set.all|dictsort:"order" %}
@@ -44,12 +39,14 @@
             {% endfor %}
         </div>
     </div>
+    
     <div class="cleared"></div>
-    {% endwith %}
-</div>
-
-<div class="related">
-    <div class="statebtns"> 
+    
+    <h2 class="detail_subtitle">{% trans "Finance feature" %}</h2>
+    
+    
+    <div class="">
+    <div class="statebtns" style="margin-left: auto;margin-right: auto;width: 40%;"> 
         {% if object.all_not_started_tasks %}<div onclick="featureShowHide('features_0')" id="featureid_proposed" class="clickable statebtn">{% trans "Proposed" %}</div>{% endif %}
         {% if object.all_progress_tasks %}<div onclick="featureShowHide('features_3')" id="featureid_progress" class="clickable statebtn">{% trans "In progress" %}</div>{% endif %}
         {% if object.all_finish_tasks %}<div onclick="featureShowHide('features_4')" id="featureid_finish" class="clickable statebtn">{% trans "Finished" %}</div>{% endif %}
@@ -58,47 +55,89 @@
 
     {% if not object.all_not_started_tasks %}<div class="features" id="features_0"><div id="nofeatures"></div></div>{% endif %}  
     {% if object.all_not_started_tasks %}
-        <div class="features" id="features_0">
+        <ul class="features_manage" id="features_0">
             {% for task in object.all_not_started_tasks|filter_read:user %}
-                <div class="cleared"></div>
+                <li class="featurebox" id="task_{{task.id}}">
                 {% include 'funding/feature.html' %}
+                </li>
             {% endfor %}
-        </div>
-        <div class="cleared"></div>
+            <div class="cleared"></div>
+        </ul>
     {% endif %}
 
     {% if object.all_progress_tasks %}
-        <div class="features" id="features_3">
+        <ul class="features_manage" id="features_3">
             {% for task in object.all_progress_tasks|filter_read:user %}
-                <div class="cleared"></div>
+                <li class="featurebox" id="task_{{task.id}}">
                 {% include 'funding/feature.html' %}
+                </li>
             {% endfor %}
-        </div>
-        <div class="cleared"></div>
+            <div class="cleared"></div>
+        </ul>
     {% endif %}
 
     {% if object.all_finish_tasks %}
-        <div class="features" id="features_4">
+        <ul class="features_manage" id="features_4">
             {% for task in object.all_finish_tasks|filter_read:user %}
-                <div class="cleared"></div>
+                <li class="featurebox" id="task_{{task.id}}">
                 {% include 'funding/feature.html' %}
+                </li>
             {% endfor %}
-        </div>
-        <div class="cleared"></div>
+            <div class="cleared"></div>
+        </ul>
     {% endif %}
 
 
-    <div class="featureblock">
-        <div class="featuretitle" id="feature_{{object.id}}">{% trans "Propose a new feature" %}</div>
-        <form style="margin:5px 0;width:220px" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, null,function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); return false" id="newtask_{{object.id}}">
-            <input type="image" title="New feature" alt="New feature" src="/img/icons/addtask.png">
-            <label for="newtask_title_{{object.id}}" class="inputnewtask">{% trans "Feature name" %}</label>
-            <input type="text" style="border:1px solid" class="newtask_title" id="newtask_title_{{object.id}}">
-        </form>
+    <h2 class="detail_subtitle">{% trans "Propose a new feature" %}</h2>
+
+    <div class="cleared"></div>
+    <div class="featureblock" style="margin-left: 31.5%;width:32%">
+        <div class="featuretitle" id="feature_{{object.id}}"></div>
+        <div>
+            <form onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, null,function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); return false" id="newtask_{{object.id}}">
+                <input type="image" title="New feature" alt="New feature" src="/img/icons/addtask.png">
+                <label for="newtask_title_{{object.id}}" class="inputnewtask">{% trans "Feature name" %}</label>
+                <input type="text" style="border:1px solid" class="newtask_title" id="newtask_title_{{object.id}}">
+            </form>
+        </div>
     </div>
+</div>
+    {% endwith %}
 </div>
 
 {% with object as project %}
+
+<div style="float: right;width: 29%;">
+    <div>
+    {% if object|can_write:user %}
+        <a href="edit"><div class="bidaction funding_space">{% trans "Edit your project" %}</div></a>
+        <a href="manage"><div class="bidaction">{% trans "Manage your features" %}</div></a>
+    {% endif %}
+    </div>
+    <div class="myprofile">
+        <div class="column-right">
+            <div class="funding_space">{% trans "Project created by" %} <a href="/user/profile/{{project.author.username}}">{{project.author.get_profile}}</a></div>
+            
+            <div class="column profile_column">
+                <img class="profilepicture" style="margin-bottom: 7%; margin-left: 17%;" src="/user/getpicture/{{project.author.username}}" />
+                
+                <div class="profile_info cleared">
+                    <img src="/img/logosmall.png" class="column">
+                    <div>{{project.author.get_profile.get_created_projects.count}} {% trans "Projects created" %}</div>
+                    <div>{{project.author.get_profile.get_funded_projects.count}} {% trans "Projects funded" %}</div>
+                </div>
+            </div>
+            <div class="">
+                <div>{% autoescape off %}{{project.author.get_profile.bio|oiunescape}}{% endautoescape %}</div>
+                </div>
+                <div><a href="{{project.author.get_profile.personal_website}}">{{project.author.get_profile.personal_website}}</a></div>
+                <a style="text-align: right;display: block;" href="/user/profile/{{project.author.username}}">{% trans "Full bio" %}</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="discussion_column">
     <div id="discussions_{{project.id}}" class="discussions">
         {% for message in project.message_set.all %}

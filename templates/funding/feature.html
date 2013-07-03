@@ -2,56 +2,59 @@
 {% load i18n %}
 {% if task|can_read:user %}
 {% if task|can_manage:user %}
-<div id="featurebudget_{{task.id}}" class="featuredetail invisible" onclick="document.ignoreClosePopups = true;">
-    <div id="prjdialogue_{{task.id}}" class="popup invisible"></div>
-    {% include 'funding/feature_budget.html' %}
-</div>
-{% endif %}
-{% if task|can_manage:user or task.spec_set.count%}
-<div id="featuredesc_{{task.id}}" class="featuredetail invisible" onclick="document.ignoreClosePopups = true;">
-    {% include 'funding/feature_description.html' %}
-</div>
-{% endif %}
-{% if task.state < 4 and task|can_bid:user or not user.is_authenticated %}
-<div id="bidpopup_{{task.id}}" class="popup invisible" onclick="document.ignoreClosePopups = true;">
-        <img class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hide('bidpopup_{{task.id}}')" />
-    <p>{% trans "By funding this feature you will enable improvements to this software. You will be given the chance to validate that the development is done the way you want. An e-mail will let you know that you can test the feature when it is developped, so that you can validate it is done."%}</p><p>{% trans "Thanks for supporting this software!" %}</p>
-    <form onsubmit="OIajaxCall('/project/confirmbid/{{task.id}}', 'bid='+getValue('bid_{{task.id}}'), 'output');return false">
-        <label for="bid_{{task.id}}">{% trans "Please enter the amount you want to fund:" %}</label><br />
-        <input id="bid_{{task.id}}" name="bid_{{task.id}}" class="bidfeature" value="{{task.missing_bid|floatformat:"-2"}}" /> €
-        <input type="image" src="/img/icons/ok-32.png" />
-    </form>
-    {% trans "By funding this feature, you agree to the" %} <a href="/cgu" target="_blank">{% trans "Terms of Use" %}</a>
-</div>
-{% endif %}
 
-<div id="featureDiv_{{task.id}}" class="featureblock" title="{{task.title}}"{% if not task.public_read %} style="opacity:.4"{% endif %}>
-    {% if task|can_write:user and task.state < 4 %}<div class="actions">
-        {% if task.state < 2 %}<img src="/img/icons/edit.png" alt="{% trans 'edit title' %}" title="{% trans 'edit title' %}" class="clickable" onclick="var newtitle = prompt(gettext('Please insert a title :'), '{{task.title}}');if(newtitle){confirmEditTitle({{task.id}}, newtitle);}" />{% endif %}
-        <img src="/img/icons/delete.png" alt="{% trans 'delete feature' %}" title="{% trans 'delete feature' %}" class="clickable" onclick="deleteProject({{task.id}})" />
-    </div>{% endif %}
-    <div id="feature_{{task.id}}" class="featuretitle">{{task.title}}</div>
-    {% if task|can_manage:user or task.spec_set.count%}<a class="clickable" onclick="{% if task|can_write:user and task.state < 4 and not task.spec_set.all %}addSpec('{{task.id}}');{% endif %}showPopup(document.getElementById('featuredesc_{{task.id}}'))">{% trans "Description" %}</a>{% endif %}
-    <div>
-        <div><span class="funded">{{task.allbid_sum|default:0|floatformat:"-2"}} €</span> {% trans "funded" %}</div>
-        {% include 'funding/project_actions.html' %}
-        <div class="progressbar">
-            <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%;">{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%</span>
-            <span id="progresslabel_{{object.id}}" class="progresstitle" ></span>
-        </div>
-        <div class="cleared funding_space">
-            <span class="amount">{{task.get_budget|default:0|floatformat:"-2"}} €</span> {% trans "needed" %} -
-            <span class="amount">{{task.missing_bid|floatformat:"-2"}} €</span> {% trans "to go" %}
-        </div>
-        {% if task|can_manage:user %}<a class="clickable" onclick="showPopup(document.getElementById('featurebudget_{{task.id}}'))">{% trans "Funding details" %}</a>{% endif %}
+    <div id="featurebudget_{{task.id}}" class="featuredetail invisible" onclick="document.ignoreClosePopups = true;">
+        <div id="prjdialogue_{{task.id}}" class="popup invisible"></div>
+        {% include 'funding/feature_budget.html' %}
     </div>
-</div>
+    {% endif %}
+    {% if task|can_manage:user or task.spec_set.count%}
+    <div id="featuredesc_{{task.id}}" class="featuredetail invisible" onclick="document.ignoreClosePopups = true;">
+        {% include 'funding/feature_description.html' %}
+    </div>
+    {% endif %}
+    {% if task.state < 4 and task|can_bid:user or not user.is_authenticated %}
+    <div id="bidpopup_{{task.id}}" class="popup invisible" onclick="document.ignoreClosePopups = true;">
+            <img class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hide('bidpopup_{{task.id}}')" />
+        <p>{% trans "By funding this feature you will enable improvements to this software. You will be given the chance to validate that the development is done the way you want. An e-mail will let you know that you can test the feature when it is developped, so that you can validate it is done."%}</p><p>{% trans "Thanks for supporting this software!" %}</p>
+        <form onsubmit="OIajaxCall('/project/confirmbid/{{task.id}}', 'bid='+getValue('bid_{{task.id}}'), 'output');return false">
+            <label for="bid_{{task.id}}">{% trans "Please enter the amount you want to fund:" %}</label><br />
+            <input id="bid_{{task.id}}" name="bid_{{task.id}}" class="bidfeature" value="{{task.missing_bid|floatformat:"-2"}}" /> €
+            <input type="image" src="/img/icons/ok-32.png" />
+        </form>
+        {% trans "By funding this feature, you agree to the" %} <a href="/cgu" target="_blank">{% trans "Terms of Use" %}</a>
+    </div>
+    {% endif %}
 
-<script>
-    $(function() {
-        $("#featuredesc_{{task.id}}").draggable();
-        $("#featurebudget_{{task.id}}").draggable();
-        $("#bidpopup_{{task.id}}").draggable();
-    });
-</script>
+    <div id="featureDiv_{{task.id}}" class="featureblock" title="{{task.title}}" style="padding: 1%;{% if not task.public_read %} opacity:.4;{% endif %}">
+        {% if task|can_write:user and task.state < 4 %}<div class="actions">
+            {% if task.state < 2 %}<img src="/img/icons/edit.png" alt="{% trans 'edit title' %}" title="{% trans 'edit title' %}" class="clickable" onclick="var newtitle = prompt(gettext('Please insert a title :'), '{{task.title}}');if(newtitle){confirmEditTitle({{task.id}}, newtitle);}" />{% endif %}
+            <img src="/img/icons/delete.png" alt="{% trans 'delete feature' %}" title="{% trans 'delete feature' %}" class="clickable" onclick="deleteProject({{task.id}})" />
+        </div>{% endif %}
+        <div id="feature_{{task.id}}" class="featuretitle">{{task.title}}</div>
+        {% if task|can_manage:user or task.spec_set.count%}<a class="clickable" onclick="{% if task|can_write:user and task.state < 4 and not task.spec_set.all %}addSpec('{{task.id}}');{% endif %}showPopup(document.getElementById('featuredesc_{{task.id}}'))">{% trans "Description" %}</a>{% endif %}
+        <div>
+            <div><span class="funded">{{task.allbid_sum|default:0|floatformat:"-2"}} €</span> {% trans "funded" %}</div>
+            {% include 'funding/project_actions.html' %}
+            <div class="progressbar">
+                <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%;">{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%</span>
+                <span id="progresslabel_{{object.id}}" class="progresstitle" ></span>
+            </div>
+            <div class="cleared funding_space">
+                <span class="amount">{{task.get_budget|default:0|floatformat:"-2"}} €</span> {% trans "needed" %} -
+                <span class="amount">{{task.missing_bid|floatformat:"-2"}} €</span> {% trans "to go" %}
+            </div>
+            {% if task|can_manage:user %}<a class="clickable" onclick="showPopup(document.getElementById('featurebudget_{{task.id}}'))">{% trans "Funding details" %}</a>{% endif %}
+        </div>
+    </div>
+
+
+    <script>
+        $(function() {
+            $("#featuredesc_{{task.id}}").draggable();
+            $("#featurebudget_{{task.id}}").draggable();
+            $("#bidpopup_{{task.id}}").draggable();
+        });
+    </script>
+
 {% endif %}

@@ -45,7 +45,7 @@ div.author {
     font-weight:bold;
     width:80px;
 }
-div.moreblue {
+.moreblue {
     background:url('/img/discblue.png');
     height:17px;
     width:8px;
