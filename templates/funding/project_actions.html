@@ -4,9 +4,6 @@
 {% if task.state < 2 and task.assignee == user and task.is_ready_to_start %}
     <div class="clickable prj-btn margin_auto" onclick="startProject({{task.id}})">{% trans "Start" %}</div>
 {% endif %}
-{% if task.state < 4 and task|can_bid:user and not task|bids:user or not user.is_authenticated %}
-    <span class="supportbtn clickable" onclick="showPopup(document.getElementById('bidpopup_{{task.id}}'))">{% trans "Support" %}</span>
-{% endif %}
 
 {% if task.state == 2 and task.assignee == user %}
     <div class="clickable prj-btn margin_auto" onclick="deliverProject({{task.id}})">{% trans "Deliver" %}</div>
@@ -16,5 +13,9 @@
 {% endif %}{% endwith %}
 {% if task.assignee == user and task.state == 3 %}
     <div class="prj-action-wait margin_auto">{% trans "Waiting for validation" %}</div>
+{% endif %}
+
+{% if task.state < 4 and task|can_bid:user and not task|bids:user or not user.is_authenticated %}
+    <span class="supportbtn clickable" onclick="showPopup(document.getElementById('bidpopup_{{task.id}}'))">{% trans "Support" %}</span>
 {% endif %}
 </div>

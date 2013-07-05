@@ -9,7 +9,9 @@
     <form id="form_{{divid}}" method="post" enctype="multipart/form-data" action="/project/{{project.id}}/uploadfile/{{spec.id|default:0}}" target="filedest_{{divid}}">
         {% csrf_token %}
         <input id="divid_{{divid}}" name="divid" type="hidden" value="{{divid}}" />
-        <input id="file_{{divid}}" name="file" type="file" onchange="hide('validspec_{{divid}}');document.getElementById('form_{{divid}}').submit()" />
+        
+        <input style="margin-bottom: 6%;margin-left: 32%;" id="file_{{divid}}" name="file" type="file" onchange="hide('validspec_{{divid}}');document.getElementById('form_{{divid}}').submit()" />
+        
     </form>
 </div>
 <iframe id="filedest_{{divid}}" name="filedest_{{divid}}" class="filedest"></iframe>

@@ -1,17 +1,17 @@
 ﻿﻿{% load oifilters %}
 {% load i18n %}
-<div id="feature_form_popup">
+<div id="feature_form_popup" style="margin: 1%;">
 
     <img class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hide('featuredesc_{{task.id}}')" />
 
     <h3 style="width:300px; margin-top:0px">{{task.title}}</h3>
 
-    <div class="prjauthor">{% trans "Project created by" %} {{task.author.get_profile}}</div>
+    <div class="spec_author">{% trans "Project created by" %} <b>{{task.author.get_profile}}</b></div>
     <div id="specs_{{task.id}}">
         {%for spec in task.spec_set.all|dictsort:"order"%}
         <div style="position:relative" id="spec_{{task.id}}_{{spec.order}}" class="cleared">
             {% with task as object %}
-                {%include 'funding/spec/spec.html'%}
+                {%include 'funding/spec/spec_bis.html'%}
             {% endwith %}
         </div>
         {% endfor %}

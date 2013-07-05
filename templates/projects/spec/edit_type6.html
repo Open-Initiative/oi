@@ -1,25 +1,41 @@
 {% load oifilters %}
 {% load i18n %}
-<div>{% trans "Describe the bug you found..." %}</div>
+<div style="height: 24px;padding-top: 10px;text-align: center;">{% trans "Describe the bug you found..." %}</div>
 <div class="column">
-    <div class="msgtitle">{% trans "What I did:" %}</div>
-    <textarea id="bug_report_{{divid}}_1" class="speclegend"></textarea>
+    <div class="fundingleft" style="margin-top: 10px;">
+        <div class="msgtitle">{% trans "What I did:" %}</div>
+        <textarea id="bug_report_{{divid}}_1" class="speclegend"></textarea>
+    </div>
 
-    <div class="msgtitle">{% trans "What happened:" %}</div>
-    <textarea id="bug_report_{{divid}}_2" class="speclegend"></textarea>
+    <div class="fundingleft" style="margin-top: 10px;">
+        <div class="msgtitle">{% trans "What happened:" %}</div>
+        <textarea id="bug_report_{{divid}}_2" class="speclegend"></textarea>
+    </div>
 
-    <div class="msgtitle">{% trans "What should happen:" %}</div>
-    <textarea id="bug_report_{{divid}}_3" class="speclegend"></textarea>
+    <div class="fundingleft" style="margin-top: 10px;">
+        <div class="msgtitle">{% trans "What should happen:" %}</div>
+        <textarea id="bug_report_{{divid}}_3" class="speclegend"></textarea>
+    </div>
 
-    <div class="msgtitle">{% trans "Environment:" %}</div>
-    <textarea id="bug_report_{{divid}}_4" class="speclegend"></textarea>
-
-    <div id="text_{{divid}}" class="invisible">{{spec.text|oiunescape}}</div>
+    <div class="fundingleft" style="margin-top: 10px;">
+        <div class="msgtitle">{% trans "Environment:" %}</div>
+        <textarea id="bug_report_{{divid}}_4" class="speclegend"></textarea>
+    </div>
+    
+    <div class="cleared"></div>
+    
+    <div id="text_{{divid}}" class="invisible">popopop{{spec.text|oiunescape}}</div>
     <br />
-    {% trans "You can add a link or an image as a reference:" %}
+    
+    <div style="height: 24px;padding-top: 20px;text-align: center;">{% trans "You can add a link or an image as a reference:" %}</div>
+    
     <br />
-    <label for="url_{{divid}}">Url</label>
-    <input id="url_{{divid}}" type="text" value="{{spec.url|default:"http://"}}" />
+    
+    <div style="margin-left: 32%;">
+        <label for="url_{{divid}}">Url</label>
+        <input style="border: 1px solid #CCCCCC;" id="url_{{divid}}" type="text" value="{{spec.url|default:"http://"}}" />
+    </div>
+
     <br />
     {% include 'projects/spec/edit_type2_img.html' %}
 </div>

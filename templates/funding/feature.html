@@ -29,16 +29,18 @@
     <div id="featureDiv_{{task.id}}" class="featureblock" title="{{task.title}}" style="padding: 1%;{% if not task.public_read %} opacity:.4;{% endif %}">
         {% if task|can_write:user and task.state < 4 %}<div class="actions">
             {% if task.state < 2 %}<img src="/img/icons/edit.png" alt="{% trans 'edit title' %}" title="{% trans 'edit title' %}" class="clickable" onclick="var newtitle = prompt(gettext('Please insert a title :'), '{{task.title}}');if(newtitle){confirmEditTitle({{task.id}}, newtitle);}" />{% endif %}
-            <img src="/img/icons/delete.png" alt="{% trans 'delete feature' %}" title="{% trans 'delete feature' %}" class="clickable" onclick="deleteProject({{task.id}})" />
+            <img src="/img/icons/delete.png" alt="{% trans 'delete feature' %}" title="{% trans 'delete feature' %}" class="clickable" onclick="deleteFeature({{task.id}})" />
         </div>{% endif %}
         
         <div id="feature_{{task.id}}" class="featuretitle">{{task.title}}</div>
         
         {% for spec in task.spec_set.all %}
-            <p class="ellipsis">{{spec.text|oiunescape|slice:":100"}} {% if spec.text|length > 101 %}...{% endif %}</p>
+            {% if spec.type == 1 %}
+                <p class="ellipsis">{{spec.text|oiunescape|slice:":100"}} {% if spec.text|length > 101 %}...{% endif %}</p>
+            {% endif %}
         {% endfor %}
         
-        {% if task|can_manage:user or task.spec_set.count%}<a style="display: block; text-align: right" class="clickable" onclick="{% if task|can_write:user and task.state < 4 and not task.spec_set.all %}addSpec('{{task.id}}');{% endif %}showPopup(document.getElementById('featuredesc_{{task.id}}'))">{% trans "See more" %}</a>{% endif %}
+        {% if task|can_manage:user or task.spec_set.count%}<a style="display: block; text-align: right" class="clickable" onclick="{% if task|can_write:user and task.state < 4 and task.spec_set.all.count <= 0 %}addSpec('{{task.id}}');{% endif %}showPopup(document.getElementById('featuredesc_{{task.id}}'))">{% trans "See more" %}</a>{% endif %}
         <div>
             <div><span class="funded">{{task.allbid_sum|default:0|floatformat:"-2"}} €</span> {% trans "funded" %}</div>
             

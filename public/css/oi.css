@@ -643,3 +643,43 @@ div.morelink {
 .oired {
     color: #D0574C;
 }
+div.spectype {
+/*    height: 15px;*/
+    padding: 6px 14px;
+    float: left;
+/*    background: #F9F9F9;*/
+    border: solid 2px #CCCCCC;
+/*    border-radius: 3px;*/
+    margin: 1.5%;
+    font-size: 15px;
+    color: black;
+}
+div.spectypeselected {
+/*    background: white;*/
+/*    border-bottom: white 1px solid;*/
+    border: solid 2px gray;
+    font-weight: bold;
+}
+div.specedit {
+/*    border-top: solid 1px #0094B5;*/
+    margin-left: -10px;
+    padding-left: 10px;
+}
+div.spectypes {
+    position: relative;
+    top: 1px;
+    min-width: 590px;
+}
+.speclegend {
+    height: 70px;
+    margin-left: 10px;
+    width: 265px;
+}
+.speclegend_file{
+    height: 50px;
+    margin: 11px;
+    width: 660px;
+}
+.fundingleft{
+    float: left;
+}

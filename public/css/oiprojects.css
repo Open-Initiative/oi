@@ -607,31 +607,31 @@ table.tablecell {
 tr.tablebg0 {
     background: #D7E7F0;
 }
-div.spectypes {
-    position: relative;
-    top: 1px;
-}
-div.spectype {
-    height: 15px;
-    padding: 2px 10px;
-    float: left;
-    background: #F9F9F9;
-    border: solid 1px #0094B5;
-    border-radius: 3px;
-}
-div.spectypeselected {
-    background: white;
-    border-bottom: white 1px solid;
-}
-div.specedit {
-    border-top: solid 1px #0094B5;
-    margin-left: -10px;
-    padding-left: 10px;
-}
-.speclegend {
-    height: 50px;
-    width: 650px;
-}
+/*div.spectypes {*/
+/*    position: relative;*/
+/*    top: 1px;*/
+/*}*/
+/*div.spectype {*/
+/*    height: 15px;*/
+/*    padding: 2px 10px;*/
+/*    float: left;*/
+/*    background: #F9F9F9;*/
+/*    border: solid 1px #0094B5;*/
+/*    border-radius: 3px;*/
+/*}*/
+/*div.spectypeselected {*/
+/*    background: white;*/
+/*    border-bottom: white 1px solid;*/
+/*}*/
+/*div.specedit {*/
+/*    border-top: solid 1px #0094B5;*/
+/*    margin-left: -10px;*/
+/*    padding-left: 10px;*/
+/*}*/
+/*.speclegend {*/
+/*    height: 50px;*/
+/*    width: 650px;*/
+/*}*/
 .specauthor {
     font-weight: bold;
 }

@@ -1,0 +1,35 @@
+{% load i18n %}
+{% load oifilters %}
+{% if spec.type == 5 %}
+<a href="{{spec.file.url}}"><img class="fundingleft" src="/img/icons/dlspec.png" alt="{% trans 'Download the desciption' %}" title="{% trans 'Download the desciption' %}"/></a>
+{% endif %}
+<div id="spec_{{object.id}}_{{spec.order}}_content">
+
+    <input type="hidden" id="specid_{{object.id}}_{{spec.order}}" value="{{spec.id}}" />
+    
+    {% if spec.type == 2 or spec.type == 6 and spec.file %}
+    <div class="form_center">
+        <img style="max-width:700px" src="{% if spec.file %}{{spec.file.url}}{% endif %}" />
+    </div>
+    {% endif %}
+    {% if spec.type == 3 or spec.type == 4 or spec.type == 6 and spec.url != "http://" %}
+    <a href="{{spec.url}}" > {{spec.text|oiunescape|default:spec.url}} </a>
+    {% else %}
+        <div><p>{{spec.text|oiunescape}}</p></div> 
+    {% endif %}
+</div>
+<div class="cleared"></div>
+
+{% if object|can_write:user and object.state < 2 and object.parent %}
+<div class="specfooter funding_space">
+    {% if spec.author %}<span class="specauthor">{{spec.author.get_profile}}</span>{% else %}{% trans "Guest" %}{% endif %}
+    {{spec.created|date:"d/m/Y H:i:s"}}
+    <img class="clickable" src="/img/icons/delete.png" onclick="deleteSpec({{object.id}}, {{spec.order}})" alt="{% trans 'Delete the description' %}" title="{% trans 'Delete the description' %}"/>
+    <img class="clickable" src="/img/icons/edit.png" onclick="editSpec({{object.id}}, {{spec.order}}, {{spec.type|default:1}})" alt="{% trans 'Correct the description' %}" title="{% trans 'Correct the description' %}"/>
+    <img class="clickable" src="/img/icons/moveSpecUp.png" onclick="moveSpec({{object.id}}, {{spec.order}}, true)" alt="{% trans 'Move the description up'%}" title="{% trans 'Move the description up'%}"/>
+    <img class="clickable" src="/img/icons/moveSpecDown.png" onclick="moveSpec({{object.id}}, {{spec.order}}, false)" alt="{% trans 'Move the description down'%}" title="{% trans 'Move the description down'%}"/>
+</div>
+{% endif %}
+<div class="invisible" id="newspot">{% include 'funding/spec/edit_spot.html' %}</div>
+<input type="hidden" value="{{spec.order}}" />
+<div class="cleared"></div>
