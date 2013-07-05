@@ -40,7 +40,13 @@
             {% endif %}
         {% endfor %}
         
-        {% if task|can_manage:user or task.spec_set.count%}<a style="display: block; text-align: right" class="clickable" onclick="{% if task|can_write:user and task.state < 4 and task.spec_set.all.count <= 0 %}addSpec('{{task.id}}');{% endif %}showPopup(document.getElementById('featuredesc_{{task.id}}'))">{% trans "See more" %}</a>{% endif %}
+        {% if task|can_manage:user or task.spec_set.count%}
+        <div style="display: block; text-align: right">
+            <a id="see_more_{{task.id}}" class="clickable" onclick="hide(this.id);show('no_see_more_{{task.id}}');{% if task|can_write:user and task.state < 4 and task.spec_set.all.count < 1 %}addSpec('{{task.id}}');{% endif %}showPopup(document.getElementById('featuredesc_{{task.id}}'))">{% trans "See more" %}</a>
+            
+            <a id="no_see_more_{{task.id}}" class="clickable invisible" onclick="showPopup(document.getElementById('featuredesc_{{task.id}}'))">{% trans "See more" %}</a>
+        </div>
+        {% endif %}
         <div>
             <div><span class="funded">{{task.allbid_sum|default:0|floatformat:"-2"}} €</span> {% trans "funded" %}</div>
             

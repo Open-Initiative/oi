@@ -127,11 +127,13 @@
                     <div>{{project.author.get_profile.get_funded_projects.count}} {% trans "Projects funded" %}</div>
                 </div>
             </div>
-            <div class="">
+            <div>
                 <div>{% autoescape off %}{{project.author.get_profile.bio|oiunescape}}{% endautoescape %}</div>
                 </div>
                 <div><a href="{{project.author.get_profile.personal_website}}">{{project.author.get_profile.personal_website}}</a></div>
+                <div class="cleared"></div>
                 <a style="text-align: right;display: block;" href="/user/profile/{{project.author.username}}">{% trans "Full bio" %}</a>
+                <div class="cleared"></div>
             </div>
         </div>
     </div>
