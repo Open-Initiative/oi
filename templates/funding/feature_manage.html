@@ -34,7 +34,7 @@
         <div id="feature_{{task.id}}" class="featuretitle">{{task.title}}</div>
         
         {% for spec in task.spec_set.all %}
-            {% if spec.type == 1 %}
+            {% if spec.order == 1 %}
                 <p class="ellipsis">{{spec.text|oiunescape|slice:":100"}} {% if spec.text|length > 101 %}...{% endif %}</p>
             {% endif %}
         {% endfor %}
