@@ -16,6 +16,6 @@
 {% endif %}
 
 {% if task.state < 4 and task|can_bid:user and not task|bids:user or not user.is_authenticated %}
-    <span class="supportbtn clickable" onclick="showPopup(document.getElementById('bidpopup_{{task.id}}'))">{% trans "Support" %}</span>
+    <span class="supportbtn clickable" onclick="show(document.getElementById('bidpopup_{{task.id}}').id); popup();document.getElementById('bidpopup_{{task.id}}').scrollIntoView()">{% trans "Support" %}</span>
 {% endif %}
 </div>

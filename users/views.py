@@ -14,6 +14,7 @@ from django.db.models import get_app, Count, Avg
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render_to_response, get_object_or_404
+from django.utils.simplejson import JSONEncoder, JSONDecoder
 from django.utils.translation import ugettext as _
 from django.views.generic.simple import direct_to_template
 from oi.prjnotify.models import Notice, NoticeType, Observer
@@ -21,7 +22,7 @@ from oi.settings import MEDIA_ROOT, MEDIA_URL, PAYMENT_ACTION
 from oi.helpers import render_to_pdf, OI_DISPLAYNAME_TYPES, computeSHA
 from oi.users.models import User, UserProfile, UserProfileForm, PersonalMessage, Payment
 from oi.users.models import Training, TrainingForm, Experience, ExperienceForm, Skill, SkillForm, OI_USERPROFILE_DETAILS_CLASSES
-from oi.projects.models import Bid
+from oi.projects.models import Bid, Project
 
 @login_required
 def myprofile(request):
@@ -50,7 +51,7 @@ def userprofile(request, username):
 @login_required
 def myaccount(request):
     """user settings page"""
-    if request.GET:
+    if request.GET.get("orderID"):
         request.user.get_profile().update_payment(dict(request.GET.items())) #to obtain a mutable version of the QueryDict
     extra_context={'contact_form':UserProfileForm(instance=request.user.get_profile())}
     return direct_to_template(request, template='users/myaccount.html', extra_context=extra_context)
@@ -317,4 +318,4 @@ def updatepayment(request):
     logging.getLogger("oi").debug(request)
     payment = Payment.objects.get(id=request.POST['orderID'])
     payment.user.get_profile().update_payment(dict(request.POST.items())) #to obtain a mutable version of the QueryDict
-    return HttpResponse('OK')
+    return HttpResponse('OK') 

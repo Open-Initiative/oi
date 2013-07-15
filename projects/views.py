@@ -474,8 +474,8 @@ def answerdelay(request, id):
     #if neither true nor false
     return HttpResponse(_("No reply received"), status=531)
 
-@ajax_login_required
-@OINeedsPrjPerms(OI_BID)
+#@ajax_login_required
+#@OINeedsPrjPerms(OI_BID)
 def bidproject(request, id):
     """Makes a new bid on the project"""
     project = Project.objects.get(id=id)
@@ -484,8 +484,13 @@ def bidproject(request, id):
     except InvalidOperation:
         return HttpResponse(_("Invalid amount"))
     #checks that the user can afford the bid ; if not, redirects to the deposit page
-    if amount > request.user.get_profile().balance:
-        return HttpResponse('/user/myaccount#deposit/%s'%((amount-request.user.get_profile().balance).to_eng_string()),status=333)
+    if request.user.is_anonymous() or amount > request.user.get_profile().balance:
+        if request.user.is_authenticated(): #and project.has_perm(request.user, OI_BID):
+            amount -= request.user.get_profile().balance
+        
+        return HttpResponse('/user/myaccount?deposit=%s'%((amount).to_eng_string()),status=333)
+#    if  and project.has_perm(request.user, OI_BID):
+#        return HttpResponse('/user/myaccount#deposit/%s'%((amount-).to_eng_string()),status=333)
     
     #and creates the bid
     bid, created = Bid.objects.get_or_create(project=project, user=request.user)

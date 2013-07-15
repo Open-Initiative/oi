@@ -87,8 +87,15 @@
             <a href="/notification/settings">{% trans "Notification settings" %}</a>
         </div>
     </div>
+    
+<!--    It use to blur the web page-->
+    <div id="flou" class="flou"></div>
+    
     <div class="creditblock">
         <h2>{% trans "Your credit" %}</h2>
+        
+        <div id="confirmpayment" class="invisible confirmpaymentblok">{% include 'users/form_payment.html' %}</div>
+        
         <div class="credittip">
             <p>{% trans "When you create an account you can also determine the credit you will have. With this credit you can help crowd fund your favorite projects. You set the amount and you administrate according to your interests." %}</p>
             
@@ -98,12 +105,30 @@
         <div id="block_account">
             <div>
             
+                {% if request.GET.deposit %}
                 <div class="invisible" id="deposit">
                         {% trans "You don't have enough money on your account. Please indicate below how much you want to add:" %}
                     </div>
                     <p>{% trans "You have" %} <b>{{user.get_profile.balance}}€</b> {% trans "in your account" %}</p>
                     <p>{% trans "Add money in your account" %}</p>
-                    <form method="post" action="/user/confirmpayment">
+                    <form id="form_payment" method="post" action="/user/confirmpayment">
+                        {% csrf_token %}
+                        <input type="text" name="amount" id="amount" class="smallinput accountinput" value="{{request.GET.deposit}}"/>
+                        <input type="image" src="/img/icons/ok-32.png" id="submit2" name="submit2">
+                    </form>
+                    <br/>
+                    <p><a href="/user/paymenthistory"> {% trans "Payment history" %}</a></p>
+                </div>
+                <script>document.getElementById("form_payment").submit()</script>
+                
+                {% else %}
+                
+                <div class="invisible" id="deposit">
+                        {% trans "You don't have enough money on your account. Please indicate below how much you want to add:" %}
+                    </div>
+                    <p>{% trans "You have" %} <b>{{user.get_profile.balance}}€</b> {% trans "in your account" %}</p>
+                    <p>{% trans "Add money in your account" %}</p>
+                    <form id="form_payment" method="post" action="/user/confirmpayment">
                         {% csrf_token %}
                         <input type="text" name="amount" id="amount" class="smallinput accountinput" value="0"/>
                         <input type="image" src="/img/icons/ok-32.png" id="submit2" name="submit2">
@@ -111,17 +136,18 @@
                     <br/>
                     <p><a href="/user/paymenthistory"> {% trans "Payment history" %}</a></p>
                 </div>
-
+                
+                {% endif %}
+                
+                {% if request.GET.orderID %}
+                <div id="didpayment">
+                    {% include 'users/didpayment.html' %}
+                </div>
+                {% endif %}
+                
             <br/>
         </div>
     </div>
     <div class="cleared"></div>
 </div>
-<script>
-    ajaxParams = document.location.hash.split("/");
-    if(ajaxParams[0] == "#deposit"){
-        show('deposit');
-        document.getElementById('amount').value = ajaxParams[1];
-    }
-</script>
 {% endblock %}

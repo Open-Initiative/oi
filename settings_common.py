@@ -94,7 +94,7 @@ ADMIN_MEDIA_PREFIX = '/media/'
 SECRET_KEY = '-bue#^ex11(nq3d%&9+w0cvdvuq*&=3=s7m-%$b57qh5@&xpy)'
 
 # Auth urls
-LOGIN_URL = "/login"
+LOGIN_URL = "/user/accounts/register"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_URL = "/logout"
 

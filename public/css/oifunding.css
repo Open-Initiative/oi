@@ -845,9 +845,9 @@ div.sepspecfooter {
     padding: 10px;
     margin-top: 0.5em;
 }
-.fundingright{
-    float: right;
-}
+/*.fundingright{*/
+/*    float: right;*/
+/*}*/
 /*.fundingleft{*/
 /*    float: left;*/
 /*}*/
@@ -939,4 +939,21 @@ div.sepspecfooter {
     color: #475E6C;
     margin-left: 10px;
     margin-top: -3%;
+}
+.flou{ 
+    opacity: 0.91;
+    z-index: 1;
+    position: fixed;
+    background-color: white;
+}
+.bid_popup_title{
+    color: #0094B5;
+    font-size: 20px;
+}
+.continuebtn{
+    background: none repeat scroll 0 0 #1E9947;
+    border-radius: 3px 3px 3px 3px;
+    color: white;
+    font-weight: bold;
+    padding: 2px;
 }
