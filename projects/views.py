@@ -488,9 +488,7 @@ def bidproject(request, id):
         if request.user.is_authenticated(): #and project.has_perm(request.user, OI_BID):
             amount -= request.user.get_profile().balance
         
-        return HttpResponse('/user/myaccount?deposit=%s'%((amount).to_eng_string()),status=333)
-#    if  and project.has_perm(request.user, OI_BID):
-#        return HttpResponse('/user/myaccount#deposit/%s'%((amount-).to_eng_string()),status=333)
+        return HttpResponse('/user/myaccount?amount=%s'%((amount).to_eng_string()),status=333)
     
     #and creates the bid
     bid, created = Bid.objects.get_or_create(project=project, user=request.user)

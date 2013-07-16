@@ -94,7 +94,20 @@
     <div class="creditblock">
         <h2>{% trans "Your credit" %}</h2>
         
-        <div id="confirmpayment" class="invisible confirmpaymentblok">{% include 'users/form_payment.html' %}</div>
+        <div id="confirmpayment" class="invisible confirmpaymentblok">
+            <h1 id="deposit">{% trans "Confirm the deposit" %}</h1>
+            <p>{% trans "Amount payable" %} : <b style="font-size: 17px;">{{amount}}€ </b></p>
+            {% trans "You are about to be redirected to our" %} <br/> {% trans "payment service provider who will confirm" %} <br/> {% trans "transaction." %}<br /><br/>
+            {% trans "Do you confirm?" %}
+            <div class="cleared"></div>
+            <br /><br/>
+            <form method="post" action="{{action}}" id=form1 name=form1>
+                {% for key,value in params.items %}
+                <input type="hidden" name="{{key}}" value="{{value}}" />{% endfor %}
+                <input style="padding: 1.3%;" class="fundingright nobtnstyle continuebtn" type="submit" value="{% trans 'Continue' %}" id=submit2 name=submit2>
+                <img style="width: 20px;" class="fundingleft clickable" src="/img/icons/del-32.png" onclick="noPopup(); hide('confirmpayment')" />
+            </form>
+        </div>
         
         <div class="credittip">
             <p>{% trans "When you create an account you can also determine the credit you will have. With this credit you can help crowd fund your favorite projects. You set the amount and you administrate according to your interests." %}</p>
@@ -105,21 +118,24 @@
         <div id="block_account">
             <div>
             
-                {% if request.GET.deposit %}
+                {% if request.GET.amount %}
                 <div class="invisible" id="deposit">
                         {% trans "You don't have enough money on your account. Please indicate below how much you want to add:" %}
                     </div>
                     <p>{% trans "You have" %} <b>{{user.get_profile.balance}}€</b> {% trans "in your account" %}</p>
                     <p>{% trans "Add money in your account" %}</p>
-                    <form id="form_payment" method="post" action="/user/confirmpayment">
+                    <form id="form_payment" method="get" >
                         {% csrf_token %}
-                        <input type="text" name="amount" id="amount" class="smallinput accountinput" value="{{request.GET.deposit}}"/>
+                        <input type="text" name="amount" id="amount" class="smallinput accountinput" value="{{request.GET.amount}}"/>
                         <input type="image" src="/img/icons/ok-32.png" id="submit2" name="submit2">
                     </form>
                     <br/>
                     <p><a href="/user/paymenthistory"> {% trans "Payment history" %}</a></p>
                 </div>
-                <script>document.getElementById("form_payment").submit()</script>
+                <script>
+                    popup();
+                    show('confirmpayment');
+                </script>
                 
                 {% else %}
                 
@@ -128,7 +144,7 @@
                     </div>
                     <p>{% trans "You have" %} <b>{{user.get_profile.balance}}€</b> {% trans "in your account" %}</p>
                     <p>{% trans "Add money in your account" %}</p>
-                    <form id="form_payment" method="post" action="/user/confirmpayment">
+                    <form id="form_payment" method="get" >
                         {% csrf_token %}
                         <input type="text" name="amount" id="amount" class="smallinput accountinput" value="0"/>
                         <input type="image" src="/img/icons/ok-32.png" id="submit2" name="submit2">
@@ -141,7 +157,14 @@
                 
                 {% if request.GET.orderID %}
                 <div id="didpayment">
-                    {% include 'users/didpayment.html' %}
+                    <h2 id="">{% trans "Thank you to contribute to" %} <br/> {% trans "the financing of the feature" %}</h2>
+
+                    <div class="cleared"></div>
+                    <br /><br/>
+                    <p>{% trans "You will be redirected to the project page" %}</p>
+                    <form action="/">
+                        <input style="padding: 1.3%;" class="form_center nobtnstyle continuebtn" type="submit" value="{% trans 'Continue' %}">
+                    </form>
                 </div>
                 <script>popup();</script>
                 {% endif %}

@@ -50,10 +50,29 @@ def userprofile(request, username):
 
 @login_required
 def myaccount(request):
-    """user settings page"""
-    if request.GET.get("orderID"):
-        request.user.get_profile().update_payment(dict(request.GET.items())) #to obtain a mutable version of the QueryDict
-    extra_context={'contact_form':UserProfileForm(instance=request.user.get_profile())}
+    """user settings page or asks user for confirmation before redirecting to payment service provider"""
+    if not request.GET.get("amount"):
+        if request.GET.get("orderID"):
+            request.user.get_profile().update_payment(dict(request.GET.items())) #to obtain a mutable version of the QueryDict
+        extra_context = {'contact_form':UserProfileForm(instance=request.user.get_profile())}
+
+    else:
+        payment = Payment(user=request.user, amount=0, project_id=0, reason='Paiement en attente de validation')
+        payment.save()
+        amount = Decimal(request.GET['amount'].replace(',','.')).quantize(Decimal('.01'))
+        params = {"PSPID":"openinitiative", "currency":"EUR", "language":"fr_FR", "TITLE":"", "BGCOLOR":"", "TXTCOLOR":"", "TBLBGCOLOR":"", "TBLTXTCOLOR":"", "BUTTONBGCOLOR":"", "BUTTONTXTCOLOR":"", "LOGO":"", "FONTTYPE":""}
+        params['orderID'] = payment.id
+        params['amount'] = (amount*100).quantize(Decimal('1.'))
+        params["CN"] = "%s %s"%(request.user.first_name, request.user.last_name)
+        params["EMAIL"] = request.user.email
+        params["ownerZIP"] = request.user.get_profile().postcode
+        params["owneraddress"] = request.user.get_profile().address
+        params["ownercty"] = request.user.get_profile().country
+        params["ownertown"] = request.user.get_profile().city
+        params["ownertelno"] = request.user.get_profile().phone
+        params["SHASign"] = computeSHA(params)
+        extra_context = {'params':params, 'amount':amount, 'action': PAYMENT_ACTION}
+        
     return direct_to_template(request, template='users/myaccount.html', extra_context=extra_context)
 
 @login_required
@@ -292,26 +311,7 @@ def getusermessages(request, username):
     from_messages = PersonalMessage.objects.filter(to_user=contact).filter(from_user=request.user)
     messages = (to_messages|from_messages).order_by('sent_date')
     return direct_to_template(request, template="users/usermessages.html", extra_context = {'contact':contact,'personalmessages':messages})
-
-@login_required
-def confirmpayment(request):
-    """asks user for confirmation before redirecting to payment service provider"""
-    payment = Payment(user=request.user, amount=0, project_id=0, reason='Paiement en attente de validation')
-    payment.save()
-    amount = Decimal(request.POST['amount'].replace(',','.')).quantize(Decimal('.01'))
-    params = {"PSPID":"openinitiative", "currency":"EUR", "language":"fr_FR", "TITLE":"", "BGCOLOR":"", "TXTCOLOR":"", "TBLBGCOLOR":"", "TBLTXTCOLOR":"", "BUTTONBGCOLOR":"", "BUTTONTXTCOLOR":"", "LOGO":"", "FONTTYPE":""}
-    params['orderID'] = payment.id
-    params['amount'] = (amount*100).quantize(Decimal('1.'))
-    params["CN"] = "%s %s"%(request.user.first_name, request.user.last_name)
-    params["EMAIL"] = request.user.email
-    params["ownerZIP"] = request.user.get_profile().postcode
-    params["owneraddress"] = request.user.get_profile().address
-    params["ownercty"] = request.user.get_profile().country
-    params["ownertown"] = request.user.get_profile().city
-    params["ownertelno"] = request.user.get_profile().phone
-    params["SHASign"] = computeSHA(params)
-    return direct_to_template(request, template="users/confirmpayment.html",extra_context = {'params':params, 'amount':amount, 'action': PAYMENT_ACTION})
-    
+ 
 def updatepayment(request):
     """HTTP Server-to-server request from payment service provider sent after user payment"""
     import logging

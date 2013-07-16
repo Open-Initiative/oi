@@ -121,10 +121,6 @@
     }else if(document.getElementById("features_4")){
         featureShowHide('features_4');
     }
-    function test(event, ui) {
-        alert(ui.item);
-        alert(ui.originalPosition.top);
-    }
     jQuery(".features_manage").sortable({update: function(event,ui){
         var params = jQuery(this).sortable("toArray").map(function(id,index) {return id+"="+index}).join("&");
         OIajaxCall("/project/{{object.id}}/sort", params, "output");
