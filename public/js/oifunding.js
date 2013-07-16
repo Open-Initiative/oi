@@ -46,6 +46,9 @@ function seeMore(divid1, divid2){
         }
     }
 }
+function selectplugin(projectid, plugintype) {
+    document.getElementById('plugincode').value = "<iframe url='http://"+sites["Open Funding"]+"/funding/"+projectid+"/embed?type="+plugintype+"'></iframe>";
+}
 function popup(){
     document.getElementById("flou").style.width = document.getElementsByTagName("body")[0].scrollWidth+"px";
     document.getElementById("flou").style.height = document.getElementsByTagName("body")[0].scrollHeight+"px";

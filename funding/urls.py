@@ -12,5 +12,6 @@ urlpatterns = patterns('oi.funding.views',
     (r'^bid/(?P<object_id>\d+)$', object_detail, {'template_name': 'funding/dialogue/bid.html','queryset': Project.objects.all()}),
     (r'^(?P<id>\d+)/manage$', 'manage_project'),
     (r'^(?P<id>\d+)/task$', 'get_feature'),
+    (r'^(?P<object_id>\d+)/embed$', object_detail, {'template_name': 'funding/plugin.html','queryset': Project.objects.all()}),
     (r'^(?P<id>\d+)/editspec/(?P<specid>\d+)$', 'editspec'),
 )
