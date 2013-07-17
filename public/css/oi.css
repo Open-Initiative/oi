@@ -520,7 +520,7 @@ img.tabicon {
     color: #A8DCF4;
     height: 44px;
 }
-div.popup {
+div.popup_spec {
     background: white;
     border: solid 1px #E0E0E0;
     color: black;
@@ -533,6 +533,16 @@ div.popup {
     height: 300px;
     right: -90px;
     left: 203px;
+}
+.popup{
+    background: white;
+    border: solid 1px #E0E0E0;
+    color: black;
+    position: relative;
+    padding: 0% 1% 4% 1%;
+    z-index: 1;
+    border-radius: 20px;
+    box-shadow: 3px 3px 4px;
 }
 .actions {
     clear: right;
