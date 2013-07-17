@@ -1,7 +1,7 @@
 {% load oifilters %}
 {% load i18n %}
 <div>
-    <img class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hide('featurebudget_{{task.id}}')" />
+    <img class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hidePopups()" />
     {% if task.state < 3 %}
     <h3 style="width:300px">{% trans "Payment awaiting:" %} {{task.missing_bid|floatformat:2}} €</h3>
     {% if task|can_bid:user and not task|bids:user %}

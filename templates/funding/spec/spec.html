@@ -34,30 +34,5 @@
     {% endif %}
 </div>
 
-{% comment %}
-{% if object|can_write:user and object.state < 2 and object.parent %}
-<div class="specfooter">
-    {% if spec.author %}<span class="specauthor">{{spec.author.get_profile}}</span>{% else %}{% trans "Guest" %}{% endif %}
-    {{spec.created|date:"d/m/Y H:i:s"}}
-    <img class="clickable" src="/img/icons/delete.png" onclick="deleteSpec({{object.id}}, {{spec.order}})" alt="{% trans 'Delete the description' %}" title="{% trans 'Delete the description' %}"/>
-    <img class="clickable" src="/img/icons/edit.png" onclick="editSpec({{object.id}}, {{spec.order}}, {{spec.type|default:1}})" alt="{% trans 'Correct the description' %}" title="{% trans 'Correct the description' %}"/>
-    <img class="clickable" src="/img/icons/moveSpecUp.png" onclick="moveSpec({{object.id}}, {{spec.order}}, true)" alt="{% trans 'Move the description up'%}" title="{% trans 'Move the description up'%}"/>
-    <img class="clickable" src="/img/icons/moveSpecDown.png" onclick="moveSpec({{object.id}}, {{spec.order}}, false)" alt="{% trans 'Move the description down'%}" title="{% trans 'Move the description down'%}"/>
-</div>
-{% endif %}
-<div class="invisible" id="newspot">{% include 'funding/spec/edit_spot.html' %}</div>
-{% endcomment %}
 <input type="hidden" value="{{spec.order}}" />
-{% comment %}
-<script>
-{% for spot in spec.spot_set.all %}
-    new OISpot(document.getElementById("spec_{{object.id}}_{{spec.order}}"), {{object.id}}, {{spec.id}}, {{spot.id}}, {{spot.offsetX}}, {{spot.offsetY}}, '{{spot.object.title}}', {{spot.object.id}}, {{spot.number}}{% if spot.object.state > 3 %}, "green" {% else %} {% if spot.isbug %}, "#D0574C" {% endif %} {% endif %});
-{% endfor %}
-{% if object|can_write:user and object.state < 2 %}
-    document.getElementById("spec_{{object.id}}_{{spec.order}}_content").receiveNode = function receiveNode(id, event) {
-        var spot = new OISpot(document.getElementById("spec_{{object.id}}_{{spec.order}}"), {{object.id}}, {{spec.id}}, 0, (event.pageX|(event.clientX + document.documentElement.scrollLeft))-this.parentElement.offsetLeft, (event.pageY|(event.clientY + document.documentElement.scrollTop))-this.parentElement.offsetTop);
-        spot.save(id);
-    }
-{% endif %}
-</script>
-{% endcomment %}
+

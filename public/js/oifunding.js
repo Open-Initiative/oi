@@ -46,15 +46,3 @@ function seeMore(divid1, divid2){
         }
     }
 }
-function popup(){
-    document.getElementById("flou").style.width = document.getElementsByTagName("body")[0].scrollWidth+"px";
-    document.getElementById("flou").style.height = document.getElementsByTagName("body")[0].scrollHeight+"px";
-    document.getElementById("flou").style.top = "0px";
-    document.getElementById("flou").style.left = "0px";
-}
-function noPopup(){
-    document.getElementById("flou").style.width = "0px";
-    document.getElementById("flou").style.height = "0px";
-//    document.getElementById("flou").style.top = "0px";
-//    document.getElementById("flou").style.left = "0px";
-}

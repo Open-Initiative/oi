@@ -88,9 +88,6 @@
         </div>
     </div>
     
-<!--    It use to blur the web page-->
-    <div id="flou" class="flou"></div>
-    
     <div class="creditblock">
         <h2>{% trans "Your credit" %}</h2>
         
@@ -105,7 +102,7 @@
                 {% for key,value in params.items %}
                 <input type="hidden" name="{{key}}" value="{{value}}" />{% endfor %}
                 <input style="padding: 1.3%;" class="fundingright nobtnstyle continuebtn" type="submit" value="{% trans 'Continue' %}" id=submit2 name=submit2>
-                <img style="width: 20px;" class="fundingleft clickable" src="/img/icons/del-32.png" onclick="noPopup(); hide('confirmpayment')" />
+                <img style="width: 20px;" class="fundingleft clickable" src="/img/icons/del-32.png" onclick="hidePopups()" />
             </form>
         </div>
         
@@ -118,41 +115,23 @@
         <div id="block_account">
             <div>
             
+                <div class="invisible" id="deposit">
+                        {% trans "You don't have enough money on your account. Please indicate below how much you want to add:" %}
+                    </div>
+                    <p>{% trans "You have" %} <b>{{user.get_profile.balance}}€</b> {% trans "in your account" %}</p>
+                    <p>{% trans "Add money in your account" %}</p>
+                    <form id="form_payment" method="get" >
+                        <input type="text" name="amount" id="amount" class="smallinput accountinput" value="{{request.GET.amount|default:0}}"/>
+                        <input type="image" src="/img/icons/ok-32.png" id="submit2" name="submit2">
+                    </form>
+                    <br/>
+                    <p><a href="/user/paymenthistory"> {% trans "Payment history" %}</a></p>
+                </div>
+                
                 {% if request.GET.amount %}
-                <div class="invisible" id="deposit">
-                        {% trans "You don't have enough money on your account. Please indicate below how much you want to add:" %}
-                    </div>
-                    <p>{% trans "You have" %} <b>{{user.get_profile.balance}}€</b> {% trans "in your account" %}</p>
-                    <p>{% trans "Add money in your account" %}</p>
-                    <form id="form_payment" method="get" >
-                        {% csrf_token %}
-                        <input type="text" name="amount" id="amount" class="smallinput accountinput" value="{{request.GET.amount}}"/>
-                        <input type="image" src="/img/icons/ok-32.png" id="submit2" name="submit2">
-                    </form>
-                    <br/>
-                    <p><a href="/user/paymenthistory"> {% trans "Payment history" %}</a></p>
-                </div>
                 <script>
-                    popup();
-                    show('confirmpayment');
+                    showPopup(document.getElementById('confirmpayment'));
                 </script>
-                
-                {% else %}
-                
-                <div class="invisible" id="deposit">
-                        {% trans "You don't have enough money on your account. Please indicate below how much you want to add:" %}
-                    </div>
-                    <p>{% trans "You have" %} <b>{{user.get_profile.balance}}€</b> {% trans "in your account" %}</p>
-                    <p>{% trans "Add money in your account" %}</p>
-                    <form id="form_payment" method="get" >
-                        {% csrf_token %}
-                        <input type="text" name="amount" id="amount" class="smallinput accountinput" value="0"/>
-                        <input type="image" src="/img/icons/ok-32.png" id="submit2" name="submit2">
-                    </form>
-                    <br/>
-                    <p><a href="/user/paymenthistory"> {% trans "Payment history" %}</a></p>
-                </div>
-                
                 {% endif %}
                 
                 {% if request.GET.orderID %}
@@ -166,7 +145,7 @@
                         <input style="padding: 1.3%;" class="form_center nobtnstyle continuebtn" type="submit" value="{% trans 'Continue' %}">
                     </form>
                 </div>
-                <script>popup();</script>
+                <script>showPopup(document.getElementById('didpayment'));</script>
                 {% endif %}
                 
             <br/>

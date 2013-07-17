@@ -64,8 +64,7 @@ function newDiv(parentid, style) {
     var divid = randid();
     var newdiv = document.createElement('div');
     newdiv.setAttribute('id',divid);
-    //test
-    newdiv.setAttribute('style',style);
+    if (style) newdiv.setAttribute('style',style);
     document.getElementById(parentid).appendChild(newdiv);
     return divid;
 }
@@ -89,12 +88,20 @@ function hidePopups() {
     }
     var i, popup;
     while(popup = document.popups.pop()) hide(popup.id);
+    hide("blurDiv");
 }
 function addPopup(popup) {
     document.popups = (document.popups || []).concat(popup);
     addEvent(document, "click", hidePopups);
 }
 function showPopup(popup) {
+    if(!document.getElementById("blurDiv")){
+        var body = document.getElementsByTagName("body")[0];
+        body.appendChild(document.createElement('div')).id = "blurDiv";
+        document.getElementById("blurDiv").className = "blur";
+    }else{
+        show("blurDiv");
+    }
     document.ignoreClosePopups = true;
     addPopup(popup);
     show(popup.id);

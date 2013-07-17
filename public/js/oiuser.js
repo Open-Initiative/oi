@@ -137,12 +137,3 @@ function saveSetting(observerid, use_default, noticeField, send){
         }
     });
 }
-function paymentColor(open_funding, current_site){
-    if(open_funding == current_site){ 
-        document.getElementById("deposit").style.color = "#1E9947"; 
-        document.getElementById("submit2").style.backgroundColor = "#1E9947";
-    }else{ 
-        document.getElementById("deposit").style.color = "#0094B5";
-        document.getElementById("submit2").style.backgroundColor = "#0094B5";
-    }
-}

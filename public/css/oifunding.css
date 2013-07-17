@@ -145,7 +145,6 @@ div.prj-block-action {
     display: table;
     clear: left;
     font-weight: bold;
-/*    margin-top: 1.5em;*/
 }
 .prj-btn:after {
     content: url('/img/icons/nextwhite.png');
@@ -162,7 +161,6 @@ div.prj-block-action {
     display: table;
     clear: left;
     font-weight: bold;
-/*    margin-top: 1.5em;*/
 }
 .funding_btn:before {
     content: url('/img/icons/previouswhite.png');
@@ -327,9 +325,6 @@ div.prj-action-wait {
 }
 div.cardspec {
     margin: 0;
-/*    overflow: hidden;*/
-/*    text-overflow: ellipsis;*/
-/*    white-space: nowrap;*/
 }
 .fundingprogress {
     position: absolute;
@@ -723,43 +718,6 @@ table.tablecell {
 tr.tablebg0 {
     background: #D7E7F0;
 }
-/*div.spectypes {*/
-/*    position: relative;*/
-/*    top: 1px;*/
-/*    min-width: 590px;*/
-/*}*/
-/*div.spectype {*/
-/*/*    height: 15px;*/*/
-/*    padding: 6px 14px;*/
-/*    float: left;*/
-/*/*    background: #F9F9F9;*/*/
-/*    border: solid 2px #CCCCCC;*/
-/*/*    border-radius: 3px;*/*/
-/*    margin: 1.5%;*/
-/*    font-size: 15px;*/
-/*    color: black;*/
-/*}*/
-/*div.spectypeselected {*/
-/*/*    background: white;*/*/
-/*/*    border-bottom: white 1px solid;*/*/
-/*    border: solid 2px gray;*/
-/*    font-weight: bold;*/
-/*}*/
-/*div.specedit {*/
-/*/*    border-top: solid 1px #0094B5;*/*/
-/*    margin-left: -10px;*/
-/*    padding-left: 10px;*/
-/*}*/
-/*.speclegend {*/
-/*    height: 70px;*/
-/*    margin-left: 10px;*/
-/*    width: 270px;*/
-/*}*/
-/*.speclegend_file{*/
-/*    height: 50px;*/
-/*    margin: 11px;*/
-/*    width: 660px;*/
-/*}*/
 .specauthor {
     font-weight: bold;
 }
@@ -833,7 +791,6 @@ div.sepspecfooter {
 }
 .featurebox{
     width:  32%;
-/*    height: 18em;*/
     float:  left;
     margin-left: 3px; 
     margin-right: 3px;
@@ -845,12 +802,6 @@ div.sepspecfooter {
     padding: 10px;
     margin-top: 0.5em;
 }
-/*.fundingright{*/
-/*    float: right;*/
-/*}*/
-/*.fundingleft{*/
-/*    float: left;*/
-/*}*/
 .boderline{
     border:1px solid !important;
 }
@@ -939,12 +890,6 @@ div.sepspecfooter {
     color: #475E6C;
     margin-left: 10px;
     margin-top: -3%;
-}
-.flou{ 
-    opacity: 0.91;
-    z-index: 1;
-    position: fixed;
-    background-color: white;
 }
 .bid_popup_title{
     color: #0094B5;
