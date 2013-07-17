@@ -11,7 +11,7 @@
         {%for spec in task.spec_set.all|dictsort:"order"%}
         <div style="position:relative" id="spec_{{task.id}}_{{spec.order}}" class="cleared">
             {% with task as object %}
-                {%include 'funding/spec/spec_bis.html'%}
+                {%include 'funding/spec/spec_feature.html'%}
             {% endwith %}
         </div>
         {% endfor %}

@@ -78,7 +78,9 @@
             {% if object.all_not_started_tasks %}
                 <ul class="features_manage" id="features_0">
                     {% for task in object.all_not_started_tasks %}
-                        {% include 'funding/feature_manage.html' %}
+                        <li class="featurebox" id="task_{{task.id}}">
+                            {% include 'funding/feature_manage.html' %}
+                        </li>
                     {% endfor %}
                 </ul>
                 <div class="cleared"></div>
@@ -87,7 +89,9 @@
             {% if object.all_progress_tasks %}
                 <ul class="features_manage" id="features_3">
                     {% for task in object.all_progress_tasks %}
-                        {% include 'funding/feature_manage.html' %}
+                        <li class="featurebox" id="task_{{task.id}}">
+                            {% include 'funding/feature_manage.html' %}
+                        </li>
                     {% endfor %}
                 </ul>
                 <div class="cleared"></div>
@@ -96,7 +100,9 @@
             {% if object.all_finish_tasks %}
                 <ul class="features_manage" id="features_4">
                     {% for task in object.all_finish_tasks %}
-                        {% include 'funding/feature_manage.html' %}
+                        <li class="featurebox" id="task_{{task.id}}">
+                            {% include 'funding/feature_manage.html' %}
+                        </li>
                     {% endfor %}
                 </ul>
                 <div class="cleared"></div>

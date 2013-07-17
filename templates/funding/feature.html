@@ -13,9 +13,7 @@
         {% include 'funding/feature_description.html' %}
     </div>
     {% endif %}
-    
     {% if task.state < 4 and task|can_bid:user or not user.is_authenticated %}
-    
     <div id="bidpopup_{{task.id}}" class="popup_spec invisible" onclick="document.ignoreClosePopups = true;">
             <img style="position: relative;top: 14%;" class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hidePopups()" />
             <div class="cleared"></div>
@@ -68,6 +66,7 @@
             </div>
             
             {% include 'funding/project_actions.html' %}
+            {% include 'funding/support_action.html' %}
 
             {% if task|can_manage:user %}<a class="clickable" onclick="showPopup(document.getElementById('featurebudget_{{task.id}}'))">{% trans "Funding details" %}</a>{% endif %}
         </div>
