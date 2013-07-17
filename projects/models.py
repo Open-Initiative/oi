@@ -56,8 +56,12 @@ class ProjectQuerySet(QuerySet):
             return Decimal("0")
         commission = self.aggregate(models.Sum("commission"))["commission__sum"] or Decimal("0")
         return offer + commission + commission * OI_VAT_RATE / 100
+    
+    def missingbid_sum(self):
+        """get the sum of all missing bids of a set of projects to be fully fund"""
+        return self.allbudget() - self.allbid_sum()
+        
 
-#Add function for the list
 class ProjectManager(models.Manager):
     def get_query_set(self):
         """Returns a new QuerySet object.  Subclasses can override this method

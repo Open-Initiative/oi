@@ -1,0 +1,65 @@
+{% load i18n %}
+{% load oifilters %}
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/css/oi.css" />
+        <link rel="stylesheet" type="text/css" media="all" href="/css/oifunding.css" />
+        <link rel="stylesheet" type="text/css" media="all" href="/css/jquery-ui-1.9.1.custom.css" /> 
+        <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="/js/jquery-ui-1.9.1.custom.js"></script>
+        <script>
+            function switchPrevFeature(){
+                var prevFeature=$('.pluginfeature:visible').prev(".pluginfeature");
+                $('.pluginfeature').animate({width: 'hide'});
+                (prevFeature.length?prevFeature:$('.pluginfeature').last()).animate({width: 'show'});
+            }
+            function switchNextFeature(){
+                var nextFeature=$('.pluginfeature:visible').next(".pluginfeature");
+                $('.pluginfeature').animate({width: 'hide'});
+                (nextFeature.length?nextFeature:$('.pluginfeature').first()).animate({width: 'show'});
+            }
+        </script>
+    </head>
+
+    <body>
+        {% if request.GET.type == "big" %}
+        {% if object.all_not_started_tasks.count > 1 %}<img id="prevfeature" class="clickable plugin-arrow" src="/img/icons/previous.png" onclick="switchPrevFeature()"/>{% endif %}
+        <div class="smallcolumn">
+            <ul class="features_manage" id="features_0">
+                {% for task in object.all_not_started_tasks|filter_read:user %}
+                    <li class="pluginfeature{% if not forloop.first %} invisible{% endif %}" id="task_{{task.id}}">
+                    {% include 'funding/feature.html' %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% if object.all_not_started_tasks.count > 1 %}<img id="nextfeature" class="clickable plugin-arrow" src="/img/icons/next.png" onclick="switchNextFeature()"/>{% endif %}
+        
+        {% else %}{% if request.GET.type == "small" %}
+        <div class="pluginsmall">
+            <img class="pluginlogo" src="/img/logo_funding.png">
+            {% trans "Support " %}<br/>{{object.title}}
+            {% with object.descendants|filter_read:user as descendants %}<div class="pluginsum">
+                {% blocktrans with amount=descendants.missingbid_sum %}
+                    {{amount}} € <span class="plugin-nobold">to go!</span>
+                {% endblocktrans %}
+                <div class="progressbar">
+                    <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio descendants.allbid_sum|add:object.bid_sum object.get_selfbudget|default:descendants.allbudget 100 %}%;"></span>
+                    <span id="progresslabel_{{object.id}}" class="progresstitle" >{% widthratio descendants.allbid_sum|add:object.bid_sum object.get_selfbudget|default:descendants.allbudget 100 %} %</span>
+                </div>
+            </div>{% endwith %}
+        </div>
+
+        {% else %}{% if request.GET.type == "tiny" %}
+        <div class="plugintiny">
+            <img class="pluginlogo" src="/img/logo_funding.png">
+            {% with object.descendants|filter_read:user as descendants %}<div class="pluginsum">
+                <div class="progressbar">
+                    <span id="progressbar_{{object.id}}" class="progresstiny" style="width:{% widthratio descendants.allbid_sum|add:object.bid_sum object.get_selfbudget|default:descendants.allbudget 100 %}%;"></span>
+                </div>
+            </div>{% endwith %}
+        </div>
+
+        {% endif %}{% endif %}{% endif %}
+    </body>
+</html>
