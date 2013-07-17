@@ -35,16 +35,9 @@ function visibleFeature(projectid){
         }
     );
 }
-function seeMore(divid1, divid2){
-    if(document.getElementById(divid1) && document.getElementById(divid2)){
-        if(document.getElementById(divid1).className == "invisible" && document.getElementById(divid2).className == ""){
-            document.getElementById(divid1).className = "";
-            document.getElementById(divid2).className = "invisible"
-        }else{
-            document.getElementById(divid2).className = "";
-            document.getElementById(divid1).className = "invisible"
-        }
-    }
+function seeMore(dividblock1, dividblock2){
+    $('#'+dividblock1).fadeToggle();
+    $('#'+dividblock2).fadeToggle();
 }
 function selectplugin(projectid, plugintype) {
     document.getElementById('plugincode').value = "<iframe url='http://"+sites["Open Funding"]+"/funding/"+projectid+"/embed?type="+plugintype+"'></iframe>";

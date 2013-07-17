@@ -1,0 +1,40 @@
+{% load i18n %}
+﻿﻿{% load oifilters %}
+{% with project.spec_set.all|dictsort:"order" as specs %}
+
+<div id="language_block" class="cleared funding_space">
+    <span style="font-size: 16px;font-weight: bolder;">{% trans "Choose the language of your translation" %}</span>
+    <select id="language_{{project.id}}">
+        <option ></option>
+        <option {% if specs.3.language == 'fr' and specs.4.language == 'fr' %} selected=selected {% endif %} value="fr">{% trans 'French' %}</option>
+        <option {% if specs.3.language == 'en' and specs.4.language == 'en' %} selected=selected {% endif %} value="en">{% trans 'English' %}</option>
+    </select>
+</div>
+
+<div class="cleared sepsearch"></div>
+
+<input name="spectype" id="type_{{project.id}}_4" value="1" type="hidden"/>
+<input name="specid" id="specid_{{project.id}}_4" value="{{specs.3.id|default:0}}" type="hidden"/>
+<input name="projectid" id="projectid_{{project.id}}_4" value="{{project.id}}" type="hidden"/>
+<input name="specorder" id="specorder_{{project.id}}_4" value="4" type="hidden"/>
+<div><b>{% trans "A short description of your project and why it is great" %}</b></div>
+<div id="{{project.id}}_4" class="column"><input id="text_{{project.id}}_4" class="projectbaseline" value="{{specs.3.text|oiunescape}}" maxlength="200" /></div>
+
+<div class="cleared sepsearch"></div>
+
+<input name="spectype" id="type_{{project.id}}_5" value="1" type="hidden"/>
+<input name="specid" id="specid_{{project.id}}_5" value="{{specs.4.id|default:0}}" type="hidden"/>
+<input name="projectid" id="projectid_{{project.id}}_5" value="{{project.id}}" type="hidden"/>
+<input name="specorder" id="specorder_{{project.id}}_5" value="5" type="hidden"/>
+<div style="width:57%"><b>{% trans "A long description including : who you are, why you do it, how it can be used..." %}</b></div>
+<div id="{{project.id}}_5" class="column"><textarea id="text_{{project.id}}_5" class="norich">{{specs.4.text|oiunescape}}</textarea></div>
+
+<div class="cleared sepsearch"></div>
+
+
+<div class="cleared"></div>
+
+<script>
+tinyMCE.execCommand('mceAddControl', false, "text_{{project.id}}_5"); 
+</script>
+{% endwith %}
