@@ -5,7 +5,7 @@
 {% block content %}
 <div class="prjbody">
     <div class="column profile_column">
-        <img class="profilepicture" src="/user/getpicture/{{selected_user.username}}" />
+        <img id="user_picture" class="profilepicture" src="/user/getpicture/{{selected_user.username}}" />
         {% ifequal user selected_user %}
         <img class="clickable" src="/img/icons/edit.png" onclick="$('#profile_picture').toggle()" />
         <div id="profile_picture" class="cleared filebox invisible">
@@ -30,7 +30,7 @@
             {{selected_user.get_profile}}
             {% ifequal user selected_user %}<a href="/user/myaccount"><img src="/img/icons/edit.png" /></a>{% endifequal %}
         </h1>
-        <div>{{selected_user.get_profile.personal_website}}</div>
+        <div><a href="{{selected_user.get_profile.personal_website}}">{{selected_user.get_profile.personal_website}}</a></div>
         <div>{{selected_user.get_profile.city}}, {{selected_user.get_profile.country}}</div>
         
         <h2>
