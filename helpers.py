@@ -64,7 +64,7 @@ URL_TYPE = 3
 VIDEO_TYPE = 4
 DOC_TYPE = 5
 BUG_REPORT_TYPE = 6
-SPEC_TYPES =  {TEXT_TYPE:_("Text"), IMAGE_TYPE:_("Image"), URL_TYPE:_("url link"), VIDEO_TYPE:_("Video"), DOC_TYPE:_("Document"), BUG_REPORT_TYPE:_("Bug report")}
+SPEC_TYPES =  {TEXT_TYPE:_("Text"), IMAGE_TYPE:_("Image"), URL_TYPE:_("Url link"), VIDEO_TYPE:_("Video"), DOC_TYPE:_("Document"), BUG_REPORT_TYPE:_("Bug report")}
 
 class OIAction:
     def show(self, project, user):

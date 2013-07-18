@@ -9,11 +9,11 @@
     
     {% if spec.type == 2 or spec.type == 6 and spec.file %}
     <div class="form_center">
-        <img style="max-width:700px" src="{% if spec.file %}{{spec.file.url}}{% endif %}" />
+        <img style="max-width:450px; max-height:450px;" src="{% if spec.file %}{{spec.file.url}}{% endif %}" />
     </div>
     {% endif %}
     {% if spec.type == 3 or spec.type == 4 or spec.type == 6 and spec.url != "http://" %}
-    {{spec.text|oiunescape|default:spec.url}} <a href="{{spec.url}}" > {% trans "click here" %} </a>
+    <a href="{{spec.url}}" > {{spec.text|oiunescape|default:spec.url}} </a>
     {% else %}
         <div id="visible_{{object.id}}_{{spec.order}}_desc">
             <p class="funding_short">
