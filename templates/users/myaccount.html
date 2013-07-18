@@ -138,7 +138,7 @@
                     <p><a href="/user/paymenthistory"> {% trans "Payment history" %}</a></p>
                 </div>
                 
-                {% if request.GET.amount %}
+                {% if request.GET.amount and not request.GET.orderID %}
                 <script>
                     showPopup(document.getElementById('confirmpayment'));
                     showPopup(document.getElementById('task_title'));
