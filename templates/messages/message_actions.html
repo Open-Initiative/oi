@@ -1,6 +1,6 @@
 {% load oifilters %}
 {% load i18n %}
-<div class="actions">
+<div class="actions" style="min-width: 50px;">
     {% comment %}{% if not message|ip_has_voted:request.META.REMOTE_ADDR and user.is_anonymous or not message|has_voted:user and user.is_authenticated %}
         <img class="clickable" src="/img/icons/relevantmsg.png" onclick="vote({{message.id}},1)" alt="{% trans "Message relevant" %}" title="{% trans "Message relevant" %}">
         <img class="clickable" src="/img/icons/irrelevantmsg.png" onclick="vote({{message.id}},-1)" alt="{% trans "Message irrelevant" %}" title="{% trans "Message irrelevant" %}">
@@ -9,7 +9,7 @@
         {% if not message.parent %}
             {% if message|can_answer:user and message.author == user %}
             <img class="clickable" src="/img/icons/delete.png" onclick="deleteMessage({{message.id}})" alt="{% trans "Delete this message" %}" title="{% trans "Delete this message" %}" />
-            <img class="clickable" src="/img/icons/edit.png" onclick="editMessage({{message.id}})" alt="{% trans "Correct this message" %}" title="{% trans "Correct this message" %}" />
+            <img style="margin-left: 6px;" class="clickable" src="/img/icons/edit.png" onclick="editMessage({{message.id}})" alt="{% trans "Correct this message" %}" title="{% trans "Correct this message" %}" />
             {% endif %}
             {% if message|can_answer:user %}
             <div class="clickable more{% if message.rfp %}red{% else %}blue{% endif %}" onclick="addMessage({{message.id}})" alt="{% trans "Answer this message" %}" title="{% trans "Answer this message" %}">+</div>
@@ -17,7 +17,7 @@
         {% else %}
             {% if message.parent|can_answer:user and message.author == user %}
             <img class="clickable" src="/img/icons/delete.png" onclick="deleteMessage({{message.id}})" alt="{% trans "Delete this message" %}" title="{% trans "Delete this message" %}" />
-            <img class="clickable" src="/img/icons/edit.png" onclick="editMessage({{message.id}})" alt="{% trans "Correct this message" %}" title="{% trans "Correct this message" %}" />
+            <img style="margin-left: 6px;" class="clickable" src="/img/icons/edit.png" onclick="editMessage({{message.id}})" alt="{% trans "Correct this message" %}" title="{% trans "Correct this message" %}" />
             {% endif %}
             {% if message.parent|can_answer:user %}
             <div class="clickable more{% if message.rfp %}red{% else %}blue{% endif %}" onclick="addMessage({{message.id}})" alt="{% trans "Answer this message" %}" title="{% trans "Answer this message" %}">+</div>
