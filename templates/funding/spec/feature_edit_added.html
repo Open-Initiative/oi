@@ -5,7 +5,6 @@
 <div id="language_block" class="cleared funding_space">
     <span style="font-size: 16px;font-weight: bolder;">{% trans "Choose the language of your translation" %}</span>
     <select id="language_{{project.id}}">
-        <option ></option>
         <option {% if specs.3.language == 'fr' and specs.4.language == 'fr' %} selected=selected {% endif %} value="fr">{% trans 'French' %}</option>
         <option {% if specs.3.language == 'en' and specs.4.language == 'en' %} selected=selected {% endif %} value="en">{% trans 'English' %}</option>
     </select>
