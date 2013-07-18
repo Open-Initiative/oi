@@ -811,7 +811,7 @@ div.sepspecfooter {
 }
 .funding_minispec{
     word-wrap: break-word;
-    text-align: justify;
+    text-align: left;
 }
 .funding_space {
     margin-bottom: 1%;
