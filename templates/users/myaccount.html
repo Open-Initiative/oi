@@ -131,17 +131,23 @@
                     <p>{% trans "You have" %} <b>{{user.get_profile.balance}}€</b> {% trans "in your account" %}</p>
                     <p>{% trans "Add money in your account" %}</p>
                     <form id="form_payment" method="get" >
-                        <input type="text" name="amount" id="amount" class="smallinput accountinput" value="{{request.GET.amount|default:0}}"/>
+                    
+                            <input type="text" {% if request.GET.amount %} name="amount" id="amount" class="smallinput accountinput" value="{{request.GET.amount|default:0}}{% else %} name="bid" id="bid" class="smallinput accountinput" value="{{request.GET.bid|default:0}} {% endif %}"/>
+                            
+                            <input type="hidden" {% if not request.GET.amount %} name="amount" id="amount" class="smallinput accountinput" value="{{request.GET.amount|default:0}}{% else %} name="bid" id="bid" class="smallinput accountinput" value="{{request.GET.bid|default:0}} {% endif %}"/>
+                        
                         <input type="image" src="/img/icons/ok-32.png" id="submit2" name="submit2">
                     </form>
                     <br/>
                     <p><a href="/user/paymenthistory"> {% trans "Payment history" %}</a></p>
                 </div>
                 
-                {% if request.GET.amount and not request.GET.orderID %}
+                {% if request.GET.bid or request.GET.amount and not request.GET.orderID %}
                 <script>
                     showPopup(document.getElementById('confirmpayment'));
-                    showPopup(document.getElementById('task_title'));
+                    if(document.getElementById('task_title')){
+                        showPopup(document.getElementById('task_title'));
+                    }
                 </script>
                 {% endif %}
                 
