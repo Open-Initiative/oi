@@ -84,7 +84,7 @@ div.blogicon {
     padding-right: 15px;
     padding-top: 5px;
 }
-.profile_picture{
+.profile_picture {
     position: relative;
     right: 40%;
 }
@@ -107,7 +107,7 @@ div.blogicon {
     width: 70%;
     margin: 2px;
 }
-.confirmpaymentblok{
+.confirmpaymentblok {
     background-color: white;
     border: 1px solid #E0E0E0;
     border-radius: 20px;
@@ -118,7 +118,7 @@ div.blogicon {
     right: 36%;
     z-index: 1;
 }
-#didpayment{
+#didpayment {
     z-index: 1;
     position: relative;
     border: 1px solid #E0E0E0;
@@ -127,4 +127,15 @@ div.blogicon {
     border-radius: 20px;
     right: 80%;
     margin-top: -70%;
+}
+.task_title {
+    color: #0094B5; 
+    font-size: 22px;
+    margin-bottom: 2%;
+    position: relative; 
+    right: 70%;
+    z-index: 1; 
+}
+.task_title p{
+    margin: 0px;
 }

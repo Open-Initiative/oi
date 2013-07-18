@@ -485,10 +485,7 @@ def bidproject(request, id):
         return HttpResponse(_("Invalid amount"))
     #checks that the user can afford the bid ; if not, redirects to the deposit page
     if request.user.is_anonymous() or amount > request.user.get_profile().balance:
-        if request.user.is_authenticated(): #and project.has_perm(request.user, OI_BID):
-            amount -= request.user.get_profile().balance
-        
-        return HttpResponse('/user/myaccount?amount=%s'%((amount).to_eng_string()),status=333)
+        return HttpResponse('/user/myaccount?amount=%s&project=%s'%((amount).to_eng_string(),project.id),status=333)
     
     #and creates the bid
     bid, created = Bid.objects.get_or_create(project=project, user=request.user)

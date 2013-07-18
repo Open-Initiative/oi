@@ -57,9 +57,11 @@ def myaccount(request):
         extra_context = {'contact_form':UserProfileForm(instance=request.user.get_profile())}
 
     else:
+        getrequestask = Project.objects.get(id=request.GET["project"])
         payment = Payment(user=request.user, amount=0, project_id=0, reason='Paiement en attente de validation')
         payment.save()
-        amount = Decimal(request.GET['amount'].replace(',','.')).quantize(Decimal('.01'))
+        amount = Decimal((request.GET['amount']).replace(',','.')).quantize(Decimal('.01'))
+        amount = amount - request.user.get_profile().balance
         params = {"PSPID":"openinitiative", "currency":"EUR", "language":"fr_FR", "TITLE":"", "BGCOLOR":"", "TXTCOLOR":"", "TBLBGCOLOR":"", "TBLTXTCOLOR":"", "BUTTONBGCOLOR":"", "BUTTONTXTCOLOR":"", "LOGO":"", "FONTTYPE":""}
         params['orderID'] = payment.id
         params['amount'] = (amount*100).quantize(Decimal('1.'))
@@ -70,8 +72,8 @@ def myaccount(request):
         params["ownercty"] = request.user.get_profile().country
         params["ownertown"] = request.user.get_profile().city
         params["ownertelno"] = request.user.get_profile().phone
-        params["SHASign"] = computeSHA(params)
-        extra_context = {'params':params, 'amount':amount, 'action': PAYMENT_ACTION}
+        params["SHASign"] = computeSHA(params)   
+        extra_context = {'params':params, 'amount':amount, 'action': PAYMENT_ACTION, 'task': getrequestask}
         
     return direct_to_template(request, template='users/myaccount.html', extra_context=extra_context)
 

@@ -66,7 +66,11 @@
             </div>
             
             {% include 'funding/project_actions.html' %}
-            {% include 'funding/support_action.html' %}
+            <div class="featurebtns">
+            {% if task.state < 4 and task|can_bid:user and not task|bids:user or not user.is_authenticated %}
+                <span class="supportbtn clickable" onclick="showPopup(document.getElementById('bidpopup_{{task.id}}')); ">{% trans "Support" %}</span>
+            {% endif %}
+            </div>
 
             {% if task|can_manage:user %}<a class="clickable" onclick="showPopup(document.getElementById('featurebudget_{{task.id}}'))">{% trans "Funding details" %}</a>{% endif %}
         </div>

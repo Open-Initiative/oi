@@ -91,7 +91,16 @@
     <div class="creditblock">
         <h2>{% trans "Your credit" %}</h2>
         
-        <div id="confirmpayment" class="invisible confirmpaymentblok">
+        {% if request.GET.project %}
+            <div id="task_title" class="task_title" onclick="document.ignoreClosePopups = true;">
+                <p>
+                    {% trans "Support the feature" %} <b>{{task.title}}</b> <br/>
+                    {% trans "of the project" %} <u>{{task.parent.title}}</u>
+                </p>
+            </div>
+        {% endif %}
+        
+        <div id="confirmpayment" class="invisible confirmpaymentblok" onclick="document.ignoreClosePopups = true;">
             <h1 id="deposit">{% trans "Confirm the deposit" %}</h1>
             <p>{% trans "Amount payable" %} : <b style="font-size: 17px;">{{amount}}€ </b></p>
             {% trans "You are about to be redirected to our" %} <br/> {% trans "payment service provider who will confirm" %} <br/> {% trans "transaction." %}<br /><br/>
@@ -100,9 +109,10 @@
             <br /><br/>
             <form method="post" action="{{action}}" id=form1 name=form1>
                 {% for key,value in params.items %}
-                <input type="hidden" name="{{key}}" value="{{value}}" />{% endfor %}
+                <input type="hidden" name="{{key}}" value="{{value}}" />
+                {% endfor %}
                 <input style="padding: 1.3%;" class="fundingright nobtnstyle continuebtn" type="submit" value="{% trans 'Continue' %}" id=submit2 name=submit2>
-                <img style="width: 20px;" class="fundingleft clickable" src="/img/icons/del-32.png" onclick="hidePopups()" />
+                <img style="width: 20px;" class="fundingleft clickable" src="/img/icons/del-32.png" onclick="{% if request.GET.project %}document.location.href='/funding/{{request.GET.project}}'{% endif %}" />
             </form>
         </div>
         
@@ -131,6 +141,7 @@
                 {% if request.GET.amount %}
                 <script>
                     showPopup(document.getElementById('confirmpayment'));
+                    showPopup(document.getElementById('task_title'));
                 </script>
                 {% endif %}
                 
