@@ -761,6 +761,7 @@ div.sepspecfooter {
     width: 90%;
     border-radius: 3px;
     font-size: 0.8em;
+    margin-left: 5%;
 }
 .progress {
     float:left;
@@ -805,9 +806,6 @@ div.sepspecfooter {
 
 .boderline {
     border:1px solid !important;
-}
-.form_center {
-    text-align: center;
 }
 .funding_minispec{
     word-wrap: break-word;
@@ -947,4 +945,10 @@ div.sepspecfooter {
 .pluginlogo {
     float: right;
     width: 80px;
+}
+.funding_profilepicture{
+    margin-bottom: 7%; 
+    margin-left: 11%; 
+    width:132px; 
+    height:150px;
 }

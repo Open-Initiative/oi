@@ -33,11 +33,13 @@
         </div>{% endif %}
         <div id="feature_{{task.id}}" class="featuretitle">{{task.title}}</div>
         
+        <div style="text-align: left;">
         {% for spec in task.spec_set.all %}
             {% if spec.order == 1 %}
-                <p class="ellipsis">{{spec.text|oiunescape|slice:":100"}} {% if spec.text|length > 101 %}...{% endif %}</p>
+                <p style="text-align: left;" class="ellipsis">{{spec.text|oiunescape|slice:":100"}} {% if spec.text|length > 101 %}...{% endif %}</p>
             {% endif %}
         {% endfor %}
+        </div>
         
         {% if task|can_manage:user or task.spec_set.count%}<a style="display: block; text-align: right" class="clickable" onclick="showPopup(document.getElementById('featuredesc_{{task.id}}'))">{% trans "See more" %}</a>{% endif %}
         <div>
