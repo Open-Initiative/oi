@@ -137,7 +137,7 @@
                 </div>
             </div>
             <div>
-                <div>{% autoescape off %}{% if project.author.get_profile.bio.count > 300 %}{{project.author.get_profile.bio|oiunescape|slice:":300"}}...{% else %}{{project.author.get_profile.bio|oiunescape}}{% endif %}{% endautoescape %}</div>
+                <div>{% autoescape off %}{% if project.author.get_profile.bio|length > 300 %} {{project.author.get_profile.bio|oiunescape|slice:":300"}}...{% else %}{{project.author.get_profile.bio|oiunescape}}{% endif %}{% endautoescape %}</div>
                 </div>
                 <div><a href="{{project.author.get_profile.personal_website}}">{{project.author.get_profile.personal_website}}</a></div>
                 <div class="cleared"></div>
