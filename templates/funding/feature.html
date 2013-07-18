@@ -74,7 +74,7 @@
             {% endif %}
             </div>
 
-            {% if task|can_manage:user %}<a class="clickable" onclick="showPopup(document.getElementById('featurebudget_{{task.id}}'))">{% trans "Funding details" %}</a>{% endif %}
+            {% if task|can_manage:user %}<a class="clickable" onclick="showPopup(document.getElementById('featurebudget_{{task.id}}'))">{% trans "List of funders" %}</a>{% endif %}
         </div>
     </div>
 
