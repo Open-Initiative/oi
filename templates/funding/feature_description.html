@@ -4,7 +4,7 @@
 
     <img class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hidePopups()" />
 
-    <h3 style="width:300px; margin-top:0px">{{task.title}}</h3>
+    <h3 style="width:300px; margin-top:0px; margin-bottom: 25px;">{{task.title}}</h3>
 
     <div class="spec_author">{% trans "Project created by" %} <b>{{task.author.get_profile}}</b></div>
     <div id="specs_{{task.id}}">
