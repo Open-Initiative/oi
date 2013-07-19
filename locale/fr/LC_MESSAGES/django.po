@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-19 15:58+0200\n"
+"POT-Creation-Date: 2013-07-19 16:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1085,9 +1085,9 @@ msgid "By funding this feature, you agree to the"
 msgstr "En finançant cette évolution, vous acceptez les"
 
 #: templates/funding/feature.html:30 templates/users/myaccount.html:27
-#: templates/users/myaccount.html.py:132
+#: templates/users/myaccount.html.py:39
 msgid "Continue"
-msgstr "Continu"
+msgstr "Continuer"
 
 #: templates/funding/feature.html:37 templates/funding/feature_manage.html:31
 msgid "edit title"
@@ -1101,7 +1101,7 @@ msgstr "supprimer l'évolution"
 #: templates/funding/feature_manage.html:44
 #: templates/funding/spec/spec.html:22
 msgid "See more"
-msgstr ""
+msgstr "En voir plus"
 
 #: templates/funding/feature.html:59 templates/funding/feature_manage.html:46
 msgid "funded"
@@ -1121,7 +1121,7 @@ msgstr "Soutenir"
 
 #: templates/funding/feature.html:77
 msgid "List of funders"
-msgstr ""
+msgstr "Liste des financeurs"
 
 #: templates/funding/feature_budget.html:6
 #: templates/projects/project_budget.html:6
@@ -1991,7 +1991,7 @@ msgstr "Télécharger la description"
 
 #: templates/funding/spec/spec.html:31
 msgid "See less"
-msgstr "Tout voir"
+msgstr "En voir moins"
 
 #: templates/funding/spec/spec_feature.html:25
 #: templates/projects/spec/spec.html:17
@@ -2733,12 +2733,12 @@ msgstr "Connexion"
 #: templates/registration/login.html:10
 #: templates/registration/registration_form.html:32
 msgid "LOG-IN"
-msgstr ""
+msgstr "Se connecter"
 
 #: templates/registration/login.html:38
 #: templates/registration/registration_form.html:60
 msgid "Log in"
-msgstr ""
+msgstr "Se connecter"
 
 #: templates/registration/registration_complete.html:6
 msgid "You go to receive an email to validate your registration."
@@ -2746,23 +2746,23 @@ msgstr "Vous allez recevoir un e-mail pour valider votre inscription"
 
 #: templates/registration/registration_form.html:7
 msgid "REGISTER"
-msgstr ""
+msgstr "INSCRIVEZ-VOUS"
 
 #: templates/registration/registration_form.html:13
 msgid "Please fix errors in registration form."
 msgstr "Merci de corriger les erreurs dans le formulaire"
 
 #: templates/registration/registration_form.html:24
-msgid "I have read and accepted"
-msgstr "J'ai lu et j'accepte les"
+msgid "You acknowledge having read and accepted"
+msgstr "Vous reconnaissez avoir lu et accepté"
 
 #: templates/registration/registration_form.html:24
-msgid "the terms of use"
-msgstr "Conditions Générales d'Utilisation"
+msgid "the terms and conditions"
+msgstr "les conditions générales d'utilisation"
 
 #: templates/registration/registration_form.html:24
-msgid "by registering this form."
-msgstr ""
+msgid "by registering."
+msgstr "en vous inscrivant."
 
 #: templates/search/search.html:4
 msgid "Results for"
@@ -2802,7 +2802,7 @@ msgstr "Publications"
 msgid "No publication"
 msgstr "Pas de publication"
 
-#: templates/users/changeemail.html:3 templates/users/myaccount.html:118
+#: templates/users/changeemail.html:3 templates/users/myaccount.html:130
 msgid "Change your e-mail address"
 msgstr "Modifier votre adresse e-mail"
 
@@ -2822,7 +2822,7 @@ msgstr "Confirmer la nouvelle adresse e-mail"
 msgid "Set new address"
 msgstr "Modifier l'adresse"
 
-#: templates/users/changepwd.html:3 templates/users/myaccount.html:114
+#: templates/users/changepwd.html:3 templates/users/myaccount.html:126
 msgid "Change your password"
 msgstr "Modifier le mot de passe"
 
@@ -2887,31 +2887,43 @@ msgstr "transaction."
 msgid "Do you confirm?"
 msgstr "Confirmez-vous le dépôt ?"
 
-#: templates/users/myaccount.html:42
+#: templates/users/myaccount.html:34
+msgid "Thank you to contribute to"
+msgstr "Merci de contribuer au"
+
+#: templates/users/myaccount.html:34
+msgid "the funding of the feature"
+msgstr "le financement de l'offre de cette évolution"
+
+#: templates/users/myaccount.html:37
+msgid "You will be redirected to the project page"
+msgstr "Vous serez redirigé sur la page projet"
+
+#: templates/users/myaccount.html:54
 msgid "Name"
 msgstr "Nom"
 
-#: templates/users/myaccount.html:51 templates/users/register.html:10
+#: templates/users/myaccount.html:63 templates/users/register.html:10
 msgid "Last name"
 msgstr "Nom de famille"
 
-#: templates/users/myaccount.html:55 templates/users/register.html:14
+#: templates/users/myaccount.html:67 templates/users/register.html:14
 msgid "First name"
 msgstr "Prénom"
 
-#: templates/users/myaccount.html:69 users/models.py:24
+#: templates/users/myaccount.html:81 users/models.py:24
 msgid "Birthdate"
 msgstr "Date de naissance"
 
-#: templates/users/myaccount.html:75
+#: templates/users/myaccount.html:87
 msgid "Contact information"
 msgstr "Informations de contact"
 
-#: templates/users/myaccount.html:75
+#: templates/users/myaccount.html:87
 msgid "Confidential"
 msgstr "Confidentiel"
 
-#: templates/users/myaccount.html:75
+#: templates/users/myaccount.html:87
 msgid ""
 "Your details will only be shared with those who finance your project. "
 "Project leaders and users will have the personal information of another to "
@@ -2922,51 +2934,39 @@ msgstr ""
 "informations les uns des autres pour valider le paiement, les corrections et "
 "la validations des projets."
 
-#: templates/users/myaccount.html:80 users/models.py:25
+#: templates/users/myaccount.html:92 users/models.py:25
 msgid "Address"
 msgstr "Adresse"
 
-#: templates/users/myaccount.html:83 users/models.py:26
+#: templates/users/myaccount.html:95 users/models.py:26
 msgid "Post Code"
 msgstr "Code postal"
 
-#: templates/users/myaccount.html:86 users/models.py:28
+#: templates/users/myaccount.html:98 users/models.py:28
 msgid "Country"
 msgstr "Pays"
 
-#: templates/users/myaccount.html:89 users/models.py:29
+#: templates/users/myaccount.html:101 users/models.py:29
 msgid "Mobile"
 msgstr "Téléphone portable"
 
-#: templates/users/myaccount.html:92
+#: templates/users/myaccount.html:104
 msgid "Fixed Phone"
 msgstr "Téléphone fixe"
 
-#: templates/users/myaccount.html:95
+#: templates/users/myaccount.html:107
 msgid "Personal Website"
 msgstr "Site web personnel"
 
-#: templates/users/myaccount.html:121
+#: templates/users/myaccount.html:133
 msgid "Notification settings"
 msgstr "Paramètres de notifications"
 
-#: templates/users/myaccount.html:127
-msgid "Thank you to contribute to"
-msgstr "Merci de contribuer au"
-
-#: templates/users/myaccount.html:127
-msgid "the funding of the feature"
-msgstr "le financement de l'offre de cette évolution"
-
-#: templates/users/myaccount.html:130
-msgid "You will be redirected to the project page"
-msgstr "Vous serez redirigé sur la page projet"
-
-#: templates/users/myaccount.html:139
+#: templates/users/myaccount.html:138
 msgid "Your credit"
 msgstr "votre crédit"
 
-#: templates/users/myaccount.html:141
+#: templates/users/myaccount.html:140
 msgid ""
 "When you create an account you can also determine the credit you will have. "
 "With this credit you can help crowd fund your favorite projects. You set the "
@@ -2977,7 +2977,7 @@ msgstr ""
 "préférés. Vous définissez le montant à administrer en fonction de vos "
 "intérêts."
 
-#: templates/users/myaccount.html:143
+#: templates/users/myaccount.html:142
 msgid ""
 "We have a secure system that will keep your account and your investments "
 "safe!"
@@ -2985,19 +2985,19 @@ msgstr ""
 "Nous avons un système sécurisé qui permet de garder votre compte et de vos "
 "investissements en sécurité"
 
-#: templates/users/myaccount.html:148
+#: templates/users/myaccount.html:147
 msgid "You have"
 msgstr "Vous avez"
 
-#: templates/users/myaccount.html:148
+#: templates/users/myaccount.html:147
 msgid "in your account"
 msgstr "dans votre compte"
 
-#: templates/users/myaccount.html:149
+#: templates/users/myaccount.html:148
 msgid "Add money to your account"
 msgstr "Alimenter votre compte"
 
-#: templates/users/myaccount.html:157
+#: templates/users/myaccount.html:156
 msgid "Payment history"
 msgstr "Historique des paiements"
 
@@ -3291,6 +3291,9 @@ msgstr "Message envoyé"
 #: users/views.py:314
 msgid "Notice archived"
 msgstr "Notification archivée"
+
+msgid "the terms of use"
+msgstr "Conditions Générales d'Utilisation"
 
 msgid "To your account"
 msgstr "Pour votre compte"
