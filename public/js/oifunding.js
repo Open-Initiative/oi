@@ -36,8 +36,8 @@ function visibleFeature(projectid){
     );
 }
 function seeMore(dividblock1, dividblock2){
-    $('#'+dividblock1).fadeToggle();
-    $('#'+dividblock2).fadeToggle();
+    $('#'+dividblock1).toggle();
+    $('#'+dividblock2).delay(100).fadeToggle();
 }
 function selectplugin(projectid, plugintype) {
     if(plugintype == "big"){

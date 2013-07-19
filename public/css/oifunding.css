@@ -949,6 +949,6 @@ div.sepspecfooter {
 .funding_profilepicture{
     margin-bottom: 7%; 
     margin-left: 11%; 
-    width:132px; 
-    height:150px;
+    max-width:150px; 
+    max-height:150px;
 }
