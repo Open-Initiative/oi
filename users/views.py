@@ -51,20 +51,21 @@ def userprofile(request, username):
 @login_required
 def myaccount(request):
     """user settings page or asks user for confirmation before redirecting to payment service provider"""
-    if not request.GET.get("amount"):
-        if request.GET.get("orderID"):
-            request.user.get_profile().update_payment(dict(request.GET.items())) #to obtain a mutable version of the QueryDict
-        extra_context = {'contact_form':UserProfileForm(instance=request.user.get_profile())}
+    extra_context = {}
+    if request.GET.get("orderID"): #return from payment
+        request.user.get_profile().update_payment(dict(request.GET.items())) #to obtain a mutable version of the QueryDict
 
-    else:
+    elif request.GET.get("amount"): #request for payment
+        amount = Decimal((request.GET['amount']).replace(',','.')).quantize(Decimal('.01'))
+        if request.GET.get("project"): #from a bid
+            extra_context['task'] = Project.objects.get(id=request.GET["project"])
+            amount = amount - request.user.get_profile().balance #only pay what the user lacks
+            
+        if request.GET.get("deposit"): #from account page
+            amount += Decimal((request.GET['deposit']).replace(',','.')).quantize(Decimal('.01'))
+            
         payment = Payment(user=request.user, amount=0, project_id=0, reason='Paiement en attente de validation')
         payment.save()
-        
-        if request.GET.get('bid'):
-            amount = Decimal((request.GET['bid']).replace(',','.')).quantize(Decimal('.01'))
-        else:
-            amount = Decimal((request.GET['amount']).replace(',','.')).quantize(Decimal('.01'))
-            amount = amount - request.user.get_profile().balance
         
         params = {"PSPID":"openinitiative", "currency":"EUR", "language":"fr_FR", "TITLE":"", "BGCOLOR":"", "TXTCOLOR":"", "TBLBGCOLOR":"", "TBLTXTCOLOR":"", "BUTTONBGCOLOR":"", "BUTTONTXTCOLOR":"", "LOGO":"", "FONTTYPE":""}
         params['orderID'] = payment.id
@@ -76,13 +77,12 @@ def myaccount(request):
         params["ownercty"] = request.user.get_profile().country
         params["ownertown"] = request.user.get_profile().city
         params["ownertelno"] = request.user.get_profile().phone
-        params["SHASign"] = computeSHA(params) 
-        if request.GET.get("project"): 
-            getrequestask = Project.objects.get(id=request.GET["project"])
-            extra_context = {'params':params, 'amount':amount, 'action': PAYMENT_ACTION, 'task': getrequestask}
-        else:
-            extra_context = {'params':params, 'amount':amount, 'action': PAYMENT_ACTION}
-            
+        params["SHASign"] = computeSHA(params)
+        extra_context['params'] = params 
+        extra_context['action'] = PAYMENT_ACTION
+        extra_context['amount'] = amount
+        
+    extra_context['contact_form'] = UserProfileForm(instance=request.user.get_profile())    
     return direct_to_template(request, template='users/myaccount.html', extra_context=extra_context)
 
 @login_required
