@@ -21,8 +21,12 @@
         </script>
     </head>
 
-    <body>
+    <body style="background-color: transparent;">
         {% if request.GET.type == "big" %}
+        <div class="featuretitle">
+            <img class="pluginlogo" src="/img/logo_funding.png">
+            <a href="/funding/{{object.id}}" target="_blank">{{object.title}}</a>
+        </div>
         {% if object.all_not_started_tasks.count > 1 %}<img id="prevfeature" class="clickable plugin-arrow" src="/img/icons/previous.png" onclick="switchPrevFeature()"/>{% endif %}
         <div class="smallcolumn">
             <ul class="features_manage" id="features_0">
@@ -36,21 +40,24 @@
         {% if object.all_not_started_tasks.count > 1 %}<img id="nextfeature" class="clickable plugin-arrow" src="/img/icons/next.png" onclick="switchNextFeature()"/>{% endif %}
         
         {% else %}{% if request.GET.type == "small" %}
-        <div class="pluginsmall">
-            <img class="pluginlogo" src="/img/logo_funding.png">
-            {% trans "Support " %}<br/>{{object.title}}
-            {% with object.descendants|filter_read:user as descendants %}<div class="pluginsum">
-                {% blocktrans with amount=descendants.missingbid_sum %}
-                    {{amount}} € <span class="plugin-nobold">to go!</span>
-                {% endblocktrans %}
-                <div class="progressbar">
-                    <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio descendants.allbid_sum|add:object.bid_sum object.get_selfbudget|default:descendants.allbudget 100 %}%;"></span>
-                    <span id="progresslabel_{{object.id}}" class="progresstitle" >{% widthratio descendants.allbid_sum|add:object.bid_sum object.get_selfbudget|default:descendants.allbudget 100 %} %</span>
-                </div>
-            </div>{% endwith %}
-        </div>
+        <a href="/funding/{{object.id}}" target="_blank">
+            <div class="pluginsmall">
+                <img class="pluginlogo" src="/img/logo_funding.png">
+                {% trans "Support " %}<br/>{{object.title}}
+                {% with object.descendants|filter_read:user as descendants %}<div class="pluginsum">
+                    {% blocktrans with amount=descendants.missingbid_sum %}
+                        {{amount}} € <span class="plugin-nobold">to go!</span>
+                    {% endblocktrans %}
+                    <div class="progressbar">
+                        <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio descendants.allbid_sum|add:object.bid_sum object.get_selfbudget|default:descendants.allbudget 100 %}%;"></span>
+                        <span id="progresslabel_{{object.id}}" class="progresstitle" >{% widthratio descendants.allbid_sum|add:object.bid_sum object.get_selfbudget|default:descendants.allbudget 100 %} %</span>
+                    </div>
+                </div>{% endwith %}
+            </div>
+        </a>
 
         {% else %}{% if request.GET.type == "tiny" %}
+        <a href="/funding/{{object.id}}" target="_blank">
         <div class="plugintiny">
             <img class="pluginlogo" src="/img/logo_funding.png">
             {% with object.descendants|filter_read:user as descendants %}<div class="pluginsum">
@@ -59,6 +66,7 @@
                 </div>
             </div>{% endwith %}
         </div>
+        </a>
 
         {% endif %}{% endif %}{% endif %}
     </body>

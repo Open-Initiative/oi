@@ -115,11 +115,12 @@
         <div class="bidaction clickable" onclick="showPopup(document.getElementById('pluginpopup'))">{% trans "Integrate your project" %}</div>
         <div id="pluginpopup" class="invisible popup" onclick="document.ignoreClosePopups = true;">
             <form>
+                <textarea id="plugincode" class="norich" style="width:70%; float:right; height:10%"></textarea>
                 <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="big">{% trans "Big" %}<br>
                 <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="small">{% trans "Small" %}<br>
                 <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="tiny">{% trans "Tiny" %}<br>
-                <textarea id="plugincode" class="norich" style="width:90%"></textarea>
             </form>
+            <div id="plugin_preview"></div>
         </div>
     {% endif %}
     </div>

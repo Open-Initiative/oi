@@ -40,5 +40,17 @@ function seeMore(dividblock1, dividblock2){
     $('#'+dividblock2).fadeToggle();
 }
 function selectplugin(projectid, plugintype) {
-    document.getElementById('plugincode').value = "<iframe url='http://"+sites["Open Funding"]+"/funding/"+projectid+"/embed?type="+plugintype+"'></iframe>";
+    if(plugintype == "big"){
+        var width = "270px";
+        var height = "310px";
+    }else if(plugintype == "small"){
+        var width = "240px";
+        var height = "99px";
+    }else{
+        var width = "102px";
+        var height = "42px";
+    }
+    var iframe = "<iframe style='border:none' width='"+width+"' height='"+height+"' src='http://"+sites["Open Funding"]+"/funding/"+projectid+"/embed?type="+plugintype+"'></iframe>";
+    document.getElementById('plugincode').value = iframe;
+    document.getElementById('plugin_preview').innerHTML = iframe;
 }
