@@ -53,8 +53,6 @@
         <div class="cleared"></div>
     </div>
 
-    {% if not object.all_not_started_tasks %}<div class="features" id="features_0"><div id="nofeatures"></div></div>{% endif %}  
-    {% if object.all_not_started_tasks %}
         <ul class="features_manage" id="features_0">
             {% for task in object.all_not_started_tasks|filter_read:user %}
                 <li class="featurebox" id="task_{{task.id}}">
@@ -63,9 +61,7 @@
             {% endfor %}
         </ul>
         <div class="cleared"></div>
-    {% endif %}
 
-    {% if object.all_progress_tasks %}
         <ul class="features_manage" id="features_3">
             {% for task in object.all_progress_tasks|filter_read:user %}
                 <li class="featurebox" id="task_{{task.id}}">
@@ -74,9 +70,7 @@
             {% endfor %}
             <div class="cleared"></div>
         </ul>
-    {% endif %}
 
-    {% if object.all_finish_tasks %}
         <ul class="features_manage" id="features_4">
             {% for task in object.all_finish_tasks|filter_read:user %}
                 <li class="featurebox" id="task_{{task.id}}">
@@ -85,7 +79,6 @@
             {% endfor %}
             <div class="cleared"></div>
         </ul>
-    {% endif %}
 
 
     <div class="detail_subtitle">{% trans "Propose a new feature" %}</div>
