@@ -88,10 +88,10 @@
     {% endif %}
 
 
-    <h2 class="detail_subtitle">{% trans "Propose a new feature" %}</h2>
+    <div class="detail_subtitle">{% trans "Propose a new feature" %}</div>
 
     <div class="cleared"></div>
-    <div class="featureblock" style="margin-left: 31.5%;width:32%">
+    <div class="featureblock" style="margin-left: 1.5%;width:32%">
         <div class="featuretitle" id="feature_{{object.id}}"></div>
         <div>
             <form onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, null,function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0','width:32%; float:left;margin-left: 3px; margin-right: 3px;'))}); return false" id="newtask_{{object.id}}">
