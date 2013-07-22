@@ -17,7 +17,7 @@
     {% else %}
         <div id="visible_{{object.id}}_{{spec.order}}_desc">
             <p class="funding_short">
-                {% if spec.text|length > 210 and spec.order == 3 or spec.text|length > 210 and spec.order == 5 %}
+                {% if spec.text|length > 210 and spec.order == 3 %}
                     {{spec.text|oiunescape|slice:":210"}}...
                     <p class="clickable" style="text-align:right" onclick="seeMore('visible_{{object.id}}_{{spec.order}}_desc', 'invisible_{{object.id}}_{{spec.order}}_desc')"><a>{% trans "See more" %}</a></p>
                 {% else %}
