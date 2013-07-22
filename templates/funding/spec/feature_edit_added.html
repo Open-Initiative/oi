@@ -5,27 +5,28 @@
 <div id="language_block" class="cleared funding_space">
     <span style="font-size: 16px;font-weight: bolder;">{% trans "Choose the language of your translation" %}</span>
     <select id="language_{{project.id}}">
-        <option {% if specs.3.language == 'fr' and specs.2.language == 'fr' %} selected=selected {% endif %} value="fr">{% trans 'French' %}</option>
-        <option {% if specs.3.language == 'en' and specs.2.language == 'en' %} selected=selected {% endif %} value="en">{% trans 'English' %}</option>
+        <option {% if specs.3.language == 'fr' and specs.4.language == 'fr' %} selected=selected {% endif %} value="fr">{% trans 'French' %}</option>
+        <option {% if specs.3.language == 'en' and specs.4.language == 'en' %} selected=selected {% endif %} value="en">{% trans 'English' %}</option>
     </select>
 </div>
 
 <div class="cleared sepsearch"></div>
 
 <input name="spectype" id="type_{{project.id}}_2" value="1" type="hidden"/>
-<input name="specid" id="specid_{{project.id}}_2" value="{{specs.3.id|default:0}}" type="hidden"/>
+<input name="specid" id="specid_{{project.id}}_2" value="{{specs.1.id|default:0}}" type="hidden"/>
 <input name="projectid" id="projectid_{{project.id}}_2" value="{{project.id}}" type="hidden"/>
 <input name="specorder" id="specorder_{{project.id}}_2" value="2" type="hidden"/>
 <div><b>{% trans "A short description of your project and why it is great" %}</b></div>
-<div id="{{project.id}}_2" class="column"><input id="text_{{project.id}}_2" class="projectbaseline" value="{{specs.3.text|oiunescape}}" maxlength="200" /></div>
+<p class="help-fuding">{% trans "This description is 200 characters maximum and will be shown in the home page, try to be specific." %}</p>
+<div id="{{project.id}}_2" class="column"><input id="text_{{project.id}}_2" class="projectbaseline" value="{{specs.1.text|oiunescape}}" maxlength="200" /></div>
 
-<div class="cleared sepsearch"></div>
+<div class="cleared sepsearch" style="margin-bottom:-2%"></div>
 
 <input name="spectype" id="type_{{project.id}}_3" value="1" type="hidden"/>
 <input name="specid" id="specid_{{project.id}}_3" value="{{specs.2.id|default:0}}" type="hidden"/>
 <input name="projectid" id="projectid_{{project.id}}_3" value="{{project.id}}" type="hidden"/>
 <input name="specorder" id="specorder_{{project.id}}_3" value="3" type="hidden"/>
-<div style="width:37%"><b>{% trans "A long description including : who you are, why you do it, how it can be used..." %}</b></div>
+<div style="width:57%"><b>{% trans "A long description including : who you are, why you do it, how it can be used..." %}</b></div>
 <div id="{{project.id}}_3" class="column"><textarea id="text_{{project.id}}_3" class="norich">{{specs.2.text|oiunescape}}</textarea></div>
 
 <div class="cleared sepsearch"></div>
@@ -34,6 +35,6 @@
 <div class="cleared"></div>
 
 <script>
-tinyMCE.execCommand('mceAddControl', false, "text_{{project.id}}_3"); 
+tinyMCE.execCommand('mceAddControl', false, "text_{{project.id}}_5"); 
 </script>
 {% endwith %}
