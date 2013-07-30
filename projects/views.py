@@ -937,9 +937,6 @@ def savespec(request, id, specid='0'):
         if request.POST.get("language"): 
             spec.language = request.POST.get("language")
             
-        if spec.language == "None":
-            spec.language = None
-            
     if request.POST.has_key("url"):
         spec.url = request.POST["url"]
     if request.POST.has_key("type"):

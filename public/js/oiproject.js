@@ -471,21 +471,6 @@ function buildText(divid){
         if(dd) document.getElementById("bug_report_"+divid+"_"+i).innerHTML = dd.innerHTML.replace(/<br( \/)*>/g, "\n");
     }
 }
-function saveAllSpec(projectid){
-    var specid = document.getElementsByName("specid");
-    var specorder = document.getElementsByName("specorder");
-    var speclang = document.getElementsByName("speclang");
-    nbspec = 0; nbSavedSpecs = 0;
-    for (var i = 0; i < specid.length; i++){
-        if(specorder[i].value == 3) tinyMCE.execCommand('mceRemoveControl', false, "text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value)
-        var existTextValue = document.getElementById("text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value).value;
-        if(specorder[i].value == 1 || existTextValue && existTextValue != ""){
-            nbspec++;
-            saveSpec(projectid+"_"+specorder[i].value+"_"+speclang[i].value, projectid, specorder[i].value, specid[i].value, speclang[i].value, "funding");
-        }
-    }
-    checkSavedSpecs(projectid);
-}
 function saveSpec(divid, projectid, order, specid, lang, funding) {
     tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
     var params = "text="+encodeURIComponent(getValue("text_"+divid).replace(/\+/gi,"%2B")) + "&order="+order + "&type="+getValue("type_"+divid);
@@ -494,8 +479,7 @@ function saveSpec(divid, projectid, order, specid, lang, funding) {
     if(getValue("filename_"+divid)) params+="&filename="+getValue("filename_"+divid);
     if(getValue("ts_"+divid)) params+="&ts="+getValue("ts_"+divid);
     if(getValue("image_"+divid)) params+="&image="+getValue("image_"+divid);
-    if(funding) params+="&funding="+funding;
-    nbSavedSpecs++;
+    if(funding) {params+="&funding="+funding; nbSavedSpecs++;}
     OIajaxCall("/project/"+projectid+"/savespec/"+specid, params, divid, 
         function(){
             var div = document.getElementById(divid);
