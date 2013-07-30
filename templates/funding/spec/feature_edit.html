@@ -2,63 +2,70 @@
 ﻿﻿{% load oifilters %}
 {% with project.spec_set.all|dictsort:"order" as specs %}
 <div class="cleared edit_title"><b>{% trans "Describe here what is to be done in" %} "{{project.title}}" </b><div class="cleared sepsearch"></div></div>
-
-<input name="spectype" id="type_{{project.id}}_1" value="2" type="hidden"/>
-<input name="specid" id="specid_{{project.id}}_1" value="{{specs.0.id|default:0}}" type="hidden"/>
-<input name="projectid" id="projectid_{{project.id}}_1" value="{{project.id}}" type="hidden"/>
-<input name="specorder" id="specorder_{{project.id}}_1" value="1" type="hidden"/>
+{% with "None" as lang %}
+<input name="spectype" id="type_{{project.id}}_1_{{lang}}" value="2" type="hidden"/>
+<input name="specid" id="specid_1_{{lang}}" value="{{specs.0.id|default:0}}" type="hidden"/>
+<input name="projectid" id="projectid_1_{{lang}}" value="{{project.id}}" type="hidden"/>
+<input name="specorder" id="specorder_1_{{lang}}" value="1" type="hidden"/>
+<input name="speclang" id="lang_1_{{lang}}" value="{{lang}}" type="hidden"/>
 <div><b>{% trans "A picture presenting your project" %}</b></div>
-<div id="{{project.id}}_1">
-    <input id="filename_{{project.id}}_1" name="filename" type="hidden" />
-    <input id="ts_{{project.id}}_1" name="ts" type="hidden" />
-    <span id="filespan_{{project.id}}_1" {% if not specs.0.file %}class="invisible" {% endif %}>
-        <img src='/img/icons/delete.png' alt='{% trans "Delete" %}' title='{% trans "Delete" %}' onclick='changeFile("{{project.id}}_1")' />
+<div id="{{project.id}}_1_{{lang}}">
+    <input id="filename_{{project.id}}_1_{{lang}}" name="filename" type="hidden" />
+    <input id="ts_{{project.id}}_1_{{lang}}" name="ts" type="hidden" />
+    <span id="filespan_{{project.id}}_1_{{lang}}" {% if not specs.0.file %}class="invisible" {% endif %}>
+        <img src='/img/icons/delete.png' alt='{% trans "Delete" %}' title='{% trans "Delete" %}' onclick='changeFile("{{project.id}}_1_{{lang}}")' />
         {{specs.0.file.name|cleanfilename}}
     </span>
-    <div id="filediv_{{project.id}}_1" {% if specs.0.file %}class="invisible" {% endif %}class="fundingleft">
-        <form id="form_{{project.id}}_1" method="post" enctype="multipart/form-data" action="/project/{{project.id}}/uploadfile/{{spec.id|default:0}}" target="filedest_{{project.id}}_1">
+    <div id="filediv_{{project.id}}_1_{{lang}}" {% if specs.0.file %}class="invisible" {% endif %}class="fundingleft">
+        <form id="form_{{project.id}}_1_{{lang}}" method="post" enctype="multipart/form-data" action="/project/{{project.id}}/uploadfile/{{spec.id|default:0}}" target="filedest_{{project.id}}_1_{{lang}}">
             {% csrf_token %}
-            <input id="divid_{{project.id}}_1" name="divid" type="hidden" value="{{project.id}}_1" />
-            <input id="file_{{project.id}}_1" name="file" type="file" onchange="document.getElementById('form_{{project.id}}_1').submit()" />
+            <input id="divid_{{project.id}}_1_{{lang}}" name="divid" type="hidden" value="{{project.id}}_1_{{lang}}" />
+            <input id="file_{{project.id}}_1_{{lang}}" name="file" type="file" onchange="document.getElementById('form_{{project.id}}_1_{{lang}}').submit()" />
         </form>
     </div>
-    <iframe id="filedest_{{project.id}}_1" name="filedest_{{project.id}}_1" class="filedest"></iframe>
-    <input id="text_{{project.id}}_1" type="hidden" />
+    <iframe id="filedest_{{project.id}}_1_{{lang}}" name="filedest_{{project.id}}_1_{{lang}}" class="filedest"></iframe>
+    <input id="text_{{project.id}}_1_{{lang}}" type="hidden" />
 </div>
+{% endwith %}
 
-<div id="validspec_{{project.id}}_1" class="actions"></div>
-
-<div class="cleared sepsearch"></div>
-
-<input name="spectype" id="type_{{project.id}}_2" value="1" type="hidden"/>
-<input name="specid" id="specid_{{project.id}}_2" value="{{specs.1.id|default:0}}" type="hidden"/>
-<input name="projectid" id="projectid_{{project.id}}_2" value="{{project.id}}" type="hidden"/>
-<input name="specorder" id="specorder_{{project.id}}_2" value="2" type="hidden"/>
-<div><b>{% trans "A short description of your project and why it is great" %}</b></div>
-<p class="help-fuding">{% trans "This description is 200 characters maximum and will be shown in the home page, try to be specific." %}</p>
-<div id="{{project.id}}_2" class="column"><input id="text_{{project.id}}_2" class="projectbaseline" value="{{specs.1.text|oiunescape}}" maxlength="200" /></div>
-
-<div class="cleared sepsearch" style="margin-bottom:-2%"></div>
-
-<input name="spectype" id="type_{{project.id}}_3" value="1" type="hidden"/>
-<input name="specid" id="specid_{{project.id}}_3" value="{{specs.2.id|default:0}}" type="hidden"/>
-<input name="projectid" id="projectid_{{project.id}}_3" value="{{project.id}}" type="hidden"/>
-<input name="specorder" id="specorder_{{project.id}}_3" value="3" type="hidden"/>
-<div style="width:57%"><b>{% trans "A long description including : who you are, why you do it, how it can be used..." %}</b></div>
-<div id="{{project.id}}_3" class="column"><textarea id="text_{{project.id}}_3" class="norich">{{specs.2.text|oiunescape}}</textarea></div>
-
-<p class="help-fuding">{% trans "Explain the details of your project: why you do it, how can it be used,  and the information you found important to attract the backers. Be as specific as you can." %}</p>
-
-<div id="feature_form_added_{{project.id}}" class="invisible">
-    {% include 'funding/spec/feature_edit_added.html' %}
-</div>
-
-<div class="cleared">
-
-    <p onclick="document.getElementById('feature_form_added_{{project.id}}').style.display = 'block'" class="clickable edit_add_new_language">{% trans "Add this description in an other language" %} <span class="moreblue">+</span></p>
+<!--    cette include permet de rajouter des descriptions-->
+<div>
+    {% regroup project.spec_set.all|dictsort:"language" by language as language_list %}
+    {% for spec_list in language_list %}
+    {% if spec_list.grouper != "" %}
+    {% with spec_list.list|dictsort:"order" as specs %}{% with spec_list.grouper as lang %}
+        <div class="cleared"></div>
+        <div style="position:relative" id="spec_{{project.id}}" class="cleared funding_space">
+            {%include 'funding/spec/feature_edit_added.html'%}
+        </div>
+    {% endwith %}{% endwith %}
+    {% endif %}
+    {% empty %}
+        {% include 'funding/spec/feature_edit_added.html' %}
+    {% endfor %}
     
 </div>
 
+<p class="help-fuding">{% trans "Explain the details of your project: why you do it, how can it be used,  and the information you found important to attract the backers. Be as specific as you can." %}</p>
+
+<!--ce bouton me permet d'ajouter une nouvelle descriptions -->
+{% regroup project.spec_set.all|dictsort:"language" by language as language_list %}
+{% if not language_list|has_group:"fr" %}
+{% with "fr" as lang %}
+<div class="cleared invisible" id="translationblock">
+    {% include 'funding/spec/feature_edit_added.html' %}
+</div>
+<div class="cleared"></div>
+<p class="edit_add_new_language clickable" onclick="$('.flag').toggle(); $('#translationblock').toggle();">
+    {% trans "Translate the description" %} 
+    <img alt="{% trans 'English flag' %}" title="{% trans 'English flag' %}" src="/img/en.png"/> 
+    <img alt="{% trans 'French flag' %}" title="{% trans 'French flag' %}" src="/img/fr.png"/>
+</p>
+{% endwith %}
+{% else %}
+    <script>$('.flag').toggle();</script>
+{% endif %}
+    <div class="cleared"></div>
 {% block related %}
 {% with object as project %}
 <div style="margin-top: 3%;" class="smallcolumn" id="public">
@@ -73,11 +80,7 @@
 
 <div class="cleared"></div>
 
-<div id="validspec_{{project.id}}_3" class="actions"><img class="clickable" src="/img/icons/ok-32.png" onclick=" 
-saveAllSpec({{project.id}})
-
-"/></div>
+<div id="validspec_{{project.id}}_3" class="actions"><img class="clickable" src="/img/icons/ok-32.png" onclick="saveAllSpec({{project.id}})"/></div>
 <div class="cleared"></div>
 
-<script>tinyMCE.execCommand('mceAddControl', false, "text_{{project.id}}_3"); cptFunding = 0; hasChild = {{project.descendants.count}};</script>
 {% endwith %}
