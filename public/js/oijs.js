@@ -60,11 +60,11 @@ function getValue(eltid, erase){
     if(erase) elt.value = "";
     return value;
 }
-function newDiv(parentid, style) {
+function newDiv(parentid, className) {
     var divid = randid();
     var newdiv = document.createElement('div');
     newdiv.setAttribute('id',divid);
-    if (style) newdiv.setAttribute('style',style);
+    if (className) newdiv.setAttribute('class',className);
     document.getElementById(parentid).appendChild(newdiv);
     return divid;
 }
