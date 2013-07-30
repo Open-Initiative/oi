@@ -23,7 +23,6 @@ function deleteFeature(projectid) {
         });
     }
 }
-
 function visibleFeature(projectid){
     OIajaxCall('/project/'+projectid+'/setpublic', 'read='+document.getElementById('public_read_'+projectid).checked, 'output', 
         function(){
@@ -34,6 +33,10 @@ function visibleFeature(projectid){
             }
         }
     );
+}
+function checkSavedSpecs(projectid){
+    if(nbspec==nbSavedSpecs)
+        (hasChild > 0?document.location.href="/funding/"+projectid:document.location.href="/funding/"+projectid+"/manage");
 }
 function seeMore(dividblock1, dividblock2){
     $('#'+dividblock1).toggle();

@@ -471,10 +471,6 @@ function buildText(divid){
         if(dd) document.getElementById("bug_report_"+divid+"_"+i).innerHTML = dd.innerHTML.replace(/<br( \/)*>/g, "\n");
     }
 }
-function checkSavedSpecs(projectid){
-    if(nbspec==nbSavedSpecs)
-        (hasChild > 0?document.location.href="/funding/"+projectid:document.location.href="/funding/"+projectid+"/manage");
-}
 function saveAllSpec(projectid){
     var specid = document.getElementsByName("specid");
     var specorder = document.getElementsByName("specorder");

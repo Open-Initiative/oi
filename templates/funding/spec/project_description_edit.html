@@ -28,7 +28,6 @@
 </div>
 {% endwith %}
 
-<!--    cette include permet de rajouter des descriptions-->
 <div>
     {% regroup project.spec_set.all|dictsort:"language" by language as language_list %}
     {% for spec_list in language_list %}
@@ -48,7 +47,6 @@
 
 <p class="help-fuding">{% trans "Explain the details of your project: why you do it, how can it be used,  and the information you found important to attract the backers. Be as specific as you can." %}</p>
 
-<!--ce bouton me permet d'ajouter une nouvelle descriptions -->
 {% regroup project.spec_set.all|dictsort:"language" by language as language_list %}
 {% if not language_list|has_group:"fr" %}
 {% with "fr" as lang %}
