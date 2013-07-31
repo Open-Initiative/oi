@@ -13,6 +13,8 @@ div.userpage {
 }
 .credittip {
     border: 1px solid #E0E0E0;
+    background-color: #A0D2E9;
+    border-radius: 20px;
 }
 div.userblock {
     clear: left;

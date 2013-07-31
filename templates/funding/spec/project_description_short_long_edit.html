@@ -12,7 +12,12 @@
     <b>{% trans "A short description of your project and why it is great" %}</b>  
     <img class="invisible flag" src="/img/{{lang|default:'en'}}.png"/>
 </div>
-<p class="help-fuding">{% trans "This description is 200 characters maximum and will be shown in the home page, try to be specific." %}</p>
+
+<img src="/img/askoi.png" title="{% trans 'Help for the description' %}" alt="{% trans 'Help for the description.' %}" class="head-help">
+
+<div class="cleared"></div>
+
+<p class="help-funding">{% trans "This description is 200 characters maximum and will be shown in the home page, try to be specific." %}</p>
 <div id="{{project.id}}_2_{{lang}}" class="column">
     <input id="text_{{project.id}}_2_{{lang}}" class="projectbaseline" value="{{specs.1.text|oiunescape}}" maxlength="200" />
 </div>
@@ -30,5 +35,7 @@
 <div id="{{project.id}}_3_{{lang}}" class="column">
     <textarea id="text_{{project.id}}_3_{{lang}}" class="norich">{{specs.2.text|oiunescape}}</textarea>
 </div>
+
+<p class="help-funding">{% trans "Explain the details of your project: why you do it, how can it be used,  and the information you found important to attract the backers. Be as specific as you can." %}</p>
 
 <script>tinyMCE.execCommand('mceAddControl', false, "text_{{project.id}}_3_{{lang}}"); hasChild = {{project.descendants.count}};</script>
