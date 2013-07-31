@@ -35,7 +35,7 @@
             <div class="cleared"></div>
         </div>
         <div id="specs_{{project.id}}" class="presslide">
-            <div class="bordertitlemanage">
+            <div class="bordertitlemanage credittip" style="margin-top: 30px;">
                 <p class="navtitlehome">{% trans "What you have to do :" %}</p>
                 <p>
                     {% trans "You can create and edit new developments for your projects. Specify the title, make a description that explains its characteristics and determine the expected price for each. Your users can suggest other developments on the project page, you can accept / rephrase if you wish." %}
@@ -59,7 +59,7 @@
                         
                         <p>{% trans "By adding this change you acknowledge that you have read and accepted the" %} <a href="/cgu">{% trans "Terms of Use" %}</a></p>
                         
-                        <input type="image" class="fundingright" src="/img/icons/ok-32.png" class="clickable">
+                        <span type="text" class="fundingright clickable prj-btn">ok</span>
                    
                     </form>
                 </div>   
@@ -104,8 +104,8 @@
 
             <div class="cleared"></div>
 
-            <a href="/funding/{{object.id}}/edit" class="fundingleft"><div class="funding_btn">{% trans "Edit your project" %}</div></a>
-            <a href="/funding/{{object.id}}" class="fundingright"><div class="prj-btn">{% trans "Done" %}</div></a>
+            <a href="/funding/{{object.id}}/edit" class="fundingleft"><div class="prj-btn_green">{% trans "Edit your project" %}</div></a>
+            <a href="/funding/{{object.id}}" class="fundingright"><div class="prj-btn_green">{% trans "Continue" %}</div></a>
             <div class="cleared"></div>
 
         </div>
