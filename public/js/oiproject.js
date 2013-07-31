@@ -471,7 +471,7 @@ function buildText(divid){
         if(dd) document.getElementById("bug_report_"+divid+"_"+i).innerHTML = dd.innerHTML.replace(/<br( \/)*>/g, "\n");
     }
 }
-function saveSpec(divid, projectid, order, specid, lang, funding) {
+function saveSpec(divid, projectid, order, specid, lang, funding, callBack) {
     tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
     var params = "text="+encodeURIComponent(getValue("text_"+divid).replace(/\+/gi,"%2B")) + "&order="+order + "&type="+getValue("type_"+divid);
     if(lang && lang != null && lang != "None") params +="&language="+lang;
@@ -479,7 +479,7 @@ function saveSpec(divid, projectid, order, specid, lang, funding) {
     if(getValue("filename_"+divid)) params+="&filename="+getValue("filename_"+divid);
     if(getValue("ts_"+divid)) params+="&ts="+getValue("ts_"+divid);
     if(getValue("image_"+divid)) params+="&image="+getValue("image_"+divid);
-    if(funding) {params+="&funding="+funding; nbSavedSpecs++;}
+    if(funding) params+="&funding="+funding;
     OIajaxCall("/project/"+projectid+"/savespec/"+specid, params, divid, 
         function(){
             var div = document.getElementById(divid);
@@ -490,6 +490,8 @@ function saveSpec(divid, projectid, order, specid, lang, funding) {
             div.style.position = "relative";
             if(document.getElementById("sepspec_"+projectid)) 
                 div.parentNode.removeChild(document.getElementById("sepspec_"+projectid));
+            if(funding) nbspec++;
+            if(callBack) callBack();
         }
     );
 }

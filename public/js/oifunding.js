@@ -35,23 +35,36 @@ function visibleFeature(projectid){
     );
 }
 function checkSavedSpecs(projectid){
-    if(nbspec==nbSavedSpecs)
-        (hasChild > 0?document.location.href="/funding/"+projectid:document.location.href="/funding/"+projectid+"/manage");
+    (hasChild > 0?document.location.href="/funding/"+projectid:document.location.href="/funding/"+projectid+"/manage");
 }
-function saveAllSpec(projectid){
+function specsToSave(projectid){
+    var nbSpecToSave = 0;
     var specid = document.getElementsByName("specid");
     var specorder = document.getElementsByName("specorder");
     var speclang = document.getElementsByName("speclang");
-    nbspec = 0; nbSavedSpecs = 0;
     for (var i = 0; i < specid.length; i++){
         if(specorder[i].value == 3) tinyMCE.execCommand('mceRemoveControl', false, "text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value)
         var existTextValue = document.getElementById("text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value).value;
         if(specorder[i].value == 1 || existTextValue && existTextValue != ""){
-            nbspec++;
-            saveSpec(projectid+"_"+specorder[i].value+"_"+speclang[i].value, projectid, specorder[i].value, specid[i].value, speclang[i].value, "funding");
+            nbSpecToSave ++; 
         }
     }
-    checkSavedSpecs(projectid);
+    saveAllSpec(projectid, nbSpecToSave);
+}
+function saveAllSpec(projectid, nbSpecToSave){
+    var specid = document.getElementsByName("specid");
+    var specorder = document.getElementsByName("specorder");
+    var speclang = document.getElementsByName("speclang");
+    nbspec = 0;
+    for (var i = 0; i < specid.length; i++){
+        if(specorder[i].value == 3) tinyMCE.execCommand('mceRemoveControl', false, "text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value)
+        var existTextValue = document.getElementById("text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value).value;
+        if(specorder[i].value == 1 || existTextValue && existTextValue != ""){
+            saveSpec(projectid+"_"+specorder[i].value+"_"+speclang[i].value, projectid, specorder[i].value, specid[i].value, speclang[i].value, "funding", function(){
+                if(nbspec == nbSpecToSave) checkSavedSpecs(projectid);
+            });
+        }
+    }
 }
 function seeMore(dividblock1, dividblock2){
     $('#'+dividblock1).toggle();
