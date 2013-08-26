@@ -11,7 +11,7 @@
             {% endif %}
         </div>
         
-        <div id="confirmpayment" class="invisible confirmpaymentblok" onclick="document.ignoreClosePopups = true;">
+        <div id="confirmpayment" class="invisible confirmpaymentblock" onclick="document.ignoreClosePopups = true;">
             <h1>{% trans "Confirm the deposit" %}</h1>
             <p>
                 {% trans "Amount" %}: <b style="font-size: 17px;">{{amount}}€ </b>
@@ -30,7 +30,7 @@
             <div class="cleared"></div>
             </div>
             {% if request.GET.orderID %}
-            <div id="didpayment">
+            <div class="confirmpaymentblock">
                 <h2 id="">{% trans "Thank you for contributing to" %} <br/> {% trans "the funding of the feature" %}</h2>
                 <div class="cleared"></div>
                 <br /><br/>
