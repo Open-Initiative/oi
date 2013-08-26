@@ -83,7 +83,9 @@
     <form class="form_center" onsubmit="if(getValue('prjtitle')) addTask(getValue('prjtitle'), null, null,function(taskid){document.location = '/funding/'+taskid+'/edit'});return false" >
         {% trans "Please enter your project title :" %}
         <input id="prjtitle"/>
-        <input type="image" src="/img/icons/ok-32.png" />
+        <p class="continuebtn" style="width: 7%;margin-left: auto;margin-right: auto;">
+            <input class="nobtnstyle" type="text" value="{% trans 'Start' %}" />
+        </p>
     </form>
 </div>
 <script>

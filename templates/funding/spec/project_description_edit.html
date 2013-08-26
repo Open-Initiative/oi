@@ -1,0 +1,85 @@
+{% load i18n %}
+﻿﻿{% load oifilters %}
+{% with project.spec_set.all|dictsort:"order" as specs %}
+<div class="cleared edit_title"><b>{% trans "Describe here what is to be done in" %} "{{project.title}}" </b><div class="cleared sepsearch"></div></div>
+{% with "None" as lang %}
+<input name="spectype" id="type_{{project.id}}_1_{{lang}}" value="2" type="hidden"/>
+<input name="specid" id="specid_1_{{lang}}" value="{{specs.0.id|default:0}}" type="hidden"/>
+<input name="projectid" id="projectid_1_{{lang}}" value="{{project.id}}" type="hidden"/>
+<input name="specorder" id="specorder_1_{{lang}}" value="1" type="hidden"/>
+<input name="speclang" id="lang_1_{{lang}}" value="{{lang}}" type="hidden"/>
+<div><b>{% trans "A picture presenting your project" %}</b></div>
+<div id="{{project.id}}_1_{{lang}}">
+    <input id="filename_{{project.id}}_1_{{lang}}" name="filename" type="hidden" />
+    <input id="ts_{{project.id}}_1_{{lang}}" name="ts" type="hidden" />
+    <span id="filespan_{{project.id}}_1_{{lang}}" {% if not specs.0.file %}class="invisible" {% endif %}>
+        <img src='/img/icons/delete.png' alt='{% trans "Delete" %}' title='{% trans "Delete" %}' onclick='changeFile("{{project.id}}_1_{{lang}}")' />
+        {{specs.0.file.name|cleanfilename}}
+    </span>
+    <div id="filediv_{{project.id}}_1_{{lang}}" {% if specs.0.file %}class="invisible" {% endif %}class="fundingleft">
+        <form id="form_{{project.id}}_1_{{lang}}" method="post" enctype="multipart/form-data" action="/project/{{project.id}}/uploadfile/{{spec.id|default:0}}" target="filedest_{{project.id}}_1_{{lang}}">
+            {% csrf_token %}
+            <input id="divid_{{project.id}}_1_{{lang}}" name="divid" type="hidden" value="{{project.id}}_1_{{lang}}" />
+            <input id="file_{{project.id}}_1_{{lang}}" name="file" type="file" onchange="document.getElementById('form_{{project.id}}_1_{{lang}}').submit()" />
+        </form>
+    </div>
+    <iframe id="filedest_{{project.id}}_1_{{lang}}" name="filedest_{{project.id}}_1_{{lang}}" class="filedest"></iframe>
+    <input id="text_{{project.id}}_1_{{lang}}" type="hidden" />
+</div>
+{% endwith %}
+
+<div>
+    {% regroup project.spec_set.all|dictsort:"language" by language as language_list %}
+    {% for spec_list in language_list %}
+    {% if spec_list.grouper != "" %}
+    {% with spec_list.list|dictsort:"order" as specs %}{% with spec_list.grouper as lang %}
+        <div class="cleared"></div>
+        <div style="position:relative" id="spec_{{project.id}}" class="cleared funding_space">
+            {%include 'funding/spec/project_description_short_long_edit.html'%}
+        </div>
+    {% endwith %}{% endwith %}
+    {% endif %}
+    {% empty %}
+        {% include 'funding/spec/project_description_short_long_edit.html' %}
+    {% endfor %}
+    
+</div>
+
+{% regroup project.spec_set.all|dictsort:"language" by language as language_list %}
+{% if not language_list|has_group:"fr" %}
+{% with "fr" as lang %}
+<div class="cleared invisible" id="translationblock">
+    {% include 'funding/spec/project_description_short_long_edit.html' %}
+</div>
+<div class="cleared"></div>
+<p class="edit_add_new_language clickable" onclick="$('.flag').toggle(); $('#translationblock').toggle();">
+    {% trans "Translate the description" %} 
+    <img alt="{% trans 'English flag' %}" title="{% trans 'English flag' %}" src="/img/en.png"/> 
+    <img alt="{% trans 'French flag' %}" title="{% trans 'French flag' %}" src="/img/fr.png"/>
+</p>
+{% endwith %}
+{% else %}
+    <script>$('.flag').toggle();</script>
+{% endif %}
+    <div class="cleared"></div>
+{% block related %}
+{% with object as project %}
+<div style="margin-top: 3%;" class="smallcolumn" id="public">
+    <h3>{% trans "Public" %}</h3>
+    {% trans "The public can" %}
+    <br /><input id="public_read_{{project.id}}" type="checkbox" {% if project.public_read %}checked="checked"{% endif %} {% if not project.assignee == user and not project|can_write:user  %}disabled="true"{% endif %} onclick="OIajaxCall('/project/{{project.id}}/setpublic', 'read='+this.checked, 'output')" /><label for="public_read_{{project.id}}">{% trans "see the task and its content" %}</label>
+    <br /><input id="public_answer_{{project.id}}" type="checkbox" {% if project.public_answer %}checked="checked"{% endif %} {% if not project.assignee == user and not project|can_write:user %}disabled="true"{% endif %} onclick="OIajaxCall('/project/{{project.id}}/setpublic', 'answer='+this.checked, 'output')" /><label for="public_answer_{{project.id}}">{% trans "add comments and tasks" %}</label>
+    <br /><input id="public_bid_{{project.id}}" type="checkbox" {% if project.public_bid %}checked="checked"{% endif %} {% if not project.assignee == user and not project|can_write:user %}disabled="true"{% endif %} onclick="OIajaxCall('/project/{{project.id}}/setpublic', 'bid='+this.checked, 'output')" /><label for="public_bid_{{project.id}}">{% trans "bid and vote" %}</label>
+</div>
+
+<p class="help-funding">{% trans "Set the permissions for the public visiting your project." %}</p>
+
+{% endwith %}
+{% endblock %}
+
+<div class="cleared"></div>
+
+<div id="validspec_{{project.id}}_3" class="actions"><span type="text" class="clickable prj-btn_green" onclick="specsToSave({{project.id}})">{% trans 'Continue' %}</span></div>
+<div class="cleared"></div>
+
+{% endwith %}

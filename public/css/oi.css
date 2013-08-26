@@ -719,6 +719,9 @@ div.spectypes {
 .form_center{
     text-align: center;
 }
+.no_p_style{
+    margin: 0;
+}
 .blur{
     width: 100%;
     height: 100%;

@@ -35,14 +35,8 @@
             <div class="cleared"></div>
         </div>
         <div id="specs_{{project.id}}" class="prjdesc">
-                {% include "funding/spec/feature_edit.html" %}
+                {% include "funding/spec/project_description_edit.html" %}
         </div>
-        {% if object.spot_set.all %}
-        <div class="actions cleared">{% trans "linked to" %}</div>
-        <div class="cleared"></div>
-        {% for spot in object.spot_set.all %} {% with spot.spec as spec %}<div class="minispec"><a href="/project/{{spot.spec.project.id}}">{{spot.spec.project.title|truncatewords:4}}{% include 'projects/spec/minispec.html' %}</a></div>
-        {% endwith %}{% endfor %}
-        {% endif %}
     </div>
     {% endwith %}
 </div>

@@ -925,7 +925,7 @@ def savespec(request, id, specid='0'):
         else:
             if project.state > OI_STARTED:
                 return HttpResponse(_("Can not change a task already started"), status=431)
-            project.insert_spec(order)
+            #project.insert_spec(order) #specs with different languages can now have order
 
         spec = Spec(text = oiescape(request.POST["text"]), author=request.user, project=project, order=order, type=1, language = request.POST.get("language"))
 
@@ -943,10 +943,6 @@ def savespec(request, id, specid='0'):
         spec.type = int(request.POST["type"])
     
     filename = request.POST.get("filename")
-    
-    if request.POST.has_key("funding"):
-        if not filename and not spec.file:
-            spec.type = 1
     
     if not filename and not spec.file and spec.type in (2,5):
         return HttpResponse(_("Wrong arguments"), status=531)

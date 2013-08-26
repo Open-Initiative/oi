@@ -27,9 +27,9 @@
         <div id="specs_{{project.id}}" class="prjdesc">
             {% for spec in project.spec_set.all|dictsort:"order" %}
                 {% if spec.order < 2 %}
-                    <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared funding_space">
-                        {% with project as object %}{%include 'funding/spec/spec.html'%}{% endwith %}
-                    </div>
+                <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared funding_space">
+                    {% with project as object %}{%include 'funding/spec/spec.html'%}{% endwith %}
+                </div>
                 {% endif %}
             {% endfor %}
             {%for spec in project.all_specs_with_languages|dictsort:"order"%}
@@ -87,7 +87,7 @@
     <div class="featureblock" style="margin-left: 1.5%;width:32%">
         <div class="featuretitle" id="feature_{{object.id}}"></div>
         <div>
-            <form onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, null,function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0','width:32%; float:left;margin-left: 3px; margin-right: 3px;'))}); return false" id="newtask_{{object.id}}">
+            <form onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, null,function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0','featurebox'))}); return false" id="newtask_{{object.id}}">
                 <input type="image" title="New feature" alt="New feature" src="/img/icons/addtask.png">
                 <label for="newtask_title_{{object.id}}" class="inputnewtask">{% trans "Feature name" %}</label>
                 <input type="text" style="border:1px solid" class="newtask_title" id="newtask_title_{{object.id}}">
@@ -114,6 +114,24 @@
                 <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="tiny">{% trans "Tiny" %}<br>
             </form>
             <div id="plugin_preview"></div>
+            
+            {% comment %}it is for the popup plugin{% endcomment %}
+            <div id="tiny_popup" class="invisible">
+                <div class="featuretitle">
+                    <img class="pluginlogo" src="/img/logo_funding.png">
+                    <a href="/funding/{{object.id}}" target="_blank">{{object.title}}</a>
+                    <div class="cleared"></div>
+                    <span style="font-size:0.7em; color:#D3CFCF">{% trans 'Proposed by' %} {{object.author.get_profile|capfirst}}</span>
+                </div>
+                <p class="form_center no_p_style" style="color:#0094B5">{{object.allbid_sum}}€ {% trans 'funding' %}</p>
+                <p class="form_center no_p_style" style="color:#0094B5">{{object.bid_set.count}} {% trans 'users' %}</p>
+                {% for funding_user in object.bid_set.all %}
+                    <img title="{{funding_user}}" alt="{{funding_user}}" src="/user/getpicture/{{funding_user}}"/>
+                {% endfor %}
+                <span class="prj-btn_green fundingright">{% trans 'Support' %}</span>
+            </div>
+            <div class="cleared"></div>
+            
         </div>
     {% endif %}
     </div>
@@ -161,7 +179,7 @@
 
 <script>
     currentTask = {{object.id}};
-    if(!document.getElementById("nofeatures")){
+    if(document.getElementById("features_0")){
         featureShowHide('features_0');
     }else if(document.getElementById("features_3")){
         featureShowHide('features_3');

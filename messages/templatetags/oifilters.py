@@ -149,6 +149,14 @@ def is_contact(user, contact):
 def cleanfilename(path):
     return path.split("/").pop()
     
+@register.filter    
+def has_group(group_list, grouper):
+    for group in group_list:
+        if group["grouper"] == grouper:
+            return True
+    
+    return False
+    
 @register.simple_tag
 def show_stars(value, dest=None):
     id = "".join([random.choice(string.lowercase) for i in range(5)])

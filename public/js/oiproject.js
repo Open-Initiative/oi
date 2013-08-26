@@ -355,7 +355,6 @@ function populateOverviewTable(projectid){
     OIajaxCall(url+param, null, "load_"+projectid, 
         function(response){
             var header = document.getElementById('headerTableOverview');
-//            document.getElementById("prj-table-overview").appendChild(header);//I don't need it
             document.getElementById('dynamicTableOverview').innerHTML = "";
             document.getElementById('dynamicTableOverview').appendChild(header);
             paginator = eval(response)[0];
@@ -410,7 +409,6 @@ function updateGithubRepos() {
     for(repo=repos[github_login.value][i]; i<repos[github_login.value].length; repo=repos[github_login.value][++i])
         github_repo.add(new Option(repo));
 }
-
 function addSpec(projectid) {
     var divid = newDiv("specs_"+projectid);
     OIajaxCall(prjsite+"/project/"+projectid+"/editspec/0?divid="+divid+"&specorder=-1", null, divid, 
@@ -473,20 +471,10 @@ function buildText(divid){
         if(dd) document.getElementById("bug_report_"+divid+"_"+i).innerHTML = dd.innerHTML.replace(/<br( \/)*>/g, "\n");
     }
 }
-
-function saveAllSpec(projectid){
-    var specid = document.getElementsByName("specid");
-    var specorder = document.getElementsByName("specorder");
-    for (var i = 0; i < specid.length; i++){
-        saveSpec(projectid+"_"+(i+1), projectid, specorder[i].value, specid[i].value, "funding");
-    }
-    return specid.length;
-}
-
-function saveSpec(divid, projectid, order, specid, funding) {
+function saveSpec(divid, projectid, order, specid, lang, funding, callBack) {
     tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
     var params = "text="+encodeURIComponent(getValue("text_"+divid).replace(/\+/gi,"%2B")) + "&order="+order + "&type="+getValue("type_"+divid);
-    if(getValue("language_"+projectid) && order > 3) params +="&language="+getValue("language_"+projectid);
+    if(lang && lang != null && lang != "None") params +="&language="+lang;
     if(getValue("url_"+divid)) params+="&url="+getValue("url_"+divid);
     if(getValue("filename_"+divid)) params+="&filename="+getValue("filename_"+divid);
     if(getValue("ts_"+divid)) params+="&ts="+getValue("ts_"+divid);
@@ -495,22 +483,15 @@ function saveSpec(divid, projectid, order, specid, funding) {
     OIajaxCall("/project/"+projectid+"/savespec/"+specid, params, divid, 
         function(){
             var div = document.getElementById(divid);
-            var length = document.getElementById(divid).getElementsByTagName("input").length;
-            var specorder =  document.getElementById(divid).getElementsByTagName("input")[length-1].value;
+            var length = div.getElementsByTagName("input").length;
+            var specorder =  div.getElementsByTagName("input")[length-1].value;
             div.id="spec_"+projectid+"_"+specorder;
             div.className = "cleared";
             div.style.position = "relative";
-            if(document.getElementById("sepspec_"+projectid)) div.parentNode.removeChild(document.getElementById("sepspec_"+projectid));
-            if(funding){
-                cptFunding++;
-                if(cptFunding==5){
-                    if(hasChild > 0){
-                        document.location.href="/funding/"+projectid;
-                    }else{
-                        document.location.href="/funding/"+projectid+"/manage";
-                    }
-                }
-            }
+            if(document.getElementById("sepspec_"+projectid)) 
+                div.parentNode.removeChild(document.getElementById("sepspec_"+projectid));
+            if(funding) nbspec++;
+            if(callBack) callBack();
         }
     );
 }

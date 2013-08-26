@@ -168,6 +168,16 @@ div.prj-block-action {
     position: relative;
     vertical-align: -3px;
 }
+.prj-btn_green {
+    background-color: #1E9947;
+    border-radius: 3px;
+    padding: 5px;
+    font-size:1.2em; 
+    color:white; 
+    display: table;
+    clear: left;
+    font-weight: bold;
+}
 div.prj-action-wait {
     background-color: gray;
     border-radius: 5px 5px 5px 5px;
@@ -850,7 +860,7 @@ div.sepspecfooter {
     border: solid #D3CFCF 1px;
     border-radius: 2px;
 }
-.help-fuding {
+.help-funding {
     background-color: #A0D2E9;
     border-radius: 5px 5px 5px 5px;
     color: black;
