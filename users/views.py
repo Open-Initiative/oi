@@ -52,7 +52,7 @@ def userprofile(request, username):
 def myaccount(request):
     """user settings page or asks user for confirmation before redirecting to payment service provider"""
     import logging
-    logging.getLogger("oi").debug("user returned: "+request)
+    logging.getLogger("oi").debug("user returned: %s"%request)
     extra_context = {}
     if request.GET.get("orderID"): #return from payment
         
