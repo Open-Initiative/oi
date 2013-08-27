@@ -59,7 +59,7 @@ def myaccount(request):
             prjamount = dict_params.pop("prjamount")
             projectid = dict_params.pop("project")
             
-            bidafterpayment(request, request.user, projectid, prjamount) #to update the user account
+            bidafterpayment(request.user, projectid, prjamount) #to update the user account
             
         request.user.get_profile().update_payment(dict_params) #to obtain a mutable version of the QueryDict
         
