@@ -56,11 +56,13 @@ def myaccount(request):
         
         dict_params = dict(request.GET.items())
         if dict_params["prjamount"] and dict_params["project"]: 
-            dict_params.pop("prjamount")
-            dict_params.pop("project")
-        
+            prjamount = dict_params.pop("prjamount")
+            projectid = dict_params.pop("project")
+            
+            bidafterpayment(request, request.user, projectid, prjamount) #to update the user account
+            
         request.user.get_profile().update_payment(dict_params) #to obtain a mutable version of the QueryDict
-
+        
     elif request.GET.get("amount"): #request for payment
         amount = Decimal((request.GET['amount']).replace(',','.')).quantize(Decimal('.01'))
         if request.GET.get("project"): #from a bid
