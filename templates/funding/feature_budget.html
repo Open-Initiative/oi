@@ -1,5 +1,6 @@
 {% load oifilters %}
 {% load i18n %}
+{% if task|can_manage:user %}
 <div>
     <img class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hidePopups()" />
     {% if task.state < 3 %}
@@ -53,6 +54,7 @@
     </div>
     <div class="cleared"></div>
 </div>
+{% endif %}
 <div class="smallcolumn" >
     <div id="bids_{{task.id}}" class="participant">
         <h3>{{task.bid_set.count}} {% trans "Bids" %}: {{task.allbid_sum}} €</h3>
