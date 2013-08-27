@@ -51,6 +51,8 @@ def userprofile(request, username):
 @login_required
 def myaccount(request):
     """user settings page or asks user for confirmation before redirecting to payment service provider"""
+    import logging
+    logging.getLogger("oi").debug("user returned: "+request)
     extra_context = {}
     if request.GET.get("orderID"): #return from payment
         
@@ -60,7 +62,7 @@ def myaccount(request):
             projectid = dict_params.pop("project")
             project = Project.objects.get(id=projectid)
             
-            project.bidpayment(request.user, prjamount) #to update the user account
+            project.makebid(request.user, prjamount) #to update the user account
             
         request.user.get_profile().update_payment(dict_params) #to obtain a mutable version of the QueryDict
         

@@ -325,7 +325,7 @@ class Project(models.Model):
                 models.Q(project__descendants=self)).exclude(user=sender).distinct():
             observer.notify(label=notice_type, project=self, param=param, sender=sender)
 
-    def bidpayment(self, user, amount):
+    def makebid(self, user, amount):
         """create the bid for the project"""
         
         #creates the bid

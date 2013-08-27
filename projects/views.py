@@ -485,7 +485,7 @@ def bidproject(request, id):
     if request.user.is_anonymous() or amount > request.user.get_profile().balance:
         return HttpResponse('/user/myaccount?amount=%s&project=%s'%((amount).to_eng_string(),project.id),status=333)
     
-    project.bidpayment(request.user, amount) #to update the user account
+    project.makebid(request.user, amount) #to update the user account
     messages.info(request, _("Bid saved"))
     
     return HttpResponse('', status=332)
