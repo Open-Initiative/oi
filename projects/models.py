@@ -325,6 +325,26 @@ class Project(models.Model):
                 models.Q(project__descendants=self)).exclude(user=sender).distinct():
             observer.notify(label=notice_type, project=self, param=param, sender=sender)
 
+    def bidpayment(self, user, amount):
+        """create the bid for the project"""
+        
+        #and creates the bid
+        bid, created = Bid.objects.get_or_create(project=self, user=user)
+        bid.commission += amount * OI_COM_ON_BID #computes bid commission included in amount
+        bid.amount += amount
+        bid.save()
+        
+        #updates user account
+        user.get_profile().make_payment(-(amount-bid.commission), _("Bid"), self)
+        user.get_profile().make_payment(-bid.commission, _("Commission"), self)
+        
+        #adds the project to user's observation
+        user.get_profile().follow_project(self.master)
+        
+        self.switch_to(OI_ACCEPTED, user)
+        #notify users about this bid
+        self.notify_all(user, "project_bid", bid)
+
     def canceled_bids(self):
         """gets all the bids marked as canceled"""
         return self.bid_set.filter(rating=OI_CANCELLED_BID)

@@ -485,32 +485,11 @@ def bidproject(request, id):
     if request.user.is_anonymous() or amount > request.user.get_profile().balance:
         return HttpResponse('/user/myaccount?amount=%s&project=%s'%((amount).to_eng_string(),project.id),status=333)
     
-    bidafterpayment(request.user, project.id, amount)
+    project.bidpayment(request.user, amount) #to update the user account
     messages.info(request, _("Bid saved"))
     
     return HttpResponse('', status=332)
   
-def bidpayment(user, projectid, amount):
-    """create the bid for the project"""
-    project = Project.objects.get(id = projectid)
-    
-    #and creates the bid
-    bid, created = Bid.objects.get_or_create(project=project, user=user)
-    bid.commission += amount * OI_COM_ON_BID #computes bid commission included in amount
-    bid.amount += amount
-    bid.save()
-    
-    #updates user account
-    user.get_profile().make_payment(-(amount-bid.commission), _("Bid"), project)
-    user.get_profile().make_payment(-bid.commission, _("Commission"), project)
-    
-    #adds the project to user's observation
-    user.get_profile().follow_project(project.master)
-    
-    project.switch_to(OI_ACCEPTED, user)
-    #notify users about this bid
-    project.notify_all(user, "project_bid", bid)
-    
 @OINeedsPrjPerms(OI_READ)
 def validatorproject(request, id):
     """Add the user as a validator"""

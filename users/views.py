@@ -58,8 +58,9 @@ def myaccount(request):
         if dict_params["prjamount"] and dict_params["project"]: 
             prjamount = dict_params.pop("prjamount")
             projectid = dict_params.pop("project")
+            project = Project.objects.get(id=projectid)
             
-            bidpayment(request.user, projectid, prjamount) #to update the user account
+            project.bidpayment(request.user, prjamount) #to update the user account
             
         request.user.get_profile().update_payment(dict_params) #to obtain a mutable version of the QueryDict
         
