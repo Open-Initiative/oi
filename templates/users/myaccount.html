@@ -30,12 +30,12 @@
             <div class="cleared"></div>
             </div>
             {% if request.GET.orderID %}
-            <div class="confirmpaymentblock">
+            <div id="didpayment" class="confirmpaymentblock">
                 <h2 id="">{% trans "Thank you for contributing to" %} <br/> {% trans "the funding of the feature" %}</h2>
                 <div class="cleared"></div>
                 <br /><br/>
                 <p>{% trans "You will be redirected to the project page" %}</p>
-                <form action="/">
+                <form action="/funding/{{project}}">
                     <input style="padding: 1.3%;" class="form_center nobtnstyle continuebtn" type="submit" value="{% trans 'Continue' %}">
                 </form>
             </div>

@@ -53,7 +53,13 @@ def myaccount(request):
     """user settings page or asks user for confirmation before redirecting to payment service provider"""
     extra_context = {}
     if request.GET.get("orderID"): #return from payment
-        request.user.get_profile().update_payment(dict(request.GET.items())) #to obtain a mutable version of the QueryDict
+        
+        dict_params = dict(request.GET.items())
+        if dict_params["prjamount"] and dict_params["project"]: 
+            dict_params.pop("prjamount")
+            dict_params.pop("project")
+        
+        request.user.get_profile().update_payment(dict_params) #to obtain a mutable version of the QueryDict
 
     elif request.GET.get("amount"): #request for payment
         amount = Decimal((request.GET['amount']).replace(',','.')).quantize(Decimal('.01'))
