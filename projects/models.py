@@ -330,7 +330,7 @@ class Project(models.Model):
         
         #creates the bid
         bid, created = Bid.objects.get_or_create(project=self, user=user)
-        bid.commission += (amount * OI_COM_ON_BID) #computes bid commission included in amount
+        bid.commission += amount * OI_COM_ON_BID #computes bid commission included in amount
         bid.amount += amount
         bid.save()
         

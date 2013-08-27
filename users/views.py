@@ -56,7 +56,7 @@ def myaccount(request):
         
         dict_params = dict(request.GET.items())
         if dict_params["prjamount"] and dict_params["project"]: 
-            prjamount = dict_params.pop("prjamount")
+            prjamount = Decimal("0"+dict_params.pop("prjamount"))
             projectid = dict_params.pop("project")
             project = Project.objects.get(id=projectid)
             
