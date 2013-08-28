@@ -90,11 +90,7 @@ class UserProfile(models.Model):
             logger.warning("Paiement %s non validé : %s"%(payment.id,info['STATUS'].__str__()))
             return False #codes indicating the payment is awaiting completion
 
-        if info['STATUS']!='9':
-            payment.reason = "Paiement en ligne annulé"
-            logger.warning("Paiement %s non validé : %s"%(payment.id,info['STATUS'].__str__()))
-#            return False
-        else:
+        if info['STATUS']=='9':
             profile = payment.user.get_profile()
             profile.balance -= payment.amount #remove old amount from balance before updating account
             payment.amount = Decimal(info['amount'])
@@ -102,6 +98,9 @@ class UserProfile(models.Model):
             profile.save()
             payment.reason = _("online payment")
             logger.info(_("Paiement %s validated")%payment.id)
+        else:
+            payment.reason = "Paiement en ligne annulé"
+            logger.warning("Paiement %s non validé : %s"%(payment.id,info['STATUS'].__str__()))
         payment.save()
         return True
 
