@@ -35,7 +35,7 @@
                 <div class="cleared"></div>
                 <br /><br/>
                 <p>{% trans "You will be redirected to the project page" %}</p>
-                <form action="/funding/{{request.GET.project}}">
+                <form action="{% if request.GET.project %}/funding/{{request.GET.project}}{% else %}/user/myaccount{% endif %}">
                     <input style="padding: 1.3%;" class="form_center nobtnstyle continuebtn" type="submit" value="{% trans 'Continue' %}">
                 </form>
             </div>

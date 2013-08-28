@@ -56,7 +56,7 @@ def myaccount(request):
     extra_context = {}
     if request.GET.get("orderID"): #return from payment
         
-        dict_params = dict(request.GET.items())
+        dict_params = dict(request.GET.items()) #to obtain a mutable version of the QueryDict
         if dict_params.get("prjamount") and dict_params.get("project"): 
             prjamount = Decimal("0"+dict_params.pop("prjamount"))
             project = Project.objects.get(id=dict_params.pop("project"))
@@ -64,7 +64,7 @@ def myaccount(request):
             if request.user.get_profile().update_payment(dict_params):
                 project.makebid(request.user, prjamount) #to update the user account
         else:
-            request.user.get_profile().update_payment(dict_params) #to obtain a mutable version of the QueryDict
+            request.user.get_profile().update_payment(dict_params) 
         
     elif request.GET.get("amount"): #request for payment
         amount = Decimal((request.GET['amount']).replace(',','.')).quantize(Decimal('.01'))
