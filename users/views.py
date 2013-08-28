@@ -57,14 +57,15 @@ def myaccount(request):
     if request.GET.get("orderID"): #return from payment
         
         dict_params = dict(request.GET.items())
-        if dict_params["prjamount"] and dict_params["project"]: 
+        if dict_params.get("prjamount") and dict_params.get("project"): 
             prjamount = Decimal("0"+dict_params.pop("prjamount"))
-            projectid = dict_params.pop("project")
-            project = Project.objects.get(id=projectid)
-            
-            project.makebid(request.user, prjamount) #to update the user account
-            
-        request.user.get_profile().update_payment(dict_params) #to obtain a mutable version of the QueryDict
+            project = Project.objects.get(id=dict_params.pop("project"))
+
+            if request.user.get_profile().update_payment(dict_params):
+                request.user.get_profile().update_payment(dict_params) #to obtain a mutable version of the QueryDict
+                project.makebid(request.user, prjamount) #to update the user account
+        else:
+            request.user.get_profile().update_payment(dict_params) #to obtain a mutable version of the QueryDict
         
     elif request.GET.get("amount"): #request for payment
         amount = Decimal((request.GET['amount']).replace(',','.')).quantize(Decimal('.01'))
@@ -339,6 +340,12 @@ def updatepayment(request):
     """HTTP Server-to-server request from payment service provider sent after user payment"""
     import logging
     logging.getLogger("oi").debug(request)
+    
+    dict_params = dict(request.GET.items())
+    if dict_params.get("prjamount") and dict_params.get("project"): 
+        prjamount = Decimal("0"+dict_params.pop("prjamount"))
+        project = Project.objects.get(id=dict_params.pop("project"))
+    
     payment = Payment.objects.get(id=request.POST['orderID'])
-    payment.user.get_profile().update_payment(dict(request.POST.items())) #to obtain a mutable version of the QueryDict
+    payment.user.get_profile().update_payment(dict_params) #to obtain a mutable version of the QueryDict
     return HttpResponse('OK') 

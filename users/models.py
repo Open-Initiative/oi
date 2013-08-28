@@ -82,13 +82,13 @@ class UserProfile(models.Model):
         shasign = info.pop(SHASIGN_NAME) #remove the signature from the info
         if shasign != computeSHA(info): #invalid SHA signature
             logger.error("Signature SHA incorrecte : %s"%shasign)
-            return
+            return False
         if self.user != payment.user: #the user originating the request is not the owner of the payment
             logger.error("Mauvais utilisateur : (%s, %s)"%(self.user.username, payment.user.username))
-            return
+            return False
         if info['STATUS']=='5' or info['STATUS']=='51' or info['STATUS']=='52' or info['STATUS']=='91' or info['STATUS']=='92':
             logger.warning("Paiement %s non validé : %s"%(payment.id,info['STATUS'].__str__()))
-            return #codes indicating the payment is awaiting completion
+            return False #codes indicating the payment is awaiting completion
 
         if info['STATUS']=='9':
             profile = payment.user.get_profile()
@@ -98,10 +98,13 @@ class UserProfile(models.Model):
             profile.save()
             payment.reason = _("online payment")
             logger.info(_("Paiement %s validated")%payment.id)
+            payment.save()
+            return True
         else:
             payment.reason = "Paiement en ligne annulé"
             logger.warning("Paiement %s non validé : %s"%(payment.id,info['STATUS'].__str__()))
         payment.save()
+        return False
 
     def get_message_updates(self):
         """gets modified messages descendants of user's best expertised messages"""
