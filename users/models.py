@@ -90,7 +90,11 @@ class UserProfile(models.Model):
             logger.warning("Paiement %s non validé : %s"%(payment.id,info['STATUS'].__str__()))
             return False #codes indicating the payment is awaiting completion
 
-        if info['STATUS']=='9':
+        if info['STATUS']!='9':
+            payment.reason = "Paiement en ligne annulé"
+            logger.warning("Paiement %s non validé : %s"%(payment.id,info['STATUS'].__str__()))
+#            return False
+        else:
             profile = payment.user.get_profile()
             profile.balance -= payment.amount #remove old amount from balance before updating account
             payment.amount = Decimal(info['amount'])
@@ -98,13 +102,8 @@ class UserProfile(models.Model):
             profile.save()
             payment.reason = _("online payment")
             logger.info(_("Paiement %s validated")%payment.id)
-            payment.save()
-            return True
-        else:
-            payment.reason = "Paiement en ligne annulé"
-            logger.warning("Paiement %s non validé : %s"%(payment.id,info['STATUS'].__str__()))
         payment.save()
-        return False
+        return True
 
     def get_message_updates(self):
         """gets modified messages descendants of user's best expertised messages"""
