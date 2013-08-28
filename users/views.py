@@ -61,9 +61,9 @@ def myaccount(request):
             prjamount = Decimal("0"+dict_params.pop("prjamount"))
             project = Project.objects.get(id=dict_params.pop("project"))
 
-            if request.user.get_profile().update_payment(dict_params):
-                request.user.get_profile().update_payment(dict_params) #to obtain a mutable version of the QueryDict
-                project.makebid(request.user, prjamount) #to update the user account
+#            if request.user.get_profile().update_payment(dict_params):
+            request.user.get_profile().update_payment(dict_params) #to obtain a mutable version of the QueryDict
+            project.makebid(request.user, prjamount) #to update the user account
         else:
             request.user.get_profile().update_payment(dict_params) #to obtain a mutable version of the QueryDict
         
