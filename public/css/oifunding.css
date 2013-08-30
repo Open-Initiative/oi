@@ -295,7 +295,8 @@ div.prj-action-wait {
     font-size: 1.5em;
     font-weight: bold;
     overflow: hidden;
-    margin-bottom: .5em;
+/*    margin-bottom: .5em;*/
+    text-align: left;
 }
 .funded {
     font-size: 2em;
@@ -788,9 +789,6 @@ div.sepspecfooter {
 .tax{
     font-size: 11px;
 }
-.inputnewtask {
-    color: #0094B5;
-}
 #actions-f {
     width: 215px;
     float: right;
@@ -801,10 +799,10 @@ div.sepspecfooter {
     border-left: 1px solid #E0E0E0;
 }
 .featurebox {
-    width:  32%;
-    float:  left;
+/*    width:  32%;*/
+/*    float:  left;*/
     margin-left: 3px; 
-    margin-right: 3px;
+    margin-right: 1%;
 }
 .bordertitlemanage {
     border: 1px solid #E0E0E0;
@@ -813,7 +811,6 @@ div.sepspecfooter {
     padding: 10px;
     margin-top: 0.5em;
 }
-
 .boderline {
     border:1px solid !important;
 }
@@ -872,10 +869,11 @@ div.sepspecfooter {
     width: 24%;
 }
 .detail_subtitle {
-    color:#0094B5; 
+    color:#1E9947; 
     font-size:25px; 
     padding-left: 1%;
     margin-top: 5%;
+    text-align: center;
 }
 .edit_add_new_language {
     font-weight: bold;
@@ -961,4 +959,33 @@ div.sepspecfooter {
     margin-left: 11%; 
     max-width:150px; 
     max-height:150px;
+}
+.blockfeatureright{
+    float:right; 
+    width:32%;
+}
+.editfeature{
+    color: black;
+    font-size: 10px;
+}
+.bordertitledetails {
+    border: 1px solid #E0E0E0;
+    float: left;
+    width: 30%;
+    padding: 10px;
+    margin-top: 0.5em;
+    margin-top: 30px;
+}
+.blockfeatureheight {
+    background-color: white;
+    border: 1px solid #E3E3E5;
+    margin-top: 30px;
+    padding: 1%;
+    margin-left: 5%;
+}
+.fieldfeature{
+    border:1px solid #E0E0E0; 
+    margin-bottom: 10px;
+    color: #0094B5;
+    font-style: italic;
 }

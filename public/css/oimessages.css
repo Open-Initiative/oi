@@ -1,5 +1,5 @@
 .discussions {
-    margin-top: 3em;
+    margin-top: 1em;
 }
 div.msgbody {
     background: #D7E7F0;
@@ -36,8 +36,8 @@ div.msgred {
 div.msgblue {
     color: #0094B5;
 }
-div.msgtext {
-    padding: 30px 0 5px;
+.msgtext {
+    padding: 1px;
 }
 div.author {
     clear:left;

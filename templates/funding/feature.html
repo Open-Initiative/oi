@@ -33,31 +33,9 @@
     {% endif %}
 
     <div id="featureDiv_{{task.id}}" class="featureblock" title="{{task.title}}" style="padding: 1%;{% if not task.public_read %} opacity:.4;{% endif %}">
-        {% if task|can_write:user and task.state < 4 %}<div class="actions">
-            {% if task.state < 2 %}<img src="/img/icons/edit.png" alt="{% trans 'edit title' %}" title="{% trans 'edit title' %}" class="clickable" onclick="var newtitle = prompt(gettext('Please insert a title :'), '{{task.title}}');if(newtitle){confirmEditTitle({{task.id}}, newtitle);}" />{% endif %}
-            <img src="/img/icons/delete.png" alt="{% trans 'delete feature' %}" title="{% trans 'delete feature' %}" class="clickable" onclick="deleteFeature({{task.id}})" />
-        </div>{% endif %}
         
-        <div id="feature_{{task.id}}" class="featuretitle">{{task.title}}</div>
-        
-        <div style="text-align: left;">
-        {% for spec in task.spec_set.all %}
-            {% if spec.order == 1 %}
-                <p class="ellipsis">{{spec.text|oiunescape|slice:":100"}} {% if spec.text|length > 101 %}...{% endif %}</p>
-            {% endif %}
-        {% endfor %}
-        </div>
-        
-        {% if task|can_manage:user or task.spec_set.count%}
-        <div style="display: block; text-align: right">
-            <a id="see_more_{{task.id}}" class="clickable" onclick="hide(this.id);show('no_see_more_{{task.id}}');{% if task|can_write:user and task.state < 4 and task.spec_set.all.count < 1 %}addSpec('{{task.id}}');{% endif %}showPopup(document.getElementById('featuredesc_{{task.id}}'))">{% trans "See more" %}</a>
-            
-            <a id="no_see_more_{{task.id}}" class="clickable invisible" onclick="showPopup(document.getElementById('featuredesc_{{task.id}}'))">{% trans "See more" %}</a>
-        </div>
-        {% endif %}
-        <div>
+        <div class="blockfeatureright">
             <div><span class="funded">{{task.allbid_sum|default:0|floatformat:"-2"}} €</span> {% trans "funded" %}</div>
-            
             <div class="progressbar">
                 <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%;">{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%</span>
                 <span id="progresslabel_{{object.id}}" class="progresstitle" ></span>
@@ -73,9 +51,32 @@
                 <span class="supportbtn clickable" onclick="showPopup(document.getElementById('bidpopup_{{task.id}}')); ">{% trans "Support" %}</span>
             {% endif %}
             </div>
-
             <a class="clickable" onclick="showPopup(document.getElementById('featurebudget_{{task.id}}'))">{% trans "List of funders" %}</a>
         </div>
+        
+        <div id="feature_{{task.id}}" class="featuretitle">{{task.title}}</div>
+        
+        {% if task|can_write:user and task.state < 4 %}<span class="fundingleft editfeature">
+            {% if task.state < 2 %}{% trans "Edit" %} <img src="/img/icons/edit.png" alt="{% trans 'edit title' %}" title="{% trans 'edit title' %}" class="clickable" onclick="var newtitle = prompt(gettext('Please insert a title :'), '{{task.title}}');if(newtitle){confirmEditTitle({{task.id}}, newtitle);}" />{% endif %}
+            {% trans "Delete" %} <img src="/img/icons/delete.png" alt="{% trans 'delete feature' %}" title="{% trans 'delete feature' %}" class="clickable" onclick="deleteFeature({{task.id}})" />
+        </span>{% endif %}
+        
+        <div style="text-align: left; float:left; width:65%">
+        {% for spec in task.spec_set.all %}
+            {% if spec.order == 1 %}
+                <p class="ellipsis">{{spec.text|oiunescape|slice:":100"}} {% if spec.text|length > 101 %}...{% endif %}</p>
+            {% endif %}
+        {% endfor %}
+        </div>
+        
+        <div class="form_center cleared">
+            {% if task|can_manage:user or task.spec_set.count%}
+            <span class="fundingleft"><a id="see_more_{{task.id}}" class="clickable" onclick="hide(this.id);show('no_see_more_{{task.id}}');{% if task|can_write:user and task.state < 4 and task.spec_set.all.count < 1 %}addSpec('{{task.id}}');{% endif %}showPopup(document.getElementById('featuredesc_{{task.id}}'))">{% trans "See more" %}</a>
+            
+            <a id="no_see_more_{{task.id}}" class="clickable invisible" onclick="showPopup(document.getElementById('featuredesc_{{task.id}}'))">{% trans "See more" %}</a></span>
+            {% endif %}
+        </div>
+        
     </div>
 
 
