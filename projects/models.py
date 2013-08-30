@@ -475,6 +475,25 @@ class Project(models.Model):
         or without language, excluding image (order=1)"""
         return self.spec_set.filter(language=translation.get_language()) or self.spec_set.filter(language=None).exclude(order=1)
         
+    def count_all_funding_user(self):
+        """retunrs the number of all the user who fund the project"""
+        list_user = []
+        total_user = 0
+        for bid in Bid.objects.filter(project__master=self):
+            if not bid.user in list_user:   
+                list_user.append(bid.user)
+                total_user += 1
+        return total_user
+        
+    def all_funding_user(self):
+        """retunrs all the user who fund the project"""
+        list_user = []
+        for bid in Bid.objects.filter(project__master=self):
+            if not bid.user in list_user:   
+                list_user.append(bid.user)
+        return list_user
+
+        
 #Structure de contrôle des permissions
 class ProjectACL(models.Model):
     user = models.ForeignKey(User)
