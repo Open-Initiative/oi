@@ -91,11 +91,10 @@ class UserProfile(models.Model):
             return False #codes indicating the payment is awaiting completion
 
         if info['STATUS']=='9':
-            profile = payment.user.get_profile()
-            profile.balance -= payment.amount #remove old amount from balance before updating account
+            self.balance -= payment.amount #remove old amount from balance before updating account
             payment.amount = Decimal(info['amount'])
-            profile.balance += payment.amount
-            profile.save()
+            self.balance += payment.amount
+            self.save()
             payment.reason = _("online payment")
             logger.info(_("Paiement %s validated")%payment.id)
         else:
