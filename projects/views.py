@@ -482,7 +482,10 @@ def bidproject(request, id):
     except InvalidOperation:
         return HttpResponse(_("Invalid amount"))
     #checks that the user can afford the bid ; if not, redirects to the deposit page
-    if request.user.is_anonymous() or amount > request.user.get_profile().balance:
+    
+    if amount > request.user.get_profile().balance:
+        amount = amount - request.user.get_profile().balance
+        project.makebid(request.user, request.user.get_profile().balance) #to update the user account
         return HttpResponse('/user/myaccount?amount=%s&project=%s'%((amount).to_eng_string(),project.id),status=333)
     
     project.makebid(request.user, amount) #to update the user account

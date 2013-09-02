@@ -330,17 +330,19 @@ class Project(models.Model):
         
         #creates the bid
         bid, created = Bid.objects.get_or_create(project=self, user=user)
-        bid.commission += amount * OI_COM_ON_BID #computes bid commission included in amount
+        commission = amount * OI_COM_ON_BID #computes bid commission included in amount
+        bid.commission += commission
         bid.amount += amount
         bid.save()
         
         #updates user account
-        user.get_profile().make_payment(-(amount-bid.commission), _("Bid"), self)
-        user.get_profile().make_payment(-bid.commission, _("Commission"), self)
+        user.get_profile().make_payment(-(amount-commission), _("Bid"), self)
+        user.get_profile().make_payment(-commission, _("Commission"), self)
         
         #adds the project to user's observation
         user.get_profile().follow_project(self.master)
         
+        #tries to switch the project to accepted
         self.switch_to(OI_ACCEPTED, user)
         #notify users about this bid
         self.notify_all(user, "project_bid", bid)

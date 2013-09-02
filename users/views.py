@@ -58,11 +58,10 @@ def myaccount(request):
         
         dict_params = dict(request.GET.items()) #to obtain a mutable version of the QueryDict
         if dict_params.get("prjamount") and dict_params.get("project"): 
-            prjamount = Decimal("0"+dict_params.pop("prjamount"))
             project = Project.objects.get(id=dict_params.pop("project"))
 
-            if request.user.get_profile().update_payment(dict_params):
-                project.makebid(request.user, prjamount) #to update the user account
+            delta = request.user.get_profile().update_payment(dict_params)
+            project.makebid(request.user, delta) #to update the user account
         else:
             request.user.get_profile().update_payment(dict_params) 
         
@@ -340,11 +339,12 @@ def updatepayment(request):
     import logging
     logging.getLogger("oi").debug(request)
     
-    dict_params = dict(request.GET.items())
+    dict_params = dict(request.POST.items()) #to obtain a mutable version of the QueryDict
     if dict_params.get("prjamount") and dict_params.get("project"): 
-        prjamount = Decimal("0"+dict_params.pop("prjamount"))
         project = Project.objects.get(id=dict_params.pop("project"))
-    
-    payment = Payment.objects.get(id=request.POST['orderID'])
-    payment.user.get_profile().update_payment(dict_params) #to obtain a mutable version of the QueryDict
+        delta = user.get_profile().update_payment(dict_params)
+        project.makebid(user, delta)
+    else:
+        user = Payment.objects.get(id=request.POST['orderID']).user
+        user.get_profile().update_payment(dict_params)
     return HttpResponse('OK') 
