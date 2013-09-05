@@ -108,6 +108,7 @@ class Project(models.Model):
     public_bid = models.BooleanField(default=False)
     target = models.ForeignKey("projects.Release", null=True, blank=True, related_name="tasks")
     githubid = models.IntegerField(blank=True, null=True)
+    award = models.ForeignKey("projects.Reward", null=True, blank=True, related_name="prices")
     objects = ProjectManager()
     
     # overloads save to compute master project and ancestors
@@ -642,3 +643,12 @@ class GitHubSync(models.Model):
     
     def __unicode__(self):
         return "Project '%s' synchronised on repository '%s' with label '%s'"%(self.project, self.repository, self.label)
+        
+class Reward(models.Model):
+    project = models.ForeignKey(Project)
+    title = models.CharField(max_length=200)
+    image = models.ImageField(upload_to=getpath,null=True, blank=True)
+    description = models.TextField(blank=True)
+    
+    def __unicode__(self):
+        return "Project '%s' reward is '%s'"%(self.project, self.title)

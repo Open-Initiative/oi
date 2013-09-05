@@ -29,7 +29,7 @@ from oi.settings import MEDIA_ROOT, TEMP_DIR, github_id, github_secret
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS, OI_TABLE_OVERVIEW
 from oi.helpers import OI_PRJ_DONE, OI_NO_EVAL, OI_ACCEPT_DELAY, OI_READ, OI_ANSWER, OI_BID, OI_MANAGE, OI_WRITE, OI_ALL_PERMS, OI_CANCELLED_BID, OI_COM_ON_BID, OI_COMMISSION
 from oi.helpers import OI_PRJ_VIEWS, SPEC_TYPES, OIAction, ajax_login_required
-from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeedsPrjPerms, Release, GitHubSync
+from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeedsPrjPerms, Release, GitHubSync, Reward
 from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
 from django.template import RequestContext
@@ -225,6 +225,51 @@ def assignrelease(request, id):
     project.save() 
     return HttpResponse(_("Release assigned"))
     
+@login_required    
+def addreward(request, id):
+    """Add a reward to a project"""
+    project = Project.objects.get(id=id)
+    
+    if request.POST["reward"] == "" or request.POST["reward"] == None:
+        return HttpResponse (_("Not empty reward"))
+    if project.state > 3:
+        return HttpResponse (_("Cannot add reward to a finished project"))
+    Reward(project=project, title=request.POST["reward"]).save()
+    return HttpResponse (_("New reward added"))
+
+@login_required
+def editrewarddescription(request, id):
+    """Edit the reward description"""
+    project = Project.objects.get(id=id)
+    reward = Reward.objects.get(id=request.POST['rewardid'])
+    
+    if not project == reward.project:
+       return HttpResponse (_("Wrong arguments"))
+        
+    if request.POST.get('description'):
+        reward.description = request.POST['description']
+        reward.save()
+        
+    return HttpResponse (_("Description edited"))
+
+@login_required
+def uploadpicturereward(request):
+    """changes reward picture"""
+    project = Project.objects.get(id=id)
+    reward = Reward.objects.get(id=request.POST['rewardid'])
+    filename = request.POST.get("filename")
+    
+    if not project == reward.project:
+       return HttpResponse (_("Wrong arguments"), status=531)
+       
+    if filename:
+        filename = normalize("NFKD", filename).encode('ascii', 'ignore').replace('"', '')
+        if reward.image:
+            reward.image.delete()
+        path = ("%s%s_%s_%s"%(TEMP_DIR,request.user.id,tsint(time()),filename))
+        reward.image.save(filename, File(open(path)), False)
+        os.remove(path)
+        
 @login_required
 def editproject(request, id):
     """Shows the Edit template of the project"""

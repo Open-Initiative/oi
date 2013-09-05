@@ -140,7 +140,7 @@
     </div>
     <div class="cleared"></div>
     
-    <div class="myprofile">
+    <div class="myprofile" style="margin-bottom: 10px;">
         <div class="column-right">
             <div class="funding_space">{% trans "Project created by" %} <a href="/user/profile/{{project.author.username}}">{{project.author.get_profile}}</a></div>
             
@@ -162,6 +162,46 @@
                 <div class="cleared"></div>
             </div>
         </div>
+    
+    {% if object.reward_set.all %}
+    <div class="myprofile">
+        <div class="column-right">
+            <h2 class="detail_subtitle">{% trans "Reward" %} <img class="clickable" src="/img/icons/addgreen.png" onclick="addReward({{object.id}})"></h2>
+            {% for reward in object.reward_set.all %}
+            
+                <h6 class="rewardtitle">{{reward.title}}</h6>
+                
+                <p><span id="descriptionreward_{{reward.id}}">{{reward.description|oiunescape}}</span> <img class="clickable" title="{% trans 'Edit the reward description' %}" alt="{% trans 'Edit the reward description' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('rewarddescription_{{reward.id}}'))"/></p>
+                
+                <span>
+                    <img id="rewardimage_{{reward.id}}" src="{{reward.url}}">
+                    <img class="clickable" title="{% trans 'Edit the reward image' %}" alt="{% trans 'Edit the reward image' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('rewardpicture_{{reward.id}}'))"/>
+                </span>
+                
+<!--                les parties cachées-->
+                
+                <div class="popup_reward invisible" id="rewarddescription_{{reward.id}}" onclick="document.ignoreClosePopups = true;">
+                    <span class="rewardtitle">{% trans "Edit the reward description" %}</span>
+                    <textarea id="fieldreward_{{reward.id}}">{{reward.description|oiunescape}}</textarea>
+                    <img class="clickable fundingright" src="/img/icons/ok.png" onclick="editRewardDescription({{object.id}}, {{reward.id}})"/>
+                </div>
+                
+                <div class="popup_reward invisible" id="rewardpicture_{{reward.id}}" onclick="document.ignoreClosePopups = true;">
+                    <span class="rewardtitle">{% trans "Change the reward picture" %}</span>
+                    <form id="reward_picture_form" method="post" enctype="multipart/form-data" onsubmit="OIajaxCall('/project/'+{{object.id}}+'/uploadpicturereward', 'filename='+getValue('picturereward_{{reward.id}}')); return false">
+                        {% csrf_token %}
+                        <input id="picturereward_{{reward.id}}" name="picture" type="file" size="1" onchange="document.getElementById('reward_picture_form').submit();hide('rewardpicture_{{reward.id}}')" />
+                    </form>
+                    <img style="max-width:70px" src="{% if spec.image %}{{reward.image}}{% endif %}" />
+                    <img class="clickable fundingright" src="/img/icons/ok.png" onclick=""/>
+                </div>
+                
+            {% endfor %}
+            <div class="cleared"></div>
+        </div>
+    </div>
+    {% endif %}
+    
     </div>
 </div>
 
