@@ -995,7 +995,7 @@ div.sepspecfooter {
     font-weight: bold;
     text-align: left;
 }
-div.popup_reward {
+.popup_reward {
     background: none repeat scroll 0 0 white;
     border: 1px solid #E0E0E0;
     border-radius: 20px 20px 20px 20px;
@@ -1005,4 +1005,8 @@ div.popup_reward {
     position: absolute;
     right: 5%;
     z-index: 1;
+}
+.reward_bottom_line{
+    border: 1px solid #D3CFCF;
+    margin-top: 10px;
 }
