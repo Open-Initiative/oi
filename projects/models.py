@@ -643,11 +643,14 @@ class GitHubSync(models.Model):
     
     def __unicode__(self):
         return "Project '%s' synchronised on repository '%s' with label '%s'"%(self.project, self.repository, self.label)
+  
+def getpathreward(instance, filename):
+     return "project/%s/reward/%s/%s"%(instance.project.id, instance.id, filename)
         
 class Reward(models.Model):
     project = models.ForeignKey(Project)
     title = models.CharField(max_length=200)
-    image = models.ImageField(upload_to=getpath,null=True, blank=True)
+    image = models.ImageField(upload_to=getpathreward,null=True, blank=True)
     description = models.TextField(blank=True)
     
     def __unicode__(self):

@@ -163,10 +163,11 @@
             </div>
         </div>
     
-    {% if object.reward_set.all %}
+    
     <div class="myprofile">
         <div class="column-right">
-            <h2 class="detail_subtitle">{% trans "Reward" %} <img class="clickable" src="/img/icons/addgreen.png" onclick="addReward({{object.id}})"></h2>
+            <h2 class="detail_subtitle">{% trans "Reward" %} <img class="clickable" title="{% trans 'Add a reward' %}" alt="{% trans 'Add a reward' %}" src="/img/icons/addgreen.png" onclick="addReward({{object.id}})"></h2>
+            {% if object.reward_set.all %}
             {% for reward in object.reward_set.all %}
             
                 <h6 class="rewardtitle">{{reward.title}}</h6>
@@ -174,7 +175,9 @@
                 <p><span id="descriptionreward_{{reward.id}}">{{reward.description|oiunescape}}</span> <img class="clickable" title="{% trans 'Edit the reward description' %}" alt="{% trans 'Edit the reward description' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('rewarddescription_{{reward.id}}'))"/></p>
                 
                 <span>
-                    <img id="rewardimage_{{reward.id}}" src="{{reward.url}}">
+                    <iframe id="rewardimage_{{reward.id}}" name="rewardimage_{{reward.id}}" class="filedest"></iframe>
+                    <img style="max-width:130px" src="{% if reward.image %}{{reward.image.url}}{% endif %}" />
+                    
                     <img class="clickable" title="{% trans 'Edit the reward image' %}" alt="{% trans 'Edit the reward image' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('rewardpicture_{{reward.id}}'))"/>
                 </span>
                 
@@ -188,19 +191,18 @@
                 
                 <div class="popup_reward invisible" id="rewardpicture_{{reward.id}}" onclick="document.ignoreClosePopups = true;">
                     <span class="rewardtitle">{% trans "Change the reward picture" %}</span>
-                    <form id="reward_picture_form" method="post" enctype="multipart/form-data" onsubmit="OIajaxCall('/project/'+{{object.id}}+'/uploadpicturereward', 'filename='+getValue('picturereward_{{reward.id}}')); return false">
+                    <form id="reward_picture_form_{{reward.id}}" method="post" enctype="multipart/form-data" action="/project/{{object.id}}/uploadpicturereward/{{reward.id}}" target="rewardimage_{{reward.id}}">
                         {% csrf_token %}
-                        <input id="picturereward_{{reward.id}}" name="picture" type="file" size="1" onchange="document.getElementById('reward_picture_form').submit();hide('rewardpicture_{{reward.id}}')" />
+                        <input id="picturereward_{{reward.id}}" name="file" type="file" size="1" onchange="document.getElementById('reward_picture_form_{{reward.id}}').submit();hide('rewardpicture_{{reward.id}}')" />
                     </form>
-                    <img style="max-width:70px" src="{% if spec.image %}{{reward.image}}{% endif %}" />
                     <img class="clickable fundingright" src="/img/icons/ok.png" onclick=""/>
                 </div>
                 
             {% endfor %}
+            {% endif %}
             <div class="cleared"></div>
         </div>
     </div>
-    {% endif %}
     
     </div>
 </div>

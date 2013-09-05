@@ -1,5 +1,6 @@
 #coding: utf-8
 # Vues des projets
+from random import random
 import os
 import logging
 from time import time
@@ -253,23 +254,20 @@ def editrewarddescription(request, id):
     return HttpResponse (_("Description edited"))
 
 @login_required
-def uploadpicturereward(request):
+def uploadpicturereward(request, id, rewardid):
     """changes reward picture"""
     project = Project.objects.get(id=id)
-    reward = Reward.objects.get(id=request.POST['rewardid'])
-    filename = request.POST.get("filename")
+    reward = Reward.objects.get(id=rewardid)
     
     if not project == reward.project:
-       return HttpResponse (_("Wrong arguments"), status=531)
-       
-    if filename:
-        filename = normalize("NFKD", filename).encode('ascii', 'ignore').replace('"', '')
-        if reward.image:
-            reward.image.delete()
-        path = ("%s%s_%s_%s"%(TEMP_DIR,request.user.id,tsint(time()),filename))
-        reward.image.save(filename, File(open(path)), False)
-        os.remove(path)
-        
+       return HttpResponse (_("Wrong arguments"))
+    
+    if reward.image:
+        reward.image.delete()
+    
+    reward.image.save(File(request.FILES['file']).name, File(request.FILES['file']))
+    return HttpResponse("<script>window.parent.document.getElementById('rewardimage_%s').src += '?%s'</script>"%(reward.id,random()))
+    
 @login_required
 def editproject(request, id):
     """Shows the Edit template of the project"""
