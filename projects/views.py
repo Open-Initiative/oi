@@ -226,7 +226,7 @@ def assignrelease(request, id):
     project.save() 
     return HttpResponse(_("Release assigned"))
     
-@login_required    
+@OINeedsPrjPerms(OI_MANAGE)  
 def addreward(request, id):
     """Add a reward to a project"""
     project = Project.objects.get(id=id)
@@ -238,7 +238,7 @@ def addreward(request, id):
     Reward(project=project, title=request.POST["reward"]).save()
     return HttpResponse (_("New reward added"))
 
-@login_required
+@OINeedsPrjPerms(OI_MANAGE)
 def editrewarddescription(request, id):
     """Edit the reward description"""
     project = Project.objects.get(id=id)
@@ -253,7 +253,7 @@ def editrewarddescription(request, id):
         
     return HttpResponse (_("Description edited"))
 
-@login_required
+@OINeedsPrjPerms(OI_MANAGE)
 def uploadpicturereward(request, id, rewardid):
     """changes reward picture"""
     project = Project.objects.get(id=id)

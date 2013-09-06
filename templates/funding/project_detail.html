@@ -163,10 +163,10 @@
             </div>
         </div>
     
-    
+    {% if object.reward_set.all or object|can_manage:user %}
     <div class="myprofile">
         <div class="column-right">
-            <h2 class="detail_subtitle">{% trans "Reward" %} <img class="clickable" title="{% trans 'Add a reward' %}" alt="{% trans 'Add a reward' %}" src="/img/icons/addgreen.png" onclick="addReward({{object.id}})"></h2>
+            <h2 class="detail_subtitle">{% trans "Reward" %} {% if object|can_manage:user %}<img class="clickable" title="{% trans 'Add a reward' %}" alt="{% trans 'Add a reward' %}" src="/img/icons/addgreen.png" onclick="addReward({{object.id}})">{% endif %}</h2>
             {% if object.reward_set.all %}
             {% for reward in object.reward_set.all %}
                 <div>
@@ -176,10 +176,13 @@
                         <iframe id="rewardimage_{{reward.id}}" name="rewardimage_{{reward.id}}" class="filedest"></iframe>
                         <img style="max-width:130px" src="{% if reward.image %}{{reward.image.url}}{% endif %}" />
                         
-                        <img class="clickable" title="{% trans 'Edit the reward image' %}" alt="{% trans 'Edit the reward image' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('rewardpicture_{{reward.id}}'))"/>
+                        {% if object|can_manage:user %}<img class="clickable" title="{% trans 'Edit the reward image' %}" alt="{% trans 'Edit the reward image' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('rewardpicture_{{reward.id}}'))"/>{% endif %}
                     </span>
                     
-                    <p><span id="descriptionreward_{{reward.id}}">{{reward.description|oiunescape}}</span> <img class="clickable" title="{% trans 'Edit the reward description' %}" alt="{% trans 'Edit the reward description' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('rewarddescription_{{reward.id}}'))"/></p>
+                    <p>
+                        <span id="descriptionreward_{{reward.id}}">{{reward.description|oiunescape}}</span> 
+                        {% if object|can_manage:user %}<img class="clickable" title="{% trans 'Edit the reward description' %}" alt="{% trans 'Edit the reward description' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('rewarddescription_{{reward.id}}'))"/>{% endif %}
+                    </p>
                     
     <!--                les parties cachées-->
                     
@@ -204,6 +207,7 @@
             <div class="cleared"></div>
         </div>
     </div>
+    {% endif %}
     
     </div>
 </div>
