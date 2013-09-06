@@ -191,14 +191,14 @@
                     <div class="popup_reward invisible" id="rewarddescription_{{reward.id}}" onclick="document.ignoreClosePopups = true;">
                         <span class="rewardtitle">{% trans "Edit the reward description" %}</span>
                         <textarea id="fieldreward_{{reward.id}}">{{reward.description|oiunescape}}</textarea>
-                        <img class="clickable fundingright" src="/img/icons/ok.png" onclick="editRewardDescription({{object.id}}, {{reward.id}})"/>
+                        <img class="clickable fundingright" src="/img/icons/ok.png" onclick="editRewardDescription({{object.id}}, {{reward.id}});hidePopups()"/>
                     </div>
                     
                     <div class="popup_reward invisible" id="rewardpicture_{{reward.id}}" onclick="document.ignoreClosePopups = true;">
                         <span class="rewardtitle">{% trans "Change the reward picture" %}</span>
                         <form id="reward_picture_form_{{reward.id}}" method="post" enctype="multipart/form-data" action="/project/{{object.id}}/uploadpicturereward/{{reward.id}}" target="rewardimage_{{reward.id}}">
                             {% csrf_token %}
-                            <input id="picturereward_{{reward.id}}" name="file" type="file" size="1" onchange="document.getElementById('reward_picture_form_{{reward.id}}').submit();hide('rewardpicture_{{reward.id}}')" />
+                            <input id="picturereward_{{reward.id}}" name="file" type="file" size="1" onchange="document.getElementById('reward_picture_form_{{reward.id}}').submit();hidePopups()" />
                         </form>
                         <img class="clickable fundingright" src="/img/icons/ok.png" onclick=""/>
                     </div>
