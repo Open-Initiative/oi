@@ -255,7 +255,7 @@ def editrewarddescription(request, id):
 
 @OINeedsPrjPerms(OI_MANAGE)
 def uploadpicturereward(request, id, rewardid):
-    """changes reward picture"""
+    """Changes reward picture"""
     project = Project.objects.get(id=id)
     reward = Reward.objects.get(id=rewardid)
     
@@ -267,6 +267,18 @@ def uploadpicturereward(request, id, rewardid):
     
     reward.image.save(File(request.FILES['file']).name, File(request.FILES['file']))
     return HttpResponse("<script>window.parent.document.getElementById('rewardimage_%s').src += '?%s'</script>"%(reward.id,random()))
+  
+@OINeedsPrjPerms(OI_MANAGE)
+def deletereward(request, id, rewardid):
+    """Delete the reward"""
+    project = Project.objects.get(id=id)
+    reward = Reward.objects.get(id=rewardid)
+    
+    if not project == reward.project:
+       return HttpResponse (_("Wrong arguments"))
+       
+    reward.delete()
+    return HttpResponse(_("Reward deleted"))
     
 @login_required
 def editproject(request, id):

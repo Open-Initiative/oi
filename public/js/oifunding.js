@@ -85,3 +85,33 @@ function selectplugin(projectid, plugintype) {
     document.getElementById('plugincode').value = iframe;
     document.getElementById('plugin_preview').innerHTML = iframe;
 }
+function addReward(projectid){
+    var value = prompt(gettext("Please enter the reward name:"));
+    if(value){
+        OIajaxCall("/project/"+projectid+"/addreward", "reward="+value, "output", 
+        function(){
+//            faire le cadre qui permet de faire tout le reward
+        });
+    }
+    
+}
+function editRewardDescription(projectid, rewardid){
+    tinyMCE.execCommand('mceRemoveControl', false, 'fieldreward_'+rewardid);
+    var params = "description="+encodeURIComponent(getValue('fieldreward_'+rewardid).replace(/\+/gi,"%2B"));
+    params += "&rewardid="+rewardid;
+    OIajaxCall("/project/"+projectid+"/editrewarddescription", params, "output", 
+    function(){
+        document.getElementById("descriptionreward_"+rewardid).innerHTML = getValue('fieldreward_'+rewardid);
+    })
+}
+function deleteReward(projectid, rewardid){
+    if(confirm(gettext("Are you sure you want to delete this reward permanently?"))) {
+        OIajaxCall("/project/"+projectid+"/deletereward/"+rewardid, null, "output", 
+        function(){
+            var rewardblock = document.getElementById("blockreward_"+rewardid);
+            var linereward = document.getElementById('reward_bottom_line_'+rewardid);
+            rewardblock.parentNode.removeChild(rewardblock);
+            linereward.parentNode.removeChild(linereward);
+        })
+    }
+}

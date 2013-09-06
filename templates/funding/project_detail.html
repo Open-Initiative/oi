@@ -168,8 +168,10 @@
         <div class="column-right">
             <h2 class="detail_subtitle">{% trans "Reward" %} {% if object|can_manage:user %}<img class="clickable" title="{% trans 'Add a reward' %}" alt="{% trans 'Add a reward' %}" src="/img/icons/addgreen.png" onclick="addReward({{object.id}})">{% endif %}</h2>
             {% if object.reward_set.all %}
+            <div id="blockreward">
             {% for reward in object.reward_set.all %}
-                <div>
+                <div id="blockreward_{{reward.id}}">
+                    {% if object|can_manage:user %}<img alt="{% trans 'Delete the reward' %}" title="{% trans 'Delete the reward' %}" src="/img/icons/delete.png" class="fundingright clickable" onclick="deleteReward({{object.id}}, {{reward.id}})">{% endif %}
                     <h6 class="rewardtitle">{{reward.title}}</h6>
                     
                     <span class="fundingleft">
@@ -201,8 +203,9 @@
                         <img class="clickable fundingright" src="/img/icons/ok.png" onclick=""/>
                     </div>
                 </div>
-                <div class="reward_bottom_line cleared"></div>
+                <div id="reward_bottom_line_{{reward.id}}" class="reward_bottom_line cleared"></div>
             {% endfor %}
+            </div>
             {% endif %}
             <div class="cleared"></div>
         </div>
