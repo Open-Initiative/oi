@@ -54,7 +54,7 @@
 
     <div class="center">
         <a><div class="fundingdesc">
-            <div class="actions clickable actionbutton" onclick="$('#prjlist0').fadeToggle(); $('#promoted_project').fadeToggle(); $('#prjlist3').fadeToggle(); $('#oi_last_project').fadeToggle()">
+            <div class="actions clickable actionbutton" onclick="$('#prjlist0').fadeToggle(); $('#promoted_project').fadeToggle(); $('#prjlist3').fadeToggle(); $('#oi_last_project').fadeToggle();$('#details_create_task').fadeToggle()">
                 <div>{% trans "submit" %}</div>
                 {% trans "your project" %}
                 <input id="appname" type="hidden" value="funding" />
@@ -78,16 +78,60 @@
     {% endfor %}
 </div>
 {% endif %}
-<div class="invisible prjlist" id="prjlist0">
-    <div class="projectlisttitle">{% trans "Submit your project" %}</div>
-    <form class="form_center" onsubmit="if(getValue('prjtitle')) addTask(getValue('prjtitle'), null, null,function(taskid){document.location = '/funding/'+taskid+'/edit'});return false" >
-        {% trans "Please enter your project title :" %}
-        <input id="prjtitle"/>
-        <p class="continuebtn" style="width: 7%;margin-left: auto;margin-right: auto;">
-            <input class="nobtnstyle" type="text" value="{% trans 'Start' %}" />
-        </p>
-    </form>
+
+<div style="background-color:white;border: 1px solid #D3CFCF;">
+    <div class="invisible prjlist" id="prjlist0">
+        <div class="projectlisttitle">{% trans "Submit your project" %}</div>
+        <form class="form_center" onsubmit="if(getValue('prjtitle')) addTask(getValue('prjtitle'), null, null,function(taskid){document.location = '/funding/'+taskid+'/edit'});return false" >
+            <p class="details_title">{% trans "Your about to start creating and funding your free software project." %}</p>
+            <p class="form_center details_title">{% trans "First enter your project title" %}</p>
+            <input id="prjtitle"/>
+            <p class="continuebtn" style="width: 7%;margin-left: auto;margin-right: auto;">
+                <input class="nobtnstyle" type="text" value="{% trans 'Create' %}" />
+            </p>
+        </form>
+    </div>
+
+    <div id="details_create_task" class="invisible">
+        <div id="feature_by_feature" class="details_task">
+            <h3>{% trans "Feature by feature" %}</h3>
+            <p>
+                {% trans "On Open Funding we fund projects feature by feature. That means, once you create the project you'll list the different features you will develop to make it better, with a description each to let people know what they're about. Start planning those!" %}
+            </p>
+        </div>
+        <div id="results_engagement" class="details_task">
+            <h3>{% trans "Results engagement" %}</h3>
+            <p>
+                {% trans "Open Funding proposes to fund a service delivery and not donations to the projects. Developers are committed to their results as the Users are the ones that validate the final product of the development." %}
+            </p>
+        </div>
+        <div id="reache_your_community" class="details_task">
+            <h3>{% trans "Reache your community" %}</h3>
+            <p>
+                {% trans "Funding your project with Open Funding allows you to connect with your users in a simple way and to a wider community interested in free software development. But money is not coming alone. To achieve it, you'll have to spread the word and let the people know your project, by promoting it with specialized outlets that can help you reach them so they can fund your initiative. If you need more guidance in this topic, you can contact us" %}<a href="/contact"> {% trans "here" %}</a>.
+            </p>
+        </div>
+        <div id="licence" class="details_task">
+            <h3>{% trans "Licence" %}</h3>
+            <p>
+                {% trans "All the result projects on Open Funding are distributed under Free license. It's up to each developer to specify if otherwise." %}
+            </p>
+        </div>
+        <div id="reward" class="details_task">
+            <h3>{% trans "Reward" %}</h3>
+            <p>
+                {% trans "On our platform Users and Developers exchange a product delivery, but Developers also have the option to encourage their funders through bonus rewards. This can mean goodies (ex. t-shirts of your project), technical support, or anything you imagine. Be creative to bring the attention in to your project." %}
+            </p>
+        </div>
+        <div id="more_info" class="details_task">
+            <h3>{% trans "More_info" %}</h3>
+            <p>
+                {% trans "If you want to know more about Open Funding and project creation, visit our" %} <a href="/presentation">{% trans "presentation page" %}</a> {% trans "or contact us" %} <a href="mailto:contact@open-initiative.com?Subject={% trans 'Know more' %}" target="_top">{% trans "here" %}</a>.
+            </p>
+        </div>
+    </div>
 </div>
+
 <script>
     ajaxParams = document.location.hash;
     listid = ajaxParams.substring(1);

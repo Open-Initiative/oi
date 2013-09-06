@@ -1010,3 +1010,14 @@ div.sepspecfooter {
     border: 1px solid #D3CFCF;
     margin-top: 10px;
 }
+.details_task{
+    border: 1px solid #D3CFCF;
+    background-color: #F5F3F3;
+    margin: 1%;
+    padding: 1%;
+}
+.details_title{
+    color: black;
+    font-weight: bold;
+    font-size: 15px;
+}
