@@ -1021,3 +1021,13 @@ div.sepspecfooter {
     font-weight: bold;
     font-size: 15px;
 }
+.popup_corner {
+    background: none repeat scroll 0 0 white;
+    border: 1px solid #E0E0E0;
+    border-radius: 20px 20px 20px 20px;
+    box-shadow: 3px 3px 4px;
+    color: black;
+    padding: 2% 1% 2%;
+    position: absolute;
+    z-index: 1;
+}
