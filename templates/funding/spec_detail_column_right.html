@@ -1,0 +1,17 @@
+{% load i18n %}{% load oifilters %}
+<p><a id="{{divid}}" href="{{spec.url}}" Target= "_blank">{{spec.url}}</a> {% if object|can_manage:user %}<img class="clickable" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('corner_{{divid}}'))">{% endif %}</p>
+<div id="corner_{{divid}}" class="invisible popup_corner" onclick="document.ignoreClosePopups = true;">
+    <input name="spectype" id="type_{{divid}}" value="3" type="hidden"/>
+    <input name="specid" id="specid_{{divid}}" value="{{spec.id|default:0}}" type="hidden"/>
+    <input name="projectid" id="projectid_{{divid}}" value="{{project.id}}" type="hidden"/>
+    <input name="specorder" id="specorder_{{divid}}" value="{{order}}" type="hidden"/>
+    <input type="hidden" id="text_{{divid}}">
+    <span class="rewardtitle">{% trans "Edit the" %} {{divid}} {% trans "link" %}</span>
+    <form method="post" onsubmit="saveSpec('{{divid}}',{{project.id}},getValue('specorder_{{divid}}'),{{spec.id|default:0}}, null, 'funding');hidePopups(); return false">
+        <span>{% trans "Url" %} </span><input id="url_{{divid}}" type="text" value="{{spec.url|default:"http://"}}">
+        <div class="cleared"></div>
+        <input class="fundingright" type="image" src="/img/icons/ok.png">
+        {% csrf_token %}
+    <input id="divid_{{divid}}" name="divid" type="hidden" value="{{divid}}" />
+    </form>
+</div>
