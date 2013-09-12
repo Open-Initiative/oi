@@ -222,6 +222,23 @@ div.center{
 .homelink{
     color: #0094B5;
 }
+.blogtag {
+    border-radius: 5px;
+    color: #0094B5;
+    text-align: center;
+    background: #362a32;
+    float: right;
+    padding: 0.5em 1em;
+    margin: 1%;
+}
+.blogtagline {
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 0.2em;
+    color: white;
+}
 #pagetitle {
     padding: 0 5px;
     text-transform: uppercase;
@@ -619,6 +636,10 @@ div.morelink {
 }
 .askoi {
     margin: -11px 0;
+}
+.op_icon {
+    width: 20%;
+    margin: 0 auto;
 }
 .op_icon img{
     margin-left: 20px;
