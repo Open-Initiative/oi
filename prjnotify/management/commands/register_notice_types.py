@@ -26,3 +26,7 @@ class Command(NoArgsCommand):
         NoticeType.register("change_release", _(u"Release changed"), _(u"The release of the project has been changed"))
         NoticeType.register("validate_project", _(u"Validated project"), _(u"The user has been invited to validate a project"))
         NoticeType.register("project_delete", _(u"Project deleted"), _(u"The user has deleted the project"))
+        NoticeType.register("funded_project", _(u"Project funded"), _(u"The user has funded the project"))
+        NoticeType.register("has_funded_project", _(u"Project has been funded"), _(u"Thank to have funded the project"))
+        NoticeType.register("project_progress_users", _(u"Project has been 100% funded"), _(u"The project has been 100% funded"))
+        NoticeType.register("project_progress_dev", _(u"Funders has 100% funded the project"), _(u"Funders has 100% funded the project"))
