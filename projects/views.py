@@ -544,6 +544,14 @@ def bidproject(request, id):
         return HttpResponse('/user/myaccount?amount=%s&project=%s'%((amount).to_eng_string(),project.id),status=333)
     
     project.makebid(request.user, amount) #to update the user account
+    
+    #check if the project progress is 100% funded
+    if round((project.allbid_sum()/(project.offer + project.commission + project.get_commission_tax())*Decimal('100'))) == Decimal('100.0'):
+        #notify users about the progress
+        project.notify_all(project.assignee, "project_progress_users", project.progress)
+        #notify developper about the progress
+        project.assignee.get_profile().get_default_observer(project).notify("project_progress_dev", project=project)       
+    
     messages.info(request, _("Bid saved"))
     
     return HttpResponse('', status=332)
