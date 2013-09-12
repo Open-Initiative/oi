@@ -6,4 +6,4 @@
 {% trans "to take the project" %} 
 {% endif %}
 {{notice.project.title}}
-{{current_site}}/project/{{notice.project.id}}
+{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}

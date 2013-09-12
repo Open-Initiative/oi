@@ -1,9 +1,5 @@
 {% load i18n %}
 {{notice.sender.get_profile}}
-{% if notice.project.parent %}
-{% trans "has cancelled a task you follow:" %}
-{% else %}
-{% trans "has cancelled a project you follow:" %}  
-{% endif %}
+{% trans "has cancelled a feature you follow:" %}
 {{notice.project.title}}
-{{current_site}}/project/{{notice.project.id}}
+{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}

@@ -7,4 +7,4 @@
 {% trans "has changed the state of a project you follow:" %}
 {% endif %}
 {{notice.project.title}} {% trans "is now in state" %} {{OI_PRJ_STATES|get:notice.param|default:notice.param}}
-{{current_site}}/project/{{notice.project.id}}
+{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}

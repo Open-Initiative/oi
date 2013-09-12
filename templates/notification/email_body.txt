@@ -3,7 +3,6 @@ Open Initiative
 {% trans "The IT community dedicated to your business" %}
 
 {% trans "Hello" %} {{recipient.get_profile}},
-{% blocktrans count counter=notice|length %}You have received the following notice from{% plural %}You have received the following notices from{% endblocktrans %} {{ current_site }}{% if observed_project %} {% trans "on project" %} {{observed_project.title}}{% endif %}:
 {% for notice in notices %}{% with 'notification/'|add:notice.notice_type.label|add:'/notice.txt' as template_name %}
 {% include template_name %}
 {% endwith %}{% endfor %}

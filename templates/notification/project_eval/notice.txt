@@ -6,4 +6,4 @@
 {% trans "has evaluated you on project:" %} 
 {% endif %}
 {{notice.project.title}} : {{notice.param}}/5
-{{current_site}}/project/{{notice.project.id}}
+{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}

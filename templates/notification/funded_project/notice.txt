@@ -1,0 +1,8 @@
+{% load i18n %}
+{% if notice.project %}
+{{notice.sender.get_profile}} {% trans "has just funded the evolution:" %} {{notice.project.title}} {% trans "from your project" %} {{notice.project.parent.title}} {% trans "with" %} {{notice.param}} €
+{% trans "Now your project is at" %} {% widthratio notice.project.descendants.all.allbid_sum|add:notice.project.bid_sum notice.project.get_selfbudget|default:notice.project.descendants.all.allbudget 100 %} % {% trans "of his funding goal." %}
+{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}
+{% else %}
+{{notice.sender.get_profile}} {% trans "has just funded the evolution but the project is now deleted" %}
+{% endif %}

@@ -1,5 +1,19 @@
 {% load i18n %}
+{% if notice.project %}
+<a href="{{current_site}}/user/profile/{{notice.sender.username}}" target="_blank">{{notice.sender.get_profile}}</a>
+{% trans "added the feature:" %} <b><i>{{notice.project.title}}</i></b> {% trans "in the project" %} <a href="{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}" target="_blank">{{notice.project.parent.title}}</a> {% trans "which you follow and we think it may interest you." %}
+{% with notice.project as task %}
+<div>
+    <ul class="features_manage" id="features_0">
+        <li class="featurebox" id="task_{{task.id}}">
+        {% include 'funding/feature.html' %}
+        </li>
+    </ul>
+</div>
+{% endwith %}
+
+{% trans "Visit the project page" %} <a href="{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}" target="_blank">{% trans "here" %}</a>.
+{% else %}
 <a href="{{current_site}}/user/profile/{{notice.sender.username}}">{{notice.sender.get_profile}}</a>
-{% trans "has created a new task:" %} </br>
-<a href="{{current_site}}/project/{{notice.project.id}}">{{notice.project.title}}</a>
-{% trans "in project" %} <a href="{{current_site}}/project/get/{{notice.project.parent.id}}">{{notice.project.parent.title}}</a>
+{% trans "added the feature which has been deleted" %}
+{% endif %}

@@ -10,7 +10,7 @@
 </head>
 <body>
 {% spaceless %}
-<div style="width: 630px; margin: auto; font-size: 10px; font-family: Helvetica, Arial, sans-serif; line-height: 19px; color: #333; background-color: #ffffff;color:#444444">
+<div style="background-color: #FFFFFF;border: 1px solid #D3CFCF;border-radius: 20px 20px 20px 20px;color: #444444;font-family: Helvetica,Arial,sans-serif;font-size: 10px;line-height: 19px;margin: auto;padding: 2%;width: 630px;">
     <div style="border:4px #0094B5 solid"></div>
     <a href="{{current_site}}/" style="text-decoration: none">
         <div style="text-align: center; margin: 0 0 50px 50px; width: 420px; font-weight: bold; color: #D0574C">
@@ -23,8 +23,6 @@
     <div style="border-top:1px gray solid; position: relative; top: -5em"></div>
     <div style="position: relative; top: -6.2em">
         <p style="color: #0094B5; font-size: 20px">{% trans "Hello" %} {{recipient.get_profile}},</p>
-        <p style="color: #0094B5; font-size: 18px">{% blocktrans count counter=notice|length %}You have received the following notice from{% plural %}You have received the following notices from{% endblocktrans %}<a href="{{current_site}}" style="text-decoration: none">Open Initiative</a>
-        {% if observed_project %}{% trans "on project" %} {{observed_project.title}}{% endif %}:</p>
         {% for notice in notices %}{% with 'notification/'|add:notice.notice_type.label|add:'/notice.html' as template_name %}
         <div style="font-size: 13px; padding-bottom: 15px;">{% include template_name %}</div>
         {% endwith %}{% endfor %}
@@ -33,7 +31,7 @@
         </p>
     </div>
 <div style="border-top:1px gray solid; position: relative; bottom: 6em"></div>
-<p style="font-size: 12px; color: gray; position: relative; bottom: 5em">{% trans "To change the frequency of sending of your notification, " %} <a href="{{current_site}}/notification/settings/"> {% trans "click here." %}</a></p>
+<p style="font-size: 12px; color: gray; position: relative; bottom: 5em; text-align: center;">{% trans "To change the frequency of sending of your notification, " %} <a href="{{current_site}}/notification/settings/"> {% trans "click here." %}</a></p>
 </div>
 {% endspaceless %}
 </body>

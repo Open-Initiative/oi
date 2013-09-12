@@ -2,4 +2,4 @@
 {{notice.sender.get_profile}} {% blocktrans %}has put Open Initiative release's on:{% endblocktrans %}
 {{notice.param}}
 {{notice.project.title}}
-{{current_site}}/project/get/{{notice.project.id}}
+{{current_site}}{{REDIRECT_URL}}get/{{notice.project.id}}

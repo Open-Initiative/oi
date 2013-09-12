@@ -1,0 +1,20 @@
+{% load i18n %}
+{% if notice.project %}
+{% trans "Thank you! You just just funded the evolution:" %} <b><i>{{notice.project.title}}</i></b> {% trans "from your project" %} <a href="{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}" target="_blank">{{notice.project.parent.title}}</a> {% trans "with" %} {{notice.param}} €
+</br>
+{% trans "Now your project is at" %} {% widthratio notice.project.descendants.all.allbid_sum|add:notice.project.bid_sum notice.project.get_selfbudget|default:notice.project.descendants.all.allbudget 100 %} % {% trans "of his funding goal." %}
+
+{% with notice.project as task %}
+<div style="width: 130%;">
+    <ul class="features_manage" id="features_0">
+        <li class="featurebox" id="task_{{task.id}}">
+        {% include 'funding/feature.html' %}
+        </li>
+    </ul>
+</div>
+{% endwith %}
+
+{% trans "Visite the project page" %} <a href="{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}" target="_blank">{% trans "here" %}</a>.
+{% else %}
+{% trans "Thank you! You just just funded the evolution but the project is now deleted" %} 
+{% endif %}
