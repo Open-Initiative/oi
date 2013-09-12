@@ -232,7 +232,7 @@ def addreward(request, id):
     project = Project.objects.get(id=id)
     
     if request.POST["reward"] == "" or request.POST["reward"] == None:
-        return HttpResponse (_("Not empty reward"))
+        return HttpResponse (_("No reward with empty name"))
     if project.state > 3:
         return HttpResponse (_("Cannot add reward to a finished project"))
     Reward(project=project, title=request.POST["reward"]).save()
