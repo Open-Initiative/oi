@@ -732,3 +732,13 @@ div.spectypes {
     position: fixed;
     background-color: white;
 }
+.featureblock {
+    padding: 10px;
+    margin-bottom: .5em;
+    margin-top: 0.5em;
+    background: white;
+    overflow: hidden;
+    border: 1px solid #E3E3E5;
+    border-radius: 3px;
+    text-align: center;
+}

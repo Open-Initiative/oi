@@ -194,7 +194,7 @@
                         
                         <div class="popup_reward invisible" id="rewarddescription_{{reward.id}}" onclick="document.ignoreClosePopups = true;">
                             <span class="rewardtitle">{% trans "Edit the reward description" %}</span>
-                            <textarea id="fieldreward_{{reward.id}}">{{reward.description|oiunescape}}</textarea>
+                            <textarea id="fieldreward_{{reward.id}}" class="norich">{{reward.description|oiunescape}}</textarea>
                             <img class="clickable fundingright" src="/img/icons/ok.png" onclick="editRewardDescription({{object.id}}, {{reward.id}});hidePopups()"/>
                         </div>
                         
@@ -208,6 +208,7 @@
                         </div>
                     </div>
                     <div id="reward_bottom_line_{{reward.id}}" class="reward_bottom_line cleared"></div>
+                    <script>tinyMCE.execCommand('mceAddControl', false, "fieldreward_{{reward.id}}")</script>
                 {% endfor %}
                 </div>
                 {% endif %}

@@ -960,10 +960,6 @@ div.sepspecfooter {
     max-width:150px; 
     max-height:150px;
 }
-.blockfeatureright{
-    float:right; 
-    width:32%;
-}
 .editfeature{
     color: black;
     font-size: 10px;

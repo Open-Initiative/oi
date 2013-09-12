@@ -34,7 +34,7 @@
 
     <div id="featureDiv_{{task.id}}" class="featureblock" title="{{task.title}}" style="padding: 1%;{% if not task.public_read %} opacity:.4;{% endif %}">
         
-        <div class="blockfeatureright">
+        <div class="fundingright">
             <div><span class="funded">{{task.allbid_sum|default:0|floatformat:"-2"}} €</span> {% trans "funded" %}</div>
             <div class="progressbar">
                 <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%;">{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%</span>
