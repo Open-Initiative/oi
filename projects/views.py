@@ -248,7 +248,7 @@ def editrewarddescription(request, id):
        return HttpResponse (_("Wrong arguments"))
         
     if request.POST.get('description'):
-        reward.description = request.POST['description']
+        reward.description = oiescape(request.POST['description'])
         reward.save()
         
     return HttpResponse (_("Description edited"))
