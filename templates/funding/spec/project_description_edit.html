@@ -3,7 +3,7 @@
 {% with project.spec_set.all|dictsort:"order" as specs %}
 <div class="cleared edit_title"><b>{% trans "Describe here what is to be done in" %} "{{project.title}}" </b><div class="cleared sepsearch"></div></div>
 {% with "None" as lang %}
-<input name="spectype" id="type_{{project.id}}_1_{{lang}}" value="{% if specs.0.file %}2{% else %}1{% endif %}" type="hidden"/>
+<input name="spectype" id="type_{{project.id}}_1_{{lang}}" value="2" type="hidden"/>
 <input name="specid" id="specid_1_{{lang}}" value="{{specs.0.id|default:0}}" type="hidden"/>
 <input name="projectid" id="projectid_1_{{lang}}" value="{{project.id}}" type="hidden"/>
 <input name="specorder" id="specorder_1_{{lang}}" value="1" type="hidden"/>

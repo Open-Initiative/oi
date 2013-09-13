@@ -42,24 +42,30 @@ function specsToSave(projectid){
     var specid = document.getElementsByName("specid");
     var specorder = document.getElementsByName("specorder");
     var speclang = document.getElementsByName("speclang");
+    var file_value = document.getElementById("file_"+projectid+"_1_None").value;
     for (var i = 0; i < specid.length; i++){
         if(specorder[i].value == 3) tinyMCE.execCommand('mceRemoveControl', false, "text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value)
         var existTextValue = document.getElementById("text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value).value;
-        if(specorder[i].value == 1 || existTextValue && existTextValue != ""){
+        if(specorder[i].value == 1 && file_value || existTextValue && existTextValue != ""){
             nbSpecToSave ++; 
         }
     }
-    saveAllSpec(projectid, nbSpecToSave);
+    if(nbSpecToSave != 0){
+        saveAllSpec(projectid, nbSpecToSave);
+    }else{
+        checkSavedSpecs(projectid);
+    }
 }
 function saveAllSpec(projectid, nbSpecToSave){
     var specid = document.getElementsByName("specid");
     var specorder = document.getElementsByName("specorder");
     var speclang = document.getElementsByName("speclang");
+    var file_value = document.getElementById("file_"+projectid+"_1_None").value;
     nbspec = 0;
     for (var i = 0; i < specid.length; i++){
         if(specorder[i].value == 3) tinyMCE.execCommand('mceRemoveControl', false, "text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value)
         var existTextValue = document.getElementById("text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value).value;
-        if(specorder[i].value == 1 || existTextValue && existTextValue != ""){
+        if(specorder[i].value == 1 && file_value || existTextValue && existTextValue != ""){
             saveSpec(projectid+"_"+specorder[i].value+"_"+speclang[i].value, projectid, specorder[i].value, specid[i].value, speclang[i].value, "funding", function(){
                 if(nbspec == nbSpecToSave) checkSavedSpecs(projectid);
             });
