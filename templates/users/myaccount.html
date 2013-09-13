@@ -16,7 +16,7 @@
             <p>
                 {% trans "Amount" %}: <b style="font-size: 17px;">{{amount}}€ </b>
             </p>
-            {% trans "You are about to be redirected to our" %} {% trans "payment service provider who will confirm" %} {% trans "transaction." %}<br /><br/>
+            {% trans "You are about to be redirected to our payment service provider who will confirm the transaction." %}<br /><br/>
             {% trans "Do you confirm?" %}
             <div class="cleared"></div>
             <br /><br/>
@@ -31,7 +31,7 @@
             </div>
             {% if request.GET.orderID %}
             <div id="didpayment" class="confirmpaymentblock">
-                <h2 id="">{% trans "Thank you for contributing to" %} <br/> {% trans "the funding of the feature" %}</h2>
+                <h2 id="">{% trans "Thank you for contributing to <br/> the funding of the feature" %}</h2>
                 <div class="cleared"></div>
                 <br /><br/>
                 <p>{% trans "You will be redirected to the project page" %}</p>

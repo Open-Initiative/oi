@@ -157,6 +157,13 @@ def has_group(group_list, grouper):
     
     return False
     
+@register.filter
+def filter_order(project, order):
+    for spec in project.spec_set.all():
+        if spec.order == order:
+            return spec
+    return False
+    
 @register.simple_tag
 def show_stars(value, dest=None):
     id = "".join([random.choice(string.lowercase) for i in range(5)])

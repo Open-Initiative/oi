@@ -1417,8 +1417,8 @@ msgid "Submit your project"
 msgstr "Déposer votre projet"
 
 #: templates/funding/index.html:86
-msgid "Your about to start creating and funding your free software project."
-msgstr ""
+msgid "You are about to start funding your free software project."
+msgstr "Vous allez démarrer un projet de financement d'un logiciel libre"
 
 #: templates/funding/index.html:87
 msgid "First enter your project title"
@@ -1430,7 +1430,7 @@ msgstr "Créer"
 
 #: templates/funding/index.html:97
 msgid "Feature by feature"
-msgstr "Evolution par l'évolution"
+msgstr "Evolution par évolution"
 
 #: templates/funding/index.html:99
 msgid ""
@@ -1446,7 +1446,7 @@ msgstr ""
 
 #: templates/funding/index.html:103
 msgid "Results engagement"
-msgstr "Résultats des engagement"
+msgstr "Engagement sur le résultat"
 
 #: templates/funding/index.html:105
 msgid ""
@@ -1500,6 +1500,7 @@ msgid ""
 "All the result projects on Open Funding are distributed under Free license. "
 "It's up to each developer to specify if otherwise."
 msgstr ""
+"Les résultats des projets d'Open Funding sont distribuées sous licence libre."
 
 #: templates/funding/index.html:121 templates/funding/project_detail.html:176
 msgid "Reward"
@@ -1521,14 +1522,14 @@ msgstr ""
 
 
 #: templates/funding/index.html:127
-msgid "More_info"
-msgstr "Plus_d'info"
+msgid "More info"
+msgstr "Plus d'info"
 
 #: templates/funding/index.html:129
 msgid ""
 "If you want to know more about Open Funding and project creation, visit our"
 msgstr ""
-"Si vous voulez en savoir plus a propos d'Open Funding et de la création de projet, visiter notre"
+"Si vous voulez en savoir plus à propos d'Open Funding et de la création de projet, visiter notre"
 
 #: templates/funding/index.html:129
 msgid "presentation page"
@@ -3248,12 +3249,8 @@ msgid "Do you confirm?"
 msgstr "Confirmez-vous le dépôt ?"
 
 #: templates/users/myaccount.html:34
-msgid "Thank you for contributing to"
-msgstr "Merci de contribuer au"
-
-#: templates/users/myaccount.html:34
-msgid "the funding of the feature"
-msgstr "le financement de l'offre de cette évolution"
+msgid "Thank you for contributing to <br/> the funding of the feature"
+msgstr "Merci de contribuer au financement de l'offre"
 
 #: templates/users/myaccount.html:37
 msgid "You will be redirected to the project page"

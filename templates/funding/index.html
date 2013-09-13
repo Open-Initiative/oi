@@ -83,11 +83,11 @@
     <div class="invisible prjlist" id="prjlist0">
         <div class="projectlisttitle">{% trans "Submit your project" %}</div>
         <form class="form_center" onsubmit="if(getValue('prjtitle')) addTask(getValue('prjtitle'), null, null,function(taskid){document.location = '/funding/'+taskid+'/edit'});return false" >
-            <p class="details_title">{% trans "Your about to start creating and funding your free software project." %}</p>
+            <p class="details_title">{% trans "You are about to start funding your free software project." %}</p>
             <p class="form_center details_title">{% trans "First enter your project title" %}</p>
             <input id="prjtitle"/>
             <p class="continuebtn" style="width: 7%;margin-left: auto;margin-right: auto;">
-                <input class="nobtnstyle" type="text" value="{% trans 'Create' %}" />
+                <input class="nobtnstyle" type="submit" value="{% trans 'Create' %}" />
             </p>
         </form>
     </div>
@@ -106,7 +106,7 @@
             </p>
         </div>
         <div id="reache_your_community" class="details_task">
-            <h3>{% trans "Reache your community" %}</h3>
+            <h3>{% trans "Reach your community" %}</h3>
             <p>
                 {% trans "Funding your project with Open Funding allows you to connect with your users in a simple way and to a wider community interested in free software development. But money is not coming alone. To achieve it, you'll have to spread the word and let the people know your project, by promoting it with specialized outlets that can help you reach them so they can fund your initiative. If you need more guidance in this topic, you can contact us" %}<a href="/contact"> {% trans "here" %}</a>.
             </p>
@@ -124,7 +124,7 @@
             </p>
         </div>
         <div id="more_info" class="details_task">
-            <h3>{% trans "More_info" %}</h3>
+            <h3>{% trans "More info" %}</h3>
             <p>
                 {% trans "If you want to know more about Open Funding and project creation, visit our" %} <a href="/presentation">{% trans "presentation page" %}</a> {% trans "or contact us" %} <a href="mailto:contact@open-initiative.com?Subject={% trans 'Know%20more' %}" target="_top">{% trans "here" %}</a>.
             </p>
