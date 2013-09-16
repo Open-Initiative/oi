@@ -35,6 +35,7 @@ from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
 from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.conf import settings
 
 #def getprojects(request):
 #    """Apply filter to project list"""
@@ -1008,12 +1009,10 @@ def savespec(request, id, specid='0'):
     spec.save()
 
     #notify users about this spec change
-    if request.POST.has_key("funding"):
-        project.notify_all(request.user, "project_spec", spec.text)
-        return render_to_response('funding/spec/spec.html',{'user': request.user, 'project' : project, 'spec' : spec})
-    
     project.notify_all(request.user, "project_spec", spec.text)
-    return render_to_response('projects/spec/spec.html',{'user': request.user, 'project' : project, 'spec' : spec})
+    redirect_url = settings.REDIRECT_URL
+    return render_to_response('%sspec/spec.html'%(redirect_url[1:]),{'user': request.user, 'project' : project, 'spec' : spec})
+    
 
 @OINeedsPrjPerms(OI_WRITE)
 def movespec(request, id, specid):

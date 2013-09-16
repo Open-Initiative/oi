@@ -66,7 +66,7 @@ function saveAllSpec(projectid, nbSpecToSave){
         if(specorder[i].value == 3) tinyMCE.execCommand('mceRemoveControl', false, "text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value)
         var existTextValue = document.getElementById("text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value).value;
         if(specorder[i].value == 1 && file_value || existTextValue && existTextValue != ""){
-            saveSpec(projectid+"_"+specorder[i].value+"_"+speclang[i].value, projectid, specorder[i].value, specid[i].value, speclang[i].value, "funding", function(){
+            saveSpec(projectid+"_"+specorder[i].value+"_"+speclang[i].value, projectid, specorder[i].value, specid[i].value, speclang[i].value, function(){
                 if(nbspec == nbSpecToSave) checkSavedSpecs(projectid);
             });
         }

@@ -140,7 +140,7 @@
         {% with project.spec_set.all|dictsort:"order" as specs %}
         {% if specs.7 or object|can_manage:user %}
         <h4>{% trans "Link to the project website" %}</h4>
-            {% with spec=project|filter_order:8 order=8 divid='software' %}{%include 'funding/spec_detail_column_right.html'%}{% endwith %}
+            {% with spec=project|filter_order:8 order=8 divid='software' %}{%include 'funding/project_detail_column_right.html'%}{% endwith %}
         {% endif %}
         {% endwith %}    
     </div>
@@ -224,12 +224,12 @@
             
             {% if specs.5 or object|can_manage:user %}
             <h4>{% trans "Deposite" %}</h4>
-            {% with spec=project|filter_order:5 order=5 divid='deposite' %}{%include 'funding/spec_detail_column_right.html'%}{% endwith %}
+            {% with spec=project|filter_order:5 order=5 divid='deposite' %}{%include 'funding/project_detail_column_right.html'%}{% endwith %}
             {% endif %}
             
             {% if specs.6 or object|can_manage:user %}
             <h4>{% trans "Licence" %}</h4>
-            {% with spec=project|filter_order:6 order=6 divid='licence' %}{%include 'funding/spec_detail_column_right.html'%}{% endwith %}
+            {% with spec=project|filter_order:6 order=6 divid='licence' %}{%include 'funding/project_detail_column_right.html'%}{% endwith %}
             {% endif %}
           
         </div>  
