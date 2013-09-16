@@ -67,7 +67,7 @@ function saveAllSpec(projectid, nbSpecToSave){
         var existTextValue = document.getElementById("text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value).value;
         if(specorder[i].value == 1 && file_value || existTextValue && existTextValue != ""){
             saveSpec(projectid+"_"+specorder[i].value+"_"+speclang[i].value, projectid, specorder[i].value, specid[i].value, speclang[i].value, function(){
-                if(nbspec == nbSpecToSave) checkSavedSpecs(projectid);
+                if(++nbspec == nbSpecToSave) checkSavedSpecs(projectid);
             });
         }
     }

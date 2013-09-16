@@ -489,7 +489,6 @@ function saveSpec(divid, projectid, order, specid, lang, callBack) {
             div.style.position = "relative";
             if(document.getElementById("sepspec_"+projectid)) 
                 div.parentNode.removeChild(document.getElementById("sepspec_"+projectid));
-            if(lang) nbspec++;
             if(callBack) callBack();
         }
     );
