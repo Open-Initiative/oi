@@ -51,7 +51,7 @@
                 <span class="supportbtn clickable" onclick="showPopup(document.getElementById('bidpopup_{{task.id}}')); ">{% trans "Support" %}</span>
             {% endif %}
             </div>
-            <a class="clickable" onclick="showPopup(document.getElementById('featurebudget_{{task.id}}'))">{% trans "List of funders" %}</a>
+            <a class="clickable" onclick="showPopup(document.getElementById('featurebudget_{{task.id}}'))">{{task.bid_set.count}} {% trans "funders" %}</a>
         </div>
         
         <div id="feature_{{task.id}}" class="featuretitle">{{task.title}}</div>
