@@ -45,7 +45,6 @@
     
 </div>
 
-{% regroup project.spec_set.all|dictsort:"language" by language as language_list %}
 {% if not language_list|has_group:"fr" %}
 {% with "fr" as lang %}
 <div class="cleared invisible" id="translationblock">

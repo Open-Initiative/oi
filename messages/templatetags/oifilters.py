@@ -158,8 +158,8 @@ def has_group(group_list, grouper):
     return False
     
 @register.filter
-def filter_order(project, order):
-    for spec in project.spec_set.all():
+def filter_order(specs, order):
+    for spec in specs:
         if spec.order == order:
             return spec
     return False

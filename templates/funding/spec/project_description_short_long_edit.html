@@ -2,9 +2,9 @@
 ﻿﻿{% load oifilters %}
 
 <div class="cleared sepsearch"></div>
-
+{% with spec2=specs|filter_order:2 %}
 <input name="spectype" id="type_{{project.id}}_2_{{lang}}" value="1" type="hidden"/>
-<input name="specid" id="specid_2_{{lang}}" value="{{specs.1.id|default:0}}" type="hidden"/>
+<input name="specid" id="specid_2_{{lang}}" value="{{spec2.id|default:0}}" type="hidden"/>
 <input name="projectid" id="projectid_2_{{lang}}" value="{{project.id}}" type="hidden"/>
 <input name="specorder" id="specorder_2_{{lang}}" value="2" type="hidden"/>
 <input name="speclang" id="lang_2_{{lang}}" value="{{lang}}" type="hidden"/>
@@ -15,13 +15,14 @@
 
 <p class="help-funding">{% trans "This description is 200 characters maximum and will be shown in the home page, try to be specific." %}</p>
 <div id="{{project.id}}_2_{{lang}}" class="column">
-    <input id="text_{{project.id}}_2_{{lang}}" class="projectbaseline" value="{{specs.1.text|oiunescape}}" maxlength="200" />
+    <input id="text_{{project.id}}_2_{{lang}}" class="projectbaseline" value="{{spec2.text|oiunescape}}" maxlength="200" />
 </div>
-
+{% endwith %}
 <div class="cleared sepsearch" style="margin-bottom:-2%"></div>
 
+{% with spec3=specs|filter_order:3 %}
 <input name="spectype" id="type_{{project.id}}_3_{{lang}}" value="1" type="hidden"/>
-<input name="specid" id="specid_3_{{lang}}" value="{{specs.2.id|default:0}}" type="hidden"/>
+<input name="specid" id="specid_3_{{lang}}" value="{{spec3.id|default:0}}" type="hidden"/>
 <input name="projectid" id="projectid_3_{{lang}}" value="{{project.id}}" type="hidden"/>
 <input name="specorder" id="specorder_3_{{lang}}" value="3" type="hidden"/>
 <input name="speclang" id="lang_3_{{lang}}" value="{{lang}}" type="hidden"/>
@@ -29,8 +30,9 @@
     <b>{% trans "A long description including : who you are, why you do it, how it can be used..." %}</b>
 </div>
 <div id="{{project.id}}_3_{{lang}}" class="column">
-    <textarea id="text_{{project.id}}_3_{{lang}}" class="norich">{{specs.2.text|oiunescape}}</textarea>
+    <textarea id="text_{{project.id}}_3_{{lang}}" class="norich">{{spec3.text|oiunescape}}</textarea>
 </div>
+{% endwith %}
 
 <p class="help-funding">{% trans "Explain the details of your project: why you do it, how can it be used,  and the information you found important to attract the backers. Be as specific as you can." %}</p>
 
