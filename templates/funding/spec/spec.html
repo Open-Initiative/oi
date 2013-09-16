@@ -19,7 +19,7 @@
             <p class="funding_short">
                 {% if spec.text|length > 300 and spec.order == 3 %}
                     {{spec.text|oiunescape|slice:"310"}}...
-                    <p class="clickable" style="text-align:right" onclick="seeMore('visible_{{object.id}}_{{spec.order}}_desc', 'invisible_{{object.id}}_{{spec.order}}_desc')"><a>{% trans "See more" %}</a></p>
+                    <span class="clickable" style="float:right; margin-top: 20px;" onclick="seeMore('visible_{{object.id}}_{{spec.order}}_desc', 'invisible_{{object.id}}_{{spec.order}}_desc')"><a>{% trans "See more" %}</a></span>
                 {% else %}
                     {{spec.text|oiunescape}}
                 {% endif %}
@@ -28,7 +28,7 @@
         {% if spec.text|length > 300 %}
             <div id="invisible_{{object.id}}_{{spec.order}}_desc" class="invisible">
                 {{spec.text|oiunescape}}
-                <p class="clickable" style="text-align:right" onclick="seeMore('visible_{{object.id}}_{{spec.order}}_desc', 'invisible_{{object.id}}_{{spec.order}}_desc')"><a>{% trans "See less" %}</a></p>
+                <span class="clickable" style="float:right; margin-top: 20px;" onclick="seeMore('visible_{{object.id}}_{{spec.order}}_desc', 'invisible_{{object.id}}_{{spec.order}}_desc')"><a>{% trans "See less" %}</a></span>
             </div>
         {% endif %}
     {% endif %}

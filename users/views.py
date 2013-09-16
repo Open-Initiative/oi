@@ -65,6 +65,10 @@ def myaccount(request):
         else:
             request.user.get_profile().update_payment(dict_params) 
         
+        params = {"PARAMPLUS": project}
+        extra_context['params'] = params
+        return direct_to_template(request, template='users/myaccount.html', extra_context=extra_context)
+        
     elif request.GET.get("amount"): #request for payment
         amount = Decimal((request.GET['amount']).replace(',','.')).quantize(Decimal('.01'))
         if request.GET.get("project"): #from a bid

@@ -5,7 +5,7 @@
 
     <div class="popupbox">
         <div id="payment_popup_title" class="payment_popup_title" onclick="document.ignoreClosePopups = true;">
-            {% if request.GET.project %}
+            {% if request.GET.project and task %}
                 {% trans "Support the feature" %} <b>{{task.title}}</b> <br/>
                 {% trans "of the project" %} <a href="/funding/{{task.master.id}}">{{task.master.title}}</a>
             {% endif %}
@@ -31,10 +31,10 @@
             </div>
             {% if request.GET.orderID %}
             <div id="didpayment" class="confirmpaymentblock">
-                <h2 id="">{% trans "Thank you for contributing to <br/> the funding of the feature" %}</h2>
+                <h2>{% if request.GET.project %}{% trans "Thank you for contributing to the feature" %} <b><i>{{params.PARAMPLUS.title}}</i></b> {% trans "on the project" %} {{params.PARAMPLUS.parent.title}}{% else %}{% trans "Thank you for supporting Open Funding" %}{% endif %}</h2>
                 <div class="cleared"></div>
                 <br /><br/>
-                <p>{% trans "You will be redirected to the project page" %}</p>
+                <p>{% if request.GET.project %}{% trans "You will be redirected to the project page" %}{% else %}{% trans "You will be redirected to my account" %}{% endif %}</p>
                 <form action="{% if request.GET.project %}/funding/{{request.GET.project}}{% else %}/user/myaccount{% endif %}">
                     <input style="padding: 1.3%;" class="form_center nobtnstyle continuebtn" type="submit" value="{% trans 'Continue' %}">
                 </form>

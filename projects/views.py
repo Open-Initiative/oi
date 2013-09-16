@@ -1083,8 +1083,9 @@ def uploadfile(request, id, specid='0'):
     tempfile = open("%s%s_%s_%s"%(TEMP_DIR,request.user.id,ts,filename), 'wb+')
     for chunk in uploadedfile.chunks():
         tempfile.write(chunk)
-    tempfile.close()
-    return render_to_response('projects/spec/fileframe.html',{'divid':divid,'filename':filename,'ts':ts,'projectid':id})
+    tempfile.close() 
+    redirect_url = settings.REDIRECT_URL
+    return render_to_response('%sspec/fileframe.html'%(redirect_url[1:]),{'divid':divid,'filename':filename,'ts':ts,'projectid':id})
 
 @OINeedsPrjPerms(OI_WRITE)
 def deltmpfile(request, id):

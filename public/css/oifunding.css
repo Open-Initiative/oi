@@ -768,7 +768,7 @@ div.sepspecfooter {
     position: relative;
     float:left;
     border:solid 1px;
-    color: #6C6D6E;
+    color: black;
     width: 90%;
     border-radius: 3px;
     font-size: 0.8em;
@@ -783,8 +783,9 @@ div.sepspecfooter {
     height: 1em;
 }
 .progresstitle {
-    margin: 2px;
+    margin: 1px;
     position: absolute;
+    left: 50%;
 }
 .tax{
     font-size: 11px;

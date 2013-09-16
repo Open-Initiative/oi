@@ -45,12 +45,12 @@
                 <img class="pluginlogo" src="/img/logo_funding.png">
                 {% trans "Support " %}<br/>{{object.title}}
                 {% with object.descendants|filter_read:user as descendants %}<div class="pluginsum">
-                    {% blocktrans with amount=descendants.missingbid_sum %}
-                        {{amount|floatformat:"-2"}} € <span class="plugin-nobold">to go!</span>
+                    {% blocktrans with amount=descendants.missingbid_sum|floatformat:"-2" %}
+                        {{amount}} € <span class="plugin-nobold">to go!</span>
                     {% endblocktrans %}
                     <div class="progressbar">
                         <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio descendants.allbid_sum|add:object.bid_sum object.get_selfbudget|default:descendants.allbudget 100 %}%;"></span>
-                        <span id="progresslabel_{{object.id}}" class="progresstitle" >{% widthratio descendants.allbid_sum|add:object.bid_sum object.get_selfbudget|default:descendants.allbudget 100 %} %</span>
+                        <div id="progresslabel_{{object.id}}" class="progresstitle" >{% widthratio descendants.allbid_sum|add:object.bid_sum object.get_selfbudget|default:descendants.allbudget 100 %} %</div>
                     </div>
                 </div>{% endwith %}
             </div>
