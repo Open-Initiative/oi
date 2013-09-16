@@ -87,6 +87,7 @@ def myaccount(request):
         params["ownercty"] = request.user.get_profile().country
         params["ownertown"] = request.user.get_profile().city
         params["ownertelno"] = request.user.get_profile().phone
+        params["language"] = "%s_%s"(request.LANGUAGE_CODE,request.LANGUAGE_CODE)
         if request.GET.get("project"):
             params["PARAMPLUS"] = "project=%s"%request.GET["project"]
         params["SHASign"] = computeSHA(params)
