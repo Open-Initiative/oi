@@ -77,7 +77,7 @@ def myaccount(request):
         payment = Payment(user=request.user, amount=0, project_id=0, reason='Paiement en attente de validation')
         payment.save()
         
-        params = {"PSPID":"openinitiative", "currency":"EUR", "language":"fr_FR", "TITLE":"", "BGCOLOR":"", "TXTCOLOR":"", "TBLBGCOLOR":"", "TBLTXTCOLOR":"", "BUTTONBGCOLOR":"", "BUTTONTXTCOLOR":"", "LOGO":"", "FONTTYPE":""}
+        params = {"PSPID":"openinitiative", "currency":"EUR", "TITLE":"", "BGCOLOR":"", "TXTCOLOR":"", "TBLBGCOLOR":"", "TBLTXTCOLOR":"", "BUTTONBGCOLOR":"", "BUTTONTXTCOLOR":"", "LOGO":"", "FONTTYPE":""}
         params['orderID'] = payment.id
         params['amount'] = (amount*100).quantize(Decimal('1.'))
         params["CN"] = "%s %s"%(request.user.first_name, request.user.last_name)
