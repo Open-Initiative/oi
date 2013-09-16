@@ -139,7 +139,7 @@
         <p><img alt="{% trans 'The number of all the funder' %}" title="{% trans 'The number of all the funder' %}" src="/img/logosmall.png" width="21px;" height="18px;"> {{project.count_all_funding_user}} {% trans "users" %}</p>
         {% with project.spec_set.all|dictsort:"order" as specs %}
         {% if specs.7 or object|can_manage:user %}
-        <h4>{% trans "Link to the project website" %}</h4>
+        <h4>{% trans "Project website" %}</h4>
             {% with spec=project|filter_order:8 order=8 divid='software' %}{%include 'funding/spec_detail_column_right.html'%}{% endwith %}
         {% endif %}
         {% endwith %}    
