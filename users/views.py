@@ -57,7 +57,7 @@ def myaccount(request):
     if request.GET.get("orderID"): #return from payment
         
         dict_params = dict(request.GET.items()) #to obtain a mutable version of the QueryDict
-        if dict_params.get("prjamount") and dict_params.get("project"): 
+        if dict_params.get("project"): 
             project = Project.objects.get(id=dict_params.pop("project"))
 
             delta = request.user.get_profile().update_payment(dict_params)
@@ -88,7 +88,7 @@ def myaccount(request):
         params["ownertown"] = request.user.get_profile().city
         params["ownertelno"] = request.user.get_profile().phone
         if request.GET.get("project"):
-            params["PARAMPLUS"] = "prjamount=%s&project=%s"%(request.GET['amount'], request.GET["project"])
+            params["PARAMPLUS"] = "project=%s"%(request.GET["project"])
         params["SHASign"] = computeSHA(params)
         extra_context['params'] = params 
         extra_context['action'] = PAYMENT_ACTION
@@ -340,7 +340,7 @@ def updatepayment(request):
     logging.getLogger("oi").debug(request)
     
     dict_params = dict(request.POST.items()) #to obtain a mutable version of the QueryDict
-    if dict_params.get("prjamount") and dict_params.get("project"): 
+    if dict_params.get("project"): 
         project = Project.objects.get(id=dict_params.pop("project"))
         delta = user.get_profile().update_payment(dict_params)
         project.makebid(user, delta)
