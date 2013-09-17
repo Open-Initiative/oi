@@ -1119,7 +1119,7 @@ msgid ""
 "By funding this feature you will enable improvements to this software. You "
 "will be given the chance to validate that the development is done the way "
 "you want. An e-mail will let you know that you can test the feature when it "
-"is developped, so that you can validate it is done."
+"is developed, so that you can validate it is done."
 msgstr ""
 "En finançant cette évolution, vous permettez à ce logiciel de s'améliorer. "
 "Vous aurez la possibilité de valider que le développement est fait de la "
@@ -1358,12 +1358,12 @@ msgid "contribute"
 msgstr "participez"
 
 #: templates/funding/index.html:16
-msgid "to the projects brought by the developpers"
+msgid "to the projects brought by the developers"
 msgstr "aux projets portés par des développeurs"
 
 #: templates/funding/index.html:18
 msgid ""
-"Easy! Support the evolutions you want and save time. The developpers are "
+"Easy! Support the evolutions you want and save time. The developers are "
 "waiting for you, all you have to do is clicking on the feature you need!"
 msgstr ""
 "C’est facile ! Soutenez les évolutions qui vous intéressent et gagnez du "
@@ -2109,7 +2109,7 @@ msgid "less picture"
 msgstr "image plus"
 
 #: templates/funding/project_detail.html:275
-msgid "Developper's corner"
+msgid "Developer's corner"
 msgstr "Le coin développeur"
 
 #: templates/funding/project_detail.html:278
@@ -2668,7 +2668,7 @@ msgid "has reached 100% of its funding."
 msgstr "a atteint 100% du financement."
 
 #: templates/notification/project_progress_dev/notice.html:15
-msgid "You can start the developping now"
+msgid "You can start the development now"
 msgstr "Vous pouvez commencer le développement"
 
 #: templates/notification/project_progress_dev/notice.html:19
