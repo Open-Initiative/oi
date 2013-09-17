@@ -92,7 +92,7 @@ def myaccount(request):
         params["ownertown"] = request.user.get_profile().city
         params["ownertelno"] = request.user.get_profile().phone
         if request.GET.get("project"):
-            params["PARAMPLUS"] = "project=%s"%(request.GET["project"])
+            params["PARAMPLUS"] = "project=%s"%request.GET["project"]
         params["SHASign"] = computeSHA(params)
         extra_context['params'] = params 
         extra_context['action'] = PAYMENT_ACTION
