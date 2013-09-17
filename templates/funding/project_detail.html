@@ -224,7 +224,7 @@
         {% if object.reward_set.all or object|can_manage:user %}
         <div class="myprofile" style="margin-bottom: 10px;">
             <div class="column-right">
-                <h2 class="detail_subtitle">{% trans "Reward" %}</h2>
+                <h3 class="detail_subtitle">{% trans "Reward" %}</h3>
                 {% if object|can_manage:user %}<p class="form_center"><a class="clickable tax" onclick="showPopup(document.getElementById('newreward'));">{% trans "Add a reward" %} <img src="/img/icons/addgreen.png" title="{% trans 'Add a reward' %}" alt="{% trans 'Add a reward' %}"></a></p>{% endif %}
                 
                 <div id="newreward" class="invisible popup_reward" onclick="document.ignoreClosePopups = true;">

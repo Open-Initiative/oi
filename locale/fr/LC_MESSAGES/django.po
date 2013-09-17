@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-01 13:55+0200\n"
+"POT-Creation-Date: 2013-09-17 10:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
 #: helpers.py:31 templates/funding/project_detail.html:54
@@ -124,7 +124,7 @@ msgstr "Arguments incorrects"
 
 #: messages/models.py:140 messages/views.py:66 messages/views.py:76
 #: messages/views.py:80 projects/models.py:525 projects/views.py:287
-#: projects/views.py:340 templates/funding/project_detail.html:351
+#: projects/views.py:340 templates/funding/project_detail.html:354
 #: templates/funding/project_edit.html:44
 #: templates/projects/project_detail.html:120
 msgid "Forbidden"
@@ -456,13 +456,14 @@ msgstr "Commission"
 msgid "Refund of bid"
 msgstr "Remboursement de la participation"
 
-#: projects/models.py:677 templates/funding/project_detail.html:198
+#: projects/models.py:677 templates/funding/project_detail.html:249
 msgid "Description and conditions"
 msgstr "Description et conditions"
 
 #: projects/models.py:678
 msgid "Reward object (technical support, T-shirt, personnalized e-mail...)"
-msgstr "Objet de la récompense (support technique, T-shirt, e-mail personnalisé...) "
+msgstr ""
+"Objet de la récompense (support technique, T-shirt, e-mail personnalisé...) "
 
 #: projects/models.py:679
 msgid "Picture that illustrate the reward"
@@ -935,7 +936,7 @@ msgstr "Suivez nous sur Twitter"
 #: templates/base.html:151 templates/index-root.html:98
 #: templates/funding/base.html:144 templates/funding/feature.html:24
 #: templates/funding/feature_budget.html:39
-#: templates/funding/project_detail.html:286
+#: templates/funding/project_detail.html:107
 #: templates/funding/dialogue/bid.html:5
 #: templates/projects/dialogue/bid.html:5
 #: templates/projects/dialogue/offer.html:5 templates/users/register.html:35
@@ -1145,7 +1146,7 @@ msgstr "En finançant cette évolution, vous acceptez les"
 msgid "Continue"
 msgstr "Continuer"
 
-#: templates/funding/feature.html:33 templates/funding/project_detail.html:132
+#: templates/funding/feature.html:33 templates/funding/project_detail.html:183
 msgid "funded"
 msgstr "financés"
 
@@ -1161,7 +1162,7 @@ msgstr "restant"
 msgid "Change the price of this feature"
 msgstr "Modifier l'offre de cette évolution"
 
-#: templates/funding/feature.html:55 templates/funding/project_detail.html:121
+#: templates/funding/feature.html:55 templates/funding/project_detail.html:172
 msgid "Support"
 msgstr "Soutenir"
 
@@ -1193,11 +1194,11 @@ msgstr "Supprimer"
 msgid "delete feature"
 msgstr "supprimer l'évolution"
 
-#: templates/funding/feature.html:95 templates/funding/spec/spec.html:22
+#: templates/funding/feature.html:97 templates/funding/spec/spec.html:22
 msgid "See more"
 msgstr "En voir plus"
 
-#: templates/funding/feature.html:97 templates/funding/spec/spec.html:31
+#: templates/funding/feature.html:99 templates/funding/spec/spec.html:31
 msgid "See less"
 msgstr "En voir moins"
 
@@ -1325,7 +1326,7 @@ msgstr "veut annuler cette tâche"
 msgid "You will be reimbursed in full."
 msgstr "Vous serez intégralement remboursé."
 
-#: templates/funding/feature_description.html:14
+#: templates/funding/feature_description.html:13
 #: templates/projects/project_description.html:18
 #: templates/projects/project_sum.html:14
 msgid "Add a description"
@@ -1460,7 +1461,24 @@ msgstr ""
 msgid "Reach your community"
 msgstr "Atteignez votre communauté"
 
-#: templates/funding/index.html:112 templates/funding/index.html.py:130
+#: templates/funding/index.html:111
+msgid ""
+"Funding your project with Open Funding allows you to simply connect with "
+"your users and with a wider community interested in free software. But money "
+"won't come by itself. To achieve your goals, you'll have to spread the word "
+"and let the people know about your project, by promoting it in any way that "
+"help you reach them so they can fund your work. If you need more guidance in "
+"this topic, we're"
+msgstr ""
+"Financer votre projet avec Open Funding vous permet de créer un lien avec "
+"vos utilisateurs d'une façon assez simple et d'élargir votre communauté en "
+"touchant d'autres personnes intéressées par le logiciel libre. Mais l'argent "
+"ne vient pas tout seul. Pour réussir, vous devrez communiquer largement pour "
+"faire connaitre que votre projet, en faisant la promotion sur tous les "
+"canauxsur lesquels vous pourrez toucher votre cible. Si vous avez besoin de "
+"plus d'aide sur ce sujet, nous sommes"
+
+#: templates/funding/index.html:111 templates/funding/index.html.py:129
 #: templates/notification/answer/notice.html:16
 #: templates/notification/funded_project/notice.html:18
 #: templates/notification/has_funded_project/notice.html:17
@@ -1471,15 +1489,15 @@ msgstr "Atteignez votre communauté"
 msgid "here"
 msgstr "ici"
 
-#: templates/funding/index.html:112
+#: templates/funding/index.html:111
 msgid "to help."
 msgstr "pour vous aider."
 
-#: templates/funding/index.html:116 templates/funding/project_detail.html:232
+#: templates/funding/index.html:115 templates/funding/project_detail.html:283
 msgid "Licence"
 msgstr "Licence"
 
-#: templates/funding/index.html:118
+#: templates/funding/index.html:117
 msgid ""
 "All the projects on Open Funding are distributed under a free license. It's "
 "up to each developer to specify the licence they use."
@@ -1487,11 +1505,11 @@ msgstr ""
 "Les projets sur Open Funding sont distribuées sous licence libre. Chaque "
 "développeur peut indiquer la licence qu'il utilise."
 
-#: templates/funding/index.html:122 templates/funding/project_detail.html:177
+#: templates/funding/index.html:121 templates/funding/project_detail.html:228
 msgid "Reward"
 msgstr "Récompense"
 
-#: templates/funding/index.html:124
+#: templates/funding/index.html:123
 msgid ""
 "On our platform users and developers exchange a product delivery, but "
 "developers also have the option to encourage their funders through bonus "
@@ -1506,26 +1524,26 @@ msgstr ""
 "ou tout ce que vous pouvez imaginer. Soyez créatif pour attirer l'attention "
 "sur votre projet."
 
-#: templates/funding/index.html:128
+#: templates/funding/index.html:127
 msgid "More info"
 msgstr "Plus d'info"
 
-#: templates/funding/index.html:130
+#: templates/funding/index.html:129
 msgid ""
 "If you want to know more about Open Funding and project creation, visit our"
 msgstr ""
 "Si vous voulez en savoir plus à propos d'Open Funding et de la création de "
 "projets, visitez notre"
 
-#: templates/funding/index.html:130
+#: templates/funding/index.html:129
 msgid "presentation page"
 msgstr "page de présentation"
 
-#: templates/funding/index.html:130
+#: templates/funding/index.html:129
 msgid "or contact us"
 msgstr "ou contactez nous"
 
-#: templates/funding/index.html:130
+#: templates/funding/index.html:129
 msgid "Know%20more"
 msgstr "En%20savoir%20plus"
 
@@ -1899,7 +1917,7 @@ msgid "Waiting for validation"
 msgstr "Attente de validation"
 
 #: templates/funding/project_card.html:6
-#: templates/funding/project_detail.html:153
+#: templates/funding/project_detail.html:204
 #: templates/funding/project_edit.html:15
 #: templates/projects/project_card.html:4
 #: templates/projects/project_description.html:4
@@ -1942,133 +1960,11 @@ msgstr "En cours"
 msgid "Finished"
 msgstr "Terminées"
 
-#: templates/funding/project_detail.html:96
-msgid "Edit your project"
-msgstr "Editer votre projet"
-
-#: templates/funding/project_detail.html:97
-msgid "Integrate your project"
-msgstr "Intégrer votre projet"
-
-#: templates/funding/project_detail.html:100
-msgid "Big"
-msgstr "Grand"
-
-#: templates/funding/project_detail.html:101
-msgid "Small"
-msgstr "Petit"
-
-#: templates/funding/project_detail.html:102
-msgid "Tiny"
-msgstr "Mini"
-
-#: templates/funding/project_detail.html:114
-msgid "Proposed by"
-msgstr "Proposé par"
-
-#: templates/funding/project_detail.html:116
-msgid "funding"
-msgstr "financement"
-
-#: templates/funding/project_detail.html:117
-#: templates/funding/project_detail.html:143
-msgid "users"
-msgstr "utilisateurs"
-
-#: templates/funding/project_detail.html:129
-msgid "Finance software"
-msgstr "Financez votre logiciel"
-
-#: templates/funding/project_detail.html:138
-msgid "total"
-msgstr "total"
-
-#: templates/funding/project_detail.html:143
-msgid "The number of all the funder"
-msgstr "Le nombre de financer"
-
-#: templates/funding/project_detail.html:145
-msgid "Project website"
-msgstr "Site web du projet"
-
-#: templates/funding/project_detail.html:160
-#: templates/users/profile/profile.html:21
-#: templates/users/profile/profile.html:51
-msgid "Projects created"
-msgstr "Projets proposés"
-
-#: templates/funding/project_detail.html:161
-#: templates/users/profile/profile.html:22
-#: templates/users/profile/profile.html:55
-msgid "Projects funded"
-msgstr "Projets financés"
-
-#: templates/funding/project_detail.html:169
-msgid "Full bio"
-msgstr "Toute la biographie"
-
-#: templates/funding/project_detail.html:178
-msgid "Add a reward"
-msgstr "Ajouter une nouvelle récompense"
-
-#: templates/funding/project_detail.html:191
-msgid "Delete the reward"
-msgstr "Supprimer la récompense"
-
-#: templates/funding/project_detail.html:193
-msgid "Photo that illustrate the reward"
-msgstr "image qui illustre la récompense"
-
-#: templates/funding/project_detail.html:196
-msgid "remaining rewards"
-msgstr "récompenses restantes"
-
-#: templates/funding/project_detail.html:196
-msgid "plus picture"
-msgstr "image plus"
-
-#: templates/funding/project_detail.html:196
-msgid "Add stock reward"
-msgstr "Ajouter une récompense à votre stock"
-
-#: templates/funding/project_detail.html:196
-msgid "Remove stock reward"
-msgstr "Retirer une récompense de votre stock"
-
-#: templates/funding/project_detail.html:196
-msgid "less picture"
-msgstr "image plus"
-
-#: templates/funding/project_detail.html:224
-msgid "Developper's corner"
-msgstr "Le coin développeur"
-
-#: templates/funding/project_detail.html:227
-msgid "Deposit"
-msgstr "Dépôt"
-
-#: templates/funding/project_detail.html:235
-msgid "Unspecified"
-msgstr "Non précisée"
-
-#: templates/funding/project_detail.html:236
-#: templates/funding/project_detail.html:239
-msgid "Indicate the license used to distribute software"
-msgstr "Indiquer la licence utilisée pour distribuer le logiciel"
-
-#: templates/funding/project_detail.html:249
-msgid "Url licence repository"
-msgstr "Url de la licence"
-
-#: templates/funding/project_detail.html:256
-msgid "Save the description"
-msgstr "Enregistrer la description"
-
-#: templates/funding/project_detail.html:273
+#: templates/funding/project_detail.html:94
 msgid "What you have to do :"
 msgstr "Ce que vous devez faire :"
 
-#: templates/funding/project_detail.html:275
+#: templates/funding/project_detail.html:96
 msgid ""
 "You can create and edit new developments for your projects. Specify the "
 "title, make a description that explains its characteristics and determine "
@@ -2081,16 +1977,16 @@ msgstr ""
 "d'autres développements sur la page projet, vous pouvez accepter / "
 "reformuler si vous le souhaitez."
 
-#: templates/funding/project_detail.html:281
-#: templates/funding/project_detail.html:305
+#: templates/funding/project_detail.html:102
+#: templates/funding/project_detail.html:126
 msgid "insert a title"
 msgstr "insérer un titre"
 
-#: templates/funding/project_detail.html:284
+#: templates/funding/project_detail.html:105
 msgid "Feature price"
 msgstr "Prix de l'évolution"
 
-#: templates/funding/project_detail.html:286
+#: templates/funding/project_detail.html:107
 msgid ""
 "By adding this change you acknowledge <br/> that you have read and accepted "
 "the"
@@ -2098,16 +1994,16 @@ msgstr ""
 "En ajoutant ce changement, vous reconnaissez <br/> que vous avez lu et "
 "accepté les "
 
-#: templates/funding/project_detail.html:289
-#: templates/funding/project_detail.html:308
+#: templates/funding/project_detail.html:110
+#: templates/funding/project_detail.html:129
 msgid "Propose"
 msgstr "Propose"
 
-#: templates/funding/project_detail.html:297
+#: templates/funding/project_detail.html:118
 msgid "Propose a new feature"
 msgstr "Proposez une évolution"
 
-#: templates/funding/project_detail.html:299
+#: templates/funding/project_detail.html:120
 msgid ""
 "You can propose to the developer a new feature for this project. If it is "
 "accepted by the developer, the feature will be included in the project."
@@ -2115,15 +2011,137 @@ msgstr ""
 "Vous pouvez proposer au développeur une nouvelle évolution pour son projet. "
 "S'il l'accepte, l'évolution sera incluse dans le projet."
 
-#: templates/funding/project_detail.html:321
+#: templates/funding/project_detail.html:147
+msgid "Edit your project"
+msgstr "Editer votre projet"
+
+#: templates/funding/project_detail.html:148
+msgid "Integrate your project"
+msgstr "Intégrer votre projet"
+
+#: templates/funding/project_detail.html:151
+msgid "Big"
+msgstr "Grand"
+
+#: templates/funding/project_detail.html:152
+msgid "Small"
+msgstr "Petit"
+
+#: templates/funding/project_detail.html:153
+msgid "Tiny"
+msgstr "Mini"
+
+#: templates/funding/project_detail.html:165
+msgid "Proposed by"
+msgstr "Proposé par"
+
+#: templates/funding/project_detail.html:167
+msgid "funding"
+msgstr "financement"
+
+#: templates/funding/project_detail.html:168
+#: templates/funding/project_detail.html:194
+msgid "users"
+msgstr "utilisateurs"
+
+#: templates/funding/project_detail.html:180
+msgid "Finance software"
+msgstr "Financez votre logiciel"
+
+#: templates/funding/project_detail.html:189
+msgid "total"
+msgstr "total"
+
+#: templates/funding/project_detail.html:194
+msgid "The number of all the funder"
+msgstr "Le nombre de financer"
+
+#: templates/funding/project_detail.html:196
+msgid "Project website"
+msgstr "Site web du projet"
+
+#: templates/funding/project_detail.html:211
+#: templates/users/profile/profile.html:21
+#: templates/users/profile/profile.html:51
+msgid "Projects created"
+msgstr "Projets proposés"
+
+#: templates/funding/project_detail.html:212
+#: templates/users/profile/profile.html:22
+#: templates/users/profile/profile.html:55
+msgid "Projects funded"
+msgstr "Projets financés"
+
+#: templates/funding/project_detail.html:220
+msgid "Full bio"
+msgstr "Toute la biographie"
+
+#: templates/funding/project_detail.html:229
+msgid "Add a reward"
+msgstr "Ajouter une nouvelle récompense"
+
+#: templates/funding/project_detail.html:242
+msgid "Delete the reward"
+msgstr "Supprimer la récompense"
+
+#: templates/funding/project_detail.html:244
+msgid "Photo that illustrate the reward"
+msgstr "image qui illustre la récompense"
+
+#: templates/funding/project_detail.html:247
+msgid "remaining rewards"
+msgstr "récompenses restantes"
+
+#: templates/funding/project_detail.html:247
+msgid "plus picture"
+msgstr "image plus"
+
+#: templates/funding/project_detail.html:247
+msgid "Add stock reward"
+msgstr "Ajouter une récompense à votre stock"
+
+#: templates/funding/project_detail.html:247
+msgid "Remove stock reward"
+msgstr "Retirer une récompense de votre stock"
+
+#: templates/funding/project_detail.html:247
+msgid "less picture"
+msgstr "image plus"
+
+#: templates/funding/project_detail.html:275
+msgid "Developper's corner"
+msgstr "Le coin développeur"
+
+#: templates/funding/project_detail.html:278
+msgid "Deposit"
+msgstr "Dépôt"
+
+#: templates/funding/project_detail.html:286
+msgid "Unspecified"
+msgstr "Non précisée"
+
+#: templates/funding/project_detail.html:287
+#: templates/funding/project_detail.html:290
+msgid "Indicate the license used to distribute software"
+msgstr "Indiquer la licence utilisée pour distribuer le logiciel"
+
+#: templates/funding/project_detail.html:300
+msgid "Url licence repository"
+msgstr "Url de la licence"
+
+#: templates/funding/project_detail.html:307
+msgid "Save the description"
+msgstr "Enregistrer la description"
+
+#: templates/funding/project_detail.html:324
 msgid "Create a discussion"
 msgstr "Créer une discussion"
 
-#: templates/funding/project_detail.html:321
+#: templates/funding/project_detail.html:324
 msgid "Add a comment"
 msgstr "Ajouter un commentaire"
 
-#: templates/funding/project_detail.html:328
+#: templates/funding/project_detail.html:331
 msgid "Discuss"
 msgstr "Discuter de"
 
@@ -2494,8 +2512,8 @@ msgstr "a mis Open Initiative dans la version:"
 #: templates/notification/delegate/notice.html:4
 #, python-format
 msgid ""
-"wants to delegate the task <a href=\"http://%(current_site)s%(REDIRECT_URL)s"
-"%(id)s\" target=\"_blank\">%(title)s</a>to you."
+"wants to delegate the task <a href=\"http://%(current_site)s%(REDIRECT_URL)s%"
+"(id)s\" target=\"_blank\">%(title)s</a>to you."
 msgstr ""
 "veut vous déléguer la tâche <a href=\"%(current_site)s%(REDIRECT_URL)s%(id)s"
 "\" target=\"_blank\">%(title)s</a>."
@@ -2503,8 +2521,8 @@ msgstr ""
 #: templates/notification/delegate/notice.html:6
 #, python-format
 msgid ""
-"wants to delegate the project <a href=\"http://%(current_site)s"
-"%(REDIRECT_URL)s%(id)s\" target=\"_blank\">%(title)s</a> to you."
+"wants to delegate the project <a href=\"http://%(current_site)s%"
+"(REDIRECT_URL)s%(id)s\" target=\"_blank\">%(title)s</a> to you."
 msgstr ""
 "veut vous déléguer la tâche <a href=\"%(current_site)s%(REDIRECT_URL)s%(id)s"
 "\" target=\"_blank\">%(title)s</a>."
@@ -3691,22 +3709,6 @@ msgstr "Message envoyé"
 #: users/views.py:344
 msgid "Notice archived"
 msgstr "Notification archivée"
-
-#~ msgid ""
-#~ "Funding your project with Open Funding allows you to simply connect with "
-#~ "your users and with a wider community interested in free software. But "
-#~ "money won't come by itself. To achieve your goals, you'll have to spread "
-#~ "the word and let the people know about your project, by promoting it in "
-#~ "any way that help you reach them so they can fund your work. If you need "
-#~ "more guidance in this topic, we're"
-#~ msgstr ""
-#~ "Financer votre projet avec Open Funding vous permet de créer un lien avec "
-#~ "vos utilisateurs d'une façon assez simple et d'élargir votre communauté "
-#~ "en touchant d'autres personnes intéressées par le logiciel libre. Mais "
-#~ "l'argent ne vient pas tout seul. Pour réussir, vous devrez communiquer "
-#~ "largement pour faire connaitre que votre projet, en faisant la promotion "
-#~ "sur tous les canauxsur lesquels vous pourrez toucher votre cible. Si vous "
-#~ "avez besoin de plus d'aide sur ce sujet, nous sommes"
 
 msgid "overview"
 msgstr "Suivi"
