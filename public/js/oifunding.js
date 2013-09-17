@@ -78,8 +78,8 @@ function seeMore(dividblock1, dividblock2){
 }
 function selectplugin(projectid, plugintype) {
     if(plugintype == "big"){
-        var width = "270px";
-        var height = "310px";
+        var width = "300px";
+        var height = "400px";
     }else if(plugintype == "small"){
         var width = "240px";
         var height = "99px";

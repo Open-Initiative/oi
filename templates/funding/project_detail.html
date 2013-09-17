@@ -96,9 +96,9 @@
     {% if object|can_write:user %}
         <a href="edit"><div class="bidaction funding_space">{% trans "Edit your project" %}</div></a>
         <div class="bidaction clickable" onclick="showPopup(document.getElementById('pluginpopup'))">{% trans "Integrate your project" %}</div>
-        <div id="pluginpopup" class="invisible popup" onclick="document.ignoreClosePopups = true;">
+        <div id="pluginpopup" style="width: 120%;" class="invisible popup" onclick="document.ignoreClosePopups = true;">
             <form>
-                <textarea id="plugincode" class="norich" style="width:70%; float:right; height:10%"></textarea>
+                <textarea id="plugincode" class="norich" style="width:100%; float:right; height:65px"></textarea>
                 <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="big">{% trans "Big" %}<br>
                 <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="small">{% trans "Small" %}<br>
                 <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="tiny">{% trans "Tiny" %}<br>
@@ -332,10 +332,12 @@
     }else if(document.getElementById("features_4")){
         featureShowHide('features_4');
     }
+    {% if object|can_manage:user %}
     jQuery(".features_manage").sortable({update: function(event,ui){
         var params = jQuery(this).sortable("toArray").map(function(id,index) {return id+"="+index}).join("&");
         OIajaxCall("/project/{{object.id}}/sort", params, "output");
     }})
+    {% endif %}
 </script>
 {% else %}
 {% trans "Forbidden" %}
