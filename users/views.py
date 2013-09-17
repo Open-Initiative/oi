@@ -17,6 +17,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.utils.simplejson import JSONEncoder, JSONDecoder
 from django.utils.translation import ugettext as _
 from django.views.generic.simple import direct_to_template
+from django.views.decorators.csrf import csrf_exempt
 from oi.prjnotify.models import Notice, NoticeType, Observer
 from oi.settings import MEDIA_ROOT, MEDIA_URL, PAYMENT_ACTION
 from oi.helpers import render_to_pdf, OI_DISPLAYNAME_TYPES, computeSHA
@@ -334,18 +335,20 @@ def getusermessages(request, username):
     from_messages = PersonalMessage.objects.filter(to_user=contact).filter(from_user=request.user)
     messages = (to_messages|from_messages).order_by('sent_date')
     return direct_to_template(request, template="users/usermessages.html", extra_context = {'contact':contact,'personalmessages':messages})
- 
+
+@csrf_exempt
 def updatepayment(request):
     """HTTP Server-to-server request from payment service provider sent after user payment"""
     import logging
     logging.getLogger("oi").debug(request)
     
     dict_params = dict(request.POST.items()) #to obtain a mutable version of the QueryDict
+    user = Payment.objects.get(id=request.POST['orderID']).user
     if dict_params.get("project"): 
         project = Project.objects.get(id=dict_params.pop("project"))
         delta = user.get_profile().update_payment(dict_params)
-        project.makebid(user, delta)
+        if delta:
+            project.makebid(user, delta)
     else:
-        user = Payment.objects.get(id=request.POST['orderID']).user
         user.get_profile().update_payment(dict_params)
-    return HttpResponse('OK') 
+    return HttpResponse('OK')
