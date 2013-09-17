@@ -541,6 +541,9 @@ def bidproject(request, id):
         return HttpResponse(_("Invalid amount"))
     #checks that the user can afford the bid ; if not, redirects to the deposit page
     
+    if amount == Decimal("0"):
+        return HttpResponse (_("Invalid amount"))
+    
     if amount > request.user.get_profile().balance:
         amount = amount - request.user.get_profile().balance
         project.makebid(request.user, request.user.get_profile().balance) #to update the user account
