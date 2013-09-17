@@ -1,6 +1,6 @@
 {% load i18n %}
 {% if notice.project %}
-{% trans "we have great news! Your feature" %} <b><i>{{notice.project.title}}</i></b> {% trans "from the project" %} <a href="{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}" target="_blank">{{notice.project.parent.title}}</a> {% trans "which you have contributed to, has reached 100% of its funding. Now its time for developping." %}
+{% trans "we have great news! Your feature" %} <b><i>{{notice.project.title}}</i></b> {% trans "from the project" %} <a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}" target="_blank">{{notice.project.parent.title}}</a> {% trans "which you have contributed to, has reached 100% of its funding. It can now be developed!" %}
 
 {% with notice.project as task %}
 <div>
@@ -12,7 +12,7 @@
 </div>
 {% endwith %}
 
-{% trans "Visit the project page" %} <a href="{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}" target="_blank">{% trans "here" %}</a>.
+{% trans "Visit the project page" %} <a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}" target="_blank">{% trans "here" %}</a>.
 {% else %}
 {% trans "The project has been funded, but it is now deleted" %}
 {% endif %}

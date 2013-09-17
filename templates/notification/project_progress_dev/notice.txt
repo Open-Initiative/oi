@@ -2,7 +2,7 @@
 {% if notice.project %}
 {% trans "we have great news! Your feature" %} {{notice.project.title}} {% trans "from your project" %} {{notice.project.parent.title}} {% trans "has reached 100% of its funding." %}
 {% trans "You can start the developping now" %}
-{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}
+http://{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}
 {% else %}
 {{notice.sender.get_profile}} {% trans "has just funded the evolution but the project is now deleted" %}
 {% endif %}

@@ -1,7 +1,7 @@
 {% load i18n %}
 {% if notice.project %}
-<a href="{{current_site}}/user/profile/{{notice.sender.username}}" target="_blank">{{notice.sender.get_profile}}</a> 
-{% trans "has just funded the evolution:" %} <b><i>{{notice.project.title}}</i></b> {% trans "from your project" %} <a href="{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}" target="_blank">{{notice.project.parent.title}}</a> {% trans "with" %} {{notice.param}} €
+<a href="http://{{current_site}}/user/profile/{{notice.sender.username}}" target="_blank">{{notice.sender.get_profile}}</a> 
+{% trans "has just funded the evolution:" %} <b><i>{{notice.project.title}}</i></b> {% trans "from your project" %} <a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}" target="_blank">{{notice.project.parent.title}}</a> {% trans "with" %} {{notice.param}} €
 </br>
 {% trans "Now your project is at" %} {% widthratio notice.project.descendants.all.allbid_sum|add:notice.project.bid_sum notice.project.get_selfbudget|default:notice.project.descendants.all.allbudget 100 %} % {% trans "of his funding goal." %}
 
@@ -15,7 +15,7 @@
 </div>
 {% endwith %}
 
-{% trans "Visite the project page" %} <a href="{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}" target="_blank">{% trans "here" %}</a>.
+{% trans "Visite the project page" %} <a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}" target="_blank">{% trans "here" %}</a>.
 {% else %}
-<a href="{{current_site}}/user/profile/{{notice.sender.username}}" target="_blank">{{notice.sender.get_profile}}</a> {% trans "has just funded the evolution but the project is now deleted" %}
+<a href="http://{{current_site}}/user/profile/{{notice.sender.username}}" target="_blank">{{notice.sender.get_profile}}</a> {% trans "has just funded the evolution but the project is now deleted" %}
 {% endif %}

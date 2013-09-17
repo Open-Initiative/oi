@@ -5,4 +5,4 @@
 {% else %}
 {% blocktrans with title=notice.project.title %}wants to delegate the project{{title}} to you.{% endblocktrans %}
 {% endif %}
-{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}
+http://{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}

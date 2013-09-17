@@ -1,7 +1,7 @@
 {% load i18n %}
 {% if notice.project %}
 {% trans "we have great news! Your feature" %} {{notice.project.title}} {% trans "from your project" %} {{notice.project.parent.title}} {% trans "has reached 100% of its funding. Now its time for developping." %}
-{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}
+http://{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}
 {% else %}
 {% trans "The project has been funded, but it is now deleted" %}
 {% endif %}

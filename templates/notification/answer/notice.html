@@ -1,6 +1,6 @@
 {% load i18n %}{% load oifilters %}
 {% if notice.sender.is_authenticated %}
-<a href="{{current_site}}/user/profile/{{notice.sender.username}}" target="_blank">{{notice.sender.get_profile}}</a>
+<a href="http://{{current_site}}/user/profile/{{notice.sender.username}}" target="_blank">{{notice.sender.get_profile}}</a>
 {% else %} {% trans "guest" %} {% endif %}
 {% if notice.project.parent %}
 {% blocktrans %} has published a message on a task you follow:{% endblocktrans %} 
