@@ -2,7 +2,7 @@
 {% load i18n %}
 {% block title %}{% trans "Register" %}{% endblock %}
 {% block content %}
-<!--register me-->
+
 <div class="logbox">
     <div style="font-size: 2em" class="fundinggreen form_center fundingtitle">{% trans "REGISTER" %}</div>
     <br/>
@@ -27,7 +27,6 @@
     </form>
 </div>
 
-<!--login-in-->
 <div class="logbox">
     <div style="font-size: 2em;margin-bottom: 8%;" class="fundinggreen form_center fundingtitle">{% trans "LOG-IN" %}</div>
     <br/>
@@ -38,7 +37,7 @@
                     <b>{% trans "username" %}:</b>
                 </td>
                 <td>
-                    <input id="username_field" type="text" name="username" tabindex=1/>
+                    <input id="username_field" type="text" name="username" tabindex=3/>
                 </td>
             </tr>
             <tr>
@@ -46,7 +45,7 @@
                     <b>{% trans "password" %}:</b>
                 </td>
                 <td>
-                    <input type="password" name="password" id="id_password" tabindex=2/>
+                    <input type="password" name="password" id="id_password" tabindex=4/>
                 </td>
             </tr>
             <tr>
