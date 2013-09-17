@@ -1,5 +1,5 @@
 {% load i18n %}{% load oifilters %}
-<a href="{{current_site}}/user/profile/{{notice.sender.username}}" target="_blank">{{notice.sender.get_profile}}</a>
+<a href="http://{{current_site}}/user/profile/{{notice.sender.username}}" target="_blank">{{notice.sender.get_profile}}</a>
 {% if notice.project.parent %}
 {% trans "has changed the specification of a task you follow:" %} 
 {% else %}
@@ -11,4 +11,4 @@
 	<br>
 	<b>{% trans "Message" %}:</b> {{notice.param|oiunescape}}
 </div>
-<p>{% trans "If you’d like to see the original message or respond to the user you can go" %} <a href="{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}" target="_blank">{% trans "here" %}</a></p>
+<p>{% trans "If you’d like to see the original message or respond to the user you can go" %} <a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}" target="_blank">{% trans "here" %}</a></p>

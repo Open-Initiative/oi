@@ -6,4 +6,4 @@
 {% blocktrans %}has invited you to validate the project:{% endblocktrans %}
 {% endif %}
 {{notice.project.title}}
-{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}
+http://{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}

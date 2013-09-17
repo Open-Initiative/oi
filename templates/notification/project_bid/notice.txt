@@ -6,4 +6,4 @@
 {% trans "has added a bid on a project you follow:" %}  
 {% endif %}
 {{notice.project.title}}
-{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}
+http://{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}

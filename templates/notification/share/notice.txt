@@ -6,4 +6,4 @@
 {% blocktrans %}has invited you on a project:{% endblocktrans %}
 {% endif %}
 {{notice.project.title}}
-{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}
+http://{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}

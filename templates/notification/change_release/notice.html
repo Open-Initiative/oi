@@ -1,4 +1,4 @@
 {% load i18n %}
-<a href="{{current_site}}/user/profile/{{notice.sender.username}}" target="_blank">{{notice.sender.get_profile}}</a>
+<a href="http://{{current_site}}/user/profile/{{notice.sender.username}}" target="_blank">{{notice.sender.get_profile}}</a>
 {% blocktrans %}has put Open Initiative release's on:{% endblocktrans %} {{notice.param}}</br>
-<a href="{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}" target="_blank">{{notice.project.title}}</a>
+<a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}" target="_blank">{{notice.project.title}}</a>

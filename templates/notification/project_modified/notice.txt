@@ -7,4 +7,4 @@
 {% endif %}
 {{notice.project.title}}
 {{notice.param}}
-{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}
+http://{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}
