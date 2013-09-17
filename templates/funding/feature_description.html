@@ -1,12 +1,6 @@
 ﻿﻿{% load oifilters %}
 {% load i18n %}
 <div id="feature_form_popup" style="margin: 1%;">
-
-    <img class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hidePopups()" />
-
-    <h3 style="width:300px; margin-top:0px; margin-bottom: 25px;">{{task.title}}</h3>
-
-    <div class="spec_author">{% trans "Project created by" %} <b>{{task.author.get_profile}}</b></div>
     <div id="specs_{{task.id}}">
         {%for spec in task.spec_set.all|dictsort:"order"%}
         <div style="position:relative" id="spec_{{task.id}}_{{spec.order}}" class="cleared">
@@ -20,6 +14,5 @@
         <a class="clickable" onclick="addSpec({{task.id}})"><img src="/img/icons/add.png" /> 
             {% trans "Add a description" %}
         </a>
-    {% endif %}
-    
+    {% endif %}    
 </div>

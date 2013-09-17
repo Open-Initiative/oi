@@ -170,16 +170,12 @@ function resetProjectTitle(projectid, title) {
     if(document.getElementById("feature_"+projectid)) document.getElementById('feature_'+projectid).innerHTML = title;
     if(oiTree) setTaskName(oiTree.nodes[projectid].titleDiv, projectid, title, viewname);
 }
-function bidProject(projectid, funding) {
-    if(!funding){
-        OIajaxCall("/project/bid/"+projectid, null, "prjdialogue_"+projectid,
-            function(){show("prjdialogue_"+projectid);
-            document.getElementById('bid_'+projectid).focus();});
-    }else{
-        OIajaxCall("/funding/bid/"+projectid, null, "prjdialogue_"+projectid,
-            function(){show("prjdialogue_"+projectid);
-            document.getElementById('bid_'+projectid).focus();});
-    }
+function bidProject(projectid) {
+    OIajaxCall("/project/bid/"+projectid, null, "prjdialogue_"+projectid,
+        function(){show("prjdialogue_"+projectid);
+            document.getElementById('bid_'+projectid).focus();
+        }
+    );
 }
 function confirmBidProject(projectid) {
     if(document.getElementById("acceptcgu").checked){

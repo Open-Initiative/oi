@@ -40,7 +40,7 @@
         {% if object.all_not_started_tasks.count > 1 %}<img id="nextfeature" class="clickable plugin-arrow" src="/img/icons/next.png" onclick="switchNextFeature()"/>{% endif %}
         
         {% else %}{% if request.GET.type == "small" %}
-        <a href="/funding/{{object.id}}" target="_blank">
+        <a href="/funding/{{object.id}}" target="_blank" style="text-decoration: none !important;">
             <div class="pluginsmall">
                 <img class="pluginlogo" src="/img/logo_funding.png">
                 {% trans "Support " %}<br/>{{object.title}}
