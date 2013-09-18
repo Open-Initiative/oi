@@ -86,6 +86,8 @@
         $( document ).ready(function() {
             if(document.location.hash=='#feature_{{task.id}}'){
                 show('featuredesc_{{task.id}}');
+                hide('see_more_{{task.id}}');
+                show('no_see_more_{{task.id}}');
             }
         });
     </script>
