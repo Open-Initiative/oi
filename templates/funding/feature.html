@@ -72,18 +72,21 @@
         
         <div class="form_center cleared">
             {% if task|can_manage:user or task.spec_set.count%}
-            <span class="fundingleft"><a id="see_more_{{task.id}}" class="clickable" onclick="document.location.hash='featuredesc_{{task.id}}';hide(this.id);show('no_see_more_{{task.id}}');{% if task|can_write:user and task.state < 4 and task.spec_set.all.count < 1 %}addSpec('{{task.id}}');{% endif %}show('featuredesc_{{task.id}}')">{% trans "See more" %}</a>
+            <span class="fundingleft"><a id="see_more_{{task.id}}" class="clickable" onclick="document.location.hash='feature_{{task.id}}';hide(this.id);show('no_see_more_{{task.id}}');{% if task|can_write:user and task.state < 4 and task.spec_set.all.count < 1 %}addSpec('{{task.id}}');{% endif %}show('featuredesc_{{task.id}}')">{% trans "See more" %}</a>
             
             <a id="no_see_more_{{task.id}}" class="clickable invisible" onclick="document.location.hash='';show('see_more_{{task.id}}');hide(this.id);hide('featuredesc_{{task.id}}')">{% trans "See less" %}</a></span>
             {% endif %}
         </div>
         
     </div>
-
-
     <script>
         $(function() {
             $("#featurebudget_{{task.id}}").draggable();
+        });
+        $( document ).ready(function() {
+            if(document.location.hash=='#feature_{{task.id}}'){
+                show('featuredesc_{{task.id}}');
+            }
         });
     </script>
 
