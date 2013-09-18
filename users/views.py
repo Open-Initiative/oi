@@ -61,7 +61,8 @@ def myaccount(request):
             project = Project.objects.get(id=dict_params.pop("project"))
 
             delta = request.user.get_profile().update_payment(dict_params)
-            project.makebid(request.user, delta) #to update the user account
+            if delta:
+                project.makebid(request.user, delta) #to update the user account
         else:
             request.user.get_profile().update_payment(dict_params) 
         

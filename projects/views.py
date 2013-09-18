@@ -541,25 +541,24 @@ def bidproject(request, id):
         return HttpResponse(_("Invalid amount"))
     #checks that the user can afford the bid ; if not, redirects to the deposit page
     
-    if amount == Decimal("0"):
-        return HttpResponse (_("Invalid amount"))
-    
-    if amount > request.user.get_profile().balance:
-        amount = amount - request.user.get_profile().balance
-        project.makebid(request.user, request.user.get_profile().balance) #to update the user account
+    if request.user.get_profile().balance == 0:
         return HttpResponse('/user/myaccount?amount=%s&project=%s'%((amount).to_eng_string(),project.id),status=333)
+
+    missing = amount - request.user.get_profile().balance
+    amount = amount - missing
     
-    project.makebid(request.user, amount) #to update the user account
-    
-    #check if the project progress is 100% funded
-    if round((project.allbid_sum()/(project.offer + project.commission + project.get_commission_tax())*Decimal('100'))) == Decimal('100.0'):
+   #check if the project progress is 100% funded
+    if project.allbid_sum() < project.offer + project.commission + project.get_commission_tax() and project.allbid_sum() + amount >= project.offer + project.commission + project.get_commission_tax():
         #notify users about the progress
         project.notify_all(project.assignee, "project_progress_users", project.progress)
         #notify developper about the progress
-        project.assignee.get_profile().get_default_observer(project).notify("project_progress_dev", project=project)       
-    
+
+     project.makebid(request.user, amount) #to update the user account
+
+    if missing > 0:
+        return HttpResponse('/user/myaccount?amount=%s&project=%s'%((missing).to_eng_string(),project.id),status=333)
+
     messages.info(request, _("Bid saved"))
-    
     return HttpResponse('', status=332)
   
 @OINeedsPrjPerms(OI_READ)
