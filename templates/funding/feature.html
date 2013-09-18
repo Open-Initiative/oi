@@ -8,11 +8,6 @@
         {% include 'funding/feature_budget.html' %}
     </div>
     
-    {% if task|can_manage:user or task.spec_set.count%}
-    <div id="featuredesc_{{task.id}}" class="featuredetail invisible" onclick="document.ignoreClosePopups = true;">
-        {% include 'funding/feature_description.html' %}
-    </div>
-    {% endif %}
     {% if task.state < 4 and task|can_bid:user or not user.is_authenticated %}
     <div id="bidpopup_{{task.id}}" class="popup_spec invisible" onclick="document.ignoreClosePopups = true;">
             <img style="position: relative;top: 14%;" class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hidePopups()" />
@@ -69,11 +64,17 @@
         {% endfor %}
         </div>
         
+        {% if task|can_manage:user or task.spec_set.count%}
+        <div id="featuredesc_{{task.id}}" class="featuredetailspec invisible">
+            {% include 'funding/feature_description.html' %}
+        </div>
+        {% endif %}
+        
         <div class="form_center cleared">
             {% if task|can_manage:user or task.spec_set.count%}
-            <span class="fundingleft"><a id="see_more_{{task.id}}" class="clickable" onclick="hide(this.id);show('no_see_more_{{task.id}}');{% if task|can_write:user and task.state < 4 and task.spec_set.all.count < 1 %}addSpec('{{task.id}}');{% endif %}showPopup(document.getElementById('featuredesc_{{task.id}}'))">{% trans "See more" %}</a>
+            <span class="fundingleft"><a id="see_more_{{task.id}}" class="clickable" onclick="document.location.hash='featuredesc_{{task.id}}';hide(this.id);show('no_see_more_{{task.id}}');{% if task|can_write:user and task.state < 4 and task.spec_set.all.count < 1 %}addSpec('{{task.id}}');{% endif %}show('featuredesc_{{task.id}}')">{% trans "See more" %}</a>
             
-            <a id="no_see_more_{{task.id}}" class="clickable invisible" onclick="showPopup(document.getElementById('featuredesc_{{task.id}}'))">{% trans "See more" %}</a></span>
+            <a id="no_see_more_{{task.id}}" class="clickable invisible" onclick="document.location.hash='';show('see_more_{{task.id}}');hide(this.id);hide('featuredesc_{{task.id}}')">{% trans "See less" %}</a></span>
             {% endif %}
         </div>
         
@@ -82,7 +83,6 @@
 
     <script>
         $(function() {
-            $("#featuredesc_{{task.id}}").draggable();
             $("#featurebudget_{{task.id}}").draggable();
         });
     </script>
