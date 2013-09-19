@@ -49,7 +49,7 @@
             <a class="clickable" onclick="showPopup(document.getElementById('featurebudget_{{task.id}}'))">{{task.bid_set.count}} {% trans "funders" %}</a>
         </div>
         
-        <div id="feature_{{task.id}}" class="featuretitle">{{task.title}}</div>
+        <div id="feature_{{task.id}}" class="featuretitle clickable" onclick="document.location.hash='feature_{{task.id}}';hide('see_more_{{task.id}}');show('no_see_more_{{task.id}}');{% if task|can_write:user and task.state < 4 and task.spec_set.all.count < 1 %}addSpec('{{task.id}}');{% endif %}show('featuredesc_{{task.id}}')">{{task.title}}</div>
         
         {% if task|can_write:user and task.state < 4 %}<span class="fundingleft editfeature">
             {% if task.state < 2 %}{% trans "Edit" %} <img src="/img/icons/edit.png" alt="{% trans 'edit title' %}" title="{% trans 'edit title' %}" class="clickable" onclick="var newtitle = prompt(gettext('Please insert a title :'), '{{task.title}}');if(newtitle){confirmEditTitle({{task.id}}, newtitle);}" />{% endif %}
