@@ -552,6 +552,7 @@ def bidproject(request, id):
         #notify users about the progress
         project.notify_all(project.assignee, "project_progress_users", project.progress)
         #notify developper about the progress
+        project.assignee.get_profile().get_default_observer(project).notify("project_progress_dev", project=project)
 
     project.makebid(request.user, amount) #to update the user account
 
