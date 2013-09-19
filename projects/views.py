@@ -553,7 +553,7 @@ def bidproject(request, id):
         project.notify_all(project.assignee, "project_progress_users", project.progress)
         #notify developper about the progress
 
-     project.makebid(request.user, amount) #to update the user account
+    project.makebid(request.user, amount) #to update the user account
 
     if missing > 0:
         return HttpResponse('/user/myaccount?amount=%s&project=%s'%((missing).to_eng_string(),project.id),status=333)
