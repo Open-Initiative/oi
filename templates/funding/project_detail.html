@@ -32,13 +32,13 @@
             {% endwith %}
             
             {% with spec=project.all_specs_with_languages|filter_order:2 object=project %}
-            <div style="position:relative; float:left" id="spec_{{object.id}}_{{spec.order}}" class="funding_space">
+            <div style="position:relative;" id="spec_{{object.id}}_{{spec.order}}" class="funding_space">
                 {%include 'funding/spec/spec.html'%}
             </div>
             {% endwith %}
             
             {% with spec=project.all_specs_with_languages|filter_order:3 object=project %}
-            <div style="position:relative; float:left" id="spec_{{object.id}}_{{spec.order}}" class="funding_space">
+            <div style="position:relative;" id="spec_{{object.id}}_{{spec.order}}" class="funding_space">
                 {%include 'funding/spec/spec.html'%}
             </div>
             {% endwith %}
