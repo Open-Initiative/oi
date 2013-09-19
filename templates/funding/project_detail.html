@@ -26,19 +26,19 @@
         </div>
         <div id="specs_{{project.id}}" class="prjdesc">
             {% with spec=project.spec_set.all|filter_order:1 object=project %}
-            <div style="position:relative" id="spec_{{object.id}}_{{spec.order}}" class="cleared funding_space">
+            <div style="position:relative; float:right" id="spec_{{object.id}}_{{spec.order}}" class="funding_space">
                 {%include 'funding/spec/spec.html'%}
             </div>
             {% endwith %}
             
             {% with spec=project.all_specs_with_languages|filter_order:2 object=project %}
-            <div style="position:relative" id="spec_{{object.id}}_{{spec.order}}" class="cleared funding_space">
+            <div style="position:relative; float:left" id="spec_{{object.id}}_{{spec.order}}" class="funding_space">
                 {%include 'funding/spec/spec.html'%}
             </div>
             {% endwith %}
             
             {% with spec=project.all_specs_with_languages|filter_order:3 object=project %}
-            <div style="position:relative" id="spec_{{object.id}}_{{spec.order}}" class="cleared funding_space">
+            <div style="position:relative; float:left" id="spec_{{object.id}}_{{spec.order}}" class="funding_space">
                 {%include 'funding/spec/spec.html'%}
             </div>
             {% endwith %}

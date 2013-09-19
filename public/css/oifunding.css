@@ -27,8 +27,6 @@
     border-top: 1px solid #E0E0E0;
     margin-top: .5em;
 }
-.presnavsection {
-}
 .projectlisttitle {
   color: #1E9947;
   font-size: 200%;
@@ -295,7 +293,6 @@ div.prj-action-wait {
     font-size: 1.5em;
     font-weight: bold;
     overflow: hidden;
-/*    margin-bottom: .5em;*/
     text-align: left;
 }
 .funded {
@@ -800,8 +797,6 @@ div.sepspecfooter {
     border-left: 1px solid #E0E0E0;
 }
 .featurebox {
-/*    width:  32%;*/
-/*    float:  left;*/
     margin-left: 3px; 
     margin-right: 1%;
 }
