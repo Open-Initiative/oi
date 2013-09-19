@@ -23,6 +23,8 @@ from oi.helpers import render_to_pdf, OI_DISPLAYNAME_TYPES, computeSHA
 from oi.users.models import User, UserProfile, UserProfileForm, PersonalMessage, Payment
 from oi.users.models import Training, TrainingForm, Experience, ExperienceForm, Skill, SkillForm, OI_USERPROFILE_DETAILS_CLASSES
 from oi.projects.models import Bid, Project
+from django.core.validators import URLValidator
+from django.core.exceptions import ValidationError
 
 @login_required
 def myprofile(request):
@@ -123,7 +125,15 @@ def savename(request):
 def savecontactinfo(request):
     """saves user contact information"""
     form = UserProfileForm(request.POST, instance=request.user.get_profile())
-    form.save()
+    
+    if request.POST.get("personal_website"):
+        validate = URLValidator(verify_exists=True)
+        try:
+            validate(request.POST.get("personal_website"))
+        except ValidationError, e:
+            return HttpResponse(_("Thank you to enter a valid url address"))
+    
+    form.save() 
     return HttpResponse(_("Information saved"))
 
 @login_required
