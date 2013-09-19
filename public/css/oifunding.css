@@ -1030,9 +1030,7 @@ div.sepspecfooter {
 }
 .featuredetailspec {
     background: none repeat scroll 0 0 white;
-    border: 1px solid #E3E3E5;
-    border-radius: 3px;
     text-align: start;
-    position: relative;
     margin-top: 6%;
+    position: relative;
 }

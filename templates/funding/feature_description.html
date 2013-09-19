@@ -1,7 +1,6 @@
 ﻿﻿{% load oifilters %}
 {% load i18n %}
 <div id="feature_form_popup" style="margin: 1%;">
-    <img class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hide('featuredesc_{{task.id}}');document.location.hash=''" />
     <div id="specs_{{task.id}}">
         {%for spec in task.spec_set.all|dictsort:"order"%}
         <div style="position:relative" id="spec_{{task.id}}_{{spec.order}}" class="cleared">
