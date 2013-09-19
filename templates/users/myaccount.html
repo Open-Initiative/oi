@@ -41,7 +41,7 @@
         </div>
         <script>showPopup(document.getElementById('didpayment'));</script>
         {% endif %}
-        {% if request.GET.STATUS != '9' %}
+        {% if request.GET.orderID and request.GET.STATUS != '9' %}
         <div id="didpayment" class="confirmpaymentblock">
             <h2>{% trans "The payment has been cancelled" %}</h2>
             <div class="cleared"></div>
