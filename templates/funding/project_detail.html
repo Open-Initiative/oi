@@ -142,12 +142,10 @@
         {% endwith %}
         <div class="cleared"></div>
         <p><img alt="{% trans 'The number of all the funder' %}" title="{% trans 'The number of all the funder' %}" src="/img/logosmall.png" width="21px;" height="18px;"> {{project.count_all_funding_user}} {% trans "users" %}</p>
-        {% with project.spec_set.all|dictsort:"order" as specs %}
-        {% if specs.7 or object|can_manage:user %}
+        {% if project.spec_set.all|filter_order:8 or object|can_manage:user %}
         <h4>{% trans "Project website" %}</h4>
             {% with spec=project.spec_set.all|filter_order:8 order=8 divid='software' %}{%include 'funding/project_detail_column_right.html'%}{% endwith %}
         {% endif %}
-        {% endwith %}    
     </div>
     <div class="cleared"></div>
     
@@ -222,24 +220,22 @@
         </div>
         {% endif %}
         
-        {% with project.spec_set.all|dictsort:"order" as specs %}
-        {% if specs.5 and specs.6 or object|can_manage:user %}
+        {% if project.spec_set.all|filter_order:5 or project.spec_set.all|filter_order:6 or object|can_manage:user %}
         <div class="column-right myprofile">
             <h3>{% trans "Developper's corner" %}</h3>
             
-            {% if specs.5 or object|can_manage:user %}
+            {% if project.spec_set.all|filter_order:5 or object|can_manage:user %}
             <h4>{% trans "Deposite" %}</h4>
             {% with spec=project.spec_set.all|filter_order:5 order=5 divid='deposite' %}{%include 'funding/project_detail_column_right.html'%}{% endwith %}
             {% endif %}
             
-            {% if specs.6 or object|can_manage:user %}
+            {% if project.spec_set.all|filter_order:6 or object|can_manage:user %}
             <h4>{% trans "Licence" %}</h4>
             {% with spec=project.spec_set.all|filter_order:6 order=6 divid='licence' %}{%include 'funding/project_detail_column_right.html'%}{% endwith %}
             {% endif %}
           
         </div>  
         {% endif %} 
-        {% endwith %}
     
     </div>
 </div>
