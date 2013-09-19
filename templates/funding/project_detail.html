@@ -207,7 +207,6 @@
                                 {% csrf_token %}
                                 <input id="picturereward_{{reward.id}}" name="file" type="file" size="1" onchange="document.getElementById('reward_picture_form_{{reward.id}}').submit();hidePopups()" />
                             </form>
-                            <img class="clickable fundingright" src="/img/icons/ok.png" onclick=""/>
                         </div>
                     </div>
                     <div id="reward_bottom_line_{{reward.id}}" class="reward_bottom_line cleared"></div>
@@ -231,7 +230,26 @@
             
             {% if project.spec_set.all|filter_order:6 or object|can_manage:user %}
             <h4>{% trans "Licence" %}</h4>
-            {% with spec=project.spec_set.all|filter_order:6 order=6 divid='licence' %}{%include 'funding/project_detail_column_right.html'%}{% endwith %}
+            {% with spec=project.spec_set.all|filter_order:6 order=6 divid='licence' %}
+            
+                <input name="spectype" id="type_desc_{{divid}}" value="1" type="hidden"/>
+                <input name="specid" id="specid_desc_{{divid}}" value="{{spec.id|default:0}}" type="hidden"/>
+                <input name="projectid" id="projectid_desc_{{divid}}" value="{{project.id}}" type="hidden"/>
+                <input name="specorder" id="specorder_desc_{{divid}}" value="9" type="hidden"/>
+                
+                <p>
+                    <span id="desc_{{divid}}">{% if spec.text %}{{spec.text|oiunescape}}{% else %}{% trans "No description given" %}{% endif %}</span> 
+                    {% if object|can_manage:user %}<img class="clickable" title="{% trans 'Edit the licence description' %}" alt="{% trans 'Edit the licence description' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('licencedescription_{{spec.id}}'))"/>{% endif %}
+                </p>
+                
+                <div class="popup_reward invisible" id="licencedescription_{{spec.id}}" onclick="document.ignoreClosePopups = true;">
+                    <span class="rewardtitle">{% trans "Edit the licence description" %}</span>
+                    <textarea id="text_desc_{{divid}}" class="norich">{{spec.text|oiunescape}}</textarea>
+                    <img title="{% trans 'Save the description' %}" class="clickable fundingright" src="/img/icons/ok.png" onclick="saveSpec('desc_{{divid}}',{{project.id}},getValue('specorder_desc_{{divid}}'),{{spec.id|default:0}});hidePopups()"/>
+                </div>
+                <script>tinyMCE.execCommand('mceAddControl', false, "text_desc_{{divid}}")</script>
+                {%include 'funding/project_detail_column_right.html'%}
+            {% endwith %}
             {% endif %}
           
         </div>  
