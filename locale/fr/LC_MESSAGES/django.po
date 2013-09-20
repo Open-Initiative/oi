@@ -2636,11 +2636,9 @@ msgstr "Le project a été financé, mais est maintenant supprimé"
 #: templates/notification/project_progress_users/notice.html:3
 #, python-format
 msgid ""
-"which you have contributed to, has reached 100% of its funding. Now its time "
-"for developping."
+"which you have contributed to, has reached 100% of its funding. It can now be developed!"
 msgstr ""
-"dont vous avez contribué, a atteint 100% de son financement. Maintenant son "
-"heure pour son développement."
+"dont vous avez contribué, a atteint 100% de son financement. Elle va à présent pouvoir être développée !"
 
 #: templates/notification/project_spec/notice.html:4
 msgid "has changed the specification of a task you follow:"

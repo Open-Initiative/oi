@@ -12,26 +12,26 @@
 {% spaceless %}
 <div style="background-color: #FFFFFF;border: 1px solid #D3CFCF;border-radius: 20px 20px 20px 20px;color: #444444;font-family: Helvetica,Arial,sans-serif;font-size: 10px;line-height: 19px;margin: auto;padding: 2%;width: 630px;">
     <div style="border:4px #0094B5 solid"></div>
-    <a href="{{current_site}}/" style="text-decoration: none">
+    <a href="http://{{current_site}}/" style="text-decoration: none">
         <div style="text-align: center; margin: 0 0 50px 50px; width: 420px; font-weight: bold; color: #D0574C">
-            <img src="{{current_site}}/img/logo.png" alt="Open Initiative" style="border: none; float: left"/>
+            <img src="http://{{current_site}}/img/logo.png" alt="Open Initiative" style="border: none; float: left"/>
             <p style="color: #0094B5; font-size: 11px; margin: 0 2px; text-transform: uppercase">{% trans "The IT community dedicated to your business" %}</p>
-            <img src="{{current_site}}/img/baseunderline.png" alt="baseline" style="border: none"/>
+            <img src="http://{{current_site}}/img/baseunderline.png" alt="baseline" style="border: none"/>
         </div>
     </a>
-    <p align="right" style="font-size: 14px; position: relative; top: -4.1em; right: 0%;"><a href="{{current_site}}/" style="text-decoration: none; color: #0094B5">  {% trans "login" %}  <img src="{{current_site}}/img/login.png" style="border: none; position: relative; top: 0.4em; right: 0%"/></a></p>
+    <p align="right" style="font-size: 14px; position: relative; top: -4.1em; right: 0%;"><a href="http://{{current_site}}/" style="text-decoration: none; color: #0094B5">  {% trans "login" %}  <img src="http://{{current_site}}/img/login.png" style="border: none; position: relative; top: 0.4em; right: 0%"/></a></p>
     <div style="border-top:1px gray solid; position: relative; top: -5em"></div>
     <div style="position: relative; top: -6.2em">
         <p style="color: #0094B5; font-size: 20px">{% trans "Hello" %} {{recipient.get_profile}},</p>
         {% for notice in notices %}{% with 'notification/'|add:notice.notice_type.label|add:'/notice.html' as template_name %}
         <div style="font-size: 13px; padding-bottom: 15px;">{% include template_name %}</div>
         {% endwith %}{% endfor %}
-        <p style="color: #D0574C; font-size: 14px"><a href="{{current_site}}{{notices_url}}" style="text-decoration: none; color: #D0574C">{% trans "See all notices" %}
-            <img src="{{current_site}}/img/notification.png" style="border: none; position: relative; bottom: -0.5em; left: 0%"/></a>
+        <p style="color: #D0574C; font-size: 14px"><a href="http://{{current_site}}{{notices_url}}" style="text-decoration: none; color: #D0574C">{% trans "See all notices" %}
+            <img src="http://{{current_site}}/img/notification.png" style="border: none; position: relative; bottom: -0.5em; left: 0%"/></a>
         </p>
     </div>
 <div style="border-top:1px gray solid; position: relative; bottom: 6em"></div>
-<p style="font-size: 12px; color: gray; position: relative; bottom: 5em; text-align: center;">{% trans "To change the frequency of sending of your notification, " %} <a href="{{current_site}}/notification/settings/"> {% trans "click here." %}</a></p>
+<p style="font-size: 12px; color: gray; position: relative; bottom: 5em; text-align: center;">{% trans "To change the frequency of sending of your notification, " %} <a href="http://{{current_site}}/notification/settings/"> {% trans "click here." %}</a></p>
 </div>
 {% endspaceless %}
 </body>
