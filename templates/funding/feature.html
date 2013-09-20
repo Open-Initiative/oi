@@ -40,6 +40,15 @@
                 <span class="amount">{{task.missing_bid|floatformat:"-2"}} €</span> {% trans "to go" %}
             </div>
             
+            {% if task.state < 4 and task.assignee == user %}
+                <form class="funding_space" onsubmit="OIajaxCall('/project/confirmoffer/{{task.id}}', 'offer='+getValue('offer_manage_{{task.id}}'), 'output', function(){hide('offer_manage_{{task.id}}')}); return false">
+                    <input type="text" id="offer_manage_{{task.id}}" value="{{task.offer}}" onFocus="this.select()" class="smallinput invisible" />
+                    <span id="changesum_{{task.id}}">{% trans "Change the price of this feature" %}</span>
+                    <img src="/img/icons/edit.png" class="clickable" onclick="$('#offer_manage_{{task.id}}').toggle(); $('#changesum_{{task.id}}').toggle(); $('#ok_{{task.id}}').toggle()">
+                    <img id="ok_{{task.id}}" src="/img/icons/ok.png" class="clickable invisible" onclick="OIajaxCall('/project/confirmoffer/{{task.id}}', 'offer='+getValue('offer_manage_{{task.id}}'), 'output', function(){hide('offer_manage_{{task.id}}')});">
+                </form>
+            {% endif %}
+            
             {% include 'funding/project_actions.html' %}
             <div class="featurebtns">
             {% if task.state < 4 and task|can_bid:user or not user.is_authenticated %}
@@ -47,6 +56,15 @@
             {% endif %}
             </div>
             <a class="clickable" onclick="showPopup(document.getElementById('featurebudget_{{task.id}}'))">{{task.bid_set.count}} {% trans "funders" %}</a>
+            
+            <div class="cleared funding_space"></div>
+            <div id="visible_{{task.id}}">
+                <form>
+                   <label>{% trans "Visible feature to the users" %}</label> 
+                   <input id="public_read_{{task.id}}" type="checkbox" {% if task.public_read %}checked="checked"{% endif %} onclick="visibleFeature({{task.id}})">
+                </form>
+            </div>
+            
         </div>
         
         <div id="feature_{{task.id}}" class="featuretitle clickable" onclick="document.location.hash='feature_{{task.id}}';hide('see_more_{{task.id}}');show('no_see_more_{{task.id}}');{% if task|can_write:user and task.state < 4 and task.spec_set.all.count < 1 %}addSpec('{{task.id}}');{% endif %}show('featuredesc_{{task.id}}')">{{task.title}}</div>

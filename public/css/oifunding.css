@@ -800,16 +800,6 @@ div.sepspecfooter {
     margin-left: 3px; 
     margin-right: 1%;
 }
-.bordertitlemanage {
-    border: 1px solid #E0E0E0;
-    float: left;
-    width: 45%;
-    padding: 10px;
-    margin-top: 0.5em;
-}
-.boderline {
-    border:1px solid !important;
-}
 .funding_minispec{
     word-wrap: break-word;
     text-align: left;
