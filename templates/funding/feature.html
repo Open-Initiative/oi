@@ -57,6 +57,7 @@
             </div>
             <a class="clickable" onclick="showPopup(document.getElementById('featurebudget_{{task.id}}'))">{{task.bid_set.count}} {% trans "funders" %}</a>
             
+            {% if task|can_manage:user %}
             <div class="cleared funding_space"></div>
             <div id="visible_{{task.id}}">
                 <form>
@@ -64,6 +65,7 @@
                    <input id="public_read_{{task.id}}" type="checkbox" {% if task.public_read %}checked="checked"{% endif %} onclick="visibleFeature({{task.id}})">
                 </form>
             </div>
+            {% endif %}
             
         </div>
         
