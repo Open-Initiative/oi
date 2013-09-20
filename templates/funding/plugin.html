@@ -32,6 +32,7 @@
             <ul class="features_manage" id="features_0">
                 {% for task in object.all_not_started_tasks|filter_read:user %}
                     <li class="pluginfeature{% if not forloop.first %} invisible{% endif %}" id="task_{{task.id}}">
+                    <a class="featuretitle" href="/funding/{{object.id}}" target="_blank">{{task.title}}</a>
                     {% include 'funding/feature.html' %}
                     </li>
                 {% endfor %}
