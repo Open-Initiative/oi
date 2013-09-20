@@ -270,7 +270,7 @@
     </div>
     <div class="blockfeatureheight column">
         <div>
-            <form onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, getValue('offer_{{object.id}}'), function(taskid){OIajaxCall('/funding/'+taskid+'/task', 'manage=manage', newDiv('features_0'))}); document.getElementById('offer_{{object.id}}').value = ''; return false">
+            <form onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, getValue('offer_{{object.id}}'), function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); document.getElementById('offer_{{object.id}}').value = ''; return false">
                 <input type="text" class="fieldfeature" id="newtask_title_{{object.id}}" value="{% trans 'insert a title' %}" onfocus="if(this.value)this.value=''">
                 <div class="cleared"></div>
                 
