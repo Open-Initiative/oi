@@ -95,7 +95,6 @@
     <div>
     {% if object|can_write:user %}
         <a href="edit"><div class="bidaction funding_space">{% trans "Edit your project" %}</div></a>
-        <a href="manage"><div class="bidaction">{% trans "Manage your features" %}</div></a>
         <div class="bidaction clickable" onclick="showPopup(document.getElementById('pluginpopup'))">{% trans "Integrate your project" %}</div>
         <div id="pluginpopup" class="invisible popup" onclick="document.ignoreClosePopups = true;">
             <form>
