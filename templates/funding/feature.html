@@ -79,7 +79,7 @@
         <div style="text-align: left; float:left; width:65%">
         {% for spec in task.spec_set.all %}
             {% if spec.order == 1 %}
-                <p class="ellipsis">{{spec.text|oiunescape|slice:":100"}} {% if spec.text|length > 101 %}...{% endif %}</p>
+                <p class="no_p_style">{{spec.text|oiunescape|slice:":100"}} {% if spec.text|length > 101 %}...{% endif %}</p>
             {% endif %}
         {% endfor %}
         </div>
