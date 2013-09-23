@@ -73,6 +73,7 @@ function saveAllSpec(projectid, nbSpecToSave){
     }
 }
 function seeMore(dividblock1, dividblock2){
+    //hide one div and show the other
     $('#'+dividblock1).toggle();
     $('#'+dividblock2).delay(100).fadeToggle();
 }
