@@ -30,7 +30,7 @@ from oi.settings import MEDIA_ROOT, TEMP_DIR, github_id, github_secret
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS, OI_TABLE_OVERVIEW
 from oi.helpers import OI_PRJ_DONE, OI_NO_EVAL, OI_ACCEPT_DELAY, OI_READ, OI_ANSWER, OI_BID, OI_MANAGE, OI_WRITE, OI_ALL_PERMS, OI_CANCELLED_BID, OI_COM_ON_BID, OI_COMMISSION
 from oi.helpers import OI_PRJ_VIEWS, SPEC_TYPES, OIAction, ajax_login_required
-from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeedsPrjPerms, Release, GitHubSync, Reward
+from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeedsPrjPerms, Release, GitHubSync, Reward, RewardForm
 from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
 from django.template import RequestContext
@@ -226,48 +226,24 @@ def assignrelease(request, id):
     
     project.save() 
     return HttpResponse(_("Release assigned"))
-    
-@OINeedsPrjPerms(OI_MANAGE)  
-def addreward(request, id):
-    """Add a reward to a project"""
-    project = Project.objects.get(id=id)
-    
-    if request.POST["reward"] == "" or request.POST["reward"] == None:
-        return HttpResponse (_("Please specify the nature of the reward"))
-    if project.state > 3:
-        return HttpResponse (_("Cannot add reward to a finished project"))
-    Reward(project=project, title=request.POST["reward"]).save()
-    return HttpResponse (_("New reward added"))
 
-@OINeedsPrjPerms(OI_MANAGE)
-def editrewarddescription(request, id):
-    """Edit the reward description"""
+@OINeedsPrjPerms(OI_MANAGE)    
+def savereward(request, id, rewardid): 
+    """Save Reward""" 
     project = Project.objects.get(id=id)
-    reward = Reward.objects.get(id=request.POST['rewardid'])
-    
-    if not project == reward.project:
-       return HttpResponse (_("Wrong arguments"))
+    #new reward
+    if rewardid == "0":
+        form = RewardForm(request.POST, request.FILES)
+        reward = form.save(commit=False)
+        reward.project = project
+    #existing reward
+    else:
+        form = RewardForm(request.POST, request.FILES, instance=project.reward_set.all().get(id=rewardid))
+        reward = form.save(commit=False)
         
-    if request.POST.get('description'):
-        reward.description = oiescape(request.POST['description'])
-        reward.save()
-        
-    return HttpResponse (_("Description edited"))
-
-@OINeedsPrjPerms(OI_MANAGE)
-def uploadpicturereward(request, id, rewardid):
-    """Changes reward picture"""
-    project = Project.objects.get(id=id)
-    reward = Reward.objects.get(id=rewardid)
-    
-    if not project == reward.project:
-       return HttpResponse (_("Wrong arguments"))
-    
-    if reward.image:
-        reward.image.delete()
-    
-    reward.image.save(File(request.FILES['file']).name, File(request.FILES['file']))
-    return HttpResponse("<script>window.parent.document.getElementById('rewardimage_%s').src += '?%s'</script>"%(reward.id,random()))
+    reward.description = oiescape(request.POST["description"]) 
+    reward.save()
+    return HttpResponse(_("Reward edited")) 
   
 @OINeedsPrjPerms(OI_MANAGE)
 def deletereward(request, id, rewardid):
@@ -542,7 +518,7 @@ def bidproject(request, id):
     #checks that the user can afford the bid ; if not, redirects to the deposit page
     
     if request.user.get_profile().balance == 0:
-        return HttpResponse('/user/myaccount?amount=%s&project=%s'%((amount).to_eng_string(),project.id),status=333)
+        return HttpResponse(_('Thank you to indicate the amount'))
 
     missing = amount - request.user.get_profile().balance
     amount = amount - missing

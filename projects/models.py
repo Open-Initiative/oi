@@ -17,6 +17,7 @@ from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_D
 from oi.helpers import SPEC_TYPES, TEXT_TYPE, to_date
 from oi.prjnotify.models import Observer
 from django.utils import translation
+from django.forms import ModelForm, DateField, PasswordInput
 
 class ProjectQuerySet(QuerySet):
     def with_offer(self):
@@ -660,3 +661,10 @@ class Reward(models.Model):
     
     def __unicode__(self):
         return "Project '%s' reward is '%s'"%(self.project, self.title)
+        
+class RewardForm(ModelForm):
+
+    class Meta:
+        model = Reward
+        fields = ('title','image','description')
+        

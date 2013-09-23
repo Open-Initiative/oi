@@ -174,7 +174,17 @@
         {% if object.reward_set.all or object|can_manage:user %}
         <div class="myprofile" style="margin-bottom: 10px;">
             <div class="column-right">
-                <h2 class="detail_subtitle">{% trans "Reward" %} {% if object|can_manage:user %}<img class="clickable" title="{% trans 'Add a reward' %}" alt="{% trans 'Add a reward' %}" src="/img/icons/addgreen.png" onclick="addReward({{object.id}})">{% endif %}</h2>
+                <h2 class="detail_subtitle">{% trans "Reward" %} {% if object|can_manage:user %}<img class="clickable" title="{% trans 'Add a reward' %}" alt="{% trans 'Add a reward' %}" src="/img/icons/addgreen.png" onclick="showPopup(document.getElementById('newreward'));">{% endif %}</h2>
+                
+                <div id="newreward" class="invisible popup_reward" onclick="document.ignoreClosePopups = true;">
+                    <form id="reward_form" method="post" enctype="multipart/form-data" action="{% url oi.projects.views.savereward object.id 0 %}" target="rewardimage_{{reward.id}}">
+                        <span class="rewardtitle">{% trans "Edit your reward" %}</span>
+                        <table>{{reward_form.as_table}}</table>
+                        {% csrf_token %}
+                        <input type="image" class="clickable fundingright" src="/img/icons/ok.png" onclick="document.getElementById('reward_form').submit();hidePopups()"/>
+                    </form>
+                </div>
+                
                 {% if object.reward_set.all %}
                 <div id="blockreward">
                 {% for reward in object.reward_set.all %}
@@ -183,33 +193,27 @@
                         <h6 class="rewardtitle">{{reward.title}}</h6>
                         
                         <span class="fundingleft">
-                            <iframe id="rewardimage_{{reward.id}}" name="rewardimage_{{reward.id}}" class="filedest"></iframe>
-                            <img style="max-width:130px" src="{% if reward.image %}{{reward.image.url}}{% endif %}" />
-                            
-                            {% if object|can_manage:user %}<img class="clickable" title="{% trans 'Edit the reward image' %}" alt="{% trans 'Edit the reward image' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('rewardpicture_{{reward.id}}'))"/>{% endif %}
+                            <img style="max-width:130px; margin-right:10px;" src="{% if reward.image %}{{reward.image.url}}{% endif %}" />
                         </span>
                         
-                        <p>
-                            <span id="descriptionreward_{{reward.id}}">{{reward.description|oiunescape}}</span> 
-                            {% if object|can_manage:user %}<img class="clickable" title="{% trans 'Edit the reward description' %}" alt="{% trans 'Edit the reward description' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('rewarddescription_{{reward.id}}'))"/>{% endif %}
-                        </p>
+                        <p><span id="descriptionreward_{{reward.id}}">{{reward.description|oiunescape}}</span></p>
                         
-                        <div class="popup_reward invisible" id="rewarddescription_{{reward.id}}" onclick="document.ignoreClosePopups = true;">
-                            <span class="rewardtitle">{% trans "Edit the reward description" %}</span>
-                            <textarea id="fieldreward_{{reward.id}}" class="norich">{{reward.description|oiunescape}}</textarea>
-                            <img class="clickable fundingright" src="/img/icons/ok.png" onclick="editRewardDescription({{object.id}}, {{reward.id}});hidePopups()"/>
-                        </div>
+                        <div class="cleared"></div>
                         
-                        <div class="popup_reward invisible" id="rewardpicture_{{reward.id}}" onclick="document.ignoreClosePopups = true;">
-                            <span class="rewardtitle">{% trans "Change the reward picture" %}</span>
-                            <form id="reward_picture_form_{{reward.id}}" method="post" enctype="multipart/form-data" action="/project/{{object.id}}/uploadpicturereward/{{reward.id}}" target="rewardimage_{{reward.id}}">
-                                {% csrf_token %}
-                                <input id="picturereward_{{reward.id}}" name="file" type="file" size="1" onchange="document.getElementById('reward_picture_form_{{reward.id}}').submit();hidePopups()" />
-                            </form>
-                        </div>
+                        {% if object|can_manage:user %}<img class="clickable fundingright" title="{% trans 'Edit the reward' %}" alt="{% trans 'Edit the reward description' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('newreward_{{reward.id}}'))"/>{% endif %}
+                        
                     </div>
+                    
+                    <div id="newreward_{{reward.id}}" class="invisible popup_reward" onclick="document.ignoreClosePopups = true;">
+                        <form id="reward_form_{{reward.id}}" method="post" enctype="multipart/form-data" action="{% url oi.projects.views.savereward object.id reward.id %}" target="rewardimage_{{reward.id}}">
+                            <span class="rewardtitle">{% trans "Edit your reward" %}</span>
+                            <table>{{reward_form.as_table}}</table>
+                            {% csrf_token %}
+                            <input type="image" class="clickable fundingright" src="/img/icons/ok.png" onclick="document.getElementById('reward_form_{{reward.id}}').submit();hidePopups()"/>
+                        </form>
+                    </div>
+                    
                     <div id="reward_bottom_line_{{reward.id}}" class="reward_bottom_line cleared"></div>
-                    <script>tinyMCE.execCommand('mceAddControl', false, "fieldreward_{{reward.id}}")</script>
                 {% endfor %}
                 </div>
                 {% endif %}
