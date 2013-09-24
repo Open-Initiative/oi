@@ -238,19 +238,20 @@
                 <input name="spectype" id="type_desc_{{divid}}" value="1" type="hidden"/>
                 <input name="specid" id="specid_desc_{{divid}}" value="{{spec.id|default:0}}" type="hidden"/>
                 <input name="projectid" id="projectid_desc_{{divid}}" value="{{project.id}}" type="hidden"/>
-                <input name="specorder" id="specorder_desc_{{divid}}" value="9" type="hidden"/>
+                <input name="specorder" id="specorder_desc_{{divid}}" value="{{order}}" type="hidden"/>
                 
                 <p>
-                    <span id="desc_{{divid}}">{% if spec.text %}{{spec.text|oiunescape}}{% else %}{% trans "No description given" %}{% endif %}</span> 
+                    <a id="desc_{{divid}}" href="{% if spec.url %}{{spec.url}}{% endif %}">{% if spec.text %}{{spec.text|oiunescape}}{% else %}{% trans "No description given" %}{% endif %}</a> 
                     {% if object|can_manage:user %}<img class="clickable" title="{% trans 'Edit the licence description' %}" alt="{% trans 'Edit the licence description' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('licencedescription_{{spec.id}}'))"/>{% endif %}
                 </p>
                 
                 <div class="popup_reward invisible" id="licencedescription_{{spec.id}}" onclick="document.ignoreClosePopups = true;">
                     <span class="rewardtitle">{% trans "Edit the licence description" %}</span>
-                    <textarea id="text_desc_{{divid}}" class="norich">{{spec.text|oiunescape}}</textarea>
+                    <div class="cleared"></div>
+                    <textarea id="text_desc_{{divid}}" style="width:300px; height:70px;" class="norich">{{spec.text|oiunescape}}</textarea>
+                    <div class="cleared"></div>
                     <img title="{% trans 'Save the description' %}" class="clickable fundingright" src="/img/icons/ok.png" onclick="saveSpec('desc_{{divid}}',{{project.id}},getValue('specorder_desc_{{divid}}'),{{spec.id|default:0}});hidePopups()"/>
                 </div>
-                <script>tinyMCE.execCommand('mceAddControl', false, "text_desc_{{divid}}")</script>
                 {%include 'funding/project_detail_column_right.html'%}
             {% endwith %}
             {% endif %}
