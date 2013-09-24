@@ -173,7 +173,7 @@
         {% if object.reward_set.all or object|can_manage:user %}
         <div class="myprofile" style="margin-bottom: 10px;">
             <div class="column-right">
-                <h2 class="detail_subtitle">{% trans "Reward" %} {% if object|can_manage:user %}<img class="clickable" title="{% trans 'Add a reward' %}" alt="{% trans 'Add a reward' %}" src="/img/icons/addgreen.png" onclick="showPopup(document.getElementById('newreward'));">{% endif %}</h2>
+                <h2 class="detail_subtitle">{% trans "Reward" %} {% if object|can_manage:user %}<span class="clickable tax" title="{% trans 'Add a reward' %}" alt="{% trans 'Add a reward' %}" onclick="showPopup(document.getElementById('newreward'));">{% trans "Click here to add a reward" %}</span>{% endif %}</h2>
                 
                 <div id="newreward" class="invisible popup_reward" onclick="document.ignoreClosePopups = true;">
                     <form id="reward_form" method="post" enctype="multipart/form-data" action="{% url oi.projects.views.savereward object.id 0 %}" target="rewardimage_{{reward.id}}">
