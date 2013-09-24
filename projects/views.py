@@ -231,19 +231,21 @@ def assignrelease(request, id):
 def savereward(request, id, rewardid): 
     """Save Reward""" 
     project = Project.objects.get(id=id)
+    
     #new reward
-    if rewardid == "0":
+    if rewardid == '0':
         form = RewardForm(request.POST, request.FILES)
         reward = form.save(commit=False)
         reward.project = project
+        
     #existing reward
     else:
         form = RewardForm(request.POST, request.FILES, instance=project.reward_set.all().get(id=rewardid))
         reward = form.save(commit=False)
-        
+       
     reward.description = oiescape(request.POST["description"]) 
     reward.save()
-    return HttpResponse(_("Reward edited")) 
+    return HttpResponse("<script>window.parent.location.reload(true)</script>")
   
 @OINeedsPrjPerms(OI_MANAGE)
 def deletereward(request, id, rewardid):

@@ -18,6 +18,7 @@ from oi.helpers import SPEC_TYPES, TEXT_TYPE, to_date
 from oi.prjnotify.models import Observer
 from django.utils import translation
 from django.forms import ModelForm, DateField, PasswordInput
+from django import forms
 
 class ProjectQuerySet(QuerySet):
     def with_offer(self):
@@ -662,9 +663,13 @@ class Reward(models.Model):
     def __unicode__(self):
         return "Project '%s' reward is '%s'"%(self.project, self.title)
         
-class RewardForm(ModelForm):
+class RewardForm(forms.ModelForm):
 
     class Meta:
         model = Reward
         fields = ('title','image','description')
+        
+    def __init__(self, *args, **kwargs):
+        super(RewardForm, self).__init__(*args, **kwargs)
+        self.fields['description'].widget.attrs.update({'class' : 'norich'})
         
