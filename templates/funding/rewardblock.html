@@ -2,10 +2,10 @@
 <div id="blockreward_{{reward.id}}">
     {% if project|can_manage:user %}<img alt="{% trans 'Delete the reward' %}" title="{% trans 'Delete the reward' %}" src="/img/icons/delete.png" class="fundingright clickable" onclick="deleteReward({{project.id}}, {{reward.id}})">{% endif %}
     <h6 class="rewardtitle">{{reward.title}}</h6>
-    <img class="fundingleft" style="max-width:130px; margin-right:10px;" src="{% if reward.image %}{{reward.image.url}}{% endif %}" />
+    <img class="fundingleft" style="max-width:130px; margin-right:10px;" src="{% if reward.image %}{{reward.image.url}}{% endif %}" alt="{% trans 'Photo that illustrate the reward' %}" title="{% trans 'Photo that illustrate the reward' %}" />
     <p id="descriptionreward_{{reward.id}}">{{reward.description|oiunescape}}</p>
     <div class="cleared"></div>
-    {% if project|can_manage:user %}<img class="clickable fundingright" title="{% trans 'Edit the reward' %}" alt="{% trans 'Edit the reward description' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('newreward_{{reward.id}}'))"/>{% endif %}   
+    {% if project|can_manage:user %}<img class="clickable fundingright" title="{% trans 'Description and conditions' %}" alt="{% trans 'Description and conditions' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('newreward_{{reward.id}}'))"/>{% endif %}   
 </div>
 
 <div id="newreward_{{reward.id}}" class="invisible popup_reward" onclick="document.ignoreClosePopups = true;">
@@ -13,7 +13,7 @@
         <span class="rewardtitle">{% trans "Edit your reward" %}</span>
         <table>{{reward_form.as_table}}</table>
         {% csrf_token %}
-        <input type="image" class="clickable fundingright" src="/img/icons/ok.png" onclick="document.getElementById('reward_form_{{reward.id}}').submit();hidePopups()"/>
+        <input type="image" class="clickable fundingright" src="/img/icons/ok-32.png" onclick="document.getElementById('reward_form_{{reward.id}}').submit();hidePopups()"/>
     </form>
 </div>
 <div id="reward_bottom_line_{{reward.id}}" class="reward_bottom_line cleared"></div>

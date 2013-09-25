@@ -672,4 +672,5 @@ class RewardForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(RewardForm, self).__init__(*args, **kwargs)
         self.fields['description'].widget.attrs.update({'class' : 'norich'})
+        self.fields['description'].widget.attrs.update({'style' : 'width:100%; height:130px'})
         
