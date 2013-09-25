@@ -1,6 +1,6 @@
 ﻿﻿{% load oifilters %}
 {% load i18n %}
-<div id="feature_form_popup" style="margin: 1%;">
+<div class="feature_form" style="margin: 1%;">
     <div id="specs_{{task.id}}">
         {%for spec in task.spec_set.all|dictsort:"order"%}
         <div style="position:relative" id="spec_{{task.id}}_{{spec.order}}">
@@ -11,6 +11,7 @@
         {% endfor %}
     </div>
     {% if task|can_write:user and task.state < 4 %}
+        <div class="cleared"></div>
         <a class="clickable" onclick="addSpec({{task.id}})"><img src="/img/icons/add.png" /> 
             {% trans "Add a description" %}
         </a>
