@@ -69,7 +69,7 @@
             
         </div>
         
-        <div id="feature_{{task.id}}" class="featuretitle clickable" onclick="document.location.hash='feature_{{task.id}}';hide('see_more_{{task.id}}');show('no_see_more_{{task.id}}');seeMore('featuredesc_{{task.id}}_hide','featuredesc_{{task.id}}')">{{task.title}}</div>
+        <div id="feature_{{task.id}}" class="featuretitle clickable" onclick="urlFeature({{task.id}})">{{task.title}}</div>
         
         {% if task|can_write:user and task.state < 4 %}<span class="fundingleft editfeature">
             {% if task.state < 2 %}{% trans "Edit" %} <img src="/img/icons/edit.png" alt="{% trans 'edit title' %}" title="{% trans 'edit title' %}" class="clickable" onclick="var newtitle = prompt(gettext('Please insert a title :'), '{{task.title}}');if(newtitle){confirmEditTitle({{task.id}}, newtitle);}" />{% endif %}
@@ -85,16 +85,16 @@
         </div>
         
         {% if task|can_manage:user or task.spec_set.count%}
-        <div id="featuredesc_{{task.id}}" class="featuredetailspec invisible" style="border-top: 1px solid;">
+        <div id="featuredesc_{{task.id}}" class="featuredetailspec invisible">
             {% include 'funding/feature_description.html' %}
         </div>
         {% endif %}
         
         <div class="form_center cleared">
             {% if task|can_manage:user or task.spec_set.count%}
-            <span class="fundingleft"><a id="see_more_{{task.id}}" class="clickable" onclick="document.location.hash='feature_{{task.id}}';hide(this.id);show('no_see_more_{{task.id}}');{% if task|can_write:user and task.state < 4 and task.spec_set.all.count < 1 %}addSpec('{{task.id}}');{% endif %}seeMore('featuredesc_{{task.id}}_hide','featuredesc_{{task.id}}')">{% trans "See more" %}</a>
+            <span class="fundingleft"><a id="see_more_{{task.id}}" class="clickable"  onclick="urlFeature({{task.id}});{% if task|can_write:user and task.state < 4 and task.spec_set.all.count < 1 %}addSpec('{{task.id}}');{% endif %}">{% trans "See more" %}</a>
             
-            <a id="no_see_more_{{task.id}}" class="clickable invisible" onclick="document.location.hash='';show('see_more_{{task.id}}');hide(this.id);seeMore('featuredesc_{{task.id}}_hide','featuredesc_{{task.id}}')">{% trans "See less" %}</a></span>
+            <a id="no_see_more_{{task.id}}" class="clickable invisible" onclick="urlFeature({{task.id}})">{% trans "See less" %}</a></span>
             {% endif %}
         </div>
         
@@ -109,9 +109,6 @@
                 hide('featuredesc_{{task.id}}_hide');
                 hide('see_more_{{task.id}}');
                 show('no_see_more_{{task.id}}');
-            }else if(document.location.hash==''){
-                //show('featuredesc_{{task.id}}_hide');
-                //hide('featuredesc_{{task.id}}');
             }
         });
     </script>

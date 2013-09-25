@@ -1013,6 +1013,6 @@ div.sepspecfooter {
 .featuredetailspec {
     background: none repeat scroll 0 0 white;
     text-align: start;
-    margin-top: 20%;
     position: relative;
+    width:  69%;
 }

@@ -77,6 +77,18 @@ function seeMore(dividblock1, dividblock2){
     $('#'+dividblock1).toggle();
     $('#'+dividblock2).delay(100).fadeToggle();
 }
+function urlFeature(taskid){
+    //if the hash is equal to the taskid, show the feature block or hide it
+    if(document.location.hash != "#feature_"+taskid){
+        seeMore('featuredesc_'+taskid, 'featuredesc_'+taskid+'_hide');
+        seeMore('see_more_'+taskid, 'no_see_more_'+taskid);
+        document.location.hash = "feature_"+taskid;
+    }else if(document.location.hash == "#feature_"+taskid){
+        seeMore('featuredesc_'+taskid, 'featuredesc_'+taskid+'_hide');
+        seeMore('see_more_'+taskid, 'no_see_more_'+taskid);
+        document.location.hash = "x";
+    }
+}
 function selectplugin(projectid, plugintype) {
     if(plugintype == "big"){
         var width = "300px";
