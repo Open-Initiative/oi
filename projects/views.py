@@ -523,7 +523,7 @@ def bidproject(request, id):
         return HttpResponse(_('Thank you to indicate the amount'))
 
     missing = amount - request.user.get_profile().balance
-    amount = amount - missing
+#    amount = amount - missing  #I don't why it is here, but I don't need it
     
    #check if the project progress is 100% funded
     if project.allbid_sum() < project.offer + project.commission + project.get_commission_tax() and project.allbid_sum() + amount >= project.offer + project.commission + project.get_commission_tax():
