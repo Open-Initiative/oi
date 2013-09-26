@@ -519,21 +519,26 @@ def bidproject(request, id):
         return HttpResponse(_("Invalid amount"))
     #checks that the user can afford the bid ; if not, redirects to the deposit page
     
+    #1) check amount
     if amount == 0:
-        return HttpResponse(_('Thank you to indicate the amount'))
-
-    missing = amount - request.user.get_profile().balance
-#    amount = amount - missing  #I don't why it is here, but I don't need it
+        return HttpResponse(_('Please indicate the amount'))
     
-   #check if the project progress is 100% funded
+    #2) calcul the missing
+    missing = amount - request.user.get_profile().balance
+    if amount > request.user.get_profile().balance:
+        amount = request.user.get_profile().balance
+    
+   #3) check if the project progress is 100% funded
     if project.allbid_sum() < project.offer + project.commission + project.get_commission_tax() and project.allbid_sum() + amount >= project.offer + project.commission + project.get_commission_tax():
-        #notify users about the progress
+        #4) notify users about the progress
         project.notify_all(project.assignee, "project_progress_users", project.progress)
-        #notify developper about the progress
+        #5) notify developper about the progress
         project.assignee.get_profile().get_default_observer(project).notify("project_progress_dev", project=project)
 
+    #5) make the bid with the amount
     project.makebid(request.user, amount) #to update the user account
 
+    #6) back to ogone if is not enough
     if missing > 0:
         return HttpResponse('/user/myaccount?amount=%s&project=%s'%((missing).to_eng_string(),project.id),status=333)
 

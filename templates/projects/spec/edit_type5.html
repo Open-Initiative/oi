@@ -11,7 +11,7 @@
         {% csrf_token %}
         <input id="divid_{{divid}}" name="divid" type="hidden" value="{{divid}}" />
         
-        <input style="margin-bottom: 6%;margin-left: 32%;" id="file_{{divid}}" name="file" type="file" onchange="document.getElementById('form_{{divid}}').submit()" />
+        <input style="margin-bottom: 6%;margin-left: 32%;" id="file_{{divid}}" name="file" type="file" onchange="hide('validspec_{{divid}}');document.getElementById('form_{{divid}}').submit()" />
         
     </form>
 </div>
