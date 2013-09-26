@@ -35,7 +35,7 @@ function visibleFeature(projectid){
     );
 }
 function checkSavedSpecs(projectid){
-    (hasChild > 0?document.location.href="/funding/"+projectid:document.location.href="/funding/"+projectid+"/manage");
+    document.location.href="/funding/"+projectid;
 }
 function specsToSave(projectid){
     var nbSpecToSave = 0;
