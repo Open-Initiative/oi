@@ -211,7 +211,7 @@
             <h4>{% trans "Licence" %}</h4>
             {% with spec=project.spec_set.all|filter_order:6 order=6 divid='licence' %}
                 
-                <a id="{{divid}}" href="{% if spec.url %}{{spec.url}}{% endif %}">{% if spec.text %}{{spec.text|oiunescape}}{% else %}{% trans "No description given" %}{% endif %}</a> 
+                <a id="{{divid}}" target="_blank" href="{% if spec.url %}{{spec.url}}{% endif %}">{% if spec.text %}{{spec.text|oiunescape}}{% else %}{% trans "No description given" %}{% endif %}</a> 
                 {% if object|can_manage:user %}<img class="clickable fundingright" title="{% trans 'Edit the licence description' %}" alt="{% trans 'Edit the licence description' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('licencedescription_{{spec.id}}'))"/>{% endif %}
                 
                 <div class="popup_reward invisible" id="licencedescription_{{spec.id}}" onclick="document.ignoreClosePopups = true;">
@@ -226,10 +226,9 @@
                     <input name="projectid" id="projectid_{{divid}}" value="{{project.id}}" type="hidden"/>
                     <input name="specorder" id="specorder_{{divid}}" value="{{order}}" type="hidden"/>
                     <span class="rewardtitle">{% trans "Edit the" %} {{divid}} {% trans "link" %}</span>
-                    <form method="post">
+                    <form onsubmit="saveSpec('{{divid}}',{{project.id}},getValue('specorder_{{divid}}'),{{spec.id|default:0}});hidePopups(); return false">
                         <input id="url_{{divid}}" type="text" value="{{spec.url|default:"http://"}}">
                         <div class="cleared"></div>
-                        {% csrf_token %}
                     <input id="divid_{{divid}}" name="divid" type="hidden" value="{{divid}}" />
                     </form>
                     
