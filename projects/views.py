@@ -519,7 +519,7 @@ def bidproject(request, id):
         return HttpResponse(_("Invalid amount"))
     #checks that the user can afford the bid ; if not, redirects to the deposit page
     
-    if request.user.get_profile().balance == 0:
+    if amount == 0:
         return HttpResponse(_('Thank you to indicate the amount'))
 
     missing = amount - request.user.get_profile().balance
