@@ -132,8 +132,8 @@ class UserProfile(models.Model):
         return observer
         
     def get_observed_projects(self):
-        """ filter all projects followed by the user"""
-        return Project.objects.filter(observer__user=self.user)
+        """ filter all projects followed by the user and exclude all promoted project"""
+        return Project.objects.filter(observer__user=self.user).exclude(promotedproject__isnull=False)
     
     def get_created_projects(self):
         """ filter all projects created by the user, excluding tasks"""

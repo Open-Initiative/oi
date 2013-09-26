@@ -768,6 +768,7 @@ div.sepspecfooter {
     color: black;
     width: 90%;
     border-radius: 3px;
+    overflow: hidden;
     font-size: 0.8em;
     margin-left: 5%;
 }

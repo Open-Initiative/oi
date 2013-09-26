@@ -1518,7 +1518,7 @@ msgid ""
 msgstr ""
 "\n"
 "                        <span class=\"plugin-nobold\">Plus que </span>\n"
-"%(amount|floatformat:\"-2\")s €                    "
+"%(amount)s €                    "
 
 #: templates/funding/presentation.html:3 templates/funding/presentation.html:4
 msgid "Presentation of Open Funding"
