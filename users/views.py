@@ -57,11 +57,13 @@ def myaccount(request):
     import logging
     logging.getLogger("oi").debug("user returned: %s"%request)
     extra_context = {}
+    params = {}
     if request.GET.get("orderID"): #return from payment
         
         dict_params = dict(request.GET.items()) #to obtain a mutable version of the QueryDict
         if dict_params.get("project"): 
             project = Project.objects.get(id=dict_params.pop("project"))
+            params = {"PARAMPLUS": project}
 
             delta = request.user.get_profile().update_payment(dict_params)
             if delta:
@@ -69,7 +71,6 @@ def myaccount(request):
         else:
             request.user.get_profile().update_payment(dict_params) 
         
-        params = {"PARAMPLUS": project}
         extra_context['params'] = params
         return direct_to_template(request, template='users/myaccount.html', extra_context=extra_context)
         
