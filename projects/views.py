@@ -246,6 +246,30 @@ def savereward(request, id, rewardid):
     reward.description = oiescape(request.POST["description"]) 
     reward.save()
     return HttpResponse("<script>window.parent.location.reload(true)</script>")
+
+@OINeedsPrjPerms(OI_MANAGE)
+def updatestockreward(request, id, rewardid):
+    """Add or remove reward"""
+    project = Project.objects.get(id=id)
+    reward = Reward.objects.get(id=rewardid)
+    
+    if not project == reward.project:
+       return HttpResponse (_("Wrong arguments"))
+       
+    if request.POST.get("update"):
+        reward.nb_reward = reward.nb_reward + int(request.POST.get("update"))
+        if reward.nb_reward > 0:
+            reward.show = True
+        
+    if reward.nb_reward < 0:
+        reward.show = False
+        
+    if reward.show == False:
+        return HttpResponse (_("No more reward"))
+    
+    reward.save()
+    return HttpResponse (_("The stock has been changed"))
+    
   
 @OINeedsPrjPerms(OI_MANAGE)
 def deletereward(request, id, rewardid):

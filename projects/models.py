@@ -659,6 +659,8 @@ class Reward(models.Model):
     title = models.CharField(max_length=200)
     image = models.ImageField(upload_to=getpathreward,null=True, blank=True)
     description = models.TextField(blank=True)
+    nb_reward = models.IntegerField(null=True,blank=True,default=0)
+    show = models.BooleanField(default=True)
     
     def __unicode__(self):
         return "Project '%s' reward is '%s'"%(self.project, self.title)
@@ -667,7 +669,7 @@ class RewardForm(forms.ModelForm):
 
     class Meta:
         model = Reward
-        fields = ('title','image','description')
+        fields = ('title','image','description','nb_reward')
         
     def __init__(self, *args, **kwargs):
         super(RewardForm, self).__init__(*args, **kwargs)

@@ -115,6 +115,14 @@ function selectplugin(projectid, plugintype) {
     document.getElementById('plugincode').value = iframe;
     document.getElementById('plugin_preview').innerHTML = iframe;
 }
+function updateStockReward(projectid, rewardid, moreOrLess){
+    if(moreOrLess) var nb = 1; else var nb = -1;
+    OIajaxCall("/project/"+projectid+"/updatestockreward/"+rewardid, "update="+nb, "output", function(){
+        oldvalue = parseInt(document.getElementById("nb_reward_"+rewardid).innerHTML);
+        if(oldvalue >= 0)
+            document.getElementById("nb_reward_"+rewardid).innerHTML = oldvalue + nb;
+    })
+}
 function deleteReward(projectid, rewardid){
     if(confirm(gettext("Are you sure you want to delete this reward permanently?"))) {
         OIajaxCall("/project/"+projectid+"/deletereward/"+rewardid, null, "output", 
