@@ -77,26 +77,26 @@ function seeMore(dividblock1, dividblock2){
     $('#'+dividblock1).toggle();
     $('#'+dividblock2).delay(100).fadeToggle();
 }
-function reset(taskid){
+function shrinkAllFeatures(){
     //hide all feature block
     $('.featuredetailspec').hide();
-    $('.no-see-more').hide();
+    $('.see-less').hide();
     $('.see-more').show();
 }
-function urlFeature(taskid){
+function expandFeature(taskid){
     //if the hash is equal to the taskid, show the feature block or hide it
-    reset();
+    shrinkAllFeatures();
     if(document.location.hash == "#feature_"+taskid){
         hide('featuredesc_'+taskid);
         show('featuredesc_'+taskid+'_hide');
         show('see_more_'+taskid);
-        hide('no_see_more_'+taskid);
+        hide('see_less_'+taskid);
         document.location.hash = "x";
     }else if(document.location.hash != "#feature_"+taskid){
         show('featuredesc_'+taskid);
         hide('featuredesc_'+taskid+'_hide');
         hide('see_more_'+taskid);
-        show('no_see_more_'+taskid);
+        show('see_less_'+taskid);
         document.location.hash = "feature_"+taskid;
     }
 }

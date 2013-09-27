@@ -660,7 +660,6 @@ class Reward(models.Model):
     image = models.ImageField(upload_to=getpathreward,null=True, blank=True)
     description = models.TextField(blank=True)
     nb_reward = models.IntegerField(null=True,blank=True,default=0)
-    show = models.BooleanField(default=True)
     
     def __unicode__(self):
         return "Project '%s' reward is '%s'"%(self.project, self.title)

@@ -258,15 +258,10 @@ def updatestockreward(request, id, rewardid):
        
     if request.POST.get("update"):
         reward.nb_reward = reward.nb_reward + int(request.POST.get("update"))
-        if reward.nb_reward > 0:
-            reward.show = True
         
     if reward.nb_reward < 0:
-        reward.show = False
-        
-    if reward.show == False:
         return HttpResponse (_("No more reward"))
-    
+        
     reward.save()
     return HttpResponse (_("The stock has been changed"))
     

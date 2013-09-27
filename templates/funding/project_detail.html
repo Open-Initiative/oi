@@ -173,7 +173,8 @@
         {% if object.reward_set.all or object|can_manage:user %}
         <div class="myprofile" style="margin-bottom: 10px;">
             <div class="column-right">
-                <h2 class="detail_subtitle">{% trans "Reward" %} {% if object|can_manage:user %}<br/><span class="clickable tax" onclick="showPopup(document.getElementById('newreward'));">{% trans "Add a reward" %} <img src="/img/icons/addgreen.png" title="{% trans 'Add a reward' %}" alt="{% trans 'Add a reward' %}"></span>{% endif %}</h2>
+                <h2 class="detail_subtitle">{% trans "Reward" %}</h2>
+                {% if object|can_manage:user %}<p class="form_center"><a class="clickable tax" onclick="showPopup(document.getElementById('newreward'));">{% trans "Add a reward" %} <img src="/img/icons/addgreen.png" title="{% trans 'Add a reward' %}" alt="{% trans 'Add a reward' %}"></a></p>{% endif %}
                 
                 <div id="newreward" class="invisible popup_reward" onclick="document.ignoreClosePopups = true;">
                     {% include 'funding/rewardblock.html' %}
@@ -184,20 +185,22 @@
                 <div id="blockreward">
                 {% if object.reward_set.all %}
                 {% for reward in object.reward_set.all %}
+                    {% if not reward.nb_reward == 0 or object|can_manage:user %}
                     <div id="blockreward_{{reward.id}}">
                         {% if project|can_manage:user %}<img alt="{% trans 'Delete the reward' %}" title="{% trans 'Delete the reward' %}" src="/img/icons/delete.png" class="fundingright clickable" onclick="deleteReward({{project.id}}, {{reward.id}})">{% endif %}
                         <h6 class="rewardtitle">{{reward.title}}</h6>
                         <img class="fundingleft" style="max-width:130px; margin-right:10px;" src="{% if reward.image %}{{reward.image.url}}{% endif %}" alt="{% trans 'Photo that illustrate the reward' %}" title="{% trans 'Photo that illustrate the reward' %}" />
                         <p id="descriptionreward_{{reward.id}}">{{reward.description|oiunescape}}</p>
-                        <p>{% trans "Max number of users:" %} <br/> <span class="rewardtitle" id="nb_reward_{{reward.id}}">{{reward.nb_reward}}</span><img src="/img/icons/addgreen.png" style="margin-left: 5%;" alt="{% trans 'plus picture' %}" title="{% trans 'Add stock reward' %}" onclick="updateStockReward('{{project.id}}', '{{reward.id}}', true)"><img src="/img/icons/remove.png" style="margin-left: 5%;" title="{% trans 'Remove stock reward' %}" alt="{% trans 'less picture' %}" onclick="updateStockReward('{{project.id}}', '{{reward.id}}', false)"></p>
+                        <p>{% trans "Max number of users:" %} <br/> <span class="rewardtitle" id="nb_reward_{{reward.id}}">{{reward.nb_reward}}</span>{% if project|can_manage:user %}<img src="/img/icons/addgreen.png" style="margin-left: 5%;" alt="{% trans 'plus picture' %}" title="{% trans 'Add stock reward' %}" onclick="updateStockReward('{{project.id}}', '{{reward.id}}', true)"><img src="/img/icons/remove.png" style="margin-left: 5%;" title="{% trans 'Remove stock reward' %}" alt="{% trans 'less picture' %}" onclick="updateStockReward('{{project.id}}', '{{reward.id}}', false)">{% endif %}</p>
                         <div class="cleared"></div>
                         {% if project|can_manage:user %}<img class="clickable fundingright" title="{% trans 'Description and conditions' %}" alt="{% trans 'Description and conditions' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('newreward_{{reward.id}}'))"/>{% endif %}   
                     </div>
+                    <div id="reward_bottom_line_{{reward.id}}" class="reward_bottom_line cleared"></div>
+                    {% endif %}
 
                     <div id="newreward_{{reward.id}}" class="invisible popup_reward" onclick="document.ignoreClosePopups = true;">
                     {% include 'funding/rewardblock.html' %}
                 </div>
-                <div id="reward_bottom_line_{{reward.id}}" class="reward_bottom_line cleared"></div>
                 {% endfor %}
                 {% endif %}
                 </div>
@@ -220,10 +223,10 @@
             {% with spec=project.spec_set.all|filter_order:6 order=6 divid='licence' %}
                 
                 <a id="{{divid}}" target="_blank" href="{% if spec.url %}{{spec.url}}{% endif %}">{% if spec.text %}{{spec.text|oiunescape}}{% else %}{% trans "No description given" %}{% endif %}</a> 
-                {% if object|can_manage:user %}<img class="clickable fundingright" title="{% trans 'Edit the licence description' %}" alt="{% trans 'Edit the licence description' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('licencedescription_{{spec.id}}'))"/>{% endif %}
+                {% if object|can_manage:user %}<img class="clickable fundingright" title="{% trans 'indicate the license used to distribute software' %}" alt="{% trans 'Indicate the license used to distribute software' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('licencedescription_{{spec.id}}'))"/>{% endif %}
                 
                 <div class="popup_corner invisible" id="licencedescription_{{spec.id}}" onclick="document.ignoreClosePopups = true;">
-                    <span class="rewardtitle">{% trans "Edit the licence description" %}</span>
+                    <span class="rewardtitle">{% trans "Indicate the license used to distribute software" %}</span>
                     <div class="cleared"></div>
                     <textarea id="text_{{divid}}" style="width:300px; height:70px;" class="norich">{{spec.text|oiunescape}}</textarea>
                     <div class="cleared"></div>
@@ -233,7 +236,7 @@
                     <input name="specid" id="specid_{{divid}}" value="{{spec.id|default:0}}" type="hidden"/>
                     <input name="projectid" id="projectid_{{divid}}" value="{{project.id}}" type="hidden"/>
                     <input name="specorder" id="specorder_{{divid}}" value="{{order}}" type="hidden"/>
-                    <span class="rewardtitle">{% trans "Edit the" %} {{divid}} {% trans "link" %}</span>
+                    <span class="rewardtitle">{% trans "Url source repository" %}</span>
                     <form onsubmit="saveSpec('{{divid}}',{{project.id}},getValue('specorder_{{divid}}'),{{spec.id|default:0}});hidePopups(); return false">
                         <input id="url_{{divid}}" type="text" value="{{spec.url|default:"http://"}}">
                         <div class="cleared"></div>

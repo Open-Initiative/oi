@@ -69,7 +69,7 @@
             
         </div>
         
-        <div id="feature_{{task.id}}" class="featuretitle clickable" onclick="urlFeature({{task.id}})">{{task.title}}</div>
+        <div id="feature_{{task.id}}" class="featuretitle clickable" onclick="expandFeature({{task.id}})">{{task.title}}</div>
         
         {% if task|can_write:user and task.state < 4 %}<span class="fundingleft editfeature">
             {% if task.state < 2 %}{% trans "Edit" %} <img src="/img/icons/edit.png" alt="{% trans 'edit title' %}" title="{% trans 'edit title' %}" class="clickable" onclick="var newtitle = prompt(gettext('Please insert a title :'), '{{task.title}}');if(newtitle){confirmEditTitle({{task.id}}, newtitle);}" />{% endif %}
@@ -92,9 +92,9 @@
         
         <div class="form_center cleared">
             {% if task|can_manage:user or task.spec_set.count%}
-            <span class="fundingleft"><a id="see_more_{{task.id}}" class="clickable see-more"  onclick="urlFeature({{task.id}});{% if task|can_write:user and task.state < 4 and task.spec_set.all.count < 1 %}addSpec('{{task.id}}');{% endif %}">{% trans "See more" %}</a>
+            <span class="fundingleft"><a id="see_more_{{task.id}}" class="clickable see-more"  onclick="expandFeature({{task.id}});{% if task|can_write:user and task.state < 4 and task.spec_set.all.count < 1 %}addSpec('{{task.id}}');{% endif %}">{% trans "See more" %}</a>
             
-            <a id="no_see_more_{{task.id}}" class="clickable invisible no-see-more" onclick="urlFeature({{task.id}})">{% trans "See less" %}</a></span>
+            <a id="see_less_{{task.id}}" class="clickable invisible see-less" onclick="expandFeature({{task.id}})">{% trans "See less" %}</a></span>
             {% endif %}
         </div>
         
@@ -108,7 +108,7 @@
                 show('featuredesc_{{task.id}}');
                 hide('featuredesc_{{task.id}}_hide');
                 hide('see_more_{{task.id}}');
-                show('no_see_more_{{task.id}}');
+                show('see_less_{{task.id}}');
             }
         });
     </script>

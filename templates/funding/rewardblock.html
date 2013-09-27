@@ -1,7 +1,7 @@
 {% load i18n %}﻿﻿{% load oifilters %}
 
 <form id="reward_form_{{reward.id|default:0}}" method="post" enctype="multipart/form-data" action="/project/{{project.id}}/savereward/{{reward.id|default:0}}" target="rewardimage">
-    <span class="rewardtitle">{% trans "You can add a reward to engage your users better. Ex: 3 months of free support for users who fund more than 400 euros, a free mug with your name for the user who will fund the most this week, Your name on a web page for the first 30 funders, etc. Be creative!" %}</span>
+    <span>{% trans "<span class='rewardtitle'>You can add a reward to engage your users better.</span> Ex: 3 months of free support for users who fund more than 400 euros, a free mug with your name for the user who will fund the most this week, Your name on a web page for the first 30 funders, etc. <span class='rewardtitle'>Be creative!</span>" %}</span>
     <table>{{reward_form.as_table}}</table>
     {% csrf_token %}
     <input type="image" class="clickable fundingright" src="/img/icons/ok-32.png" onclick="document.getElementById('reward_form_{{reward.id|default:0}}').submit();hidePopups()"/>
