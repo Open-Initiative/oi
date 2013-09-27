@@ -998,6 +998,7 @@ def savespec(request, id, specid='0'):
 
     #notify users about this spec change
     project.notify_all(request.user, "project_spec", spec.text)
+    #I waiting for the best solution
     redirect_url = settings.REDIRECT_URL
     if redirect_url == "/project/":
         redirect_url = "/projects/"
@@ -1071,8 +1072,11 @@ def uploadfile(request, id, specid='0'):
     tempfile = open("%s%s_%s_%s"%(TEMP_DIR,request.user.id,ts,filename), 'wb+')
     for chunk in uploadedfile.chunks():
         tempfile.write(chunk)
-    tempfile.close() 
+    tempfile.close()
+    #I waiting for the best solution 
     redirect_url = settings.REDIRECT_URL
+    if redirect_url == "/project/":
+        redirect_url = "/projects/"
     return render_to_response('%sspec/fileframe.html'%(redirect_url[1:]),{'divid':divid,'filename':filename,'ts':ts,'projectid':id})
 
 @OINeedsPrjPerms(OI_WRITE)
