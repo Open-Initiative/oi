@@ -10,7 +10,7 @@
     <form method="post" onsubmit="saveSpec('{{divid}}',{{project.id}},getValue('specorder_{{divid}}'),{{spec.id|default:0}});hidePopups(); return false">
         <span>{% trans "Url" %} </span><input id="url_{{divid}}" type="text" value="{{spec.url|default:"http://"}}">
         <div class="cleared"></div>
-        <input class="fundingright" type="image" src="/img/icons/ok.png">
+        <input class="fundingright" type="image" src="/img/icons/ok-32.png">
         {% csrf_token %}
     <input id="divid_{{divid}}" name="divid" type="hidden" value="{{divid}}" />
     </form>

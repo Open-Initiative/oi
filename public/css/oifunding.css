@@ -985,6 +985,7 @@ div.sepspecfooter {
     position: absolute;
     right: 5%;
     z-index: 1;
+    width: 40%;
 }
 .reward_bottom_line{
     border: 1px solid #D3CFCF;
