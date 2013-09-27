@@ -999,6 +999,8 @@ def savespec(request, id, specid='0'):
     #notify users about this spec change
     project.notify_all(request.user, "project_spec", spec.text)
     redirect_url = settings.REDIRECT_URL
+    if redirect_url == "/project/":
+        redirect_url = "/projects/"
     return render_to_response('%sspec/spec.html'%(redirect_url[1:]),{'user': request.user, 'project' : project, 'spec' : spec})
     
 
