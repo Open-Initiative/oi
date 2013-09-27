@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-27 19:39+0200\n"
+"POT-Creation-Date: 2013-09-27 19:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2005,11 +2005,11 @@ msgstr "image qui illustre la récompense"
 
 #: templates/funding/project_detail.html:195
 msgid "Max number of users:"
-msgstr ""
+msgstr "Le nombre maximum d'utilisateurs"
 
 #: templates/funding/project_detail.html:195
 msgid "plus picture"
-msgstr ""
+msgstr "image plus"
 
 #: templates/funding/project_detail.html:195
 msgid "Add stock reward"
@@ -2039,13 +2039,18 @@ msgstr "Dépôt"
 msgid "No description given"
 msgstr "Pas encore de description"
 
+#: templates/funding/project_detail.html:227
+msgid "indicate the license used to distribute software"
+msgstr "Indiquer la licence utilisée pour distribuer le logiciel"
+
+#: templates/funding/project_detail.html:227
 #: templates/funding/project_detail.html:230
 msgid "Indicate the license used to distribute software"
 msgstr "Indiquer la licence utilisée pour distribuer le logiciel"
 
 #: templates/funding/project_detail.html:240
-msgid "Url source repository"
-msgstr "Url du dépôt source"
+msgid "Url licence repository"
+msgstr "Url de la licence"
 
 #: templates/funding/project_detail.html:247
 msgid "Save the description"
@@ -2119,16 +2124,13 @@ msgid "No link given"
 msgstr "Non précisé"
 
 #: templates/funding/project_detail_column_right.html:9
-msgid "Edit the"
-msgstr "Corriger le"
-
-#: templates/funding/project_detail_column_right.html:9
-msgid "link"
-msgstr "Lien url"
-
 #: templates/funding/project_detail_column_right.html:11
 msgid "Url"
 msgstr "URL"
+
+#: templates/funding/project_detail_column_right.html:9
+msgid "repository"
+msgstr "Dépot"
 
 #: templates/funding/project_edit.html:20
 #: templates/projects/project_header.html:77
@@ -2143,11 +2145,12 @@ msgid ""
 "name on a web page for the first 30 funders, etc. <span "
 "class='rewardtitle'>Be creative!</span>"
 msgstr ""
-"<span class='rewardtitle'>Vous pouvez ajouter une récompense pour mieux engager vos utilisateurs.</span> Par "
-"ex: 3 mois de support gratuit pour les utilisateurs qui financent plus de "
-"400 euros, une tasse gratuite avec votre nom pour l'utilisateur qui apporte "
-"le plus gros financement cette semaine, Votre nom sur une page pour les 30 "
-"premiers utilisateurs qui financent le projet, etc. class='rewardtitle'>Soyez créatif !</span>"
+"<span class='rewardtitle'>Vous pouvez ajouter une récompense pour mieux "
+"engager vos utilisateurs.</span> Par ex: 3 mois de support gratuit pour les "
+"utilisateurs qui financent plus de 400 euros, une tasse gratuite avec votre "
+"nom pour l'utilisateur qui apporte le plus gros financement cette semaine, "
+"Votre nom sur une page pour les 30 premiers utilisateurs qui financent le "
+"projet, etc. <span class='rewardtitle'>Soyez créatif !</span>"
 
 #: templates/funding/dialogue/bid.html:5
 #: templates/projects/dialogue/bid.html:5
@@ -2482,6 +2485,7 @@ msgid "has put Open Initiative release's on:"
 msgstr "a mis Open Initiative dans la version:"
 
 #: templates/notification/delegate/notice.html:4
+#, python-format
 msgid ""
 "wants to delegate the task <a href=\"http://%(current_site)s%(REDIRECT_URL)s"
 "%(id)s\" target=\"_blank\">%(title)s</a>to you."

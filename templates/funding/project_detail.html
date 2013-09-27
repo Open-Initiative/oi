@@ -236,7 +236,7 @@
                     <input name="specid" id="specid_{{divid}}" value="{{spec.id|default:0}}" type="hidden"/>
                     <input name="projectid" id="projectid_{{divid}}" value="{{project.id}}" type="hidden"/>
                     <input name="specorder" id="specorder_{{divid}}" value="{{order}}" type="hidden"/>
-                    <span class="rewardtitle">{% trans "Url source repository" %}</span>
+                    <span class="rewardtitle">{% trans "Url licence repository" %}</span>
                     <form onsubmit="saveSpec('{{divid}}',{{project.id}},getValue('specorder_{{divid}}'),{{spec.id|default:0}});hidePopups(); return false">
                         <input id="url_{{divid}}" type="text" value="{{spec.url|default:"http://"}}">
                         <div class="cleared"></div>
