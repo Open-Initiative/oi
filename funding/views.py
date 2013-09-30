@@ -2,16 +2,21 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.views.generic.simple import direct_to_template
 from django.views.generic.list_detail import object_detail
-from oi.projects.models import Project, OINeedsPrjPerms, Spec
+from oi.projects.models import Project, OINeedsPrjPerms, Spec, Reward, RewardForm
 from oi.helpers import OI_READ, OI_WRITE, SPEC_TYPES
-from oi.projects.models import Reward, RewardForm
 
 def get_project(request, id):
     """get the main project page"""
     extra_context = {}
+    forms = {}
     project = get_object_or_404(Project, pk=id)
     if project.parent:
         return HttpResponseRedirect('/funding/%s'%project.master.id)
+    
+    for reward in project.reward_set.all():
+        forms['reward_form_%s'%reward.id] = RewardForm(instance=project.reward_set.all().get(id=reward.id))
+    
+    extra_context['forms'] = forms
     extra_context['reward_form'] = RewardForm() 
     extra_context['object'] = project
     extra_context['types'] = SPEC_TYPES

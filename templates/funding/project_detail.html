@@ -199,8 +199,16 @@
                     {% endif %}
 
                     <div id="newreward_{{reward.id}}" class="invisible popup_reward" onclick="document.ignoreClosePopups = true;">
-                    {% include 'funding/rewardblock.html' %}
-                </div>
+                    {% for key, value in forms.items %}
+                        {% with reward_form=value %}
+                            {% with "reward_form_"|int_to_string:reward.id as form %}
+                                {% if form == key %}
+                                    {% include 'funding/rewardblock.html' %}
+                                {% endif %}
+                            {% endwith %}
+                        {% endwith %}
+                    {% endfor %}
+                    </div>
                 {% endfor %}
                 {% endif %}
                 </div>
