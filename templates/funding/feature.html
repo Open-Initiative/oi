@@ -88,6 +88,10 @@
         <div id="featuredesc_{{task.id}}" class="featuredetailspec invisible">
             {% include 'funding/feature_description.html' %}
         </div>
+        {% else %}
+        <div id="featuredesc_{{task.id}}"></div>
+        <a id="see_more_{{task.id}}" class="clickable see-more"></a>
+        <a id="see_less_{{task.id}}" class="clickable invisible see-less"></a>
         {% endif %}
         
         <div class="cleared">
