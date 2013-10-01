@@ -15,12 +15,12 @@
     {% if spec.type == 3 or spec.type == 4 or spec.type == 6 and spec.url != "http://" %}
     <a href="{{spec.url}}" > {{spec.text|oiunescape|default:spec.url}} </a>
     {% else %}
-        <div><p>{{spec.text|oiunescape}}</p></div> 
+        {{spec.text|oiunescape}}
     {% endif %}
 </div>
 
 {% if object|can_write:user and object.state < 2 and object.parent %}
-<div class="specfooter funding_space">
+<div class="specfooter">
     {% if spec.author %}<span class="specauthor">{{spec.author.get_profile}}</span>{% else %}{% trans "Guest" %}{% endif %}
     {{spec.created|date:"d/m/Y H:i:s"}}
     <img class="clickable" src="/img/icons/delete.png" onclick="deleteSpec({{object.id}}, {{spec.order}})" alt="{% trans 'Delete the description' %}" title="{% trans 'Delete the description' %}"/>

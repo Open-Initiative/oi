@@ -97,10 +97,10 @@
         <div class="bidaction clickable" onclick="showPopup(document.getElementById('pluginpopup'))">{% trans "Integrate your project" %}</div>
         <div id="pluginpopup" style="width: 120%;" class="invisible popup" onclick="document.ignoreClosePopups = true;">
             <form>
+                <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="big">{% trans "Big" %}
+                <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="small">{% trans "Small" %}
+                <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="tiny">{% trans "Tiny" %}
                 <textarea id="plugincode" class="norich" style="width:100%; float:right; height:65px"></textarea>
-                <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="big">{% trans "Big" %}<br>
-                <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="small">{% trans "Small" %}<br>
-                <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="tiny">{% trans "Tiny" %}<br>
             </form>
             <div id="plugin_preview"></div>
             
@@ -191,7 +191,8 @@
                         <h6 class="rewardtitle">{{reward.title}}</h6>
                         <img class="fundingleft" style="max-width:130px; margin-right:10px;" src="{% if reward.image %}{{reward.image.url}}{% endif %}" alt="{% trans 'Photo that illustrate the reward' %}" title="{% trans 'Photo that illustrate the reward' %}" />
                         <p id="descriptionreward_{{reward.id}}">{{reward.description|oiunescape}}</p>
-                        <p>{% trans "Max number of users:" %} <br/> <span class="rewardtitle" id="nb_reward_{{reward.id}}">{{reward.nb_reward}}</span>{% if project|can_manage:user %}<img src="/img/icons/addgreen.png" style="margin-left: 5%;" alt="{% trans 'plus picture' %}" title="{% trans 'Add stock reward' %}" onclick="updateStockReward('{{project.id}}', '{{reward.id}}', true)"><img src="/img/icons/remove.png" style="margin-left: 5%;" title="{% trans 'Remove stock reward' %}" alt="{% trans 'less picture' %}" onclick="updateStockReward('{{project.id}}', '{{reward.id}}', false)">{% endif %}</p>
+                        <div class="cleared"></div>
+                        <p> <span class="rewardtitle" id="nb_reward_{{reward.id}}">{{reward.nb_reward}}</span> {% trans "remaining rewards" %} <br/> {% if project|can_manage:user %}<img src="/img/icons/addgreen.png" style="margin-left: 5%;" alt="{% trans 'plus picture' %}" title="{% trans 'Add stock reward' %}" onclick="updateStockReward('{{project.id}}', '{{reward.id}}', true)"><img src="/img/icons/remove.png" style="margin-left: 5%;" title="{% trans 'Remove stock reward' %}" alt="{% trans 'less picture' %}" onclick="updateStockReward('{{project.id}}', '{{reward.id}}', false)">{% endif %}</p>
                         <div class="cleared"></div>
                         {% if project|can_manage:user %}<img class="clickable fundingright" title="{% trans 'Description and conditions' %}" alt="{% trans 'Description and conditions' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('newreward_{{reward.id}}'))"/>{% endif %}   
                     </div>
@@ -219,7 +220,7 @@
         
         {% if project.spec_set.all|filter_order:5 or project.spec_set.all|filter_order:6 or object|can_manage:user %}
         <div class="column-right myprofile">
-            <h3>{% trans "Developper's corner" %}</h3>
+            <h2>{% trans "Developper's corner" %}</h2>
             
             {% if project.spec_set.all|filter_order:5 or object|can_manage:user %}
             <h4>{% trans "Deposit" %}</h4>

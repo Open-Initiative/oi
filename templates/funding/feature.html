@@ -29,7 +29,7 @@
 
     <div id="featureDiv_{{task.id}}" class="featureblock" title="{{task.title}}" style="padding: 1%;{% if not task.public_read %} opacity:.4;{% endif %}">
         
-        <div class="fundingright" style="min-width: 30%;">
+        <div class="fundingright form_center" style="min-width: 30%;">
             <div><span class="funded">{{task.allbid_sum|default:0|floatformat:"-2"}} €</span> {% trans "funded" %}</div>
             <div class="progressbar">
                 <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%;">{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%</span>
@@ -71,15 +71,15 @@
         
         <div id="feature_{{task.id}}" class="featuretitle clickable" onclick="expandFeature({{task.id}})">{{task.title}}</div>
         
-        {% if task|can_write:user and task.state < 4 %}<span class="fundingleft editfeature">
+        {% if task|can_write:user and task.state < 4 %}<span class="editfeature">
             {% if task.state < 2 %}{% trans "Edit" %} <img src="/img/icons/edit.png" alt="{% trans 'edit title' %}" title="{% trans 'edit title' %}" class="clickable" onclick="var newtitle = prompt(gettext('Please insert a title :'), '{{task.title}}');if(newtitle){confirmEditTitle({{task.id}}, newtitle);}" />{% endif %}
             {% trans "Delete" %} <img src="/img/icons/delete.png" alt="{% trans 'delete feature' %}" title="{% trans 'delete feature' %}" class="clickable" onclick="deleteFeature({{task.id}})" />
         </span>{% endif %}
         
-        <div id="featuredesc_{{task.id}}_hide" style="text-align: left; float:left; width:60%">
+        <div id="featuredesc_{{task.id}}_hide" class="coverferture">
         {% for spec in task.spec_set.all %}
             {% if spec.order == 1 %}
-                <p class="no_p_style">{{spec.text|oiunescape|slice:":100"}} {% if spec.text|length > 101 %}...{% endif %}</p>
+                {{spec.text|oiunescape|slice:":100"}} {% if spec.text|length > 101 %}...{% endif %}
             {% endif %}
         {% endfor %}
         </div>
@@ -90,11 +90,11 @@
         </div>
         {% endif %}
         
-        <div class="form_center cleared">
+        <div class="cleared">
             {% if task|can_manage:user or task.spec_set.count%}
-            <span class="fundingleft"><a id="see_more_{{task.id}}" class="clickable see-more"  onclick="expandFeature({{task.id}});{% if task|can_write:user and task.state < 4 and task.spec_set.all.count < 1 %}addSpec('{{task.id}}');{% endif %}">{% trans "See more" %}</a>
+            <a id="see_more_{{task.id}}" class="clickable see-more"  onclick="expandFeature({{task.id}});{% if task|can_write:user and task.state < 4 and task.spec_set.all.count < 1 %}addSpec('{{task.id}}');{% endif %}">{% trans "See more" %}</a>
             
-            <a id="see_less_{{task.id}}" class="clickable invisible see-less" onclick="expandFeature({{task.id}})">{% trans "See less" %}</a></span>
+            <a id="see_less_{{task.id}}" class="clickable invisible see-less" onclick="expandFeature({{task.id}})">{% trans "See less" %}</a>
             {% endif %}
         </div>
         
