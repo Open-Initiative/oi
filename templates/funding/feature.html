@@ -76,7 +76,7 @@
             {% trans "Delete" %} <img src="/img/icons/delete.png" alt="{% trans 'delete feature' %}" title="{% trans 'delete feature' %}" class="clickable" onclick="deleteFeature({{task.id}})" />
         </span>{% endif %}
         
-        <div id="featuredesc_{{task.id}}_hide" class="coverferture">
+        <div id="specs_{{task.id}}_hide" class="coverferture">
         {% for spec in task.spec_set.all %}
             {% if spec.order == 1 %}
                 {{spec.text|oiunescape|slice:":100"}} {% if spec.text|length > 101 %}...{% endif %}
@@ -84,14 +84,13 @@
         {% endfor %}
         </div>
         
-        <div id="featuredesc_{{task.id}}" class="featuredetailspec invisible">
             {% if task|can_manage:user or task.spec_set.count %}
                 {% include 'funding/feature_description.html' %}
             {% else %}
+                <input id="specs_{{task.id}}" type="hidden">
                 <input id="see_more_{{task.id}}" type="hidden">
                 <input id="see_less_{{task.id}}" type="hidden">
             {% endif %}
-        </div>
         
         <div class="cleared">
             {% if task|can_manage:user or task.spec_set.count%}
@@ -108,8 +107,8 @@
         });
         $( document ).ready(function() {
             if(document.location.hash=='#feature_{{task.id}}'){
-                show('featuredesc_{{task.id}}');
-                hide('featuredesc_{{task.id}}_hide');
+                show('specs_{{task.id}}');
+                hide('specs_{{task.id}}_hide');
                 hide('see_more_{{task.id}}');
                 show('see_less_{{task.id}}');
             }

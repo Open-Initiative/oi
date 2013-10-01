@@ -87,14 +87,14 @@ function expandFeature(taskid){
     //if the hash is equal to the taskid, show the feature block or hide it
     shrinkAllFeatures();
     if(document.location.hash == "#feature_"+taskid){
-        hide('featuredesc_'+taskid);
-        show('featuredesc_'+taskid+'_hide');
+        hide('specs_'+taskid);
+        show('specs_taskid+'_hide');
         show('see_more_'+taskid);
         hide('see_less_'+taskid);
         document.location.hash = "x";
     }else if(document.location.hash != "#feature_"+taskid){
-        show('featuredesc_'+taskid);
-        hide('featuredesc_'+taskid+'_hide');
+        show('specs_'+taskid);
+        hide('specs_'+taskid+'_hide');
         hide('see_more_'+taskid);
         show('see_less_'+taskid);
         document.location.hash = "feature_"+taskid;
