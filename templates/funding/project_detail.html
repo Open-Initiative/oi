@@ -340,7 +340,7 @@
         featureShowHide('features_4');
     }
     {% if object|can_manage:user %}
-    jQuery(".features_manage").sortable({update: function(event,ui){
+    jQuery(".features_manage").sortable({containment: "parent", update: function(event,ui){
         var params = jQuery(this).sortable("toArray").map(function(id,index) {return id+"="+index}).join("&");
         OIajaxCall("/project/{{object.id}}/sort", params, "output");
     }})
