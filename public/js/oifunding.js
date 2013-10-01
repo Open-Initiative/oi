@@ -88,7 +88,7 @@ function expandFeature(taskid){
     shrinkAllFeatures();
     if(document.location.hash == "#feature_"+taskid){
         hide('specs_'+taskid);
-        show('specs_taskid+'_hide');
+        show('specs_'+taskid+'_hide');
         show('see_more_'+taskid);
         hide('see_less_'+taskid);
         document.location.hash = "x";
