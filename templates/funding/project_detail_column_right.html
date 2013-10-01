@@ -1,4 +1,4 @@
-{% load i18n %}{% load oifilters %}
+{% load oifilters %}{% load i18n %}
 <p><a id="{{divid}}" {% if spec.url %}href="{{spec.url}}"{% endif %} Target= "_blank">{% if spec.url %}{{spec.url}}{% else %}{% trans "No link given" %}{% endif %}</a> {% if object|can_manage:user %}<img class="clickable fundingright" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('corner_{{divid}}'))">{% endif %}</p>
 <div id="corner_{{divid}}" class="invisible popup_corner" onclick="document.ignoreClosePopups = true;">
     <input name="spectype" id="type_{{divid}}" value="3" type="hidden"/>
@@ -6,9 +6,9 @@
     <input name="projectid" id="projectid_{{divid}}" value="{{project.id}}" type="hidden"/>
     <input name="specorder" id="specorder_{{divid}}" value="{{order}}" type="hidden"/>
     <input type="hidden" id="text_{{divid}}">
-    <span class="rewardtitle">{% trans "Url" %} {{divid}} {% trans "repository" %}</span>
+    <span class="rewardtitle">{% trans "Enter here the link to the" %} {{divid}} {% trans "repository project" %}</span>
     <form method="post" onsubmit="saveSpec('{{divid}}',{{project.id}},getValue('specorder_{{divid}}'),{{spec.id|default:0}});hidePopups(); return false">
-        <span>{% trans "Url" %} </span><input id="url_{{divid}}" type="text" value="{{spec.url|default:"http://"}}">
+        <input id="url_{{divid}}" type="text" value="{{spec.url|default:"http://"}}">
         <div class="cleared"></div>
         <input class="fundingright" type="image" src="/img/icons/ok-32.png">
         {% csrf_token %}

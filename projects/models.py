@@ -669,9 +669,13 @@ class RewardForm(forms.ModelForm):
     class Meta:
         model = Reward
         fields = ('title','image','description','nb_reward')
-        
+       
     def __init__(self, *args, **kwargs):
         super(RewardForm, self).__init__(*args, **kwargs)
         self.fields['description'].widget.attrs.update({'class' : 'norich'})
         self.fields['description'].widget.attrs.update({'style' : 'width:100%; height:130px'})
+        self.fields['description'].label = 'Description and conditions'
+        self.fields['title'].label = 'Reward object (technical support, T-shirt, personnalized e-mail...)'
+        self.fields['image'].label = 'Picture that illustrate the reward'
+        self.fields['nb_reward'].label = 'Number of rewards remaining'
         

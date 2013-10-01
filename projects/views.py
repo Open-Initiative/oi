@@ -243,7 +243,6 @@ def savereward(request, id, rewardid):
         form = RewardForm(request.POST, request.FILES, instance=project.reward_set.all().get(id=rewardid))
         reward = form.save(commit=False)
        
-    reward.description = oiescape(request.POST["description"]) 
     reward.save()
     return HttpResponse("<script>window.parent.location.reload(true)</script>")
 
