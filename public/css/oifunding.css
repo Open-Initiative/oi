@@ -348,8 +348,8 @@ div.cardspec {
     border-radius: 3px;
 }
 .featureblock img {
-    width-max: 400px;
-    height-max: 400px;
+    max-width: 400px;
+    max-height: 400px;
 }
 .minispec dl {
     margin: 0;
