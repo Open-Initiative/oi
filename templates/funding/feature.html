@@ -84,15 +84,14 @@
         {% endfor %}
         </div>
         
-        {% if task|can_manage:user or task.spec_set.count%}
         <div id="featuredesc_{{task.id}}" class="featuredetailspec invisible">
-            {% include 'funding/feature_description.html' %}
+            {% if task|can_manage:user or task.spec_set.count %}
+                {% include 'funding/feature_description.html' %}
+            {% else %}
+                <input id="see_more_{{task.id}}" type="hidden">
+                <input id="see_less_{{task.id}}" type="hidden">
+            {% endif %}
         </div>
-        {% else %}
-        <div id="featuredesc_{{task.id}}"></div>
-        <a id="see_more_{{task.id}}" class="clickable see-more"></a>
-        <a id="see_less_{{task.id}}" class="clickable invisible see-less"></a>
-        {% endif %}
         
         <div class="cleared">
             {% if task|can_manage:user or task.spec_set.count%}

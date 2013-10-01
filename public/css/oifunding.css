@@ -954,17 +954,16 @@ div.sepspecfooter {
 .bordertitledetails {
     border: 1px solid #E0E0E0;
     float: left;
-    width: 30%;
+    width: 43%;
     padding: 10px;
     margin-top: 0.5em;
-    margin-top: 30px;
 }
 .blockfeatureheight {
     background-color: white;
     border: 1px solid #E3E3E5;
-    margin-top: 30px;
     padding: 1%;
     margin-left: 5%;
+    width: 43%;
 }
 .fieldfeature{
     border:1px solid #E0E0E0; 
