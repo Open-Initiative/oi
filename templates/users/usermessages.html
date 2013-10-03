@@ -1,5 +1,6 @@
 {% extends "funding/base.html" %}
 {% load i18n %}
+{% load oifilters %}
 {% block title %}{% trans "Personal messages" %}{% endblock %}
 {% block nav %}<a href="#sendmp">{% trans "Send a personal message to" %} {{contact.get_profile}}</a>{% endblock %}
 {% block content %}
@@ -13,7 +14,7 @@
         </div>
         <div>
         <h3>{{pm.subject}}</h3>
-            {{pm.text}}
+            {{pm.text|oiunescape}}
         </div>
     </div>
     {% endfor %}
