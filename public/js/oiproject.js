@@ -469,7 +469,7 @@ function buildText(divid){
 }
 function saveSpec(divid, projectid, order, specid, lang, callBack) {
     tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
-    var params = "text="+encodeURIComponent(getValue("text_"+divid).replace(/\+/gi,"%2B")) + "&order="+order + "&type="+getValue("type_"+divid);
+    var params = "text="+encodeURIComponent(getValue("text_"+divid)) + "&order="+order + "&type="+getValue("type_"+divid);
     if(lang && lang != null && lang != "None") params +="&language="+lang;
     if(getValue("url_"+divid)) params+="&url="+getValue("url_"+divid);
     if(getValue("filename_"+divid)) params+="&filename="+getValue("filename_"+divid);
