@@ -1,6 +1,6 @@
 function featureShowHide (divid){
     var featureid_block = ["features_0", "features_3", "features_4"];
-    var featureid_blockHeadid = ["featureid_proposed", "featureid_progress", "featureid_finish"];
+    var featureid_blockHeadid = ["featureid_proposed", "featureid_progress", "featureid_finished"];
     for(var i = 0; i < featureid_block.length; i++){
         if(featureid_block[i]){
             if(divid == featureid_block[i]){
@@ -13,7 +13,26 @@ function featureShowHide (divid){
         }
     }
 }
-
+function showFeatureState(){
+    if(document.getElementById("features_0")){
+        featureShowHide('features_0');
+    }else if(document.getElementById("features_3")){
+        featureShowHide('features_3');
+    }else if(document.getElementById("features_4")){
+        featureShowHide('features_4');
+    }
+}
+function isFeatureState(){
+    if(document.getElementById("featureid_proposed") && (document.getElementById("featureid_progress")||document.getElementById("featureid_finished"))){
+        show('featureid_proposed');
+    }
+    if(document.getElementById("featureid_progress") && (document.getElementById("featureid_finished")||document.getElementById("featureid_proposed"))){
+        show('featureid_progress');
+    }
+    if(document.getElementById("featureid_finished") && (document.getElementById("featureid_proposed")||document.getElementById("featureid_progress"))){
+        show('featureid_finished');
+    }
+}
 function deleteFeature(projectid) {
     if(confirm(gettext("Are you sure you want to delete this task permanently?"))) {
         OIajaxCall("/project/delete/"+projectid, null, "output",

@@ -51,9 +51,9 @@
     
     <div>
         <div class="statebtns center_btn"> 
-            {% if object.all_not_started_tasks %}<div onclick="featureShowHide('features_0')" id="featureid_proposed" class="clickable statebtn">{% trans "Proposed" %}</div>{% endif %}
-            {% if object.all_progress_tasks %}<div onclick="featureShowHide('features_3')" id="featureid_progress" class="clickable statebtn">{% trans "In progress" %}</div>{% endif %}
-            {% if object.all_finish_tasks %}<div onclick="featureShowHide('features_4')" id="featureid_finish" class="clickable statebtn">{% trans "Finished" %}</div>{% endif %}
+            {% if object.all_not_started_tasks %}<div onclick="featureShowHide('features_0')" id="featureid_proposed" class="clickable statebtn invisible">{% trans "Proposed" %}</div>{% endif %}
+            {% if object.all_progress_tasks %}<div onclick="featureShowHide('features_3')" id="featureid_progress" class="clickable statebtn invisible">{% trans "In progress" %}</div>{% endif %}
+            {% if object.all_finish_tasks %}<div onclick="featureShowHide('features_4')" id="featureid_finished" class="clickable statebtn invisible">{% trans "Finished" %}</div>{% endif %}
             <div class="cleared"></div>
         </div>
 
@@ -335,13 +335,8 @@
 
 <script>
     currentTask = {{object.id}};
-    if(document.getElementById("features_0")){
-        featureShowHide('features_0');
-    }else if(document.getElementById("features_3")){
-        featureShowHide('features_3');
-    }else if(document.getElementById("features_4")){
-        featureShowHide('features_4');
-    }
+    showFeatureState();
+    isFeatureState();
     {% if object|can_manage:user %}
     jQuery(".features_manage").sortable({containment: "parent", update: function(event,ui){
         var params = jQuery(this).sortable("toArray").map(function(id,index) {return id+"="+index}).join("&");
