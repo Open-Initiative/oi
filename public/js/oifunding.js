@@ -23,6 +23,7 @@ function showFeatureState(){
     }
 }
 function isFeatureState(){
+//  if button exist, show the button state 
     if(document.getElementById("featureid_proposed") && (document.getElementById("featureid_progress")||document.getElementById("featureid_finished"))){
         show('featureid_proposed');
     }
@@ -52,6 +53,16 @@ function visibleFeature(projectid){
             }
         }
     );
+}
+function notVisibleBtnFeature(){
+//  for visiters hide feature btn if all the features is hide
+    var featureid_block = ["features_0", "features_3", "features_4"];
+    var featureid_blockHeadid = ["featureid_proposed", "featureid_progress", "featureid_finished"];
+    for(var i = 0; i < featureid_block.length; i++){
+        if(document.getElementById(featureid_block[i]) && !document.getElementById(featureid_block[i]).getElementsByClassName("featureblock").length){
+            hide(featureid_blockHeadid[i]);
+        }
+    }
 }
 function checkSavedSpecs(projectid){
     document.location.href="/funding/"+projectid;
@@ -90,6 +101,12 @@ function saveAllSpec(projectid, nbSpecToSave){
             });
         }
     }
+}
+function sortFeature(projectid){
+    jQuery(".features_manage").sortable({containment: "parent", update: function(event,ui){
+        var params = jQuery(this).sortable("toArray").map(function(id,index) {return id+"="+index}).join("&");
+        OIajaxCall("/project/"+projectid+"/sort", params, "output");
+    }});
 }
 function seeMore(dividblock1, dividblock2){
     //hide one div and show the other

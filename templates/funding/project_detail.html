@@ -87,7 +87,6 @@
     </div>
     {% endwith %}
 
-<!--début-->
 <div>
     {% if object|can_manage:user %}
     <div class="bordertitledetails credittip">
@@ -135,7 +134,6 @@
     {% endif %}
 
 </div>
-<!--fin-->    
     
 </div>
 
@@ -337,11 +335,9 @@
     currentTask = {{object.id}};
     showFeatureState();
     isFeatureState();
+    notVisibleBtnFeature();
     {% if object|can_manage:user %}
-    jQuery(".features_manage").sortable({containment: "parent", update: function(event,ui){
-        var params = jQuery(this).sortable("toArray").map(function(id,index) {return id+"="+index}).join("&");
-        OIajaxCall("/project/{{object.id}}/sort", params, "output");
-    }})
+    sortFeature({{object.id}});
     {% endif %}
 </script>
 {% else %}
