@@ -30,7 +30,7 @@
             {{selected_user.get_profile}}
             {% ifequal user selected_user %}<a href="/user/myaccount"><img src="/img/icons/edit.png" /></a>{% endifequal %}
         </h1>
-        <div><a target="_blank" href="{{selected_user.get_profile.personal_website}}">{{selected_user.get_profile.personal_website}}</a></div>
+        <div><a target="_blank" href="{{selected_user.get_profile.personal_website}}">{% if selected_user.get_profile.personal_website %}{{selected_user.get_profile.personal_website}}{% endif %}</a></div>
         <div>{{selected_user.get_profile.city}}, {{selected_user.get_profile.country}}</div>
         
         <h2>
