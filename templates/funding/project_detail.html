@@ -50,7 +50,7 @@
     
     
     <div>
-        <div class="statebtns center_btn"> 
+        <div id="featureid_blockHead" class="statebtns center_btn"> 
             {% if object.all_not_started_tasks %}<div onclick="featureShowHide('features_0')" id="featureid_proposed" class="clickable statebtn invisible">{% trans "Proposed" %}</div>{% endif %}
             {% if object.all_progress_tasks %}<div onclick="featureShowHide('features_3')" id="featureid_progress" class="clickable statebtn invisible">{% trans "In progress" %}</div>{% endif %}
             {% if object.all_finish_tasks %}<div onclick="featureShowHide('features_4')" id="featureid_finished" class="clickable statebtn invisible">{% trans "Finished" %}</div>{% endif %}
@@ -211,13 +211,13 @@
             </div>
             <div>
                 <div>{% autoescape off %}{% if project.author.get_profile.bio|length > 300 %} {{project.author.get_profile.bio|oiunescape|slice:":300"}}...{% else %}{{project.author.get_profile.bio|oiunescape}}{% endif %}{% endautoescape %}</div>
-                </div>
-                <div><a href="{{project.author.get_profile.personal_website}}">{{project.author.get_profile.personal_website}}</a></div>
-                <div class="cleared"></div>
-                <a style="text-align: right;display: block;" href="/user/profile/{{project.author.username}}">{% trans "Full bio" %}</a>
-                <div class="cleared"></div>
             </div>
+            <div><a href="{{project.author.get_profile.personal_website}}">{{project.author.get_profile.personal_website}}</a></div>
+            <div class="cleared"></div>
+            <a style="text-align: right;display: block;" href="/user/profile/{{project.author.username}}">{% trans "Full bio" %}</a>
+            <div class="cleared"></div>
         </div>
+    </div>
     
         {% if object.reward_set.all or object|can_manage:user %}
         <div class="myprofile" style="margin-bottom: 10px;">
@@ -334,9 +334,7 @@
 
 <script>
     currentTask = {{object.id}};
-    showFeatureState();
-    isFeatureState();
-    notVisibleBtnFeature();
+    allFeatureFunction();    
     {% if object|can_manage:user %}
     sortFeature({{object.id}});
     {% endif %}

@@ -1,3 +1,10 @@
+function allFeatureFunction(){
+//  gather all the feature function and call it in the template
+    isFeatureState();
+    notVisibleBtnFeature();
+    oneBtnFeatureToHide();
+    showFeatureState();
+}
 function featureShowHide (divid){
     var featureid_block = ["features_0", "features_3", "features_4"];
     var featureid_blockHeadid = ["featureid_proposed", "featureid_progress", "featureid_finished"];
@@ -14,13 +21,16 @@ function featureShowHide (divid){
     }
 }
 function showFeatureState(){
-    if(document.getElementById("features_0")){
-        featureShowHide('features_0');
-    }else if(document.getElementById("features_3")){
-        featureShowHide('features_3');
-    }else if(document.getElementById("features_4")){
-        featureShowHide('features_4');
+//  make a featureShowHide if the state btn is visible
+    var featureid_block = ["features_0", "features_3", "features_4"];
+    var featureid_blockHeadid = ["featureid_proposed", "featureid_progress", "featureid_finished"];
+    for(var i = 0; i < featureid_blockHeadid.length; i++){
+        if(document.getElementById(featureid_blockHeadid[i]).style.display != "none"){
+            featureShowHide(featureid_block[i]);
+            break;
+        }
     }
+
 }
 function isFeatureState(){
 //  if button exist, show the button state 
@@ -62,6 +72,19 @@ function notVisibleBtnFeature(){
         if(document.getElementById(featureid_block[i]) && !document.getElementById(featureid_block[i]).getElementsByClassName("featureblock").length){
             hide(featureid_blockHeadid[i]);
         }
+    }
+}
+function oneBtnFeatureToHide(){
+//  if there are just one btn visible, hide it
+    if(document.getElementById("featureid_blockHead")){
+        var btns = document.getElementById("featureid_blockHead").getElementsByClassName('statebtn');
+        var cpt_btn_hide = 0;
+        for (var i = 0; i < btns.length; i++){
+            if(btns[i].style.display == "none")
+                cpt_btn_hide++;
+        }
+        if(cpt_btn_hide > 1)
+            hide("featureid_blockHead");
     }
 }
 function checkSavedSpecs(projectid){
@@ -154,7 +177,7 @@ function selectplugin(projectid, plugintype) {
 function updateStockReward(projectid, rewardid, moreOrLess){
     if(moreOrLess) var nb = 1; else var nb = -1;
     OIajaxCall("/project/"+projectid+"/updatestockreward/"+rewardid, "update="+nb, "output", function(){
-        oldvalue = parseInt(document.getElementById("nb_reward_"+rewardid).innerHTML);
+        var oldvalue = parseInt(document.getElementById("nb_reward_"+rewardid).innerHTML);
         if(oldvalue >= 0)
             document.getElementById("nb_reward_"+rewardid).innerHTML = oldvalue + nb;
     })
