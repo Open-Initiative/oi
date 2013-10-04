@@ -9,7 +9,7 @@
     </div>
     
     {% if task.state < 4 and task|can_bid:user or not user.is_authenticated %}
-    <div id="bidpopup_{{task.id}}" class="popup_spec invisible" onclick="document.ignoreClosePopups = true;">
+    <div id="bidpopup_{{task.id}}" {% if plugin_width %}style="width:{{plugin_width}};"{% endif %} class="popup_spec invisible" onclick="document.ignoreClosePopups = true;">
             <img style="position: relative;top: 14%;" class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hidePopups()" />
             <div class="cleared"></div>
             <p class="bid_popup_title form_center">{% trans "Support the feature" %} <b>{{task.title}}</b><br/> {% trans "on the project" %} <u>{{object.title}}</u></p>

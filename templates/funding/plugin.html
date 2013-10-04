@@ -3,6 +3,7 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="/css/oi.css" />
+        <link rel="stylesheet" type="text/css" href="/css/oiusers.css" />
         <link rel="stylesheet" type="text/css" media="all" href="/css/oifunding.css" />
         <link rel="stylesheet" type="text/css" media="all" href="/css/jquery-ui-1.9.1.custom.css" /> 
         <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
@@ -40,7 +41,9 @@
                 {% for task in object.all_not_started_tasks|filter_read:user %}
                     <li class="pluginfeature{% if not forloop.first %} invisible{% endif %}" id="task_{{task.id}}">
                     <a class="featuretitle" href="/funding/{{object.id}}" target="_blank">{{task.title}}</a>
-                    {% include 'funding/feature.html' %}
+                    {% with plugin_width='300%' %}
+                        {% include 'funding/feature.html' %}
+                    {% endwith %}
                     </li>
                 {% endfor %}
             </ul>
