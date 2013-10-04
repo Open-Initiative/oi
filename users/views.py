@@ -21,6 +21,7 @@ from django.views.decorators.csrf import csrf_exempt
 from oi.prjnotify.models import Notice, NoticeType, Observer
 from oi.settings import MEDIA_ROOT, MEDIA_URL, PAYMENT_ACTION
 from oi.helpers import render_to_pdf, OI_DISPLAYNAME_TYPES, computeSHA
+from oi.messages.templatetags.oifilters import oiescape
 from oi.users.models import User, UserProfile, UserProfileForm, PersonalMessage, Payment
 from oi.users.models import Training, TrainingForm, Experience, ExperienceForm, Skill, SkillForm, OI_USERPROFILE_DETAILS_CLASSES
 from oi.projects.models import Bid, Project
@@ -329,7 +330,7 @@ def invoice(request):
 @login_required
 def sendMP(request, username):
     """sends a private to the selected user, from the current user"""
-    mp = PersonalMessage(from_user=request.user, to_user=User.objects.get(username = username), text=request.POST['message'], subject=request.POST['subject'])
+    mp = PersonalMessage(from_user=request.user, to_user=User.objects.get(username = username), text=oiescape(request.POST['message']), subject=request.POST['subject'])
     mp.save()
     mp.to_user.get_profile().get_default_observer().notify('personal_message', param=mp.subject, sender=mp.from_user)
     return HttpResponse(_("Message sent"), status=332)

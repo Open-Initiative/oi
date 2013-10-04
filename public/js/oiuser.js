@@ -96,7 +96,8 @@ function writeMP(username) {
         function(){show("sendmp");});
 }
 function sendMP(username) {
-    OIajaxCall("/user/sendmp/"+username, "message="+getValue("MPmessage")+"&subject="+getValue("MPsubject"), "output",
+    tinyMCE.execCommand('mceRemoveControl', false, "MPmessage");
+    OIajaxCall("/user/sendmp/"+username, "message="+encodeURIComponent(getValue("MPmessage"))+"&subject="+getValue("MPsubject"), "output",
         function(){hide("sendmp");});
 }
 function archiveNotice(noticeid) {
