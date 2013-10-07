@@ -324,8 +324,10 @@ class Project(models.Model):
 
     def notify_all(self, sender, notice_type, param):
         """sends a notification to all users about this project"""
-        for observer in Observer.objects.filter(models.Q(project=self)|
-                models.Q(project__descendants=self)).exclude(user=sender).distinct():
+        observers = Observer.objects.filter(models.Q(project=self)|models.Q(project__descendants=self))
+        if sender.is_authenticated():
+            observers = observers.exclude(user=sender)
+        for observer in observers.distinct():
             observer.notify(label=notice_type, project=self, param=param, sender=sender)
 
     def makebid(self, user, amount):
