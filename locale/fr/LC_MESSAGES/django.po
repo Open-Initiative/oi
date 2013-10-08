@@ -2078,7 +2078,7 @@ msgstr "Toute la biographie"
 
 #: templates/funding/project_detail.html:229
 msgid "Add a reward"
-msgstr "Ajouter une nouvelle récompense"
+msgstr "Ajouter une récompense"
 
 #: templates/funding/project_detail.html:242
 msgid "Delete the reward"
