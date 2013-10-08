@@ -504,6 +504,10 @@ class Project(models.Model):
             if not bid.user in list_user:   
                 list_user.append(bid.user)
         return list_user
+        
+    def exist_rewards(self):
+        """check if there are still rewards in the project"""
+        return self.reward_set.all().exclude(nb_reward=0).count()
 
         
 #Structure de contrôle des permissions

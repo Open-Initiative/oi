@@ -221,7 +221,7 @@
         </div>
     </div>
     
-        {% if object.reward_set.all or object|can_manage:user %}
+        {% if object.exist_rewards or object|can_manage:user %}
         <div class="myprofile" style="margin-bottom: 10px;">
             <div class="column-right">
                 <h3>{% trans "Reward" %}</h3>
@@ -234,7 +234,6 @@
                 <iframe class="filedest" name="rewardimage" id="rewardimage"></iframe>
                 
                 <div id="blockreward">
-                {% if object.reward_set.all %}
                 {% for reward in object.reward_set.all %}
                     {% if not reward.nb_reward == 0 or object|can_manage:user %}
                     <div id="blockreward_{{reward.id}}">
@@ -262,7 +261,6 @@
                     {% endfor %}
                     </div>
                 {% endfor %}
-                {% endif %}
                 </div>
                 <div class="cleared"></div>
             </div>
