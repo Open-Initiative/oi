@@ -23,8 +23,8 @@ function addMessage(parentid, projectid) {
 }
 function saveMessage(divid, msgid){
     tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
-    var params = "message="+getValue("text_"+divid).replace(/\+/gi,"%2B")+
-        "&title="+getValue("title_"+divid).replace(/\+/gi,"%2B")+
+    var params = "message="+encodeURIComponent(getValue("text_"+divid))+
+        "&title="+encodeURIComponent(getValue("title_"+divid))+
         "&parent="+getValue("parent_"+divid)+"&project="+getValue("project_"+divid);
     OIajaxCall("/message/save/"+msgid, params, divid);
 }
