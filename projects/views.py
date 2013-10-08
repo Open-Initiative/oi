@@ -526,13 +526,13 @@ def answerdelay(request, id):
     #if neither true nor false
     return HttpResponse(_("No reply received"), status=531)
 
-@ajax_login_required
+@ajax_login_required(keep_fields=('bid',))
 @OINeedsPrjPerms(OI_BID)
 def bidproject(request, id):
     """Makes a new bid on the project"""
     project = Project.objects.get(id=id)
     try:
-        amount = Decimal("0"+request.POST.get("bid","0").replace(",","."))
+        amount = Decimal("0"+(request.POST.get("bid") or request.session.get('bid','0')).replace(",","."))
     except InvalidOperation:
         return HttpResponse(_("Invalid amount"))
     #checks that the user can afford the bid ; if not, redirects to the deposit page
@@ -561,7 +561,7 @@ def bidproject(request, id):
         return HttpResponse('/user/myaccount?amount=%s&project=%s'%((missing).to_eng_string(),project.id),status=333)
 
     messages.info(request, _("Bid saved"))
-    return HttpResponse('', status=332)
+    return HttpResponseRedirect('%s%s'%(settings.REDIRECT_URL, project.id))
   
 @OINeedsPrjPerms(OI_READ)
 def validatorproject(request, id):

@@ -70,7 +70,7 @@ function notVisibleBtnFeature(){
     var featureid_blockHeadid = ["featureid_proposed", "featureid_progress", "featureid_finished"];
     for(var i = 0; i < featureid_block.length; i++){
         if(document.getElementById(featureid_block[i]) && !document.getElementById(featureid_block[i]).getElementsByClassName("featureblock").length){
-            hide(featureid_blockHeadid[i]);
+            if(document.getElementById(featureid_blockHeadid[i])) hide(featureid_blockHeadid[i]);
         }
     }
 }
