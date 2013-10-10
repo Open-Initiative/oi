@@ -540,27 +540,27 @@ def bidproject(request, id):
     #1) check amount
     if amount == 0:
         return HttpResponse(_('Please indicate the amount'))
-    
     #2) calcul the missing
     missing = amount - request.user.get_profile().balance
     if amount > request.user.get_profile().balance:
         amount = request.user.get_profile().balance
-    
-   #3) check if the project progress is 100% funded
+        
+    #check if the project progress is 100% funded
     if project.allbid_sum() < project.offer + project.commission + project.get_commission_tax() and project.allbid_sum() + amount >= project.offer + project.commission + project.get_commission_tax():
-        #4) notify users about the progress
+        #notify users about the progress
         project.notify_all(project.assignee, "project_progress_users", project.progress)
-        #5) notify developper about the progress
-        project.assignee.get_profile().get_default_observer(project).notify("project_progress_dev", project=project)
-
-    #5) make the bid with the amount
+        #notify developper about the progress
+        project.assignee.get_profile().get_default_observer(project).notify("project_progress_dev", project=project)    
+        
+    #3) make the bid with the amount
     project.makebid(request.user, amount) #to update the user account
-
-    #6) back to ogone if is not enough
+    #4) back to ogone if is not enough
     if missing > 0:
         return HttpResponse('/user/myaccount?amount=%s&project=%s'%((missing).to_eng_string(),project.id),status=333)
 
     messages.info(request, _("Bid saved"))
+    if request.is_ajax():
+        return HttpResponse ("", status=332)
     return HttpResponseRedirect('%s%s'%(settings.REDIRECT_URL, project.id))
   
 @OINeedsPrjPerms(OI_READ)
@@ -628,7 +628,7 @@ def validateproject(request, id):
         return HttpResponse(_("only bidders can validate the project!"))
     
     if request.user==project.assignee:
-        bid.rating = OI_NO_EVAL # the assignee doesn't evaluates himself
+        bid.rating = OI_NO_EVAL # the assignee doesn't evaluates himproject
         bid.save()
     # pays the assignee
     project.assignee.get_profile().make_payment(bid.amount - bid.commission, _("Payment"), project)
@@ -643,7 +643,7 @@ def evaluateproject(request, id):
     rating = int(request.POST["rating"])
     comment = request.POST["comment"]
     if request.user == project.assignee:
-        return HttpResponse(_("You can not evaluate yourself"), status=433)
+        return HttpResponse(_("You can not evaluate yourproject"), status=433)
     if project.state == OI_VALIDATED:
         for bid in project.bid_set.filter(user=request.user):
             if bid.rating is not None:
@@ -761,7 +761,7 @@ def moveproject(request, id):
     if project.state > OI_ACCEPTED or parent.state > OI_STARTED:
         return HttpResponse(_("Can not change a task already started"), status=431)
     if project==parent or project in parent.ancestors.all():
-        return HttpResponse(_("Can not move a task inside itself"), status=531)
+        return HttpResponse(_("Can not move a task inside itproject"), status=531)
     #remove dependencies between ancestors and descendants
     for task in project.descendants.filter(Q(requirements=parent)|Q(requirements__descendants=parent)):
         task.requirements.remove(task.requirement.filter(Q(id=parent.id)|Q(descendants=parent)))
@@ -1131,26 +1131,26 @@ class OIFeed(Feed):
             obj.description += " - " + Project.objects.get(id=id).title
         return obj(request)
 
-    def get_object(self, request, *args, **kwargs):
-        if self.id=='0':
+    def get_object(project, request, *args, **kwargs):
+        if project.id=='0':
             return None
         else:
-            return Project.objects.get(id=self.id)
+            return Project.objects.get(id=project.id)
 
-    def items(self, obj):
+    def items(project, obj):
         if obj:
             return obj.descendants.order_by('-created')[:20]
         else:
             return Project.objects.order_by('-created')[:20]
 
-    def item_title(self, item):
+    def item_title(project, item):
         return item.title
 
-    def item_description(self, item):
+    def item_description(project, item):
         desc = _("Created by") + " " + item.author.get_profile().get_display_name()
         for spec in item.spec_set.all():
             desc += "\n- " + summarize(spec.text)
         return desc
         
-    def item_link(self, item):
+    def item_link(project, item):
         return "/project/%s"%item.id

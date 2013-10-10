@@ -355,7 +355,6 @@ class Project(models.Model):
         self.assignee.get_profile().get_default_observer(self).notify("funded_project", project=self, sender=user, param=amount)
         #notify only the user who funded
         user.get_profile().get_default_observer(self).notify("has_funded_project", project=self, param=amount)
-        
 
     def canceled_bids(self):
         """gets all the bids marked as canceled"""
