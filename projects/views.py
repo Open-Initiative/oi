@@ -553,12 +553,15 @@ def bidproject(request, id):
         project.assignee.get_profile().get_default_observer(project).notify("project_progress_dev", project=project)    
         
     #3) make the bid with the amount
-    project.makebid(request.user, amount) #to update the user account
+    if amount != Decimal('0'):
+        project.makebid(request.user, amount) #to update the user account
     #4) back to ogone if is not enough
     if missing > 0:
         return HttpResponse('/user/myaccount?amount=%s&project=%s'%((missing).to_eng_string(),project.id),status=333)
 
     messages.info(request, _("Bid saved"))
+    
+    #if the user is authenticated reload the page
     if request.is_ajax():
         return HttpResponse ("", status=332)
     return HttpResponseRedirect('%s%s'%(settings.REDIRECT_URL, project.id))
