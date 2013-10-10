@@ -546,7 +546,7 @@ def bidproject(request, id):
         amount = request.user.get_profile().balance
         
     #check if the project progress is 100% funded
-    if project.allbid_sum() < project.offer + project.commission + project.get_commission_tax() and project.allbid_sum() + amount >= project.offer + project.commission + project.get_commission_tax():
+    if project.missing_bid() < amount:
         #notify users about the progress
         project.notify_all(project.assignee, "project_progress_users", project.progress)
         #notify developper about the progress
