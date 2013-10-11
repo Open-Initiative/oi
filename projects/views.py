@@ -545,16 +545,9 @@ def bidproject(request, id):
     if amount > request.user.get_profile().balance:
         amount = request.user.get_profile().balance
         
-    #check if the project progress is 100% funded
-    if project.missing_bid() < amount:
-        #notify users about the progress
-        project.notify_all(project.assignee, "project_progress_users", project.progress)
-        #notify developper about the progress
-        project.assignee.get_profile().get_default_observer(project).notify("project_progress_dev", project=project)    
-        
     #3) make the bid with the amount
     if amount != Decimal('0'):
-        project.makebid(request.user, amount) #to update the user account
+        project.makebid(request.user, amount, project.missing_bid() and (project.missing_bid() < amount)) #to update the user account
     #4) back to ogone if is not enough
     if missing > 0:
         return HttpResponse('/user/myaccount?amount=%s&project=%s'%((missing).to_eng_string(),project.id),status=333)

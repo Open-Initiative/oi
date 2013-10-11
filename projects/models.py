@@ -330,7 +330,7 @@ class Project(models.Model):
         for observer in observers.distinct():
             observer.notify(label=notice_type, project=self, param=param, sender=sender)
 
-    def makebid(self, user, amount):
+    def makebid(self, user, amount, project_full_fund):
         """create the bid for the project"""
         
         #creates the bid
@@ -355,6 +355,12 @@ class Project(models.Model):
         self.assignee.get_profile().get_default_observer(self).notify("funded_project", project=self, sender=user, param=amount)
         #notify only the user who funded
         user.get_profile().get_default_observer(self).notify("has_funded_project", project=self, param=amount)
+        #check if the project progress is 100% funded
+        if project_full_fund:
+            #notify users about the progress
+            self.notify_all(self.assignee, "project_progress_users", self.progress)
+            #notify developper about the progress
+            self.assignee.get_profile().get_default_observer(self).notify("project_progress_dev", project=self) 
 
     def canceled_bids(self):
         """gets all the bids marked as canceled"""
