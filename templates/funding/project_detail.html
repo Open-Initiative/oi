@@ -30,17 +30,13 @@
             <div class="cleared"></div>
         </div>
         <div id="specs_{{project.id}}" class="prjdesc">
-            {% with spec=project.all_specs_with_languages|filter_order:2 object=project %}
-            <div style="position:relative;" id="spec_{{object.id}}_{{spec.order}}" class="funding_space">
-                {%include 'funding/spec/spec.html'%}
-            </div>
-            {% endwith %}
-            
-            {% with spec=project.all_specs_with_languages|filter_order:3 object=project %}
-            <div style="position:relative;" id="spec_{{object.id}}_{{spec.order}}" class="funding_space">
-                {%include 'funding/spec/spec.html'%}
-            </div>
-            {% endwith %}
+            {%for spec in project.all_specs_with_languages|dictsort:"order"%}
+                {% if spec.order < 4 %}
+                    <div style="position:relative;" id="spec_{{object.id}}_{{spec.order}}" class="funding_space">
+                        {% with project as object %}{%include 'funding/spec/spec.html'%}{% endwith %}
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
     
