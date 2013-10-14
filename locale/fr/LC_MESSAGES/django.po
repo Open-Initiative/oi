@@ -1425,7 +1425,7 @@ msgstr "Créer"
 
 #: templates/funding/index.html:97
 msgid "Feature by feature"
-msgstr "Evolution par évolution"
+msgstr "Évolution par évolution"
 
 #: templates/funding/index.html:99
 msgid ""
@@ -1459,7 +1459,7 @@ msgstr ""
 
 #: templates/funding/index.html:109
 msgid "Reach your community"
-msgstr "Atteignez votre communauté"
+msgstr "Touchez votre communauté"
 
 #: templates/funding/index.html:111
 msgid ""
@@ -2212,12 +2212,12 @@ msgid "Describe here what is to be done in"
 msgstr "Décrire ce qui doit être fait dans"
 
 #: templates/funding/spec/project_description_edit.html:11
-msgid "A picture presenting your project"
+msgid "The logo of your project"
 msgstr "Une image présentant votre projet"
 
 #: templates/funding/spec/project_description_edit.html:55
 msgid "Translate the description"
-msgstr "Traduiser la description"
+msgstr "Traduire la description"
 
 #: templates/funding/spec/project_description_edit.html:56
 msgid "English flag"
