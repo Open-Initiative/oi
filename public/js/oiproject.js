@@ -416,8 +416,9 @@ function moveSpec(projectid, specorder, moveUp){
     var specid = div.find("input").first().val();
     var targetDiv = moveUp?div.prevAll("div").first():div.nextAll("div").first();
     var targetspecid = targetDiv.find("input").first().val();
+    if(targetspecid)
         OIajaxCall("/project/"+projectid+"/movespec/"+specid,"target="+targetspecid, "output",
-            function (targetspecid){
+            function (){
                 if(moveUp){
                     div.prevAll("div").first().before(div);
                 }else{
