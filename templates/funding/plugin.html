@@ -36,7 +36,7 @@
         </div>
         {% if request.GET.type == "big" %}
         <div class="featuretitle">
-            <img class="pluginlogo" src="/img/logo_funding.png">
+            <a href="/" target="_blank"><img class="pluginlogo" src="/img/logo_funding.png"></a>
             <a href="/funding/{{object.id}}" target="_blank">{{object.title}}</a>
         </div>
         {% if object.all_not_started_tasks.count > 1 %}<img id="prevfeature" class="clickable plugin-arrow" src="/img/icons/previous.png" onclick="switchPrevFeature()"/>{% endif %}
@@ -44,7 +44,6 @@
             <ul class="features_manage" id="features_0">
                 {% for task in object.all_not_started_tasks|filter_read:user %}
                     <li class="pluginfeature{% if not forloop.first %} invisible{% endif %}" id="task_{{task.id}}">
-                    <a class="featuretitle" href="/funding/{{object.id}}" target="_blank">{{task.title}}</a>
                     {% with plugin_width='300%' %}
                         {% include 'funding/feature.html' %}
                     {% endwith %}
