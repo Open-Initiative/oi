@@ -95,7 +95,7 @@ function specsToSave(projectid){
     var specid = document.getElementsByName("specid");
     var specorder = document.getElementsByName("specorder");
     var speclang = document.getElementsByName("speclang");
-    var file_value = document.getElementById("file_"+projectid+"_1_None").value;
+    var file_value = document.getElementById("file_"+projectid+"_1_").value;
     for (var i = 0; i < specid.length; i++){
         if(specorder[i].value == 3) tinyMCE.execCommand('mceRemoveControl', false, "text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value)
         var existTextValue = document.getElementById("text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value).value;
@@ -113,7 +113,7 @@ function saveAllSpec(projectid, nbSpecToSave){
     var specid = document.getElementsByName("specid");
     var specorder = document.getElementsByName("specorder");
     var speclang = document.getElementsByName("speclang");
-    var file_value = document.getElementById("file_"+projectid+"_1_None").value;
+    var file_value = document.getElementById("file_"+projectid+"_1_").value;
     nbspec = 0;
     for (var i = 0; i < specid.length; i++){
         if(specorder[i].value == 3) tinyMCE.execCommand('mceRemoveControl', false, "text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value)

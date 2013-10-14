@@ -490,7 +490,7 @@ class Project(models.Model):
     def all_specs_with_languages(self):
         """returns all project spec with the current language if available
         or without language, excluding image (order=1)"""
-        return self.spec_set.filter(language=translation.get_language()) or self.spec_set.filter(language=None).exclude(order=1)
+        return self.spec_set.filter(language=translation.get_language()).order_by('order') or self.spec_set.filter(language=None).order_by('order')
         
     def count_all_funding_user(self):
         """retunrs the number of all the user who fund the project"""
@@ -513,6 +513,10 @@ class Project(models.Model):
     def exist_rewards(self):
         """check if there are still rewards in the project"""
         return self.reward_set.all().exclude(nb_reward=0).count()
+        
+    def spec_without_group(self):
+        """delete groupe"""
+        return self.spec_set.all().exclude(language="")
 
         
 #Structure de contrôle des permissions
