@@ -8,7 +8,7 @@
         <div class="invisible" id="deposit">
             {% trans "You don't have enough money on your account. Please indicate below how much you want to add:" %}
         </div>
-        <form method="post" action="/user/confirmpayment">
+        <form method="get" action="/user/confirmpayment">
             {% csrf_token %}
             <input type="text" name="amount" id="amount" class="smallinput accountinput" value="0"/>
             <input type="image" src="/img/icons/ok-32.png" id="submit2" name="submit2">
