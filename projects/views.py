@@ -357,6 +357,9 @@ def saveproject(request, id='0'):
     if request.POST.get("inline","0") == "1":
         return HttpResponse(serializers.serialize("json", [project]))
     else:
+        if request.session.get("app", "project") == "funding":
+            if not request.is_ajax():
+                return HttpResponseRedirect ('/%s/%s/edit'%(request.session.get("app", "project"), project.id))
         return HttpResponseRedirect('/%s/%s'%(request.session.get("app", "project"), project.id))
 
 @OINeedsPrjPerms(OI_MANAGE)
@@ -544,7 +547,6 @@ def bidproject(request, id):
     missing = amount - request.user.get_profile().balance
     if amount > request.user.get_profile().balance:
         amount = request.user.get_profile().balance
-        
     #3) make the bid with the amount
     if amount != Decimal('0'):
         project.makebid(request.user, amount, project.missing_bid() and (project.missing_bid() < amount)) #to update the user account

@@ -14,8 +14,10 @@
             <input type="image" src="/img/icons/ok-32.png" id="submit2" name="submit2">
         </form>
     </div>
+    {% comment %}
     <div class="sep"></div>
-    <a href="/user/dashboard">{% trans "Go back to my dashboard" %}</a>
+<!--    <a href="/user/dashboard">{% trans "Go back to my dashboard" %}</a>-->
+    {% endcomment %}
 {% endblock %}
 {% block content %}
 <div class="usercontentlarge">
@@ -26,7 +28,7 @@
         <tr>
             <td>{{payment.transaction_date|date:"d/m/y H:i:s"}}</td>
             <td>{{payment.reason}}
-            {% if payment.project %}{% trans "on project" %} <a href="/project/{{payment.project.id}}">{{payment.project.title}}</a></td>{% endif %}
+            {% if payment.project %}{% trans "on project" %} <a href="{{REDIRECT_URL}}{{payment.project.id}}">{{payment.project.title}}</a></td>{% endif %}
             <td>{{payment.amount}} €</td>
         </tr>
         {% endfor %}
