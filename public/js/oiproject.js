@@ -467,7 +467,7 @@ function saveSpec(divid, projectid, order, specid, lang, callBack) {
     tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
     var params = "text="+encodeURIComponent(getValue("text_"+divid)) + "&order="+order + "&type="+getValue("type_"+divid);
     if(lang != null) params +="&language="+lang;
-    if(getValue("url_"+divid)) params+="&url="+getValue("url_"+divid);
+    if(getValue("url_"+divid)) params+="&url="+encodeURIComponent(getValue("url_"+divid));
     if(getValue("filename_"+divid)) params+="&filename="+getValue("filename_"+divid);
     if(getValue("ts_"+divid)) params+="&ts="+getValue("ts_"+divid);
     if(getValue("image_"+divid)) params+="&image="+getValue("image_"+divid);

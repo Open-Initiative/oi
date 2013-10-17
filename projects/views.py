@@ -991,6 +991,7 @@ def savespec(request, id, specid='0'):
         spec.text = request.POST.get("legend") or oiescape(request.POST["text"])
     
     if request.POST.has_key("language"): 
+        #if return "None" the lang is None for spec with no language
         if request.POST["language"] == "None":
             spec.language = None
         else:
@@ -1001,6 +1002,23 @@ def savespec(request, id, specid='0'):
         spec.type = int(request.POST["type"])
     
     filename = request.POST.get("filename")
+    
+    if spec.type == 4:
+        if request.POST.has_key("url"):
+            #check if is a url for video
+            all_plateformes_videos=['//www.youtube.com/','http://www.dailymotion.com/','//player.vimeo.com/video/']
+            import re
+            for plateforme_video in all_plateformes_videos:
+                if 
+            regex = re.compile(".*src\=[\"'](?P<url>.*?)[\"']")
+            src = regex.search(request.POST['url'])
+            if src:
+                for plateforme_video in all_plateformes_videos:
+                    if plateforme_video in src.groups()[0]:
+                        spec.url = src.groups()[0]
+            else:
+                return HttpResponse (_('This is not the good link for the url video'), status=531)
+            
     
     if not filename and not spec.file and spec.type in (2,5):
         return HttpResponse(_("Wrong arguments"), status=531)
