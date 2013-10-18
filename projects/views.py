@@ -1008,8 +1008,7 @@ def savespec(request, id, specid='0'):
             #check if is a url for video
             all_plateformes_videos=['//www.youtube.com/','http://www.dailymotion.com/','//player.vimeo.com/video/']
             import re
-            for plateforme_video in all_plateformes_videos:
-                if 
+            #search if in the link there are as element 'src=' and url
             regex = re.compile(".*src\=[\"'](?P<url>.*?)[\"']")
             src = regex.search(request.POST['url'])
             if src:
@@ -1017,8 +1016,7 @@ def savespec(request, id, specid='0'):
                     if plateforme_video in src.groups()[0]:
                         spec.url = src.groups()[0]
             else:
-                return HttpResponse (_('This is not the good link for the url video'), status=531)
-            
+                spec.url = request.POST['url']            
     
     if not filename and not spec.file and spec.type in (2,5):
         return HttpResponse(_("Wrong arguments"), status=531)
