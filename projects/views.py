@@ -1006,14 +1006,14 @@ def savespec(request, id, specid='0'):
     if spec.type == 4:
         if request.POST.has_key("url"):
             #check if is a url for video
-            all_plateformes_videos=['//www.youtube.com/','http://www.dailymotion.com/','//player.vimeo.com/video/']
+            all_plateformes_videos=['//www.youtube.com/','http://www.dailymotion.com/','//player.vimeo.com/']
             import re
             #search if in the link there are as element 'src=' and url
-            regex = re.compile(".*src\=[\"'](?P<url>.*?)[\"']")
+            regex = re.compile(".*src=[\"']((//player.vimeo.com/|//www.youtube.com/|http://www.dailymotion.com/).*?)[\"']")
             src = regex.search(request.POST['url'])
             if src:
                 for plateforme_video in all_plateformes_videos:
-                    if plateforme_video in src.groups()[0]:
+                    if plateforme_video == src.groups()[1]:
                         spec.url = src.groups()[0]
             else:
                 spec.url = request.POST['url']            

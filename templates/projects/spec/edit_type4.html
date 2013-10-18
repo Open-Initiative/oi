@@ -1,10 +1,10 @@
 {% load oifilters %}
 {% load i18n %}
 <div style="height: 24px;padding-bottom: 20px;padding-top: 20px;text-align: center;">{% trans "Please insert here the 'embed' code from either Youtube, Dailymotion or Vimeo." %}</div>
-<div style="margin-bottom: 6%;margin-left: 32%;">
+<div style="margin-bottom: 6%;margin-left: 5%;">
     <label for="url_{{divid}}">{% trans "Source video" %}</label>
-    <input style="border: 1px solid #CCCCCC;" id="url_{{divid}}" type="text" value="{{spec.url}}" /><br/>
-    <span>{% trans "Ex: &lt;iframe src='...'&gt;&lt;/iframe&gt; or direct link http://www..." %}</span>
+    <input style="border: 1px solid #CCCCCC; width:70%" id="url_{{divid}}" type="text" value="{{spec.url}}" /><br/>
+    <p class="no_p_style form_center">{% trans "Ex: &lt;iframe src='...'&gt;&lt;/iframe&gt; or direct link http://www..." %}</p>
 </div>
 
 <textarea id="text_{{divid}}" class="speclegend_file">{{spec.text|oiunescape}}</textarea>
