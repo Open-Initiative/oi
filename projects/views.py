@@ -641,7 +641,7 @@ def evaluateproject(request, id):
     rating = int(request.POST["rating"])
     comment = request.POST["comment"]
     if request.user == project.assignee:
-        return HttpResponse(_("You can not evaluate yourproject"), status=433)
+        return HttpResponse(_("You can not evaluate your project"), status=433)
     if project.state == OI_VALIDATED:
         for bid in project.bid_set.filter(user=request.user):
             if bid.rating is not None:
@@ -759,7 +759,7 @@ def moveproject(request, id):
     if project.state > OI_ACCEPTED or parent.state > OI_STARTED:
         return HttpResponse(_("Can not change a task already started"), status=431)
     if project==parent or project in parent.ancestors.all():
-        return HttpResponse(_("Can not move a task inside itproject"), status=531)
+        return HttpResponse(_("Can not move a task inside itself"), status=531)
     #remove dependencies between ancestors and descendants
     for task in project.descendants.filter(Q(requirements=parent)|Q(requirements__descendants=parent)):
         task.requirements.remove(task.requirement.filter(Q(id=parent.id)|Q(descendants=parent)))
