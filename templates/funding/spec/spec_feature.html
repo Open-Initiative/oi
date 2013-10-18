@@ -12,7 +12,11 @@
         <img style="max-width:400px" src="{% if spec.file %}{{spec.file.url}}{% endif %}" />
     </div>
     {% endif %}
-    {% if spec.type == 3 or spec.type == 4 or spec.type == 6 and spec.url != "http://" %}
+    {% if spec.type == 4 %}
+    <iframe width="450" height="350" src="{{spec.url}}" frameborder="0" allowfullscreen>
+    </iframe><br/>
+    {% endif %}
+    {% if spec.type == 3 or spec.type == 6 and spec.url != "http://" %}
     <a href="{{spec.url}}" > {{spec.text|oiunescape|default:spec.url}} </a>
     {% else %}
         {{spec.text|oiunescape}}

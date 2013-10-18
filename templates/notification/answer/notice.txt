@@ -6,4 +6,4 @@
 {% blocktrans %} has published a message on a project you follow:{% endblocktrans %}
 {% endif %}
 {{notice.param}}
-htpp://{{current_site}}{{REDIRECT_URL}}get/{{notice.project.id}}
+http://{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}

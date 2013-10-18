@@ -95,7 +95,7 @@ function specsToSave(projectid){
     var specid = document.getElementsByName("specid");
     var specorder = document.getElementsByName("specorder");
     var speclang = document.getElementsByName("speclang");
-    var file_value = document.getElementById("file_"+projectid+"_1_None").value;
+    var file_value = document.getElementById("file_"+projectid+"_1_").value;
     for (var i = 0; i < specid.length; i++){
         if(specorder[i].value == 3) tinyMCE.execCommand('mceRemoveControl', false, "text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value)
         var existTextValue = document.getElementById("text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value).value;
@@ -113,7 +113,7 @@ function saveAllSpec(projectid, nbSpecToSave){
     var specid = document.getElementsByName("specid");
     var specorder = document.getElementsByName("specorder");
     var speclang = document.getElementsByName("speclang");
-    var file_value = document.getElementById("file_"+projectid+"_1_None").value;
+    var file_value = document.getElementById("file_"+projectid+"_1_").value;
     nbspec = 0;
     for (var i = 0; i < specid.length; i++){
         if(specorder[i].value == 3) tinyMCE.execCommand('mceRemoveControl', false, "text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value)
@@ -178,7 +178,9 @@ function updateStockReward(projectid, rewardid, moreOrLess){
     if(moreOrLess) var nb = 1; else var nb = -1;
     OIajaxCall("/project/"+projectid+"/updatestockreward/"+rewardid, "update="+nb, "output", function(){
         var oldvalue = parseInt(document.getElementById("nb_reward_"+rewardid).innerHTML);
-        if(oldvalue >= 0)
+        if(oldvalue >= 1)
+            document.getElementById("nb_reward_"+rewardid).innerHTML = oldvalue + nb;
+        else if(moreOrLess && oldvalue == 0)
             document.getElementById("nb_reward_"+rewardid).innerHTML = oldvalue + nb;
     })
 }

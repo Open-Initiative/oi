@@ -30,12 +30,10 @@
             <div class="cleared"></div>
         </div>
         <div id="specs_{{project.id}}" class="prjdesc">
-            {%for spec in project.all_specs_with_languages|dictsort:"order"%}
-                {% if spec.order < 4 %}
-                    <div style="position:relative;" id="spec_{{object.id}}_{{spec.order}}" class="funding_space">
-                        {% with project as object %}{%include 'funding/spec/spec.html'%}{% endwith %}
-                    </div>
-                {% endif %}
+            {% for spec in project.all_specs_with_languages %}
+                <div style="position:relative;" id="spec_{{object.id}}_{{spec.order}}" class="funding_space">
+                    {% with project as object %}{%include 'funding/spec/spec.html'%}{% endwith %}
+                </div>
             {% endfor %}
         </div>
     </div>
@@ -297,7 +295,7 @@
                 <input id="divid_spec__6_content" name="divid" type="hidden" value="spec__6_content" />
                 </form>
                 
-                <img title="{% trans 'Save the description' %}" class="clickable fundingright" src="/img/icons/ok-32.png" onclick="saveSpec('spec__6_content',{{project.id}},getValue('specorder_spec__6_content'),{{spec.id|default:0}});hidePopups()"/>
+                <img title="{% trans 'Save the description' %}" class="clickable fundingright" src="/img/icons/ok-32.png" onclick="saveSpec('spec__6_content',{{project.id}},getValue('specorder_spec__6_content'),{{spec.id|default:0}}, '');hidePopups()"/>
                 
             </div>
             {% endwith %}

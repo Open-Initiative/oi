@@ -33,7 +33,7 @@
     
     <div style="margin-left: 32%;">
         <label for="url_{{divid}}">Url</label>
-        <input style="border: 1px solid #CCCCCC;" id="url_{{divid}}" type="text" value="{{spec.url|default:"http://"}}" />
+        <input style="border: 1px solid #CCCCCC;" id="url_{{divid}}" type="text" value="{% if spec.type != 4 %}{{spec.url}}{% else %}http://{% endif %}" />
     </div>
 
     <br />

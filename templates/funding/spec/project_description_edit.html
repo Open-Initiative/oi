@@ -2,43 +2,41 @@
 ﻿﻿{% load oifilters %}
 {% with project.spec_set.all|dictsort:"order" as specs %}
 <div class="cleared edit_title"><b>{% trans "Describe here what is to be done in" %} "{{project.title}}" </b><div class="cleared sepsearch"></div></div>
-{% with "None" as lang %}
-<input name="spectype" id="type_{{project.id}}_1_{{lang}}" value="2" type="hidden"/>
-<input name="specid" id="specid_1_{{lang}}" value="{{specs.0.id|default:0}}" type="hidden"/>
-<input name="projectid" id="projectid_1_{{lang}}" value="{{project.id}}" type="hidden"/>
-<input name="specorder" id="specorder_1_{{lang}}" value="1" type="hidden"/>
-<input name="speclang" id="lang_1_{{lang}}" value="{{lang}}" type="hidden"/>
-<div><b>{% trans "A picture presenting your project" %}</b></div>
-<div id="{{project.id}}_1_{{lang}}">
-    <input id="filename_{{project.id}}_1_{{lang}}" name="filename" type="hidden" />
-    <input id="ts_{{project.id}}_1_{{lang}}" name="ts" type="hidden" />
-    <span id="filespan_{{project.id}}_1_{{lang}}" {% if not specs.0.file %}class="invisible" {% endif %}>
-        <img src='/img/icons/delete.png' alt='{% trans "Delete" %}' title='{% trans "Delete" %}' onclick='changeFile("{{project.id}}_1_{{lang}}")' />
-        {{specs.0.file.name|cleanfilename}}
+{% with spec=project.spec_set.all|filter_order:1 %}
+<input name="spectype" id="type_{{project.id}}_1_" value="2" type="hidden"/>
+<input name="specid" id="specid_1_" value="{{spec.id|default:0}}" type="hidden"/>
+<input name="projectid" id="projectid_1_" value="{{project.id}}" type="hidden"/>
+<input name="specorder" id="specorder_1_" value="1" type="hidden"/>
+<input name="speclang" id="lang_1_" value="" type="hidden"/>
+<div><b>{% trans "The logo of your project" %}</b></div>
+<div id="{{project.id}}_1_">
+    <input id="filename_{{project.id}}_1_" name="filename" type="hidden" />
+    <input id="ts_{{project.id}}_1_" name="ts" type="hidden" />
+    <span id="filespan_{{project.id}}_1_" {% if not spec.file %}class="invisible" {% endif %}>
+        <img src='/img/icons/delete.png' alt='{% trans "Delete" %}' title='{% trans "Delete" %}' onclick='changeFile("{{project.id}}_1_")' />
+        {{spec.file.name|cleanfilename}}
     </span>
-    <div id="filediv_{{project.id}}_1_{{lang}}" {% if specs.0.file %}class="invisible" {% endif %}class="fundingleft">
-        <form id="form_{{project.id}}_1_{{lang}}" method="post" enctype="multipart/form-data" action="/project/{{project.id}}/uploadfile/{{spec.id|default:0}}" target="filedest_{{project.id}}_1_{{lang}}">
+    <div id="filediv_{{project.id}}_1_" {% if spec.file %}class="invisible" {% endif %}class="fundingleft">
+        <form id="form_{{project.id}}_1_" method="post" enctype="multipart/form-data" action="/project/{{project.id}}/uploadfile/{{spec.id|default:0}}" target="filedest_{{project.id}}_1_">
             {% csrf_token %}
-            <input id="divid_{{project.id}}_1_{{lang}}" name="divid" type="hidden" value="{{project.id}}_1_{{lang}}" />
-            <input id="file_{{project.id}}_1_{{lang}}" name="file" type="file" onchange="document.getElementById('form_{{project.id}}_1_{{lang}}').submit()" />
+            <input id="divid_{{project.id}}_1_" name="divid" type="hidden" value="{{project.id}}_1_" />
+            <input id="file_{{project.id}}_1_" name="file" type="file" onchange="document.getElementById('form_{{project.id}}_1_').submit()" />
         </form>
     </div>
-    <iframe id="filedest_{{project.id}}_1_{{lang}}" name="filedest_{{project.id}}_1_{{lang}}" class="filedest"></iframe>
-    <input id="text_{{project.id}}_1_{{lang}}" type="hidden" />
+    <iframe id="filedest_{{project.id}}_1_" name="filedest_{{project.id}}_1_" class="filedest"></iframe>
+    <input id="text_{{project.id}}_1_" type="hidden" />
 </div>
 {% endwith %}
 
 <div>
-    {% regroup project.spec_set.all|dictsort:"language" by language as language_list %}
+    {% regroup project.spec_without_group|dictsort:"language" by language as language_list %}
     {% for spec_list in language_list %}
-    {% if spec_list.grouper != "" %}
-    {% with spec_list.list|dictsort:"order" as specs %}{% with spec_list.grouper as lang %}
+    {% with specs=spec_list.list|dictsort:"order" lang=spec_list.grouper  %}
         <div class="cleared"></div>
         <div style="position:relative" id="spec_{{project.id}}" class="cleared funding_space">
             {%include 'funding/spec/project_description_short_long_edit.html'%}
         </div>
-    {% endwith %}{% endwith %}
-    {% endif %}
+    {% endwith %}
     {% empty %}
         {% include 'funding/spec/project_description_short_long_edit.html' %}
     {% endfor %}

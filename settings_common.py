@@ -46,7 +46,7 @@ CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = tuple(dict(OI_DOMAINS).values())
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = (
-    'x-requested-with',
+    'X_REQUESTED_WITH',
     'content-type',
     'accept',
     'origin',

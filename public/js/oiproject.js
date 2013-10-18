@@ -416,8 +416,9 @@ function moveSpec(projectid, specorder, moveUp){
     var specid = div.find("input").first().val();
     var targetDiv = moveUp?div.prevAll("div").first():div.nextAll("div").first();
     var targetspecid = targetDiv.find("input").first().val();
+    if(targetspecid)
         OIajaxCall("/project/"+projectid+"/movespec/"+specid,"target="+targetspecid, "output",
-            function (targetspecid){
+            function (){
                 if(moveUp){
                     div.prevAll("div").first().before(div);
                 }else{
@@ -465,8 +466,8 @@ function buildText(divid){
 function saveSpec(divid, projectid, order, specid, lang, callBack) {
     tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
     var params = "text="+encodeURIComponent(getValue("text_"+divid)) + "&order="+order + "&type="+getValue("type_"+divid);
-    if(lang && lang != null && lang != "None") params +="&language="+lang;
-    if(getValue("url_"+divid)) params+="&url="+getValue("url_"+divid);
+    if(lang != null) params +="&language="+lang;
+    if(getValue("url_"+divid)) params+="&url="+encodeURIComponent(getValue("url_"+divid));
     if(getValue("filename_"+divid)) params+="&filename="+getValue("filename_"+divid);
     if(getValue("ts_"+divid)) params+="&ts="+getValue("ts_"+divid);
     if(getValue("image_"+divid)) params+="&image="+getValue("image_"+divid);

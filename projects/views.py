@@ -357,6 +357,9 @@ def saveproject(request, id='0'):
     if request.POST.get("inline","0") == "1":
         return HttpResponse(serializers.serialize("json", [project]))
     else:
+        if request.session.get("app", "project") == "funding":
+            if not request.is_ajax():
+                return HttpResponseRedirect ('/%s/%s/edit'%(request.session.get("app", "project"), project.id))
         return HttpResponseRedirect('/%s/%s'%(request.session.get("app", "project"), project.id))
 
 @OINeedsPrjPerms(OI_MANAGE)
@@ -544,7 +547,6 @@ def bidproject(request, id):
     missing = amount - request.user.get_profile().balance
     if amount > request.user.get_profile().balance:
         amount = request.user.get_profile().balance
-        
     #3) make the bid with the amount
     if amount != Decimal('0'):
         project.makebid(request.user, amount, project.missing_bid() and (project.missing_bid() < amount)) #to update the user account
@@ -639,7 +641,7 @@ def evaluateproject(request, id):
     rating = int(request.POST["rating"])
     comment = request.POST["comment"]
     if request.user == project.assignee:
-        return HttpResponse(_("You can not evaluate yourproject"), status=433)
+        return HttpResponse(_("You can not evaluate your project"), status=433)
     if project.state == OI_VALIDATED:
         for bid in project.bid_set.filter(user=request.user):
             if bid.rating is not None:
@@ -757,7 +759,7 @@ def moveproject(request, id):
     if project.state > OI_ACCEPTED or parent.state > OI_STARTED:
         return HttpResponse(_("Can not change a task already started"), status=431)
     if project==parent or project in parent.ancestors.all():
-        return HttpResponse(_("Can not move a task inside itproject"), status=531)
+        return HttpResponse(_("Can not move a task inside itself"), status=531)
     #remove dependencies between ancestors and descendants
     for task in project.descendants.filter(Q(requirements=parent)|Q(requirements__descendants=parent)):
         task.requirements.remove(task.requirement.filter(Q(id=parent.id)|Q(descendants=parent)))
@@ -980,22 +982,41 @@ def savespec(request, id, specid='0'):
                 return HttpResponse(_("Can not change a task already started"), status=431)
             #project.insert_spec(order) #specs with different languages can now have order
 
-        spec = Spec(text = oiescape(request.POST["text"]), author=request.user, project=project, order=order, type=1, language = request.POST.get("language"))
+        spec = Spec(text = oiescape(request.POST["text"]), author=request.user, project=project, order=order, type=1)
 
     else: #edit existing spec
         spec = Spec.objects.get(id=specid)
         if spec.project.id != int(id): #checks project id
             return HttpResponse(_("Wrong arguments"), status=531)
         spec.text = request.POST.get("legend") or oiescape(request.POST["text"])
-        if request.POST.get("language"): 
-            spec.language = request.POST.get("language")
-            
+    
+    if request.POST.has_key("language"): 
+        #if return "None" the lang is None for spec with no language
+        if request.POST["language"] == "None":
+            spec.language = None
+        else:
+            spec.language = request.POST["language"]
     if request.POST.has_key("url"):
         spec.url = request.POST["url"]
     if request.POST.has_key("type"):
         spec.type = int(request.POST["type"])
     
     filename = request.POST.get("filename")
+    
+    if spec.type == 4:
+        if request.POST.has_key("url"):
+            #check if is a url for video
+            all_plateformes_videos=['//www.youtube.com/','http://www.dailymotion.com/','//player.vimeo.com/']
+            import re
+            #search if in the link there are as element 'src=' and url
+            regex = re.compile(".*src=[\"']((//player.vimeo.com/|//www.youtube.com/|http://www.dailymotion.com/).*?)[\"']")
+            src = regex.search(request.POST['url'])
+            if src:
+                for plateforme_video in all_plateformes_videos:
+                    if plateforme_video == src.groups()[1]:
+                        spec.url = src.groups()[0]
+            else:
+                spec.url = request.POST['url']            
     
     if not filename and not spec.file and spec.type in (2,5):
         return HttpResponse(_("Wrong arguments"), status=531)
