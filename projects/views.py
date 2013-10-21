@@ -29,7 +29,7 @@ from django.views.generic.simple import direct_to_template
 from oi.settings import MEDIA_ROOT, TEMP_DIR, github_id, github_secret
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS, OI_TABLE_OVERVIEW
 from oi.helpers import OI_PRJ_DONE, OI_NO_EVAL, OI_ACCEPT_DELAY, OI_READ, OI_ANSWER, OI_BID, OI_MANAGE, OI_WRITE, OI_ALL_PERMS, OI_CANCELLED_BID, OI_COM_ON_BID, OI_COMMISSION
-from oi.helpers import OI_PRJ_VIEWS, SPEC_TYPES, OIAction, ajax_login_required, all_plateformes_videos
+from oi.helpers import OI_PRJ_VIEWS, SPEC_TYPES, OIAction, ajax_login_required
 from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeedsPrjPerms, Release, GitHubSync, Reward, RewardForm
 from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
@@ -1000,20 +1000,16 @@ def savespec(request, id, specid='0'):
        
     #for spec url video or link        
     if request.POST.has_key("url"):
-        if spec.type == 4:
-            #check if is a url for video
-            import re
-            #search if in the link there are as element 'src=' and url
-            regex = re.compile(".*src=[\"']((//player.vimeo.com/|//www.youtube.com/|http://www.dailymotion.com/).*?)[\"']")
-            src = regex.search(request.POST['url'])
-            if src:
-                for plateforme_video in all_plateformes_videos:
-                    if plateforme_video == src.groups()[1]:
-                        spec.url = src.groups()[0]
-            else:
-                spec.url = request.POST['url']
-    else:
         spec.url = request.POST["url"]
+    if spec.type == 4:
+        import re
+        #search if in the link there are as element platform and path
+        regex = re.compile("(?P<platform>//player.vimeo.com/|//www.youtube.com/|http://www.dailymotion.com/)(?P<path>([^\"'])*)")
+        match = regex.search(spec.url)
+        if match:
+            spec.url = match.groupdict()['platform']+match.groupdict()['path']
+        else:
+            return HttpResponse (_("Please insert here the 'embed' code from either Youtube, Dailymotion or Vimeo"), status=531)
         
     #for spec type
     if request.POST.has_key("type"):

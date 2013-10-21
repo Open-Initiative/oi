@@ -66,9 +66,6 @@ DOC_TYPE = 5
 BUG_REPORT_TYPE = 6
 SPEC_TYPES =  {TEXT_TYPE:_("Text"), IMAGE_TYPE:_("Image"), URL_TYPE:_("Url link"), VIDEO_TYPE:_("Video"), DOC_TYPE:_("Document"), BUG_REPORT_TYPE:_("Bug report")}
 
-#All plateformes videos accepted
-all_plateformes_videos = ['//www.youtube.com/', 'http://www.dailymotion.com/', '//player.vimeo.com/']
-
 class OIAction:
     def show(self, project, user):
         return True
