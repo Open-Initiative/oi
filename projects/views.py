@@ -29,7 +29,7 @@ from django.views.generic.simple import direct_to_template
 from oi.settings import MEDIA_ROOT, TEMP_DIR, github_id, github_secret
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS, OI_TABLE_OVERVIEW
 from oi.helpers import OI_PRJ_DONE, OI_NO_EVAL, OI_ACCEPT_DELAY, OI_READ, OI_ANSWER, OI_BID, OI_MANAGE, OI_WRITE, OI_ALL_PERMS, OI_CANCELLED_BID, OI_COM_ON_BID, OI_COMMISSION
-from oi.helpers import OI_PRJ_VIEWS, SPEC_TYPES, OIAction, ajax_login_required
+from oi.helpers import OI_PRJ_VIEWS, SPEC_TYPES, OIAction, ajax_login_required, all_plateformes_videos
 from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeedsPrjPerms, Release, GitHubSync, Reward, RewardForm
 from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
@@ -549,7 +549,7 @@ def bidproject(request, id):
         amount = request.user.get_profile().balance
     #3) make the bid with the amount
     if amount != Decimal('0'):
-        project.makebid(request.user, amount, project.missing_bid() and (project.missing_bid() < amount)) #to update the user account
+        project.makebid(request.user, amount) #to update the user account
     #4) back to ogone if is not enough
     if missing > 0:
         return HttpResponse('/user/myaccount?amount=%s&project=%s'%((missing).to_eng_string(),project.id),status=333)
@@ -990,23 +990,18 @@ def savespec(request, id, specid='0'):
             return HttpResponse(_("Wrong arguments"), status=531)
         spec.text = request.POST.get("legend") or oiescape(request.POST["text"])
     
+    #for spec language
     if request.POST.has_key("language"): 
         #if return "None" the lang is None for spec with no language
         if request.POST["language"] == "None":
             spec.language = None
         else:
             spec.language = request.POST["language"]
+       
+    #for spec url video or link        
     if request.POST.has_key("url"):
-        spec.url = request.POST["url"]
-    if request.POST.has_key("type"):
-        spec.type = int(request.POST["type"])
-    
-    filename = request.POST.get("filename")
-    
-    if spec.type == 4:
-        if request.POST.has_key("url"):
+        if spec.type == 4:
             #check if is a url for video
-            all_plateformes_videos=['//www.youtube.com/','http://www.dailymotion.com/','//player.vimeo.com/']
             import re
             #search if in the link there are as element 'src=' and url
             regex = re.compile(".*src=[\"']((//player.vimeo.com/|//www.youtube.com/|http://www.dailymotion.com/).*?)[\"']")
@@ -1016,8 +1011,17 @@ def savespec(request, id, specid='0'):
                     if plateforme_video == src.groups()[1]:
                         spec.url = src.groups()[0]
             else:
-                spec.url = request.POST['url']            
+                spec.url = request.POST['url']
+    else:
+        spec.url = request.POST["url"]
+        
+    #for spec type
+    if request.POST.has_key("type"):
+        spec.type = int(request.POST["type"])
     
+    filename = request.POST.get("filename")
+    
+    #for spec with 
     if not filename and not spec.file and spec.type in (2,5):
         return HttpResponse(_("Wrong arguments"), status=531)
     if filename:
@@ -1148,26 +1152,26 @@ class OIFeed(Feed):
             obj.description += " - " + Project.objects.get(id=id).title
         return obj(request)
 
-    def get_object(project, request, *args, **kwargs):
+    def get_object(self, request, *args, **kwargs):
         if project.id=='0':
             return None
         else:
             return Project.objects.get(id=project.id)
 
-    def items(project, obj):
+    def items(self, obj):
         if obj:
             return obj.descendants.order_by('-created')[:20]
         else:
             return Project.objects.order_by('-created')[:20]
 
-    def item_title(project, item):
+    def item_title(self, item):
         return item.title
 
-    def item_description(project, item):
+    def item_description(self, item):
         desc = _("Created by") + " " + item.author.get_profile().get_display_name()
         for spec in item.spec_set.all():
             desc += "\n- " + summarize(spec.text)
         return desc
         
-    def item_link(project, item):
+    def item_link(self, item):
         return "/project/%s"%item.id

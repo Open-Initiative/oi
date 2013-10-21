@@ -89,14 +89,17 @@
                 </form>
                 <br/>
             </div>
-
+            
+            <h3>{% trans "Birthdate" %} </h3>
+            <input readonly="true" type="text" id="birthdate" name="birthdate" />
+            <script>
+                jQuery("#birthdate").datepicker({changeMonth: true, changeYear: true, minDate: -36500, maxDate: 0, dateFormat: "DD, d MM yy", onSelect: function(dateText, inst) {setBirthdate(jQuery.datepicker.parseDate("DD, d MM yy", dateText))} }).datepicker('option', jQuery.datepicker.regional["{{LANGUAGE_CODE}}"]).datepicker("setDate", jQuery.datepicker.parseDate("yy-mm-dd","{{user.get_profile.birthdate|date:'Y-m-d'}}"))
+            </script>
+            
             <h2>{% trans "Contact information" %} <img alt="{% trans 'Confidential' %}" title="{% trans 'Your details will only be shared with those who finance your project. Project leaders and users will have the personal information of another to approve the payment, corrections and validation projects.' %}" class="" src="/img/icons/padlock.png"/> <img onclick="$('#block_contact').toggle();$('#block_contact_info').toggle()" class="clickable" src="/img/icons/edit.png"/> 
             </h2>
             <div id="block_contact_info">
                 <table>
-                    <tr>
-                        <td class="username">{% trans "Birthdate" %}</td> <td><span id="contact_birthdate">{{user.get_profile.birthdate|default:""}}</span></t>
-                    </tr>
                     <tr>
                         <td class="username">{% trans "Address" %}</td> <td><span id="contact_address">{{user.get_profile.address}}</span></t>
                     </tr>
@@ -127,11 +130,6 @@
                         <img class="clickable" src="/img/icons/delete.png" onclick="resetContactInfo();$('#block_contact').toggle();$('#block_contact_info').toggle()" />
                     </div>
                 </form>
-                <script>
-                    var help = document.createElement("span");
-                    help.innerHTML = "{% trans 'Ex: dd/mm/yyyy' %}";
-                    document.getElementById("id_birthdate").parentNode.appendChild(help);
-                </script>
                 
             </div>
         </div>

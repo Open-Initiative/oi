@@ -178,9 +178,7 @@ function updateStockReward(projectid, rewardid, moreOrLess){
     if(moreOrLess) var nb = 1; else var nb = -1;
     OIajaxCall("/project/"+projectid+"/updatestockreward/"+rewardid, "update="+nb, "output", function(){
         var oldvalue = parseInt(document.getElementById("nb_reward_"+rewardid).innerHTML);
-        if(oldvalue >= 1)
-            document.getElementById("nb_reward_"+rewardid).innerHTML = oldvalue + nb;
-        else if(moreOrLess && oldvalue == 0)
+        if((oldvalue >= 1)||(moreOrLess && oldvalue == 0))
             document.getElementById("nb_reward_"+rewardid).innerHTML = oldvalue + nb;
     })
 }
