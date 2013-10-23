@@ -434,7 +434,7 @@ function editSpec(projectid, specorder, type) {
         function(){changeSpecType(divid, type);});
 }
 function changeSpecType(divid, type) {
-    if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
+    if(getValue("type_"+divid)==1)tinymce.remove('#text_'+divid);
     var text = getValue("text_"+divid);
     var projectid = getValue("projectid_"+divid);
     var specid = getValue("specid_"+divid);
@@ -445,7 +445,10 @@ function changeSpecType(divid, type) {
     OIajaxCall(url, null, "spec_"+divid, 
         function(){
             if(getValue("type_"+divid)==6) buildText(divid);
-            if(getValue("type_"+divid)==1)tinyMCE.execCommand('mceAddControl', false, 'text_'+divid);
+            if(getValue("type_"+divid)==1){
+                var ed = new tinymce.Editor('text_'+divid, objectInitTinyMce, tinymce.EditorManager);
+                ed.render();
+            }
         });
 }
 function prepareText(divid){
@@ -464,7 +467,7 @@ function buildText(divid){
     }
 }
 function saveSpec(divid, projectid, order, specid, lang, callBack) {
-    tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
+    tinymce.remove('#text_'+divid);
     var params = "text="+encodeURIComponent(getValue("text_"+divid)) + "&order="+order + "&type="+getValue("type_"+divid);
     if(lang != null) params +="&language="+lang;
     if(getValue("url_"+divid)) params+="&url="+encodeURIComponent(getValue("url_"+divid));

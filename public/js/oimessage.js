@@ -18,11 +18,12 @@ function addMessage(parentid, projectid) {
     }
     OIajaxCall(url, null, divid, 
         function(){document.getElementById(divid).scrollIntoView();
-        tinyMCE.execCommand('mceAddControl', false, "text_"+divid);
+        var ed = new tinymce.Editor('text_'+divid, objectInitTinyMce, tinymce.EditorManager);
+        ed.render();
         tinyMCE.execCommand('mceFocus', false, "text_"+divid);});
 }
 function saveMessage(divid, msgid){
-    tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
+    tinymce.remove('#text_'+divid);
     var params = "message="+encodeURIComponent(getValue("text_"+divid))+
         "&title="+encodeURIComponent(getValue("title_"+divid))+
         "&parent="+getValue("parent_"+divid)+"&project="+getValue("project_"+divid);
@@ -34,14 +35,17 @@ function cancelMessage(divid, msgid){
         else document.location = "/";
     }
     else {
-        tinyMCE.execCommand('mceRemoveControl', false, 'text_'+divid);
+        tinymce.remove('#text_'+divid);
         OIajaxCall("/message/get/"+msgid+"?mode=ajax", null, divid);
     }
 }
 function editMessage(msgid) {
     var divid = "message_"+msgid;
     OIajaxCall("/message/edit/"+msgid+"?divid="+divid, null, divid, 
-        function(){tinyMCE.execCommand('mceAddControl', false, "text_"+divid);});
+        function(){
+            var ed = new tinymce.Editor('text_'+divid, objectInitTinyMce, tinymce.EditorManager);
+            ed.render();
+        });
 }
 function editMessageTitle(divid, title) {
     document.getElementById("msgtitle_"+divid).innerHTML = '<input id="title_'+divid+'" class="msgfield" type="text" value="'+title+'"/>';

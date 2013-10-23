@@ -251,24 +251,28 @@ function setPrjState(span,statenum) {
     applyFilter();
 }
 
-tinyMCE.init({
-        // General options
-        mode : "specific_textareas",
-        editor_deselector : "norich",
-        theme : "advanced",
-        content_css : "/css/tinymce.css",
-        plugins : "advlink,emotions,iespell,inlinepopups,media,searchreplace,print,contextmenu,paste,noneditable,nonbreaking,xhtmlxtras,advlist",
-
-        // Theme options
-        theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyfull,|,formatselect,fontselect, bullist,numlist",
-        theme_advanced_buttons2 : "image,|,forecolor,backcolor,|,emotions,link",
-        theme_advanced_buttons3 : "",
-        theme_advanced_toolbar_location : "top",
-        theme_advanced_toolbar_align : "left",
-        
-        file_browser_callback : 'uploadFile'}
-);
-
+//I created a object to init the tinymce in textarea and call it instead of mceAddControl in other js function
+objectInitTinyMce = {selector: "textarea",
+    theme: "modern",
+    width: 500,
+    height: 200,
+    plugins: [
+         "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+         "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+         "save table contextmenu directionality emoticons template paste textcolor"
+   ],
+   content_css: "/css/tinymce.css",
+   toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons", 
+   style_formats: [
+        {title: 'Bold text', inline: 'b'},
+        {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+        {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+        {title: 'Table styles'},
+        {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+    ]}
+    
+//init tinymce in the web page after loading
+tinyMCE.init(objectInitTinyMce); 
 
 //IE compatibility
 if (!Array.prototype.indexOf)

@@ -13,10 +13,11 @@ function saveDetail(divid, id) {
 function editBio() {
     jQuery('#bio').hide();
     jQuery('#bio_edit').fadeIn();
-    tinyMCE.execCommand('mceAddControl', false, 'bio_textedit');
+    var ed = new tinymce.Editor('bio_textedit', objectInitTinyMce, tinymce.EditorManager);
+    ed.render();
 }
 function saveBio() {
-    tinyMCE.execCommand('mceRemoveControl', false, 'bio_textedit');
+    tinymce.remove('#bio_textedit');
     OIajaxCall("/user/savebio", "bio="+encodeURIComponent(getValue('bio_textedit')), "output", function(){
         jQuery('#bio_edit').hide();
         jQuery('#bio').fadeIn();
@@ -26,7 +27,7 @@ function saveBio() {
 function cancelBio() {
     jQuery('#bio_edit').hide();
     jQuery('#bio').fadeIn();
-    tinyMCE.execCommand('mceRemoveControl', false, 'bio_textedit');
+    tinymce.remove('#bio_textedit');
 }
 function setRSS(divid, id) {
     OIajaxCall("/user/setrss/", "rss="+getValue("rssfeed"), "output");
@@ -96,7 +97,7 @@ function writeMP(username) {
         function(){show("sendmp");});
 }
 function sendMP(username) {
-    tinyMCE.execCommand('mceRemoveControl', false, "MPmessage");
+    tinymce.remove('#MPmessage');
     OIajaxCall("/user/sendmp/"+username, "message="+encodeURIComponent(getValue("MPmessage"))+"&subject="+getValue("MPsubject"), "output",
         function(){hide("sendmp");});
 }
