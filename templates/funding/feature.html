@@ -29,6 +29,9 @@
 
     <div id="featureDiv_{{task.id}}" class="featureblock" title="{{task.title}}" style="padding: 1%;{% if not task.public_read %} opacity:.4;{% endif %}">
         <div id="feature_{{task.id}}" class="featuretitle clickable" onclick="expandFeature({{task.id}})">{{task.title}}</div>
+        <form onsubmit="var newtitle = getValue('feature_{{task.id}}_edit');if(newtitle){confirmEditTitle({{task.id}}, newtitle);}; seeMore('feature_{{task.id}}_edit', 'feature_{{task.id}}'); return false">
+        <input id="feature_{{task.id}}_edit" class="featuretitle invisible" value="{{task.title}}">
+        </form>
         <div class="fundingright form_center" style="min-width: 30%;">
             <div><span class="funded">{{task.allbid_sum|default:0|floatformat:"-2"}} €</span> {% trans "funded" %}</div>
             <div class="progressbar">
@@ -70,7 +73,7 @@
         </div>
         
         {% if task|can_write:user and task.state < 4 %}<span class="editfeature">
-            {% if task.state < 2 %}{% trans "Edit" %} <img src="/img/icons/edit.png" alt="{% trans 'edit title' %}" title="{% trans 'edit title' %}" class="clickable" onclick="var newtitle = prompt(gettext('Please insert a title :'), '{{task.title}}');if(newtitle){confirmEditTitle({{task.id}}, newtitle);}" />{% endif %}
+            {% if task.state < 2 %}{% trans "Edit" %} <img src="/img/icons/edit.png" alt="{% trans 'edit title' %}" title="{% trans 'edit title' %}" class="clickable" onclick="seeMore('feature_{{task.id}}_edit', 'feature_{{task.id}}')" />{% endif %}
             {% trans "Delete" %} <img src="/img/icons/delete.png" alt="{% trans 'delete feature' %}" title="{% trans 'delete feature' %}" class="clickable" onclick="deleteFeature({{task.id}})" />
         </span>{% endif %}
         
