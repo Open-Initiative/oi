@@ -146,7 +146,7 @@ def uploadFile(request):
     for chunk in uploadedfile.chunks():
         image.write(chunk)
     image.close()
-    return render_to_response('messages/setFile.html', {'filename':"%.0f_%s"%(ts,filename)})
+    return render_to_response('messages/setFile.html', {'filename':"%.0f_%s"%(ts,filename), 'fieldname': request.POST.get('fieldname')})
 
 def getFile(request, filename):
     """gets a file in the FS for download"""

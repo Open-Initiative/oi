@@ -142,11 +142,6 @@ function prepareForm(formid) {
     return params.join('&');
 }
 
-function uploadFile(field_name, url, type, win) {
-    tinyMCE.activeEditor.windowManager.open({file:'/message/uploadForm', width:300,height:200,close_previous:"no",popup_css:false,inline:"yes"},
-    {window : win,input : field_name});
-}
-
 function slideIndex(nextid) {
     if(!sliding) {
         sliding = true;
@@ -258,6 +253,12 @@ objectInitTinyMce = {
     width: 500,
     height: 200,
     menu: true,
+    file_browser_callback: function(field_name, url, type, win) { 
+        if(type=='image'){ 
+            document.getElementById("fieldname").value = field_name;
+            $('#my_form input').click();
+        };
+    },
     plugins: [
          "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
          "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",

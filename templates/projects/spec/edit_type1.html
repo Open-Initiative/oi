@@ -1,4 +1,6 @@
 {% load oifilters %}
 {% load i18n %}
 <div style="height: 24px;padding-top: 20px;" class="cleared">{% trans "Describe here what is to be done in" %} <span class="prjtitle">{{project.title}}</span></div>
-<div class="column"><textarea id="text_{{divid}}" class="norich">{{spec.text|oiunescape}}</textarea></div>
+<div class="column">
+    {% include 'messages/uploadForm.html' %}
+</div>
