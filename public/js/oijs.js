@@ -250,7 +250,7 @@ function setPrjState(span,statenum) {
 objectInitTinyMce = {
     selector: "textarea",
     theme: "modern",
-    width: 565,
+    width: 500,
     height: 200,
     menu: true,
     file_browser_callback: function(field_name, url, type, win) { 
@@ -265,6 +265,7 @@ objectInitTinyMce = {
          "save table contextmenu directionality emoticons template paste textcolor"
    ],
    content_css: "/css/tinymce.css",
+   toolbar_items_size : 'small',
    toolbar: "insertfile | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image", 
    style_formats: [
         {title: 'Bold text', inline: 'b'},
