@@ -13,21 +13,21 @@ function saveDetail(divid, id) {
 function editBio() {
     jQuery('#bio').hide();
     jQuery('#bio_edit').fadeIn();
-    var ed = new tinymce.Editor('bio_textedit', objectInitTinyMce, tinymce.EditorManager);
+    var ed = new tinymce.Editor('text_bio', objectInitTinyMce, tinymce.EditorManager);
     ed.render();
 }
 function saveBio() {
-    tinymce.remove('#bio_textedit');
-    OIajaxCall("/user/savebio", "bio="+encodeURIComponent(getValue('bio_textedit')), "output", function(){
+    tinymce.remove('#text_bio');
+    OIajaxCall("/user/savebio", "bio="+encodeURIComponent(getValue('text_bio')), "output", function(){
         jQuery('#bio_edit').hide();
         jQuery('#bio').fadeIn();
-        document.getElementById("bio").innerHTML = getValue('bio_textedit');
+        document.getElementById("bio").innerHTML = getValue('text_bio');
     });
 }
 function cancelBio() {
     jQuery('#bio_edit').hide();
     jQuery('#bio').fadeIn();
-    tinymce.remove('#bio_textedit');
+    tinymce.remove('#text_bio');
 }
 function setRSS(divid, id) {
     OIajaxCall("/user/setrss/", "rss="+getValue("rssfeed"), "output");
@@ -97,8 +97,8 @@ function writeMP(username) {
         function(){show("sendmp");});
 }
 function sendMP(username) {
-    tinymce.remove('#MPmessage');
-    OIajaxCall("/user/sendmp/"+username, "message="+encodeURIComponent(getValue("MPmessage"))+"&subject="+getValue("MPsubject"), "output",
+    tinymce.remove('#text_MPmessage');
+    OIajaxCall("/user/sendmp/"+username, "message="+encodeURIComponent(getValue("text_MPmessage"))+"&subject="+getValue("MPsubject"), "output",
         function(){hide("sendmp");});
 }
 function archiveNotice(noticeid) {

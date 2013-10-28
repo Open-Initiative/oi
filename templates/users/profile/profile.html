@@ -43,7 +43,11 @@
                 <img class="clickable" src="/img/icons/ok-32.png" onclick="saveBio()"/>
                 <img class="clickable" src="/img/icons/delete.png" onclick="cancelBio()"/>
             </div>
-            <textarea rows="12" id="bio_textedit" class="norich">{{selected_user.get_profile.bio|oiunescape}}</textarea>
+            <div class="cleared">
+            {% with textvalue=selected_user.get_profile.bio id='bio' %}
+                {% include 'messages/uploadImageTextarea.html' %}
+            {% endwith %}
+            </div>
         </div>
     </div>
 </div>

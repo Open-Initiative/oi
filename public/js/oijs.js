@@ -256,7 +256,7 @@ objectInitTinyMce = {
     file_browser_callback: function(field_name, url, type, win) { 
         if(type=='image'){ 
             document.getElementById("fieldname").value = field_name;
-            $('#my_form input').click();
+            $('#formUploadFile input').click();
         };
     },
     plugins: [
