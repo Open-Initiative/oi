@@ -94,7 +94,11 @@ function resetContactInfo() {
 }
 function writeMP(username) {
     OIajaxCall("/user/writemp/"+username, null, "sendmp", 
-        function(){show("sendmp");});
+        function(){
+            var ed = new tinymce.Editor('text_MPmessage', objectInitTinyMce, tinymce.EditorManager);
+    ed.render();
+            show("sendmp");
+        });
 }
 function sendMP(username) {
     tinymce.remove('#text_MPmessage');

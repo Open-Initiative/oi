@@ -2,6 +2,6 @@
 <div>
     {% with params.id|stringformat:"s"|add:"_eval" as dest %}{% show_stars 5 dest %}{% endwith %}
 </div>
-<div><textarea id="eval_comment_{{params.id}}" class="norich"></textarea></div>
+<div><textarea id="eval_comment_{{params.id}}"></textarea></div>
 <img class="clickable" src="/img/icons/ok-32.png" onclick="confirmEvalProject({{params.id}})" />
 <img class="clickable" src="/img/icons/del-32.png" onclick="hide('prjdialogue_{{params.id}}')" />

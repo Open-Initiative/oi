@@ -1,6 +1,6 @@
 {% load oifilters %}
 {% load i18n %}
-<textarea id="text_{{id}}" class="norich {{classname}}">{{textvalue|oiunescape}}</textarea>
+<textarea id="text_{{id}}" class="editable {{classname}}">{{textvalue|oiunescape}}</textarea>
 <iframe id="form_target" name="form_target" style="display:none"></iframe>
 <form id="formUploadFile" action="{% url oi.messages.views.uploadFile %}" target="form_target" method="post" enctype="multipart/form-data" style="width:0px;height:0;overflow:hidden">
     {% csrf_token %}
