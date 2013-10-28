@@ -1,9 +1,0 @@
-{% load oifilters %}
-{% load i18n %}
-<textarea id="text_{{divid}}" class="norich">{{spec.text|oiunescape}}</textarea>
-<iframe id="form_target" name="form_target" style="display:none"></iframe>
-<form id="my_form" action="{% url oi.messages.views.uploadFile %}" target="form_target" method="post" enctype="multipart/form-data" style="width:0px;height:0;overflow:hidden">
-    {% csrf_token %}
-    <input name="image" type="file" onchange="$('#my_form').submit();this.value='';">
-    <input type="hidden" name="fieldname" id="fieldname" value="">
-</form>
