@@ -997,6 +997,10 @@ def savespec(request, id, specid='0'):
             spec.language = None
         else:
             spec.language = request.POST["language"]
+  
+    #for spec type
+    if request.POST.has_key("type"):
+        spec.type = int(request.POST["type"])
        
     #for spec url video or link        
     if request.POST.has_key("url"):
@@ -1011,10 +1015,6 @@ def savespec(request, id, specid='0'):
         else:
             return HttpResponse (_("Please insert here the 'embed' code from either Youtube, Dailymotion or Vimeo"), status=531)
         
-    #for spec type
-    if request.POST.has_key("type"):
-        spec.type = int(request.POST["type"])
-    
     filename = request.POST.get("filename")
     
     #for spec with 
