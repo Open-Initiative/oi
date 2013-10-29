@@ -25,7 +25,7 @@ function showFeatureState(){
     var featureid_block = ["features_0", "features_3", "features_4"];
     var featureid_blockHeadid = ["featureid_proposed", "featureid_progress", "featureid_finished"];
     for(var i = 0; i < featureid_blockHeadid.length; i++){
-        if(document.getElementById(featureid_blockHeadid[i]).style.display != "none"){
+        if(document.getElementById(featureid_blockHeadid[i]) && document.getElementById(featureid_blockHeadid[i]).style.display != "none"){
             featureShowHide(featureid_block[i]);
             break;
         }
