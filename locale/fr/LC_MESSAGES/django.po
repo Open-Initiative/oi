@@ -3455,7 +3455,7 @@ msgid "History"
 msgstr "Historique"
 
 #: templates/users/paymenthistory.html:38
-msgid "Back to the former page"
+msgid "Back to the previous page"
 msgstr "Retour à la page précédente"
 
 #: templates/users/register.html:22
