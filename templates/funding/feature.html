@@ -95,7 +95,7 @@
         
         <div class="cleared">
             {% if task|can_manage:user or task.spec_set.count%}
-            <a id="see_more_{{task.id}}" class="clickable see-more"  onclick="expandFeature({{task.id}});{% if task|can_write:user and task.state < 4 and task.spec_set.all.count < 1 %}addSpec('{{task.id}}');{% endif %}">{% trans "See more" %}</a>
+            <a id="see_more_{{task.id}}" class="clickable see-more" onclick="expandFeature({{task.id}});{% if task|can_write:user and task.state < 4 and task.spec_set.all.count < 1 %}addSpec('{{task.id}}')">{% trans "Edit the description" %}{% else %}">{% trans "See more" %}{% endif %}</a>
             
             <a id="see_less_{{task.id}}" class="clickable invisible see-less" onclick="expandFeature({{task.id}})">{% trans "See less" %}</a>
             {% endif %}
