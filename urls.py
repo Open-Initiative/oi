@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     (r'^presentation-fr$', direct_to_template, {'template': "presentation-fr.html"}),
     # Pages des utilisateurs
     (r'^user/', include('oi.users.urls')),
+    (r'^message/', include('oi.messages.urls')),
     # notifications
     (r'^notification/', include('oi.prjnotify.urls')),
     # Authentification par defaut
