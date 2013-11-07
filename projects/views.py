@@ -1149,10 +1149,10 @@ class OIFeed(Feed):
         return obj(request)
 
     def get_object(self, request, *args, **kwargs):
-        if project.id=='0':
+        if self.id=='0':
             return None
         else:
-            return Project.objects.get(id=project.id)
+            return Project.objects.get(id=self.id)
 
     def items(self, obj):
         if obj:

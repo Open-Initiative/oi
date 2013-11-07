@@ -3079,9 +3079,9 @@ msgstr "Video source"
 
 #: templates/projects/spec/edit_type4.html:7
 msgid ""
-"Ex: &lt;iframe src='...'&gt;&lt;/iframe&gt; or direct link http://www..."
+"Ex: &lt;iframe src='...'&gt;&lt;/iframe&gt;"
 msgstr ""
-"Ex: &lt;iframe src='...'&gt;&lt;/iframe&gt; ou le lien directement http://www..."
+"Ex: &lt;iframe src='...'&gt;&lt;/iframe&gt;"
 
 #: templates/projects/spec/edit_type5.html:3
 msgid "A file describing the job..."
