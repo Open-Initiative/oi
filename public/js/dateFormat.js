@@ -3,36 +3,36 @@
 //
 // a : Ante meridiem et Post meridiem en minuscules - am ou pm 
 // A : Ante meridiem et Post meridiem en majuscules - AM ou PM 
-// B : Heure Internet Swatch - 000 à 999
+// B : Heure Internet Swatch - 000 Ã  999
 //     http://www.quirksmode.org/index.html?/js/beat.html
-// d : Jour du mois, sur deux chiffres avec zéro initial - 01 à 31 
-// D : Jour de la semaine, en 3 lettres, anglais par défaut - Mon à Sun 
-// F : Mois textuel, version longue, anglais par défaut - January à December 
-// g : Heure au format 12h, sans le zéro initial - 1 à 12 
-// G : Heure au format 24h, sans le zéro initial - 0 à 23 
-// h : Heure au format 12h, avec le zéro initial - 01 à 12 
-// H : Heure au format 24h, avec le zéro initial - 00 à 23 
-// i : Minutes avec le zéro initial - 00 à 59 
-// j : Jour du mois sans le zéro initial - 1 à 31 
-// l : Jour de la semaine, textuel, anglais par défaut - Sunday à Saturday 
-// L : L'année est elle bissextile ? - 0 ou 1 
-// m : Mois avec le zéro intial - 01 à 12 
-// M : Mois, en 3 lettres, anglais par défaut - Jan à Dec 
-// n : Mois sans le zéro intial - 1 à 12 
-// O : Différence avec l'heure de Greenwich (GMT), en heures - -1200 à +1200 
+// d : Jour du mois, sur deux chiffres avec zÃ©ro initial - 01 Ã  31 
+// D : Jour de la semaine, en 3 lettres, anglais par dÃ©faut - Mon Ã  Sun 
+// F : Mois textuel, version longue, anglais par dÃ©faut - January Ã  December 
+// g : Heure au format 12h, sans le zÃ©ro initial - 1 Ã  12 
+// G : Heure au format 24h, sans le zÃ©ro initial - 0 Ã  23 
+// h : Heure au format 12h, avec le zÃ©ro initial - 01 Ã  12 
+// H : Heure au format 24h, avec le zÃ©ro initial - 00 Ã  23 
+// i : Minutes avec le zÃ©ro initial - 00 Ã  59 
+// j : Jour du mois sans le zÃ©ro initial - 1 Ã  31 
+// l : Jour de la semaine, textuel, anglais par dÃ©faut - Sunday Ã  Saturday 
+// L : L'annÃ©e est elle bissextile ? - 0 ou 1 
+// m : Mois avec le zÃ©ro intial - 01 Ã  12 
+// M : Mois, en 3 lettres, anglais par dÃ©faut - Jan Ã  Dec 
+// n : Mois sans le zÃ©ro intial - 1 Ã  12 
+// O : DiffÃ©rence avec l'heure de Greenwich (GMT), en heures - -1200 Ã  +1200 
 // r : Format de date RFC 822 Thu, 1 Apr 2004 12:00:00 - +0200 
-// s : Secondes avec le zéro initial - 00 à 59 
-// S : Suffixe ordinal d'un jour, anglais par défaut - st, nd, rd, th 
-// t : Nombre de jours dans le mois - 28 à 31 
+// s : Secondes avec le zÃ©ro initial - 00 Ã  59 
+// S : Suffixe ordinal d'un jour, anglais par dÃ©faut - st, nd, rd, th 
+// t : Nombre de jours dans le mois - 28 Ã  31 
 // U : Secondes depuis le 1er Janvier 1970, 0h00 00s GMT - Ex: 1081072800 
-// w : Jour de la semaine (0 étant dimanche, 6 samedi) - 0 à 6 
-// W : Numéro de la semaine dans l'année - 1 à 52
+// w : Jour de la semaine (0 Ã©tant dimanche, 6 samedi) - 0 Ã  6 
+// W : NumÃ©ro de la semaine dans l'annÃ©e - 1 Ã  52
 //     http://www.asp-php.net/tutorial/asp-php/glossaire.php?glossid=28
-// y : Année sur 2 chiffres - Ex: 04 
-// Y : Année sur 4 chiffres - Ex: 2004 
-// z : Jour de l'année - 1 à 366 
-// Z : Décalage horaire en secondes - -43200 à 43200 
-// \ : Caractère d'echappement - Ex: \a, \A, \m
+// y : AnnÃ©e sur 2 chiffres - Ex: 04 
+// Y : AnnÃ©e sur 4 chiffres - Ex: 2004 
+// z : Jour de l'annÃ©e - 1 Ã  366 
+// Z : DÃ©calage horaire en secondes - -43200 Ã  43200 
+// \ : CaractÃ¨re d'echappement - Ex: \a, \A, \m
 
 String.prototype.padLeft = function(strChar, intLength)
 {
@@ -92,8 +92,8 @@ Date.prototype.dateFormat = function(strFormat, strLang, intTime)
  var arraySuffix_en = ['st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'st'];
 
  var arrayDays_fr = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
- var arrayMonths_fr = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
- var arraySuffix_fr = ['er', 'nd', 'ème', 'ème', 'ème', 'ème', 'ème', 'ème', 'ème', 'ème', 'ème', 'ème', 'ème', 'ème', 'ème', 'ème', 'ème', 'ème', 'ème', 'ème', 'ème', 'ème', 'ème', 'ème', 'ème', 'ème', 'ème', 'ème', 'ème', 'ème', 'ème'];
+ var arrayMonths_fr = ['Janvier', 'FÃ©vrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'AoÃ»t', 'Septembre', 'Octobre', 'Novembre', 'DÃ©cembre'];
+ var arraySuffix_fr = ['er', 'nd', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me', 'Ã¨me'];
 
  // a : Ante meridiem et Post meridiem en minuscules - am ou pm 
  fct_a = function()
@@ -107,7 +107,7 @@ Date.prototype.dateFormat = function(strFormat, strLang, intTime)
   return (self.getHours() > 11) ? 'PM' : 'AM';
  }
 
- // B : Heure Internet Swatch - 000 à 999
+ // B : Heure Internet Swatch - 000 Ã  999
  //     http://www.quirksmode.org/index.html?/js/beat.html
  fct_B = function() {
   var intGMTOffset = (self.getTimezoneOffset() + 60) * 60;
@@ -118,92 +118,92 @@ Date.prototype.dateFormat = function(strFormat, strLang, intTime)
   return intBeat.toString().padLeft('0', 3);
  }
 
- // d : Jour du mois, sur deux chiffres avec zéro initial - 01 à 31 
+ // d : Jour du mois, sur deux chiffres avec zÃ©ro initial - 01 Ã  31 
  fct_d = function()
  {
   return self.getDate().toString().padLeft('0', 2);
  }
 
- // D : Jour de la semaine, en 3 lettres, anglais par défaut - Mon à Sun 
+ // D : Jour de la semaine, en 3 lettres, anglais par dÃ©faut - Mon Ã  Sun 
  fct_D = function()
  {
   return eval('arrayDays_' + strLang)[self.getDay()].substring(0, 3);
  }
 
- // F : Mois textuel, version longue, anglais par défaut - January à December 
+ // F : Mois textuel, version longue, anglais par dÃ©faut - January Ã  December 
  fct_F = function()
  {
   return eval('arrayMonths_' + strLang)[self.getMonth()];
  }
 
- // g : Heure au format 12h, sans le zéro initial - 1 à 12 
+ // g : Heure au format 12h, sans le zÃ©ro initial - 1 Ã  12 
  fct_g = function()
  {
   return (self.getHours() > 12) ? self.getHours() - 12 : self.getHours();
  }
 
- // G : Heure au format 24h, sans le zéro initial - 0 à 23 
+ // G : Heure au format 24h, sans le zÃ©ro initial - 0 Ã  23 
  fct_G = function()
  {
   return self.getHours();
  }
 
- // h : Heure au format 12h, avec le zéro initial - 01 à 12 
+ // h : Heure au format 12h, avec le zÃ©ro initial - 01 Ã  12 
  fct_h = function()
  {
   return (self.getHours() > 12) ? (self.getHours() - 12).toString().padLeft('0', 2) : self.getHours().toString().padLeft('0', 2);
  }
 
- // H : Heure au format 24h, avec le zéro initial - 00 à 23 
+ // H : Heure au format 24h, avec le zÃ©ro initial - 00 Ã  23 
  fct_H = function()
  {
   return self.getHours().toString().padLeft('0', 2);
  }
 
- // i : Minutes avec le zéro initial - 00 à 59 
+ // i : Minutes avec le zÃ©ro initial - 00 Ã  59 
  fct_i = function()
  {
   return self.getMinutes().toString().padLeft('0', 2);
  }
 
- // j : Jour du mois sans le zéro initial - 1 à 31 
+ // j : Jour du mois sans le zÃ©ro initial - 1 Ã  31 
  fct_j = function()
  {
   return self.getDate();
  }
 
- // l : Jour de la semaine, textuel, anglais par défaut - Sunday à Saturday 
+ // l : Jour de la semaine, textuel, anglais par dÃ©faut - Sunday Ã  Saturday 
  fct_l = function()
  {
   return eval('arrayDays_' + strLang)[self.getDay()];
  }
 
- // L : L'année est elle bissextile ? - 0 ou 1 
+ // L : L'annÃ©e est elle bissextile ? - 0 ou 1 
  fct_L = function()
  {
   var intFullYear = fct_Y();
   return ((intFullYear % 4 == 0 && intFullYear % 100 != 0) || (intFullYear % 4 == 0 && intFullYear % 100 == 0 && intFullYear % 400 == 0)) ? 1 : 0;
  }
 
- // m : Mois avec le zéro intial - 01 à 12 
+ // m : Mois avec le zÃ©ro intial - 01 Ã  12 
  fct_m = function()
  {
   return (self.getMonth() + 1).toString().padLeft('0', 2);
  }
 
- // M : Mois, en 3 lettres, anglais par défaut - Jan à Dec 
+ // M : Mois, en 3 lettres, anglais par dÃ©faut - Jan Ã  Dec 
  fct_M = function()
  {
   return eval('arrayMonths_' + strLang)[self.getMonth()].substring(0, 3);
  }
 
- // n : Mois sans le zéro intial - 1 à 12 
+ // n : Mois sans le zÃ©ro intial - 1 Ã  12 
  fct_n = function()
  {
   return (self.getMonth() + 1);
  }
 
- // O : Différence avec l'heure de Greenwich (GMT), en heures - -1200 à +1200 
+ // O : DiffÃ©rence avec l'heure de Greenwich (GMT), en heures - -1200 Ã  +1200 
  fct_O = function()
  {
   var intTimezone = self.getTimezoneOffset();
@@ -218,19 +218,19 @@ Date.prototype.dateFormat = function(strFormat, strLang, intTime)
   return fct_D() + ', ' + fct_j() + ' ' + fct_M() + ' ' + fct_Y() + ' ' + fct_H() + ':' + fct_i() + ':' + fct_s() + ' ' + fct_O();
  }
 
- // s : Secondes avec le zéro initial - 00 à 59 
+ // s : Secondes avec le zÃ©ro initial - 00 Ã  59 
  fct_s = function()
  {
   return (self.getSeconds()).toString().padLeft('0', 2);
  }
 
- // S : Suffixe ordinal d'un jour, anglais par défaut - st, nd, rd, th 
+ // S : Suffixe ordinal d'un jour, anglais par dÃ©faut - st, nd, rd, th 
  fct_S = function()
  {
   return eval('arraySuffix_' + strLang)[self.getDate() - 1];
  }
 
- // t : Nombre de jours dans le mois - 28 à 31 
+ // t : Nombre de jours dans le mois - 28 Ã  31 
  fct_t = function()
  {
   var intDays = 0;
@@ -251,33 +251,33 @@ Date.prototype.dateFormat = function(strFormat, strLang, intTime)
   return Math.round(self.getTime() / 1000);
  }
 
- // w : Jour de la semaine (0 étant dimanche, 6 samedi) - 0 à 6 
+ // w : Jour de la semaine (0 Ã©tant dimanche, 6 samedi) - 0 Ã  6 
  fct_w = function()
  {
   return self.getDay();
  }
 
- // W : Numéro de la semaine dans l'année - 1 à 52
+ // W : NumÃ©ro de la semaine dans l'annÃ©e - 1 Ã  52
  //     http://www.asp-php.net/tutorial/asp-php/glossaire.php?glossid=28
  fct_W = function()
  {
   return Math.floor((fct_z() - 1 - self.getDay()) / 7) + 2;
  }
 
- // y : Année sur 2 chiffres - Ex: 04 
+ // y : AnnÃ©e sur 2 chiffres - Ex: 04 
  fct_y = function()
  {
   var strFullYear = fct_Y().toString();
   return strFullYear.substring(strFullYear.length - 2, strFullYear.length);
  }
 
- // Y : Année sur 4 chiffres - Ex: 2004 
+ // Y : AnnÃ©e sur 4 chiffres - Ex: 2004 
  fct_Y = function()
  {
   return self.getFullYear();
  }
 
- // z : Jour de l'année - 1 à 366 
+ // z : Jour de l'annÃ©e - 1 Ã  366 
  fct_z = function()
  {
   var datePremierJanvier = new Date('January 1 ' + fct_Y().toString() + ' 00:00:00');
@@ -285,7 +285,7 @@ Date.prototype.dateFormat = function(strFormat, strLang, intTime)
   return Math.floor(intDifference / 1000 / 60 / 60 / 24);
  }
 
- // Z : Décalage horaire en secondes - -43200 à 43200 
+ // Z : DÃ©calage horaire en secondes - -43200 Ã  43200 
  fct_Z = function()
  {
   var intTimezone = self.getTimezoneOffset();

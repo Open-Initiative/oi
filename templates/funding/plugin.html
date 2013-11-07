@@ -1,18 +1,21 @@
 {% load i18n %}
 {% load oifilters %}
+{% load compress %}
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="/css/oi.css" />
-        <link rel="stylesheet" type="text/css" href="/css/oiusers.css" />
+        {% compress css %}
+        <link rel="stylesheet" type="text/css" media="all" href="/css/oi.css" />
+        <link rel="stylesheet" type="text/css" media="all" href="/css/oiusers.css" />
         <link rel="stylesheet" type="text/css" media="all" href="/css/oifunding.css" />
         <link rel="stylesheet" type="text/css" media="all" href="/css/jquery-ui-1.9.1.custom.css" /> 
+        {% endcompress %}
+        {% compress js %}
         <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
         <script type="text/javascript" src="/js/jquery-ui-1.9.1.custom.js"></script>
         <script type="text/javascript" src="/js/tiny_mce/tinymce.min.js"></script>
         <script type="text/javascript" src="/js/oijs.js"></script>
         <script type="text/javascript" src="/js/oiproject.js"></script>
         <script type="text/javascript" src="/js/oifunding.js"></script>
-        <script type="text/javascript" src="{% url django.views.i18n.javascript_catalog %}"></script>
         <script>
             sites = {{Sites|safe}};
             prjsite = "http://" + sites["Open Initiative Projects"];
@@ -28,6 +31,8 @@
                 (nextFeature.length?nextFeature:$('.pluginfeature').first()).animate({width: 'show'});
             }
         </script>
+        {% endcompress %}
+        <script type="text/javascript" src="{% url django.views.i18n.javascript_catalog %}"></script>
     </head>
 
     <body style="background-color: transparent;">

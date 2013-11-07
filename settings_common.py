@@ -85,6 +85,12 @@ TEMP_DIR = HOME_DIR + 'tmp/'
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
 MEDIA_URL = '/'
 
+# Redirect params compressor to compress css and js files
+COMPRESS_ENABLED = True
+COMPRESS_ROOT = ''
+COMPRESS_URL = '/'
+COMPRESS_OUTPUT_DIR = 'static/'
+
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
