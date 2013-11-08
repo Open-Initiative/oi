@@ -24,6 +24,7 @@ INSTALLED_APPS = (
     'registration',
     'south',
     'corsheaders',
+    'bandit',
 #    'haystack',
     'oi.messages',
     'oi.projects',
