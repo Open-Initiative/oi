@@ -1144,8 +1144,8 @@ msgid ""
 "You are about to fund the feature with the project fund, are you sure you "
 "want to do it?"
 msgstr ""
-"Vous etes sur le point de financer cette évolution avec le financement du "
-"project, etes-vous sûr de vouloir le faire?"
+"Vous êtes sur le point de financer cette évolution avec le financement du "
+"projet, êtes-vous sûr ?"
 
 #: templates/funding/feature.html:12 templates/funding/popup_budget.html:23
 #: templates/funding/spec/project_description_edit.html:79
