@@ -246,7 +246,7 @@ function setPrjState(span,statenum) {
     applyFilter();
 }
 
-//I created a object to init the tinymce in textarea and call it instead of mceAddControl in other js function
+//I created an object to init the tinymce in textarea and call it instead of mceAddControl in other js function
 objectInitTinyMce = {
     selector: "textarea.editable",
     theme: "modern",
