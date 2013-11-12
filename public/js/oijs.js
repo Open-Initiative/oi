@@ -260,9 +260,9 @@ objectInitTinyMce = {
         };
     },
     plugins: [
-         "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
-         "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-         "save table contextmenu directionality emoticons template paste textcolor"
+         "advlist autolink link image lists charmap spellchecker",
+         "wordcount visualblocks media",
+         "paste"
    ],
    content_css: "/css/tinymce.css",
    toolbar_items_size : 'small',
