@@ -2045,7 +2045,7 @@ msgstr ""
 #: templates/funding/project_detail.html:103
 #: templates/funding/project_detail.html:123
 msgid "Propose"
-msgstr "Propose"
+msgstr "Proposer"
 
 #: templates/funding/project_detail.html:112
 msgid "Propose a new feature"
@@ -2311,7 +2311,7 @@ msgid ""
 "This description is 200 characters maximum and will be shown in the home "
 "page, try to be specific."
 msgstr ""
-"La description est de 200 caractères maximum et sera montré dans la "
+"Cette description a un maximum 200 caractères et sera affichée dans la "
 "page d'accueil, essayez d'être sécifique."
 
 #: templates/funding/spec/project_description_short_long_edit.html:30
@@ -2319,7 +2319,7 @@ msgid ""
 "A long description including : who you are, why you do it, how it can be "
 "used..."
 msgstr ""
-"Une longue description avec notamment : qui vous êtes, pourquoi vous le "
+"Une description longue avec notamment : qui vous êtes, pourquoi vous le "
 "faites, comment il peut être utilisé..."
 
 #: templates/funding/spec/project_description_short_long_edit.html:37
