@@ -248,8 +248,7 @@ function setPrjState(span,statenum) {
 
 // Allow tinyMCE to find css files
 tinyMCE.baseURL = "/js/tiny_mce/";// trailing slash important
-
-//I created a object to init the tinymce in textarea and call it instead of mceAddControl in other js function
+//I created an object to init the tinymce in textarea and call it instead of mceAddControl in other js function
 objectInitTinyMce = {
     selector: "textarea.editable",
     width: 500,
