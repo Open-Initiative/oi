@@ -33,7 +33,7 @@ oiunescape.needs_autoescape = True
 @register.filter
 def summarize_html(string, autoescape=None):
     return text.truncate_html_words(oiunescape(string, autoescape), 100)
-
+summarize_html.needs_autoescape = True
 
 @register.filter
 def summarize(text, autoescape=None):
