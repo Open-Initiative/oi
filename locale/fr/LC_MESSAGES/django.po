@@ -2311,7 +2311,7 @@ msgid ""
 "This description is 200 characters maximum and will be shown in the home "
 "page, try to be specific."
 msgstr ""
-"Cette description a un maximum 200 caractères et sera affichée dans la "
+"Cette description a un maximum de 200 caractères et sera affichée dans la "
 "page d'accueil, essayez d'être sécifique."
 
 #: templates/funding/spec/project_description_short_long_edit.html:30
