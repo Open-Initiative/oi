@@ -2150,12 +2150,8 @@ msgid "No link given"
 msgstr "Non précisé"
 
 #: templates/funding/project_detail_column_right.html:9
-msgid "Enter here the link to the"
-msgstr "Indiquez ici le lien vers le"
-
-#: templates/funding/project_detail_column_right.html:9
-msgid "repository project"
-msgstr "des sources du projet"
+msgid "Enter here the link to the project website"
+msgstr "Indiquez ici le lien vers le site web du projet"
 
 #: templates/funding/project_edit.html:20
 #: templates/projects/project_header.html:77
@@ -2267,8 +2263,8 @@ msgid ""
 "This description is 200 characters maximum and will be shown in the home "
 "page, try to be specific."
 msgstr ""
-"La description est de 200 caractères maximum et sera montré dans ça "
-"paged'accueil, essayer d'être sécifique."
+"La description est de 200 caractères maximum et sera montré dans la "
+"page d'accueil, essayez d'être sécifique."
 
 #: templates/funding/spec/project_description_short_long_edit.html:30
 msgid ""
