@@ -1,0 +1,19 @@
+{% load i18n %}
+Open Initiative
+{% trans "The platform of free financing" %}
+
+{% trans "Hi" %} {{recipient.get_profile}},
+
+{% trans "You just created a project on Open Funding. That was the right thing to do! You will now be able to fund the features you add to the software." %}
+    
+{% trans "You will now have to communicate about the project and the features to the community. Have you thought about your communication?" %}
+
+{% trans "Before you publish your project on our platform, we would like to contact you to discuss it. We wish to help you in this stage of promotion and funding of the project." %}
+
+{% trans "Please come talk with us!" %}
+    
+    Sylvain Le Bon
+
+{{current_site}}/ Open Funding
+
+https://twitter.com/Open_Initiative/ @ │ https://www.facebook.com/myopeninitiative/ FB

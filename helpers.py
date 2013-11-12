@@ -4,7 +4,8 @@ from functools import wraps
 from datetime import datetime
 from decimal import Decimal
 from hashlib import sha256
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.db.models import DateTimeField
@@ -118,3 +119,13 @@ def computeSHA(params):
     keys = sorted(new_dict.keys()) #sort them alphabetically
     chain = settings.SHA_KEY.join(map(lambda key: "%s=%s"%(key, new_dict[key]), keys))+settings.SHA_KEY #generates chain to compute SHA signature from
     return sha256(chain.encode("utf-8")).hexdigest().upper() #computes and turns signature uppercase
+    
+#simply the bidProject function for the redirect url  
+def oi_redirecturl(request, url, msg=None):
+    """Redirect to url with ajax or not"""
+    if msg:
+        messages.info(request, msg)
+    if request.is_ajax():
+        return HttpResponse(url, status=333)
+    else:
+        return HttpResponseRedirect(url)

@@ -4,21 +4,19 @@ from datetime import datetime, timedelta
 from decimal import Decimal
 from github import Github, GithubException
 from re import match
+from django import forms
 from django.db import models
 from django.db.transaction import commit_on_success
 from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden, Http404
 from django.shortcuts import get_object_or_404
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext as _, get_language, activate
 from django.db.models.query import QuerySet
 from oi.settings import MEDIA_ROOT
 from oi.helpers import OI_ALL_PERMS, OI_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_ANSWER, OI_BID, OI_MANAGE, OI_COMMISSION, OI_COM_ON_BID, OI_CANCELLED_BID, OI_VAT_RATE
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS, OI_TABLE_OVERVIEW
 from oi.helpers import SPEC_TYPES, TEXT_TYPE, to_date
 from oi.prjnotify.models import Observer
-from django.utils import translation
-from django.forms import ModelForm, DateField, PasswordInput
-from django import forms
 
 class ProjectQuerySet(QuerySet):
     def with_offer(self):
@@ -362,7 +360,7 @@ class Project(models.Model):
         self.assignee.get_profile().get_default_observer(self).notify("funded_project", project=self, sender=user, param=amount)
         #notify only the user who funded
         user.get_profile().get_default_observer(self).notify("has_funded_project", project=self, param=amount)
-
+        
     def canceled_bids(self):
         """gets all the bids marked as canceled"""
         return self.bid_set.filter(rating=OI_CANCELLED_BID)
@@ -491,7 +489,7 @@ class Project(models.Model):
     def all_specs_with_languages(self):
         """returns all project spec with the current language if available
         or without language, excluding image (order=1)"""
-        return self.spec_set.filter(language=translation.get_language()).order_by('order') or self.spec_set.filter(language=None).order_by('order')
+        return self.spec_set.filter(language=get_language()).order_by('order') or self.spec_set.filter(language=None).order_by('order')
         
     def count_all_funding_user(self):
         """retunrs the number of all the user who fund the project"""
@@ -531,13 +529,13 @@ class ProjectACL(models.Model):
         return "%s on %s: %s"%(self.user, self.project.title, self.permission)
 
 #Décorateur de vérification de permissions
-def OINeedsPrjPerms(perm, isajax=True):
+def OINeedsPrjPerms(perm):
     def decorate(f):
         def new_f(request, id, *args, **kwargs):
             #Vérification de toutes les permissions
             prj = get_object_or_404(Project,id=id)
             if not prj.has_perm(request.user, perm):
-                if isajax:
+                if request.is_ajax():
                     return HttpResponseForbidden(_("Forbidden"))
                 else:
                     raise Http404

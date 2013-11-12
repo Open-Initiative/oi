@@ -174,6 +174,10 @@ def filter_order(specs, order):
 def int_to_string(string, integer):
     return ""+string+str(integer)
     
+@register.filter
+def add_up(integer1, integer2):
+    return integer1 + integer2
+    
 @register.simple_tag
 def show_stars(value, dest=None):
     id = "".join([random.choice(string.lowercase) for i in range(5)])

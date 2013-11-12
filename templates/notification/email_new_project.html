@@ -1,0 +1,51 @@
+{% load i18n %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Open Initiative</title>
+    <style type="text/css">
+    a {text-decoration:underline;}
+    </style>
+</head>
+<body>
+{% spaceless %}
+<div style="background-color: #FFFFFF;border: 1px solid #D3CFCF;border-radius: 20px 20px 20px 20px;color: #444444;font-family: Helvetica,Arial,sans-serif;font-size: 10px;line-height: 19px;margin: auto;padding: 2%;width: 630px;">
+    <div style="border:4px #0094B5 solid"></div>
+    <a href="http://{{current_site}}/" style="text-decoration: none">
+        <div style="text-align: center; margin: 0 0 50px 50px; width: 420px; font-weight: bold; color: #D0574C">
+            <img src="http://{{current_site}}/img/logo_funding.png" alt="Open Initiative" style="border: none; float: left"/>
+            <p style="color: #0094B5; font-size: 11px; margin: 0 2px; text-transform: uppercase">{% trans "The crowdfunding platform for free software" %}</p>
+            <img src="http://{{current_site}}/img/baseunderline.png" alt="baseline" style="border: none"/>
+        </div>
+    </a>
+    <p align="right" style="font-size: 14px; position: relative; top: -4.1em; right: 0%;"><a href="http://{{current_site}}/" style="text-decoration: none; color: #0094B5;position: relative;top: 2.5em;">  {% trans "login" %}  <img src="http://{{current_site}}/img/login.png" style="border: none; position: relative; top: 0.4em; right: 0%"/></a></p>
+    <div style="border-top:1px gray solid; position: relative; top: -2em"></div>
+    <p style="color: #0094B5; font-size: 20px">{% trans "Hi" %} {{recipient.get_profile}},</p>
+    <p>
+        <span lang='FR' style='font-size:13.5pt;font-family:Helvetica,sans-serif;color:rgb(0,148,181)'>{% trans "You just created a project on" %} <a style='font-size:17px' href='http://{{current_site}}/'> Open Funding</a>.{% trans "That was the right thing to do! You will now be able to fund the features you add to the software." %}</span>
+    </p>
+    <p>
+        <span style='color:rgb(0,148,181);font-family:Helvetica,sans-serif;font-size:13.5pt;line-height:19px'>{% trans "You will now have to communicate about the project and the features to the community. Have you thought about your communication?" %}</span>
+    </p>
+    <p>
+        <span style='color:rgb(0,148,181);font-family:Helvetica,sans-serif;font-size:13.5pt;line-height:14.25pt'>{% trans "Before you publish your project on our platform, we would like to contact you to discuss it. We wish to help you in this stage of promotion and funding of the project." %}</span>
+    </p>
+    <p>
+        <span style='color:rgb(0,148,181);font-family:Helvetica,sans-serif;font-size:13.5pt;line-height:19px'>{% trans "Please come talk with us!" %}</span>
+    </p>
+    
+    <div>
+        <p style='font-size:18px;color:rgb(0,148,181)'>
+            <font face='Helvetica, Arial, sans-serif'>Sylvain Le Bon<br></font>
+            <span style='font-family:Helvetica,sans-serif;font-size:13.5pt;line-height:19px'><a target='_blank' href='http://funding.openinitiative.com/'>Open Funding</a><br></span>
+            <span style='font-family:Helvetica,sans-serif;font-size:13.5pt;line-height:19px'><a target='_blank' href='https://twitter.com/Open_Initiative'>@</a> │ <a target='_blank' href='https://www.facebook.com/myopeninitiative'>FB</a></span>
+        </p>
+        <p style="font-family:Helvetica,Arial,sans-serif"><br></p>
+    </div>
+
+<div style='border-top:1px gray solid; position: relative; bottom: 3em'></div>
+</div>
+{% endspaceless %}
+</body>
+</html>

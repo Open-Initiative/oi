@@ -184,6 +184,14 @@ msgstr "Terminé"
 msgid "State99"
 msgstr "Confus"
 
+# oiproject.js
+msgid "Please indicate the amount"
+msgstr "Merci d'indiquer le montant"
+
+# oiproject.js
+msgid "Invalid amount"
+msgstr "Montant invalide"
+
 # templates/projects/project_overview.html
 msgid "title"
 msgstr "titre"

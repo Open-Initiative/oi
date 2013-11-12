@@ -29,10 +29,11 @@ from django.views.generic.simple import direct_to_template
 from oi.settings import MEDIA_ROOT, TEMP_DIR, github_id, github_secret
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS, OI_TABLE_OVERVIEW
 from oi.helpers import OI_PRJ_DONE, OI_NO_EVAL, OI_ACCEPT_DELAY, OI_READ, OI_ANSWER, OI_BID, OI_MANAGE, OI_WRITE, OI_ALL_PERMS, OI_CANCELLED_BID, OI_COM_ON_BID, OI_COMMISSION
-from oi.helpers import OI_PRJ_VIEWS, SPEC_TYPES, OIAction, ajax_login_required
+from oi.helpers import OI_PRJ_VIEWS, SPEC_TYPES, OIAction, ajax_login_required, oi_redirecturl
 from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeedsPrjPerms, Release, GitHubSync, Reward, RewardForm
 from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
+from oi.prjnotify.models import Observer
 from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
@@ -52,7 +53,7 @@ from django.conf import settings
 #    promotedprj = PromotedProject.objects.filter(location="index")
 #    return object_list(request, queryset=projects[:10], extra_context={'promotedprj': promotedprj})
 
-@OINeedsPrjPerms(OI_READ, isajax=False)
+@OINeedsPrjPerms(OI_READ)
 def getproject(request, id, view="overview"):
     if not view: view = "overview"
     project = Project.objects.get(id=id)
@@ -534,15 +535,17 @@ def answerdelay(request, id):
 def bidproject(request, id):
     """Makes a new bid on the project"""
     project = Project.objects.get(id=id)
+    
     try:
         amount = Decimal("0"+(request.POST.get("bid") or request.session.get('bid','0')).replace(",","."))
     except InvalidOperation:
-        return HttpResponse(_("Invalid amount"))
+        return oi_redirecturl(request, '%s%s'%(settings.REDIRECT_URL, project.id), _('Invalid amount'))
+        
     #checks that the user can afford the bid ; if not, redirects to the deposit page
     
     #1) check amount
     if amount == 0:
-        return HttpResponse(_('Please indicate the amount'))
+        return oi_redirecturl(request, '%s%s'%(settings.REDIRECT_URL, project.id), _('Please indicate the amount'))
     #2) calcul the missing
     missing = amount - request.user.get_profile().balance
     if amount > request.user.get_profile().balance:
@@ -552,14 +555,49 @@ def bidproject(request, id):
         project.makebid(request.user, amount) #to update the user account
     #4) back to ogone if is not enough
     if missing > 0:
-        return HttpResponse('/user/myaccount?amount=%s&project=%s'%((missing).to_eng_string(),project.id),status=333)
+        return oi_redirecturl(request, '/user/myaccount?amount=%s&project=%s'%((missing).to_eng_string(),project.id), None)
 
     messages.info(request, _("Bid saved"))
     
     #if the user is authenticated reload the page
-    if request.is_ajax():
-        return HttpResponse ("", status=332)
-    return HttpResponseRedirect('%s%s'%(settings.REDIRECT_URL, project.id))
+    return oi_redirecturl(request, '%s%s'%(settings.REDIRECT_URL, project.id), "")
+  
+@ajax_login_required
+@OINeedsPrjPerms(OI_MANAGE)    
+def completetask(request, id, taskid):
+    """Complete the task bid with project bid"""
+    project = Project.objects.get(id=id)
+    task = Project.objects.get(id=taskid)
+    
+    #check the security
+    if not task.master == project:
+        return HttpResponseForbidden(_("Forbidden"))
+    
+    #check if the transfer is possible
+    if not task.missing_bid():
+        return HttpResponse(_("No need no more fund to start the task"))
+    
+    #make the transfer    
+    for bid_prj in project.bid_set.all():
+        if (bid_prj.amount + task.bid_sum()) <= task.get_budget():
+            bid, created = Bid.objects.get_or_create(project=task, user=bid_prj.user)
+            bid.amount += bid_prj.amount
+            bid.save()
+            bid_prj.delete()
+        else:
+            #calcul the new bid amount and the new bid to do
+            missing_bid = task.get_budget() - task.bid_sum()
+                
+            bid, created = Bid.objects.get_or_create(project=task, user=bid_prj.user)
+            bid.amount += missing_bid
+            bid.save()
+            bid_prj.amount -= missing_bid
+            bid_prj.save()
+            break
+        #notify the bid user for the transfer
+        bid.user.get_profile().get_default_observer(task).notify("transfer", project=task, param=bid.amount)
+    
+    return HttpResponse("", status=332)
   
 @OINeedsPrjPerms(OI_READ)
 def validatorproject(request, id):
@@ -1005,6 +1043,8 @@ def savespec(request, id, specid='0'):
     #for spec url video or link        
     if request.POST.has_key("url"):
         spec.url = request.POST["url"]
+    if (spec.type == 3 or spec.type == 6) and spec.url == None:
+        spec.url = ""
     if spec.type == 4:
         import re
         #search if in the link there are as element platform and path

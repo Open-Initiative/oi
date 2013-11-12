@@ -34,7 +34,7 @@
         {% endfor %}
     </table>
     <h2>{%trans "Balance:" %} {{user.get_profile.balance}} €</h2>
-    <p><a href="/user/myaccount"><img style="position: relative;top: 3px;" alt="{% trans 'Back to the former page' %}" title="{% trans 'Back to the former page' %}" src="/img/icons/previous.png">  {% trans "Back to the previous page" %}</a></p>
+    <p><a href="/user/myaccount"><img style="position: relative;top: 3px;" alt="{% trans 'Back to the previous page' %}" title="{% trans 'Back to the previous page' %}" src="/img/icons/previous.png">  {% trans "Back to the previous page" %}</a></p>
 </div>
 <script>
     ajaxParams = document.location.hash.split("/");

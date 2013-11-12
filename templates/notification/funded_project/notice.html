@@ -7,7 +7,7 @@
 
 {% comment %}
 <!--I disabled it because it was breaking the notification e-mail. Please reactivate it later -->
-{% with notice.project as task %}
+{% with task=notice.project user=notice.recipient %}
 <div style="width: 130%;">
     <ul class="features_manage" id="features_0">
         <li class="featurebox" id="task_{{task.id}}">
@@ -18,7 +18,7 @@
 {% endwith %}
 {% endcomment %}
 
-{% trans "Visite the project page" %} <a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}" target="_blank">{% trans "here" %}</a>.
+{% trans "Visite the project page" %} <a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}#feature_{{notice.project.id}}" target="_blank">{% trans "here" %}</a>.
 {% else %}
 <a href="http://{{current_site}}/user/profile/{{notice.sender.username}}" target="_blank">{{notice.sender.get_profile}}</a> {% trans "has just funded the evolution but the project is now deleted" %}
 {% endif %}

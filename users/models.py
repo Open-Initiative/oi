@@ -42,6 +42,7 @@ class UserProfile(models.Model):
     github_username = models.CharField(max_length=100, blank=True, null=True)
     github_password = models.CharField(max_length=100, blank=True, null=True)
     tax_rate = models.DecimalField(max_digits= 12, decimal_places=2, blank=True, null=True)
+    contacted = models.BooleanField(default=False)
     
     def get_titles(self):
         """suggests titles for the user, based on resume details"""

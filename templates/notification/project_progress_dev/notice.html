@@ -2,7 +2,7 @@
 {% if notice.project %}
 {% trans "we have great news! Your feature" %} <b><i>{{notice.project.title}}</i></b> {% trans "from the project" %} <a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}" target="_blank">{{notice.project.parent.title}}</a> {% trans "has reached 100% of its funding." %}
 
-{% with notice.project as task %}
+{% with task=notice.project user=notice.recipient %}
 <div>
     <ul class="features_manage" id="features_0">
         <li class="featurebox" id="task_{{task.id}}">
@@ -14,7 +14,7 @@
 
 {% trans "You can start the development now" %}
 
-{% trans "Visit the project page" %} <a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}" target="_blank">{% trans "here" %}</a>.
+{% trans "Visit the project page" %} <a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}#feature_{{notice.project.id}}" target="_blank">{% trans "here" %}</a>.
 {% else %}
 {% trans "The project has been funded, but it is now deleted" %}
 {% endif %}
