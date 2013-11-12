@@ -268,11 +268,10 @@ objectInitTinyMce = {
    toolbar_items_size : 'small',
    toolbar: "insertfile | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image", 
    style_formats: [
-        {title: 'Bold text', inline: 'b'},
-        {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
-        {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
-        {title: 'Table styles'},
-        {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+        {title: 'Header 1', block: 'h1'},
+        {title: 'Header 2', block: 'h2'},
+        {title: 'Header 3', block: 'h3'},
+        {title: 'Header 4', block: 'h4'},
     ]
 }
     
