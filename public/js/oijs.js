@@ -246,24 +246,22 @@ function setPrjState(span,statenum) {
     applyFilter();
 }
 
+// Allow tinyMCE to find css files
+tinyMCE.baseURL = "/js/tiny_mce/";// trailing slash important
+
 //I created a object to init the tinymce in textarea and call it instead of mceAddControl in other js function
 objectInitTinyMce = {
     selector: "textarea.editable",
-    theme: "modern",
     width: 500,
     height: 200,
-    menu: true,
+    menubar: false,
     file_browser_callback: function(field_name, url, type, win) { 
         if(type=='image'){ 
             document.getElementById("fieldname").value = field_name;
             $('#formUploadFile input').click();
         };
     },
-    plugins: [
-         "advlist autolink link image lists charmap spellchecker",
-         "wordcount visualblocks media",
-         "paste"
-   ],
+    plugins: ["advlist autolink link image lists charmap spellchecker visualblocks media paste"],
    content_css: "/css/tinymce.css",
    toolbar_items_size : 'small',
    toolbar: "insertfile | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image", 
