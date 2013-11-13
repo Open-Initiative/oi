@@ -37,7 +37,7 @@
     
     <div>
         <p style='font-size:18px;color:rgb(0,148,181)'>
-            <font face='Helvetica, Arial, sans-serif'>Sylvain Le Bon<br></font>
+            <font face='Helvetica, Arial, sans-serif'>{% trans "Open Funding Team" %}<br></font>
             <span style='font-family:Helvetica,sans-serif;font-size:13.5pt;line-height:19px'><a target='_blank' href='http://funding.openinitiative.com/'>Open Funding</a><br></span>
             <span style='font-family:Helvetica,sans-serif;font-size:13.5pt;line-height:19px'><a target='_blank' href='https://twitter.com/Open_Initiative'>@</a> │ <a target='_blank' href='https://www.facebook.com/myopeninitiative'>FB</a></span>
         </p>
@@ -45,6 +45,7 @@
     </div>
 
 <div style='border-top:1px gray solid; position: relative; bottom: 3em'></div>
+<p style="font-size: 12px; color: gray; position: relative; bottom: 5em; text-align: center;">{% trans "To see the project" %} <a href="http://{{current_site}}/funding/{{project.id}}/"> {% trans "click here." %}</a></p>
 </div>
 {% endspaceless %}
 </body>

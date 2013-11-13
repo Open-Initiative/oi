@@ -136,3 +136,12 @@ div.blogicon {
     position: absolute;
     z-index: 1;
 }
+.wrong_login{
+    padding: 0pt 0.7em;
+    border: 1px solid #cd0a0a;
+    background: #cd0a0a url('/css/images/ui-bg_flat_15_cd0a0a_40x100.png?d96af6cd8948') 50% 50% repeat-x;
+    color: #ffffff;
+    font-family: Lucida Grande,Lucida Sans,Arial,sans-serif;
+    font-size: 1.1em;
+    border-top-left-radius: 6px;
+}

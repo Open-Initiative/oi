@@ -70,6 +70,11 @@
             <div id="block_name" class="invisible">
                 
                 <form id="contact_name" onsubmit="saveName(); $('#block_name').hide(); $('#block_name_info').show(); return false">
+                
+                    <div class="actions of_close">
+                        <input type="image" class="clickable" src="/img/icons/ok-32.png" />
+                        <img class="clickable" src="/img/icons/delete.png" onclick="$('#block_name').hide();$('#block_name_info').show()" />
+                    </div>
                     <table>
                         <tr>
                             <td class="username"><label for="lastname">{% trans "Last name" %}</label></td>
@@ -80,11 +85,6 @@
                             <td><input type="text" id="contact_firstname_info" name="firstname" value="{{user.first_name}}" /></td>
                         </tr>
                     </table>
-                    
-                    <div class="actions">
-                        <input type="image" class="clickable" src="/img/icons/ok-32.png" />
-                        <img class="clickable" src="/img/icons/delete.png" onclick="$('#block_name').hide();$('#block_name_info').show()" />
-                    </div>
                     
                 </form>
                 <br/>
@@ -124,11 +124,11 @@
             <div id="block_contact" class="invisible">
                 
                 <form id="contact_form" onsubmit="saveContactInfo(); $('#block_contact').hide(); $('#block_contact_info').show(); return false">
-                    <table>{{contact_form.as_table}}</table>
-                    <div class="actions">
+                    <div class="actions of_close">
                         <input type="image" class="clickable" src="/img/icons/ok-32.png" />
                         <img class="clickable" src="/img/icons/delete.png" onclick="resetContactInfo();$('#block_contact').toggle();$('#block_contact_info').toggle()" />
                     </div>
+                    <table>{{contact_form.as_table}}</table>
                 </form>
                 
             </div>
