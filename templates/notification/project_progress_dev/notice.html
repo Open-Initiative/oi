@@ -2,6 +2,8 @@
 {% if notice.project %}
 {% trans "we have great news! Your feature" %} <b><i>{{notice.project.title}}</i></b> {% trans "from the project" %} <a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}" target="_blank">{{notice.project.parent.title}}</a> {% trans "has reached 100% of its funding." %}
 
+{% comment %}
+<!--I disabled it because it was breaking the notification e-mail. Please reactivate it later -->
 {% with task=notice.project user=notice.recipient %}
 <div>
     <ul class="features_manage" id="features_0">
@@ -11,6 +13,7 @@
     </ul>
 </div>
 {% endwith %}
+{% endcomment %}
 
 {% trans "You can start the development now" %}
 
