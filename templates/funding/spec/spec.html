@@ -22,7 +22,7 @@
         <div id="visible_{{object.id}}_{{spec.order}}_desc">
             <p class="funding_short">
                 {% if spec.text|length > 300 and spec.order == 3 %}
-                    {{spec.text|oiunescape|slice:"310"}}...
+                    {{spec.text|oiunescape|summarize_html}}...
                     <span class="clickable" style="float:right; margin-top: 20px;" onclick="seeMore('visible_{{object.id}}_{{spec.order}}_desc', 'invisible_{{object.id}}_{{spec.order}}_desc')"><a>{% trans "See more" %}</a></span>
                 {% else %}
                     {{spec.text|oiunescape}}
