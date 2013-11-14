@@ -33,6 +33,7 @@ from oi.helpers import OI_PRJ_VIEWS, SPEC_TYPES, OIAction, ajax_login_required
 from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeedsPrjPerms, Release, GitHubSync, Reward, RewardForm
 from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
+from oi.prjnotify.models import Observer
 from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
@@ -309,6 +310,9 @@ def create_new_task(parent, title, author, githubid=None):
                 labels = []
             project.githubid = repo.create_issue(project.title, body="http://www.openinitiative.com/project/%s/view/description/"%project.id, labels=labels).id
         project.save()
+    # create new project, send email to help user to connecting people
+    if not parent:
+        project.contact_new_owners()
     return project
 
 @ajax_login_required(keep_fields=('title','app'))
