@@ -2,6 +2,7 @@ import re
 import string
 import random
 from django import template
+from django.utils import text
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from django.contrib.auth.models import AnonymousUser
@@ -28,6 +29,11 @@ def oiunescape(text, autoescape=None):
         text = text.replace(OI_ESCAPE_CODE[code], code)
     return mark_safe(text.replace("[[close]]",">"))
 oiunescape.needs_autoescape = True
+
+@register.filter
+def summarize_html(string, autoescape=None):
+    return mark_safe(text.truncate_html_words(oiunescape(string, autoescape), 100))
+summarize_html.needs_autoescape = True
 
 @register.filter
 def summarize(text, autoescape=None):
