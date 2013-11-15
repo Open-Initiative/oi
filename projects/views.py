@@ -546,6 +546,8 @@ def bidproject(request, id):
     
     #1) check amount
     if amount == 0:
+        if not request.is_ajax():
+            return HttpResponseRedirect('%s%s'%(settings.REDIRECT_URL, project.id))
         return HttpResponse(_('Please indicate the amount'))
     #2) calcul the missing
     missing = amount - request.user.get_profile().balance
@@ -556,6 +558,8 @@ def bidproject(request, id):
         project.makebid(request.user, amount) #to update the user account
     #4) back to ogone if is not enough
     if missing > 0:
+        if not request.is_ajax():
+            return HttpResponseRedirect('/user/myaccount?amount=%s&project=%s'%((missing).to_eng_string(),project.id))
         return HttpResponse('/user/myaccount?amount=%s&project=%s'%((missing).to_eng_string(),project.id),status=333)
 
     messages.info(request, _("Bid saved"))
