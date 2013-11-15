@@ -177,6 +177,13 @@ function bidProject(projectid) {
         }
     );
 }
+function confirmBid(projectid) {
+    if(document.getElementById("bid_"+projectid).value != 0){
+        OIajaxCall("/project/confirmbid/"+projectid, "bid="+getValue("bid_"+projectid), "output");
+    }else{
+        document.getElementById('output').innerHTML = ""+gettext("Please indicate the amount");
+    }
+}
 function confirmBidProject(projectid) {
     if(document.getElementById("acceptcgu").checked){
         OIajaxCall("/project/confirmbid/"+projectid, "bid="+getValue("bid_"+projectid), "output", 
