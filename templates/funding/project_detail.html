@@ -180,6 +180,16 @@
             </div>
             <div class="cleared"></div>
             <p class="editfeature">{{project.get_selfbudget|default:descendants.allbudget|floatformat:"-2"}} € {% trans "total" %}</p>
+            
+            {% with task=project plugin_width='50%' %}
+                {% include 'funding/popup_budget.html' %}
+            {% endwith %}
+            
+            <div class="featurebtns">
+            {% if project.state < 4 and project|can_bid:user or not user.is_authenticated %}
+                <span class="supportbtn clickable" onclick="showPopup(document.getElementById('bidpopup_{{project.id}}')); ">{% trans "Support" %}</span>
+            {% endif %}
+            </div>
             <div class="cleared"></div>
         </div>
         {% endwith %}

@@ -3,29 +3,7 @@
 {% if task|can_read:user %}
 
 
-    <div id="featurebudget_{{task.id}}" class="featuredetail invisible" onclick="document.ignoreClosePopups = true;">
-        <div id="prjdialogue_{{task.id}}" class="popup invisible"></div>
-        {% include 'funding/feature_budget.html' %}
-    </div>
-    
-    {% if task.state < 4 and task|can_bid:user or not user.is_authenticated %}
-    <div id="bidpopup_{{task.id}}" {% if plugin_width %}style="width:{{plugin_width}};"{% endif %} class="popup_spec invisible" onclick="document.ignoreClosePopups = true;">
-            <img style="position: relative;top: 14%;" class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hidePopups()" />
-            <div class="cleared"></div>
-            <p class="bid_popup_title form_center">{% trans "Support the feature" %} <b>{{task.title}}</b><br/> {% trans "on the project" %} <u>{{object.title}}</u></p>
-            <div class="cleared"></div>
-        <p>{% trans "By funding this feature you will enable improvements to this software. You will be given the chance to validate that the development is done the way you want. An e-mail will let you know that you can test the feature when it is developped, so that you can validate it is done."%}</p><p>{% trans "Thanks for supporting this software!" %}</p>
-        
-        <form class="form_center" onsubmit="confirmBid({{task.id}});return false">
-            <label for="bid_{{task.id}}">{% trans "Please enter the amount you want to fund:" %}</label><br /><br />
-            <input style="left: 44%;position: relative;top: -10%;" id="bid_{{task.id}}" name="bid_{{task.id}}" class="bidfeature" value="{{task.missing_bid|floatformat:"-2"}}" /> €
-        </form>
-        
-        <p class="form_center">{% trans "By funding this feature, you agree to the" %} <a href="/cgu" target="_blank">{% trans "Terms of Use" %}</a></p>
-        <span style="position: relative;left: -3%;top: 2%;" class="fundingright continuebtn clickable" onclick="OIajaxCall('/project/confirmbid/{{task.id}}', 'bid='+getValue('bid_{{task.id}}'), 'output')">{% trans "Continue" %}</span>
-    </div>
-    
-    {% endif %}
+    {% include 'funding/popup_budget.html' %}
 
     <div id="featureDiv_{{task.id}}" class="featureblock" title="{{task.title}}" style="padding: 1%;{% if not task.public_read %} opacity:.4;{% endif %}">
         <div id="feature_{{task.id}}" class="featuretitle clickable" onclick="expandFeature({{task.id}})">{{task.title}}</div>
