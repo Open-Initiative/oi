@@ -541,14 +541,13 @@ def bidproject(request, id):
     try:
         amount = Decimal("0"+(request.POST.get("bid") or request.session.get('bid','0')).replace(",","."))
     except InvalidOperation:
-        return HttpResponse(_("Invalid amount"))
+        return redirectajaxurl(request, None, '%s%s'%(settings.REDIRECT_URL, project.id), _('Invalid amount'))
+        
     #checks that the user can afford the bid ; if not, redirects to the deposit page
     
     #1) check amount
     if amount == 0:
-        if not request.is_ajax():
-            return HttpResponseRedirect('%s%s'%(settings.REDIRECT_URL, project.id))
-        return HttpResponse(_('Please indicate the amount'))
+        return redirectajaxurl(request, None, '%s%s'%(settings.REDIRECT_URL, project.id), _('Please indicate the amount'))
     #2) calcul the missing
     missing = amount - request.user.get_profile().balance
     if amount > request.user.get_profile().balance:
@@ -558,16 +557,21 @@ def bidproject(request, id):
         project.makebid(request.user, amount) #to update the user account
     #4) back to ogone if is not enough
     if missing > 0:
-        if not request.is_ajax():
-            return HttpResponseRedirect('/user/myaccount?amount=%s&project=%s'%((missing).to_eng_string(),project.id))
-        return HttpResponse('/user/myaccount?amount=%s&project=%s'%((missing).to_eng_string(),project.id),status=333)
+        return redirectajaxurl(request, 333, '/user/myaccount?amount=%s&project=%s'%((missing).to_eng_string(),project.id), None)
 
     messages.info(request, _("Bid saved"))
     
     #if the user is authenticated reload the page
+    return redirectajaxurl(request, 332, '%s%s'%(settings.REDIRECT_URL, project.id), "")
+  
+#this function have to be imrpove to simply the bidProject function for the redirect url  
+def redirectajaxurl(request, status, url, msg):
+    """Redirect to url with ajax or not"""
     if request.is_ajax():
-        return HttpResponse ("", status=332)
-    return HttpResponseRedirect('%s%s'%(settings.REDIRECT_URL, project.id))
+        if msg:
+            return HttpResponse(msg, status=status)
+        return HttpResponse(url, status=status)
+    return HttpResponseRedirect(url)
   
 @OINeedsPrjPerms(OI_READ)
 def validatorproject(request, id):
