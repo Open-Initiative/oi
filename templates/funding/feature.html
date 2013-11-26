@@ -37,7 +37,7 @@
             {% endif %}
             <br/>
             
-            {% if task.state < 4 and task|can_manage:user and object.bid_sum and task.offer %}
+            {% if task.state < 4 and task|can_manage:user and object.bid_sum and task.missing_bid %}
                 <span class="supportbtn clickable" onclick="completeTask({{object.id}}, {{task.id}});">{% trans "Complete" %}</span>
             {% endif %}
             

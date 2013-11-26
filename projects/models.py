@@ -369,6 +369,13 @@ class Project(models.Model):
         #notify only the user who funded
         user.get_profile().get_default_observer(self).notify("has_funded_project", project=self, param=amount)
         
+    def descendants_missing_bid(self):
+        """Total of all bid existing in the project"""
+        total = Decimal('0')
+        for task in self.descendants.all():
+            total += task.missing_bid()
+        return total
+        
     def contact_new_owners(self):
         """send email to new user when they create project to help connecting people"""
         # the language is to be temporarily switched to the recipient's language
