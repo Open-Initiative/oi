@@ -572,6 +572,42 @@ def redirectajaxurl(request, status, url, msg):
             return HttpResponse(msg, status=status)
         return HttpResponse(url, status=status)
     return HttpResponseRedirect(url)
+
+@ajax_login_required
+@OINeedsPrjPerms(OI_MANAGE)    
+def completetask(request, id, taskid):
+    """Complete the task bid with project bid"""
+    project = Project.objects.get(id=id)
+    task = Project.objects.get(id=taskid)
+    
+    #check the security
+    if not task.master == project:
+        return HttpResponseForbidden(_("You are not authorized because the task doesn't belong to the project"))
+    
+    #check if the transfer is possible
+    if not task.missing_bid():
+        return HttpResponse(_("The task cannot be complete, but can be funded"))
+    
+    #make the transfer    
+    for bid_prj in project.bid_set.all():
+        if (bid_prj.amount + task.bid_sum()) <= task.get_budget():
+            bid, created = Bid.objects.get_or_create(project=task, user=bid_prj.user)
+            bid.amount += bid_prj.amount
+            bid.save()
+            bid_prj.delete()
+        else:
+            #calcul the new bid amount and the new bid to do
+            new_bid_sold = (bid_prj.amount + task.bid_sum()) - task.get_budget()
+            delta = bid_prj.amount - new_bid_sold
+                
+            bid, created = Bid.objects.get_or_create(project=task, user=bid_prj.user)
+            bid.amount += delta
+            bid.save()
+            bid_prj.amount -= delta
+            bid_prj.save()
+            break
+    
+    return HttpResponse(_(""), status=332)
   
 @OINeedsPrjPerms(OI_READ)
 def validatorproject(request, id):

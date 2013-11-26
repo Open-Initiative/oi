@@ -35,6 +35,12 @@
             {% if task.state < 4 and task|can_bid:user or not user.is_authenticated %}
                 <span class="supportbtn clickable" onclick="showPopup(document.getElementById('bidpopup_{{task.id}}')); ">{% trans "Support" %}</span>
             {% endif %}
+            <br/>
+            
+            {% if task.state < 4 and task|can_manage:user and object.bid_sum and task.offer %}
+                <span class="supportbtn clickable" onclick="completeTask({{object.id}}, {{task.id}});">{% trans "Complete" %}</span>
+            {% endif %}
+            
             </div>
             <a class="clickable" onclick="showPopup(document.getElementById('featurebudget_{{task.id}}'))">{{task.bid_set.count}} {% trans "funders" %}</a>
             

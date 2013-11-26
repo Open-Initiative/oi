@@ -193,3 +193,10 @@ function deleteReward(projectid, rewardid){
         })
     }
 }
+function completeTask(projectid, taskid){
+    OIajaxCall("/project/"+projectid+"/completetask/"+taskid, null, "output", 
+        function(){
+            
+        }
+    )
+}
