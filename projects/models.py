@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from decimal import Decimal
 from github import Github, GithubException
 from re import match
+from django import forms
 from django.db import models
 from django.db.transaction import commit_on_success
 from django.contrib.auth.models import User
@@ -16,15 +17,6 @@ from oi.helpers import OI_ALL_PERMS, OI_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS, OI_TABLE_OVERVIEW
 from oi.helpers import SPEC_TYPES, TEXT_TYPE, to_date
 from oi.prjnotify.models import Observer
-from django.utils import translation
-from django.forms import ModelForm, DateField, PasswordInput
-from django import forms
-from django.conf import settings
-from django.contrib.sites.models import Site
-from django.template import Context
-from oi.projects.context_processors import constants
-from django.template.loader import render_to_string
-from django.core.mail import EmailMultiAlternatives
 
 class ProjectQuerySet(QuerySet):
     def with_offer(self):
@@ -368,30 +360,6 @@ class Project(models.Model):
         self.assignee.get_profile().get_default_observer(self).notify("funded_project", project=self, sender=user, param=amount)
         #notify only the user who funded
         user.get_profile().get_default_observer(self).notify("has_funded_project", project=self, param=amount)
-        
-    def contact_new_owners(self):
-        """send email to new user when they create project to help connecting people"""
-        # the language is to be temporarily switched to the recipient's language
-        current_language = get_language()
-        activate(self.author.get_profile().language)
-        
-        # update context with site information
-        current_site = "%s://%s"%(getattr(settings, "DEFAULT_HTTP_PROTOCOL", "http"), Site.objects.get_current())
-        context = Context(dict({"recipient": self.author, 'current_site': current_site, 'project': self}, **constants(None)))
-        
-        # e-mail data
-        subject = _('New project on Open Funding')
-        body = render_to_string('notification/email_new_project.txt', {'format': 'txt'}, context)
-        body_html = render_to_string('notification/email_new_project.html', {'format': 'html'}, context)
-        
-        msg = EmailMultiAlternatives(subject, body, settings.DEFAULT_FROM_EMAIL, [self.author.email])
-        msg.attach_alternative(body_html, "text/html")
-        msg.send()
-        self.author.get_profile().contacted = True
-        self.author.get_profile().save()
-        
-        # reset environment to original language
-        activate(current_language)
 
     def canceled_bids(self):
         """gets all the bids marked as canceled"""
@@ -521,7 +489,7 @@ class Project(models.Model):
     def all_specs_with_languages(self):
         """returns all project spec with the current language if available
         or without language, excluding image (order=1)"""
-        return self.spec_set.filter(language=translation.get_language()).order_by('order') or self.spec_set.filter(language=None).order_by('order')
+        return self.spec_set.filter(language=get_language()).order_by('order') or self.spec_set.filter(language=None).order_by('order')
         
     def count_all_funding_user(self):
         """retunrs the number of all the user who fund the project"""
