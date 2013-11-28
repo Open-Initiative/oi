@@ -582,11 +582,11 @@ def completetask(request, id, taskid):
     
     #check the security
     if not task.master == project:
-        return HttpResponseForbidden(_("You are not authorized because the task doesn't belong to the project"))
+        return HttpResponseForbidden(_("Forbidden"))
     
     #check if the transfer is possible
     if not task.missing_bid():
-        return HttpResponse(_("The task cannot be complete, but can be funded"))
+        return HttpResponse(_("No need no more fund to start the task"))
     
     #make the transfer    
     for bid_prj in project.bid_set.all():
@@ -597,15 +597,16 @@ def completetask(request, id, taskid):
             bid_prj.delete()
         else:
             #calcul the new bid amount and the new bid to do
-            new_bid_sold = (bid_prj.amount + task.bid_sum()) - task.get_budget()
-            delta = bid_prj.amount - new_bid_sold
+            missing_bid = task.get_budget() - task.bid_sum()
                 
             bid, created = Bid.objects.get_or_create(project=task, user=bid_prj.user)
-            bid.amount += delta
+            bid.amount += missing_bid
             bid.save()
-            bid_prj.amount -= delta
+            bid_prj.amount -= missing_bid
             bid_prj.save()
             break
+        #notify the bid user for the transfer
+        bid.user.get_profile().get_default_observer(task).notify("transfer", project=task, param=amount)
     
     return HttpResponse(_(""), status=332)
   

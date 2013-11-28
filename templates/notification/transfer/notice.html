@@ -1,0 +1,8 @@
+{% load i18n %}
+{% if notice.project %}
+
+{% trans "Author has used your funding of" %} {{notice.project.parent.title}} {% trans "for the feature" %} {{notice.project.title}}
+
+{% trans "Click" %} <a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}#feature_{{notice.project.id}}" target="_blank">{% trans "here" %}</a> {% trans "to see the project fund" %}
+
+{% endif %}

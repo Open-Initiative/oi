@@ -30,3 +30,4 @@ class Command(NoArgsCommand):
         NoticeType.register("has_funded_project", _(u"Project has been funded"), _(u"Thank to have funded the project"))
         NoticeType.register("project_progress_users", _(u"Project has been 100% funded"), _(u"The project has been 100% funded"))
         NoticeType.register("project_progress_dev", _(u"Project has been 100% funded"), _(u"Project has been 100% funded"))
+        NoticeType.register("transfer", _(u"Transfer of fund"), _(u"Author has used your funding project for a feature"))

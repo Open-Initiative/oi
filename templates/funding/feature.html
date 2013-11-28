@@ -3,6 +3,16 @@
 {% if task|can_read:user %}
 
 
+    {% if task.state < 4 and task|can_manage:user or not user.is_authenticated %}
+    <div id="completepopup_{{task.id}}" class="popup_complete invisible" onclick="document.ignoreClosePopups = true;">
+            <img class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hidePopups()" />
+            <p class="bid_popup_title form_center">{% trans "Complete the feature" %} <b>{{task.title}}</b><br/> {% trans "by the project bid" %} <u>{{object.title}}</u></p>
+            <div class="cleared"></div>
+        <p>{% trans "You are about to fund the feature with the project bid, are you sure you want to do it?" %}</p>
+        <span style="position: relative;left: -3%;top: 2%;" class="fundingright continuebtn clickable" onclick="completeTask({{object.id}}, {{task.id}})">{% trans "Continue" %}</span>
+    </div>
+    {% endif %}
+
     {% include 'funding/popup_budget.html' %}
 
     <div id="featureDiv_{{task.id}}" class="featureblock" title="{{task.title}}" style="padding: 1%;{% if not task.public_read %} opacity:.4;{% endif %}">
@@ -38,7 +48,7 @@
             <br/>
             
             {% if task.state < 4 and task|can_manage:user and object.bid_sum and task.missing_bid %}
-                <span class="supportbtn clickable" onclick="completeTask({{object.id}}, {{task.id}});">{% trans "Complete" %}</span>
+                <span class="supportbtn clickable" onclick="showPopup(document.getElementById('completepopup_{{task.id}}'));">{% trans "Complete" %}</span>
             {% endif %}
             
             </div>
