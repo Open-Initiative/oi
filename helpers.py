@@ -125,6 +125,6 @@ def oi_redirecturl(request, url, msg=None):
     if msg:
         messages.info(request, msg)
     if request.is_ajax():
-        return HttpResponse(url, status=332)
+        return HttpResponse(url, status=333)
     else:
         return HttpResponseRedirect(url)

@@ -594,7 +594,7 @@ def completetask(request, id, taskid):
             bid_prj.save()
             break
         #notify the bid user for the transfer
-        bid.user.get_profile().get_default_observer(task).notify("transfer", project=task, param=amount)
+        bid.user.get_profile().get_default_observer(task).notify("transfer", project=task, param=bid.amount)
     
     return HttpResponse("", status=332)
   
