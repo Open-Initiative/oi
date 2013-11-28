@@ -4,7 +4,7 @@ from functools import wraps
 from datetime import datetime
 from decimal import Decimal
 from hashlib import sha256
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.db.models import DateTimeField
@@ -125,6 +125,6 @@ def oi_redirecturl(request, url, msg=None):
     if msg:
         messages.info(request, msg)
     if request.is_ajax():
-        return HttpResponse(url, status=status)
+        return HttpResponse(url, status=332)
     else:
         return HttpResponseRedirect(url)

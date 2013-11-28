@@ -596,7 +596,7 @@ def completetask(request, id, taskid):
         #notify the bid user for the transfer
         bid.user.get_profile().get_default_observer(task).notify("transfer", project=task, param=amount)
     
-    return HttpResponse(_(""), status=332)
+    return HttpResponse("", status=332)
   
 @OINeedsPrjPerms(OI_READ)
 def validatorproject(request, id):
