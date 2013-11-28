@@ -310,9 +310,6 @@ def create_new_task(parent, title, author, githubid=None):
                 labels = []
             project.githubid = repo.create_issue(project.title, body="http://www.openinitiative.com/project/%s/view/description/"%project.id, labels=labels).id
         project.save()
-    # create new project, send email to help user to connecting people
-    if not parent:
-        project.contact_new_owners()
     return project
 
 @ajax_login_required(keep_fields=('title','app'))
