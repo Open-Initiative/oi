@@ -29,7 +29,7 @@ from django.views.generic.simple import direct_to_template
 from oi.settings import MEDIA_ROOT, TEMP_DIR, github_id, github_secret
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS, OI_TABLE_OVERVIEW
 from oi.helpers import OI_PRJ_DONE, OI_NO_EVAL, OI_ACCEPT_DELAY, OI_READ, OI_ANSWER, OI_BID, OI_MANAGE, OI_WRITE, OI_ALL_PERMS, OI_CANCELLED_BID, OI_COM_ON_BID, OI_COMMISSION
-from oi.helpers import OI_PRJ_VIEWS, SPEC_TYPES, OIAction, ajax_login_required
+from oi.helpers import OI_PRJ_VIEWS, SPEC_TYPES, OIAction, ajax_login_required, oi_redirecturl
 from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeedsPrjPerms, Release, GitHubSync, Reward, RewardForm
 from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
@@ -538,13 +538,13 @@ def bidproject(request, id):
     try:
         amount = Decimal("0"+(request.POST.get("bid") or request.session.get('bid','0')).replace(",","."))
     except InvalidOperation:
-        return redirectajaxurl(request, None, '%s%s'%(settings.REDIRECT_URL, project.id), _('Invalid amount'))
+        return oi_redirecturl(request, '%s%s'%(settings.REDIRECT_URL, project.id), _('Invalid amount'))
         
     #checks that the user can afford the bid ; if not, redirects to the deposit page
     
     #1) check amount
     if amount == 0:
-        return redirectajaxurl(request, None, '%s%s'%(settings.REDIRECT_URL, project.id), _('Please indicate the amount'))
+        return oi_redirecturl(request, '%s%s'%(settings.REDIRECT_URL, project.id), _('Please indicate the amount'))
     #2) calcul the missing
     missing = amount - request.user.get_profile().balance
     if amount > request.user.get_profile().balance:
@@ -554,22 +554,13 @@ def bidproject(request, id):
         project.makebid(request.user, amount) #to update the user account
     #4) back to ogone if is not enough
     if missing > 0:
-        return redirectajaxurl(request, 333, '/user/myaccount?amount=%s&project=%s'%((missing).to_eng_string(),project.id), None)
+        return oi_redirecturl(request, '/user/myaccount?amount=%s&project=%s'%((missing).to_eng_string(),project.id), None)
 
     messages.info(request, _("Bid saved"))
     
     #if the user is authenticated reload the page
-    return redirectajaxurl(request, 332, '%s%s'%(settings.REDIRECT_URL, project.id), "")
+    return oi_redirecturl(request, '%s%s'%(settings.REDIRECT_URL, project.id), "")
   
-#this function have to be imrpove to simply the bidProject function for the redirect url  
-def redirectajaxurl(request, status, url, msg):
-    """Redirect to url with ajax or not"""
-    if request.is_ajax():
-        if msg:
-            return HttpResponse(msg, status=status)
-        return HttpResponse(url, status=status)
-    return HttpResponseRedirect(url)
-
 @ajax_login_required
 @OINeedsPrjPerms(OI_MANAGE)    
 def completetask(request, id, taskid):

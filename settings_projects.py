@@ -25,11 +25,10 @@ INSTALLED_APPS = (
     'south',
     'corsheaders',
     'compressor',
-    'bandit',
 #    'haystack',
     'oi.messages',
     'oi.projects',
     'oi.users',
     'oi.prjnotify',
     'django.contrib.messages',
-)#+ SPECIFIC_INSTALLED_APPS
+)+ SPECIFIC_INSTALLED_APPS

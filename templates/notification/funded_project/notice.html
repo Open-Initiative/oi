@@ -5,7 +5,7 @@
 </br>
 {% trans "Now your project is at" %} {% widthratio notice.project.descendants.all.allbid_sum|add:notice.project.bid_sum notice.project.get_selfbudget|default:notice.project.descendants.all.allbudget 100 %} % {% trans "of his funding goal." %}
 
-{% with notice.project as task %}
+{% with task=notice.project user=notice.recipient %}
 <div style="width: 130%;">
     <ul class="features_manage" id="features_0">
         <li class="featurebox" id="task_{{task.id}}">
