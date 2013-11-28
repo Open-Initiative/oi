@@ -5,6 +5,7 @@ from datetime import datetime
 from decimal import Decimal
 from hashlib import sha256
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.db.models import DateTimeField
