@@ -16,7 +16,7 @@
         
         <form class="form_center" onsubmit="confirmBid({{task.id}});return false">
             <label for="bid_{{task.id}}">{% trans "Please enter the amount you want to fund:" %}</label><br /><br />
-            <input style="left: 44%;position: relative;top: -10%;" id="bid_{{task.id}}" name="bid_{{task.id}}" class="bidfeature" value="{{task.descendants_missing_bid|default:task.missing_bid|floatformat:"-2"}}" /> €
+            <input style="left: 44%;position: relative;top: -10%;" id="bid_{{task.id}}" name="bid_{{task.id}}" class="bidfeature" value="{% if not zero %}{{task.missing_bid|floatformat:"-2"}}{% else %}0{% endif %}" /> €
         </form>
         
         <p class="form_center">{% trans "By funding this feature, you agree to the" %} <a href="/cgu" target="_blank">{% trans "Terms of Use" %}</a></p>

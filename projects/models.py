@@ -361,13 +361,6 @@ class Project(models.Model):
         #notify only the user who funded
         user.get_profile().get_default_observer(self).notify("has_funded_project", project=self, param=amount)
         
-    def descendants_missing_bid(self):
-        """Total of all bid existing in the project"""
-        total = Decimal('0')
-        for task in self.descendants.all():
-            total += task.missing_bid()
-        return total
-
     def canceled_bids(self):
         """gets all the bids marked as canceled"""
         return self.bid_set.filter(rating=OI_CANCELLED_BID)

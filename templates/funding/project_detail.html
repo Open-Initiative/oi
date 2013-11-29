@@ -181,7 +181,7 @@
             <div class="cleared"></div>
             <p class="editfeature">{{project.get_selfbudget|default:descendants.allbudget|floatformat:"-2"}} € {% trans "total" %}</p>
             
-            {% with task=project plugin_width='50%' %}
+            {% with task=project plugin_width='50%' zero='0' %}
                 {% include 'funding/popup_budget.html' %}
             {% endwith %}
             
