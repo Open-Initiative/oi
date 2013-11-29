@@ -12,7 +12,7 @@
 </div>
 {% endwith %}
 
-{% trans "Visit the project page" %} <a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}" target="_blank">{% trans "here" %}</a>.
+{% trans "Visit the project page" %} <a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}#feature_{{notice.project.id}}" target="_blank">{% trans "here" %}</a>.
 {% else %}
 <a href="http://{{current_site}}/user/profile/{{notice.sender.username}}">{{notice.sender.get_profile}}</a>
 {% trans "added the feature which has been deleted" %}

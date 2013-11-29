@@ -12,7 +12,7 @@
 </div>
 {% endwith %}
 
-{% trans "Visit the project page" %} <a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}" target="_blank">{% trans "here" %}</a>.
+{% trans "Visit the project page" %} <a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}#feature_{{notice.project.id}}" target="_blank">{% trans "here" %}</a>.
 {% else %}
 {% trans "The project has been funded, but it is now deleted" %}
 {% endif %}
