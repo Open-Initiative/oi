@@ -1046,6 +1046,8 @@ def savespec(request, id, specid='0'):
     #for spec url video or link        
     if request.POST.has_key("url"):
         spec.url = request.POST["url"]
+    if (spec.type == 3 or spec.type == 6) and spec.url == None:
+        spec.url = ""
     if spec.type == 4:
         import re
         #search if in the link there are as element platform and path
