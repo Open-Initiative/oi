@@ -20,18 +20,24 @@ class Command(NoArgsCommand):
             
             # update context with site information
             current_site = "%s://%s"%(getattr(settings, "DEFAULT_HTTP_PROTOCOL", "http"), Site.objects.get_current())
-            context = Context(dict({"recipient": self.author, 'current_site': current_site, 'project': self}, **constants(None)))
+            context = Context(dict({"recipient": project.author, 'current_site': current_site, 'project': project}, **constants(None)))
             
             # e-mail data
             subject = _('New project on Open Funding')
             body = render_to_string('notification/email_new_project.txt', {'format': 'txt'}, context)
             body_html = render_to_string('notification/email_new_project.html', {'format': 'html'}, context)
             
-            msg = EmailMultiAlternatives(subject, body, settings.DEFAULT_FROM_EMAIL, [self.author.email])
+            msg = EmailMultiAlternatives(subject, body, settings.DEFAULT_FROM_EMAIL, [project.author.email])
             msg.attach_alternative(body_html, "text/html")
             msg.send()
-            self.author.get_profile().contacted = True
-            self.author.get_profile().save()
+            
+            # e-mail follow by admin
+            msg_follow = EmailMultiAlternatives(subject, body, settings.DEFAULT_FROM_EMAIL, ["contact@openinitiative.com"])
+            msg_follow.attach_alternative(body_html, "text/html")
+            msg_follow.send()
+            
+            project.author.get_profile().contacted = True
+            project.author.get_profile().save()
             
         # reset environment to original language
         activate(current_language)
