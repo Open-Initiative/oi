@@ -173,10 +173,10 @@
         <div class="clickable featuretitle funding_space">{% trans "Finance software" %}</div>
         {% with project.descendants|filter_read:user as descendants %}
         <div class="form_center">
-            <span style="font-size: 16px; color:black"> {{descendants.allbid_sum|add:project.bid_sum|floatformat:"-2"}} € {% trans "funded" %}</span>
+            <span style="font-size: 16px; color:black"> {{descendants.allbid_sum|add_up:project.bid_sum|floatformat:"-2"}} € {% trans "funded" %}</span>
             <div class="progressbar">
-                <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio descendants.allbid_sum|add:project.bid_sum project.get_selfbudget|default:descendants.allbudget 100 %}%;"></span>
-                <span id="progresslabel_{{object.id}}" class="progresstitle" >{% widthratio descendants.allbid_sum|add:project.bid_sum project.get_selfbudget|default:descendants.allbudget 100 %} %</span>
+                <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio descendants.allbid_sum|add_up:project.bid_sum project.get_selfbudget|default:descendants.allbudget 100 %}%;"></span>
+                <span id="progresslabel_{{object.id}}" class="progresstitle" >{% widthratio descendants.allbid_sum|add_up:project.bid_sum project.get_selfbudget|default:descendants.allbudget 100 %} %</span>
             </div>
             <div class="cleared"></div>
             <p class="editfeature">{{project.get_selfbudget|default:descendants.allbudget|floatformat:"-2"}} € {% trans "total" %}</p>
