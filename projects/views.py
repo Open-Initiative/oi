@@ -53,7 +53,7 @@ from django.conf import settings
 #    promotedprj = PromotedProject.objects.filter(location="index")
 #    return object_list(request, queryset=projects[:10], extra_context={'promotedprj': promotedprj})
 
-@OINeedsPrjPerms(OI_READ, isajax=False)
+@OINeedsPrjPerms(OI_READ)
 def getproject(request, id, view="overview"):
     if not view: view = "overview"
     project = Project.objects.get(id=id)
@@ -531,14 +531,11 @@ def answerdelay(request, id):
     return HttpResponse(_("No reply received"), status=531)
 
 @ajax_login_required(keep_fields=('bid',))
-#@OINeedsPrjPerms(OI_BID)
+@OINeedsPrjPerms(OI_BID)
 def bidproject(request, id):
     """Makes a new bid on the project"""
     project = Project.objects.get(id=id)
     
-    if not project.has_perm(request.user, OI_BID):
-        return oi_redirecturl(request, '%s%s'%(settings.REDIRECT_URL, project.id), _("Forbidden"))
-        
     try:
         amount = Decimal("0"+(request.POST.get("bid") or request.session.get('bid','0')).replace(",","."))
     except InvalidOperation:

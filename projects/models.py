@@ -529,13 +529,13 @@ class ProjectACL(models.Model):
         return "%s on %s: %s"%(self.user, self.project.title, self.permission)
 
 #Décorateur de vérification de permissions
-def OINeedsPrjPerms(perm, isajax=True):
+def OINeedsPrjPerms(perm):
     def decorate(f):
         def new_f(request, id, *args, **kwargs):
             #Vérification de toutes les permissions
             prj = get_object_or_404(Project,id=id)
             if not prj.has_perm(request.user, perm):
-                if isajax:
+                if request.is_ajax():
                     return HttpResponseForbidden(_("Forbidden"))
                 else:
                     raise Http404
