@@ -141,11 +141,12 @@
         <a href="edit"><div class="bidaction funding_space">{% trans "Edit your project" %}</div></a>
         <div class="bidaction clickable" onclick="showPopup(document.getElementById('pluginpopup'))">{% trans "Integrate your project" %}</div>
         <div id="pluginpopup" style="width: 120%;" class="invisible popup" onclick="document.ignoreClosePopups = true;">
+            <p>{% trans "If you want to see the feature in your website, you have to" %} <span class="rewardtitle">{% trans "copy and paste the code" %}</span></p>
             <form>
                 <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="big">{% trans "Big" %}
                 <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="small">{% trans "Small" %}
                 <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="tiny">{% trans "Tiny" %}
-                <textarea id="plugincode" style="width:100%; float:right; height:65px"></textarea>
+                <textarea disabled id="plugincode" style="width:100%; float:right; height:65px"></textarea>
             </form>
             <div id="plugin_preview"></div>
             

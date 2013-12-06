@@ -76,6 +76,7 @@ function saveName() {
 }
 function saveContactInfo() {
     OIajaxCall("/user/savecontactinfo", prepareForm("contact_form"), "output", function(){
+        if (document.getElementById('output').innerHTML == gettext("Thank you to enter a valid url address")) return;
         var contact = prepareForm("contact_form").split("&");
         for(var i = 0; i < contact.length; i++){
             document.getElementById("contact_"+contact[i].split("=")[0]).innerHTML = decodeURIComponent(contact[i].split("=")[1]);

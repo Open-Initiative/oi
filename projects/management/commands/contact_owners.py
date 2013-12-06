@@ -16,28 +16,29 @@ class Command(NoArgsCommand):
         # the language is to be temporarily switched to the recipient's language
         current_language = get_language()
         for project in Project.objects.filter(author__userprofile__contacted=False).filter(parent=None):
-            activate(project.author.get_profile().language)
-            
-            # update context with site information
-            current_site = "%s://%s"%(getattr(settings, "DEFAULT_HTTP_PROTOCOL", "http"), Site.objects.get_current())
-            context = Context(dict({"recipient": project.author, 'current_site': current_site, 'project': project}, **constants(None)))
-            
-            # e-mail data
-            subject = _('New project on Open Funding')
-            body = render_to_string('notification/email_new_project.txt', {'format': 'txt'}, context)
-            body_html = render_to_string('notification/email_new_project.html', {'format': 'html'}, context)
-            
-            msg = EmailMultiAlternatives(subject, body, settings.DEFAULT_FROM_EMAIL, [project.author.email])
-            msg.attach_alternative(body_html, "text/html")
-            msg.send()
-            
-            # e-mail follow by admin
-            msg_follow = EmailMultiAlternatives(subject, body, settings.DEFAULT_FROM_EMAIL, ["contact@openinitiative.com"])
-            msg_follow.attach_alternative(body_html, "text/html")
-            msg_follow.send()
-            
-            project.author.get_profile().contacted = True
-            project.author.get_profile().save()
-            
-        # reset environment to original language
-        activate(current_language)
+            if project.author.get_profile().contacted == False:
+                activate(project.author.get_profile().language)
+                
+                # update context with site information
+                current_site = "%s://%s"%(getattr(settings, "DEFAULT_HTTP_PROTOCOL", "http"), Site.objects.get_current())
+                context = Context(dict({"recipient": project.author, 'current_site': current_site, 'project': project}, **constants(None)))
+                
+                # e-mail data
+                subject = _('New project on Open Funding')
+                body = render_to_string('notification/email_new_project.txt', {'format': 'txt'}, context)
+                body_html = render_to_string('notification/email_new_project.html', {'format': 'html'}, context)
+                
+                msg = EmailMultiAlternatives(subject, body, "contact@openinitiative.com", [project.author.email])
+                msg.attach_alternative(body_html, "text/html")
+                msg.send()
+                
+                # e-mail follow by admin
+                msg_follow = EmailMultiAlternatives(subject, body, "contact@openinitiative.com", ["contact@openinitiative.com"])
+                msg_follow.attach_alternative(body_html, "text/html")
+                msg_follow.send()
+                
+                project.author.get_profile().contacted = True
+                project.author.get_profile().save()
+                
+            # reset environment to original language
+            activate(current_language)

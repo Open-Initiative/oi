@@ -576,12 +576,12 @@ option.oldrelease{
     border-radius: 4px 4px 4px 4px;
     color: white;
     display: block;
-    font-size: 1.3em;
+    font-size: 1.8em;
     font-weight: bold;
     margin: auto;
-    padding: 0.1em;
+    padding: 0.3em;
     text-transform: uppercase;
-    width: 60%;
+    width: 75%;
 }
 .supportbtn:after {
     content: url("/img/icons/whitebtn.png");
@@ -1038,4 +1038,7 @@ div.sepspecfooter {
     border-radius: 10px;
     box-shadow: 3px 3px 4px;
     right: -90px;
+}
+.of_close{
+    width: 50%;
 }

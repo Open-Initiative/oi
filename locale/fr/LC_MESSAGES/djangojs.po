@@ -144,6 +144,10 @@ msgid "Are you sure you want to delete this specification permanently?"
 msgstr ""
 "Etes vous sûr de vouloir supprimer définitivement cette spécification ?"
 
+#: public/js/oiuser.js:79
+msgid "Thank you to enter a valid url address"
+msgstr "Merci d'entrer une adresse valide"
+
 #: public/js/oitree.js:68
 msgid "Please insert a title :"
 msgstr "Merci d'entrer un titre"

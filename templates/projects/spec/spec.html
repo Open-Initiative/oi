@@ -7,7 +7,7 @@
     <input type="hidden" id="specid_{{project.id}}_{{spec.order}}" value="{{spec.id}}" />
     {% if spec.type == 2 or spec.type == 6 %}<img style="max-width:700px" src="{% if spec.file %}{{spec.file.url}}{% endif %}" />{% endif %}
     {% if spec.type == 3 or spec.type == 4 or spec.type == 6 and spec.url != "http://" %}
-    <a href="{{spec.url}}" > {{spec.text|oiunescape|default:spec.url}} </a>
+    <a target= "_blank" href="{{spec.url}}" > {{spec.text|oiunescape|default:spec.url}} </a>
     {% else %}{{spec.text|oiunescape}}{% endif %}
 </div>
 <div class="specfooter">
