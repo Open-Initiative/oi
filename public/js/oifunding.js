@@ -90,6 +90,7 @@ function oneBtnFeatureToHide(){
 function checkSavedSpecs(projectid){
     document.location.href="/funding/"+projectid;
 }
+tinymce.remove('#text_MPmessage');
 function specsToSave(projectid){
     var nbSpecToSave = 0;
     var specid = document.getElementsByName("specid");
@@ -97,7 +98,7 @@ function specsToSave(projectid){
     var speclang = document.getElementsByName("speclang");
     var file_value = document.getElementById("file_"+projectid+"_1_").value;
     for (var i = 0; i < specid.length; i++){
-        if(specorder[i].value == 3) tinyMCE.execCommand('mceRemoveControl', false, "text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value)
+        if(specorder[i].value == 3) tinyMCE.remove("#text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value)
         var existTextValue = document.getElementById("text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value).value;
         if(specorder[i].value == 1 && file_value || existTextValue && existTextValue != ""){
             nbSpecToSave ++; 
@@ -116,7 +117,7 @@ function saveAllSpec(projectid, nbSpecToSave){
     var file_value = document.getElementById("file_"+projectid+"_1_").value;
     nbspec = 0;
     for (var i = 0; i < specid.length; i++){
-        if(specorder[i].value == 3) tinyMCE.execCommand('mceRemoveControl', false, "text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value)
+        if(specorder[i].value == 3) tinyMCE.remove("#text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value)
         var existTextValue = document.getElementById("text_"+projectid+"_"+specorder[i].value+"_"+speclang[i].value).value;
         if(specorder[i].value == 1 && file_value || existTextValue && existTextValue != ""){
             saveSpec(projectid+"_"+specorder[i].value+"_"+speclang[i].value, projectid, specorder[i].value, specid[i].value, speclang[i].value, function(){

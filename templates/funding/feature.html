@@ -82,9 +82,9 @@
             {% if task|can_manage:user or task.spec_set.count %}
                 {% include 'funding/feature_description.html' %}
             {% else %}
-                <input id="specs_{{task.id}}" type="hidden">
-                <input id="see_more_{{task.id}}" type="hidden">
-                <input id="see_less_{{task.id}}" type="hidden">
+                <div id="specs_{{task.id}}" class="invisible"></div>
+                <div id="see_more_{{task.id}}" class="invisible"></div>
+                <div id="see_less_{{task.id}}" class="invisible"></div>
             {% endif %}
         
         <div class="cleared">
