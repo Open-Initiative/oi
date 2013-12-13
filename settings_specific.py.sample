@@ -16,6 +16,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = '/tmp/oimessages' # change this to a proper location
 DEFAULT_FROM_EMAIL = 'admin@openinitiative.com'
 
+SPECIFIC_INSTALLED_APPS = ()
+
 # For DebugToolbarMiddleware
 INTERNAL_IPS = ('192.168.56.1',)
 

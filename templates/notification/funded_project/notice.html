@@ -5,6 +5,8 @@
 </br>
 {% trans "Now your project is at" %} {% widthratio notice.project.descendants.all.allbid_sum|add:notice.project.bid_sum notice.project.get_selfbudget|default:notice.project.descendants.all.allbudget 100 %} % {% trans "of his funding goal." %}
 
+{% comment %}
+<!--I disabled it because it was breaking the notification e-mail. Please reactivate it later -->
 {% with task=notice.project user=notice.recipient %}
 <div style="width: 130%;">
     <ul class="features_manage" id="features_0">
@@ -14,6 +16,7 @@
     </ul>
 </div>
 {% endwith %}
+{% endcomment %}
 
 {% trans "Visite the project page" %} <a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}#feature_{{notice.project.id}}" target="_blank">{% trans "here" %}</a>.
 {% else %}

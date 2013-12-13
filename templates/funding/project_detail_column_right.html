@@ -6,7 +6,7 @@
     <input name="projectid" id="projectid_{{divid}}" value="{{project.id}}" type="hidden"/>
     <input name="specorder" id="specorder_{{divid}}" value="{{order}}" type="hidden"/>
     <input type="hidden" id="text_{{divid}}">
-    <span class="rewardtitle">{% trans "Enter here the link to the" %} {{divid}} {% trans "repository project" %}</span>
+    <span class="rewardtitle">{% trans "Enter here the link to the project website" %}</span>
     <form method="post" onsubmit="saveSpec('{{divid}}',{{project.id}},getValue('specorder_{{divid}}'),{{spec.id|default:0}}, '');hidePopups(); return false">
         <input id="url_{{divid}}" type="text" value="{{spec.url|default:"http://"}}">
         <div class="cleared"></div>
