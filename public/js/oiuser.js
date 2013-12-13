@@ -144,3 +144,8 @@ function saveSetting(observerid, use_default, noticeField, send){
         }
     });
 }
+function myConfirmationToclose() {
+    if(document.getElementById('block_contact').style.display == "block" || document.getElementById('block_name').style.display == "block"){
+        return gettext('You are about to lose your data');
+    }
+}

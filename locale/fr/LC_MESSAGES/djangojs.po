@@ -148,6 +148,10 @@ msgstr ""
 msgid "Thank you to enter a valid url address"
 msgstr "Merci d'entrer une adresse valide"
 
+#: public/js/oiuser.js:79
+msgid "You are about to lose your data"
+msgstr "Vous êtes sur le point de perdre vos informations"
+
 #: public/js/oitree.js:68
 msgid "Please insert a title :"
 msgstr "Merci d'entrer un titre"
