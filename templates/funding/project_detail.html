@@ -92,11 +92,22 @@
     <div class="blockfeatureheight column">
         <div>
             <form onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, getValue('offer_{{object.id}}'), function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); document.getElementById('offer_{{object.id}}').value = ''; return false">
-                <input type="text" class="fieldfeature" id="newtask_title_{{object.id}}" value="{% trans 'insert a title' %}" onfocus="if(this.value)this.value=''">
-                <div class="cleared"></div>
-                
-                <input type="text" style="text-align: right;" class="fieldfeature" id="offer_{{object.id}}" value="{% trans 'Feature price' %}" onfocus="if(this.value)this.value=''">  €
-                <div class="cleared"></div>
+                <table>
+                    <tr>
+                        <td>
+                        <label class="loginlabel" for="newtask_title_{{object.id}}">{% trans "insert a title" %}</label>
+                    <input type="text" class="fieldfeature" id="newtask_title_{{object.id}}" onkeyup="focusInOut('newtask_title_{{object.id}}')">
+                    <div class="cleared"></div>
+                            </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="loginlabel" for="offer_{{object.id}}">{% trans "Feature price" %}</label>
+                            <input type="text" style="text-align: right;" class="fieldfeature" id="offer_{{object.id}}" onkeyup="focusInOut('offer_{{object.id}}')">  €
+                            <div class="cleared"></div>
+                        </td>
+                    </tr>
+                </table>
                 <p>{% trans "By adding this change you acknowledge <br/> that you have read and accepted the" %} <a href="/cgu">{% trans "Terms of Use" %}</a></p>
                         
                 <p class="continuebtn fundingright clickable no_p_style" style="padding:1.5%">
@@ -117,7 +128,14 @@
         <div class="blockfeatureheight column">
             <div>
                 <form onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, null,function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0','featurebox'))}); return false" id="newtask_{{object.id}}">
-                    <input type="text" class="fieldfeature" id="newtask_title_{{object.id}}" value="{% trans 'insert a title' %}" onfocus="if(this.value)this.value=''">
+                    <table>
+                        <tr>
+                            <td>
+                            <label class="loginlabel" for="newtask_title_{{object.id}}">{% trans "insert a title" %}</label>
+                            <input type="text" class="fieldfeature" id="newtask_title_{{object.id}}" onkeyup="focusInOut('newtask_title_{{object.id}}')">
+                            </td>
+                        </tr>
+                    </table>
                     <div class="cleared"></div>
                     <p class="continuebtn fundingright clickable no_p_style" style="padding:1.5%">
                         <input class="nobtnstyle" type="submit" value="{% trans 'Propose' %}">

@@ -321,7 +321,7 @@ def saveproject(request, id='0'):
         return HttpResponse(_("Can not change a finished task"), status=431)
 
     title = request.POST.get("title") or request.session.get('title')
-    if not title:
+    if not title or title == _("insert a title"):
         return HttpResponse(_("Please enter a title"), status=531)
     
     if request.POST.get("offer") and not request.POST["offer"].isdigit():

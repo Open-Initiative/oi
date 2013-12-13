@@ -3,17 +3,17 @@
 {% block title %}{% trans "Presentation of Open Funding" %}{% endblock %}
 {% block pagetitle %}{% trans "Presentation of Open Funding" %}{% endblock %}
 {% block content %}
-<div class="presnav">
-    <div class="presnavtitle">{% trans "What is Open Funding?" %}</div>
-    <a href="#11" onclick="slidePres('#11')"><div class="presnavsection">{% trans "Description" %}</div></a>
-    <a href="#12" onclick="slidePres('#12')"><div class="presnavsection">{% trans "Why free software?" %}</div></a>
-    <a href="#13" onclick="slidePres('#13')"><div class="presnavsection">{% trans "The team" %}</div></a>
-    <div class="presnavtitle">{% trans "How does it work?" %}</div>
-    <a href="#21" onclick="slidePres('#21')"><div class="presnavsection">{% trans "The principle" %}</div></a>
-    <a href="#22" onclick="slidePres('#22')"><div class="presnavsection">{% trans "Creating a project" %}</div></a>
-    <a href="#23" onclick="slidePres('#23')"><div class="presnavsection">{% trans "Funding a project" %}</div></a>
-    <a href="#24" onclick="slidePres('#24')"><div class="presnavsection">{% trans "Licence and fees" %}</div></a>
-    <a href="#31" onclick="slidePres('#31')"><div class="presnavtitle">{% trans "Get involved" %}</div></a>
+<div id="block_presnav" class="presnav">
+    <div class="presnavtitle boldtext">{% trans "What is Open Funding?" %}</div>
+    <a href="#11" id="_#11" onclick="slidePres('block_presnav','#11');"><div class="presnavsection">{% trans "Description" %}</div></a>
+    <a href="#12" id="_#12" onclick="slidePres('block_presnav','#12');"><div class="presnavsection">{% trans "Why free software?" %}</div></a>
+    <a href="#13" id="_#13" onclick="slidePres('block_presnav','#13');"><div class="presnavsection">{% trans "The team" %}</div></a>
+    <div class="presnavtitle boldtext">{% trans "How does it work?" %}</div>
+    <a href="#21" id="_#21" onclick="slidePres('block_presnav','#21');"><div class="presnavsection">{% trans "The principle" %}</div></a>
+    <a href="#22" id="_#22" onclick="slidePres('block_presnav','#22');"><div class="presnavsection">{% trans "Creating a project" %}</div></a>
+    <a href="#23" id="_#23" onclick="slidePres('block_presnav','#23');"><div class="presnavsection">{% trans "Funding a project" %}</div></a>
+    <a href="#24" id="_#24" onclick="slidePres('block_presnav','#24');"><div class="presnavsection">{% trans "Licence and fees" %}</div></a>
+    <a href="#31" id="_#31" onclick="slidePres('block_presnav','#31');"><div class="presnavtitle">{% trans "Get involved" %}</div></a>
 </div>
 <div class="prjbody">
     <div class="presslide" id="11">
@@ -90,7 +90,13 @@
         </div>
     </div>
     <script>
-        if(document.location.hash) slidePres(document.location.hash+(document.location.hash.length>2?"":"1"));
+        $(document).ready(function(){
+            if(!document.location.hash){
+                slidePres('block_presnav','#11');
+            }else{
+                slidePres('block_presnav',document.location.hash);
+            }
+        });
     </script>
 </div>
 {% endblock %}

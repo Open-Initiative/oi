@@ -165,6 +165,7 @@ div.center{
     padding: 2px 5px;
 }
 .loginlabel {
+    color: #0094B5;
     position: absolute;
     padding: 2px;
 }
@@ -751,4 +752,7 @@ div.spectypes {
     z-index: 0;
     position: fixed;
     background-color: white;
+}
+.boldtext {
+    font-weight: bold;
 }
