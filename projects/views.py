@@ -18,6 +18,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.syndication.views import Feed
 from django.contrib.sites.models import get_current_site
+from django.conf import settings
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q, Sum
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response, get_object_or_404
@@ -26,6 +28,7 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.list_detail import object_detail, object_list
 from django.views.generic.simple import direct_to_template
+from django.template import RequestContext
 from oi.settings import MEDIA_ROOT, TEMP_DIR, github_id, github_secret
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS, OI_TABLE_OVERVIEW
 from oi.helpers import OI_PRJ_DONE, OI_NO_EVAL, OI_ACCEPT_DELAY, OI_READ, OI_ANSWER, OI_BID, OI_MANAGE, OI_WRITE, OI_ALL_PERMS, OI_CANCELLED_BID, OI_COM_ON_BID, OI_COMMISSION
@@ -34,9 +37,7 @@ from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeed
 from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
 from oi.prjnotify.models import Observer
-from django.template import RequestContext
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.conf import settings
+from oi.settings_specific import OI_DOMAINS
 
 #def getprojects(request):
 #    """Apply filter to project list"""
@@ -1073,13 +1074,15 @@ def savespec(request, id, specid='0'):
 
     #notify users about this spec change
     project.notify_all(request.user, "project_spec", spec.text)
-    #I waiting for the best solution
-    redirect_url = settings.REDIRECT_URL
-    if redirect_url == "/project/":
-        redirect_url = "/projects/"
-    return render_to_response('%sspec/spec.html'%(redirect_url[1:]),{'user': request.user, 'project' : project, 'spec' : spec})
+    return redirect_funding_or_project(request, {'user': request.user, 'project' : project, 'spec' : spec})
     
-
+def redirect_funding_or_project(request, obj):
+    """Return project param in project or funding"""
+    if request.get_host() == OI_DOMAINS[1][1]:  #check if is the project host
+        return render_to_response("projects/spec/spec.html", obj)
+    elif request.get_host() == OI_DOMAINS[3][1]:    #check if is the fundig host
+        return render_to_response("funding/spec/spec.html", obj)
+        
 @OINeedsPrjPerms(OI_WRITE)
 def movespec(request, id, specid):
     """Move template of an oderspec to an other spec order"""
@@ -1148,11 +1151,7 @@ def uploadfile(request, id, specid='0'):
     for chunk in uploadedfile.chunks():
         tempfile.write(chunk)
     tempfile.close()
-    #I waiting for the best solution 
-    redirect_url = settings.REDIRECT_URL
-    if redirect_url == "/project/":
-        redirect_url = "/projects/"
-    return render_to_response('%sspec/fileframe.html'%(redirect_url[1:]),{'divid':divid,'filename':filename,'ts':ts,'projectid':id})
+    return render_to_response('projects/spec/fileframe.html',{'divid':divid,'filename':filename,'ts':ts,'projectid':id})
 
 @OINeedsPrjPerms(OI_WRITE)
 def deltmpfile(request, id):
