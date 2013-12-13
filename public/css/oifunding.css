@@ -571,6 +571,17 @@ option.oldrelease{
     margin: 0 1%;
     padding: 0.4em 0;
 }
+.supportbtn_complete {
+    background: none repeat scroll 0 0 #1E9947;
+    border-radius: 4px;
+    color: #FFFFFF;
+    display: block;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: auto;
+    padding: 0.3em;
+    text-transform: uppercase;
+}
 .supportbtn {
     background: none repeat scroll 0 0 #1E9947;
     border-radius: 4px 4px 4px 4px;
