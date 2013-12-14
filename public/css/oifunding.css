@@ -49,7 +49,7 @@
   text-transform: uppercase;
 }
 .prjheader {
-    padding: 2em;
+    padding: 28px 28px 28px 9px;
 }
 .delbtn {
     float: right;
@@ -536,7 +536,7 @@ option.oldrelease{
 }
 .prjbody {
     float: left;
-    width: 70%;
+    width: 72%;
 }
 .features {
     max-width: 275px;
@@ -912,7 +912,7 @@ div.sepspecfooter {
     border-radius: 2px;
     color: white;
     font-weight: bold;
-    padding: 2px;
+    padding: 10px;
 }
 
 .pluginsmall {
@@ -1063,7 +1063,7 @@ div.sepspecfooter {
     background-color: white;
     border-radius: 3px 3px 3px 3px;
     margin-bottom: 2%;
-    padding: 1%;
+    padding: 1% 1% 1% 20px;
 }
 .btn_feature {
     border: 1px solid;
@@ -1151,6 +1151,10 @@ div.sepspecfooter {
 }
 .dotted{
     margin-bottom: 10px;
+    margin-left: 0;
+}
+.column_right_padding{
+    padding: 5%;
 }
 /*à arranger*/
 
