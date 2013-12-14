@@ -11,6 +11,7 @@
     color: #0595BA;
     border: 1px solid #0595BA;
     left: 350px;
+    top: 160px;
 }
 #registerbtn {
     background: #2EAC66;
@@ -297,7 +298,7 @@ div.prj-action-wait {
     text-transform: uppercase;
 }
 .tasktitle {
-    font-size: 2.5em;
+    font-size: 2.3em;
     color: #2EAC66;
     font-weight: bold;
     overflow: hidden;
@@ -349,7 +350,10 @@ div.cardspec {
 }
 .fundingprogress {
     position: absolute;
-    top: 335px;
+    top: 320px;
+    border-top: medium dotted;
+    width: 80%;
+    padding-top: 10px;
 }
 .featureblock {
     padding: 10px;
@@ -595,12 +599,12 @@ option.oldrelease{
     border-radius: 2px;
     color: white;
     display: block;
-    font-size: 1.6em;
+    font-size: 1.4em;
     font-weight: bold;
     margin: auto;
     padding: 0.3em;
     text-transform: uppercase;
-    width: 70%;
+    width: auto;
 }
 .bidaction {
     background: #2EAC66;
@@ -1086,6 +1090,7 @@ div.sepspecfooter {
 .block_fund_goal {
     padding-left: 4.5%;
     width: 90%;
+    margin-top: 10px;
 }
 .subtitle{
     color: #9D9C9C;
@@ -1100,8 +1105,11 @@ div.sepspecfooter {
     position: relative;
     left: 10%;
 }
-.radius_picture{
+.user_picture_effect{
     border-radius: 60%;
+    top: -25px;
+    position: absolute;
+    right: 0;
 }
 .feature_propose{
     position: relative;
@@ -1140,6 +1148,9 @@ div.sepspecfooter {
 .flag_authenticated{
     position: relative;
     right: 15%
+}
+.dotted{
+    margin-bottom: 10px;
 }
 /*à arranger*/
 
@@ -1241,7 +1252,7 @@ body {
 .slidericons {
     left: 1000px;
     position: absolute;
-    top: 160px;
+    top: 170px;
 }
 .slidericon {
     border:2px solid;
@@ -1298,4 +1309,7 @@ div.popup_spec {
 .blur{
     background-color: #E3E3E3;
 }
-
+/*.backtoproject{*/
+/*    font-size: 19px;*/
+/*    width: auto;*/
+/*}*/
