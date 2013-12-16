@@ -14,7 +14,9 @@ def init_south():
 def deploy_pp():
     local("git push")
     with cd("oi"):
-        run("git merge devel")
+        run("git checkout devel")
+        run("git branch -d pp")
+        run("git checkout -b pp")
         run("./manage.py syncdb")
         run("./manage.py migrate")
         run("./manage.py register_notice_types")

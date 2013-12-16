@@ -9,7 +9,8 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.files import File
 from django.core.mail import send_mail
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
+from django.core.validators import URLValidator
 from django.db.models import get_app, Count, Avg
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect, HttpResponse, Http404
@@ -18,6 +19,7 @@ from django.utils.simplejson import JSONEncoder, JSONDecoder
 from django.utils.translation import ugettext as _
 from django.views.generic.simple import direct_to_template
 from django.views.decorators.csrf import csrf_exempt
+from django.views.i18n import set_language
 from oi.prjnotify.models import Notice, NoticeType, Observer
 from oi.settings import MEDIA_ROOT, MEDIA_URL, PAYMENT_ACTION
 from oi.helpers import render_to_pdf, OI_DISPLAYNAME_TYPES, computeSHA
@@ -25,8 +27,6 @@ from oi.messages.templatetags.oifilters import oiescape
 from oi.users.models import User, UserProfile, UserProfileForm, PersonalMessage, Payment
 from oi.users.models import Training, TrainingForm, Experience, ExperienceForm, Skill, SkillForm, OI_USERPROFILE_DETAILS_CLASSES
 from oi.projects.models import Bid, Project
-from django.core.validators import URLValidator
-from django.core.exceptions import ValidationError
 
 @login_required
 def myprofile(request):
@@ -192,6 +192,17 @@ def changeemail(request):
     request.user.save()
     messages.info(request, _("Your email has been updated"))
     return HttpResponseRedirect("/user/myaccount")
+    
+def changeuserlanguage(request):
+    """change user language"""
+    userprofile = request.user.get_profile()
+    lang = request.POST.get("language")
+    
+    if userprofile:
+        userprofile.language = lang
+        userprofile.save()
+        
+        return set_language(request)
 
 @login_required
 def savebio(request):
