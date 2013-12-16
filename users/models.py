@@ -8,7 +8,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.forms import ModelForm, DateField, PasswordInput
 from django.forms.extras.widgets import SelectDateWidget
-from django.utils.translation import ugettext_lazy, ugettext as _
+from django.utils.translation import ugettext_lazy, ugettext as _, get_language
 from oi.settings import SHASIGN_NAME
 from oi.helpers import OI_DISPLAYNAME_TYPES, computeSHA
 from oi.messages.models import Message, Expert
@@ -252,7 +252,7 @@ class PersonalMessage(models.Model):
     # Sets the UserProfile class to be the profile of the given django User class
     def set_profile(sender, instance, created, **kwargs):
         if created==True:
-            instance.userprofile_set.add(UserProfile(blog=Message.objects.create(author=instance, relevance=1, title=_("%s's blog")%instance.username)))
+            instance.userprofile_set.add(UserProfile(blog=Message.objects.create(author=instance, relevance=1, title=_("%s's blog")%instance.username), language=get_language()))
 
     # Sets the profile on user creation
     post_save.connect(set_profile, sender=User)
