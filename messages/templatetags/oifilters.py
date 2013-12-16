@@ -176,6 +176,7 @@ def int_to_string(string, integer):
     
 @register.filter
 def add_up(integer1, integer2):
+    """make the correct sum"""
     return integer1 + integer2
     
 @register.simple_tag

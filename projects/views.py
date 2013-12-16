@@ -1033,7 +1033,7 @@ def savespec(request, id, specid='0'):
     if request.POST.has_key("language"): 
         #if return "None" the lang is None for spec with no language
         if request.POST["language"] == "None":
-            spec.language = None
+            spec.language = "*"
         else:
             spec.language = request.POST["language"]
   
