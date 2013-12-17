@@ -195,14 +195,16 @@ def changeemail(request):
     
 def changeuserlanguage(request):
     """change user language"""
-    userprofile = request.user.get_profile()
+    user = request.user
     lang = request.POST.get("language")
     
-    if userprofile:
-        userprofile.language = lang
-        userprofile.save()
-        
-        return set_language(request)
+    if user.is_authenticated():
+        user.get_profile().language = lang
+        user.get_profile().save()
+    
+    #change the website language    
+    set_language(request)   
+    return HttpResponse("", status=332) 
 
 @login_required
 def savebio(request):

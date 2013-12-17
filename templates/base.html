@@ -71,7 +71,7 @@
             </div>
             <div id="userheader">
                 {% with fr="fr" en="en" %}
-                <form method="post" onsubmit="OIajaxCall('/user/changeuserlanguage', 'language={% if request.LANGUAGE_CODE == fr %}en{% else %}fr{% endif %}', 'output')" class="actions">
+                <form method="post" onsubmit="OIajaxCall('/user/changeuserlanguage', 'language={% if request.LANGUAGE_CODE == fr %}en{% else %}fr{% endif %}', 'output'); return false;" class="actions">
                     {% csrf_token %}
                     <input type="hidden" name="language" value="{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}">
                     <input id="oi_lang" type="image" src="/img/{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}.png" />
