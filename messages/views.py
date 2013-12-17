@@ -141,7 +141,7 @@ def uploadFile(request):
     """uploads an image on the server"""
     uploadedfile = request.FILES['image']
     ts = time()
-    filename = normalize("NFKD", uploadedfile.name).encode('ascii', 'ignore').replace('"', '').replace('-', '_')
+    filename = normalize("NFKD", uploadedfile.name).encode('ascii', 'ignore').replace('"', '').replace('-', '_').replace(' ', '_')
     image = open("%s%.0f_%s"%(MEDIA_ROOT,ts,filename), 'wb+')
     for chunk in uploadedfile.chunks():
         image.write(chunk)
