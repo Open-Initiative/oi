@@ -8,7 +8,7 @@ from oi.messages.models import Message
 urlpatterns = patterns('oi.messages.views',
     (r'^get/(?P<id>\d+)$', 'getmessage'),
     (r'^new$', direct_to_template, {'template': "messages/newmessage.html"}),
-    (r'^getFile/(?P<filename>\w+\.\w+)$', 'getFile'),
+    (r'^getFile/(?P<filename>.+)$', 'getFile'),
     (r'^edit/(?P<id>\d+)$', 'editmessage'),
     (r'^save/(?P<id>\d+)$', 'savemessage'),
     (r'^vote/(?P<id>\d+)$', 'vote'),
