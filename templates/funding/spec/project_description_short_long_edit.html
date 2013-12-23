@@ -10,7 +10,9 @@
 <input name="speclang" id="lang_2_{{lang|default:'None'}}" value="{{lang|default:'None'}}" type="hidden"/>
 <div>
     <b>{% trans "A short description of your project and why it is great" %}</b>  
-    <img class="invisible flag" src="/img/{{lang|default:'en'}}.png"/>
+    {% with default='*' %}
+    {% if lang == default or lang == None %}<img class="invisible flag" src="/img/en.png"/>{% else %}<img class="invisible flag" src="/img/{{lang}}.png"/>{% endif %}
+    {% endwith %}
 </div>
 
 <p class="help-funding">{% trans "This description is 200 characters maximum and will be shown in the home page, try to be specific." %}</p>

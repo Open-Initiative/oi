@@ -72,11 +72,9 @@
         </span>{% endif %}
         
         <div id="specs_{{task.id}}_hide" class="coverferture">
-        {% for spec in task.spec_set.all %}
-            {% if spec.order == 1 %}
-                {{spec.text|oiunescape|summarize_html}} {% if spec.text|length > 101 %}...{% endif %}
-            {% endif %}
-        {% endfor %}
+        {% with spec=task.spec_set.all|filter_order:1 %}
+            {{spec.text|oiunescape|summarize_html}} {% if spec.text|length > 101 %}...{% endif %}
+        {% endwith %}
         </div>
         
             {% if task|can_manage:user or task.spec_set.count %}
