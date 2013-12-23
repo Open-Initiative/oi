@@ -73,7 +73,7 @@
         
         <div id="specs_{{task.id}}_hide" class="coverferture">
         {% with spec=task.spec_set.all|filter_order:1 %}
-            {{spec.text|oiunescape|summarize_html}} {% if spec.text|length > 101 %}...{% endif %}
+            {{spec.text|oiunescape|summarize_html}}
         {% endwith %}
         </div>
         
