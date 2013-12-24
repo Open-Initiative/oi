@@ -3,36 +3,36 @@
 
 <div class="cleared sepsearch"></div>
 {% with spec2=specs|filter_order:2 %}
-<input name="spectype" id="type_{{project.id}}_2_{{lang|default:'*'}}" value="1" type="hidden"/>
-<input name="specid" id="specid_2_{{lang|default:'*'}}" value="{{spec2.id|default:0}}" type="hidden"/>
-<input name="projectid" id="projectid_2_{{lang|default:'*'}}" value="{{project.id}}" type="hidden"/>
-<input name="specorder" id="specorder_2_{{lang|default:'*'}}" value="2" type="hidden"/>
-<input name="speclang" id="lang_2_{{lang|default:'*'}}" value="{{lang|default:'*'}}" type="hidden"/>
+<input name="spectype" id="type_{{project.id}}_2_{{lang|default:'default'}}" value="1" type="hidden"/>
+<input name="specid" id="specid_2_{{lang|default:'default'}}" value="{{spec2.id|default:0}}" type="hidden"/>
+<input name="projectid" id="projectid_2_{{lang|default:'default'}}" value="{{project.id}}" type="hidden"/>
+<input name="specorder" id="specorder_2_{{lang|default:'default'}}" value="2" type="hidden"/>
+<input name="speclang" id="lang_2_{{lang|default:'default'}}" value="{{lang|default:'default'}}" type="hidden"/>
 <div>
     <b>{% trans "A short description of your project and why it is great" %}</b>  
-    {% with default='*' %}
+    {% with default='default' %}
     <img class="invisible flag" src="/img/{% if lang == default %}en{% else %}{{lang|default:'en'}}{% endif %}.png"/>
     {% endwith %}
 </div>
 
 <p class="help-funding">{% trans "This description is 200 characters maximum and will be shown in the home page, try to be specific." %}</p>
-<div id="{{project.id}}_2_{{lang|default:'*'}}" class="column">
-    <input id="text_{{project.id}}_2_{{lang|default:'*'}}" class="projectbaseline" value="{{spec2.text|oiunescape}}" maxlength="200" />
+<div id="{{project.id}}_2_{{lang|default:'default'}}" class="column">
+    <input id="text_{{project.id}}_2_{{lang|default:'default'}}" class="projectbaseline" value="{{spec2.text|oiunescape}}" maxlength="200" />
 </div>
 {% endwith %}
 <div class="cleared sepsearch" style="margin-bottom:-2%"></div>
 
 {% with spec3=specs|filter_order:3 %}
-<input name="spectype" id="type_{{project.id}}_3_{{lang|default:'*'}}" value="1" type="hidden"/>
-<input name="specid" id="specid_3_{{lang|default:'*'}}" value="{{spec3.id|default:0}}" type="hidden"/>
-<input name="projectid" id="projectid_3_{{lang|default:'*'}}" value="{{project.id}}" type="hidden"/>
-<input name="specorder" id="specorder_3_{{lang|default:'*'}}" value="3" type="hidden"/>
-<input name="speclang" id="lang_3_{{lang|default:'*'}}" value="{{lang|default:'*'}}" type="hidden"/>
+<input name="spectype" id="type_{{project.id}}_3_{{lang|default:'default'}}" value="1" type="hidden"/>
+<input name="specid" id="specid_3_{{lang|default:'default'}}" value="{{spec3.id|default:0}}" type="hidden"/>
+<input name="projectid" id="projectid_3_{{lang|default:'default'}}" value="{{project.id}}" type="hidden"/>
+<input name="specorder" id="specorder_3_{{lang|default:'default'}}" value="3" type="hidden"/>
+<input name="speclang" id="lang_3_{{lang|default:'default'}}" value="{{lang|default:'default'}}" type="hidden"/>
 <div style="width:57%">
     <b>{% trans "A long description including : who you are, why you do it, how it can be used..." %}</b>
 </div>
-<div id="{{project.id}}_3_{{lang|default:'*'}}" class="column">
-    <textarea id="text_{{project.id}}_3_{{lang|default:'*'}}" class="editable">{{spec3.text|oiunescape}}</textarea>
+<div id="{{project.id}}_3_{{lang|default:'default'}}" class="column">
+    <textarea id="text_{{project.id}}_3_{{lang|default:'default'}}" class="editable">{{spec3.text|oiunescape}}</textarea>
 </div>
 {% endwith %}
 

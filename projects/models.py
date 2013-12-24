@@ -489,7 +489,7 @@ class Project(models.Model):
     def all_specs_with_languages(self):
         """returns all project spec with the current language if available
         or without language, excluding image (order=1)"""
-        return self.spec_set.filter(language=get_language()).order_by('order') or self.spec_set.filter(language="*").order_by('order')
+        return self.spec_set.filter(language=get_language()).order_by('order') or self.spec_set.filter(language="default").order_by('order')
         
     def count_all_funding_user(self):
         """retunrs the number of all the user who fund the project"""
