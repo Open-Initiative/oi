@@ -2,7 +2,6 @@
 ﻿﻿{% load oifilters %}
 
 <div class="cleared sepsearch"></div>
-{% with spec2=specs|filter_order:2 %}
 <input name="spectype" id="type_{{project.id}}_2_{{lang|default:'default'}}" value="1" type="hidden"/>
 <input name="specid" id="specid_2_{{lang|default:'default'}}" value="{{spec2.id|default:0}}" type="hidden"/>
 <input name="projectid" id="projectid_2_{{lang|default:'default'}}" value="{{project.id}}" type="hidden"/>
@@ -12,7 +11,6 @@
     <b>{% trans "A short description of your project and why it is great" %}</b>  
     {% with default='default' %}
     <img class="invisible flag" src="/img/{% if lang == default %}en{% else %}{{lang|default:'en'}}{% endif %}.png"/>
-    {% endwith %}
 </div>
 
 <p class="help-funding">{% trans "This description is 200 characters maximum and will be shown in the home page, try to be specific." %}</p>
@@ -22,7 +20,6 @@
 {% endwith %}
 <div class="cleared sepsearch" style="margin-bottom:-2%"></div>
 
-{% with spec3=specs|filter_order:3 %}
 <input name="spectype" id="type_{{project.id}}_3_{{lang|default:'default'}}" value="1" type="hidden"/>
 <input name="specid" id="specid_3_{{lang|default:'default'}}" value="{{spec3.id|default:0}}" type="hidden"/>
 <input name="projectid" id="projectid_3_{{lang|default:'default'}}" value="{{project.id}}" type="hidden"/>
@@ -34,7 +31,6 @@
 <div id="{{project.id}}_3_{{lang|default:'default'}}" class="column">
     <textarea id="text_{{project.id}}_3_{{lang|default:'default'}}" class="editable">{{spec3.text|oiunescape}}</textarea>
 </div>
-{% endwith %}
 
 <p class="help-funding">{% trans "Explain the details of your project: why you do it, how can it be used, and the information you found important to attract the backers. Be as specific as you can." %}</p>
 

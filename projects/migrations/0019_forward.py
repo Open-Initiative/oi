@@ -7,8 +7,8 @@ from django.db import models
 class Migration(DataMigration):
 
     def forwards(self, orm):
-        "Update spec language None to '*'"
-        orm.Spec.objects.filter(language=None).update(language="default")
+        "Update spec language '*' to 'default'"
+        orm.Spec.objects.filter(language="*").update(language="default")
 
 
     def backwards(self, orm):
