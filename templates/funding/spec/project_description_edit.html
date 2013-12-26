@@ -51,7 +51,8 @@
     </div>
     <div class="cleared"></div>
     <p class="edit_add_new_language clickable" onclick="$('.flag').toggle(); $('#translationblock').toggle();">
-        {% trans "Translate the description" %} 
+        <span class="flag">{% trans "Translate the description" %}</span>
+        <span class="flag invisible">{% trans "Hide the translate description" %}</span>
         <img alt="{% trans 'English flag' %}" title="{% trans 'English flag' %}" src="/img/en.png"/> 
         <img alt="{% trans 'French flag' %}" title="{% trans 'French flag' %}" src="/img/fr.png"/>
     </p>
