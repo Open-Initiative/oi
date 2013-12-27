@@ -85,29 +85,11 @@
                 <div class="usertitle">{{user.get_profile}}</div>
                 {{user.get_profile.title}}
                 {%else%}
-                <span id="loginbox">{% trans "Login" %}</span>
-                <div id="loginarea">
-                    <form method="post" action="{% url django.contrib.auth.views.login %}">{% csrf_token %}<table>
-                        <tr>
-                            <td>
-                                <label class="loginlabel" for="username_field">{% trans "username" %}</label>
-                                <input id="username_field" type="text" name="username" tabindex=1 class="loginfield" onkeyup="focusInOut('username_field')" />
-                            </td>
-                            <td colspan="2"><a href="/user/resetpassword" class="forgotpwd">{% trans "Forgot your password?" %}</a></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="loginlabel" for="id_password">{% trans "password" %}</label>
-                                <input type="password" name="password" id="id_password" tabindex=2 class="loginfield" onkeyup="focusInOut('id_password')" />
-                            </td>
-                            <td><input id="loginbtn" type="submit" tabindex=3 value="{% trans "login" %}" /></td>
-                            <td><a href="/user/accounts/register">
-                                <div id="registerbtn">{% trans "Register" %}</div>
-                            </a></td>
-                        </tr>
-                    </table>
-                    <input type="hidden" name="next" value="{{request.get_full_path}}" />
-                </form></div>
+                <a href="/presentation"><span class="clickable headernews">{% trans "To know more" %}</span></a>
+                <span class="clickable headernews" onclick="submitProject()">{% trans "Sumit a project" %}</span>
+                <div class="clickable fundingleft headerbtn btnlogin">{% trans "Login" %}</div>
+                <a href="/user/accounts/register/"><div class="clickable fundingleft headerbtn btnregister">{% trans "Register" %}</div></a>
+                <div class="cleared"></div>
                 {%endif%}
             </div>
             {%if user.is_authenticated%}<div class="headerpic"><img class="contactpicture" src="/user/getpicture/{{user.username}}" /></div>{%endif%}
@@ -116,19 +98,7 @@
     </div>
     {% block announcement %}
     {% endblock %}
-    <div class="headersep">
-        {% block headersep %}
-        <div class="center">
-        </div>
-        {% endblock %}
-    </div>
-    <div id="breadcrumb">
-        <div class="center">
-            <div class="path-element"><a href="/"><img src="/img/icons/home.png" alt="home" /></a></div>
-            {% block breadcrumb %}{% endblock %}
-        </div>
-        <div class="cleared"></div>
-    </div>
+    
     <div class="cleared"></div>
     <div class="center">
         <div class="column">

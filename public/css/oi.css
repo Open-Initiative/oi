@@ -21,7 +21,7 @@ body {
     font-family: "ProximaNova",Verdana,Arial,Helvetica,sans-serif;
     font-size: 14px;
     color: #475E6C;
-    background: #F9F9F9;
+    background: #E4E5E5;
 }
 .pagebody {
     background: white;
@@ -65,7 +65,7 @@ div.center{
 }
 #footer {
     clear: left;
-    background: #dce8ea;
+    background: white;
     text-align: center;
     font-size: .9em;
     margin-top: 20px;
@@ -142,13 +142,32 @@ div.center{
     top:1px;
 }
 #userheader {
-    border-left: 1px solid #0094B5;
+    position: relative;
+    top: 40px;
+}
+.headernews{
+    color: #8F9595;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    padding-right: 20px;
+}
+.headerbtn{
+    bottom: 5px;
+    border: 1px solid #0094B5;
+    border-radius: 3px;
+    padding: 5px 12px;
+    position: relative;
+    margin-right: 20px;
+    font-weight: bold;
+}
+.btnlogin{
     color: #0094B5;
-    float: right;
-    height: 68px;
-    margin-top: 3px;
-    padding-left: 0.5em;
-    padding-top: 1px;
+    background-color: #A0D2E9;
+}
+.btnregister{
+    color: white;
+    background-color: #0094B5;
 }
 .usertitle {
     color: #0094B5;
@@ -402,11 +421,11 @@ img.tabicon {
     background: white;
 }
 #catcherbg {
-    background: #A0D2E9;
+    background: #E4E5E5;
 }
 #catcher {
     height: 185px;
-    width: 1020px;
+    width: 920px;
     margin: auto;
     clear: left;
     position: relative;
@@ -428,14 +447,14 @@ img.tabicon {
     padding: 10px 0;
 }
 .slider {
-    float: left;
+    float: right;
     width: 600px;
     width: 730px;
     font-size: 1.4em;
 }
 .slidermore {
     position: absolute;
-    left: 550px;
+    left: 190px;
     top: 140px;
     background: none repeat scroll 0 0 #D0574C;
     font-size: 1.1em;
@@ -464,21 +483,22 @@ img.tabicon {
 .slidericons {
     position: absolute;
     top: 150px;
+    left: 660px;
 }
 .slidericon {
     float: left;
     font-size: 1.3em;
     font-weight: bold;
-    color: #0094B5;
     padding: 3px;
     margin-right: 7px;
     border-radius: 6px;
-    border: solid;
-    color: #0094B5;
+    border:2px solid;
+    color: #D3CFCF;
+    background-color: white;
 }
 .slidericonselected {
     font-weight: bold;
-    background: white;
+    background: #0094B5;
 }
 .slider dt {
     text-transform: uppercase;
@@ -498,13 +518,12 @@ img.tabicon {
     color: #0094B5;
 }
 .fundingdesc {
-    border: 1px solid #E3E3E5;
-    font-size: 160%;
-    margin: 0.5em 15%;
+    font-size: 22px;
+    margin: 0;
     padding: 0.5em;
-    text-align: center;
-    background-color: white;
+    background-color: #0094B5;
     margin-bottom: 3%;
+    color: white;
 }
 .fundingtitle {
     font-size: 120%;
@@ -568,17 +587,15 @@ div.popup_spec {
     margin: 5px;
 }
 .actionbutton {
-    background: url('/img/headersep.png');
-    color: white;
-    padding: 2% 4%;
-    border-radius: 5px;
+    background-color: #A0D2E9;  
+    border-radius: 3px;
+    color: #0094B5;
+    font-size: 15px;
     font-weight: bold;
-    font-size: 1.8em;
-    font-size: 100%;
-}
-.actionbutton div {
     margin-bottom: .3em;
-    font-size: 1.2em;
+    padding: 5px 12px;
+    position: relative;
+    right: 200px;
     text-transform: uppercase;
 }
 #newproject_title {

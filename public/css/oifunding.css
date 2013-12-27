@@ -6,7 +6,9 @@
     font-size: 0.8em;
 }
 .slidermore {
-    background: #1e9947;
+    background: #A0D2E9;
+    color: #0094B5;
+    border: 1px solid #0094B5;
 }
 #registerbtn {
     background: #1E9947;
@@ -26,6 +28,10 @@
     text-transform: uppercase;
     border-top: 1px solid #E0E0E0;
     margin-top: .5em;
+}
+.submitproject {
+    width: 920px;
+    margin: auto;
 }
 .projectlisttitle {
   color: #1E9947;
