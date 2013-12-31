@@ -161,7 +161,7 @@ div.center{
 }
 .btnlogin{
     color: #0595BA;
-    background-color: #A0D2E9;
+    background-color: #CCE4F3;
 }
 .btnregister{
     color: white;
@@ -514,9 +514,12 @@ img.tabicon {
     width: 600px;
     height: 30px;
     color: #0595BA;
+    font-size: 1.4em;
+    margin: 0 0 4%;
 }
 .fundingdesc {
     font-size: 22px;
+    height: 68px;
     margin: 0;
     padding: 0.5em;
     background-color: #0595BA;
@@ -585,7 +588,7 @@ div.popup_spec {
     margin: 5px;
 }
 .actionbutton {
-    background-color: #A0D2E9;  
+    background-color: #E3E3E3;  
     border-radius: 3px;
     color: #0595BA;
     font-size: 15px;

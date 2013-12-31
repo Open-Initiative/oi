@@ -8,24 +8,29 @@
         <div id="slider" class="slider" onmouseover="window.slide=false" onmouseout="if(event.target.id=='slider')window.slide=true">
             <div class="slidertext">
                 <dl>
-                    <div id="indexslide1" class="indexslide"><dt>{% trans "fund" %}</dt>
-                        <dd>{% trans "together free software evolution" %}</dd>
+                    <div id="indexslide1" class="indexslide">
+                        <dd>{% trans "Get the feature you always wished for" %}</dd>
                     </div>
-                    <div class="slidertip">{% trans "By gathering, the Open Funding community makes improving free software possible. You wouldn't take it upon yourself, would you?" %}</div>
-                    <div id="indexslide2" class="indexslide invisible"><dt>{% trans "contribute" %}</dt>
-                        <dd>{% trans "to the projects brought by the developers" %}</dd>
+                    <div class="slidertip">{% trans "Open Funding is the best way to get the features you need in your software. Get a professional quality. Make it make sense: to you!" %}</div>
+                    <div id="indexslide2" class="indexslide invisible">
+                        <dd>{% trans "Co-funding makes free software sustainable" %}</dd>
                     </div>
-                    <div class="slidertip invisible">{% trans "Easy! Support the evolutions you want and save time. The developers are waiting for you, all you have to do is clicking on the feature you need!" %}</div>
-                    <div id="indexslide3" class="indexslide invisible"><dt>{% trans "join" %}</dt>
-                        <dd>{% trans "the community supporting free software!" %}</dd>
+                    <div class="slidertip invisible">{% trans "The feature-by-feature funding ensures a development in the long run. And the user-driven validating enables a professional quality. Open Funding combines the two and makes the best business model for free software." %}</div>
+                    <div id="indexslide3" class="indexslide invisible">
+                        <dd>{% trans "Connecting software and people" %}</dd>
                     </div>
-                    <div class="slidertip invisible">{% trans "Open Funding is the trust place bringing projects to life. You fund and validate the developments. Come make free software better with us!" %}</div>
+                    <div class="slidertip invisible">{% trans "Open Funding makes it easy to join the community. Do you use that software? Now you can contribute and be part of the team." %}</div>
+                    <div id="indexslide4" class="indexslide invisible">
+                        <dd>{% trans "More powerful together" %}</dd>
+                    </div>
+                    <div class="slidertip invisible">{% trans "At Open Funding projects get more than just funding, they see their community growing. Good communication tools to involve more people. The community grows larger and becomes more efficient!" %}</div>
                 </dl>
             </div>
             <div class="clickable slidericons">
                 <div id="slidericon1" class="slidericon slidericonselected" onclick="slideIndex(1)"></div>
                 <div id="slidericon2" class="slidericon" onclick="slideIndex(2)"></div>
                 <div id="slidericon3" class="slidericon" onclick="slideIndex(3)"></div>
+                <div id="slidericon4" class="slidericon" onclick="slideIndex(4)"></div>
             </div>
         </div>
         <script type="text/javascript">
@@ -36,18 +41,22 @@
         <a id="preslink" href="/presentation#1"><div class="slidermore" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'">
             {% trans "Learn More" %}
         </div></a>
-        <img id="sliderimg1" src="/img/funding1.png" class="sliderimg" />
-        <img id="sliderimg2" src="/img/funding2.png" class="sliderimg invisible" />
-        <img id="sliderimg3" src="/img/funding3.png" class="sliderimg invisible" />
+        <img id="sliderimg1" src="/img/slider1.png" class="sliderimg" />
+        <img id="sliderimg2" src="/img/slider2.png" class="sliderimg invisible" />
+        <img id="sliderimg3" src="/img/slider3.png" class="sliderimg invisible" />
+        <img id="sliderimg4" src="/img/slider4.png" class="sliderimg invisible" />
     </div>
 </div>
 <div class="fundingdesc">
     <div class="submitproject">
-        <div>Open Funding {% trans "helps you fund your free software." %}</div>
-        <div class="fundingleft"><b>{% trans "Start you own project now!" %}</b></div>
-        <div class="actions clickable actionbutton" onclick="submitProject()">
-            <div onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'">{% trans "submit a project" %}</div>
-            <input id="appname" type="hidden" value="funding" />
+        <img id="flag" class="fundingleft" src="/img/flag.png" />
+        <div class="helpstart">
+            <div>Open Funding {% trans "helps you fund your free software." %}</div>
+            <div class="fundingleft"><b>{% trans "Start you own project now!" %}</b></div>
+            <div class="actions clickable actionbutton" onclick="submitProject()">
+                <div onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'">{% trans "submit a project" %}</div>
+                <input id="appname" type="hidden" value="funding" />
+            </div>
         </div>
     </div>
     <div class="cleared"></div>

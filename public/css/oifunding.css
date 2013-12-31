@@ -1,12 +1,13 @@
 .slidertext dt {
-    color: #1e9947;
+    color: #2EAC66;
 }
 .slidertip {
-    color: #0f4d42;
+    color: #767676;
     font-size: 0.8em;
+    font-weight: bold;
 }
 .slidermore {
-    background: #A0D2E9;
+    background: #CCE4F3;
     color: #0595BA;
     border: 1px solid #0595BA;
 }
@@ -34,7 +35,7 @@
     margin: auto;
 }
 .projectlisttitle {
-  color: #1E9947;
+  color: #2EAC66;
   font-size: 200%;
   font-weight: bold;
   margin: 0.5em;
@@ -1103,4 +1104,9 @@ div.sepspecfooter {
 }
 .bluesky{
     background: #CCE4F3;
+}
+.helpstart {
+    left: 3%;
+    padding-top: 2%;
+    position: relative;
 }
