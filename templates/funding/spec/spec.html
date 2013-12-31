@@ -23,7 +23,7 @@
             {% if spec.order == 2 %}<p class="funding_short">{% endif %}
                 {% if spec.text|length > 300 and spec.order == 3 %}
                     {{spec.text|oiunescape|summarize_html}}
-                    <span class="clickable" onclick="seeMore('visible_{{object.id}}_{{spec.order}}_desc', 'invisible_{{object.id}}_{{spec.order}}_desc')"><a class="btn_feature fundingright">{% trans "See more" %}</a></span>
+                    <span class="clickable" onclick="seeMore('visible_{{object.id}}_{{spec.order}}_desc', 'invisible_{{object.id}}_{{spec.order}}_desc')"><a class="btn_feature fundingright bluesky">{% trans "See more" %}</a></span>
                 {% else %}
                     {{spec.text|oiunescape}}
                 {% endif %}
@@ -32,7 +32,7 @@
         {% if spec.text|length > 300 %}
             <div id="invisible_{{object.id}}_{{spec.order}}_desc" class="invisible">
                 {{spec.text|oiunescape}}
-                <span class="clickable" onclick="seeMore('visible_{{object.id}}_{{spec.order}}_desc', 'invisible_{{object.id}}_{{spec.order}}_desc')"><a class="btn_feature fundingright">{% trans "See less" %}</a></span>
+                <span class="clickable" onclick="seeMore('visible_{{object.id}}_{{spec.order}}_desc', 'invisible_{{object.id}}_{{spec.order}}_desc')"><a class="btn_feature fundingright bluesky">{% trans "See less" %}</a></span>
             </div>
         {% endif %}
     {% endif %}

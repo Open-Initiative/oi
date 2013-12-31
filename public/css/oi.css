@@ -20,8 +20,8 @@ body {
     margin:0;
     font-family: "ProximaNova",Verdana,Arial,Helvetica,sans-serif;
     font-size: 14px;
-    color: #475E6C;
-    background: #E4E5E5;
+    color: #6F6F6E;
+    background: #E3E3E3;
 }
 .pagebody {
     background: white;
@@ -34,7 +34,7 @@ img {
 h1, h2, h3, h4 {
     font-family: "ProximaNova", Helvetica, sans-serif;
     font-weight: bold;
-    color: #0094B5;
+    color: #0595BA;
     text-transform: uppercase;
 }
 h5, h6 {
@@ -45,7 +45,7 @@ h5, h6 {
 }
 a {
     text-decoration: None;
-    color: #0094B5;
+    color: #0595BA;
 }
 a:hover {
     text-decoration: underline;
@@ -116,7 +116,7 @@ div.center{
 }
 #baseline {
     width: 160px;
-    color: #0094B5;
+    color: #0595BA;
     text-transform: uppercase;
     font-family: "CCRA";
     font-size:13px;
@@ -152,7 +152,7 @@ div.center{
 }
 .headerbtn{
     bottom: 5px;
-    border: 1px solid #0094B5;
+    border: 1px solid #0595BA;
     border-radius: 3px;
     padding: 5px 12px;
     position: relative;
@@ -160,15 +160,15 @@ div.center{
     font-weight: bold;
 }
 .btnlogin{
-    color: #0094B5;
+    color: #0595BA;
     background-color: #A0D2E9;
 }
 .btnregister{
     color: white;
-    background-color: #0094B5;
+    background-color: #0595BA;
 }
 .usertitle {
-    color: #0094B5;
+    color: #0595BA;
     text-transform: uppercase;
     font-weight: bold;
 }
@@ -192,7 +192,7 @@ div.center{
     font-size: .8em;
 }
 #loginbtn {
-    background: none repeat scroll 0 0 #0094B5;
+    background: none repeat scroll 0 0 #0595BA;
     border: medium none;
     color: white;
     font-size: 0.9em;
@@ -238,11 +238,11 @@ div.center{
     border-right: 1px solid #8C9B99;
 }
 .homelink{
-    color: #0094B5;
+    color: #0595BA;
 }
 .blogtag {
     border-radius: 5px;
-    color: #0094B5;
+    color: #0595BA;
     text-align: center;
     background: #362a32;
     float: right;
@@ -356,7 +356,7 @@ div.pagetitle {
     border-left: 1px solid white;
 }
 div.selectedtab {
-    background: #0094B5;
+    background: #0595BA;
 }
 div.selectedtab a {
     color: white;
@@ -384,7 +384,7 @@ img.tabicon {
     background: none repeat scroll 0 0 white;
     border: 1px solid #E3E3E5;
     text-transform: uppercase;
-    color: #0094B5;
+    color: #0595BA;
     padding: .5em;
 }
 .navtitlehome {
@@ -441,7 +441,7 @@ img.tabicon {
 .catchericon {
     text-transform: uppercase;
     font-size:1.8em;
-    color: #0094B5;
+    color: #0595BA;
     padding: 10px 0;
 }
 .slider {
@@ -496,7 +496,7 @@ img.tabicon {
 }
 .slidericonselected {
     font-weight: bold;
-    background: #0094B5;
+    background: #0595BA;
 }
 .slider dt {
     text-transform: uppercase;
@@ -513,13 +513,13 @@ img.tabicon {
 .slider dd {
     width: 600px;
     height: 30px;
-    color: #0094B5;
+    color: #0595BA;
 }
 .fundingdesc {
     font-size: 22px;
     margin: 0;
     padding: 0.5em;
-    background-color: #0094B5;
+    background-color: #0595BA;
     margin-bottom: 3%;
     color: white;
 }
@@ -587,7 +587,7 @@ div.popup_spec {
 .actionbutton {
     background-color: #A0D2E9;  
     border-radius: 3px;
-    color: #0094B5;
+    color: #0595BA;
     font-size: 15px;
     font-weight: bold;
     margin-bottom: .3em;
@@ -766,7 +766,7 @@ div.spectypes {
     opacity: 0.91;
     z-index: 0;
     position: fixed;
-    background-color: white;
+    background-color: #E3E3E3;
 }
 .boldtext {
     font-weight: bold;

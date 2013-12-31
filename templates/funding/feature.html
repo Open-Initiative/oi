@@ -36,7 +36,7 @@
                 
                 <div class="goal">
                     <span class="displayblock">{% trans "Goal" %}</span>
-                    <span class="">{{task.missing_bid|floatformat:"-2"}} €</span>
+                    <span class="">{{task.get_budget|floatformat:"-2"}} €</span>
                 </div>
             </div>
             
@@ -63,7 +63,7 @@
             </div>
             
             <div class="profile_info">
-                <img src="/img/logosmall.png" class="column">
+                <img src="/img/logo_small.png" class="column">
                 <div><p><a class="clickable" onclick="showPopup(document.getElementById('featurebudget_{{task.id}}'))">{{task.bid_set.count}} {% trans "funders" %}</a></p></div>
             </div>
             
@@ -99,9 +99,9 @@
         
         <div class="cleared">
             {% if task|can_manage:user or task.spec_set.count%}
-            <a id="see_more_{{task.id}}" class="clickable see-more btn_feature fundingleft" onclick="expandFeature({{task.id}});{% if task|can_write:user and task.state < 4 and task.spec_set.all.count < 1 %}addSpec('{{task.id}}')">{% trans "Add a description" %}{% else %}">{% trans "See more" %}{% endif %}</a>
+            <a id="see_more_{{task.id}}" class="clickable see-more btn_feature fundingleft bluesky" onclick="expandFeature({{task.id}});{% if task|can_write:user and task.state < 4 and task.spec_set.all.count < 1 %}addSpec('{{task.id}}')">{% trans "Add a description" %}{% else %}">{% trans "See more" %}{% endif %}</a>
             
-            <a id="see_less_{{task.id}}" class="clickable see-less btn_feature fundingleft" onclick="expandFeature({{task.id}})">{% trans "See less" %}</a>
+            <a id="see_less_{{task.id}}" class="clickable see-less btn_feature fundingleft bluesky" onclick="expandFeature({{task.id}})">{% trans "See less" %}</a>
             {% endif %}
         </div>
         

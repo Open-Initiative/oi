@@ -114,8 +114,8 @@
             <div class="cleared"></div>
         </div>
     </div>
-    <p class="continuebtn fundingright clickable no_p_style feature_propose" style="padding:0.5%">
-        <input class="nobtnstyle" type="submit" value="{% trans 'Propose' %}">
+    <p class="continuebtn fundingright no_p_style feature_propose" style="padding:0.5%">
+        <input class="nobtnstyle clickable" type="submit" onclick="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, getValue('offer_{{object.id}}'), function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); document.getElementById('offer_{{object.id}}').value = ''" value="{% trans 'Propose' %}">
     </p>
     {% else %}
         {% if object|can_answer:user %}
@@ -136,14 +136,14 @@
                             </td>
                         </tr>
                     </table>
-                    <div class="cleared"></div>
+                    <p>{% trans "By adding this change you acknowledge <br/> that you have read and accepted the" %} <a href="/cgu">{% trans "Terms of Use" %}</a></p>
                     
                 </form>
                 <div class="cleared"></div>
             </div>
         </div>
-        <p class="continuebtn fundingright clickable no_p_style feature_propose" style="padding:0.5%">
-            <input class="nobtnstyle" type="submit" value="{% trans 'Propose' %}">
+        <p class="continuebtn fundingright no_p_style feature_propose" style="padding:0.5%">
+            <input class="nobtnstyle clickable" type="submit" onclick="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, null,function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0','featurebox'))})" value="{% trans 'Propose' %}">
         </p>
         {% endif %}
     {% endif %}
@@ -217,7 +217,7 @@
             {% endwith %}
             
             <div class="profile_info cleared">
-                <img src="/img/logosmall.png" class="column">
+                <img src="/img/logo_small.png" class="column">
                 <p>{{project.count_all_funding_user}} {% trans "users" %}</p>
             </div>
             
@@ -232,7 +232,7 @@
         <div class="cleared"></div>
         
         {% if project.spec_set.all|filter_order:8 or object|can_manage:user %}
-        <h4>{% trans "Project website" %}</h4>
+        <h4 class="subtitle">{% trans "Project website" %}</h4>
             {% with spec=project.spec_set.all|filter_order:8 order=8 divid='software' %}{%include 'funding/project_detail_column_right.html'%}{% endwith %}
         {% endif %}
     </div>
@@ -246,7 +246,7 @@
                 <img class="funding_profilepicture" src="/user/getpicture/{{project.author.username}}" />
                 
                 <div class="profile_info cleared">
-                    <img src="/img/logosmall.png" class="column">
+                    <img src="/img/logo_small.png" class="column">
                     <div>{{project.author.get_profile.get_created_projects.count}} {% trans "Projects created" %}</div>
                     <div>{{project.author.get_profile.get_funded_projects.count}} {% trans "Projects funded" %}</div>
                 </div>
