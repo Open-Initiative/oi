@@ -72,19 +72,17 @@ div.center{
     padding: 10px;
 }
 #toptext {
-    background: #0094B5;
     height:20px;
-    border-radius: 5px;
     margin:auto;
     float:right;
     padding: 0 10px;
-    text-transform: uppercase;
     margin: 2px;
 }
 #toptext a {
-    color: white;
     margin: 2px;
     padding-right: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 #toptext a:not(:last-child){
     border-right: solid white 1px;
@@ -184,7 +182,7 @@ div.center{
     padding: 2px 5px;
 }
 .loginlabel {
-    color: #0094B5;
+    color: #8C9B99;
     position: absolute;
     padding: 2px;
 }
@@ -236,8 +234,8 @@ div.center{
     letter-spacing: -1px;
 }
 .toplink{
-    color: #A8DCF4;
     padding: 0 2px;
+    border-right: 1px solid #8C9B99;
 }
 .homelink{
     color: #0094B5;

@@ -297,7 +297,6 @@ div.prj-action-wait {
 .featuretitle {
     color: #0094B5;
     font-size: 1.5em;
-    font-weight: bold;
     overflow: hidden;
     text-align: left;
 }
@@ -348,10 +347,7 @@ div.cardspec {
     padding: 10px;
     margin-bottom: .5em;
     margin-top: 0.5em;
-    background: white;
     overflow: hidden;
-    border: 1px solid #E3E3E5;
-    border-radius: 3px;
 }
 .featureblock img {
     max-width: 400px;
@@ -527,8 +523,6 @@ option.oldrelease{
     width: 55%;
 }
 .prjbody {
-    background: none repeat scroll 0 0 white;
-    border: 1px solid #E0E0E0;
     float: left;
     width: 70%;
 }
@@ -589,20 +583,16 @@ option.oldrelease{
     text-transform: uppercase;
 }
 .supportbtn {
-    background: none repeat scroll 0 0 #1E9947;
-    border-radius: 4px 4px 4px 4px;
+    background: none repeat scroll 0 0 #0094B5;
+    border-radius: 2px;
     color: white;
     display: block;
-    font-size: 1.8em;
+    font-size: 1.6em;
     font-weight: bold;
     margin: auto;
     padding: 0.3em;
     text-transform: uppercase;
-    width: 75%;
-}
-.supportbtn:after {
-    content: url("/img/icons/whitebtn.png");
-    vertical-align: -1px;
+    width: 65%;
 }
 .bidaction {
     background: #1E9947;
@@ -782,23 +772,24 @@ div.sepspecfooter {
     border-radius: 10px;
 }
 .progressbar {
-    position: relative;
-    float:left;
-    border:solid 1px;
+    background: #E4E5E5;
+    border-radius: 2px;
     color: black;
-    width: 90%;
-    border-radius: 3px;
-    overflow: hidden;
+    float:left;
     font-size: 0.8em;
+    height: 1.2em;
     margin-left: 5%;
+    overflow: hidden;
+    position: relative;
+    width: 90%;
 }
 .progress {
     float:left;
-    background:#1E9947;
-    color: white;
+    background:#0094B5;
+    color: #D0574C;
     font-weight: bold;
     text-align: center;
-    height: 1em;
+    height: 1.2em;
 }
 .progresstitle {
     margin: 1px;
@@ -876,11 +867,9 @@ div.sepspecfooter {
     width: 24%;
 }
 .detail_subtitle {
-    color:#1E9947; 
     font-size:25px; 
     padding-left: 1%;
-    margin-top: 5%;
-    text-align: center;
+    margin-top: 2%;
 }
 .edit_add_new_language {
     font-weight: bold;
@@ -969,7 +958,6 @@ div.sepspecfooter {
     font-size: 10px;
 }
 .bordertitledetails {
-    border: 1px solid #E0E0E0;
     float: left;
     width: 43%;
     padding: 10px;
@@ -977,10 +965,10 @@ div.sepspecfooter {
 }
 .blockfeatureheight {
     background-color: white;
-    border: 1px solid #E3E3E5;
     padding: 1%;
     margin-left: 5%;
-    width: 43%;
+    width: 45%;
+    margin-top: 3%;
 }
 .fieldfeature{
     border:1px solid #E0E0E0; 
@@ -1057,5 +1045,57 @@ div.sepspecfooter {
     right: -90px;
 }
 .of_close{
-    width: 50%;
+    width: 55%;
+}
+.project{
+    background-color: white;
+    border-radius: 3px 3px 3px 3px;
+    margin-bottom: 1%;
+    padding: 1%;
+}
+.btn_feature {
+    border: 1px solid;
+    border-radius: 2px;
+    display: block;
+    font-weight: bold;
+    padding: 1%;
+}
+.displayblock{
+    display: block;
+}
+.fund{
+    color: #0094B5;
+    text-align: start;
+}
+.goal{
+    color: #1E9947;
+    text-align: end;
+}
+.block_fund_goal {
+    padding-left: 4.5%;
+    width: 90%;
+}
+.subtitle{
+    color: #8F9595;
+}
+.submit_feature{
+    background: #F5F3F3;
+    border-radius: 2px 2px 2px 2px;
+    padding: 1%;
+}
+.header_close{
+    width: 55%;
+    position: relative;
+    left: 10%;
+}
+.radius_picture{
+    border-radius: 60%;
+}
+.feature_propose{
+    position: relative;
+    right: 2%;
+    background: #8C9B99;
+}
+.clearedleft{
+    clear:left;
 }

@@ -76,14 +76,15 @@
                 {% endwith %}
                 {%if user.is_authenticated%}
                 <div id="toptext">
-                    <a class="toplink" href="/user/myprofile"><img src="/img/icons/miniuser.png" />{% trans "My profile" %}</a>
-                    <a class="toplink" href="/user/myaccount"><img src="/img/icons/minisettings.png" />{% trans "My account" %}</a>
-                    <a class="toplink" href="/logout"><img src="/img/icons/minilogout.png" />{% trans "Disconnect" %} {{user}}</a>
+                    <b><a class="toplink" href="/user/myprofile">{% trans "My profile" %}</a></b>
+                    <b><a class="toplink" href="/user/myaccount">{% trans "My account" %}</a></b>
+                    <b><a class="subtitle" href="/logout">{% trans "Disconnect" %}</a></b>
                 </div>
-                {% endif %}
-                {%if user.is_authenticated%}
-                <div class="usertitle">{{user.get_profile}}</div>
-                {{user.get_profile.title}}
+                <div class="usertitle header_close">{{user.get_profile}} 
+                    <div class="headerpic"><img class="contactpicture radius_picture" src="/user/getpicture/{{user.username}}"/></div>
+                </div>
+                <div class="header_close">{{user.get_profile.title}}</div>
+                
                 {%else%}
                 <a href="/presentation"><span class="clickable headernews">{% trans "To know more" %}</span></a>
                 <span class="clickable headernews" onclick="submitProject()">{% trans "Sumit a project" %}</span>
@@ -92,7 +93,6 @@
                 <div class="cleared"></div>
                 {%endif%}
             </div>
-            {%if user.is_authenticated%}<div class="headerpic"><img class="contactpicture" src="/user/getpicture/{{user.username}}" /></div>{%endif%}
             {% endblock %}
         </div>
     </div>

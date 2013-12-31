@@ -36,55 +36,55 @@
                 </div>
             {% endfor %}
         </div>
+        <div class="cleared"></div>
     </div>
     
-    <div class="cleared"></div>
-    
-    <h2 class="detail_subtitle">{% trans "Fund feature" %}</h2>
-    
-    
-    <div>
-        <div id="featureid_blockHead" class="statebtns center_btn"> 
-            {% if object.all_not_started_tasks %}<div onclick="featureShowHide('features_0')" id="featureid_proposed" class="clickable statebtn invisible">{% trans "Proposed" %}</div>{% endif %}
-            {% if object.all_progress_tasks %}<div onclick="featureShowHide('features_3')" id="featureid_progress" class="clickable statebtn invisible">{% trans "In progress" %}</div>{% endif %}
-            {% if object.all_finish_tasks %}<div onclick="featureShowHide('features_4')" id="featureid_finished" class="clickable statebtn invisible">{% trans "Finished" %}</div>{% endif %}
-            <div class="cleared"></div>
-        </div>
-
-        <ul class="features_manage" id="features_0">
-            {% for task in object.all_not_started_tasks|filter_read:user %}
-                <li class="featurebox" id="task_{{task.id}}">
-                {% include 'funding/feature.html' %}
-                </li>
-            {% endfor %}
-        </ul>
-        <div class="cleared"></div>
-
-        <ul class="features_manage" id="features_3">
-            {% for task in object.all_progress_tasks|filter_read:user %}
-                <li class="featurebox" id="task_{{task.id}}">
-                {% include 'funding/feature.html' %}
-                </li>
-            {% endfor %}
-            <div class="cleared"></div>
-        </ul>
-
-        <ul class="features_manage" id="features_4">
-            {% for task in object.all_finish_tasks|filter_read:user %}
-                <li class="featurebox" id="task_{{task.id}}">
-                {% include 'funding/feature.html' %}
-                </li>
-            {% endfor %}
-            <div class="cleared"></div>
-        </ul>
+    <div class="project">
+        <h2 class="detail_subtitle">{% trans "Fund feature" %}</h2>
         
+        <div>
+            <div id="featureid_blockHead" class="statebtns center_btn"> 
+                {% if object.all_not_started_tasks %}<div onclick="featureShowHide('features_0')" id="featureid_proposed" class="clickable statebtn invisible">{% trans "Proposed" %}</div>{% endif %}
+                {% if object.all_progress_tasks %}<div onclick="featureShowHide('features_3')" id="featureid_progress" class="clickable statebtn invisible">{% trans "In progress" %}</div>{% endif %}
+                {% if object.all_finish_tasks %}<div onclick="featureShowHide('features_4')" id="featureid_finished" class="clickable statebtn invisible">{% trans "Finished" %}</div>{% endif %}
+                <div class="cleared"></div>
+            </div>
+
+            <ul class="features_manage" id="features_0">
+                {% for task in object.all_not_started_tasks|filter_read:user %}
+                    <li class="featurebox" id="task_{{task.id}}">
+                    {% include 'funding/feature.html' %}
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="cleared"></div>
+
+            <ul class="features_manage" id="features_3">
+                {% for task in object.all_progress_tasks|filter_read:user %}
+                    <li class="featurebox" id="task_{{task.id}}">
+                    {% include 'funding/feature.html' %}
+                    </li>
+                {% endfor %}
+                <div class="cleared"></div>
+            </ul>
+
+            <ul class="features_manage" id="features_4">
+                {% for task in object.all_finish_tasks|filter_read:user %}
+                    <li class="featurebox" id="task_{{task.id}}">
+                    {% include 'funding/feature.html' %}
+                    </li>
+                {% endfor %}
+                <div class="cleared"></div>
+            </ul>
+            
+        </div>
     </div>
     {% endwith %}
 
-<div>
+<div class="submit_feature">
     {% if object|can_manage:user %}
-    <div class="bordertitledetails credittip">
-        <p class="navtitlehome no_p_style">{% trans "What you have to do :" %}</p>
+    <div class="bordertitledetails">
+        <p class="navtitlehome no_p_style oigreen">{% trans "What you have to do :" %}</p>
         <p>
             {% trans "You can create and edit new developments for your projects. Specify the title, make a description that explains its characteristics and determine the expected price for each. Your users can suggest other developments on the project page, you can accept / rephrase if you wish." %}
         </p>
@@ -95,14 +95,14 @@
                 <table>
                     <tr>
                         <td>
-                        <label class="loginlabel" for="newtask_title_{{object.id}}">{% trans "insert a title" %}</label>
+                        <label class="loginlabel oigreen" for="newtask_title_{{object.id}}">{% trans "insert a title" %}</label>
                     <input type="text" class="fieldfeature" id="newtask_title_{{object.id}}" onkeyup="focusInOut('newtask_title_{{object.id}}')">
                     <div class="cleared"></div>
                             </td>
                     </tr>
                     <tr>
                         <td>
-                            <label class="loginlabel" for="offer_{{object.id}}">{% trans "Feature price" %}</label>
+                            <label class="loginlabel oigreen" for="offer_{{object.id}}">{% trans "Feature price" %}</label>
                             <input type="text" style="text-align: right;" class="fieldfeature" id="offer_{{object.id}}" onkeyup="focusInOut('offer_{{object.id}}')">  €
                             <div class="cleared"></div>
                         </td>
@@ -110,17 +110,17 @@
                 </table>
                 <p>{% trans "By adding this change you acknowledge <br/> that you have read and accepted the" %} <a href="/cgu">{% trans "Terms of Use" %}</a></p>
                         
-                <p class="continuebtn fundingright clickable no_p_style" style="padding:1.5%">
-                    <input class="nobtnstyle" type="submit" value="{% trans 'Propose' %}">
-                </p>
             </form>
             <div class="cleared"></div>
         </div>
     </div>
+    <p class="continuebtn fundingright clickable no_p_style feature_propose" style="padding:0.5%">
+        <input class="nobtnstyle" type="submit" value="{% trans 'Propose' %}">
+    </p>
     {% else %}
         {% if object|can_answer:user %}
-        <div class="bordertitledetails credittip">
-            <p class="navtitlehome no_p_style">{% trans "Propose a new feature" %}</p>
+        <div class="bordertitledetails">
+            <p class="navtitlehome no_p_style oigreen">{% trans "Propose a new feature" %}</p>
             <p>
                 {% trans "You can propose to the developer a new feature for this project. If it is accepted by the developer, the feature will be included in the project." %}
             </p>
@@ -131,22 +131,23 @@
                     <table>
                         <tr>
                             <td>
-                            <label class="loginlabel" for="newtask_title_{{object.id}}">{% trans "insert a title" %}</label>
+                            <label class="loginlabel oigreen" for="newtask_title_{{object.id}}">{% trans "insert a title" %}</label>
                             <input type="text" class="fieldfeature" id="newtask_title_{{object.id}}" onkeyup="focusInOut('newtask_title_{{object.id}}')">
                             </td>
                         </tr>
                     </table>
                     <div class="cleared"></div>
-                    <p class="continuebtn fundingright clickable no_p_style" style="padding:1.5%">
-                        <input class="nobtnstyle" type="submit" value="{% trans 'Propose' %}">
-                    </p>
+                    
                 </form>
                 <div class="cleared"></div>
             </div>
         </div>
+        <p class="continuebtn fundingright clickable no_p_style feature_propose" style="padding:0.5%">
+            <input class="nobtnstyle" type="submit" value="{% trans 'Propose' %}">
+        </p>
         {% endif %}
     {% endif %}
-
+    <div class="cleared"></div>
 </div>
     
 </div>
@@ -188,32 +189,48 @@
     {% endif %}
     </div>
     
-    <div class="myprofile column-right" style="margin-bottom: 10px;overflow: hidden;">
+    <div class="myprofile column-right project" style="margin-bottom: 10px;overflow: hidden;">
         <div class="clickable featuretitle funding_space">{% trans "Finance software" %}</div>
         {% with project.descendants|filter_read:user as descendants %}
-        <div class="form_center">
-            <span style="font-size: 16px; color:black"> {{descendants.allbid_sum|add_up:project.bid_sum|floatformat:"-2"}} € {% trans "funded" %}</span>
+        <div>
             <div class="progressbar">
                 <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio descendants.allbid_sum|add_up:project.bid_sum project.get_selfbudget|default:descendants.allbudget 100 %}%;"></span>
                 <span id="progresslabel_{{object.id}}" class="progresstitle" >{% widthratio descendants.allbid_sum|add_up:project.bid_sum project.get_selfbudget|default:descendants.allbudget 100 %} %</span>
             </div>
+            
+            <div class="block_fund_goal">
+                <div class="fundingleft fund">
+                    <span class="displayblock">{% trans "Funded" %}</span>
+                    <span>{{task.allbid_sum|default:0|floatformat:"-2"}} €</span>
+                </div>
+                
+                <div class="goal">
+                    <span class="displayblock">{% trans "Goal" %}</span>
+                    <span class="">{{project.get_selfbudget|default:descendants.allbudget|floatformat:"-2"}} €</span>
+                </div>
+            </div>
+            
             <div class="cleared"></div>
-            <p class="editfeature">{{project.get_selfbudget|default:descendants.allbudget|floatformat:"-2"}} € {% trans "total" %}</p>
             
             {% with task=project plugin_width='50%' zero='0' %}
                 {% include 'funding/popup_budget.html' %}
             {% endwith %}
             
-            <div class="featurebtns">
-            {% if project.state < 4 and project|can_bid:user or not user.is_authenticated %}
-                <span class="supportbtn clickable" onclick="showPopup(document.getElementById('bidpopup_{{project.id}}')); ">{% trans "Support" %}</span>
-            {% endif %}
+            <div class="profile_info cleared">
+                <img src="/img/logosmall.png" class="column">
+                <p>{{project.count_all_funding_user}} {% trans "users" %}</p>
             </div>
+            
+            <div class="featurebtns of_close">
+            {% if project.state < 4 and project|can_bid:user or not user.is_authenticated %}
+                <span class="supportbtn clickable fundingleft" onclick="showPopup(document.getElementById('bidpopup_{{project.id}}')); ">{% trans "Support" %}</span>
+            {% endif %}
             <div class="cleared"></div>
+            </div>
         </div>
         {% endwith %}
         <div class="cleared"></div>
-        <p><img alt="{% trans 'The number of all the funder' %}" title="{% trans 'The number of all the funder' %}" src="/img/logosmall.png" width="21px;" height="18px;"> {{project.count_all_funding_user}} {% trans "users" %}</p>
+        
         {% if project.spec_set.all|filter_order:8 or object|can_manage:user %}
         <h4>{% trans "Project website" %}</h4>
             {% with spec=project.spec_set.all|filter_order:8 order=8 divid='software' %}{%include 'funding/project_detail_column_right.html'%}{% endwith %}
@@ -223,7 +240,7 @@
     
     <div class="myprofile" style="margin-bottom: 10px;">
         <div class="column-right">
-            <div class="funding_space">{% trans "Project created by" %} <a href="/user/profile/{{project.author.username}}">{{project.author.get_profile}}</a></div>
+            <div class="funding_space">{% trans "Project created by" %} <b><a class="oigreen" href="/user/profile/{{project.author.username}}">{{project.author.get_profile}}</a></b></div>
             
             <div class="column profile_column">
                 <img class="funding_profilepicture" src="/user/getpicture/{{project.author.username}}" />
@@ -239,7 +256,7 @@
             </div>
             {% if project.author.get_profile.personal_website %}<div><a href="{{project.author.get_profile.personal_website}}" target="_blank">{{project.author.get_profile.personal_website}}</a></div>{% endif %}
             <div class="cleared"></div>
-            <a style="text-align: right;display: block;" href="/user/profile/{{project.author.username}}">{% trans "Full bio" %}</a>
+            <a class="fundingright displayblock btn_feature oigreen" href="/user/profile/{{project.author.username}}">{% trans "Full bio" %}</a>
             <div class="cleared"></div>
         </div>
     </div>
@@ -247,8 +264,8 @@
         {% if object.exist_rewards or object|can_manage:user %}
         <div class="myprofile" style="margin-bottom: 10px;">
             <div class="column-right">
-                <h3>{% trans "Reward" %}</h3>
-                {% if object|can_manage:user %}<h4><a class="clickable" onclick="showPopup(document.getElementById('newreward'));">{% trans "Add a reward" %} <img src="/img/icons/addgreen.png" title="{% trans 'Add a reward' %}" alt="{% trans 'Add a reward' %}"></a></h4>{% endif %}
+                <h3 class="oigreen">{% trans "Reward" %}</h3>
+                {% if object|can_manage:user %}<h4><a class="subtitle" class="clickable" onclick="showPopup(document.getElementById('newreward'));">{% trans "Add a reward" %} <img src="/img/icons/addgreen.png" title="{% trans 'Add a reward' %}" alt="{% trans 'Add a reward' %}"></a></h4>{% endif %}
                 
                 <div id="newreward" class="invisible popup_reward" onclick="document.ignoreClosePopups = true;">
                     {% include 'funding/rewardblock.html' %}
@@ -292,15 +309,15 @@
         
         {% if project.spec_set.all|filter_order:5 or project.spec_set.all|filter_order:6 or object|can_manage:user %}
         <div class="column-right myprofile">
-            <h3>{% trans "Developer's corner" %}</h3>
+            <h3 class="oigreen">{% trans "Developer's corner" %}</h3>
             
             {% if project.spec_set.all|filter_order:5 or object|can_manage:user %}
-            <h4>{% trans "Deposit" %}</h4>
+            <h4 class="subtitle">{% trans "Deposit" %}</h4>
             {% with spec=project.spec_set.all|filter_order:5 order=5 divid='deposit' %}{%include 'funding/project_detail_column_right.html'%}{% endwith %}
             {% endif %}
             
             {% if project.spec_set.all|filter_order:6 or object|can_manage:user %}
-            <h4>{% trans "Licence" %}</h4>
+            <h4 class="subtitle">{% trans "Licence" %}</h4>
             {% with spec=project.spec_set.all|filter_order:6 order=6 divid='licence' spec_divid='spec__6_content' %}
             <a id="{{spec_divid}}" target="_blank" {% if spec.url %}href="{{spec.url}}"{% endif %}>{% if spec.text %}{{spec.text|oiunescape}}{% else %}{% trans "Unspecified" %}{% endif %}</a> 
             {% if object|can_manage:user %}<img class="clickable fundingright" title="{% trans 'Indicate the license used to distribute software' %}" alt="{% trans 'Indicate the license used to distribute software' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('licencedescription_{{spec.id}}'))"/>{% endif %}

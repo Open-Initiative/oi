@@ -95,7 +95,7 @@ div.blogicon {
     margin-right: 1em;
 }
 .profile_info {
-    border: solid 2px #E0E0E0;
+    border: dashed 2px #E0E0E0;
     border-left:none;
     border-right:none;
     margin: .5em 0;

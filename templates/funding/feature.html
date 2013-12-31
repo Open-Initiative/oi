@@ -16,19 +16,28 @@
     {% include 'funding/popup_budget.html' %}
 
     <div id="featureDiv_{{task.id}}" class="featureblock" title="{{task.title}}" style="padding: 1%;{% if not task.public_read %} opacity:.4;{% endif %}">
-        <div id="feature_{{task.id}}" class="featuretitle clickable" onclick="expandFeature({{task.id}})">{{task.title}}</div>
+        <div id="feature_{{task.id}}" class="featuretitle clickable fundingleft" onclick="expandFeature({{task.id}})">{{task.title}}</div>
+        
         <form onsubmit="var newtitle = getValue('feature_{{task.id}}_edit');if(newtitle){confirmEditTitle({{task.id}}, newtitle);}; seeMore('feature_{{task.id}}_edit', 'feature_{{task.id}}'); return false">
         <input id="feature_{{task.id}}_edit" class="featuretitle invisible" value="{{task.title}}">
         </form>
         <div class="fundingright form_center" style="min-width: 30%;">
-            <div><span class="funded">{{task.allbid_sum|default:0|floatformat:"-2"}} €</span> {% trans "funded" %}</div>
+            
             <div class="progressbar">
                 <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%;">{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%</span>
                 <span id="progresslabel_{{object.id}}" class="progresstitle" ></span>
             </div>
-            <div class="cleared funding_space">
-                <span class="amount">{{task.get_budget|default:0|floatformat:"-2"}} €</span> {% trans "needed" %} -
-                <span class="amount">{{task.missing_bid|floatformat:"-2"}} €</span> {% trans "to go" %}
+            
+            <div class="block_fund_goal">
+                <div class="fundingleft fund">
+                    <span class="displayblock">{% trans "Funded" %}</span>
+                    <span>{{task.allbid_sum|default:0|floatformat:"-2"}} €</span>
+                </div>
+                
+                <div class="goal">
+                    <span class="displayblock">{% trans "Goal" %}</span>
+                    <span class="">{{task.missing_bid|floatformat:"-2"}} €</span>
+                </div>
             </div>
             
             {% if task.state < 4 and task.assignee == user %}
@@ -52,7 +61,11 @@
             {% endif %}
             
             </div>
-            <a class="clickable" onclick="showPopup(document.getElementById('featurebudget_{{task.id}}'))">{{task.bid_set.count}} {% trans "funders" %}</a>
+            
+            <div class="profile_info">
+                <img src="/img/logosmall.png" class="column">
+                <div><p><a class="clickable" onclick="showPopup(document.getElementById('featurebudget_{{task.id}}'))">{{task.bid_set.count}} {% trans "funders" %}</a></p></div>
+            </div>
             
             {% if task|can_manage:user %}
             <div class="cleared funding_space"></div>
@@ -63,9 +76,8 @@
                 </form>
             </div>
             {% endif %}
-            
         </div>
-        
+        <div class="clearedleft"></div>
         {% if task|can_write:user and task.state < 4 %}<span class="editfeature">
             {% if task.state < 2 %}{% trans "Edit" %} <img src="/img/icons/edit.png" alt="{% trans 'edit title' %}" title="{% trans 'edit title' %}" class="clickable" onclick="seeMore('feature_{{task.id}}_edit', 'feature_{{task.id}}')" />{% endif %}
             {% trans "Delete" %} <img src="/img/icons/delete.png" alt="{% trans 'delete feature' %}" title="{% trans 'delete feature' %}" class="clickable" onclick="deleteFeature({{task.id}})" />
@@ -87,14 +99,15 @@
         
         <div class="cleared">
             {% if task|can_manage:user or task.spec_set.count%}
-            <a id="see_more_{{task.id}}" class="clickable see-more" onclick="expandFeature({{task.id}});{% if task|can_write:user and task.state < 4 and task.spec_set.all.count < 1 %}addSpec('{{task.id}}')">{% trans "Add a description" %}{% else %}">{% trans "See more" %}{% endif %}</a>
+            <a id="see_more_{{task.id}}" class="clickable see-more btn_feature fundingleft" onclick="expandFeature({{task.id}});{% if task|can_write:user and task.state < 4 and task.spec_set.all.count < 1 %}addSpec('{{task.id}}')">{% trans "Add a description" %}{% else %}">{% trans "See more" %}{% endif %}</a>
             
-            <a id="see_less_{{task.id}}" class="clickable invisible see-less" onclick="expandFeature({{task.id}})">{% trans "See less" %}</a>
+            <a id="see_less_{{task.id}}" class="clickable see-less btn_feature fundingleft" onclick="expandFeature({{task.id}})">{% trans "See less" %}</a>
             {% endif %}
         </div>
         
     </div>
     <script>
+        hide('see_less_{{task.id}}');
         $(function() {
             $("#featurebudget_{{task.id}}").draggable();
         });
