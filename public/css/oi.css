@@ -417,13 +417,14 @@ img.tabicon {
 .presslide {
     padding: 5px;
     background: white;
+    border-radius: 3px;
 }
 #catcherbg {
     background: #E4E5E5;
 }
 #catcher {
     height: 185px;
-    width: 920px;
+    width: 1080px;
     margin: auto;
     clear: left;
     position: relative;
@@ -452,7 +453,7 @@ img.tabicon {
 }
 .slidermore {
     position: absolute;
-    left: 190px;
+    left: 350px;
     top: 140px;
     background: none repeat scroll 0 0 #D0574C;
     font-size: 1.1em;
@@ -464,7 +465,16 @@ img.tabicon {
     border-radius: 3px;
 }
 .sliderimg {
-    margin-top: 26px;
+    margin-top: 8px;
+}
+.sliderimgcloser{
+    margin-left: 70px;
+}
+.sliderimgcloser3{
+    margin-left: 70px;
+}
+.sliderimgcloser1{
+    margin-left: 130px;
 }
 .indexslide {
     width: 650px;
