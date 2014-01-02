@@ -245,7 +245,7 @@ div.center{
     color: #0595BA;
     text-align: center;
     background: #362a32;
-    float: right;
+/*    float: right;*/
     padding: 0.5em 1em;
     margin: 1%;
 }
@@ -667,7 +667,7 @@ div.morelink {
     margin: -11px 0;
 }
 .op_icon {
-    width: 25%;
+    width: 30%;
     margin: 0 auto;
 }
 .op_icon img{
