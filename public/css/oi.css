@@ -247,7 +247,8 @@ div.center{
     background: #362a32;
 /*    float: right;*/
     padding: 0.5em 1em;
-    margin: 1%;
+    margin-left: 26%;
+    width: 41%;
 }
 .blogtagline {
     font-size: 1.5em;
