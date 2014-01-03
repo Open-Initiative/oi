@@ -465,7 +465,7 @@ img.tabicon {
     border-radius: 3px;
 }
 .sliderimg {
-    margin-top: 8px;
+/*    margin-top: 8px;*/
 }
 .sliderimgcloser{
     margin-left: 70px;
@@ -475,6 +475,9 @@ img.tabicon {
 }
 .sliderimgcloser1{
     margin-left: 130px;
+}
+.sliderimgcloser4{
+    margin-left: -30px;
 }
 .indexslide {
     width: 650px;
@@ -517,7 +520,6 @@ img.tabicon {
 }
 .slider dl {
     margin-bottom: 0;
-    text-transform: uppercase;
     font-weight: bold;
 }
 .slider dd {
