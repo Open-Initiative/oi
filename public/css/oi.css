@@ -249,6 +249,7 @@ div.center{
     padding: 0.5em 1em;
     margin-left: 26%;
     width: 41%;
+    margin-bottom: 10px;
 }
 .blogtagline {
     font-size: 1.5em;
@@ -544,7 +545,7 @@ img.tabicon {
     font-weight: bold;
 }
 .fundinggreen {
-    color: #1E9947;
+    color: #2EAC66;
 }
 .fundinglogo {
     float: left;
@@ -579,7 +580,7 @@ div.popup_spec {
     position: absolute;
     padding: 0% 1% 4% 1%;
     z-index: 1;
-    border-radius: 20px;
+    border-radius: 2px;
     box-shadow: 3px 3px 4px;
     height: 300px;
     right: -90px;
@@ -749,18 +750,11 @@ div.spectypes {
 .logbox{
     background-color: white;
     border: 1px solid #E0E0E0;
-    border-radius: 20px 20px 20px 20px;
+    border-radius: 2px;
     float: left;
     margin-left: 2%;
     padding: 3%;
-    width: 41%;
-}
-.continuebtn{
-    background: none repeat scroll 0 0 #1E9947;
-    border-radius: 3px 3px 3px 3px;
-    color: white;
-    font-weight: bold;
-    padding: 2px;
+/*    width: 41%;*/
 }
 .nobtnstyle{
     background-color: transparent;

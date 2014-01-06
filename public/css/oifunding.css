@@ -11,7 +11,7 @@
     border: 1px solid #0595BA;
 }
 #registerbtn {
-    background: #1E9947;
+    background: #2EAC66;
 }
 #content {
     width: 100%;
@@ -174,7 +174,7 @@ div.prj-block-action {
     vertical-align: -3px;
 }
 .prj-btn_green {
-    background-color: #1E9947;
+    background-color: #2EAC66;
     border-radius: 3px;
     padding: 5px;
     font-size:1.2em; 
@@ -293,7 +293,7 @@ div.prj-action-wait {
 }
 .tasktitle {
     font-size: 2.5em;
-    color: #1E9947;
+    color: #2EAC66;
     font-weight: bold;
     overflow: hidden;
 }
@@ -575,7 +575,7 @@ option.oldrelease{
     padding: 0.4em 0;
 }
 .supportbtn_complete {
-    background: none repeat scroll 0 0 #36A9E1;
+    background: none repeat scroll 0 0 #0094B5;
     border-radius: 4px;
     color: #FFFFFF;
     display: block;
@@ -586,7 +586,7 @@ option.oldrelease{
     text-transform: uppercase;
 }
 .supportbtn {
-    background: none repeat scroll 0 0 #36A9E1;
+    background: none repeat scroll 0 0 #0094B5;
     border-radius: 2px;
     color: white;
     display: block;
@@ -598,7 +598,7 @@ option.oldrelease{
     width: 70%;
 }
 .bidaction {
-    background: #1E9947;
+    background: #2EAC66;
     color: white;
     font-weight: bold;
     padding: 5px;
@@ -754,7 +754,7 @@ div.specfooter {
     float: right;
     text-align: right;
     background: #D7E7F0;
-    color: #1E9947;
+    color: #2EAC66;
     padding: 3px;
 }
 div.sepspecfooter {
@@ -788,7 +788,7 @@ div.sepspecfooter {
 }
 .progress {
     float:left;
-    background:#36A9E1;
+    background:#0094B5;
     color: #D0574C;
     font-weight: bold;
     text-align: center;
@@ -899,8 +899,8 @@ div.sepspecfooter {
     font-size: 20px;
 }
 .continuebtn {
-    background: #1E9947;
-    border-radius: 3px;
+    background: #0595BA;
+    border-radius: 2px;
     color: white;
     font-weight: bold;
     padding: 2px;
@@ -927,7 +927,7 @@ div.sepspecfooter {
     width: 80px;
 }
 .progresstiny {
-    background: #1E9947;
+    background: #2EAC66;
     color: white;
     float: left;
     font-weight: bold;
@@ -1063,6 +1063,10 @@ div.sepspecfooter {
     font-weight: bold;
     padding: 1%;
 }
+.btn_feature:hover {
+    color: #004f44;
+    text-decoration: none;
+}
 .displayblock{
     display: block;
 }
@@ -1071,7 +1075,7 @@ div.sepspecfooter {
     text-align: start;
 }
 .goal{
-    color: #1E9947;
+    color: #2EAC66;
     text-align: end;
 }
 .block_fund_goal {
@@ -1083,7 +1087,7 @@ div.sepspecfooter {
 }
 .submit_feature{
     background: #F6F6F6;
-    border-radius: 2px 2px 2px 2px;
+    border-radius: 2px;
     padding: 1%;
 }
 .header_close{
@@ -1109,4 +1113,11 @@ div.sepspecfooter {
     left: 3%;
     padding-top: 2%;
     position: relative;
+}
+.log_style{
+    color: #0595BA;
+    padding-bottom: 2%;
+}
+.log_separate{
+    padding-bottom: 4%;
 }

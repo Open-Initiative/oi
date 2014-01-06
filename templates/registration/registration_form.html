@@ -17,46 +17,50 @@
     {% endif %}
     <form action="{% url registration.views.register %}" method="POST" accept-charset="utf-8">
         {% csrf_token %}
-        <table>
+        <table class="log_style">
             {{ form.as_table }}
         </table>
+        <img style="margin-top: 27px;" class="fundingright" src="/img/tete0.png">
         <p>
-            {% trans "You acknowledge having read and accepted" %} <a href="/cgu">{% trans "the terms and conditions" %}</a> {% trans "by registering." %} 
+            {% trans "You acknowledge having read and accepted" %} <br/> <a href="/cgu">{% trans "the terms and conditions" %}</a> {% trans "by registering." %} 
         </p>
-        <p class="continuebtn fundingright clickable" style="padding:1.5%"><input class="nobtnstyle" type="submit" value="{% trans 'Register' %}"></p>
+        <p class="continuebtn fundingleft clickable no_p_style" style="padding:1.5%"><input class="nobtnstyle" type="submit" value="{% trans 'Register' %}"></p>
     </form>
 </div>
 
 <div class="logbox">
-    <div style="font-size: 2em;margin-bottom: 8%;" class="fundinggreen form_center fundingtitle">{% trans "LOG-IN" %}</div>
+    <div style="font-size: 2em;" class="fundinggreen form_center fundingtitle">{% trans "LOG-IN" %}</div>
     <br/>
     <form method="post" action="{% url django.contrib.auth.views.login %}">{% csrf_token %}
         <table>
             <tr>
-                <td>
-                    <b>{% trans "username" %}:</b>
+                <td class="log_style">
+                    <b>{% trans "Username" %}:</b>
                 </td>
-                <td>
+            </tr>
+            <tr>
+                <td class="log_separate">
                     <input id="username_field" type="text" name="username" tabindex=3/>
                 </td>
             </tr>
             <tr>
-                <td>
-                    <b>{% trans "password" %}:</b>
-                </td>
-                <td>
-                    <input type="password" name="password" id="id_password" tabindex=4/>
+                <td class="log_style">
+                    <b>{% trans "Password" %}:</b>
                 </td>
             </tr>
             <tr>
+                <td class="log_separate">
+                    <input type="password" name="password" id="id_password" tabindex=4/>
+                </td>
             </tr>
         </table>
-        <p>
+        <p class="no_p_style">
             <input type="hidden" name="next" value="{{request.GET.next}}" />
-            <a href="/user/resetpassword" class="forgotpwd">{% trans "Forgot your password?" %}</a>
+            <a href="/user/resetpassword" class="forgotpwd subtitle"><b>{% trans "Forgot your password?" %}</b></a>
         </p>
         <br/>
-        <p class="continuebtn clickable fundingright" style="padding:1.5%"><input class="nobtnstyle" type="submit" value="{% trans 'Log in' %}"></p>
+        <img class="fundingright" src="/img/tete0.png">
+        <p class="continuebtn clickable fundingleft no_p_style" style="padding:1.5%"><input class="nobtnstyle" type="submit" value="{% trans 'Log in' %}"></p>
         <div class="cleared"></div>
     </form>
 </div>
