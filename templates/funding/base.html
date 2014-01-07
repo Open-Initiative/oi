@@ -88,8 +88,9 @@
                 {%else%}
                 <a href="/presentation"><span class="clickable headernews">{% trans "To Learn more" %}</span></a>
                 <span class="clickable headernews" onclick="submitProject()">{% trans "Submit a project" %}</span>
-                <div class="clickable fundingleft headerbtn btnlogin">{% trans "Login" %}</div>
-                <a href="/user/accounts/register/"><div class="clickable fundingleft headerbtn btnregister">{% trans "Register" %}</div></a>
+                <div class="clickable fundingleft headerbtn btnlogin" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'" onclick="showPopup(document.getElementById('popup_register'));">{% trans "Login" %}</div>
+                <div id="popup_register" class="invisible popup_form_register" onclick="document.ignoreClosePopups = true;" > {% include 'registration/register_block.html' %} </div>
+                <a href="/user/accounts/register/"><div class="clickable fundingleft headerbtn btnregister" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#FFFFFF'">{% trans "Register" %}</div></a>
                 <div class="cleared"></div>
                 {%endif%}
             </div>
