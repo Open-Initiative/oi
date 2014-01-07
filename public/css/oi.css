@@ -104,7 +104,7 @@ div.center{
     margin-top:5px
 }
 #logo {
-    width:200px;
+    width:160px;
     padding-top: 5px;
     float:left
 }
@@ -467,7 +467,7 @@ img.tabicon {
     border-radius: 3px;
 }
 .sliderimg {
-/*    margin-top: 8px;*/
+    margin-top: 2px;
 }
 .sliderimgcloser{
     margin-left: 70px;
@@ -480,6 +480,7 @@ img.tabicon {
 }
 .sliderimgcloser4{
     margin-left: -30px;
+    margin-top: 0px;
 }
 .indexslide {
     width: 650px;
