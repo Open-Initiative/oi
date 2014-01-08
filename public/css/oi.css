@@ -426,7 +426,7 @@ img.tabicon {
     background-image: url('/img/sliderbg.png');
 }
 #catcher {
-    height: 185px;
+    height: 200px;
     width: 1080px;
     margin: auto;
     clear: left;
@@ -497,8 +497,8 @@ img.tabicon {
 }
 .slidericons {
     position: absolute;
-    top: 150px;
-    left: 660px;
+    top: 160px;
+    left: 1000px;
 }
 .slidericon {
     float: left;
