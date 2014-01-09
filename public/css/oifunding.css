@@ -1007,7 +1007,7 @@ div.sepspecfooter {
     width: 40%;
 }
 .reward_bottom_line{
-    border: 1px solid #D3CFCF;
+    border-top: 2px dotted #D3CFCF;
     margin-top: 10px;
 }
 .details_task{
@@ -1319,9 +1319,10 @@ div.popup_spec {
 .column_right_dotted{
     border-top: dotted 2px;
     border-color: #E0E0E0;
-    margin-bottom: 10px 0;
+    margin: 5px 0;
 }
 .corner_developpeur{
     font-weight: bold;
-    margin: 1em 0 0.2em;
+    margin-bottom: 7px;
+    margin-top: 14px;
 }
