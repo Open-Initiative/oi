@@ -75,7 +75,7 @@
     <div class="presslide invisible" id="31">
         <h2>{% trans "Get involved" %}</h2>
         {% trans "You can start today improving free software with us!" %}
-        <div class="cleared actions clickable actionbutton" onclick="$('#prjlist0').fadeToggle(); $('#promoted_project').fadeToggle(); $('#prjlist3').fadeToggle(); $('#oi_last_project').fadeToggle()">
+        <div class="cleared actions clickable actionbutton noright" onclick="$('#prjlist0').fadeToggle(); $('#promoted_project').fadeToggle(); $('#prjlist3').fadeToggle(); $('#oi_last_project').fadeToggle()">
             <div>{% trans "submit" %}</div>
             {% trans "your project" %}
             <input id="appname" type="hidden" value="funding" />
@@ -88,6 +88,7 @@
                 <input type="image" src="/img/icons/ok-32.png" />
             </form>
         </div>
+        <div class="cleared"></div>
     </div>
     <script>
         $(document).ready(function(){
