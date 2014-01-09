@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load oifilters %}
 <div class="prjcard">
-    <a href="/funding/{{project.id}}"><div class="prjtitle">{{project.title}}</div></a>
+    <a href="/funding/{{project.id}}"><div class="prjtitle funding_space">{{project.title}}</div></a>
     <div class="prjcardauthor">
         {% trans "Project created by" %}
         <a href="/user/profile/{{project.author.username}}">{{project.author.get_profile}}</a>

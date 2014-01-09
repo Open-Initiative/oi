@@ -19,12 +19,13 @@
                     {%include 'funding/spec/spec.html'%}
                 </div>
                 {% endwith %}
-                <div class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">
-                    {{object.title}}
-                </div>
                 <div class="prj-block-fav">
                     <img onclick="favProject(174)" src="/img/icons/starTrueFunding.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_174" />
                     {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
+                </div>
+                <div class="cleared"></div>
+                <div class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">
+                    {{object.title}}
                 </div>
             </div>
             <div class="cleared"></div>
