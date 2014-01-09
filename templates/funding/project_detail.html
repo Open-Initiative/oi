@@ -154,7 +154,7 @@
 
 {% with object as project %}
 
-<div style="float: right;width: 29%;">
+<div style="float: right;width: 26%;">
     <div>
     {% if object|can_write:user %}
         <a href="edit"><div class="bidaction funding_space">{% trans "Edit your project" %}</div></a>
@@ -189,7 +189,7 @@
     {% endif %}
     </div>
     
-    <div class="myprofile column-right project" style="margin-bottom: 10px;overflow: hidden;">
+    <div class="myprofile column-right project column_right_padding" style="margin-bottom: 10px;overflow: hidden;">
 <!--        <div class="clickable featuretitle funding_space">{% trans "Finance software" %}</div>-->
         {% with project.descendants|filter_read:user as descendants %}
         <div>
@@ -239,7 +239,7 @@
     <div class="cleared"></div>
     
     <div class="myprofile" style="margin-bottom: 10px;">
-        <div class="column-right">
+        <div class="column-right column_right_padding">
             <div class="funding_space">{% trans "Project created by" %} <b><a class="oigreen" href="/user/profile/{{project.author.username}}">{{project.author.get_profile}}</a></b></div>
             
             <div class="column profile_column">
@@ -263,7 +263,7 @@
     
         {% if object.exist_rewards or object|can_manage:user %}
         <div class="myprofile" style="margin-bottom: 10px;">
-            <div class="column-right">
+            <div class="column-right column_right_padding">
                 <h3 class="oigreen">{% trans "Reward" %}</h3>
                 {% if object|can_manage:user %}<h4><a class="subtitle clickable" class="clickable" onclick="showPopup(document.getElementById('newreward'));">{% trans "Add a reward" %} <img src="/img/icons/addgreen.png" title="{% trans 'Add a reward' %}" alt="{% trans 'Add a reward' %}"></a></h4>{% endif %}
                 
@@ -308,7 +308,7 @@
         {% endif %}
         
         {% if project.spec_set.all|filter_order:5 or project.spec_set.all|filter_order:6 or object|can_manage:user %}
-        <div class="column-right myprofile">
+        <div class="column-right myprofile column_right_padding">
             <h3 class="oigreen">{% trans "Developer's corner" %}</h3>
             
             {% if project.spec_set.all|filter_order:5 or object|can_manage:user %}

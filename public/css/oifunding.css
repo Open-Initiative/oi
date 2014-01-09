@@ -536,7 +536,7 @@ option.oldrelease{
 }
 .prjbody {
     float: left;
-    width: 70%;
+    width: 72%;
 }
 .features {
     max-width: 275px;
@@ -1151,6 +1151,9 @@ div.sepspecfooter {
 }
 .dotted{
     margin-bottom: 10px;
+}
+.column_right_padding{
+    padding: 5%;
 }
 /*à arranger*/
 
