@@ -1214,12 +1214,13 @@ body {
 }
 #catcher {
     width: 1080px;
+    height: 220px;
 }
 .slider {
     float: right;
 }
 .sliderimg {
-    margin-top: 3px;
+    margin-top: 20px;
 }
 .sliderimgcloser{
     margin-left: 70px;
@@ -1235,7 +1236,9 @@ body {
     margin-top: 0px;
 }
 .slidericons {
-    left: 660px;
+    left: 1000px;
+    position: absolute;
+    top: 160px;
 }
 .slidericon {
     border:2px solid;
