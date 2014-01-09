@@ -652,20 +652,36 @@ div.morelink {
     font-weight: bold;
 }
 
-.rootdesc {
-    background-color: white;
+.rootfundingspace {
+    margin: .5em 0;
+}
+.rootfunding {
+    background-color: #FFFFFF;
     border: 1px solid #E3E3E5;
-    float: left;
-    font-size: 160%;
-    margin: 4% 2% 2% 2%;
-    padding: 0.8em;
-    text-align: center;
-    width: 25%;
-    height: 12em;
     border-radius: 5px;
+    font-size: 160%;
+    margin: auto;
+    padding: 3%;
+    text-align: center;
+    width: 50%;
+}
+.rootdesc {
+    background-color: #FFFFFF;
+    border: 1px solid #E3E3E5;
+    border-radius: 5px;
+    float: left;
+    margin: 3%;
+    padding: 1%;
+    text-align: center;
+    width: 20%;
+    height: 8em;
+}
+.rootlogofunding {
+    margin-bottom: 1.5em;
+    width: 200px;
 }
 .rootlogo {
-    margin-bottom: 1.5em;
+    width: 100px;
 }
 #rootcatcher {
     height: 160px;
