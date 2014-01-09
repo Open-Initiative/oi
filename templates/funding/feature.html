@@ -27,7 +27,7 @@
                 <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%;">{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%</span>
                 <span id="progresslabel_{{object.id}}" class="progresstitle" ></span>
             </div>
-            
+            <div class="cleared"></div>
             <div class="block_fund_goal">
                 <div class="fundingleft fund">
                     <span class="displayblock">{% trans "Funded" %}</span>
@@ -52,7 +52,7 @@
             {% include 'funding/project_actions.html' %}
             <div class="featurebtns">
             {% if task.state < 4 and task|can_bid:user or not user.is_authenticated %}
-                <span class="supportbtn clickable" onclick="showPopup(document.getElementById('bidpopup_{{task.id}}')); ">{% trans "Support" %}</span>
+                <span class="supportbtn clickable" onclick="showPopup(document.getElementById('bidpopup_{{task.id}}')); ">{% trans "Order the feature" %}</span>
             {% endif %}
             <br/>
             
