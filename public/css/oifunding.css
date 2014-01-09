@@ -3,7 +3,8 @@
 }
 .slidertip {
     color: #767676;
-    font-size: 0.8em;
+    font-size: 16px;
+    width: 550px;
 }
 .slidermore {
     background: #CCE4F3;
@@ -1133,7 +1134,10 @@ div.sepspecfooter {
     border-radius: 2px;
     box-shadow: 3px 3px 4px;
 }
-
+.flag_authenticated{
+    position: relative;
+    right: 15%
+}
 /*à arranger*/
 
 body {
@@ -1256,6 +1260,7 @@ body {
     margin-bottom: 3%;
     color: white;
     text-align: start;
+    padding-left: 15%;
 }
 div.popup_spec {
     border-radius: 3px;

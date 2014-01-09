@@ -1,32 +1,5 @@
 {% load i18n %}
 
-{% if form %}
-<div class="logbox">
-    <div style="font-size: 2em" class="fundinggreen form_center fundingtitle">{% trans "REGISTER" %}</div>
-    <br/>
-    {% if form.errors %}
-    <div class="ui-widget">
-        <div style="padding: 0pt 0.7em;" class="ui-state-error ui-corner-all">
-            <p><span style="float: left; margin-right: 0.3em;" class="ui-icon ui-icon-alert"></span>
-            {% trans "Please fix errors in registration form." %}
-            </p>
-        </div>
-    </div>
-    {% endif %}
-    <form action="{% url registration.views.register %}" method="POST" accept-charset="utf-8">
-        {% csrf_token %}
-        <table class="log_style">
-            {{ form.as_table }}
-        </table>
-        <img style="margin-top: 27px;" class="fundingright" src="/img/tete0.png">
-        <p>
-            {% trans "You acknowledge having read and accepted" %} <br/> <a href="/cgu">{% trans "the terms and conditions" %}</a> {% trans "by registering." %} 
-        </p>
-        <p class="continuebtn fundingleft clickable no_p_style" style="padding:1.5%"><input class="nobtnstyle" type="submit" value="{% trans 'Register' %}"></p>
-    </form>
-</div>
-{% endif %}
-
 <div class="logbox">
     <div style="font-size: 2em;" class="fundinggreen form_center fundingtitle">{% trans "LOG-IN" %}</div>
     <br/>
@@ -54,7 +27,7 @@
             </tr>
         </table>
         <p class="no_p_style">
-            <input type="hidden" name="next" value="{{request.get_full_path}}" />
+            <input type="hidden" name="next" value="{{next}}" />
             <a href="/user/resetpassword" class="forgotpwd subtitle"><b>{% trans "Forgot your password?" %}</b></a>
         </p>
         <br/>
