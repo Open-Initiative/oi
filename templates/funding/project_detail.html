@@ -202,7 +202,7 @@
             <div class="block_fund_goal">
                 <div class="fundingleft fund">
                     <span class="displayblock">{% trans "Funded" %}</span>
-                    <span>{{task.allbid_sum|default:0|floatformat:"-2"}} €</span>
+                    <span>{{project.allbid_sum|default:0|floatformat:"-2"}} €</span>
                 </div>
                 
                 <div class="goal">
@@ -255,7 +255,7 @@
             <div>
                 {% if project.author.get_profile.bio %}<div>{% autoescape off %}{% if project.author.get_profile.bio|length > 300 %} {{project.author.get_profile.bio|oiunescape|slice:":300"}}...{% else %}{{project.author.get_profile.bio|oiunescape}}{% endif %}{% endautoescape %}</div>{% endif %}
             </div>
-            {% if project.author.get_profile.personal_website %}<div><a href="{{project.author.get_profile.personal_website}}" target="_blank">{{project.author.get_profile.personal_website}}</a></div>{% endif %}
+            {% if project.author.get_profile.personal_website %}<div class="funding_space"><a href="{{project.author.get_profile.personal_website}}" target="_blank">{{project.author.get_profile.personal_website}}</a></div>{% endif %}
             <div class="cleared"></div>
             <a class="fundingright displayblock btn_feature oigreen" href="/user/profile/{{project.author.username}}">{% trans "Full bio" %}</a>
             <div class="cleared"></div>
@@ -309,44 +309,46 @@
         {% endif %}
         
         {% if project.spec_set.all|filter_order:5 or project.spec_set.all|filter_order:6 or object|can_manage:user %}
-        <div class="column-right myprofile column_right_padding">
-            <h3 class="oigreen">{% trans "Developer's corner" %}</h3>
-            
-            {% if project.spec_set.all|filter_order:5 or object|can_manage:user %}
-            <h4 class="subtitle">{% trans "Deposit" %}</h4>
-            {% with spec=project.spec_set.all|filter_order:5 order=5 divid='deposit' %}{%include 'funding/project_detail_column_right.html'%}{% endwith %}
-            {% endif %}
-            
-            {% if project.spec_set.all|filter_order:6 or object|can_manage:user %}
-            <h4 class="subtitle">{% trans "Licence" %}</h4>
-            {% with spec=project.spec_set.all|filter_order:6 order=6 divid='licence' spec_divid='spec__6_content' %}
-            <a id="{{spec_divid}}" target="_blank" {% if spec.url %}href="{{spec.url}}"{% endif %}>{% if spec.text %}{{spec.text|oiunescape}}{% else %}{% trans "Unspecified" %}{% endif %}</a> 
-            {% if object|can_manage:user %}<img class="clickable fundingright" title="{% trans 'Indicate the license used to distribute software' %}" alt="{% trans 'Indicate the license used to distribute software' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('licencedescription_{{spec.id}}'))"/>{% endif %}
+        <div class="myprofile">
+            <div class="column-right column_right_padding">
+                <h3 class="oigreen">{% trans "Developer's corner" %}</h3>
                 
-            <div class="popup_corner invisible" id="licencedescription_{{spec.id}}" onclick="document.ignoreClosePopups = true;">
+                {% if project.spec_set.all|filter_order:5 or object|can_manage:user %}
+                <h4 class="subtitle">{% trans "Deposit" %}</h4>
+                {% with spec=project.spec_set.all|filter_order:5 order=5 divid='deposit' %}{%include 'funding/project_detail_column_right.html'%}{% endwith %}
+                {% endif %}
                 
-                <div class="cleared"></div>
-                
-                <input name="spectype" id="type_{{spec_divid}}" value="3" type="hidden"/>
-                <input name="specid" id="specid_{{spec_divid}}" value="{{spec.id|default:0}}" type="hidden"/>
-                <input name="projectid" id="projectid_{{spec_divid}}" value="{{project.id}}" type="hidden"/>
-                <input name="specorder" id="specorder_{{spec_divid}}" value="{{order}}" type="hidden"/>
-                
-                <form onsubmit="saveSpec('{{spec_divid}}',{{project.id}},getValue('specorder_{{spec_divid}}'),{{spec.id|default:0}});hidePopups(); return false">
-                    <span class="rewardtitle">{% trans "Indicate the license used to distribute software" %}</span>
-                    <input id="text_{{spec_divid}}" type="text" value="{{spec.text|oiunescape}}">
-                    <div class="cleared"></div><br/>
-                    <span class="rewardtitle">{% trans "Url licence repository" %}</span><br/>
-                    <input id="url_{{spec_divid}}" type="text" value="{{spec.url|default:"http://"}}">
+                {% if project.spec_set.all|filter_order:6 or object|can_manage:user %}
+                <h4 class="subtitle">{% trans "Licence" %}</h4>
+                {% with spec=project.spec_set.all|filter_order:6 order=6 divid='licence' spec_divid='spec__6_content' %}
+                <a id="{{spec_divid}}" target="_blank" {% if spec.url %}href="{{spec.url}}"{% endif %}>{% if spec.text %}{{spec.text|oiunescape}}{% else %}{% trans "Unspecified" %}{% endif %}</a> 
+                {% if object|can_manage:user %}<img class="clickable fundingright" title="{% trans 'Indicate the license used to distribute software' %}" alt="{% trans 'Indicate the license used to distribute software' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('licencedescription_{{spec.id}}'))"/>{% endif %}
+                    
+                <div class="popup_corner invisible" id="licencedescription_{{spec.id}}" onclick="document.ignoreClosePopups = true;">
+                    
                     <div class="cleared"></div>
-                <input id="divid_{{spec_divid}}" name="divid" type="hidden" value="{{spec_divid}}" />
-                <input alt="{% trans 'Save the description' %}" title="{% trans 'Save the description' %}" class="fundingright" type="image" src="/img/icons/ok-32.png">
-                </form>
-                
+                    
+                    <input name="spectype" id="type_{{spec_divid}}" value="3" type="hidden"/>
+                    <input name="specid" id="specid_{{spec_divid}}" value="{{spec.id|default:0}}" type="hidden"/>
+                    <input name="projectid" id="projectid_{{spec_divid}}" value="{{project.id}}" type="hidden"/>
+                    <input name="specorder" id="specorder_{{spec_divid}}" value="{{order}}" type="hidden"/>
+                    
+                    <form onsubmit="saveSpec('{{spec_divid}}',{{project.id}},getValue('specorder_{{spec_divid}}'),{{spec.id|default:0}});hidePopups(); return false">
+                        <span class="rewardtitle">{% trans "Indicate the license used to distribute software" %}</span>
+                        <input id="text_{{spec_divid}}" type="text" value="{{spec.text|oiunescape}}">
+                        <div class="cleared"></div><br/>
+                        <span class="rewardtitle">{% trans "Url licence repository" %}</span><br/>
+                        <input id="url_{{spec_divid}}" type="text" value="{{spec.url|default:"http://"}}">
+                        <div class="cleared"></div>
+                    <input id="divid_{{spec_divid}}" name="divid" type="hidden" value="{{spec_divid}}" />
+                    <input alt="{% trans 'Save the description' %}" title="{% trans 'Save the description' %}" class="fundingright" type="image" src="/img/icons/ok-32.png">
+                    </form>
+                    
+                </div>
+                {% endwith %}
+                {% endif %}
+                <div class="cleared"></div>
             </div>
-            {% endwith %}
-            {% endif %}
-            <div class="cleared"></div>
         </div>  
         {% endif %} 
     
