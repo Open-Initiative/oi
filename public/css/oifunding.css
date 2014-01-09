@@ -350,7 +350,10 @@ div.cardspec {
 }
 .fundingprogress {
     position: absolute;
-    top: 335px;
+    top: 320px;
+    border-top: medium dotted;
+    width: 80%;
+    padding-top: 10px;
 }
 .featureblock {
     padding: 10px;
@@ -1145,6 +1148,9 @@ div.sepspecfooter {
 .flag_authenticated{
     position: relative;
     right: 15%
+}
+.dotted{
+    margin-bottom: 10px;
 }
 /*à arranger*/
 

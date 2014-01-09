@@ -13,14 +13,14 @@
     {% endwith %}
     {% with project.descendants|filter_read:user as descendants %}
     <div class="fundingprogress">
-        {{descendants.allbid_sum|add:project.bid_sum|floatformat:"-2"}} € {% trans "funded out of" %}
-        {{project.get_selfbudget|default:descendants.allbudget|floatformat:"-2"}} €
-        <div class="progressbar">
+        <div class="progressbar dotted">
             <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio descendants.allbid_sum|add:project.bid_sum project.get_selfbudget|default:descendants.allbudget 100 %}%;"></span>
             <span id="progresslabel_{{object.id}}" class="progresstitle" >{% widthratio descendants.allbid_sum|add:project.bid_sum project.get_selfbudget|default:descendants.allbudget 100 %} %</span>
         </div>
+        <div class="cleared"></div>
+        {{descendants.allbid_sum|add:project.bid_sum|floatformat:"-2"}} € {% trans "funded out of" %}
+        {{project.get_selfbudget|default:descendants.allbudget|floatformat:"-2"}} €
     </div>
     {% endwith %}
-    <a href="/funding/{{project.id}}"><img class="prjcardlink" src="/img/icons/next.png" /></a>
 </div>
 
