@@ -224,7 +224,7 @@
             
             <div class="featurebtns of_close">
             {% if project.state < 4 and project|can_bid:user or not user.is_authenticated %}
-                <span class="supportbtn clickable fundingleft" onclick="showPopup(document.getElementById('bidpopup_{{project.id}}')); ">{% trans "Back the project" %}</span>
+                <span class="supportbtn clickable fundingleft backtoproject" onclick="showPopup(document.getElementById('bidpopup_{{project.id}}')); ">{% trans "Back the project" %}</span>
             {% endif %}
             <div class="cleared"></div>
             </div>
@@ -312,14 +312,17 @@
         <div class="myprofile">
             <div class="column-right column_right_padding">
                 <h3 class="oigreen">{% trans "Developer's corner" %}</h3>
-                
                 {% if project.spec_set.all|filter_order:5 or object|can_manage:user %}
-                <h4 class="subtitle">{% trans "Deposit" %}</h4>
+                <div class="column_right_dotted cleared"></div>
+                <span class="corner_developpeur">{% trans "Deposit" %}</span>
+                <br/><br/>
                 {% with spec=project.spec_set.all|filter_order:5 order=5 divid='deposit' %}{%include 'funding/project_detail_column_right.html'%}{% endwith %}
                 {% endif %}
                 
                 {% if project.spec_set.all|filter_order:6 or object|can_manage:user %}
-                <h4 class="subtitle">{% trans "Licence" %}</h4>
+                <div class="column_right_dotted cleared"></div>
+                <span class="corner_developpeur">{% trans "Licence" %}</span>
+                <br/><br/>
                 {% with spec=project.spec_set.all|filter_order:6 order=6 divid='licence' spec_divid='spec__6_content' %}
                 <a id="{{spec_divid}}" target="_blank" {% if spec.url %}href="{{spec.url}}"{% endif %}>{% if spec.text %}{{spec.text|oiunescape}}{% else %}{% trans "Unspecified" %}{% endif %}</a> 
                 {% if object|can_manage:user %}<img class="clickable fundingright" title="{% trans 'Indicate the license used to distribute software' %}" alt="{% trans 'Indicate the license used to distribute software' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('licencedescription_{{spec.id}}'))"/>{% endif %}

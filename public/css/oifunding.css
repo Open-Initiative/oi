@@ -1313,7 +1313,15 @@ div.popup_spec {
 .blur{
     background-color: #E3E3E3;
 }
-/*.backtoproject{*/
-/*    font-size: 19px;*/
-/*    width: auto;*/
-/*}*/
+.backtoproject{
+     width: 150%;
+}
+.column_right_dotted{
+    border-top: dotted 2px;
+    border-color: #E0E0E0;
+    margin-bottom: 10px 0;
+}
+.corner_developpeur{
+    font-weight: bold;
+    margin: 1em 0 0.2em;
+}

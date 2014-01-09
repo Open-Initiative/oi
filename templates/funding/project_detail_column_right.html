@@ -1,5 +1,5 @@
 {% load oifilters %}{% load i18n %}
-<p><a id="{{divid}}" {% if spec.url %}href="{{spec.url}}"{% endif %} Target= "_blank">{% if spec.url %}{{spec.url}}{% else %}{% trans "No link given" %}{% endif %}</a> {% if object|can_manage:user %}<img class="clickable fundingright" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('corner_{{divid}}'))">{% endif %}</p>
+<a id="{{divid}}" {% if spec.url %}href="{{spec.url}}"{% endif %} Target= "_blank">{% if spec.url %}{{spec.url}}{% else %}{% trans "No link given" %}{% endif %}</a> {% if object|can_manage:user %}<img class="clickable fundingright" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('corner_{{divid}}'))">{% endif %}
 <div id="corner_{{divid}}" class="invisible popup_corner" onclick="document.ignoreClosePopups = true;">
     <input name="spectype" id="type_{{divid}}" value="3" type="hidden"/>
     <input name="specid" id="specid_{{divid}}" value="{{spec.id|default:0}}" type="hidden"/>
