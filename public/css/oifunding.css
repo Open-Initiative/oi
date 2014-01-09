@@ -9,6 +9,7 @@
     background: #CCE4F3;
     color: #0595BA;
     border: 1px solid #0595BA;
+    left: 350px;
 }
 #registerbtn {
     background: #2EAC66;
@@ -1132,3 +1133,155 @@ div.sepspecfooter {
     border-radius: 2px;
     box-shadow: 3px 3px 4px;
 }
+
+/*à arranger*/
+
+body {
+    color: #6F6F6E;
+    background: #E3E3E3;
+}
+#footer {
+    background: white;
+}
+#toptext {
+    background: none;
+    text-transform: none;
+}
+#toptext a {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+#header {
+    height: 70px;
+}
+#logo {
+    width:160px;
+}
+#userheader {
+    position: relative;
+    top: 40px;
+    float: none;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+.headernews{
+    color: #8F9595;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    padding-right: 20px;
+}
+.headerbtn{
+    bottom: 5px;
+    border: 1px solid #0595BA;
+    border-radius: 3px;
+    padding: 5px 12px;
+    position: relative;
+    margin-right: 20px;
+    font-weight: bold;
+}
+.btnlogin{
+    color: #0595BA;
+    background-color: #CCE4F3;
+}
+.btnregister{
+    color: white;
+    background-color: #0595BA;
+}
+.toplink{
+    border-right: 1px solid #8C9B99;
+    color: currentColor;
+}
+.blogtag {
+    float: none;
+    margin-left: 26%;
+    width: 41%;
+    margin-bottom: 10px;
+}
+.presslide {
+    padding: 5px;
+    background: white;
+    border-radius: 3px;
+}
+#catcherbg {
+    background: #E4E5E5;
+    background-image: url('/img/sliderbg.png');
+}
+#catcher {
+    width: 1080px;
+}
+.slider {
+    float: right;
+}
+.sliderimg {
+    margin-top: 3px;
+}
+.sliderimgcloser{
+    margin-left: 70px;
+}
+.sliderimgcloser3{
+    margin-left: 70px;
+}
+.sliderimgcloser1{
+    margin-left: 130px;
+}
+.sliderimgcloser4{
+    margin-left: -30px;
+    margin-top: 0px;
+}
+.slidericons {
+    left: 660px;
+}
+.slidericon {
+    border:2px solid;
+    color: #D3CFCF;
+    background-color: white;
+}
+.slidericonselected {
+    background: #0595BA;
+}
+.slider dl {
+    text-transform: none;
+}
+.slider dd {
+    font-size: 1.4em;
+    margin: 0 0 4%;
+}
+.fundingdesc {
+    font-size: 22px;
+    height: 68px;
+    margin: 0;
+    background-color: #0595BA;
+    margin-bottom: 3%;
+    color: white;
+    text-align: start;
+}
+div.popup_spec {
+    border-radius: 3px;
+}
+.actionbutton {
+    background-color: #E3E3E3;
+    background-image: none;  
+    border-radius: 3px;
+    color: #0595BA;
+    font-size: 15px;
+    padding: 5px 12px;
+    position: relative;
+    right: 200px;
+}
+.actionbutton div {
+    font-size: 15px;
+    margin-bottom: 0;
+}
+.op_icon {
+    width: 30%;
+}
+.logbox{
+    border-radius: 2px;
+    width: auto;
+}
+.blur{
+    background-color: #E3E3E3;
+}
+

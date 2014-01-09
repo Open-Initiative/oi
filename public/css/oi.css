@@ -20,8 +20,8 @@ body {
     margin:0;
     font-family: "ProximaNova",Verdana,Arial,Helvetica,sans-serif;
     font-size: 14px;
-    color: #6F6F6E;
-    background: #E3E3E3;
+    color: #475E6C;
+    background: #F9F9F9;
 }
 .pagebody {
     background: white;
@@ -34,7 +34,7 @@ img {
 h1, h2, h3, h4 {
     font-family: "ProximaNova", Helvetica, sans-serif;
     font-weight: bold;
-    color: #0595BA;
+    color: #0094B5;
     text-transform: uppercase;
 }
 h5, h6 {
@@ -45,7 +45,7 @@ h5, h6 {
 }
 a {
     text-decoration: None;
-    color: #0595BA;
+    color: #0094B5;
 }
 a:hover {
     text-decoration: underline;
@@ -65,24 +65,25 @@ div.center{
 }
 #footer {
     clear: left;
-    background: white;
+    background: #dce8ea;
     text-align: center;
     font-size: .9em;
     margin-top: 20px;
     padding: 10px;
 }
 #toptext {
+    background: #0094B5;
     height:20px;
+    border-radius: 5px;
     margin:auto;
     float:right;
     padding: 0 10px;
+    text-transform: uppercase;
     margin: 2px;
 }
 #toptext a {
     margin: 2px;
     padding-right: 8px;
-    padding-left: 10px;
-    padding-right: 10px;
 }
 #toptext a:not(:last-child){
     border-right: solid white 1px;
@@ -94,7 +95,7 @@ div.center{
     vertical-align: -2px;
 }
 #header {
-    height: 70px;
+    height: 78px;
     padding: 10px 0;
     background: white;
     box-shadow: 0 1px 2px #C6C7C8;
@@ -104,7 +105,7 @@ div.center{
     margin-top:5px
 }
 #logo {
-    width:160px;
+    width:200px;
     padding-top: 5px;
     float:left
 }
@@ -116,7 +117,7 @@ div.center{
 }
 #baseline {
     width: 160px;
-    color: #0595BA;
+    color: #0094B5;
     text-transform: uppercase;
     font-family: "CCRA";
     font-size:13px;
@@ -140,35 +141,16 @@ div.center{
     top:1px;
 }
 #userheader {
-    position: relative;
-    top: 40px;
-}
-.headernews{
-    color: #8F9595;
-    float: left;
-    font-size: 14px;
-    font-weight: bold;
-    padding-right: 20px;
-}
-.headerbtn{
-    bottom: 5px;
-    border: 1px solid #0595BA;
-    border-radius: 3px;
-    padding: 5px 12px;
-    position: relative;
-    margin-right: 20px;
-    font-weight: bold;
-}
-.btnlogin{
-    color: #0595BA;
-    background-color: #CCE4F3;
-}
-.btnregister{
-    color: white;
-    background-color: #0595BA;
+    border-left: 1px solid #0094B5;
+    color: #0094B5;
+    float: right;
+    height: 68px;
+    margin-top: 3px;
+    padding-left: 0.5em;
+    padding-top: 1px;
 }
 .usertitle {
-    color: #0595BA;
+    color: #0094B5;
     text-transform: uppercase;
     font-weight: bold;
 }
@@ -182,7 +164,7 @@ div.center{
     padding: 2px 5px;
 }
 .loginlabel {
-    color: #8C9B99;
+    color: #0094B5;
     position: absolute;
     padding: 2px;
 }
@@ -192,7 +174,7 @@ div.center{
     font-size: .8em;
 }
 #loginbtn {
-    background: none repeat scroll 0 0 #0595BA;
+    background: none repeat scroll 0 0 #0094B5;
     border: medium none;
     color: white;
     font-size: 0.9em;
@@ -234,22 +216,20 @@ div.center{
     letter-spacing: -1px;
 }
 .toplink{
+    color: white;
     padding: 0 2px;
-    border-right: 1px solid #8C9B99;
 }
 .homelink{
-    color: #0595BA;
+    color: #0094B5;
 }
 .blogtag {
     border-radius: 5px;
-    color: #0595BA;
+    color: #0094B5;
     text-align: center;
     background: #362a32;
-/*    float: right;*/
+    float: right;
     padding: 0.5em 1em;
-    margin-left: 26%;
-    width: 41%;
-    margin-bottom: 10px;
+    margin: 1%;
 }
 .blogtagline {
     font-size: 1.5em;
@@ -358,7 +338,7 @@ div.pagetitle {
     border-left: 1px solid white;
 }
 div.selectedtab {
-    background: #0595BA;
+    background: #0094B5;
 }
 div.selectedtab a {
     color: white;
@@ -386,7 +366,7 @@ img.tabicon {
     background: none repeat scroll 0 0 white;
     border: 1px solid #E3E3E5;
     text-transform: uppercase;
-    color: #0595BA;
+    color: #0094B5;
     padding: .5em;
 }
 .navtitlehome {
@@ -419,15 +399,13 @@ img.tabicon {
 .presslide {
     padding: 5px;
     background: white;
-    border-radius: 3px;
 }
 #catcherbg {
-    background: #E4E5E5;
-    background-image: url('/img/sliderbg.png');
+    background: #A0D2E9;
 }
 #catcher {
     height: 185px;
-    width: 1080px;
+    width: 1020px;
     margin: auto;
     clear: left;
     position: relative;
@@ -445,18 +423,18 @@ img.tabicon {
 .catchericon {
     text-transform: uppercase;
     font-size:1.8em;
-    color: #0595BA;
+    color: #0094B5;
     padding: 10px 0;
 }
 .slider {
-    float: right;
+    float: left;
     width: 600px;
     width: 730px;
     font-size: 1.4em;
 }
 .slidermore {
     position: absolute;
-    left: 350px;
+    left: 550px;
     top: 140px;
     background: none repeat scroll 0 0 #D0574C;
     font-size: 1.1em;
@@ -468,20 +446,7 @@ img.tabicon {
     border-radius: 3px;
 }
 .sliderimg {
-    margin-top: 3px;
-}
-.sliderimgcloser{
-    margin-left: 70px;
-}
-.sliderimgcloser3{
-    margin-left: 70px;
-}
-.sliderimgcloser1{
-    margin-left: 130px;
-}
-.sliderimgcloser4{
-    margin-left: -30px;
-    margin-top: 0px;
+    margin-top: 26px;
 }
 .indexslide {
     width: 650px;
@@ -498,22 +463,21 @@ img.tabicon {
 .slidericons {
     position: absolute;
     top: 150px;
-    left: 660px;
 }
 .slidericon {
     float: left;
     font-size: 1.3em;
     font-weight: bold;
+    color: #0094B5;
     padding: 3px;
     margin-right: 7px;
     border-radius: 6px;
-    border:2px solid;
-    color: #D3CFCF;
-    background-color: white;
+    border: solid;
+    color: #0094B5;
 }
 .slidericonselected {
     font-weight: bold;
-    background: #0595BA;
+    background: white;
 }
 .slider dt {
     text-transform: uppercase;
@@ -524,30 +488,29 @@ img.tabicon {
 }
 .slider dl {
     margin-bottom: 0;
+    text-transform: uppercase;
     font-weight: bold;
 }
 .slider dd {
     width: 600px;
     height: 30px;
-    color: #0595BA;
-    font-size: 1.4em;
-    margin: 0 0 4%;
+    color: #0094B5;
 }
 .fundingdesc {
-    font-size: 22px;
-    height: 68px;
-    margin: 0;
+    border: 1px solid #E3E3E5;
+    font-size: 160%;
+    margin: 0.5em 15%;
     padding: 0.5em;
-    background-color: #0595BA;
+    text-align: center;
+    background-color: white;
     margin-bottom: 3%;
-    color: white;
 }
 .fundingtitle {
     font-size: 120%;
     font-weight: bold;
 }
 .fundinggreen {
-    color: #2EAC66;
+    color: #1E9947;
 }
 .fundinglogo {
     float: left;
@@ -582,7 +545,7 @@ div.popup_spec {
     position: absolute;
     padding: 0% 1% 4% 1%;
     z-index: 1;
-    border-radius: 2px;
+    border-radius: 20px;
     box-shadow: 3px 3px 4px;
     height: 300px;
     right: -90px;
@@ -604,15 +567,17 @@ div.popup_spec {
     margin: 5px;
 }
 .actionbutton {
-    background-color: #E3E3E3;  
-    border-radius: 3px;
-    color: #0595BA;
-    font-size: 15px;
+    background-image: url('/img/headersep.png');
+    color: white;
+    padding: 2% 4%;
+    border-radius: 5px;
     font-weight: bold;
+    font-size: 1.8em;
+    font-size: 100%;
+}
+.actionbutton div {
     margin-bottom: .3em;
-    padding: 5px 12px;
-    position: relative;
-    right: 200px;
+    font-size: 1.2em;
     text-transform: uppercase;
 }
 #newproject_title {
@@ -673,7 +638,7 @@ div.morelink {
     margin: -11px 0;
 }
 .op_icon {
-    width: 30%;
+    width: 25%;
     margin: 0 auto;
 }
 .op_icon img{
@@ -752,11 +717,18 @@ div.spectypes {
 .logbox{
     background-color: white;
     border: 1px solid #E0E0E0;
-    border-radius: 2px;
+    border-radius: 20px 20px 20px 20px;
     float: left;
     margin-left: 2%;
     padding: 3%;
-/*    width: 41%;*/
+    width: 41%;
+}
+.continuebtn{
+    background: none repeat scroll 0 0 #1E9947;
+    border-radius: 3px 3px 3px 3px;
+    color: white;
+    font-weight: bold;
+    padding: 2px;
 }
 .nobtnstyle{
     background-color: transparent;
@@ -778,7 +750,7 @@ div.spectypes {
     opacity: 0.91;
     z-index: 0;
     position: fixed;
-    background-color: #E3E3E3;
+    background-color: white;
 }
 .boldtext {
     font-weight: bold;

@@ -265,7 +265,7 @@
         <div class="myprofile" style="margin-bottom: 10px;">
             <div class="column-right">
                 <h3 class="oigreen">{% trans "Reward" %}</h3>
-                {% if object|can_manage:user %}<h4><a class="subtitle" class="clickable" onclick="showPopup(document.getElementById('newreward'));">{% trans "Add a reward" %} <img src="/img/icons/addgreen.png" title="{% trans 'Add a reward' %}" alt="{% trans 'Add a reward' %}"></a></h4>{% endif %}
+                {% if object|can_manage:user %}<h4><a class="subtitle clickable" class="clickable" onclick="showPopup(document.getElementById('newreward'));">{% trans "Add a reward" %} <img src="/img/icons/addgreen.png" title="{% trans 'Add a reward' %}" alt="{% trans 'Add a reward' %}"></a></h4>{% endif %}
                 
                 <div id="newreward" class="invisible popup_reward" onclick="document.ignoreClosePopups = true;">
                     {% include 'funding/rewardblock.html' %}
