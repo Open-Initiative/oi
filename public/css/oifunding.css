@@ -960,10 +960,11 @@ div.sepspecfooter {
     width: 80px;
 }
 .funding_profilepicture{
-    margin-bottom: 7%; 
-    margin-left: 11%; 
+    float: right;
     max-width:150px; 
     max-height:150px;
+    padding: 5%;
+    width: 30%;
 }
 .editfeature{
     color: black;
