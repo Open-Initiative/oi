@@ -32,6 +32,7 @@
     text-transform: uppercase;
     border-top: 1px solid #E0E0E0;
     margin: 8px 0px;
+    padding: 4px 0px;
 }
 .presnavsection{
     margin-bottom: 3px;
@@ -1254,7 +1255,7 @@ body {
     margin-left: 130px;
 }
 .sliderimgcloser4{
-    margin-left: -30px;
+    margin-left: -90px;
     margin-top: 0px;
 }
 .slidericons {
