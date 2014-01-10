@@ -592,8 +592,6 @@ option.oldrelease{
     margin: auto;
     padding: 0.3em;
     text-transform: uppercase;
-    position: relative;
-    z-index: 1;
 }
 .supportbtn {
     background: none repeat scroll 0 0 #0094B5;
@@ -606,8 +604,6 @@ option.oldrelease{
     padding: 0.3em;
     text-transform: uppercase;
     width: auto;
-    position: relative;
-    z-index: 1;
 }
 .bidaction {
     background: #2EAC66;
@@ -1288,7 +1284,6 @@ body {
 }
 div.popup_spec {
     border-radius: 3px;
-    z-index: 1;
 }
 .actionbutton {
     background-color: #E3E3E3;
@@ -1316,7 +1311,6 @@ div.popup_spec {
 }
 .blur{
     background-color: #E3E3E3;
-    z-index: 1;
 }
 .backtoproject{
      width: 150%;
