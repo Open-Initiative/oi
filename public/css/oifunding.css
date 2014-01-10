@@ -24,9 +24,9 @@
     border: 1px solid #E0E0E0;
     border-radius: 3px;
     float: left;
-    margin: 0 1%;
     padding: 0.5em;
     font-size: 1.2em;
+    margin-right: 1%;
 }
 .presnavtitle {
     text-transform: uppercase;
@@ -1325,4 +1325,7 @@ div.popup_spec {
     font-weight: bold;
     margin-bottom: 7px;
     margin-top: 14px;
+}
+.related {
+    width: 26%;
 }
