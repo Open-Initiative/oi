@@ -1039,7 +1039,7 @@ div.sepspecfooter {
 .funding_specs {
     width: 660px;
 }
-.coverferture{
+.coverfeature{
     float: left;
     text-align: left;
     width: 60%;
@@ -1077,6 +1077,11 @@ div.sepspecfooter {
 }
 .displayblock{
     display: block;
+}
+.addfeature{
+    display: block;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 .fund{
     color: #0595BA;
@@ -1148,7 +1153,7 @@ div.sepspecfooter {
     position: relative;
     right: 15%
 }
-.dotted{
+.prjcard_margin_top{
     margin-bottom: 10px;
     margin-left: 0;
 }

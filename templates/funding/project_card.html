@@ -13,7 +13,7 @@
     {% endwith %}
     {% with project.descendants|filter_read:user as descendants %}
     <div class="fundingprogress">
-        <div class="progressbar dotted">
+        <div class="progressbar prjcard_margin_top">
             <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio descendants.allbid_sum|add:project.bid_sum project.get_selfbudget|default:descendants.allbudget 100 %}%;"></span>
             <span id="progresslabel_{{object.id}}" class="progresstitle" >{% widthratio descendants.allbid_sum|add:project.bid_sum project.get_selfbudget|default:descendants.allbudget 100 %} %</span>
         </div>

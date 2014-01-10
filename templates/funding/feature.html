@@ -83,8 +83,9 @@
             {% trans "Delete" %} <img src="/img/icons/delete.png" alt="{% trans 'delete feature' %}" title="{% trans 'delete feature' %}" class="clickable" onclick="deleteFeature({{task.id}})" />
         </span>{% endif %}
         
-        <div id="specs_{{task.id}}_hide" class="coverferture">
+        <div id="specs_{{task.id}}_hide" class="coverfeature">
         {% with spec=task.spec_set.all|filter_order:1 %}
+            {% if spec.type == 2 %}<br/>{% endif %}
             {{spec.text|oiunescape|summarize_html}}
         {% endwith %}
         </div>
