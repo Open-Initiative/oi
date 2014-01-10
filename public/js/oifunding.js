@@ -139,6 +139,7 @@ function seeMore(dividblock1, dividblock2){
 function shrinkAllFeatures(){
     //hide all feature block
     $('.featuredetailspec').hide();
+    $('.coverfeature').show();
     $('.see-less').hide();
     $('.see-more').show();
 }
