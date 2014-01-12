@@ -22,7 +22,7 @@
         <input id="feature_{{task.id}}_edit" class="featuretitle invisible" value="{{task.title}}">
         </form>
         <div class="fundingright" style="min-width: 30%;">
-            <div class="funding_space">{% trans "Funding phase" %}:</div>
+            <div class="funding_space" style="font-size: 16px;">{% trans "Funding phase" %}:</div>
             <div class="progressbar">
                 <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%;"></span>
                 <span id="progresslabel_{{object.id}}" class="progresstitle" >{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%</span>
@@ -120,5 +120,5 @@
             }
         });
     </script>
-
+    <div class="reward_bottom_line"></div>
 {% endif %}

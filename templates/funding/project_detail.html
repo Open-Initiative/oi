@@ -191,7 +191,7 @@
     </div>
     
     <div class="myprofile column-right project column_right_padding" style="margin-bottom: 10px;overflow: hidden;">
-        <div class="clickable featuretitle funding_space">{{object.tasks.count}} {% trans "to be funded" %}</div>
+        <div class="funding_space" style="font-size: 16px;">{{object.tasks.count}} {% trans "feature(s) to be funded" %}</div>
         {% with project.descendants|filter_read:user as descendants %}
         <div>
             <div class="progressbar">
