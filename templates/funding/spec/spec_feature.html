@@ -17,7 +17,7 @@
     </iframe><br/>
     {% endif %}
     {% if spec.type == 3 or spec.type == 6 and spec.url != "http://" %}
-    <a target= "_blank" href="{{spec.url}}" > {{spec.text|oiunescape|default:spec.url}} </a>
+    {% if spec.url %}<a target= "_blank" href="{{spec.url}}" >{% endif %} {{spec.text|oiunescape|default:spec.url}} {% if spec.url %}</a>{% endif %}
     {% else %}
         {{spec.text|oiunescape}}
     {% endif %}
