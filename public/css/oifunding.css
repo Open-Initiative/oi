@@ -791,7 +791,6 @@ div.sepspecfooter {
     float:left;
     font-size: 0.8em;
     height: 1.2em;
-    margin-left: 5%;
     overflow: hidden;
     position: relative;
     width: 90%;
@@ -1155,9 +1154,8 @@ div.sepspecfooter {
     position: relative;
     right: 15%
 }
-.prjcard_margin_top{
+.prjcard_margin_bottom{
     margin-bottom: 10px;
-    margin-left: 0;
 }
 .column_right_padding{
     padding: 5%;
@@ -1334,4 +1332,9 @@ div.popup_spec {
 }
 .related {
     width: 26%;
+}
+.subtitle_news{
+    color: #9D9C9C;
+    font-size: 16px;
+    font-weight: bold;
 }

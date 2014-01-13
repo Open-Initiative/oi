@@ -190,7 +190,7 @@
     </div>
     
     <div class="myprofile column-right project column_right_padding" style="margin-bottom: 10px;overflow: hidden;">
-        <div class="funding_space" style="font-size: 16px;">{{object.tasks.count}} {% trans "feature(s) to be funded" %}</div>
+        <div class="funding_space subtitle_news">{{object.tasks.count}} {% trans "feature(s) to be funded" %}</div>
         {% with project.descendants|filter_read:user as descendants %}
         <div>
             <div class="progressbar">
@@ -232,7 +232,7 @@
         <div class="cleared"></div>
         
         {% if project.spec_set.all|filter_order:8 or object|can_manage:user %}
-        <h4 class="subtitle">{% trans "Project website" %}</h4>
+        <h4 class="subtitle_news">{% trans "Project website" %}</h4>
             {% with spec=project.spec_set.all|filter_order:8 order=8 divid='software' %}{%include 'funding/project_detail_column_right.html'%}{% endwith %}
         {% endif %}
     </div>
