@@ -4,7 +4,7 @@
 {% block title %}{{selected_user.username}}{% endblock %}
 {% block content %}
 <div class="prjbody">
-    <div class="column profile_column">
+    <div class="column profile_column user_picture_bio">
         <img id="user_picture" class="profilepicture" src="/user/getpicture/{{selected_user.username}}" />
         {% ifequal user selected_user %}
         <img class="clickable" src="/img/icons/edit.png" onclick="$('#profile_picture').toggle()" />

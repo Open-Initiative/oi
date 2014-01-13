@@ -91,7 +91,7 @@
     </div>
     <div class="blockfeatureheight column">
         <div>
-            <form onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, getValue('offer_{{object.id}}'), function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); document.getElementById('offer_{{object.id}}').value = ''; return false">
+            <form id="submit_title_price_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, getValue('offer_{{object.id}}'), function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); document.getElementById('offer_{{object.id}}').value = ''; return false">
                 <table>
                     <tr>
                         <td>
@@ -109,13 +109,13 @@
                     </tr>
                 </table>
                 <p>{% trans "By adding this change you acknowledge <br/> that you have read and accepted the" %} <a href="/cgu">{% trans "Terms of Use" %}</a></p>
-                        
+                <input type="submit" hidden>
             </form>
             <div class="cleared"></div>
         </div>
     </div>
     <p class="continuebtn fundingright no_p_style feature_propose" style="padding:0.5%">
-        <input class="nobtnstyle clickable" type="submit" onclick="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, getValue('offer_{{object.id}}'), function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); document.getElementById('offer_{{object.id}}').value = ''" value="{% trans 'Propose' %}">
+        <input class="nobtnstyle clickable" type="submit" onclick="$('#submit_title_price_{{object.id}}').submit()" value="{% trans 'Propose' %}">
     </p>
     {% else %}
         {% if object|can_answer:user %}
@@ -127,7 +127,7 @@
         </div>
         <div class="blockfeatureheight column">
             <div>
-                <form onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, null,function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0','featurebox'))}); return false" id="newtask_{{object.id}}">
+                <form id="submit_title_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, null,function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0','featurebox'))}); return false" id="newtask_{{object.id}}">
                     <table>
                         <tr>
                             <td>
@@ -137,13 +137,13 @@
                         </tr>
                     </table>
                     <p>{% trans "By adding this change you acknowledge <br/> that you have read and accepted the" %} <a href="/cgu">{% trans "Terms of Use" %}</a></p>
-                    
+                    <input type="submit" hidden>
                 </form>
                 <div class="cleared"></div>
             </div>
         </div>
         <p class="continuebtn fundingright no_p_style feature_propose" style="padding:0.5%">
-            <input class="nobtnstyle clickable" type="submit" onclick="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, null,function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0','featurebox'))})" value="{% trans 'Propose' %}">
+            <input class="nobtnstyle clickable" type="submit" onclick="$('#submit_title_{{object.id}}').submit()" value="{% trans 'Propose' %}">
         </p>
         {% endif %}
     {% endif %}

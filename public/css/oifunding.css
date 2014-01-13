@@ -352,7 +352,7 @@ div.cardspec {
 .fundingprogress {
     position: absolute;
     top: 320px;
-    border-top: medium dotted;
+    border-top: medium dotted #D3CFCF;
     width: 80%;
     padding-top: 10px;
 }
@@ -1093,7 +1093,6 @@ div.sepspecfooter {
     text-align: end;
 }
 .block_fund_goal {
-    padding-left: 4.5%;
     width: 90%;
     margin-top: 10px;
 }
