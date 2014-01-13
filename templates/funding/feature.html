@@ -22,7 +22,7 @@
         <form onsubmit="var newtitle = getValue('feature_{{task.id}}_edit');if(newtitle){confirmEditTitle({{task.id}}, newtitle);}; seeMore('feature_{{task.id}}_edit', 'feature_{{task.id}}'); return false">
         <input id="feature_{{task.id}}_edit" class="featuretitle invisible" value="{{task.title}}">
         </form>
-        <div class="fundingright" style="min-width: 30%;">
+        <div class="fundingright" style="min-width: 30%;max-width: 40%;">
             <div class="funding_space subtitle_news">{% trans "Funding phase" %}:</div>
             <div class="progressbar">
                 <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%;"></span>
@@ -102,7 +102,7 @@
             {% if task|can_manage:user or task.spec_set.count%}
             <a id="see_more_{{task.id}}" class="clickable see-more btn_feature fundingleft bluesky" onclick="expandFeature({{task.id}});{% if task|can_write:user and task.state < 4 and task.spec_set.all.count < 1 %}addSpec('{{task.id}}')">{% trans "Add a description" %}{% else %}">{% trans "See more" %}{% endif %}</a>
             
-            <a id="see_less_{{task.id}}" class="clickable see-less btn_feature fundingleft bluesky" onclick="expandFeature({{task.id}})">{% trans "See less" %}</a>
+            <a id="see_less_{{task.id}}" class="clickable see-less btn_feature fundingleft bluesky invisible" onclick="expandFeature({{task.id}})">{% trans "See less" %}</a>
             {% endif %}
         </div>
         

@@ -1068,7 +1068,7 @@ div.sepspecfooter {
 .btn_feature {
     border: 1px solid;
     border-radius: 2px;
-    display: block;
+/*    display: block;*/
     font-weight: bold;
     padding: 1%;
 }
