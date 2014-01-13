@@ -1119,7 +1119,7 @@ msgstr "Derniers projets"
 
 #: templates/funding/base.html:66
 msgid "The Co-funding platform for free software"
-msgstr "La plate-forme de co-financement du logiciel libre"
+msgstr "La plate-forme de cofinancement du logiciel libre"
 
 #: templates/funding/base.html:89
 msgid "Learn more"
