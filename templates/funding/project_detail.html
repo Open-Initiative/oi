@@ -84,7 +84,8 @@
     {% endif %}
     {% endwith %}
     {% endwith %}
-
+    
+{% if object|can_manage:user or object|can_answer:user %}
 <div class="submit_feature">
     {% if object|can_manage:user %}
     <div class="bordertitledetails">
@@ -153,6 +154,7 @@
     {% endif %}
     <div class="cleared"></div>
 </div>
+{% endif %}
     
 </div>
 
