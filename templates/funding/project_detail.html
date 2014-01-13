@@ -23,12 +23,11 @@
                     <img onclick="favProject(174)" src="/img/icons/starTrueFunding.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_174" />
                     {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
                 </div>
-                <div class="cleared"></div>
+                <div class="clearedleft"></div>
                 <div class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">
                     {{object.title}}
                 </div>
             </div>
-            <div class="cleared"></div>
         </div>
         <div id="specs_{{project.id}}" class="prjdesc">
             {% for spec in project.all_specs_with_languages %}
@@ -286,7 +285,7 @@
                         <img class="fundingleft" style="max-width:130px; margin-right:10px;" src="{% if reward.image %}{{reward.image.url}}{% endif %}" alt="{% trans 'Photo that illustrate the reward' %}" title="{% trans 'Photo that illustrate the reward' %}" />
                         <p id="descriptionreward_{{reward.id}}">{{reward.description|oiunescape}}</p>
                         <div class="cleared"></div>
-                        <p> <span class="rewardtitle" id="nb_reward_{{reward.id}}">{{reward.nb_reward}}</span> {% trans "remaining rewards" %} <br/> {% if project|can_manage:user %}<img src="/img/icons/addgreen.png" style="margin-left: 5%;" alt="{% trans 'plus picture' %}" title="{% trans 'Add stock reward' %}" onclick="updateStockReward('{{project.id}}', '{{reward.id}}', true)"><img src="/img/icons/remove.png" style="margin-left: 5%;" title="{% trans 'Remove stock reward' %}" alt="{% trans 'less picture' %}" onclick="updateStockReward('{{project.id}}', '{{reward.id}}', false)">{% endif %}</p>
+                        <p> <span class="rewardtitle" id="nb_reward_{{reward.id}}">{{reward.nb_reward}}</span> {% trans "remaining rewards" %} <br/> {% if project|can_manage:user %}<img class="clickable" src="/img/icons/addgreen.png" style="margin-left: 5%;" alt="{% trans 'plus picture' %}" title="{% trans 'Add stock reward' %}" onclick="updateStockReward('{{project.id}}', '{{reward.id}}', true)"><img class="clickable" src="/img/icons/remove.png" style="margin-left: 5%;" title="{% trans 'Remove stock reward' %}" alt="{% trans 'less picture' %}" onclick="updateStockReward('{{project.id}}', '{{reward.id}}', false)">{% endif %}</p>
                         <div class="cleared"></div>
                         {% if project|can_manage:user %}<img class="clickable fundingright" title="{% trans 'Description and conditions' %}" alt="{% trans 'Description and conditions' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('newreward_{{reward.id}}'))"/>{% endif %}   
                     </div>

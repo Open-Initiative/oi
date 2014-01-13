@@ -554,6 +554,7 @@ option.oldrelease{
     border-radius: 3px;
     box-shadow: 3px 3px 4px;
     left: auto;
+    padding: 1%;
     position: absolute;
     width: auto;
     z-index: 10;
