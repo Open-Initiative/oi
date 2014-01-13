@@ -59,6 +59,7 @@
         {% if object.all_not_started_tasks.count > 1 %}<img id="prevfeature" class="clickable plugin-arrow" src="/img/icons/previous.png" onclick="switchPrevFeature()"/>{% endif %}
         <div class="smallcolumn">
             <ul class="features_manage" id="features_0">
+                {% with linktitte="true" %}
                 {% for task in object.all_not_started_tasks|filter_read:user %}
                     <li class="pluginfeature{% if not forloop.first %} invisible{% endif %}" id="task_{{task.id}}">
                     {% with plugin_width='300%' %}
@@ -66,6 +67,7 @@
                     {% endwith %}
                     </li>
                 {% endfor %}
+                {% endwith %}
             </ul>
         </div>
         {% if object.all_not_started_tasks.count > 1 %}<img id="nextfeature" class="clickable plugin-arrow" src="/img/icons/next.png" onclick="switchNextFeature()"/>{% endif %}

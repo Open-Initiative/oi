@@ -17,7 +17,7 @@
     {% include 'funding/popup_budget.html' %}
 
     <div id="featureDiv_{{task.id}}" class="featureblock" title="{{task.title}}" style="padding: 1%;{% if not task.public_read %} opacity:.4;{% endif %}">
-        <div id="feature_{{task.id}}" class="featuretitle clickable fundingleft" onclick="expandFeature({{task.id}})">{{task.title}}</div>
+        <div id="feature_{{task.id}}" class="featuretitle clickable fundingleft" onclick="expandFeature({{task.id}})">{% if linktitte %}<a href="/funding/{{object.id}}#feature_{{task.id}}" target="_blank">{{task.title}}</a>{% else %}{{task.title}}{% endif %}</div>
         
         <form onsubmit="var newtitle = getValue('feature_{{task.id}}_edit');if(newtitle){confirmEditTitle({{task.id}}, newtitle);}; seeMore('feature_{{task.id}}_edit', 'feature_{{task.id}}'); return false">
         <input id="feature_{{task.id}}_edit" class="featuretitle invisible" value="{{task.title}}">
