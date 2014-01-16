@@ -1189,6 +1189,8 @@ body {
     margin: 0;
     padding: 0;
     border: none;
+    left: 80px;
+    width: 940px;
 }
 .headernews{
     color: #8F9595;
