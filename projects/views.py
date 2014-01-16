@@ -244,7 +244,8 @@ def savereward(request, id, rewardid):
     else:
         form = RewardForm(request.POST, request.FILES, instance=project.reward_set.all().get(id=rewardid))
         reward = form.save(commit=False)
-       
+        
+    reward.image.name = normalize("NFKD", reward.image.name).encode('ascii', 'ignore').replace('"', '') 
     reward.save()
     return HttpResponse("<script>window.parent.location.reload(true)</script>")
 
