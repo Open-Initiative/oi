@@ -146,6 +146,7 @@
     ajaxParams = document.location.hash;
     listid = ajaxParams.substring(1);
     if(listid) switchPrjList(listid);
+    if(document.location.hash == "#submit") submitProject();
 </script>
 <div class="cleared" style="width:100%"></div>
 {% endblock %}
