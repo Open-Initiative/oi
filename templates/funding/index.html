@@ -3,6 +3,7 @@
 {% load oifilters %}
 {% block title %}{% trans "Fund your software!" %}{% endblock %}
 {% block announcement %}
+<div class="cleared"></div>
 <div id="catcherbg">
     <div id="catcher">
         <div id="slider" class="slider" onmouseover="window.slide=false" onmouseout="if(event.target.id=='slider')window.slide=true">
@@ -38,18 +39,22 @@
             window.sliding = false;
             window.setInterval(function (){if(window.slide) slideIndex()}, 8000);
         </script>
-        <a id="preslink" href="/presentation"><div class="slidermore" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'">
-            {% trans "Learn More" %}
-        </div></a>
         <img id="sliderimg1" src="/img/slider1.png" class="sliderimg sliderimgcloser1" />
         <img id="sliderimg2" src="/img/slider2.png" class="sliderimg invisible sliderimgcloser" />
         <img id="sliderimg3" src="/img/slider3.png" class="sliderimg invisible sliderimgcloser3" />
         <img id="sliderimg4" src="/img/slider4.png" class="sliderimg invisible sliderimgcloser4" />
+        
+        <div class="cleared"></div>
+        
+        <a id="preslink" href="/presentation" class="slidermore" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0595BA'">
+            {% trans "Learn More" %}
+        </a>
     </div>
+    <div class="cleared"></div>
 </div>
 <div class="fundingdesc">
     <div class="submitproject">
-        <img id="flag" class="fundingleft" src="/img/flag.png" />
+        <img style="right: 3%;position: relative;" id="flag" class="fundingleft" src="/img/flag.png" />
         <div class="helpstart">
             <div>Open Funding {% trans "helps you fund your free software." %}</div>
             <div class="fundingleft"><b>{% trans "Start you own project now!" %}</b></div>
@@ -72,9 +77,6 @@
 {% endblock %}
 {% block content %}
 
-    <div class="center">
-        
-    </div>
 <div id="oi_last_project" class="projectlisttitle">{% trans "Latest projects" %}</div>
 <div id="promoted_project">
     {% for project in object_list %}
@@ -92,13 +94,13 @@
 <div style="background-color:white;border: 1px solid #D3CFCF;">
     <div class="invisible prjlist" id="prjlist0">
         <div class="projectlisttitle">{% trans "Submit your project" %}</div>
-        <form class="form_center" onsubmit="if(getValue('prjtitle')) addTask(getValue('prjtitle'), null, null,function(taskid){document.location = '/funding/'+taskid+'/edit'});return false" >
+        <form id="submit_title_project" class="form_center" onsubmit="if(getValue('prjtitle')) addTask(getValue('prjtitle'), null, null,function(taskid){document.location = '/funding/'+taskid+'/edit'});return false" >
             <p class="details_title">{% trans "You are about to start funding your free software project." %}</p>
             <p class="form_center details_title">{% trans "First enter your project title" %}</p>
             <input id="prjtitle"/>
-            <p class="continuebtn" style="width: 7%;margin-left: auto;margin-right: auto;">
-                <input class="nobtnstyle clickable" type="submit" value="{% trans 'Create' %}" />
-            </p>
+            <div class="cleared"><br/></div>
+            <span class="continuebtn clickable" onclick="$('#submit_title_project').submit()">{% trans 'Create' %}</span>
+            <div class="cleared"><br/></div>
         </form>
     </div>
 

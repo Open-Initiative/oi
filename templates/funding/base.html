@@ -9,11 +9,12 @@
     <link rel="shortcut icon" href="/favicons.ico" />
     {% compress css %}
     <link rel="stylesheet" type="text/css" media="all" href="/css/jsDatePick_ltr.min.css" />
-    <link rel="stylesheet" type="text/css" media="all" href="/css/oi.css" />
+<!--    <link rel="stylesheet" type="text/css" media="all" href="/css/oi.css" />-->
     <link rel="stylesheet" type="text/css" media="all" href="/css/oimessages.css" />
     <link rel="stylesheet" type="text/css" media="all" href="/css/oifunding.css" />
     <link rel="stylesheet" type="text/css" media="all" href="/css/oiusers.css" />
     <link rel="stylesheet" type="text/css" media="all" href="/css/jquery-ui-1.9.1.custom.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="/css/oifundingmobile.css" />
     {% endcompress %}
     {% compress js %}
     <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
@@ -60,17 +61,19 @@
     <div id="header">
         <div class="center">
             {% block header %}
-            <div style='width:0;float: left;left: 160px;padding: 1px;position: relative;top: 45px;'><img src="/img/beta0.png" /></div>
+            <div id="beta"><img src="/img/beta0.png" /></div>
             <div id="logo"><a href="/"><img src="/img/logo_funding.png" /></a></div>
             <div id="searchdiv">
                 <div id="baseline">{% trans "The Co-funding platform for free software" %}</div>
                 <img src="/img/baseunderline.png" />
             </div>
+            <div id="userheader_mobile" class="fundingright invisible"><img class="menu_mobile" src="/img/defaultusr.png"></div>
+<!--            <div class="cleared"></div>-->
             <div id="userheader">
                 {% with fr="fr" en="en" %}
-                <form method="post" onsubmit="OIajaxCall('/user/changeuserlanguage', 'language={% if request.LANGUAGE_CODE == fr %}en{% else %}fr{% endif %}', 'output'); return false;" class="actions {%if not user.is_authenticated%}flag_authenticated{%endif%}">
+                <form id="test" method="post" onsubmit="OIajaxCall('/user/changeuserlanguage', 'language={% if request.LANGUAGE_CODE == fr %}en{% else %}fr{% endif %}', 'output'); return false;" class="actions {%if not user.is_authenticated%}flag_authenticated{%endif%}">
                     {% csrf_token %}
-                    <input type="hidden" name="language" value="{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}">
+                    <input type="hidden" name="language" value="{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}"/>
                     <input id="oi_lang" type="image" src="/img/{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}.png" />
                 </form>
                 {% endwith %}
@@ -96,40 +99,28 @@
             </div>
             {% endblock %}
         </div>
+        <div class="cleared"></div>
     </div>
     {% block announcement %}
     {% endblock %}
     
     <div class="cleared"></div>
-    <div class="center">
-        <div class="column">
-            <div id="actions"> 
-                {% block actions %}{% endblock %}
-            </div>
-            
-            <div id="nav">
-                {% block nav %}{% endblock %}
-            </div>
-        </div>
-        
-        <div id="content">
-            {% block content %}{% endblock %}
-        </div>
-        <div class="related">
-            {% block related %}{% endblock %}
-        </div>
+    <div id="content">
+        {% block content %}{% endblock %}
     </div>
     <div class="cleared"></div>
     <div id="footer">
         <div class="op_icon">
-            <a class="footlink" href="https://www.facebook.com/myopeninitiative?filter=1" target="_blank"><img alt="Facebook" title="{% trans 'Follow us on facebook' %}" alt="facebook" src="/img/facebook.png"></a>
-            <a class="footlink" href="https://twitter.com/Open_Initiative" target="_blank"><img alt="Twitter" title="{% trans 'Follow us on twitter' %}" alt="twitter" src="/img/twitter.png"></a>
-            <a class="footlink" href="https://plus.google.com/104128139611924726489/posts" target="_blank"><img alt="Twitter" title="{% trans 'Follow us on google+' %}" alt="google+" src="/img/google+.png"></a>
+            <a class="footlink" href="https://www.facebook.com/myopeninitiative?filter=1" target="_blank"><img alt="Facebook" title="{% trans 'Follow us on facebook' %}" src="/img/facebook.png"></a>
+            <a class="footlink" href="https://twitter.com/Open_Initiative" target="_blank"><img alt="Twitter" title="{% trans 'Follow us on twitter' %}" src="/img/twitter.png"></a>
+            <a class="footlink" href="https://plus.google.com/104128139611924726489/posts" target="_blank"><img title="{% trans 'Follow us on google+' %}" alt="Google+" src="/img/google+.png"></a>
             <br/>
-            <a href="http://blog.openinitiative.com/" target="_blank"><div class="blogtag">
-                <div>Follow us on</div>
-                <div class="blogtagline">The blog</div>
-            </div></a>
+            <a href="http://blog.openinitiative.com/" target="_blank">
+                <div class="blogtag">
+                    <div>Follow us on</div>
+                    <div class="blogtagline">The blog</div>
+                </div>
+            </a>
             <div class="cleared"></div>
         </div>
         <a class="footlink" href="/cgu">{% trans "Terms of Use" %}</a> |

@@ -3,7 +3,7 @@
 {% block title %}{% trans "Register" %}{% endblock %}
 {% block content %}
 
-<div style="">
+<div>
     <div class="logbox">
         <div style="font-size: 2em" class="fundinggreen form_center fundingtitle">{% trans "REGISTER" %}</div>
         <br/>
@@ -25,7 +25,7 @@
             <p>
                 {% trans "You acknowledge having read and accepted" %} <br/> <a href="/cgu">{% trans "the terms and conditions" %}</a> {% trans "by registering." %} 
             </p>
-            <p class="continuebtn fundingleft clickable no_p_style" style="padding:1.5%"><input class="nobtnstyle" type="submit" value="{% trans 'Register' %}"></p>
+            <input style="padding:1.5%" class="nobtnstyle continuebtn fundingleft clickable" type="submit" value="{% trans 'Register' %}">
         </form>
     </div>
 

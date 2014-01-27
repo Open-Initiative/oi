@@ -58,7 +58,7 @@ a:hover {
 }
 div.center{
     margin: auto;
-    width: 1020px;
+    max-width: 1020px;
 }
 .space {
     height: 1.5em;
