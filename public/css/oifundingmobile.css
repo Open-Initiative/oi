@@ -1,0 +1,42 @@
+/*La page d'acceuil*/
+
+@media screen and (max-width:1025px){
+    #flag {display: none;}
+    .sliderimg {visibility: hidden;}
+    #catcher {width: auto; padding: 1%; margin: 0 auto;}
+    .slider {float: none; width: auto;}
+    #content {max-width: 675px;}
+    .slidermore {left: 10px; padding: 1%;} 
+    .submitproject {margin: 0 1%;}
+    .indexslide {overflow: auto; width: auto;}
+    .slidertip {width: auto;}
+    .slider dd {height: auto;width: auto;}
+}
+
+@media screen and (max-width:930px){
+    #userheader {display: none;}
+    #userheader_mobile {display: block;}
+}
+
+@media screen and (max-width:690px){
+    #content {max-width: 340px;}
+}
+
+@media screen and (max-width:430px){
+    #searchdiv {display: none;}
+}
+
+@media screen and (max-width:640px){
+    .slidericons {top: 200px;}
+    .slidermore {top: 190px} 
+}
+
+@media screen and (max-width:390px){
+    .slidericons {top: 210px;}
+    .slidermore {top: 200px} 
+}
+
+@media screen and (max-width:350px){
+    .prjcard {margin: 1% 0; width: 285px;}
+}
+
