@@ -25,6 +25,10 @@
     max-width: 650px;
     margin: 0 auto;
 }
+/*.center_btnproject {*/
+/*    display: inline-block;*/
+/*    vertical-align: middle;*/
+/*}*/
 .projectlisttitle {
   color: #2EAC66;
   font-size: 200%;
@@ -316,12 +320,25 @@ div.prj-action-wait {
     border-radius: 3px 3px 3px 3px;
     float: left;
     height: 350px;
-    margin: 1em;
+/*    margin: 1em;*/
     overflow: hidden;
     padding: 1.2em;
     position: relative;
     width: 275px;
 }
+
+ul.home_ul_center {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+}
+
+ul.home_ul_center li {
+    display: inline-block;
+    margin: 2px;
+    vertical-align: middle;
+}
+
 .prjcardlink {
     position: absolute;
     top: 350px;
@@ -1239,7 +1256,7 @@ a {
 a:hover {
     text-decoration: underline;
 }
-div.center{
+.center{
     margin: auto;
     max-width: 1020px;
 }
@@ -1301,7 +1318,7 @@ div.center{
 /*    height: 60px;*/
 }
 #baseline {
-    width: 160px;
+    width: 161px;
     color: #0094B5;
     text-transform: uppercase;
     font-family: "CCRA";
@@ -1336,9 +1353,10 @@ div.center{
     min-width: 920px;
     max-width: 940px;
 }
+/*vide mais doit rester, complement dans mobile css*/
 .menu_mobile {
-    position:absolute;
-    right: 10px;
+/*    position:absolute;*/
+/*    right: 10px;*/
 }
 .usertitle {
     color: #0094B5;
@@ -1592,7 +1610,8 @@ img.tabicon {
     background: #0595BA;
 }
 .slider dl {
-    margin-bottom: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
     text-transform: none;
     font-weight: bold;
 }

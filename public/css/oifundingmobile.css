@@ -2,41 +2,40 @@
 
 @media screen and (max-width:1025px){
     #flag {display: none;}
-    .sliderimg {visibility: hidden;}
-    #catcher {width: auto; padding: 1%; margin: 0 auto;}
+    .sliderimg {visibility: hidden; display: none;}
+    #catcher {padding: 1%; width: 80%;}
     .slider {float: none; width: auto;}
-    #content {max-width: 675px;}
-    .slidermore {left: 10px; padding: 1%;} 
-    .submitproject {margin: 0 1%;}
+    .slidermore {left: 10px; padding: .2em%;} 
+    .submitproject {margin: 0 auto;}
     .indexslide {overflow: auto; width: auto;}
     .slidertip {width: auto;}
     .slider dd {height: auto;width: auto;}
-}
-
-@media screen and (max-width:930px){
+    
+    /*disparution de la barre header, apparution de la photo mobile par défaut */
     #userheader {display: none;}
     #userheader_mobile {display: block;}
+    
 }
 
-@media screen and (max-width:690px){
-    #content {max-width: 340px;}
-}
 
-@media screen and (max-width:430px){
+@media screen and (max-width:510px){
     #searchdiv {display: none;}
 }
 
+/*les boutons de la slidebar change de place*/
 @media screen and (max-width:640px){
     .slidericons {top: 200px;}
     .slidermore {top: 190px} 
 }
 
+/*les boutons de la slidebar change de place*/
 @media screen and (max-width:390px){
     .slidericons {top: 210px;}
     .slidermore {top: 200px} 
 }
 
 @media screen and (max-width:350px){
-    .prjcard {margin: 1% 0; width: 285px;}
+    .menu_mobile {position: absolute; right: 10px;}
+    #catcher {width: 90%;}
 }
 

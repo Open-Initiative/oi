@@ -7,26 +7,30 @@
 <div id="catcherbg">
     <div id="catcher">
         <div id="slider" class="slider" onmouseover="window.slide=false" onmouseout="if(event.target.id=='slider')window.slide=true">
-            <div class="slidertext">
-                <dl>
-                    <div id="indexslide1" class="indexslide">
-                        <dd>{% trans "Get the feature you always wished for" %}</dd>
+            <ul style="margin: 0;" class="home_ul_center">
+                <li>
+                    <div class="slidertext">
+                        <dl>
+                            <div id="indexslide1" class="indexslide">
+                                <dd>{% trans "Get the feature you always wished for" %}</dd>
+                            </div>
+                            <div class="slidertip">{% trans "Open Funding is the best way to get the features you need in your software. Get a professional quality. Make it make sense: to you!" %}</div>
+                            <div id="indexslide2" class="indexslide invisible">
+                                <dd>{% trans "Co-funding makes free software sustainable" %}</dd>
+                            </div>
+                            <div class="slidertip invisible">{% trans "The feature-by-feature funding ensures a development in the long run. And the user-driven validating enables a professional quality. Open Funding combines the two and makes the best business model for free software." %}</div>
+                            <div id="indexslide3" class="indexslide invisible">
+                                <dd>{% trans "Connecting software and people" %}</dd>
+                            </div>
+                            <div class="slidertip invisible">{% trans "Open Funding makes it easy to join the community. Do you use that software? Now you can contribute and be part of the team." %}</div>
+                            <div id="indexslide4" class="indexslide invisible">
+                                <dd>{% trans "More powerful together" %}</dd>
+                            </div>
+                            <div class="slidertip invisible">{% trans "At Open Funding projects get more than just funding, they see their community growing. Open Funding supports projects communication to involve more people. The community grows larger and becomes more efficient!" %}</div>
+                        </dl>
                     </div>
-                    <div class="slidertip">{% trans "Open Funding is the best way to get the features you need in your software. Get a professional quality. Make it make sense: to you!" %}</div>
-                    <div id="indexslide2" class="indexslide invisible">
-                        <dd>{% trans "Co-funding makes free software sustainable" %}</dd>
-                    </div>
-                    <div class="slidertip invisible">{% trans "The feature-by-feature funding ensures a development in the long run. And the user-driven validating enables a professional quality. Open Funding combines the two and makes the best business model for free software." %}</div>
-                    <div id="indexslide3" class="indexslide invisible">
-                        <dd>{% trans "Connecting software and people" %}</dd>
-                    </div>
-                    <div class="slidertip invisible">{% trans "Open Funding makes it easy to join the community. Do you use that software? Now you can contribute and be part of the team." %}</div>
-                    <div id="indexslide4" class="indexslide invisible">
-                        <dd>{% trans "More powerful together" %}</dd>
-                    </div>
-                    <div class="slidertip invisible">{% trans "At Open Funding projects get more than just funding, they see their community growing. Open Funding supports projects communication to involve more people. The community grows larger and becomes more efficient!" %}</div>
-                </dl>
-            </div>
+                </li>
+            </ul>
             <div class="clickable slidericons">
                 <div id="slidericon1" class="slidericon slidericonselected" onclick="slideIndex(1)"></div>
                 <div id="slidericon2" class="slidericon" onclick="slideIndex(2)"></div>
@@ -53,17 +57,21 @@
     <div class="cleared"></div>
 </div>
 <div class="fundingdesc">
-    <div class="submitproject">
-        <img style="right: 3%;position: relative;" id="flag" class="fundingleft" src="/img/flag.png" />
-        <div class="helpstart">
-            <div>Open Funding {% trans "helps you fund your free software." %}</div>
-            <div class="fundingleft"><b>{% trans "Start you own project now!" %}</b></div>
-            <div class="actions clickable actionbutton" onclick="submitProject()">
-                <div onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'">{% trans "submit a project" %}</div>
-                <input id="appname" type="hidden" value="funding" />
+    <ul style="margin: 0;" class="home_ul_center">
+    <li>
+        <div class="submitproject">
+            <img style="right: 3%;position: relative;" id="flag" class="fundingleft" src="/img/flag.png" />
+            <div class="helpstart">
+                <div>Open Funding {% trans "helps you fund your free software." %}</div>
+                <div class="fundingleft"><b>{% trans "Start you own project now!" %}</b></div>
+                <div class="actions clickable actionbutton" onclick="submitProject()">
+                    <div onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'">{% trans "submit a project" %}</div>
+                    <input id="appname" type="hidden" value="funding" />
+                </div>
             </div>
         </div>
-    </div>
+    </li>
+    </ul>
     <div class="cleared"></div>
 </div>
 {% endblock %}
@@ -79,9 +87,13 @@
 
 <div id="oi_last_project" class="projectlisttitle">{% trans "Latest projects" %}</div>
 <div id="promoted_project">
+    <ul class="home_ul_center">
     {% for project in object_list %}
-        {% include 'funding/project_card.html' %}
+        <li>
+            {% include 'funding/project_card.html' %}
+        </li>
     {% endfor %}
+    </ul>
 </div>
 {% if user.is_authenticated %}
 <div class="prjlist" id="prjlist3">
