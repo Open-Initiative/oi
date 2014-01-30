@@ -7,7 +7,7 @@
 <div id="catcherbg">
     <div id="catcher">
         <div id="slider" class="slider" onmouseover="window.slide=false" onmouseout="if(event.target.id=='slider')window.slide=true">
-            <ul style="margin: 0;" class="home_ul_center">
+            <ul class="home_ul_center">
                 <li>
                     <div class="slidertext">
                         <dl>
@@ -57,7 +57,7 @@
     <div class="cleared"></div>
 </div>
 <div class="fundingdesc">
-    <ul style="margin: 0;" class="home_ul_center">
+    <ul class="home_ul_center">
     <li>
         <div class="submitproject">
             <img style="right: 3%;position: relative;" id="flag" class="fundingleft" src="/img/flag.png" />
@@ -84,24 +84,6 @@
 
 {% endblock %}
 {% block content %}
-
-<div id="oi_last_project" class="projectlisttitle">{% trans "Latest projects" %}</div>
-<div id="promoted_project">
-    <ul class="home_ul_center">
-    {% for project in object_list %}
-        <li>
-            {% include 'funding/project_card.html' %}
-        </li>
-    {% endfor %}
-    </ul>
-</div>
-{% if user.is_authenticated %}
-<div class="prjlist" id="prjlist3">
-    {% for project in user.get_profile.get_observed_projects.distinct %}
-        {% include 'funding/project_card.html' %}
-    {% endfor %}
-</div>
-{% endif %}
 
 <div style="background-color:white;border: 1px solid #D3CFCF;">
     <div class="invisible prjlist" id="prjlist0">
@@ -155,6 +137,29 @@
         </div>
     </div>
 </div>
+
+<div id="oi_last_project" class="projectlisttitle">{% trans "Latest projects" %}</div>
+<div id="promoted_project">
+    <ul class="home_ul_center">
+    {% for project in object_list %}
+        <li>
+            {% include 'funding/project_card.html' %}
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+
+{% if user.is_authenticated %}
+<div class="prjlist" id="prjlist3">
+    <ul class="home_ul_center">
+    {% for project in user.get_profile.get_observed_projects.distinct %}
+        <li>
+        {% include 'funding/project_card.html' %}
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+{% endif %}
 
 <script>
     ajaxParams = document.location.hash;
