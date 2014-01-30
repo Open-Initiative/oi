@@ -333,6 +333,11 @@ ul.home_ul_center {
     text-align: center;
 }
 
+/*ul.home_ul_center_logo {*/
+/*    list-style-type: none;*/
+/*    padding: 0;*/
+/*}*/
+
 ul.home_ul_center li {
     display: inline-block;
     margin: 2px;

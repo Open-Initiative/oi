@@ -59,46 +59,50 @@
         <div><span id="output" class="info"></span></div>
     </div>
     <div id="header">
-        <div class="center mobile_content">
-            {% block header %}
-            <div id="beta"><img src="/img/beta0.png" /></div>
-            <div id="logo"><a href="/"><img src="/img/logo_funding.png" /></a></div>
-            <div id="searchdiv">
-                <div id="baseline">{% trans "The Co-funding platform for free software" %}</div>
-                <img src="/img/baseunderline.png" />
-            </div>
-            <div id="userheader_mobile" class="fundingright invisible"><img class="menu_mobile" src="/img/defaultusr.png"></div>
-<!--            <div class="cleared"></div>-->
-            <div id="userheader">
-                {% with fr="fr" en="en" %}
-                <form id="test" method="post" onsubmit="OIajaxCall('/user/changeuserlanguage', 'language={% if request.LANGUAGE_CODE == fr %}en{% else %}fr{% endif %}', 'output'); return false;" class="actions {%if not user.is_authenticated%}flag_authenticated{%endif%}">
-                    {% csrf_token %}
-                    <input type="hidden" name="language" value="{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}"/>
-                    <input id="oi_lang" type="image" src="/img/{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}.png" />
-                </form>
-                {% endwith %}
-                {%if user.is_authenticated%}
-                <div id="toptext">
-                    <b><a class="toplink" href="/user/myprofile">{% trans "My profile" %}</a></b>
-                    <b><a class="toplink" href="/user/myaccount">{% trans "My account" %}</a></b>
-                    <b><a class="subtitle" href="/logout">{% trans "Disconnect" %}</a></b>
+        <ul style="margin: 0" class="home_ul_center">
+            <li>
+                <div class="center mobile_content">
+                    {% block header %}
+                    <div id="beta"><img src="/img/beta0.png" /></div>
+                    <div id="logo"><a href="/"><img src="/img/logo_funding.png" /></a></div>
+                    <div id="searchdiv">
+                        <div id="baseline">{% trans "The Co-funding platform for free software" %}</div>
+                        <img src="/img/baseunderline.png" />
+                    </div>
+                    <div id="userheader_mobile" class="fundingright invisible"><img class="menu_mobile" src="/img/defaultusr.png"></div>
+        <!--            <div class="cleared"></div>-->
+                    <div id="userheader">
+                        {% with fr="fr" en="en" %}
+                        <form id="test" method="post" onsubmit="OIajaxCall('/user/changeuserlanguage', 'language={% if request.LANGUAGE_CODE == fr %}en{% else %}fr{% endif %}', 'output'); return false;" class="actions {%if not user.is_authenticated%}flag_authenticated{%endif%}">
+                            {% csrf_token %}
+                            <input type="hidden" name="language" value="{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}"/>
+                            <input id="oi_lang" type="image" src="/img/{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}.png" />
+                        </form>
+                        {% endwith %}
+                        {%if user.is_authenticated%}
+                        <div id="toptext">
+                            <b><a class="toplink" href="/user/myprofile">{% trans "My profile" %}</a></b>
+                            <b><a class="toplink" href="/user/myaccount">{% trans "My account" %}</a></b>
+                            <b><a class="subtitle" href="/logout">{% trans "Disconnect" %}</a></b>
+                        </div>
+                        <div class="usertitle header_close">{{user.get_profile}} 
+                            <div class="headerpic"><img class="contactpicture user_picture_effect" src="/user/getpicture/{{user.username}}"/></div>
+                        </div>
+                        <div class="header_close">{{user.get_profile.title}}</div>
+                        
+                        {%else%}
+                        <a href="/presentation"><span class="clickable headernews">{% trans "Learn more" %}</span></a>
+                        <a href="/#submit"><span class="clickable headernews" onclick="submitProject()">{% trans "Submit a project" %}</span></a>
+                        <div class="clickable fundingleft headerbtn btnlogin" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'" onclick="showPopup(document.getElementById('popup_register'));">{% trans "Login" %}</div>
+                        <div id="popup_register" class="invisible popup_form_register" onclick="document.ignoreClosePopups = true;" >{% with next=request.get_full_path %} {% include 'registration/register_block.html' %} {% endwith %}</div>
+                        <a href="/user/accounts/register/"><div class="clickable fundingleft headerbtn btnregister" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#FFFFFF'">{% trans "Register" %}</div></a>
+                        <div class="cleared"></div>
+                        {%endif%}
+                    </div>
+                    {% endblock %}
                 </div>
-                <div class="usertitle header_close">{{user.get_profile}} 
-                    <div class="headerpic"><img class="contactpicture user_picture_effect" src="/user/getpicture/{{user.username}}"/></div>
-                </div>
-                <div class="header_close">{{user.get_profile.title}}</div>
-                
-                {%else%}
-                <a href="/presentation"><span class="clickable headernews">{% trans "Learn more" %}</span></a>
-                <a href="/#submit"><span class="clickable headernews" onclick="submitProject()">{% trans "Submit a project" %}</span></a>
-                <div class="clickable fundingleft headerbtn btnlogin" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'" onclick="showPopup(document.getElementById('popup_register'));">{% trans "Login" %}</div>
-                <div id="popup_register" class="invisible popup_form_register" onclick="document.ignoreClosePopups = true;" >{% with next=request.get_full_path %} {% include 'registration/register_block.html' %} {% endwith %}</div>
-                <a href="/user/accounts/register/"><div class="clickable fundingleft headerbtn btnregister" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#FFFFFF'">{% trans "Register" %}</div></a>
-                <div class="cleared"></div>
-                {%endif%}
-            </div>
-            {% endblock %}
-        </div>
+            </li>
+        </ul>
         <div class="cleared"></div>
     </div>
     {% block announcement %}
