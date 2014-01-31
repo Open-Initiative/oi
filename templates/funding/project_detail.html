@@ -177,6 +177,7 @@
     <div id="discussions_{{project.id}}" class="discussions">
         {% for message in project.message_set.all %}
         <div id="message_{{message.id}}_box">{% include 'messages/message.html' %}</div>
+        <div class="cleared"></div>
         {% empty %}
         {% if project|can_answer:user %}{% trans "Discuss" %} {{object.title}}{% endif %}
         {% endfor %}
