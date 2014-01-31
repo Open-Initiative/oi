@@ -25,6 +25,12 @@
     max-width: 650px;
     margin: 0 auto;
 }
+#btn_extend_close {
+    right: 0px;
+    margin-top: -34px;
+    position: absolute;
+    z-index: 2;
+}
 /*.center_btnproject {*/
 /*    display: inline-block;*/
 /*    vertical-align: middle;*/
@@ -345,6 +351,19 @@ ul.home_ul_center li {
     vertical-align: middle;
 }
 
+/*ul.project_ul_center {*/
+/*    list-style-type: none;*/
+/*    padding: 0;*/
+/*    text-align: center;*/
+/*    margin: 0;*/
+/*}*/
+
+/*ul.project_ul_center li {*/
+/*    display: inline-block;*/
+/*    margin: 2px;*/
+/*    vertical-align: middle;*/
+/*}*/
+
 .prjcardlink {
     position: absolute;
     top: 350px;
@@ -545,6 +564,15 @@ option.oldrelease{
 .prjbody {
     float: left;
     width: 72%;
+}
+/*ul#features_0 li {*/
+/*    display: block;*/
+/*}*/
+/*ul#features_3 li {*/
+/*    display: block;*/
+/*}*/
+/*ul#features_4 li {*/
+/*    display: block;*/
 }
 .features {
     max-width: 275px;
@@ -862,7 +890,7 @@ div.sepspecfooter {
 }
 .discussion_column {
     clear: left;
-    width: 65%;
+/*    width: 100%;*/
     float: left;
     margin: 5px;
 }
@@ -1544,7 +1572,9 @@ img.tabicon {
 }
 .related {
     float: right;
-    width: 26%;
+/*    width: 26%;*/
+    max-width: 265px;
+/*    min-width: 174px;*/
 }
 .presslide {
     padding: 5px;

@@ -10,32 +10,42 @@
     .indexslide {overflow: auto; width: auto;}
     .slidertip {width: auto;}
     .slider dd {height: auto;width: auto;}
-    
     /*disparution de la barre header, apparution de la photo mobile par défaut */
     #userheader {display: none;}
     #userheader_mobile {display: block;}
-    
 }
-
-
+/*Push line qui disparait*/
 @media screen and (max-width:510px){
     #searchdiv {display: none;}
 }
-
 /*les boutons de la slidebar change de place*/
 @media screen and (max-width:640px){
     .slidericons {top: 200px;}
     .slidermore {top: 190px} 
 }
-
 /*les boutons de la slidebar change de place*/
 @media screen and (max-width:390px){
     .slidericons {top: 210px;}
     .slidermore {top: 200px} 
 }
-
+/*user picture mobile becomes absolute to be present in any device*/
 @media screen and (max-width:350px){
     .menu_mobile {position: absolute; right: 10px;}
     #catcher {width: 90%;}
 }
 
+
+/*La page projet*/
+
+@media screen and (min-width:966px){
+    #btn_extend_close {visibility: hidden;}
+}
+@media screen and (max-width:965px){
+    .prjbody {width:auto; margin: 0 3%;} /*à voir*/
+    .discussion_column {margin: 0 3%;} /*à voir*/
+    .btn_extend_close {display: block;}
+    .related {background: white; display:none; right: 20px; position: absolute; border: 1px solid #6F6F6E;}
+}
+@media screen and (max-width:525px){
+    .discussion_column {width: 93%;} /*à voir*/
+}

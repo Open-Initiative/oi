@@ -14,6 +14,9 @@
         <div id="prjdialogue_{{object.id}}" class="popup invisible"></div>
         <div class="prjheader">
             <div>
+                <img id="btn_extend_close" class="invisible btn_extend_close" src="/img/icons/btn_extention_close.png" onclick="$('#related').toggle()" />
+            </div>
+            <div>
                 {% with spec=project.spec_set.all|filter_order:1 object=project %}
                 <div style="position:relative; float:right" id="spec_{{object.id}}_{{spec.order}}" class="funding_space">
                     {%include 'funding/spec/spec.html'%}
@@ -84,61 +87,33 @@
     {% endwith %}
     {% endwith %}
     
-{% if object|can_manage:user or object|can_answer:user %}
-<div class="submit_feature">
-    {% if object|can_manage:user %}
-    <div class="column maxwidth50">
-        <div class="bordertitledetails">
-            <div class="navtitlehome oigreen">{% trans "What you have to do :" %}</div>
-            <p>
-                {% trans "You can create and edit new developments for your projects. Specify the title, make a description that explains its characteristics and determine the expected price for each. Your users can suggest other developments on the project page, you can accept / rephrase if you wish." %}
-            </p>
-        </div>
-    </div>
-    <div class="column maxwidth50">
-        <div class="blockfeatureheight">
-            <form id="submit_title_price_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, getValue('offer_{{object.id}}'), function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); document.getElementById('offer_{{object.id}}').value = ''; return false">
-                <table>
-                    <tr>
-                        <td>
-                        <label class="loginlabel oigreen" for="newtask_title_{{object.id}}">{% trans "insert a title" %}</label>
-                    <input type="text" class="fieldfeature" id="newtask_title_{{object.id}}" onkeyup="focusInOut('newtask_title_{{object.id}}')">
-                    <div class="cleared"></div>
-                            </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label class="loginlabel oigreen" for="offer_{{object.id}}">{% trans "Feature price" %}</label>
-                            <input type="text" class="fieldfeature" id="offer_{{object.id}}" onkeyup="focusInOut('offer_{{object.id}}')">  €
-                            <div class="cleared"></div>
-                        </td>
-                    </tr>
-                </table>
-                <p>{% trans "By adding this change you acknowledge that you have read and accepted the" %} <a href="/cgu">{% trans "Terms of Use" %}</a></p>
-                <input type="submit" hidden>
-            </form>
-            <div class="cleared"></div>
-        </div>
-        <span class="clickable continuebtn fundingright" onclick="$('#submit_title_price_{{object.id}}').submit()">{% trans 'Propose' %}</span>
-    </div>
-    {% else %}
-        {% if object|can_answer:user %}
+    {% if object|can_manage:user or object|can_answer:user %}
+    <div class="submit_feature">
+        {% if object|can_manage:user %}
         <div class="column maxwidth50">
             <div class="bordertitledetails">
-                <div class="navtitlehome oigreen">{% trans "Propose a new feature" %}</div>
+                <div class="navtitlehome oigreen">{% trans "What you have to do :" %}</div>
                 <p>
-                    {% trans "You can propose to the developer a new feature for this project. If it is accepted by the developer, the feature will be included in the project." %}
+                    {% trans "You can create and edit new developments for your projects. Specify the title, make a description that explains its characteristics and determine the expected price for each. Your users can suggest other developments on the project page, you can accept / rephrase if you wish." %}
                 </p>
             </div>
         </div>
         <div class="column maxwidth50">
             <div class="blockfeatureheight">
-                <form id="submit_title_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, null,function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0','featurebox'))}); return false" id="newtask_{{object.id}}">
+                <form id="submit_title_price_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, getValue('offer_{{object.id}}'), function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); document.getElementById('offer_{{object.id}}').value = ''; return false">
                     <table>
                         <tr>
                             <td>
                             <label class="loginlabel oigreen" for="newtask_title_{{object.id}}">{% trans "insert a title" %}</label>
-                            <input type="text" class="fieldfeature" id="newtask_title_{{object.id}}" onkeyup="focusInOut('newtask_title_{{object.id}}')">
+                        <input type="text" class="fieldfeature" id="newtask_title_{{object.id}}" onkeyup="focusInOut('newtask_title_{{object.id}}')">
+                        <div class="cleared"></div>
+                                </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="loginlabel oigreen" for="offer_{{object.id}}">{% trans "Feature price" %}</label>
+                                <input type="text" class="fieldfeature" id="offer_{{object.id}}" onkeyup="focusInOut('offer_{{object.id}}')">  €
+                                <div class="cleared"></div>
                             </td>
                         </tr>
                     </table>
@@ -147,19 +122,47 @@
                 </form>
                 <div class="cleared"></div>
             </div>
-            <span class="continuebtn fundingright clickable" onclick="$('#submit_title_{{object.id}}').submit()">{% trans 'Propose' %}</span>
+            <span class="clickable continuebtn fundingright" onclick="$('#submit_title_price_{{object.id}}').submit()">{% trans 'Propose' %}</span>
         </div>
+        {% else %}
+            {% if object|can_answer:user %}
+            <div class="column maxwidth50">
+                <div class="bordertitledetails">
+                    <div class="navtitlehome oigreen">{% trans "Propose a new feature" %}</div>
+                    <p>
+                        {% trans "You can propose to the developer a new feature for this project. If it is accepted by the developer, the feature will be included in the project." %}
+                    </p>
+                </div>
+            </div>
+            <div class="column maxwidth50">
+                <div class="blockfeatureheight">
+                    <form id="submit_title_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, null,function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0','featurebox'))}); return false" id="newtask_{{object.id}}">
+                        <table>
+                            <tr>
+                                <td>
+                                <label class="loginlabel oigreen" for="newtask_title_{{object.id}}">{% trans "insert a title" %}</label>
+                                <input type="text" class="fieldfeature" id="newtask_title_{{object.id}}" onkeyup="focusInOut('newtask_title_{{object.id}}')">
+                                </td>
+                            </tr>
+                        </table>
+                        <p>{% trans "By adding this change you acknowledge that you have read and accepted the" %} <a href="/cgu">{% trans "Terms of Use" %}</a></p>
+                        <input type="submit" hidden>
+                    </form>
+                    <div class="cleared"></div>
+                </div>
+                <span class="continuebtn fundingright clickable" onclick="$('#submit_title_{{object.id}}').submit()">{% trans 'Propose' %}</span>
+            </div>
+            {% endif %}
         {% endif %}
+        <div class="cleared"></div>
+    </div>
     {% endif %}
-    <div class="cleared"></div>
-</div>
-{% endif %}
     
 </div>
 
 {% with object as project %}
 
-<div class="related">
+<div id="related" class="related">
     {% include 'funding/related.html' %}
 </div>
 
