@@ -5,10 +5,12 @@
 {% block content %}
 {% if not is_ajax %}
 
-<a href="/message/new"><div class="catchericon">
-    <div class="column"><img src="/img/icons/msg100.png" /></div>
-    <div>{% trans "Talk" %}</div><div class="catchercomment">{% trans "to the community" %}</div>
-</div></a>
+<a href="/message/new">
+    <div class="catchericon">
+        <div class="column"><img src="/img/icons/msg100.png" /></div>
+        <div>{% trans "Talk" %}</div><div class="catchercomment">{% trans "to the community" %}</div>
+    </div>
+</a>
 <div class="cleared"></div>
 {{hits}} {% trans "messages" %}
 <div>

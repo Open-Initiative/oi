@@ -1,17 +1,20 @@
 {% load oifilters %}
 {% load i18n %}
-{% if not message.parent %}
+
 <div id="message_{{message.id}}" class="msgblue">
-    <div class="column">
-        <img class="contactpicture" src="/user/getpicture/{{message.author.username}}" />
-        <br />
-        <div class="author">
-            {% if message.author %}{{message.author}}{% else %}{% trans "guest" %}{% endif %}
+    <a href="/user/profile/{{message.author.username}}">
+        <div class="column">
+            <img class="contactpicture" src="/user/getpicture/{{message.author.username}}" />
             <br />
-            {{message.created|date:"d/m/Y"}}
+            <div class="author">
+                {% if message.author %}{{message.author}}{% else %}{% trans "guest" %}{% endif %}
+                <br />
+                {{message.created|date:"d/m/Y"}}
+            </div>
         </div>
-    </div>
+    </a>
 </div>
+
 <div class="msgbubble">
     <div class="msgtop">
         <div class="clickable msgtitle" onclick="shrinkMessage({{message.id}}, {{depth|default:0}})">
@@ -27,53 +30,24 @@
     </div>
     <div class="msgbtm"></div>
 </div>
-{% endif %}
-{% if message.parent %}
-<div id="message_{{message.id}}" class="msgblue">
-    <a href="/user/profile/{{message.author.username}}">
-        <div class="column">
-            <img class="contactpicture" src="/user/getpicture/{{message.author.username}}" />
-            <br />
-            <div class="author">
-                {% if message.author %}{{message.author}}{% else %}{% trans "guest" %}{% endif %}
-                <br />
-                {{message.created|date:"d/m/Y"}}
-            </div>
-        </div>
-    </a>
-    <div class="msgbubble">
-        <div class="msgtop">
-            <div class="clickable msgtitle" onclick="shrinkMessage({{message.id}}, {{depth|default:0}})">
-                {{message.title}}
-            </div>
-        </div>
-        <div class="msgbody">
-            <div id="msgdialogue_{{message.id}}"></div>
-            <div class="msgtext">
-                {{message.text|oiunescape}}
-            </div>
-        {% include "messages/message_actions.html" %}
-        </div>
-        <div class="msgbtm"></div>
+
+<div id="children_{{message.id}}" class="childrenlist">
+    {% with depth|default:10 as depth %}{% if message.children.count == 1 %}
+    {% with message.children.all|first as message %}
+    <div id="message_{{message.id}}">
+        {% if depth > 1 %}{% with depth|add:-1 as depth %}{% with "messages/message.html" as templatename %}
+            {% include templatename %}
+        {% endwith %}{% endwith %}
+        {% else %}{% with "messages/messagesum.html" as templatename %}
+            {% include templatename %}
+        {% endwith %}{% endif %}
     </div>
-{% endif %}
-    <div id="children_{{message.id}}" class="childrenlist">
-        {% with depth|default:10 as depth %}{% if message.children.all|length == 1 %}
-        {% with message.children.all|first as message %}
-        <div id="message_{{message.id}}">
-            {% if depth > 1 %}{% with depth|add:-1 as depth %}{% with "messages/message.html" as templatename %}
-                {% include templatename %}
-            {% endwith %}{% endwith %}
-            {% else %}{% with "messages/messagesum.html" as templatename %}
-                {% include templatename %}
-            {% endwith %}{% endif %}
-        </div>
-        {% endwith %}
-        {% else %}{% for child in message.children.all|dictsortreversed:"relevance" %}{% if child|can_answer:user %}
-        <div id="message_{{child.id}}">
-            {% with child as message %}{% include "messages/messagesmall.html" %}{% endwith %}
-        </div>
-        {% endif %}{% endfor %}{% endif %}
-        {% endwith %}
+    {% endwith %}
+    {% else %}{% for child in message.children.all|dictsortreversed:"relevance" %}{% if child|can_answer:user %}
+    <div id="message_{{child.id}}">
+        {% with child as message %}{% include "messages/messagesmall.html" %}{% endwith %}
     </div>
+    {% endif %}{% endfor %}{% endif %}
+    {% endwith %}
 </div>
+
