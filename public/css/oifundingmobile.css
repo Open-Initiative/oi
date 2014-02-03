@@ -48,6 +48,8 @@
     .discussion_column {margin: 0 3%;} /*à voir margin*/
     #btn_extend_close {display: block; visibility: visible;}
     .maxwidth50 {max-width: 100%;}
+    div.popup_spec {right: 0; left: 0;height: auto;}
+    .mobile_popup_size{width: auto !important;}
 }
 /*donne une bonne taille pour les messages*/
 @media screen and (max-width:525px){
