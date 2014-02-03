@@ -30,6 +30,7 @@
     margin-top: -34px;
     position: absolute;
     z-index: 2;
+    visibility: hidden;
 }
 /*.center_btnproject {*/
 /*    display: inline-block;*/
@@ -1570,11 +1571,11 @@ img.tabicon {
     margin: auto;
     max-width: 1020px;
 }
-.related {
+#related {
     float: right;
 /*    width: 26%;*/
     max-width: 265px;
-/*    min-width: 174px;*/
+    min-width: 174px;
 }
 .presslide {
     padding: 5px;

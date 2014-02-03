@@ -37,15 +37,24 @@
 
 /*La page projet*/
 
-@media screen and (min-width:966px){
-    #btn_extend_close {visibility: hidden;}
-}
+/*rend related absolute pour le voir a coté du projet*/
 @media screen and (max-width:965px){
-    .prjbody {width:auto; margin: 0 3%;} /*à voir*/
-    .discussion_column {margin: 0 3%;} /*à voir*/
-    .btn_extend_close {display: block;}
-    .related {background: white; display:none; right: 20px; position: absolute; border: 1px solid #6F6F6E;}
+    #related {background: white; right: 20px; position: absolute; border: 1px solid #6F6F6E;}
+    .prjbody {width:65%; margin: 0 3%;} /*à voir margin*/
 }
+/*permet de laisser related visible jusqu'a une certaine taille*/
+@media screen and (min-width:701px){
+    #related {display:block;}
+}
+/*rend la page responsive*/
+@media screen and (max-width:700px){
+    .prjbody {width:auto; margin: 0 3%;} /*à voir margin*/
+    .discussion_column {margin: 0 3%;} /*à voir margin*/
+    #btn_extend_close {display: block; visibility: visible;}
+/*    #related {display:none;}*/
+    .maxwidth50 {max-width: 100%;}
+}
+/*donne une bonne taille pour les messages*/
 @media screen and (max-width:525px){
     .discussion_column {width: 93%;} /*à voir*/
 }

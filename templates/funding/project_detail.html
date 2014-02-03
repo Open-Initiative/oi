@@ -14,7 +14,7 @@
         <div id="prjdialogue_{{object.id}}" class="popup invisible"></div>
         <div class="prjheader">
             <div>
-                <img id="btn_extend_close" class="invisible btn_extend_close" src="/img/icons/btn_extention_close.png" onclick="$('#related').toggle()" />
+                <img id="btn_extend_close" class="invisible" src="/img/icons/btn_extention_close.png" onclick="hideRelated()" />
             </div>
             <div>
                 {% with spec=project.spec_set.all|filter_order:1 object=project %}
@@ -162,7 +162,7 @@
 
 {% with object as project %}
 
-<div id="related" class="related">
+<div id="related">
     {% include 'funding/related.html' %}
 </div>
 

@@ -197,3 +197,9 @@ function deleteReward(projectid, rewardid){
 function completeTask(projectid, taskid){
     OIajaxCall("/project/"+projectid+"/completetask/"+taskid, null, "output");
 }
+function hideRelated(){
+    if(document.getElementById('related').className=='invisible')
+        $('#related').removeClass('invisible');
+    else
+        $('#related').addClass('invisible');
+}
