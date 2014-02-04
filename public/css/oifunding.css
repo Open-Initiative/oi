@@ -1573,9 +1573,9 @@ img.tabicon {
 }
 #related {
     float: right;
-/*    width: 26%;*/
+    width: 265px;
     max-width: 265px;
-    min-width: 174px;
+/*    min-width: 174px;*/
 }
 .presslide {
     padding: 5px;

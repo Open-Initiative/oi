@@ -198,8 +198,15 @@ function completeTask(projectid, taskid){
     OIajaxCall("/project/"+projectid+"/completetask/"+taskid, null, "output");
 }
 function hideRelated(){
-    if(document.getElementById('related').className=='invisible')
-        $('#related').removeClass('invisible');
-    else
-        $('#related').addClass('invisible');
+    if(document.getElementById('pite').className!='pite'){
+        $( "#pite" ).animate({"right": "+=250px"}, 3000, function() {
+            $("#pite").css( "overflow", "visible" );
+            $("#pite").addClass("pite");
+        });
+    }else{
+        $("#pite").css( "overflow", "hidden" );
+        $( "#pite" ).animate({"right": "-=250px"}, 3000, function() {
+            $("#pite").removeClass("pite");
+        });
+    }
 }
