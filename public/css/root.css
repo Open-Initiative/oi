@@ -88,6 +88,7 @@ a:hover {
 .center_contact_us div {
     font-weight: bold;
     color: white;
+    margin-top: 10px;
 }
 .center_contact_us p {
     margin: 0;
