@@ -32,9 +32,17 @@
             <input type="hidden" name="language" value="{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}">
             <input type="image" src="/img/{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}.png" />
         </form>
-        <img class="rootlogo" src="/img/logo.png" alt="logo openinitiative" />
+        <div style="width:0;float: left;font-size: 12px;font-weight: bold;left: 185px;padding: 1px;position: relative;top: 56px;">BETA</div>
+        <div id="logo">
+            <img class="rootlogo" src="/img/logo.png" style="height: 75px; width: 193px;" alt="logo openinitiative" />
+        </div>
+        <div id="searchdiv">
+            <div id="baseline">{% trans "The IT community dedicated to your business" %}</div>
+            <img src="/img/baseunderline.png">
+        </div>
+        <div class="cleared" ></div>
     </div>    
-    
+    <div class="cleared" ></div>
     <div style="border-top: 1px solid #E3E3E3"></div>
     
     <div class="root_home_page">
@@ -47,9 +55,9 @@
     
     <div class="contact_us">
         <div class="center_contact_us">
+            <a href="/contact"><div>{% trans "Contact us!" %}</div></a>
             <p>{% trans "You're wishing for a project to be funded?" %}</p>
             <p>{% trans "You're a developer and you're looking for a great project to work on?" %}</p>
-            <a href="/contact"><div>{% trans "Contact us!" %}</div></a>
         </div>
     </div>
     
@@ -75,7 +83,7 @@
                             <div>
                                 <img class="rootlogo" src="/img/logo.png" alt="logo openinitiative" />
                                 <div class="cleared"></div>
-                                <span>{% trans "An <b>agile</b> project management platform" %}</span>
+                                <span>{% trans "An agile project management platform" %}</span>
                             </div>
                         </div>
                     </a>
@@ -87,7 +95,7 @@
                             <div>
                                 <img class="rootlogo" src="/img/flat.png" alt="flat logo" />
                                 <div class="cleared"></div>
-                                <span>{% trans "A the conference rethinking management" %}</span>
+                                <span>{% trans "A conference rethinking management" %}</span>
                             </div>
                         </div>
                     </a>
@@ -106,7 +114,7 @@
             <a class="footlink" href="https://plus.google.com/104128139611924726489/posts" target="_blank"><img title="{% trans 'Follow us on google+' %}" alt="Google+" src="/img/google+.png"></a>
         </div>
         <a class="footlink" href="/cgu">{% trans "Terms of Use" %}</a> |
-        <a class="footlink" href="/presentation">{% trans "Presentation" %}</a> |
+<!--        <a class="footlink" href="/presentation">{% trans "Presentation" %}</a> |-->
         <a class="footlink" href="/contact">{% trans "Legal notice" %}</a> |
         <a class="footlink" href="/contact">{% trans "Contact" %}</a>
     </div>
