@@ -37,17 +37,13 @@
 
 /*La page projet*/
 
-/*permet de laisser related visible jusqu'a une certaine taille*/
-@media screen and (min-width:966px){
-    #related {display:block;}
-}
 /*rend la page responsive*/
-@media screen and (max-width:965px){
-    .prjbody {width:90%; margin: 0 3%;} /*à voir margin*/
-    #related {background: white; right: -250px; position: absolute; border: 1px solid #6F6F6E;}
+@media screen and (max-width:750px){
+    .prjbody {margin-right: 25px;} /*à voir margin*/
+    #related {background: white;}
     .discussion_column {margin: 0 3%;} /*à voir margin*/
 /*    permet de voir le boutons pour voir la colonne de droite*/
-    #btn_extend_close {display: block; visibility: visible;}
+    #btn_extend_close,#btn_extend_open  {display: block;}
 /*    donne une taille bien visible pour le blockfeatureheight */
     .maxwidth50 {max-width: 100%;}
 /*    centre la popup pour les feature*/
@@ -55,7 +51,7 @@
 /*    affiche la popup à la bonne taille pour le projet*/
     .mobile_popup_size{width: auto !important;}
 /*    permet de cacher la div en dessous d'une certaine taille*/
-    #pite {background: transparent;height:2000px; width:20px; float: right; position: absolute; right: 0;overflow: hidden;}
+    #shrinkrelated {box-shadow: 0 2px 3px 2px;z-index:1; width: 20px}
 }
 /*donne une bonne taille pour les messages*/
 @media screen and (max-width:525px){

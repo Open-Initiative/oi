@@ -81,16 +81,18 @@
                         </form>
                         {% endwith %}
                         {%if user.is_authenticated%}
-                        <div id="toptext">
-                            <b><a class="toplink" href="/user/myprofile">{% trans "My profile" %}</a></b>
-                            <b><a class="toplink" href="/user/myaccount">{% trans "My account" %}</a></b>
-                            <b><a class="subtitle" href="/logout">{% trans "Disconnect" %}</a></b>
+                        <div class="header_close">
+                            <div class="usertitle fundingright">{{user.get_profile}}</div>
+                            <div class="cleared"></div>
+                            <div id="toptext" class="invisible">
+                                <b><a class="toplink" href="/user/myprofile">{% trans "My profile" %}</a></b>
+                                <div class="cleared" style="border-top: solid 1px #CCE4F3; margin: 5px 0;"></div>
+                                <b><a class="toplink" href="/user/myaccount">{% trans "My account" %}</a></b>
+                                <div class="cleared" style="border-top: solid 1px #CCE4F3; margin: 5px 0;"></div>
+                                <b><a class="subtitle" href="/logout">{% trans "Disconnect" %}</a></b>
+                            </div>
+                            <div class="headerpic"><img onclick="$('#toptext').toggle();" class="contactpicture user_picture_effect clickable" src="/user/getpicture/{{user.username}}"/></div>
                         </div>
-                        <div class="usertitle header_close">{{user.get_profile}} 
-                            <div class="headerpic"><img class="contactpicture user_picture_effect" src="/user/getpicture/{{user.username}}"/></div>
-                        </div>
-                        <div class="header_close">{{user.get_profile.title}}</div>
-                        
                         {%else%}
                         <a href="/presentation"><span class="clickable headernews">{% trans "Learn more" %}</span></a>
                         <a href="/#submit"><span class="clickable headernews" onclick="submitProject()">{% trans "Submit a project" %}</span></a>

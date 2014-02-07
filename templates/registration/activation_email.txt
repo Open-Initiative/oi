@@ -1,12 +1,27 @@
 {% load i18n %}
 {% load oifilters %}
 Open Initiative
-{% trans "The IT community dedicated to your business" %}
+{% trans "The co-funding plateform for free software" %}
 
 
-{% trans "Please open the following link in your web browser." %}
+<span style="font-weight: bold; color: #0094B5;">{% trans "Dear" %}</span>
+
+<span style="font-weight: bold; color: #0094B5;">{% trans "Welcome to OpenFunding!" %} : )</span>
+<span style="color: #0094B5;">{% trans "Your account has been created successfully. It needs just one last step of clicking on the following link: " %}</span>
 
 http://{{site}}{% url registration.views.activate activation_key=activation_key %}
 
-{% trans "If there is a problem with your registration, please reply to this email." %}
+<span style="color: #0094B5;">{% trans "If there is a problem with your registration, please reply to this email." %}</span>
 
+<span style="color: #0094B5;">{% trans "Thank you very much for joining this community." %}</span>
+
+<span style="color: #0094B5;">{% trans "Cheers!" %}</span>
+
+<span style="color: #6F6F6E; font-weight: bold;">{% trans "The OpenFunding team" %}</span>
+<span style="color: #6F6F6E; font-weight: bold;"><a href="http://{{site}}">http://www.openinitiative.com/</a></span>
+<span style="color: #6F6F6E; font-weight: bold;">{% trans "The Co-funding Platform for Free Software" %}</span>
+
+<div style="border-top: 1px dotted #6F6F6E; width: 50px;"></div>
+
+<span style="color: #6F6F6E; font-weight: bold;"><a href="mailto:contact@open-initiative.com">contact@open-initiative.com</a></span>
+<span style="color: #6F6F6E; font-weight: bold;">twitter: @Open_Initiative</span>

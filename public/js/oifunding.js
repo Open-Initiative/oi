@@ -197,16 +197,13 @@ function deleteReward(projectid, rewardid){
 function completeTask(projectid, taskid){
     OIajaxCall("/project/"+projectid+"/completetask/"+taskid, null, "output");
 }
-function hideRelated(){
-    if(document.getElementById('pite').className!='pite'){
-        $( "#pite" ).animate({"right": "+=250px"}, 3000, function() {
-            $("#pite").css( "overflow", "visible" );
-            $("#pite").addClass("pite");
-        });
-    }else{
-        $("#pite").css( "overflow", "hidden" );
-        $( "#pite" ).animate({"right": "-=250px"}, 3000, function() {
-            $("#pite").removeClass("pite");
-        });
-    }
+function openRelated(){
+    $( "#shrinkrelated" ).animate({"width": "270px"}, 300);
+    $(".prjbody").animate({"margin-right": "270px"}, 300);
+//        $("#btn_extend_close").css("transform", "rotate(90deg)");
+}
+function closeRelated(){
+    $( "#shrinkrelated" ).animate({"width": "20px"}, 300);
+    $(".prjbody").animate({"margin-right": "20px"}, 300);
+//        $("#btn_extend_close").css("transform", "rotate(-90deg)");
 }
