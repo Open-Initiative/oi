@@ -6,8 +6,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="shortcut icon" href="/favicons.ico" />
-    <link rel="stylesheet" type="text/css" media="all" href="/css/oi.css" />
-    <link rel="stylesheet" type="text/css" media="all" href="/css/oifunding.css" />
+<!--    <link rel="stylesheet" type="text/css" media="all" href="/css/oi.css" />-->
+    <link rel="stylesheet" type="text/css" media="all" href="/css/root.css" />
+<!--    <link rel="stylesheet" type="text/css" media="all" href="/css/oifunding.css" />-->
     <link rel="stylesheet" type="text/css" media="all" href="/css/oimessages.css" />
     <link rel="stylesheet" type="text/css" media="all" href="/css/oiprojects.css" />
     <link rel="stylesheet" type="text/css" media="all" href="/css/oiusers.css" />
@@ -26,62 +27,82 @@
     <title>Open Initiative</title>
 </head>
 <body>
+
     <div id="catcherbg">
         <form action="/i18n/setlang/" method="post" class="actions">
             {% csrf_token %}
             <input type="hidden" name="language" value="{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}">
             <input type="image" src="/img/{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}.png" />
         </form>
-        <div id="rootcatcher">
-            <div id="slider" class="slider">
-                <div class="slidertext">
-                    <dl>
-                        <div id="indexslide1" class="indexslide"><dt>Open Initiative</dt>
-                            <dd>{% trans "IT Services, but made differently" %}</dd>
+    </div>    
+    
+    <div class="root_home_page">
+        <img class="root_img" src="/img/logo_funding.png" alt="logo Open Funding">
+        <p>{% trans "Fund your free software on" %}</p>     
+        <p>{% trans "OpenFunding the" %} <b>{% trans "co-funding" %}</b> {% trans "platform for all" %}</p> 
+        <p>{% trans "your free software" %}</p>   
+        <a href="http://{{Sites|get:"Open Funding"}}" class="join_community clickable">{% trans "Join the community" %}</a>   
+    </div>
+    
+    <div class="contact_us">
+        <div class="center_contact_us">
+            <div>{% trans "Contact us!" %}</div>
+            <p>{% trans "You're wishing for a project to be funded?" %}</p>
+            <p>{% trans "You're a developer and you're looking for a great project to work on?" %}</p>
+        </div>
+    </div>
+    
+    <div class="other_initiative">
+        <span class="other_initiative_subtitle">{% trans "Our other initiatives" %}</span>
+        <div class="cleared"></div>
+        
+        <div class="center">
+            <ul class="root_ul">
+                
+                <li id="blog">
+                    <a href="http://blog.openinitiative.com/">
+                        <div class="rootdesc">
+                            <div>Follow us on</div>
+                            <div class="blogtag blogtagline">The blog</div>
                         </div>
-                    </dl>
-                </div>
-            </div>
+                    </a>
+                </li>
+                
+                <li id="openinitiative">
+                    <a href="http://{{Sites|get:"Open Initiative Projects"}}">
+                        <div class="rootdesc">
+                            <div>
+                                <img class="rootlogo" src="/img/logo.png" alt="logo openinitiative" />
+                                <div class="cleared"></div>
+                                <span>{% trans "An <b>agile</b> project management platform" %}</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                
+                <li id="conference">
+                    <a href="http://flat-conference.com/">
+                        <div class="rootdesc">
+                            <div>
+                                <img class="rootlogo" src="/img/flat.png" alt="flat logo" />
+                                <div class="cleared"></div>
+                                <span>{% trans "A the conference rethinking management" %}</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                
+            </ul>
         </div>
+        
+        <div class="cleared"></div>
     </div>
-    <div class="fundingdesc">
-        <div>You're wishing for a project to be funded?</div>
-        <div>You're a developer, and you're looking for a great project to work on?</div>
-        <a class="fundingtitle footlink" style="color:white" href="/contact">Contact us!</a>
-    </div>
-    <div class="center">
-        <div class="rootfundingspace">
-            <a href="http://{{Sites|get:"Open Funding"}}"><div class="rootfunding">
-                <div><img class="rootlogofunding" src="/img/logo_funding.png" alt="Open Funding, {% trans "the <b>crowdfunding</b> platform for all your free software" %}" title="Open Funding, {% trans "the <b>crowdfunding</b> platform for all your free software" %}" /></div>
-                {% trans "Fund your <b>free software</b> on" %}
-                <div class="fundingtitle">Open <span class="fundinggreen">Funding</span></div>
-                {% trans "the <b>crowdfunding</b> platform for all your free software" %}
-            </div></a>
-        </div>
-        <div id="oi_last_project" class="projectlisttitle">{% trans "Our other initiatives" %}</div>
-        <div class="center" style="margin: auto 10%">
-            <a href="http://blog.openinitiative.com/"><div class="rootdesc">
-                <div>Follow us on</div>
-                <div class="blogtag blogtagline">The blog</div>
-            </div></a>
-            <a href="http://{{Sites|get:"Open Initiative Projects"}}"><div class="rootdesc">
-                <div><img class="rootlogo" src="/img/logo.png" alt="Open Initiative Projects, {% trans "the agile project management platform to make your projects happen" %}" title="Open Initiative Projects, {% trans "the agile project management platform to make your projects happen" %}" /></div>
-                {% trans "Manage your projects on" %}
-                <div class="fundingtitle">Open <span class="oired">Initiative</span></div>
-                {% trans "the <b>agile</b> project management platform where your projects happen" %}
-            </div></a>
-            <div>
-                <a href="http://flat-conference.com/"><div class="rootdesc">
-                    <div><img class="rootlogo" src="/img/flat.png" alt="The Flat Conference, {% trans "the conference rethinking management" %}" title="The Flat Conference, {% trans "the conference rethinking management" %}" /></div>
-                    Open Initiative {% trans "coorganizes the" %} <b>Flat Conference</b>, {% trans "the conference rethinking management" %}
-                </div></a>
-            </div>
-        </div>
-    </div>
+    
     <div id="footer">
         <div class="op_icon">
             <a class="footlink" href="https://www.facebook.com/myopeninitiative?filter=1"><img alt="Facebook" title="{% trans 'Follow us on facebook' %}" src="/img/facebook.png"></a>
             <a class="footlink" href="https://twitter.com/Open_Initiative"><img alt="Twitter" title="{% trans 'Follow us on twitter' %}" src="/img/twitter.png"></a>
+            <a class="footlink" href="https://plus.google.com/104128139611924726489/posts" target="_blank"><img title="{% trans 'Follow us on google+' %}" alt="Google+" src="/img/google+.png"></a>
         </div>
         <a class="footlink" href="/cgu">{% trans "Terms of Use" %}</a> |
         <a class="footlink" href="/presentation">{% trans "Presentation" %}</a> |
@@ -90,7 +111,4 @@
     </div>
 </body>
 </html>
-
-
-
 
