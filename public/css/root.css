@@ -26,15 +26,16 @@ body {
 img {
     border: None;
 }
-#openinitiative img {
-    background: white;
-}
 a {
     text-decoration: None;
     color: #0094B5;
 }
 a:hover {
     text-decoration: underline;
+}
+#catcherbg {
+    max-width: 1020px;
+    margin: 10px auto;
 }
 .actions {
     clear: right;
@@ -54,6 +55,9 @@ a:hover {
     padding: 20px;
     text-align: center;
 }
+.root_home_page p {
+    margin: 7px 0;
+}
 .join_community{
     background: #0094B5;
     border-radius: 3px;
@@ -62,6 +66,7 @@ a:hover {
     text-align: center; 
     padding: 7px;
     margin: 0 auto;
+    margin-top: 20px;
 }
 .root_img{
     text-align: center;
@@ -77,10 +82,10 @@ a:hover {
     color: white;
     font-size: 1.3em;
     margin: 0 auto;
-    padding: 10px 0;
+    padding: 20px 0;
+    text-align: center;
 }
 .center_contact_us div {
-    float: right;
     font-weight: bold;
     color: white;
 }
@@ -90,27 +95,18 @@ a:hover {
 .other_initiative{
     background: #E3E3E3;
     padding-bottom: 10px;
+    padding-top: 10px;
 }
 .rootdesc {
-/*    background-color: #FFFFFF;*/
-/*    border: 1px solid #E3E3E5;*/
-/*    border-radius: 5px;*/
-/*    float: left;*/
-/*    margin: 3%;*/
-/*    padding: 1%;*/
     text-align: center;
     width: 150px;
-/*    height: 8em;*/
 }
 .rootlogo {
     width: 100px;
 }
 .blogtag {
     border-radius: 5px;
-/*    color: #0094B5;*/
-/*    text-align: center;*/
     background: #362a32;
-/*    float: right;*/
     padding: 0.5em 1em;
     margin: 1%;
 }
@@ -134,10 +130,9 @@ a:hover {
 }
 #footer {
     clear: left;
-    background: #dce8ea;
+    background: white;
     text-align: center;
     font-size: .9em;
-/*    margin-top: 20px;*/
     padding: 10px;
 }
 .other_initiative_subtitle{
@@ -146,7 +141,7 @@ a:hover {
     text-align: center;
     border-left: 1px solid #0094B5;
     border-right: 1px solid #0094B5;
-    padding: 10px;
+    padding: 5px;
     color: #0094B5;
 }
 ul.root_ul {
