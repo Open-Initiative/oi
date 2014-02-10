@@ -25,10 +25,10 @@
     max-width: 650px;
     margin: 0 auto;
 }
-#btn_extend_close{
+#btn_extend_close, #btn_extend_presentation_close{
     position: absolute;
 }
-#btn_extend_open {
+#btn_extend_open, #btn_extend_presentation_open {
     position: absolute;
     right: 0;
 }
@@ -570,6 +570,15 @@ option.oldrelease{
     overflow: hidden;
     margin-right: 275px;
 }
+.prjbodypresentation {
+    margin-left: 280px;
+    max-width: 750px;
+    overflow: hidden;
+    width: auto;
+}
+.prjbodyprofile {
+    margin-right: 25px;
+}
 /*ul#features_0 li {*/
 /*    display: block;*/
 /*}*/
@@ -814,7 +823,7 @@ div.sepspecfooter {
     display: inline-block;
 }
 .projectbaseline {
-    width: 34em;
+    width: 30em;
 }
 .spotnumber {
     height: 16px;
@@ -1315,12 +1324,13 @@ a:hover {
     margin-top: 10px;
     padding: 10px;
 }
-#toptext {
-    border-radius: 5px;
-    float:right;
-    background: #0094B5;
-    padding: 5px;
+.toptext {
+    background: none repeat scroll 0 0 #0094B5;
+    border-radius: 5px 5px 5px 5px;
+    float: right;
+    font-size: 1.2em;
     margin-top: 20px;
+    padding: 10px;
     position: relative;
     z-index: 1;
 }
@@ -1493,6 +1503,7 @@ a:hover {
     float: left;
     width: 60%;
     margin: 2px;
+    max-width: 595px;
 }
 div.smallcolumn {
     float: left;
@@ -1875,4 +1886,13 @@ div.spectype {
     overflow:hidden;
     position:absolute; 
     right:0; 
+}
+#shrinkpresentation {
+    overflow:hidden;
+    position:absolute; 
+    left:0; 
+}
+.learn_more {
+    position: relative; 
+    top: 25px;
 }

@@ -252,7 +252,7 @@ tinyMCE.baseURL = "/js/tiny_mce/";// trailing slash important
 //I created an object to init the tinymce in textarea and call it instead of mceAddControl in other js function
 objectInitTinyMce = {
     selector: "textarea.editable",
-    width: 500,
+    width: "auto",
     height: 200,
     menubar: false,
     file_browser_callback: function(field_name, url, type, win) { 

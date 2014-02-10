@@ -197,13 +197,11 @@ function deleteReward(projectid, rewardid){
 function completeTask(projectid, taskid){
     OIajaxCall("/project/"+projectid+"/completetask/"+taskid, null, "output");
 }
-function openRelated(){
-    $( "#shrinkrelated" ).animate({"width": "270px"}, 300);
-    $(".prjbody").animate({"margin-right": "270px"}, 300);
-//        $("#btn_extend_close").css("transform", "rotate(90deg)");
+function shrikRelated(block1, block2, size){
+    $( ""+block1 ).animate({"width": size+"px"}, 300);
+    $( ""+block2 ).animate({"margin-right": size+"px"}, 300);
 }
-function closeRelated(){
-    $( "#shrinkrelated" ).animate({"width": "20px"}, 300);
-    $(".prjbody").animate({"margin-right": "20px"}, 300);
-//        $("#btn_extend_close").css("transform", "rotate(-90deg)");
+function shrikPresntation(block1, block2, size){
+    $( ""+block1 ).animate({"width": size+"px"}, 300);
+    $(""+block2 ).animate({"margin-left": size+"px"}, 300);
 }

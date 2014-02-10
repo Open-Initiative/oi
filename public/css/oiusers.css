@@ -10,6 +10,7 @@ div.userpage {
     float: left;
     text-align: center;
     width: 36%;
+    max-width: 357px;
 }
 .credittip {
 /*    border: 1px solid #E0E0E0;*/
@@ -53,9 +54,9 @@ div.userpicture {
     margin:0 40px;
 }
 .usercontentlarge {
-    width:550px;
-    float: left;
-    margin-left: 40px;
+    max-width:550px;
+/*    float: left;*/
+    margin: 0 auto;
 }
 div.blogicon {
     background: url("/img/discblue.png");
@@ -103,11 +104,11 @@ div.blogicon {
     padding: .5em 0
 }
 #bio {
-    width: 450px;
+    max-width: 500px;
 }
 .profilecolumn {
     float: left;
-    width: 70%;
+/*    width: 70%;*/
     margin: 2px;
 }
 .popupbox {
@@ -118,9 +119,10 @@ div.blogicon {
 .confirmpaymentblock {
     background-color: white;
     border: 1px solid #E0E0E0;
-    border-radius: 20px;
+    border-radius: 3px;
     box-shadow: 2px 2px 2px;
     padding: 1% 3%;
+    min-width: 350px;
 }
 .payment_popup_title {
     color: #0094B5; 
