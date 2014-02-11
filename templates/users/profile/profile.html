@@ -73,7 +73,10 @@
         </ul>
     </div>
     <div class="cleared"></div>
-    <span class="clickable" onclick="seeMore('created_visible', 'created_invisible')"><a class="btn_feature fundingright bluesky">{% trans "See more" %}</a></span>
+    {% with tasks=selected_user.get_profile.get_funded_projects|filter_read:user %}
+    {% if tasks.count > 3 %}<span class="clickable" onclick="seeMore('created_visible', 'created_invisible')"><a class="btn_feature fundingright bluesky">{% trans "See more" %}</a></span>
+    {% endif %}
+    {% endwith %}
     
     <div class="cleared"></div>
     {% if selected_user.get_profile.get_funded_projects|filter_read:user %}<div class="tasktitle form_center">{% trans "Projects funded" %}</div>{% endif %}
@@ -96,7 +99,10 @@
         </ul>
     </div>
     <div class="cleared"></div>
-    <span class="clickable" onclick="seeMore('funded_visible', 'funded_invisible')"><a class="btn_feature fundingright bluesky">{% trans "See more" %}</a></span>
+    {% with tasks=selected_user.get_profile.get_funded_projects|filter_read:user %}
+    {% if tasks.count > 3 %}<span class="clickable" onclick="seeMore('funded_visible', 'funded_invisible')"><a class="btn_feature fundingright bluesky">{% trans "See more" %}</a></span>
+    {% endif %}
+    {% endwith %}
 </div>
 <div id="sendmp" class="popupmsg invisible"></div>
 {% endblock %}

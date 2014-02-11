@@ -11,12 +11,12 @@
     .slidertip {width: auto;}
     .slider dd {height: auto;width: auto;}
     /*disparution de la barre header, apparution de la photo mobile par défaut */
-    #userheader {display: none;}
+/*    #userheader {display: none;}*/
     #userheader_mobile {display: block;}
     .menu_mobile {position: relative; right: 10px;}
 }
 /*Push line qui disparait*/
-@media screen and (max-width:670px){
+@media screen and (max-width:765px){
     #searchdiv {display: none;}
 }
 /*les boutons de la slidebar change de place*/
@@ -24,8 +24,11 @@
     .slidericons {top: 200px;}
     .slidermore {top: 190px} 
 }
-@media screen and (max-width:505px){
+@media screen and (max-width:600px){
     .learn_more > a {display: none;}
+}
+@media screen and (max-width:410px){
+    .picture_name_header > span {display: none;}
 }
 /*les boutons de la slidebar change de place*/
 @media screen and (max-width:390px){
