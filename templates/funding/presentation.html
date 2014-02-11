@@ -5,7 +5,7 @@
 {% block content %}
 <div id="shrinkpresentation">
     <div>
-        <img id="btn_extend_presentation_close" class="invisible" src="/img/icons/btn_extention_close.png" onclick="shrikPresntation('#shrinkpresentation', '.prjbodypresentation', 20)" />
+        <img id="btn_extend_presentation_close" class="invisible" src="/img/icons/btn_extention_close.png" onclick="document.getElementById('shrinkpresentation').style.cssText=''" />
     </div>
     <div id="block_presnav" class="presnav">
         <div class="presnavtitle boldtext">{% trans "What is Open Funding?" %}</div>
@@ -22,7 +22,7 @@
 </div>
 <div class="prjbodypresentation">
     <div>
-        <img id="btn_extend_presentation_close" class="invisible" src="/img/icons/btn_extention_close.png" onclick="shrikPresntation('#shrinkpresentation', '.prjbodypresentation', 280)" />
+        <img id="btn_extend_presentation_close" class="invisible" src="/img/icons/btn_extention_close.png" onclick="$('#shrinkpresentation').animate({'width': '280px'}, 300)" />
     </div>
     <div class="presslide" id="11">
         <h2>{% trans "What is Open Funding?" %}</h2>

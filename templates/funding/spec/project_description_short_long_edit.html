@@ -14,7 +14,7 @@
 </div>
 
 <p class="help-funding">{% trans "This description is 200 characters maximum and will be shown in the home page, try to be specific." %}</p>
-<div id="{{project.id}}_2_{{lang|default:'default'}}" class="column">
+<div id="{{project.id}}_2_{{lang|default:'default'}}" style="max-width: 500px">
     <input id="text_{{project.id}}_2_{{lang|default:'default'}}" class="projectbaseline" value="{{spec2.text|oiunescape}}" maxlength="200" />
 </div>
 {% endwith %}
@@ -28,7 +28,7 @@
 <div style="width:57%">
     <b>{% trans "A long description including : who you are, why you do it, how it can be used..." %}</b>
 </div>
-<div id="{{project.id}}_3_{{lang|default:'default'}}" class="column">
+<div id="{{project.id}}_3_{{lang|default:'default'}}" style="max-width: 500px">
     <textarea id="text_{{project.id}}_3_{{lang|default:'default'}}" class="editable">{{spec3.text|oiunescape}}</textarea>
 </div>
 
