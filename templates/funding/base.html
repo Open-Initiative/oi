@@ -75,8 +75,10 @@
             <div class="picture_name_header">
                 <span class="usertitle name_header clickable" onclick="arrow_Up_Down()">{{user.get_profile}}</span>
                 <img class="menu_mobile contactpicture user_picture_effect clickable" src="{% if user.username %}/user/getpicture/{{user.username}}{% else %}/img/defaultusr.png{% endif %}" onclick="arrow_Up_Down()" />
-                <span id="arrow_header" class="arrow_header clickable" onclick="arrow_Up_Down()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <span id="arrow_header_up" class="arrow_header_up clickable invisible" onclick="arrow_Up_Down()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                {%if user.is_authenticated%}
+                <span id="arrow_header" class="arrow_header clickable" onclick="arrow_Up_Down()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span id="arrow_header_up" class="arrow_header_up clickable invisible" onclick="arrow_Up_Down()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                {%endif%}
             </div>
             
             <div id="userheader">
