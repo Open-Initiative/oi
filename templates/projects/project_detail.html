@@ -16,7 +16,7 @@
 <div id="releaseblock">
     <div class="currentreleaseblock">
         {% trans "Current release:" %}
-        {% if object.master.state < 4 and object.master|can_manage:user %}<div class="switchrelease"><a onclick="$('#nextreleaseblock').show();" title="{% trans 'Switch the project to another version'%}" class="clickable">{% trans "Switch" %}<img src=></a></div>{% endif %}
+        {% if object.master.state < 4 and object.master|can_manage:user %}<div class="switchrelease clickable" onclick="$('#nextreleaseblock').show();" title="{% trans 'Switch the project to another version'%}" >{% trans "Switch" %}</div>{% endif %}
         <br /> 
         <b>{{object.master.target.name|default:_("Initial release")}}</b>
         {% if object.master|can_manage:user %}
