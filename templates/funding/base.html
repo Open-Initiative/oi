@@ -67,37 +67,38 @@
                 <div id="baseline">{% trans "The Co-funding platform for free software" %}</div>
                 <img src="/img/baseunderline.png" />
             </div>
-<!--            <div class="cleared"></div>-->
             <div class="learn_more">
                 <a href="/presentation" class="clickable headernews">{% trans "Learn more" %}</a>
                 <a href="/#submit" class="clickable headernews" onclick="submitProject()">{% trans "Submit a project" %}</a>
             </div>
             
             <div class="picture_name_header">
-                <span class="usertitle name_header clickable" onclick="$('#toptext').toggle();">{{user.get_profile}}</span>
-                <img class="menu_mobile contactpicture user_picture_effect clickable" src="{% if user.username %}/user/getpicture/{{user.username}}{% else %}/img/defaultusr.png{% endif %}" onclick="$('#toptext').toggle();" />
+                <span class="usertitle name_header clickable" onclick="arrow_Up_Down()">{{user.get_profile}}</span>
+                <img class="menu_mobile contactpicture user_picture_effect clickable" src="{% if user.username %}/user/getpicture/{{user.username}}{% else %}/img/defaultusr.png{% endif %}" onclick="arrow_Up_Down()" />
+                <span id="arrow_header" class="arrow_header clickable" onclick="arrow_Up_Down()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span id="arrow_header_up" class="arrow_header_up clickable invisible" onclick="arrow_Up_Down()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
             </div>
             
             <div id="userheader">
                 {% with fr="fr" en="en" %}
-                <form id="test" method="post" onsubmit="OIajaxCall('/user/changeuserlanguage', 'language={% if request.LANGUAGE_CODE == fr %}en{% else %}fr{% endif %}', 'output'); return false;" class="actions {%if not user.is_authenticated%}flag_authenticated{%endif%}">
+                <form id="test" method="post" onsubmit="OIajaxCall('/user/changeuserlanguage', 'language={% if request.LANGUAGE_CODE == fr %}en{% else %}fr{% endif %}', 'output'); return false;" class="actions">
                     {% csrf_token %}
                     <input type="hidden" name="language" value="{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}"/>
                     <input id="oi_lang" type="image" src="/img/{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}.png" />
                 </form>
                 {% endwith %}
                 {%if user.is_authenticated%}
-            <div class="header_close">
-                <div class="cleared"></div>
-                <div id="toptext" class="invisible">
-                    <b><a class="toplink" href="/user/myprofile">{% trans "My profile" %}</a></b>
-                    <div class="cleared" style="border-top: solid 1px #CCE4F3; margin: 5px 0;"></div>
-                    <b><a class="toplink" href="/user/myaccount">{% trans "My account" %}</a></b>
-                    <div class="cleared" style="border-top: solid 1px #CCE4F3; margin: 5px 0;"></div>
-                    <b><a class="subtitle" href="/logout">{% trans "Logout" %}</a></b>
+                <div class="header_close">
+                    <div class="cleared"></div>
+                    <div id="toptext" class="invisible">
+                        <b><a class="toplink" href="/user/myprofile">{% trans "My profile" %}</a></b>
+                        <div class="cleared" style="border-top: solid 1px #0595BA; margin: 5px 0;"></div>
+                        <b><a class="toplink" href="/user/myaccount">{% trans "My account" %}</a></b>
+                        <div class="cleared" style="border-top: solid 1px #0595BA; margin: 5px 0;"></div>
+                        <b><a class="toplink subtitle" href="/logout">{% trans "Logout" %}</a></b>
+                    </div>
                 </div>
-            </div>
-            {%endif%}
+                {%endif%}
                 {%if not user.is_authenticated%}
                 <div class="clickable fundingleft headerbtn btnlogin" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'" onclick="showPopup(document.getElementById('popup_register'));">{% trans "Login" %}</div>
                 <div id="popup_register" class="invisible popup_form_register" onclick="document.ignoreClosePopups = true;" >{% with next=request.get_full_path %} {% include 'registration/register_block.html' %} {% endwith %}</div>
