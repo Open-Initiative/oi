@@ -739,6 +739,7 @@ div.sepspecfooter {
     clear: left;
     float: left;
     margin: 5px;
+    max-width: 500px;
 }
 /*TODO*/
 .column-right {

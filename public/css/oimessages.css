@@ -1,15 +1,27 @@
 .discussions {
     margin-top: 1em;
 }
+.speech {
+    border-bottom: 1px solid transparent;
+    border-right: 30px solid #D7E7F0;
+    border-top: 20px solid transparent;
+    float: left;
+    margin-left: -20px;
+    margin-top: 20px;
+}
 div.msgbody {
-    background: #D7E7F0;
-    margin-left: 17px;
-    width: 93.5%;
-    margin: 0 17px;
-    padding: 0 5px;
+/*    background: #D7E7F0;*/
+/*    margin-left: 17px;*/
+/*    width: 93.5%;*/
+/*    margin: 0 17px;*/
+/*    padding: 0 5px;*/
 }
 div.msgbubble {
-    padding-left: 70px;
+    background: none repeat scroll 0 0 #D7E7F0;
+    border-radius: 10px 10px 10px 10px;
+    margin-bottom: 20px;
+    margin-left: 100px;
+    padding: 10px;
 }
 div.rfptop {
     border-top: 1px solid;
@@ -17,16 +29,16 @@ div.rfptop {
 }
 div.msgtop {
 /*    width: 562px;*/
-    height: 22px;
-    background: url('/img/msgtop.png');
-    padding: 5px 25px;
+/*    height: 22px;*/
+/*    background: url('/img/msgtop.png');*/
+/*    padding: 5px 25px;*/
 }
 div.msgbtm {
-    background: #D7E7F0;
-    border-radius: 0 0 5px 5px;
-    height: 10px;
-    margin-bottom: 10px;
-    margin-left: 17px;
+/*    background: #D7E7F0;*/
+/*    border-radius: 0 0 5px 5px;*/
+/*    height: 10px;*/
+/*    margin-bottom: 10px;*/
+/*    margin-left: 17px;*/
 /*    width: 595px;*/
 }
 .msgtext {
@@ -63,13 +75,15 @@ div.author {
     height:23px;
 }
 div.smallmsg {
-    position: relative;
-    height: 42px;
-    width: 300px;
-    overflow: hidden;
-    padding: 0 20px;
+    background: none repeat scroll 0 0 #D7E7F0;
+    border-radius: 10px 10px 10px 10px;
+    clear: left;
+/*    height: 42px;*/
     margin-bottom: 10px;
-    clear:left;
+    overflow: hidden;
+    padding: 15px 20px;
+    position: relative;
+    max-width: 300px;
 }
 .msgtitle {
     font-size: 1.2em;
