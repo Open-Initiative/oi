@@ -61,10 +61,6 @@
 /*    permet de cacher la div en dessous d'une certaine taille*/
     #shrinkrelated {box-shadow: 0 2px 3px 2px; width: 20px}
 }
-/*donne une bonne taille pour les messages*/
-@media screen and (max-width:525px){
-    .discussion_column {width: 93%;} /*à voir*/
-}
 
 /*La page presentation*/
 

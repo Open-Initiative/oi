@@ -10,7 +10,7 @@
 {% if object|can_read:user %}
 
 {% with object as project %}
-<div style="position: absolute;right: 0;z-index: 1;">
+<div class="block_shrinkrelated">
     <img id="btn_extend_open" class="btn_extend" src="/img/icons/openbtn.png" onclick="$('#shrinkrelated').animate({'width': '260px'}, 300);$('#btn_extend_close').removeClass('invisible');$('#btn_extend_open').addClass('invisible');" />    
         
     <img id="btn_extend_close" class="invisible btn_extend" src="/img/icons/closebtn.png" onclick="document.getElementById('shrinkrelated').style.cssText='';$('#btn_extend_open').removeClass('invisible');$('#btn_extend_close').addClass('invisible');" />
