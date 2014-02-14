@@ -10,12 +10,14 @@
 {% if object|can_read:user %}
 
 {% with object as project %}
-<div id="shrinkrelated">
-    <div>
-        <img id="btn_extend_close" class="invisible" src="/img/icons/btn_extention_close.png" onclick="document.getElementById('shrinkrelated').style.cssText=''" />
-    </div>
-    <div id="related">
-        {% include 'funding/related.html' %}
+<div style="position: absolute;right: 0;z-index: 1;">
+    <img id="btn_extend_open" class="btn_extend" src="/img/icons/openbtn.png" onclick="$('#shrinkrelated').animate({'width': '260px'}, 300);$('#btn_extend_close').removeClass('invisible');$('#btn_extend_open').addClass('invisible');" />    
+        
+    <img id="btn_extend_close" class="invisible btn_extend" src="/img/icons/closebtn.png" onclick="document.getElementById('shrinkrelated').style.cssText='';$('#btn_extend_open').removeClass('invisible');$('#btn_extend_close').addClass('invisible');" />
+    <div id="shrinkrelated">
+        <div id="related">
+            {% include 'funding/related.html' %}
+        </div>
     </div>
 </div>
 {% endwith %}
@@ -25,9 +27,6 @@
     <div id="project_{{object.id}}" class="project">
         <div id="prjdialogue_{{object.id}}" class="popup invisible"></div>
         <div class="prjheader">
-            <div>
-                <img id="btn_extend_open" class="invisible" src="/img/icons/btn_extention_close.png" onclick="$('#shrinkrelated').animate({'width': '260px'}, 300);" />
-            </div>
             <div>
                 {% with spec=project.spec_set.all|filter_order:1 object=project %}
                 <div style="position:relative; float:right" id="spec_{{object.id}}_{{spec.order}}" class="funding_space">

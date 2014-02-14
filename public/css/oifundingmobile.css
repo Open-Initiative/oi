@@ -24,11 +24,11 @@
     .slidericons {top: 200px;}
     .slidermore {top: 190px} 
 }
-@media screen and (max-width:600px){
+@media screen and (max-width:700px){
     .learn_more > a {display: none;}
 }
 @media screen and (max-width:410px){
-    .picture_name_header > span {display: none;}
+    #name_header {display: none;}
 }
 /*les boutons de la slidebar change de place*/
 @media screen and (max-width:390px){
@@ -43,14 +43,15 @@
 
 
 /*La page projet*/
-
+@media screen and (min-width:751px){
+    #btn_extend_close, #btn_extend_open  {display: none;}
+}
 /*rend la page responsive*/
 @media screen and (max-width:750px){
     .prjbody {margin-right: 25px;} /*à voir margin*/
     #related {background: white;}
     .discussion_column {margin: 0 3%;} /*à voir margin*/
 /*    permet de voir le boutons pour voir la colonne de droite*/
-    #btn_extend_close,#btn_extend_open  {display: block;}
 /*    donne une taille bien visible pour le blockfeatureheight */
     .maxwidth50 {max-width: 100%;}
 /*    centre la popup pour les feature*/
@@ -58,7 +59,7 @@
 /*    affiche la popup à la bonne taille pour le projet*/
     .mobile_popup_size{width: auto !important;}
 /*    permet de cacher la div en dessous d'une certaine taille*/
-    #shrinkrelated {box-shadow: 0 2px 3px 2px;z-index:1; width: 20px}
+    #shrinkrelated {box-shadow: 0 2px 3px 2px; width: 20px}
 }
 /*donne une bonne taille pour les messages*/
 @media screen and (max-width:525px){
