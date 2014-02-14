@@ -909,6 +909,7 @@ a:hover {
     padding: 5px 20px;
     display: table;
     padding: 5px 20px;
+    width: 130px;
 }
 .toplink:hover{
     background: #8F9595;
@@ -958,11 +959,6 @@ a:hover {
 #userheader {
     position: relative;
     top: 20px;
-}
-/*vide mais doit rester, complement dans mobile css*/
-.menu_mobile {
-/*    position:absolute;*/
-/*    right: 10px;*/
 }
 .usertitle {
     color: #0094B5;
@@ -1370,6 +1366,7 @@ div.spectype {
     background: url("/img/icons/arrow_header.png") no-repeat scroll 0 0 transparent;
     position: relative;
     top: 5px;
+    z-index: 1;
 }
 .arrow_header:hover {
     background: url("/img/icons/arrow_header_hover.png") no-repeat scroll 0 0 transparent;
@@ -1378,6 +1375,7 @@ div.spectype {
     background: url("/img/icons/arrow_header_up.png") no-repeat scroll 0 0 transparent;
     position: relative;
     top: 5px;
+    z-index: 1;
 }
 .arrow_header_up:hover {
     background: url("/img/icons/arrow_header_up_hover.png") no-repeat scroll 0 0 transparent;
@@ -1388,12 +1386,14 @@ div.spectype {
     border-radius: 3px 3px 3px 3px;
     box-shadow: 3px 3px 4px;
     color: black;
-    right: 30px;
     padding: 1%;
     position: absolute;
+    right: 30px;
+    top: 50px;
     z-index: 20;
 }
 .block_shrinkrelated {
     position: absolute;
     right: 0;
+    z-index: 1;
 }

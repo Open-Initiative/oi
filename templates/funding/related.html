@@ -56,12 +56,6 @@
                 </div>
             </div>
             
-            <div class="cleared"></div>
-            
-            {% with task=project plugin_width='auto' zero='0' %}
-                {% include 'funding/popup_budget.html' %}
-            {% endwith %}
-            
             <div class="profile_info cleared">
                 <img src="/img/logo_small.png" class="column" />
                 <p>{{project.count_all_funding_user}} {% trans "users" %}</p>

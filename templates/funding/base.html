@@ -74,18 +74,46 @@
             
             <div class="picture_name_header">
                 <span id="name_header" class="usertitle name_header clickable" onclick="arrow_Up_Down()">{{user.get_profile}}</span>
-                {% if user.username %}<img class="menu_mobile contactpicture user_picture_effect clickable" src="/user/getpicture/{{user.username}}" onclick="arrow_Up_Down()" />{% endif %}
+                {% if user.username %}<img class="contactpicture user_picture_effect clickable" src="/user/getpicture/{{user.username}}" onclick="arrow_Up_Down()" />{% endif %}
                 {%if user.is_authenticated%}
                 <span id="arrow_header" class="arrow_header clickable" onclick="arrow_Up_Down()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <span id="arrow_header_up" class="arrow_header_up clickable invisible" onclick="arrow_Up_Down()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 {% else %}
                 
-                <span id="arrow_header" style="z-index: 1;top: 25px;" class="clickable arrow_header" onclick="showPopup(document.getElementById('popup_register'));">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span id="arrow_header" style="top: 25px;" class="clickable arrow_header" onclick="showPopup(document.getElementById('popup_register'));">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 
                 {%if not user.is_authenticated%}
                 <div class="clickable fundingleft headerbtn btnlogin" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'" onclick="showPopup(document.getElementById('popup_register'));">{% trans "Login" %}</div>
+                
+                <div class="cleared"></div>
+                {%endif%}
+                
+                {%endif%}
+            </div>
+            
+            <div id="userheader">
+                {% with fr="fr" en="en" %}
+                <form id="test" method="post" onsubmit="OIajaxCall('/user/changeuserlanguage', 'language={% if request.LANGUAGE_CODE == fr %}en{% else %}fr{% endif %}', 'output'); return false;" class="actions">
+                    {% csrf_token %}
+                    <input type="hidden" name="language" value="{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}"/>
+                    <input id="oi_lang" type="image" src="/img/{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}.png" />
+                </form>
+                {% endwith %}
+                {%if user.is_authenticated%}
+                <div class="header_close">
+                    <div class="cleared"></div>
+                    <div id="toptext" class="invisible">
+                        <b><a class="toplink" href="/user/myprofile"><img src="/img/icons/miniuser.png">{% trans "My profile" %}</a></b>
+                        <div class="cleared" style="border-top: solid 1px #0595BA; margin: 5px 0;"></div>
+                        <b><a class="toplink" href="/user/myaccount"><img src="/img/icons/minisettings.png">{% trans "My account" %}</a></b>
+                        <div class="cleared" style="border-top: solid 1px #0595BA; margin: 5px 0;"></div>
+                        <b><a class="toplink subtitle" href="/logout"><img src="/img/icons/minilogout.png">{% trans "Logout" %}</a></b>
+                    </div>
+                </div>
+                {% else %}
+                
                 <div id="popup_register" class="invisible popup_login_header" onclick="document.ignoreClosePopups = true;" >
-                    
+                
                     <form method="post" action="{% url django.contrib.auth.views.login %}">{% csrf_token %}
                         <table>
                             <tr>
@@ -132,31 +160,7 @@
                     <a href="/user/accounts/register/"><div class="clickable fundingleft headerbtn btnregister" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#FFFFFF'">{% trans "Register" %}</div></a> 
                    
                 </div>
-                <div class="cleared"></div>
-                {%endif%}
                 
-                {%endif%}
-            </div>
-            
-            <div id="userheader">
-                {% with fr="fr" en="en" %}
-                <form id="test" method="post" onsubmit="OIajaxCall('/user/changeuserlanguage', 'language={% if request.LANGUAGE_CODE == fr %}en{% else %}fr{% endif %}', 'output'); return false;" class="actions">
-                    {% csrf_token %}
-                    <input type="hidden" name="language" value="{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}"/>
-                    <input id="oi_lang" type="image" src="/img/{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}.png" />
-                </form>
-                {% endwith %}
-                {%if user.is_authenticated%}
-                <div class="header_close">
-                    <div class="cleared"></div>
-                    <div id="toptext" class="invisible">
-                        <b><a class="toplink" href="/user/myprofile"><img src="/img/icons/miniuser.png">{% trans "My profile" %}</a></b>
-                        <div class="cleared" style="border-top: solid 1px #0595BA; margin: 5px 0;"></div>
-                        <b><a class="toplink" href="/user/myaccount"><img src="/img/icons/minisettings.png">{% trans "My account" %}</a></b>
-                        <div class="cleared" style="border-top: solid 1px #0595BA; margin: 5px 0;"></div>
-                        <b><a class="toplink subtitle" href="/logout"><img src="/img/icons/minilogout.png">{% trans "Logout" %}</a></b>
-                    </div>
-                </div>
                 {%endif%}
             </div>
             {% endblock %}

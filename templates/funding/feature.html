@@ -97,13 +97,13 @@
         {% endwith %}
         </div>
         
-            {% if task|can_manage:user or task.spec_set.count %}
-                {% include 'funding/feature_description.html' %}
-            {% else %}
-                <div id="specs_{{task.id}}" class="invisible"></div>
-                <div id="see_more_{{task.id}}" class="invisible"></div>
-                <div id="see_less_{{task.id}}" class="invisible"></div>
-            {% endif %}
+        {% if task|can_manage:user or task.spec_set.count %}
+            {% include 'funding/feature_description.html' %}
+        {% else %}
+            <div id="specs_{{task.id}}" class="invisible"></div>
+            <div id="see_more_{{task.id}}" class="invisible"></div>
+            <div id="see_less_{{task.id}}" class="invisible"></div>
+        {% endif %}
         
         <div class="cleared">
             {% if task|can_manage:user or task.spec_set.count%}
