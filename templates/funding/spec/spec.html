@@ -9,7 +9,7 @@
     
     {% if spec.type == 2 or spec.type == 6 and spec.file %}
     <div class="form_center">
-        <img style="max-width:200px; max-height:200px;" src="{% if spec.file %}{{spec.file.url}}{% endif %}" />
+        <img style="max-width:200px; max-height:200px" src="{% if spec.file %}{{spec.file.url}}{% endif %}" />
     </div>
     {% endif %}
     {% if spec.type == 4 %}

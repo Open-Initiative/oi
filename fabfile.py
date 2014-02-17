@@ -11,10 +11,10 @@ def init_south():
     run("oi/manage.py migrate notification --fake")
 
 @hosts('pp.open-initiative@ssh.alwaysdata.com')
-def deploy_pp():
+def deploy_pp(branch="devel"):
     local("git push")
     with cd("oi"):
-        run("git checkout devel")
+        run("git checkout %s"%branch)
         run("git branch -d pp")
         run("git checkout -b pp")
         run("./manage.py syncdb")

@@ -22,8 +22,7 @@
 
 {% else %}
 
-<div class="cleared"></div>
-{% if not project.spec_set.count < 1 %}<img class="fundingright" src="/img/icons/delete.png" onclick="hide('{{divid}}')">{% endif %}
+{% if not project.spec_set.count < 1 %}<div class="cleared"></div><img class="fundingright" src="/img/icons/delete.png" onclick="hide('{{divid}}')">{% endif %}
 <div class="cleared"></div>
 <div class="spectypes">
     {% for elttype in types.items %}

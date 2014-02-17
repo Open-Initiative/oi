@@ -172,7 +172,14 @@ function slidePres(blockid, id) {
     jQuery(id).slideDown();
     boldPresentation(blockid, "_"+id);
 }
-
+function boldPresentation(blockid, divid){
+    //put in bold the title seleted
+    var link = document.getElementById(blockid).getElementsByTagName("a");
+    for(var i=0; i<link.length; i++){
+        link[i].style.fontWeight = "";
+    }
+    document.getElementById(divid).style.fontWeight = "bold";
+}
 function expandCateg(img, categid, dest){
     if(img.down != 1){
         img.down = 1;
@@ -252,7 +259,7 @@ tinyMCE.baseURL = "/js/tiny_mce/";// trailing slash important
 //I created an object to init the tinymce in textarea and call it instead of mceAddControl in other js function
 objectInitTinyMce = {
     selector: "textarea.editable",
-    width: 500,
+    width: "auto",
     height: 200,
     menubar: false,
     file_browser_callback: function(field_name, url, type, win) { 
@@ -276,14 +283,6 @@ objectInitTinyMce = {
 //init tinymce in the web page after loading
 tinyMCE.init(objectInitTinyMce); 
 
-function boldPresentation(blockid, divid){
-    //put in bold the title seleted
-    var link = document.getElementById(blockid).getElementsByTagName("a");
-    for(var i=0; i<link.length; i++){
-        link[i].style.fontWeight = "";
-    }
-    document.getElementById(divid).style.fontWeight = "bold";
-}
 function focusInOut(fieldid){
     //jquery animation for focus in ou out for field
     if(document.getElementById(""+fieldid).value)$("#"+fieldid).prev().fadeOut(); else $("#"+fieldid).prev().fadeIn();

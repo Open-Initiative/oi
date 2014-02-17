@@ -3,7 +3,7 @@
 {% block title %}{% trans "Register" %}{% endblock %}
 {% block content %}
 
-<div style="">
+<div>
     <div class="logbox">
         <div style="font-size: 2em" class="fundinggreen form_center fundingtitle">{% trans "REGISTER" %}</div>
         <br/>
@@ -25,13 +25,46 @@
             <p>
                 {% trans "You acknowledge having read and accepted" %} <br/> <a href="/cgu">{% trans "the terms and conditions" %}</a> {% trans "by registering." %} 
             </p>
-            <p class="continuebtn fundingleft clickable no_p_style" style="padding:1.5%"><input class="nobtnstyle" type="submit" value="{% trans 'Register' %}"></p>
+            <input style="padding:1.5%" class="nobtnstyle continuebtn fundingleft clickable" type="submit" value="{% trans 'Register' %}">
         </form>
     </div>
 
-    {% with next=request.GET.next %}
-        {% include 'registration/register_block.html' %}
-    {% endwith %}
+    <div class="logbox">
+        <div style="font-size: 2em;" class="fundinggreen form_center fundingtitle">{% trans "LOG-IN" %}</div>
+        <br/>
+        <form method="post" action="{% url django.contrib.auth.views.login %}">{% csrf_token %}
+            <table>
+                <tr>
+                    <td class="log_style">
+                        <b>{% trans "Username" %}:</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="log_separate">
+                        <input id="username_field" type="text" name="username" tabindex=3/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="log_style">
+                        <b>{% trans "Password" %}:</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="log_separate">
+                        <input type="password" name="password" id="id_password" tabindex=4/>
+                    </td>
+                </tr>
+            </table>
+            <p class="no_p_style">
+                <input type="hidden" name="next" value="{{request.GET.next}}" />
+                <a href="/user/resetpassword" class="forgotpwd subtitle"><b>{% trans "Forgot your password?" %}</b></a>
+            </p>
+            <br/>
+            <img class="fundingright" src="/img/tete0.png"/>
+            <input style="padding:1.5%" class="nobtnstyle continuebtn clickable fundingleft" type="submit" value="{% trans 'Log in' %}"/>
+            <div class="cleared"></div>
+        </form>
+    </div>
 </div>
 
 {% endblock %}
