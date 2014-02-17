@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="shortcut icon" href="/favicons.ico" />
     {% compress css %}
@@ -61,8 +61,7 @@
     <div id="header">
         <div class="center">
             {% block header %}
-            <div id="beta"><img src="/img/beta0.png" /></div>
-            <div id="logo"><a href="/"><img src="/img/logo_funding.png" /></a></div>
+            <div id="logo"><a href="/"><img src="/img/logo_funding.png" /></a><img id="beta" src="/img/beta0.png" /></div>
             <div id="searchdiv">
                 <div id="baseline">{% trans "The Co-funding platform for free software" %}</div>
                 <img src="/img/baseunderline.png" />
@@ -72,29 +71,9 @@
                 <a href="/#submit" class="clickable headernews" onclick="submitProject()">{% trans "Submit a project" %}</a>
             </div>
             
-            <div class="picture_name_header">
-                <span id="name_header" class="usertitle name_header clickable" onclick="arrow_Up_Down('toptext')">{{user.get_profile}}</span>
-                {% if user.username %}<img class="contactpicture user_picture_effect clickable" src="/user/getpicture/{{user.username}}" onclick="arrow_Up_Down('toptext')" />{% endif %}
-                {%if user.is_authenticated%}
-                <span id="arrow_header" class="arrow_header clickable" onclick="arrow_Up_Down('toptext')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <span id="arrow_header_up" class="arrow_header_up clickable invisible" onclick="arrow_Up_Down('toptext')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                {% else %}
-                
-                <span id="arrow_header" style="top: 25px;" class="clickable arrow_header" onclick="arrow_Up_Down('popup_register')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <span id="arrow_header_up" style="top: 25px;" class="arrow_header_up clickable invisible" onclick="arrow_Up_Down('popup_register')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                
-                {%if not user.is_authenticated%}
-                <div class="clickable fundingleft headerbtn btnlogin" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'" onclick="arrow_Up_Down('popup_register')">{% trans "Log in" %}</div>
-                
-                <div class="cleared"></div>
-                {%endif%}
-                
-                {%endif%}
-            </div>
-            
             <div id="userheader">
                 {% with fr="fr" en="en" %}
-                <form id="test" method="post" onsubmit="OIajaxCall('/user/changeuserlanguage', 'language={% if request.LANGUAGE_CODE == fr %}en{% else %}fr{% endif %}', 'output'); return false;" class="actions">
+                <form method="post" onsubmit="OIajaxCall('/user/changeuserlanguage', 'language={% if request.LANGUAGE_CODE == fr %}en{% else %}fr{% endif %}', 'output'); return false;" class="actions">
                     {% csrf_token %}
                     <input type="hidden" name="language" value="{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}"/>
                     <input id="oi_lang" type="image" src="/img/{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}.png" />
@@ -174,6 +153,29 @@
                 {%endif%}
             </div>
             {% endblock %}
+            
+            <div class="fundingright">
+                {% if user.username %}
+                <span id="name_header" class="usertitle name_header clickable" onclick="arrow_Up_Down('toptext')">{{user.get_profile}}</span>
+                
+                <img class="contactpicture user_picture_effect clickable" src="/user/getpicture/{{user.username}}" onclick="arrow_Up_Down('toptext')" />
+                {% endif %}
+                
+                {%if not user.is_authenticated%}
+                <div class="clickable fundingleft headerbtn btnlogin" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'" onclick="arrow_Up_Down('popup_register')">{% trans "Log in" %}</div>
+                {%endif%}
+                
+                {%if user.is_authenticated%}
+                <span id="arrow_header" class="arrow_header clickable" onclick="arrow_Up_Down('toptext')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span id="arrow_header_up" class="arrow_header_up clickable invisible" onclick="arrow_Up_Down('toptext')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                {% else %}
+                
+                <span id="arrow_header" class="clickable arrow_header" onclick="arrow_Up_Down('popup_register')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span id="arrow_header_up" class="arrow_header_up clickable invisible" onclick="arrow_Up_Down('popup_register')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                
+                {%endif%}
+            </div>
+            
         </div>
         <div class="cleared"></div>
         <div class="learn_more2 invisible">

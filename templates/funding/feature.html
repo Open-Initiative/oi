@@ -13,8 +13,11 @@
         <span style="position: relative;left: -3%;top: 2%;" class="fundingright continuebtn clickable" onclick="completeTask({{object.id}}, {{task.id}})">{% trans "Continue" %}</span>
     </div>
     {% endif %}
-
-    {% include 'funding/popup_budget.html' %}
+    
+    <div id="featurebudget_{{task.id}}" class="featuredetail invisible" onclick="document.ignoreClosePopups = true;">
+        <div id="prjdialogue_{{task.id}}" class="popup invisible"></div>
+        {% include 'funding/feature_budget.html' %}
+    </div>
 
     <div id="featureDiv_{{task.id}}" class="featureblock" {% if not task.public_read %} style="opacity:.4;"{% endif %}>
         
@@ -54,11 +57,11 @@
             {% include 'funding/project_actions.html' %}
             <div class="featurebtns">
                 {% if task.state < 4 and task|can_bid:user or not user.is_authenticated and task.state < 4 %}
-                    <span class="supportbtn clickable" onclick="showPopup(document.getElementById('bidpopup_{{task.id}}')); ">{% trans "Order the feature" %}</span>
+                    <span class="supportbtn clickable" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}')); document.getElementById('order_{{task.id}}').checked=true;">{% trans "Order the feature" %}</span>
                 {% endif %}
                 <br/>
                 {% if task.state < 4 and task|can_manage:user and object.bid_sum and task.missing_bid %}
-                    <span class="supportbtn_complete clickable" onclick="showPopup(document.getElementById('completepopup_{{task.id}}'));">{% trans "Complete the fund" %}</span>
+                    <span class="supportbtn_complete clickable" onclick="showPopup(document.getElementById('completepopup_{{task.id}}'));">{% trans "Complete the funding" %}</span>
                 {% endif %}
             </div>
             

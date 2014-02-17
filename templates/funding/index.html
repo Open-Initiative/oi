@@ -28,11 +28,14 @@
                 </dl>
             </div>
             <div class="clickable slidericons">
-                <div id="slidericon1" class="slidericon slidericonselected" onclick="slideIndex(1, 'no')"></div>
-                <div id="slidericon2" class="slidericon" onclick="slideIndex(2, 'no')"></div>
-                <div id="slidericon3" class="slidericon" onclick="slideIndex(3, 'no')"></div>
-                <div id="slidericon4" class="slidericon" onclick="slideIndex(4, 'no')"></div>
+                <div id="slidericon1" class="slidericon slidericonselected" onclick="slideIndex(1)"></div>
+                <div id="slidericon2" class="slidericon" onclick="slideIndex(2)"></div>
+                <div id="slidericon3" class="slidericon" onclick="slideIndex(3)"></div>
+                <div id="slidericon4" class="slidericon" onclick="slideIndex(4)"></div>
             </div>
+            <a id="preslink" href="/presentation" class="slidermore" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0595BA'">
+                {% trans "Learn More" %}
+            </a>
         </div>
         <script type="text/javascript">
             window.slide = true;
@@ -40,15 +43,9 @@
             window.setInterval(function (){if(window.slide) slideIndex()}, 8000);
         </script>
         <img id="sliderimg1" src="/img/slider1.png" class="sliderimg sliderimgcloser1" />
-        <img id="sliderimg2" src="/img/slider2.png" class="sliderimg invisible sliderimgcloser" />
+        <img id="sliderimg2" src="/img/slider2.png" class="sliderimg invisible sliderimgcloser2" />
         <img id="sliderimg3" src="/img/slider3.png" class="sliderimg invisible sliderimgcloser3" />
         <img id="sliderimg4" src="/img/slider4.png" class="sliderimg invisible sliderimgcloser4" />
-        
-        <div class="cleared"></div>
-        
-        <a id="preslink" href="/presentation" class="slidermore" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0595BA'">
-            {% trans "Learn More" %}
-        </a>
     </div>
     <div class="cleared"></div>
 </div>
@@ -58,8 +55,8 @@
         <div class="submitproject">
             <img id="rocket" class="fundingleft" src="/img/rocket.png" />
             <div class="helpstart">
-                <div id="blue_band_line">Open Funding {% trans "helps you fund your free software." %}</div>
-                <div class="fundingleft"><b>{% trans "Launch your project now!" %}</b></div>
+                <div class="blue_band_line_text">Open Funding {% trans "helps you fund your free software." %}</div>
+                <div class="fundingleft blue_band_line_text"><b>{% trans "Launch your project now!" %}</b></div>
                 <div class="actions clickable actionbutton" onclick="submitProject()">
                     <div onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'">{% trans "submit a project" %}</div>
                     <input id="appname" type="hidden" value="funding" />
@@ -83,7 +80,8 @@
 
 <div style="background-color:white;border: 1px solid #D3CFCF;">
     <div class="invisible prjlist" id="prjlist0">
-        <div class="projectlisttitle">{% trans "Submit your project" %}</div>
+        <div class="other_initiative_subtitle">{% trans "Submit your project" %}</div>
+        <div class="cleared"></div>
         <form id="submit_title_project" class="form_center" onsubmit="if(getValue('prjtitle')) addTask(getValue('prjtitle'), null, null,function(taskid){document.location = '/funding/'+taskid+'/edit'});return false" >
             <p class="details_title">{% trans "You are about to start funding your free software project." %}</p>
             <p class="form_center details_title">{% trans "First enter your project title" %}</p>
@@ -134,7 +132,9 @@
     </div>
 </div>
 
-<div id="oi_last_project" class="projectlisttitle">{% trans "Latest projects" %}</div>
+<div id="oi_last_project">
+    <div class="other_initiative_subtitle">{% trans "Latest projects" %}</div>
+    </div>
 <div id="promoted_project">
     <ul class="home_ul_center">
     {% for project in object_list %}

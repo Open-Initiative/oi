@@ -2,40 +2,44 @@
 
 @media screen and (max-width:1025px){
 /*    les deux images apparaissent sous le text*/
-    #rocket {opacity: 0.3;position: absolute;}
-    .sliderimg {opacity: 0.3;position: absolute;top: 10px;}
-    #catcher {padding: 1%;}
+    #rocket {margin-left: 10px;}
+    .sliderimg {opacity: 0.2;position: absolute;top: 0;}
+    .sliderimgcloser1 {margin-left: 30%;}
+    .sliderimgcloser2, .sliderimgcloser3 {margin-left: 10%;}
+    .sliderimgcloser4 {margin-left: -10px;}
+    #catcher {padding: 2%;}
     .slider {float: none; width: auto;}
     .slidermore {left: 10px; padding: .2em%;} 
     .submitproject {margin: 0 auto;}
     .indexslide {overflow: auto; width: auto;}
     .slidertip {width: auto;}
-    .slider dd {height: auto;width: auto;}
+    .slider dd {height: auto;width: 90vw;}
     #userheader_mobile {display: block;}
 }
 /*Push line qui disparait*/
 @media screen and (max-width:845px){
     #searchdiv {display: none;}
 }
-/*les boutons de la slidebar change de place*/
-@media screen and (max-width:640px){
-    .slidericons {top: 200px;}
-    .slidermore {top: 190px;} 
-}
 /*fait disparaitre les deux boutons du header pour les faire apparaitre sous le logo*/
-@media screen and (max-width:700px){
+@media screen and (max-width:702px){
     .learn_more > a {display: none;}
+    #logo {width: auto;margin-left: -30px;}
     .learn_more2 {display: block;}
+    #beta {left: 180px;top: 45px;}
 }
-@media screen and (max-width:435px){
-    .btnlogin {display: none;}
+@media screen and (max-width:580px){
+    .blue_band_line_text {display: none;}
+    .actions.clickable.actionbutton {margin-top: 25px; float: none;margin-left: 100px;}
+}
+@media screen and (max-width:470px){
+    .slidermore {top:180px;}
+    .slidericons {top:190px;}
 }
 @media screen and (max-width:410px){
     #name_header {display: none;}
     .slidermore {display: none;} 
-    #blue_band_line {display: none;}
+    .slidericons {top:200px;}
 }
-
 
 /*La page projet*/
 @media screen and (min-width:751px){
@@ -60,13 +64,6 @@
     .speech {display: none;}
     .msgbubble {margin-left: 0;}
 }
-/*La page presentation*/
-@media screen and (max-width:600px){
-/*    .prjbodypresentation {margin-left: 20px;}*/
-/*    #shrinkpresentation {box-shadow: 0 2px 3px 2px;z-index:1; width: 20px}*/
-/*    #btn_extend_presentation_close,#btn_extend_presentation_open  {display: block;}*/
-}
-
 
 /*La page myaccount*/
 @media screen and (max-width:580px){

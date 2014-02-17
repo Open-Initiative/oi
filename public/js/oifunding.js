@@ -162,8 +162,8 @@ function expandFeature(taskid){
 }
 function selectplugin(projectid, plugintype) {
     if(plugintype == "big"){
-        var width = "300px";
-        var height = "400px";
+        var width = "350px";
+        var height = "450px";
     }else if(plugintype == "small"){
         var width = "240px";
         var height = "99px";
@@ -193,6 +193,9 @@ function deleteReward(projectid, rewardid){
             linereward.parentNode.removeChild(linereward);
         })
     }
+}
+function confirmBid(projectid) {
+    OIajaxCall("/project/confirmbid/"+$("input[name='order']:checked").val(), "bid="+getValue("bid_"+projectid), "output");
 }
 function completeTask(projectid, taskid){
     OIajaxCall("/project/"+projectid+"/completetask/"+taskid, null, "output");

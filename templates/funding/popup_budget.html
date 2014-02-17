@@ -5,46 +5,44 @@
     <div id="prjdialogue_{{task.id}}" class="popup invisible"></div>
     {% include 'funding/feature_budget.html' %}
 </div>
-    
-{% if task.id != object.id %}
-    {% if task.state < 4 and task|can_bid:user or not user.is_authenticated %}
-    <div id="bidpopup_{{task.id}}" {% if plugin_width %}style="width:{{plugin_width}};"{% endif %} class="popup_spec form_center invisible" onclick="document.ignoreClosePopups = true;">
-            <img style="position: relative;top: 14%;" class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hidePopups()" />
-            <div class="cleared"></div>
-            <p class="bid_popup_title form_center">{% trans "Order the feature" %} <b>{{task.title}}</b><br/> {% trans "on the project" %} <u>{{object.title}}</u></p>
-            <div class="cleared"></div>
-        <p>{% trans "By contributing to this order you will be delivered the professional quality feature you always wished for. Once the feature is developed, you will receive an e-mail to test it and give your validation."%}</p><p>{% trans "Thank you for taking part in this community which makes" %} <u>{{object.title}}</u> {% trans "possible." %}</p>
-        
-        <form class="form_center" onsubmit="confirmBid({{task.id}});return false">
-            <label for="bid_{{task.id}}">{% trans "Please enter the amount you consider this feature is worth:" %}</label><br /><br />
-            <input style="left: 44%;position: relative;top: -10%;" id="bid_{{task.id}}" name="bid_{{task.id}}" class="bidfeature" value="{% if not zero %}{{task.missing_bid|floatformat:"-2"}}{% else %}0{% endif %}" /> €
-        </form>
-        
-        <p class="form_center">{% trans "By ordering this feature, you agree to the" %} <a href="/cgu" target="_blank">{% trans "Terms of Use" %}</a></p>
-        <span style="position: relative;left: -3%;top: 2%;" class="fundingright continuebtn clickable" onclick="OIajaxCall('/project/confirmbid/{{task.id}}', 'bid='+getValue('bid_{{task.id}}'), 'output')">{% trans "Continue" %}</span>
-    </div>
-    
-    {% endif %}
-{% else %}
-    
-    {% comment %} popup for the project funding {% endcomment %} 
 
-    {% if task.state < 4 and task|can_bid:user or not user.is_authenticated %}
-    <div id="bidpopup_{{task.id}}" {% if position_top %}style="top: {{position_top}};"{% endif %} class="popup_spec form_center invisible mobile_popup_size" onclick="document.ignoreClosePopups = true;">
-            <img style="position: relative;top: 14%;" class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hidePopups()" />
-            <div class="cleared"></div>
-            <p class="bid_popup_title form_center">{% trans "Back the project" %} <u>{{task.title}}</u></p>
-            <div class="cleared"></div>
-        <p>{% trans "By Co-funding this project you enable the developer to choose what feature to develop, so that the software on the whole makes better sense for you. Once the development is done, you will receive an e-mail to test the new feature and give your validation."%}</p><p>{% trans "Thank you for taking part in this community which makes" %} <u>{{task.title}}</u> {% trans "possible." %}</p>
-        
-        <form class="form_center" onsubmit="confirmBid({{task.id}});return false">
-            <label for="bid_{{task.id}}">{% trans "Please enter the amount you want to back this project with:" %}</label><br /><br />
-            <input style="left: 44%;position: relative;top: -10%;" id="bid_{{task.id}}" name="bid_{{task.id}}" class="bidfeature" value="{% if not zero %}{{task.missing_bid|floatformat:"-2"}}{% else %}0{% endif %}" /> €
-        </form>
-        
-        <p class="form_center">{% trans "By backing this project, you agree to the" %} <a href="/cgu" target="_blank">{% trans "Terms of Use" %}</a></p>
-        <span style="position: relative;left: -3%;top: 2%;" class="fundingright continuebtn clickable" onclick="OIajaxCall('/project/confirmbid/{{task.id}}', 'bid='+getValue('bid_{{task.id}}'), 'output')">{% trans "Continue" %}</span>
-    </div>
+{% if task.state < 4 and task|can_bid:user or not user.is_authenticated %}
+
+<div id="bidpopup_{{object.id}}" class="popup_spec invisible" {% if position %}style="position:{{position}};"{% endif %} onclick="document.ignoreClosePopups = true;">
+    <img class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hidePopups()" />    
     
-    {% endif %}
+    <p>{% trans "Please indicate what you want to do:" %}</p>
+    
+    <form id="popup_budget_{{object.id}}" onsubmit="confirmBid({{object.id}});return false">
+        
+        <div class="help-funding">{% trans "By Co-funding this project you enable the developer to choose what feature to develop, so that the software on the whole makes better sense for you. Once the development is done, you will receive an e-mail to test the new feature and give your validation."%}</div>
+        
+        <div class="radio_order"><input type=radio id="order_{{object.id}}" name="order" value="{{object.id}}" /><label for="order_{{object.id}}">{% trans "Back the project" %}</label></div>
+        
+        <div class="cleared funding_space"></div>
+        
+        
+        <div class="help-funding">{% trans "By contributing to this order you will be delivered the professional quality feature you always wished for. Once the feature is developed, you will receive an e-mail to test it and give your validation."%}</div>
+        
+        <div class="radio_order">
+            {% for feature in object.descendants|filter_read:user|dictsort:"priority" %}
+            {% if feature.state < 4 %}
+            <input type=radio id="order_{{feature.id}}" name="order" value="{{feature.id}}" /> <label for="order_{{feature.id}}">{% trans "Order the feature" %} {{feature.title}}</label>
+            <br/>
+            {% endif %}
+            {% endfor %}
+        </div>
+        
+        <div class="cleared"></div>
+        
+        <label for="bid_{{task.id}}">{% trans "Please enter the amount:" %}</label><br /><br />
+        <input id="bid_{{object.id}}" name="bid_{{object.id}}" class="bidfeature" value="{% if not zero %}{{object.missing_bid|floatformat:"-2"}}{% else %}0{% endif %}" /> €
+        <br /><br>
+    </form>
+    
+    <p>{% trans "Thank you for joining community which makes" %} {{task.title}} {% trans "possible" %}</p>
+    <p>{% trans "By continuing, you agree to the" %} <a href="/cgu" target="_blank">{% trans "Terms of Use" %}</a></p>
+    <span class="fundingright continuebtn clickable" onclick="OIajaxCall('/project/confirmbid/{{task.id}}', 'bid='+getValue('bid_{{task.id}}'), 'output')">{% trans "Continue" %}</span>
+</div>
+
 {% endif %}

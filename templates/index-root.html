@@ -4,6 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="shortcut icon" href="/favicons.ico" />
     <link rel="stylesheet" type="text/css" media="all" href="/css/root.css" />
@@ -46,15 +47,16 @@
     <div style="border-top: 3px solid #E3E3E3"></div>
     
     <div class="root_home_page">
-        <img class="root_img" src="/img/logo_funding.png" alt="logo Open Funding">
-        <p>{% trans "Fund your free software on" %}</p>     
-        <p>{% trans "OpenFunding the" %} <b>{% trans "co-funding" %}</b> {% trans "platform for all" %}</p> 
-        <p>{% trans "your free software" %}</p>   
+        <a href="http://{{Sites|get:"Open Funding"}}">
+            <img class="root_img" src="/img/logo_funding.png" alt="logo Open Funding">
+        </a>
+        <p>{% trans "Fund your free software on OpenFunding the" %} <b>{% trans "co-funding" %}</b> {% trans "platform for all your free software" %}</p> 
         <a href="http://{{Sites|get:"Open Funding"}}" class="join_community clickable">{% trans "Join the community" %}</a>   
     </div>
     
     <div class="contact_us">
         <div class="center_contact_us">
+            <img class="root_project" src="/img/root_project.png" alt="project">
             <a href="/contact"><div>{% trans "Contact us!" %}</div></a>
             <p>{% trans "You're wishing for a project to be funded?" %}</p>
             <p>{% trans "You're a developer and you're looking for a great project to work on?" %}</p>

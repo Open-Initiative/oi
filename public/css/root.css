@@ -83,9 +83,10 @@ a:hover {
 .contact_us{
     background: #0094B5;
     color: white;
+    height: 60px;
     font-size: 1.3em;
     margin: 0 auto;
-    padding: 20px 0;
+    padding: 20px 5px;
 }
 .center_contact_us div {
     font-weight: bold;
@@ -123,8 +124,9 @@ a:hover {
     color: white;
 }
 .op_icon {
-    width: 25%;
     margin: 0 auto;
+    min-width: 320px;
+    width: 30%;
 }
 .op_icon img{
     margin-left: 20px;
@@ -138,6 +140,7 @@ a:hover {
     text-align: center;
     font-size: .9em;
     padding: 10px;
+    overflow: hidden;
 }
 .other_initiative_subtitle{
     border-left: 1px solid #0094B5;
@@ -180,4 +183,16 @@ ul.root_ul li {
     font-size: 13px;
     text-transform: uppercase;
     width: 160px;
+}
+.root_project {
+    float: left;
+    margin-top: -14px;
+    position: relative;
+}
+
+@media screen and (max-width:470px){
+    .root_project {opacity: 0.3;position: absolute;}
+}
+@media screen and (max-width:430px){
+    #searchdiv {display: none;}
 }

@@ -63,7 +63,8 @@
     <div class="cleared"></div>
 {% block related %}
 {% with object as project %}
-<div style="margin-top: 3%;" class="smallcolumn" id="public">
+
+<div class="smallcolumn fundingleft" id="public">
     <h3>{% trans "Public" %}</h3>
     {% trans "The public can" %}
     <br /><input id="public_read_{{project.id}}" type="checkbox" {% if project.public_read %}checked="checked"{% endif %} {% if not project.assignee == user and not project|can_write:user  %}disabled="true"{% endif %} onclick="OIajaxCall('/project/{{project.id}}/setpublic', 'read='+this.checked, 'output')" /><label for="public_read_{{project.id}}">{% trans "see the task and its content" %}</label>
@@ -71,7 +72,8 @@
     <br /><input id="public_bid_{{project.id}}" type="checkbox" {% if project.public_bid %}checked="checked"{% endif %} {% if not project.assignee == user and not project|can_write:user %}disabled="true"{% endif %} onclick="OIajaxCall('/project/{{project.id}}/setpublic', 'bid='+this.checked, 'output')" /><label for="public_bid_{{project.id}}">{% trans "bid and vote" %}</label>
 </div>
 
-<p class="help-funding">{% trans "Set the permissions for the public visiting your project." %}</p>
+<div class="help-funding">{% trans "Set the permissions for the public visiting your project." %}</div>
+
 {% endwith %}
 {% endblock %}
 

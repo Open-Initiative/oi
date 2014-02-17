@@ -61,11 +61,10 @@ function getValue(eltid, erase){
     if(erase) elt.value = "";
     return value;
 }
-function newDiv(parentid, className) {
+function newDiv(parentid) {
     var divid = randid();
     var newdiv = document.createElement('div');
     newdiv.setAttribute('id',divid);
-    if (className) newdiv.setAttribute('class',className);
     document.getElementById(parentid).appendChild(newdiv);
     return divid;
 }
@@ -94,6 +93,8 @@ function hidePopups() {
 function addPopup(popup) {
     document.popups = (document.popups || []).concat(popup);
     addEvent(document, "click", hidePopups);
+//    soit addEvent ou addEventListener mais pas les deux
+    document.getElementById("blurDiv").addEventListener('click', hidePopups , false);
 }
 function showPopup(popup) {
     if(!document.getElementById("blurDiv")){
@@ -142,7 +143,7 @@ function prepareForm(formid) {
     return params.join('&');
 }
 
-function slideIndex(nextid, nolinktopresentation) {
+function slideIndex(nextid) {
     if(!sliding) {
         sliding = true;
         if(nextid) nextSlide = jQuery('#indexslide'+nextid);
@@ -164,21 +165,22 @@ function slideIndex(nextid, nolinktopresentation) {
         jQuery('.sliderimg:visible').fadeOut();
         nextImg.delay(1000).fadeIn();
         setTimeout(function(){sliding = false;}, 2000);
-        if(!nolinktopresentation) document.getElementById('preslink').hash = '#' + nextSlide.attr('id')[10];
+//        document.getElementById('preslink').hash = '#' + nextSlide.attr('id')[10];
     }
 }
 function slidePres(blockid, id) {
-    jQuery('.presslide').slideUp();
-    jQuery(id).slideDown();
+    jQuery('.presslide').hide();
+    jQuery("#"+id).show();
     boldPresentation(blockid, "_"+id);
 }
 function boldPresentation(blockid, divid){
     //put in bold the title seleted
-    var link = document.getElementById(blockid).getElementsByTagName("a");
-    for(var i=0; i<link.length; i++){
-        link[i].style.fontWeight = "";
+    var tabs = document.getElementById(blockid).getElementsByTagName("span");
+    for(var i=0; i<tabs.length; i++){
+        tabs[i].style.fontWeight = "";
     }
     document.getElementById(divid).style.fontWeight = "bold";
+    document.location.hash = divid;
 }
 function expandCateg(img, categid, dest){
     if(img.down != 1){
