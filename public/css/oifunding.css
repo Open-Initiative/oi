@@ -7,16 +7,25 @@
 .presnav {
     background: none repeat scroll 0 0 white;
     border-radius: 3px;
-    float: left;
     padding: 0.5em;
     font-size: 1.2em;
-    margin-right: 1%;
+    margin: 0 auto 20px;
+    max-width: 790px;
+    text-align: center;
 }
 .presnavtitle {
-    text-transform: uppercase;
-    border-top: 1px solid #E0E0E0;
-    margin: 8px 0px;
-    padding: 4px 0px;
+    border-right: 1px solid;
+}
+.presnavtitle:last-child {
+    border-right: none;
+}
+.presnavtitle:before {
+    padding-left: 10px;
+    content: "";
+}
+.presnavtitle:after {
+    padding-right: 10px;
+    content: "";
 }
 .presnavsection{
     margin-bottom: 3px;
@@ -312,10 +321,10 @@ div.minispec {
     margin-right: 275px;
 }
 .prjbodypresentation {
-    margin-left: 280px;
+    background: white;
     max-width: 750px;
-    overflow: hidden;
-    width: auto;
+    margin: 0 auto;
+    padding: 10px 30px;
 }
 .prjbodyprofile {
     margin-right: 25px;
@@ -856,7 +865,7 @@ h1, h2, h3, h4 {
     font-family: "ProximaNova", Helvetica, sans-serif;
     font-weight: bold;
     color: #0094B5;
-    text-transform: uppercase;
+/*    text-transform: uppercase;*/
 }
 h5, h6 {
     font-size: 1.3em;

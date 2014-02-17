@@ -62,9 +62,9 @@
 }
 /*La page presentation*/
 @media screen and (max-width:600px){
-    .prjbodypresentation {margin-left: 20px;}
-    #shrinkpresentation {box-shadow: 0 2px 3px 2px;z-index:1; width: 20px}
-    #btn_extend_presentation_close,#btn_extend_presentation_open  {display: block;}
+/*    .prjbodypresentation {margin-left: 20px;}*/
+/*    #shrinkpresentation {box-shadow: 0 2px 3px 2px;z-index:1; width: 20px}*/
+/*    #btn_extend_presentation_close,#btn_extend_presentation_open  {display: block;}*/
 }
 
 
