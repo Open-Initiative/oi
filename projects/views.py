@@ -58,7 +58,7 @@ from oi.settings_specific import OI_DOMAINS
 def getproject(request, id, view="overview"):
     if not view: view = "overview"
     project = Project.objects.get(id=id)
-    return direct_to_template(request, template="projects/project_detail.html", extra_context={'object': project, 'current_view':view, 'views':OI_PRJ_VIEWS, 'types':SPEC_TYPES, 'table_overview': OI_TABLE_OVERVIEW, 'release': request.session.get("releases", {}).get(project.master.id, project.master.target.name)})
+    return direct_to_template(request, template="projects/project_detail.html", extra_context={'object': project, 'current_view':view, 'views':OI_PRJ_VIEWS, 'types':SPEC_TYPES, 'table_overview': OI_TABLE_OVERVIEW, 'release': request.session.get("releases", {}).get(project.master.id, project.master.target.name if project.master.target else None)})
 
 @OINeedsPrjPerms(OI_READ)
 def listtasks(request, id):
