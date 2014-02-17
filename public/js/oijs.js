@@ -142,7 +142,7 @@ function prepareForm(formid) {
     return params.join('&');
 }
 
-function slideIndex(nextid) {
+function slideIndex(nextid, nolinktopresentation) {
     if(!sliding) {
         sliding = true;
         if(nextid) nextSlide = jQuery('#indexslide'+nextid);
@@ -164,7 +164,7 @@ function slideIndex(nextid) {
         jQuery('.sliderimg:visible').fadeOut();
         nextImg.delay(1000).fadeIn();
         setTimeout(function(){sliding = false;}, 2000);
-        document.getElementById('preslink').hash = '#' + nextSlide.attr('id')[10];
+        if(!nolinktopresentation) document.getElementById('preslink').hash = '#' + nextSlide.attr('id')[10];
     }
 }
 function slidePres(blockid, id) {

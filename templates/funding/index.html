@@ -7,35 +7,31 @@
 <div id="catcherbg">
     <div id="catcher">
         <div id="slider" class="slider" onmouseover="window.slide=false" onmouseout="if(event.target.id=='slider')window.slide=true">
-            <ul class="home_ul_center">
-                <li>
-                    <div class="slidertext">
-                        <dl>
-                            <div id="indexslide1" class="indexslide">
-                                <dd>{% trans "Get the feature you always wished for" %}</dd>
-                            </div>
-                            <div class="slidertip">{% trans "Open Funding is the best way to get the features you need in your software. Get a professional quality. Make it make sense: to you!" %}</div>
-                            <div id="indexslide2" class="indexslide invisible">
-                                <dd>{% trans "Co-funding makes free software sustainable" %}</dd>
-                            </div>
-                            <div class="slidertip invisible">{% trans "The feature-by-feature funding ensures a development in the long run. And the user-driven validating enables a professional quality. Open Funding combines the two and makes the best business model for free software." %}</div>
-                            <div id="indexslide3" class="indexslide invisible">
-                                <dd>{% trans "Connecting software and people" %}</dd>
-                            </div>
-                            <div class="slidertip invisible">{% trans "Open Funding makes it easy to join the community. Do you use that software? Now you can contribute and be part of the team." %}</div>
-                            <div id="indexslide4" class="indexslide invisible">
-                                <dd>{% trans "More powerful together" %}</dd>
-                            </div>
-                            <div class="slidertip invisible">{% trans "At Open Funding projects get more than just funding, they see their community growing. Open Funding supports projects communication to involve more people. The community grows larger and becomes more efficient!" %}</div>
-                        </dl>
+            <div class="slidertext">
+                <dl>
+                    <div id="indexslide1" class="indexslide">
+                        <dd>{% trans "Get the feature you always wished for" %}</dd>
                     </div>
-                </li>
-            </ul>
+                    <div class="slidertip">{% trans "Open Funding is the best way to get the features you need in your software. Get a professional quality. Make it make sense: to you!" %}</div>
+                    <div id="indexslide2" class="indexslide invisible">
+                        <dd>{% trans "Co-funding makes free software sustainable" %}</dd>
+                    </div>
+                    <div class="slidertip invisible">{% trans "The feature-by-feature funding ensures a development in the long run. And the user-driven validating enables a professional quality. Open Funding combines the two and makes the best business model for free software." %}</div>
+                    <div id="indexslide3" class="indexslide invisible">
+                        <dd>{% trans "Connecting software and people" %}</dd>
+                    </div>
+                    <div class="slidertip invisible">{% trans "Open Funding makes it easy to join the community. Do you use that software? Now you can contribute and be part of the team." %}</div>
+                    <div id="indexslide4" class="indexslide invisible">
+                        <dd>{% trans "More powerful together" %}</dd>
+                    </div>
+                    <div class="slidertip invisible">{% trans "At Open Funding projects get more than just funding, they see their community growing. Open Funding supports projects communication to involve more people. The community grows larger and becomes more efficient!" %}</div>
+                </dl>
+            </div>
             <div class="clickable slidericons">
-                <div id="slidericon1" class="slidericon slidericonselected" onclick="slideIndex(1)"></div>
-                <div id="slidericon2" class="slidericon" onclick="slideIndex(2)"></div>
-                <div id="slidericon3" class="slidericon" onclick="slideIndex(3)"></div>
-                <div id="slidericon4" class="slidericon" onclick="slideIndex(4)"></div>
+                <div id="slidericon1" class="slidericon slidericonselected" onclick="slideIndex(1, 'no')"></div>
+                <div id="slidericon2" class="slidericon" onclick="slideIndex(2, 'no')"></div>
+                <div id="slidericon3" class="slidericon" onclick="slideIndex(3, 'no')"></div>
+                <div id="slidericon4" class="slidericon" onclick="slideIndex(4, 'no')"></div>
             </div>
         </div>
         <script type="text/javascript">
@@ -58,7 +54,7 @@
 </div>
 <div class="fundingdesc">
     <ul class="home_ul_center">
-    <li>
+    <li style="display: block;">
         <div class="submitproject">
             <img id="rocket" class="fundingleft" src="/img/rocket.png" />
             <div class="helpstart">
