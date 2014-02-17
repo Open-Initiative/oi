@@ -18,7 +18,7 @@
 
     <div id="featureDiv_{{task.id}}" class="featureblock" {% if not task.public_read %} style="opacity:.4;"{% endif %}>
         
-        <div class="fundingright" style="min-width: 30%;max-width: 40%;">
+        <div class="fundingright" style="width: 215px;">
             <div class="funding_space subtitle_news">{% trans "Funding phase" %}:</div>
             <div class="progressbar">
                 <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%;"></span>
@@ -90,7 +90,7 @@
             </div>
         </div>
         
-        <div id="specs_{{task.id}}_hide" class="coverfeature">
+        <div id="specs_{{task.id}}_hide">
         {% with spec=task.spec_set.all|filter_order:1 %}
             {% if spec.type == 2 %}<br/>{% endif %}
             {{spec.text|oiunescape|summarize_html}}

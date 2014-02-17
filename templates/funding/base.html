@@ -73,17 +73,18 @@
             </div>
             
             <div class="picture_name_header">
-                <span id="name_header" class="usertitle name_header clickable" onclick="arrow_Up_Down()">{{user.get_profile}}</span>
-                {% if user.username %}<img class="contactpicture user_picture_effect clickable" src="/user/getpicture/{{user.username}}" onclick="arrow_Up_Down()" />{% endif %}
+                <span id="name_header" class="usertitle name_header clickable" onclick="arrow_Up_Down('toptext')">{{user.get_profile}}</span>
+                {% if user.username %}<img class="contactpicture user_picture_effect clickable" src="/user/getpicture/{{user.username}}" onclick="arrow_Up_Down('toptext')" />{% endif %}
                 {%if user.is_authenticated%}
-                <span id="arrow_header" class="arrow_header clickable" onclick="arrow_Up_Down()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <span id="arrow_header_up" class="arrow_header_up clickable invisible" onclick="arrow_Up_Down()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span id="arrow_header" class="arrow_header clickable" onclick="arrow_Up_Down('toptext')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span id="arrow_header_up" class="arrow_header_up clickable invisible" onclick="arrow_Up_Down('toptext')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 {% else %}
                 
-                <span id="arrow_header" style="top: 25px;" class="clickable arrow_header" onclick="showPopup(document.getElementById('popup_register'));">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span id="arrow_header" style="top: 25px;" class="clickable arrow_header" onclick="arrow_Up_Down('popup_register')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span id="arrow_header_up" style="top: 25px;" class="arrow_header_up clickable invisible" onclick="arrow_Up_Down('popup_register')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 
                 {%if not user.is_authenticated%}
-                <div class="clickable fundingleft headerbtn btnlogin" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'" onclick="showPopup(document.getElementById('popup_register'));">{% trans "Login" %}</div>
+                <div class="clickable fundingleft headerbtn btnlogin" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'" onclick="arrow_Up_Down('popup_register')">{% trans "Log in" %}</div>
                 
                 <div class="cleared"></div>
                 {%endif%}
@@ -103,11 +104,11 @@
                 <div class="header_close">
                     <div class="cleared"></div>
                     <div id="toptext" class="invisible">
-                        <b><a class="toplink" href="/user/myprofile"><img src="/img/icons/miniuser.png">{% trans "My profile" %}</a></b>
+                        <b><a class="toplink" href="/user/myprofile"><img src="/img/icons/miniuser_blue.png">{% trans "My profile" %}</a></b>
                         <div class="cleared" style="border-top: solid 1px #0595BA; margin: 5px 0;"></div>
-                        <b><a class="toplink" href="/user/myaccount"><img src="/img/icons/minisettings.png">{% trans "My account" %}</a></b>
+                        <b><a class="toplink" href="/user/myaccount"><img src="/img/icons/minisettings_blue.png">{% trans "My account" %}</a></b>
                         <div class="cleared" style="border-top: solid 1px #0595BA; margin: 5px 0;"></div>
-                        <b><a class="toplink subtitle" href="/logout"><img src="/img/icons/minilogout.png">{% trans "Logout" %}</a></b>
+                        <b><a class="toplink subtitle" href="/logout"><img src="/img/icons/minilogout_blue.png">{% trans "Log out" %}</a></b>
                     </div>
                 </div>
                 {% else %}
@@ -118,7 +119,7 @@
                         <table>
                             <tr>
                                 <td class="log_style">
-                                    <b>{% trans "Username" %}:</b>
+                                    {% trans "Username" %}
                                 </td>
                             </tr>
                             <tr>
@@ -127,13 +128,8 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>
-                                    <div style="border-top: solid 1px #0595BA; margin: 5px 0;"></div>
-                                </td>
-                            </tr>
-                            <tr>
                                 <td class="log_style">
-                                    <b>{% trans "Password" %}:</b>
+                                    {% trans "Password" %}
                                 </td>
                             </tr>
                             <tr>
@@ -143,22 +139,36 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <div style="border-top: solid 1px #0595BA; margin: 5px 0;"></div>
+                                    <input style="padding:1.5%" class="nobtnstyle continuebtn clickable fundingleft" type="submit" value="{% trans 'Log in' %}"/>
+                                    <img class="fundingright" style="width:40px;" src="/img/tete0.png"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="no_p_style">
+                                        <input type="hidden" name="next" value="{{request.get_full_path}}" />
+                                        <a href="/user/resetpassword" class="subtitle little_help"><b>{% trans "Forgot your password?" %}</b></a>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div style="border-top: solid 1px #0595BA; margin: 10px 0;"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="subtitle little_help"><b>{% trans "Don't have a account yet???" %}</b></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input style="padding:1.5%" class="nobtnstyle continuebtn clickable fundingleft" onclick="document.location.href='/user/accounts/register/'" type="button" value="{% trans 'Register' %}"/>
                                 </td>
                             </tr>
                         </table>
-                        <p class="no_p_style">
-                            <input type="hidden" name="next" value="{{request.get_full_path}}" />
-                            <a href="/user/resetpassword" class="forgotpwd subtitle"><b>{% trans "Forgot your password?" %}</b></a>
-                        </p>
-                        <br/>
-                        <img class="fundingright" src="/img/tete0.png"/>
-                        <input style="padding:1.5%" class="nobtnstyle continuebtn clickable fundingleft" type="submit" value="{% trans 'Log in' %}"/>
-                        <div class="cleared"></div>
                     </form>
                     
-                    <a href="/user/accounts/register/"><div class="clickable fundingleft headerbtn btnregister" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#FFFFFF'">{% trans "Register" %}</div></a> 
-                   
                 </div>
                 
                 {%endif%}
@@ -166,6 +176,10 @@
             {% endblock %}
         </div>
         <div class="cleared"></div>
+        <div class="learn_more2 invisible">
+            <a href="/presentation" class="clickable headernews">{% trans "Learn more" %}</a>
+            <a href="/#submit" class="clickable headernews" onclick="submitProject()">{% trans "Submit a project" %}</a>
+        </div>
     </div>
     {% block announcement %}
     {% endblock %}

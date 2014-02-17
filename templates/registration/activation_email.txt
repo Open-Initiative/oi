@@ -4,24 +4,23 @@ Open Initiative
 {% trans "The co-funding plateform for free software" %}
 
 
-<span style="font-weight: bold; color: #0094B5;">{% trans "Dear" %}</span>
+{% trans "Dear" %}
 
-<span style="font-weight: bold; color: #0094B5;">{% trans "Welcome to OpenFunding!" %} : )</span>
-<span style="color: #0094B5;">{% trans "Your account has been created successfully. It needs just one last step of clicking on the following link: " %}</span>
+{% trans "Welcome to OpenFunding!" %} : )
+{% trans "Your account has been created successfully. It needs just one last step of clicking on the following link: " %}
 
 http://{{site}}{% url registration.views.activate activation_key=activation_key %}
 
-<span style="color: #0094B5;">{% trans "If there is a problem with your registration, please reply to this email." %}</span>
+{% trans "If there is a problem with your registration, please reply to this email." %}
 
-<span style="color: #0094B5;">{% trans "Thank you very much for joining this community." %}</span>
+{% trans "Thank you very much for joining this community." %}
 
-<span style="color: #0094B5;">{% trans "Cheers!" %}</span>
+{% trans "Cheers!" %}
 
-<span style="color: #6F6F6E; font-weight: bold;">{% trans "The OpenFunding team" %}</span>
-<span style="color: #6F6F6E; font-weight: bold;"><a href="http://{{site}}">http://www.openinitiative.com/</a></span>
-<span style="color: #6F6F6E; font-weight: bold;">{% trans "The Co-funding Platform for Free Software" %}</span>
+{% trans "The OpenFunding team" %}
+http://{{site}}">http://www.openinitiative.com/
+{% trans "The Co-funding Platform for Free Software" %}
 
-<div style="border-top: 1px dotted #6F6F6E; width: 50px;"></div>
 
-<span style="color: #6F6F6E; font-weight: bold;"><a href="mailto:contact@open-initiative.com">contact@open-initiative.com</a></span>
-<span style="color: #6F6F6E; font-weight: bold;">twitter: @Open_Initiative</span>
+contact@open-initiative.com
+twitter: @Open_Initiative

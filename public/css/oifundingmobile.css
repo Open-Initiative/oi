@@ -1,8 +1,9 @@
 /*La page d'acceuil*/
 
 @media screen and (max-width:1025px){
-    #flag {display: none;}
-    .sliderimg {visibility: hidden; display: none;}
+/*    les deux images apparaissent sous le text*/
+    #rocket {opacity: 0.3;position: absolute;}
+    .sliderimg {opacity: 0.3;position: absolute;top: 10px;}
     #catcher {padding: 1%;}
     .slider {float: none; width: auto;}
     .slidermore {left: 10px; padding: .2em%;} 
@@ -19,16 +20,20 @@
 /*les boutons de la slidebar change de place*/
 @media screen and (max-width:640px){
     .slidericons {top: 200px;}
-    .slidermore {top: 190px} 
+    .slidermore {top: 190px;} 
 }
+/*fait disparaitre les deux boutons du header pour les faire apparaitre sous le logo*/
 @media screen and (max-width:700px){
     .learn_more > a {display: none;}
+    .learn_more2 {display: block;}
 }
 @media screen and (max-width:435px){
     .btnlogin {display: none;}
 }
 @media screen and (max-width:410px){
     #name_header {display: none;}
+    .slidermore {display: none;} 
+    #blue_band_line {display: none;}
 }
 
 
@@ -44,15 +49,17 @@
 /*    permet de voir le boutons pour voir la colonne de droite*/
 /*    donne une taille bien visible pour le blockfeatureheight */
     .maxwidth50 {max-width: 100%;}
-/*    centre la popup pour les feature*/
-    div.popup_spec {right: 0; left: 0;height: auto;}
 /*    affiche la popup à la bonne taille pour le projet*/
     .mobile_popup_size{width: auto !important;}
 /*    permet de cacher la div en dessous d'une certaine taille*/
-    #shrinkrelated {box-shadow: 0 2px 3px 2px; width: 20px}
+    #shrinkrelated {box-shadow: 0 2px 3px 2px; width: 20px;background: none repeat scroll 0 0 white;}
 }
-
-
+/*améliorer les messages pour les projets*/
+@media screen and (max-width:400px){
+    .discussion_column .column {float:none;}
+    .speech {display: none;}
+    .msgbubble {margin-left: 0;}
+}
 /*La page presentation*/
 @media screen and (max-width:600px){
     .prjbodypresentation {margin-left: 20px;}
