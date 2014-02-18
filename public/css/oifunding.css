@@ -1362,9 +1362,6 @@ div.spectype {
     text-align: right;
     top: 25px;
 }
-.picture_name_header {
-    float: right;
-}
 .arrow_header {
     background: url("/img/icons/arrow_header.png") no-repeat scroll 0 0 transparent;
     position: relative;

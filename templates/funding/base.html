@@ -72,26 +72,6 @@
                 <a href="/#submit" class="clickable headernews" onclick="submitProject()">{% trans "Submit a project" %}</a>
             </div>
             
-            <div class="picture_name_header">
-                <span id="name_header" class="usertitle name_header clickable" onclick="arrow_Up_Down('toptext')">{{user.get_profile}}</span>
-                {% if user.username %}<img class="contactpicture user_picture_effect clickable" src="/user/getpicture/{{user.username}}" onclick="arrow_Up_Down('toptext')" />{% endif %}
-                {%if user.is_authenticated%}
-                <span id="arrow_header" class="arrow_header clickable" onclick="arrow_Up_Down('toptext')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <span id="arrow_header_up" class="arrow_header_up clickable invisible" onclick="arrow_Up_Down('toptext')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                {% else %}
-                
-                <span id="arrow_header" style="top: 25px;" class="clickable arrow_header" onclick="arrow_Up_Down('popup_register')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <span id="arrow_header_up" style="top: 25px;" class="arrow_header_up clickable invisible" onclick="arrow_Up_Down('popup_register')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                
-                {%if not user.is_authenticated%}
-                <div class="clickable fundingleft headerbtn btnlogin" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'" onclick="arrow_Up_Down('popup_register')">{% trans "Log in" %}</div>
-                
-                <div class="cleared"></div>
-                {%endif%}
-                
-                {%endif%}
-            </div>
-            
             <div id="userheader">
                 {% with fr="fr" en="en" %}
                 <form id="test" method="post" onsubmit="OIajaxCall('/user/changeuserlanguage', 'language={% if request.LANGUAGE_CODE == fr %}en{% else %}fr{% endif %}', 'output'); return false;" class="actions">
@@ -174,6 +154,27 @@
                 {%endif%}
             </div>
             {% endblock %}
+            
+            <div class="fundingright">
+                <span id="name_header" class="usertitle name_header clickable" onclick="arrow_Up_Down('toptext')">{{user.get_profile}}</span>
+                {% if user.username %}<img class="contactpicture user_picture_effect clickable" src="/user/getpicture/{{user.username}}" onclick="arrow_Up_Down('toptext')" />{% endif %}
+                {%if user.is_authenticated%}
+                <span id="arrow_header" class="arrow_header clickable" onclick="arrow_Up_Down('toptext')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span id="arrow_header_up" class="arrow_header_up clickable invisible" onclick="arrow_Up_Down('toptext')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                {% else %}
+                
+                <span id="arrow_header" style="top: 25px;" class="clickable arrow_header" onclick="arrow_Up_Down('popup_register')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span id="arrow_header_up" style="top: 25px;" class="arrow_header_up clickable invisible" onclick="arrow_Up_Down('popup_register')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                
+                {%if not user.is_authenticated%}
+                <div class="clickable fundingleft headerbtn btnlogin" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'" onclick="arrow_Up_Down('popup_register')">{% trans "Log in" %}</div>
+                
+                <div class="cleared"></div>
+                {%endif%}
+                
+                {%endif%}
+            </div>
+            
         </div>
         <div class="cleared"></div>
         <div class="learn_more2 invisible">
