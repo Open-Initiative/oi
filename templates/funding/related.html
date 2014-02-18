@@ -36,7 +36,10 @@
     
     <div class="project" style="margin-bottom: 10px;overflow: hidden;">
         {% with object.descendants|filter_read:user as tasks %}
-        <div class="funding_space subtitle_news">{{tasks.count}} {% trans "feature(s) to be funded" %}</div>{% endwith %}
+        <div class="funding_space subtitle_news">
+            {{tasks.count}}
+            {% blocktrans count counter=tasks.count %}feature to be funded{% plural %} features to be funded{% endblocktrans %}
+        </div>{% endwith %}
         {% with project.descendants|filter_read:user as descendants %}
         <div>
             <div class="progressbar">

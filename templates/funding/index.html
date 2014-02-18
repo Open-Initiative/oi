@@ -83,7 +83,8 @@
 
 <div style="background-color:white;border: 1px solid #D3CFCF;">
     <div class="invisible prjlist" id="prjlist0">
-        <div class="projectlisttitle">{% trans "Submit your project" %}</div>
+        <div class="other_initiative_subtitle">{% trans "Submit your project" %}</div>
+        <div class="cleared"></div>
         <form id="submit_title_project" class="form_center" onsubmit="if(getValue('prjtitle')) addTask(getValue('prjtitle'), null, null,function(taskid){document.location = '/funding/'+taskid+'/edit'});return false" >
             <p class="details_title">{% trans "You are about to start funding your free software project." %}</p>
             <p class="form_center details_title">{% trans "First enter your project title" %}</p>
@@ -134,7 +135,9 @@
     </div>
 </div>
 
-<div id="oi_last_project" class="projectlisttitle">{% trans "Latest projects" %}</div>
+<div id="oi_last_project">
+    <div class="other_initiative_subtitle">{% trans "Latest projects" %}</div>
+    </div>
 <div id="promoted_project">
     <ul class="home_ul_center">
     {% for project in object_list %}

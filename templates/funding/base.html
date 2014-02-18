@@ -163,7 +163,7 @@
                 {% endif %}
                 
                 {%if not user.is_authenticated%}
-                <div class="clickable fundingleft headerbtn btnlogin" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'" onclick="arrow_Up_Down('popup_register')">{% trans "Log in" %}</div>
+                <div class="clickable fundingleft headerbtn btnlogin" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'" onclick="arrow_Up_Down('popup_register', 'no')">{% trans "Log in" %}</div>
                 {%endif%}
                 
                 {%if user.is_authenticated%}

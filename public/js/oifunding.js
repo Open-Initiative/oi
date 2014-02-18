@@ -197,8 +197,10 @@ function deleteReward(projectid, rewardid){
 function completeTask(projectid, taskid){
     OIajaxCall("/project/"+projectid+"/completetask/"+taskid, null, "output");
 }
-function arrow_Up_Down(divid){
+function arrow_Up_Down(divid, no){
     $('#'+divid).toggle();//show or hide the menu
-    $('#arrow_header_up').toggle();//change arrow if the menu is visible or not
-    $('#arrow_header').toggle();
+    if(!no){
+        $('#arrow_header_up').toggle();//change arrow if the menu is visible or not
+        $('#arrow_header').toggle();
+    }
 }

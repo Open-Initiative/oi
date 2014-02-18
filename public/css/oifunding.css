@@ -1390,3 +1390,17 @@ div.spectype {
 .little_help {
     font-size: 9px;
 }
+.other_initiative_subtitle{
+    border-left: 1px solid #0094B5;
+    border-right: 1px solid #0094B5;
+    color: #0094B5;
+    display: table;
+    font-size: 2em;
+    font-weight: bold;
+    margin: 0 auto;
+    padding: 5px;
+    position: relative;
+    text-align: center;
+    top: 20px;
+    margin-bottom: 40px;
+}
