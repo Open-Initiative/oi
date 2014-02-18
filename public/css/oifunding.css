@@ -666,10 +666,6 @@ div.sepspecfooter {
     position: absolute;
     z-index: 20;
 }
-/*TODO*/
-.funding_specs {
-    width: 660px;
-}
 .popup_complete{
     background: white;
     border: solid 1px #E0E0E0;
@@ -1342,11 +1338,6 @@ div.spectype {
 #shrinkrelated {
     overflow:hidden;
     padding-top: 20px;
-}
-#shrinkpresentation {
-    overflow:hidden;
-    position:absolute; 
-    left:0; 
 }
 .learn_more {
     position: relative; 
