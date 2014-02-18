@@ -34,10 +34,6 @@
     max-width: 650px;
     margin: 0 auto;
 }
-#btn_extend_presentation_close, #btn_extend_presentation_open{
-    position: absolute;
-    left: -28px;
-}
 .btn_extend {
     position: absolute;
     left: -27px;

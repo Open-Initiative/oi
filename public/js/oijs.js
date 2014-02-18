@@ -61,11 +61,10 @@ function getValue(eltid, erase){
     if(erase) elt.value = "";
     return value;
 }
-function newDiv(parentid, className) {
+function newDiv(parentid) {
     var divid = randid();
     var newdiv = document.createElement('div');
     newdiv.setAttribute('id',divid);
-    if (className) newdiv.setAttribute('class',className);
     document.getElementById(parentid).appendChild(newdiv);
     return divid;
 }
