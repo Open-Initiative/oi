@@ -308,7 +308,7 @@ div.minispec {
     max-width:100%
 }
 .cardspec img{
-    max-width: 60%;
+    height: 85px;
 }
 .prjbody {
     width: auto;
@@ -343,6 +343,7 @@ div.minispec {
     padding: 1%;
     position: absolute;
     width: auto;
+    z-index: 20;
 }
 .editoffer {
     position: absolute;

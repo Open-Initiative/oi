@@ -85,7 +85,7 @@ a:hover {
     color: white;
     font-size: 1.3em;
     margin: 0 auto;
-    padding: 20px 0;
+    padding: 20px 5px;
 }
 .center_contact_us div {
     font-weight: bold;
@@ -123,8 +123,9 @@ a:hover {
     color: white;
 }
 .op_icon {
-    width: 25%;
     margin: 0 auto;
+    min-width: 320px;
+    width: 30%;
 }
 .op_icon img{
     margin-left: 20px;
