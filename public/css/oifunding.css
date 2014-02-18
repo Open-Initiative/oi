@@ -903,6 +903,8 @@ a:hover {
     padding: 10px;
     position: relative;
     z-index: 2;
+    min-height: 109px;
+    min-width: 170px;
 }
 .toplink {
     padding: 5px 20px;
@@ -1131,6 +1133,7 @@ img.tabicon {
     position: absolute;
     top: 170px;
     width: 70px;
+    z-index: 1;
 }
 .slidericon {
     float: left;
