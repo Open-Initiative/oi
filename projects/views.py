@@ -57,8 +57,9 @@ from oi.settings_specific import OI_DOMAINS
 @OINeedsPrjPerms(OI_READ)
 def getproject(request, id, view="overview"):
     if not view: view = "overview"
+    raise Exception
     project = Project.objects.get(id=id)
-    return direct_to_template(request, template="projects/project_detail.html", extra_context={'object': project, 'current_view':view, 'views':OI_PRJ_VIEWS, 'types':SPEC_TYPES, 'table_overview': OI_TABLE_OVERVIEW, 'release': request.session.get("releases", {}).get(project.master.id, "")})
+    return direct_to_template(request, template="projects/project_detail.html", extra_context={'object': project, 'current_view':view, 'views':OI_PRJ_VIEWS, 'types':SPEC_TYPES, 'table_overview': OI_TABLE_OVERVIEW, 'release': request.session.get("releases", {}).get(project.master.id, project.master.target.name)})
 
 @OINeedsPrjPerms(OI_READ)
 def listtasks(request, id):
@@ -74,19 +75,18 @@ def listtasks(request, id):
                 #adding the task if the user has no right on it, but with no info
                 lists.append('[{"pk": %s, "fields": {"state": 4, "parent": "%s", "title": "..."}}]'%(project.id,project.parent.id))
         
-            if request.GET.has_key("listall"):
+            if request.GET.has_key("listall"): #for the overview table
                 tasks = project.descendants.filter_perm(request.user, OI_READ)
-            else:
-                request.session.get("release", {})[project.master.id] = ""
+            else: #for the tree
                 tasks = project.tasks.filter_perm(request.user, OI_READ)
             
-            #this function is use to filter on overview tble             
+            #this function is use to filter on overview table
             tasks = filteroverview(request, tasks)
             
             #this function sort on the project for the release
             tasks = releaseoverview(request, tasks, project)
             
-            #this function sort by order        
+            #this function sort by order
             tasks = orderoverview(request, tasks)
             
             #this function paginate on overview table
@@ -124,7 +124,7 @@ def orderoverview(request, tasks):
     return tasks
 
 def releaseoverview(request, tasks, project):
-    """can sort on the project for the release"""
+    """filter the tasks on release"""
     if request.GET.get("release"):
         releases = request.session.get("releases", {})
         releases[project.master.id] = request.GET['release']
@@ -986,7 +986,7 @@ def editspec(request, id, specid):
     spec=None
     order = request.GET.get("specorder")
     if specid!='0':
-        spec = Spec.objects.get(id=specid)
+        spec = get_object_or_404(Spec, id=specid)
         if spec.project.id != int(id):
             return HttpResponse(_("Wrong arguments"), status=531)
         order = spec.order
