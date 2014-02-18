@@ -343,13 +343,14 @@ div.minispec {
     border: 1px solid #E3E3E5;
     border-radius: 3px;
     box-shadow: 3px 3px 4px;
-    left: auto;
     padding: 1%;
     position: fixed;
     left: 5%;
-    top: 30px;
+    top: 20px;
     width: auto;
     z-index: 20;
+    max-height: 85%;
+    overflow: auto;
 }
 .editoffer {
     position: absolute;
