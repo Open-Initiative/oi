@@ -25,9 +25,11 @@
         <div class="help-funding">{% trans "By contributing to this order you will be delivered the professional quality feature you always wished for. Once the feature is developed, you will receive an e-mail to test it and give your validation."%}</div>
         
         <div>
-            {% for feature in object.descendants|filter_read:user %}
+            {% for feature in object.descendants|filter_read:user|dictsort:"priority" %}
+            {% if feature.state < 4 %}
             <input type=radio id="order_{{feature.id}}" name="order" value="{{feature.id}}" /> <label for="order_{{feature.id}}">{% trans "Order the feature" %} {{feature.title}}</label>
             <br/>
+            {% endif %}
             {% endfor %}
         </div>
         
