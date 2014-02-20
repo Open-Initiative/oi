@@ -179,14 +179,6 @@ function bidProject(projectid) {
         }
     );
 }
-function confirmBid(projectid) {
-    if(isNaN(parseFloat(document.getElementById("bid_"+projectid).value)))
-        document.getElementById('output').innerHTML = ""+gettext("Invalid amount");
-    else if(document.getElementById("bid_"+projectid).value == 0 )
-        document.getElementById('output').innerHTML = ""+gettext("Please indicate the amount");
-    else
-        OIajaxCall("/project/confirmbid/"+projectid, "bid="+getValue("bid_"+projectid), "output");
-}
 function confirmBidProject(projectid) {
     if(document.getElementById("acceptcgu").checked){
         OIajaxCall("/project/confirmbid/"+projectid, "bid="+getValue("bid_"+projectid), "output", 

@@ -194,6 +194,9 @@ function deleteReward(projectid, rewardid){
         })
     }
 }
+function confirmBid(projectid) {
+    OIajaxCall("/project/confirmbid/"+$("input[name='order']:checked").val(), "bid="+getValue("bid_"+projectid), "output");
+}
 function completeTask(projectid, taskid){
     OIajaxCall("/project/"+projectid+"/completetask/"+taskid, null, "output");
 }

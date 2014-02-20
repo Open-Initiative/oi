@@ -13,7 +13,7 @@
     
     <p>{% trans "Please indicate what you want to do:" %}</p>
     
-    <form onsubmit="confirmBid({{task.id}});return false">
+    <form id="popup_budget_{{object.id}}" onsubmit="confirmBid({{object.id}});return false">
         
         <div class="fundingleft"><input type=radio id="order_{{object.id}}" name="order" value="{{object.id}}" /><label for="order_{{object.id}}">{% trans "Back the project" %}</label></div>
         
@@ -34,7 +34,7 @@
         <div class="cleared"></div>
         
         <label for="bid_{{task.id}}">{% trans "Please enter the amount:" %}</label><br /><br />
-        <input id="bid_{{task.id}}" name="bid_{{task.id}}" class="bidfeature" value="{% if not zero %}{{task.missing_bid|floatformat:"-2"}}{% else %}0{% endif %}" /> €
+        <input id="bid_{{object.id}}" name="bid_{{object.id}}" class="bidfeature" value="{% if not zero %}{{object.missing_bid|floatformat:"-2"}}{% else %}0{% endif %}" /> €
         <br /><br>
     </form>
     

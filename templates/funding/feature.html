@@ -56,7 +56,7 @@
                 {% endif %}
                 <br/>
                 {% if task.state < 4 and task|can_manage:user and object.bid_sum and task.missing_bid %}
-                    <span class="supportbtn_complete clickable" onclick="showPopup(document.getElementById('completepopup_{{task.id}}'));">{% trans "Complete the fund" %}</span>
+                    <span class="supportbtn_complete clickable" onclick="showPopup(document.getElementById('completepopup_{{task.id}}'));">{% trans "Complete the funding" %}</span>
                 {% endif %}
             </div>
             
