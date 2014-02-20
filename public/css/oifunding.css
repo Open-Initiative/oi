@@ -668,12 +668,13 @@ div.sepspecfooter {
     background: white;
     border: solid 1px #E0E0E0;
     color: black;
-    position: absolute;
+    position: fixed;
     padding: 1%;
     z-index: 20;
     border-radius: 10px;
     box-shadow: 3px 3px 4px;
-    right: -90px;
+    top: 151px;
+    width: 460px;
 }
 /*TODO*/
 .of_close{
@@ -1190,11 +1191,12 @@ div.popup_spec {
     background: white;
     border: solid 1px #E0E0E0;
     color: black;
-    position: relative;
-    padding: 6% 3% 6% 3%;
+    position: fixed;
+    padding: 10px 15px;
     z-index: 20;
-    border-radius: 20px;
+    border-radius: 3px;
     box-shadow: 3px 3px 4px;
+    right: 5%;
 }
 .actions {
     clear: right;

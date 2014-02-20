@@ -108,10 +108,10 @@ div.blogicon {
     float: left;
     margin: 2px;
 }
-.popupbox {
-    position: relative; 
-    width: 50%;
-    z-index: 1; 
+.payment_popup_title {
+    position: fixed; 
+    top: 65px;
+    z-index: 20; 
 }
 .confirmpaymentblock {
     background-color: white;
@@ -119,7 +119,9 @@ div.blogicon {
     border-radius: 3px;
     box-shadow: 2px 2px 2px;
     padding: 1% 3%;
-    min-width: 350px;
+    width: 350px;
+    z-index: 20;
+    position: fixed;
 }
 .payment_popup_title {
     color: #0094B5; 

@@ -5,33 +5,7 @@
     {% if object|can_write:user %}
         <a href="edit"><div class="bidaction">{% trans "Edit your project" %}</div></a>
         <div class="bidaction clickable" onclick="showPopup(document.getElementById('pluginpopup'))">{% trans "Integrate your project" %}</div>
-        <div id="pluginpopup" style="width: 120%;" class="invisible popup" onclick="document.ignoreClosePopups = true;">
-            <p>{% trans "If you want to see the feature in your website, you have to" %} <span class="rewardtitle">{% trans "copy and paste the code" %}</span></p>
-            <form>
-                <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="big"/>{% trans "Big" %}
-                <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="small"/>{% trans "Small" %}
-                <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="tiny"/>{% trans "Tiny" %}
-                <textarea readonly id="plugincode" style="width:100%; float:right; height:65px"></textarea>
-            </form>
-            <div id="plugin_preview"></div>
-            
-            {% comment %}it is for the popup plugin{% endcomment %}
-            <div id="tiny_popup" class="invisible">
-                <div class="featuretitle">
-                    <img class="pluginlogo" src="/img/logo_funding.png"/>
-                    <a href="/funding/{{object.id}}" target="_blank">{{object.title}}</a>
-                    <div class="cleared"></div>
-                    <span style="font-size:0.7em; color:#D3CFCF">{% trans 'Proposed by' %} {{object.author.get_profile|capfirst}}</span>
-                </div>
-                <p class="form_center no_p_style" style="color:#0094B5">{{object.allbid_sum}}€ {% trans 'funding' %}</p>
-                <p class="form_center no_p_style" style="color:#0094B5">{{object.bid_set.count}} {% trans 'users' %}</p>
-                {% for funding_user in object.bid_set.all %}
-                    <img title="{{funding_user}}" alt="{{funding_user}}" src="/user/getpicture/{{funding_user}}"/>
-                {% endfor %}
-                <span class="prj-btn_green fundingright">{% trans 'Support' %}</span>
-            </div>
-            <div class="cleared"></div>
-        </div>
+        
     {% endif %}
     
     <div class="project" style="margin-bottom: 10px;overflow: hidden;">
