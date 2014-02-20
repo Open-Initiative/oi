@@ -66,7 +66,7 @@
             
             <div class="featurebtns of_close">
             {% if project.state < 4 and project|can_bid:user or not user.is_authenticated %}
-                <span class="supportbtn clickable fundingleft backtoproject" onclick="showPopup(document.getElementById('bidpopup_{{project.id}}')); ">{% trans "Back the project" %}</span>
+                <span class="supportbtn clickable fundingleft backtoproject" onclick="showPopup(document.getElementById('bidpopup_{{project.id}}'));document.getElementById('order_{{object.id}}').checked=true;">{% trans "Back the project" %}</span>
             {% endif %}
                 <div class="cleared"></div>
             </div>
