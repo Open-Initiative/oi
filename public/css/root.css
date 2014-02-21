@@ -83,6 +83,7 @@ a:hover {
 .contact_us{
     background: #0094B5;
     color: white;
+    height: 60px;
     font-size: 1.3em;
     margin: 0 auto;
     padding: 20px 5px;
@@ -124,7 +125,7 @@ a:hover {
 }
 .op_icon {
     margin: 0 auto;
-    min-width: 320px;
+    width: 320px;
     width: 30%;
 }
 .op_icon img{
@@ -182,7 +183,15 @@ ul.root_ul li {
     text-transform: uppercase;
     width: 160px;
 }
+.root_project {
+    float: left;
+    margin-top: -14px;
+    position: relative;
+}
 
 @media screen and (max-width:430px){
     #searchdiv {display: none;}
+}
+@media screen and (max-width:470px){
+    .root_project {opacity: 0.3;position: absolute;}
 }
