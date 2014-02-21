@@ -8,7 +8,7 @@
 
 {% if task.state < 4 and task|can_bid:user or not user.is_authenticated %}
 
-<div id="bidpopup_{{task.id}}" class="popup_spec invisible" onclick="document.ignoreClosePopups = true;">
+<div id="bidpopup_{{object.id}}" class="popup_spec invisible" {% if position %}style="position:{{position}};"{% endif %} onclick="document.ignoreClosePopups = true;">
     <img class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hidePopups()" />    
     
     <p>{% trans "Please indicate what you want to do:" %}</p>

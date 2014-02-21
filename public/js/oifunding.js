@@ -162,8 +162,8 @@ function expandFeature(taskid){
 }
 function selectplugin(projectid, plugintype) {
     if(plugintype == "big"){
-        var width = "300px";
-        var height = "400px";
+        var width = "350px";
+        var height = "450px";
     }else if(plugintype == "small"){
         var width = "240px";
         var height = "99px";
