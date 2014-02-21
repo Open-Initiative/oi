@@ -341,7 +341,9 @@ div.minispec {
     box-shadow: 3px 3px 4px;
     left: auto;
     padding: 1%;
-    position: absolute;
+    position: fixed;
+    left: 5%;
+    top: 30px;
     width: auto;
     z-index: 20;
 }
@@ -926,7 +928,7 @@ a:hover {
 #searchdiv {
     float: left;
     margin-top: 5px;
-    margin-right: 10px;
+    margin-right: 30px;
     margin-left: -15px;
 }
 #baseline {
@@ -1158,6 +1160,7 @@ img.tabicon {
     font-size: 22px;
     background-color: #0595BA;
     color: white;
+    height: 80px;
 }
 .fundingtitle {
     font-size: 120%;

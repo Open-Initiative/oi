@@ -182,3 +182,7 @@ ul.root_ul li {
     text-transform: uppercase;
     width: 160px;
 }
+
+@media screen and (max-width:430px){
+    #searchdiv {display: none;}
+}

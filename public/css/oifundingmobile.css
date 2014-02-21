@@ -3,7 +3,8 @@
 @media screen and (max-width:1025px){
 /*    les deux images apparaissent sous le text*/
     #rocket {opacity: 0.3;position: absolute;}
-    .sliderimg {opacity: 0.3;position: absolute;top: 10px;}
+    .sliderimg {opacity: 0.3;position: absolute;top: 10px;margin: 0 40%;}
+    .sliderimgcloser4 {margin-left: -10px;}
     #catcher {padding: 1%;}
     .slider {float: none; width: auto;}
     .slidermore {left: 10px; padding: .2em%;} 
@@ -23,8 +24,8 @@
     .learn_more2 {display: block;}
 }
 @media screen and (max-width:460px){
-    #blue_band_line {display: none;}
-    .fundingdesc {height: 80px;}
+    .blue_band_line_text {display: none;}
+    .actions.clickable.actionbutton {margin-top: 25px; float: none;}
 }
 @media screen and (max-width:435px){
     #arrow_header, arrow_header_up {display: none;}

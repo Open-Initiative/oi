@@ -167,9 +167,9 @@ function slideIndex(nextid) {
     }
 }
 function slidePres(blockid, id) {
-    jQuery('.presslide').slideUp();
-    jQuery(id).slideDown();
-    boldPresentation(blockid, "_"+id);
+    jQuery('.presslide').hide();
+    jQuery("#"+id).show();
+    boldPresentation(blockid, "_#"+id);
 }
 function boldPresentation(blockid, divid){
     //put in bold the title seleted
