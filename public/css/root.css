@@ -125,7 +125,7 @@ a:hover {
 }
 .op_icon {
     margin: 0 auto;
-    width: 320px;
+    min-width: 320px;
     width: 30%;
 }
 .op_icon img{
@@ -189,9 +189,9 @@ ul.root_ul li {
     position: relative;
 }
 
-@media screen and (max-width:430px){
-    #searchdiv {display: none;}
-}
 @media screen and (max-width:470px){
     .root_project {opacity: 0.3;position: absolute;}
+}
+@media screen and (max-width:430px){
+    #searchdiv {display: none;}
 }
