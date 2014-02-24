@@ -1098,7 +1098,7 @@ img.tabicon {
 }
 .slidermore {
     position: absolute;
-    font-size: 1.1em;
+    font-size: 15px;
     font-weight: bold;
     padding: 5px 12px;
     text-transform: uppercase;

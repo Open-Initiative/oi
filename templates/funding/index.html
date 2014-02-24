@@ -33,6 +33,9 @@
                 <div id="slidericon3" class="slidericon" onclick="slideIndex(3)"></div>
                 <div id="slidericon4" class="slidericon" onclick="slideIndex(4)"></div>
             </div>
+            <a id="preslink" href="/presentation" class="slidermore" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0595BA'">
+                {% trans "Learn More" %}
+            </a>
         </div>
         <script type="text/javascript">
             window.slide = true;
@@ -43,12 +46,6 @@
         <img id="sliderimg2" src="/img/slider2.png" class="sliderimg invisible sliderimgcloser" />
         <img id="sliderimg3" src="/img/slider3.png" class="sliderimg invisible sliderimgcloser3" />
         <img id="sliderimg4" src="/img/slider4.png" class="sliderimg invisible sliderimgcloser4" />
-        
-        <div class="cleared"></div>
-        
-        <a id="preslink" href="/presentation" class="slidermore" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0595BA'">
-            {% trans "Learn More" %}
-        </a>
     </div>
     <div class="cleared"></div>
 </div>
