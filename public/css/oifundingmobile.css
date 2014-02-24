@@ -2,18 +2,18 @@
 
 @media screen and (max-width:1025px){
 /*    les deux images apparaissent sous le text*/
-    #rocket {opacity: 0.3;position: absolute;}
-    .sliderimg {opacity: 0.3;position: absolute;top: 10px;}
+    #rocket {margin-left: 10px;}
+    .sliderimg {opacity: 0.2;position: absolute;top: 10px;}
     .sliderimgcloser1 {margin-left: 30%;}
-    .sliderimgcloser2, .sliderimgcloser3 {margin-left: 20%;}
+    .sliderimgcloser2, .sliderimgcloser3 {margin-left: 10%;}
     .sliderimgcloser4 {margin-left: -10px;}
-    #catcher {padding: 1%;}
+    #catcher {padding: 2%;}
     .slider {float: none; width: auto;}
     .slidermore {left: 10px; padding: .2em%;} 
     .submitproject {margin: 0 auto;}
     .indexslide {overflow: auto; width: auto;}
     .slidertip {width: auto;}
-    .slider dd {height: auto;width: auto;}
+    .slider dd {height: auto;width: 90vw;}
     #userheader_mobile {display: block;}
 }
 /*Push line qui disparait*/
@@ -25,9 +25,13 @@
     .learn_more > a {display: none;}
     .learn_more2 {display: block;}
 }
-@media screen and (max-width:460px){
+@media screen and (max-width:580px){
     .blue_band_line_text {display: none;}
-    .actions.clickable.actionbutton {margin-top: 25px; float: none;}
+    .actions.clickable.actionbutton {margin-top: 25px; float: none;margin-left: 100px;}
+}
+@media screen and (max-width:470px){
+    .slidermore {top:180px;}
+    .slidericons {top:190px;}
 }
 @media screen and (max-width:435px){
     #arrow_header, #arrow_header_up {display: none;}
@@ -35,8 +39,8 @@
 @media screen and (max-width:410px){
     #name_header {display: none;}
     .slidermore {display: none;} 
+    .slidericons {top:200px;}
 }
-
 
 /*La page projet*/
 @media screen and (min-width:751px){
