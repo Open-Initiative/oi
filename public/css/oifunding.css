@@ -1089,6 +1089,7 @@ img.tabicon {
     max-width: 1020px;
     margin: auto;
     position: relative;
+    overflow: hidden;
 }
 .slider {
     float: right;
