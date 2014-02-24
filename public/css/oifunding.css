@@ -1359,7 +1359,7 @@ div.spectype {
 .arrow_header {
     background: url("/img/icons/arrow_header.png") no-repeat scroll 0 0 transparent;
     position: relative;
-    top: 5px;
+    top: 25px;
     z-index: 1;
 }
 .arrow_header:hover {
@@ -1368,7 +1368,7 @@ div.spectype {
 .arrow_header_up {
     background: url("/img/icons/arrow_header_up.png") no-repeat scroll 0 0 transparent;
     position: relative;
-    top: 5px;
+    top: 25px;
     z-index: 1;
 }
 .arrow_header_up:hover {

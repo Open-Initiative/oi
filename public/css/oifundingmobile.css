@@ -28,7 +28,7 @@
     .actions.clickable.actionbutton {margin-top: 25px; float: none;}
 }
 @media screen and (max-width:435px){
-    #arrow_header, arrow_header_up {display: none;}
+    #arrow_header, #arrow_header_up {display: none;}
 }
 @media screen and (max-width:410px){
     #name_header {display: none;}

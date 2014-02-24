@@ -163,16 +163,16 @@
                 {% endif %}
                 
                 {%if not user.is_authenticated%}
-                <div class="clickable fundingleft headerbtn btnlogin" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'" onclick="arrow_Up_Down('popup_register', 'no')">{% trans "Log in" %}</div>
+                <div class="clickable fundingleft headerbtn btnlogin" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'" onclick="arrow_Up_Down('popup_register')">{% trans "Log in" %}</div>
                 {%endif%}
                 
                 {%if user.is_authenticated%}
-                <span id="arrow_header" class="arrow_header clickable" onclick="arrow_Up_Down('toptext')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <span id="arrow_header_up" class="arrow_header_up clickable invisible" onclick="arrow_Up_Down('toptext')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span id="arrow_header" class="arrow_header clickable" onclick="arrow_Up_Down('toptext', 'show')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span id="arrow_header_up" class="arrow_header_up clickable invisible" onclick="arrow_Up_Down('toptext', 'hide')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 {% else %}
                 
-                <span id="arrow_header" style="top: 25px;" class="clickable arrow_header" onclick="arrow_Up_Down('popup_register')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <span id="arrow_header_up" style="top: 25px;" class="arrow_header_up clickable invisible" onclick="arrow_Up_Down('popup_register')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span id="arrow_header" class="clickable arrow_header" onclick="arrow_Up_Down('popup_register', 'show')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span id="arrow_header_up" class="arrow_header_up clickable invisible" onclick="arrow_Up_Down('popup_register', 'hide')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 
                 {%endif%}
             </div>
