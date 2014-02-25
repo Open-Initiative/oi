@@ -905,8 +905,9 @@ a:hover {
 .toplink {
     padding: 5px 20px;
     display: table;
-    padding: 5px 30px 5px 10px;
-    width: 130px;
+    padding: 5px 10px;
+    max-width: 150px;
+    width: 100%;
 }
 .toplink:hover{
     background: #E3E3E3;
