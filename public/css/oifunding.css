@@ -659,11 +659,12 @@ div.sepspecfooter {
 .popup_corner {
     background: none repeat scroll 0 0 white;
     border: 1px solid #E0E0E0;
-    border-radius: 20px 20px 20px 20px;
+    border-radius: 3px;
     box-shadow: 3px 3px 4px;
     color: black;
-    padding: 2% 1% 2%;
-    position: absolute;
+    padding: 2%;
+    position: fixed;
+    top: 20px;
     z-index: 20;
 }
 .popup_complete{
