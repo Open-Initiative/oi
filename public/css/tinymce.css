@@ -16,6 +16,7 @@
     font-family: "CCRA";
     src: url('/fonts/CCRA.eot?') format('eot'), url('/fonts/CCRA.ttf') format('opentype');
 }
+html, body {height: 100%;}
 body {
     margin:0;
     font-family: "ProximaNova",Verdana,Arial,Helvetica,sans-serif;
