@@ -93,6 +93,8 @@ function hidePopups() {
 function addPopup(popup) {
     document.popups = (document.popups || []).concat(popup);
     addEvent(document, "click", hidePopups);
+//    soit addEvent ou addEventListener mais pas les deux
+    document.getElementById("blurDiv").addEventListener('click', hidePopups , false);
 }
 function showPopup(popup) {
     if(!document.getElementById("blurDiv")){
