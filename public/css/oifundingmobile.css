@@ -3,7 +3,7 @@
 @media screen and (max-width:1025px){
 /*    les deux images apparaissent sous le text*/
     #rocket {margin-left: 10px;}
-    .sliderimg {opacity: 0.2;position: absolute;top: 10px;}
+    .sliderimg {opacity: 0.2;position: absolute;top: 0;}
     .sliderimgcloser1 {margin-left: 30%;}
     .sliderimgcloser2, .sliderimgcloser3 {margin-left: 10%;}
     .sliderimgcloser4 {margin-left: -10px;}
