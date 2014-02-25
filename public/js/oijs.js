@@ -171,15 +171,16 @@ function slideIndex(nextid) {
 function slidePres(blockid, id) {
     jQuery('.presslide').hide();
     jQuery("#"+id).show();
-    boldPresentation(blockid, "_#"+id);
+    boldPresentation(blockid, "_"+id);
 }
 function boldPresentation(blockid, divid){
     //put in bold the title seleted
-    var link = document.getElementById(blockid).getElementsByTagName("a");
-    for(var i=0; i<link.length; i++){
-        link[i].style.fontWeight = "";
+    var tabs = document.getElementById(blockid).getElementsByTagName("span");
+    for(var i=0; i<tabs.length; i++){
+        tabs[i].style.fontWeight = "";
     }
     document.getElementById(divid).style.fontWeight = "bold";
+    document.location.hash = divid;
 }
 function expandCateg(img, categid, dest){
     if(img.down != 1){
