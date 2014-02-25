@@ -52,12 +52,31 @@
     </div>
 </div>
 
-{% comment %} website developpeur {% endcomment %}
+{% comment %} website developpeur popup {% endcomment %}
 {% with spec=project.spec_set.all|filter_order:8 order=8 divid='software' %}
 {%include 'funding/project_detail_column_right.html'%}
 {% endwith %}
 
-{% comment %} for corner developpeur {% endcomment %}
+{% comment %} reward popup {% endcomment %}
+<div id="newreward" class="invisible popup_reward" onclick="document.ignoreClosePopups = true;">
+    {% include 'funding/rewardblock.html' %}
+</div>
+
+{% for reward in object.reward_set.all %}
+<div id="newreward_{{reward.id}}" class="invisible popup_reward" onclick="document.ignoreClosePopups = true;">
+                {% for key, value in forms.items %}
+                    {% with reward_form=value %}
+                        {% with "reward_form_"|int_to_string:reward.id as form %}
+                            {% if form == key %}
+                                {% include 'funding/rewardblock.html' %}
+                            {% endif %}
+                        {% endwith %}
+                    {% endwith %}
+                {% endfor %}
+                </div>
+            {% endfor %}
+
+{% comment %} for corner developpeur popup {% endcomment %}
 {% with spec=project.spec_set.all|filter_order:5 order=5 divid='deposit' %}{%include 'funding/project_detail_column_right.html'%}{% endwith %}
 
 {% with spec=project.spec_set.all|filter_order:6 order=6 divid='licence' spec_divid='spec__6_content' %}
