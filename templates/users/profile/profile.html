@@ -4,7 +4,7 @@
 {% block title %}{{selected_user.username}}{% endblock %}
 {% block content %}
 <div class="prjbody prjbodyprofile">
-    <div class="column profile_column user_picture_bio">
+    <div class="column profile_picture">
         <img id="user_picture" class="profilepicture" src="/user/getpicture/{{selected_user.username}}" />
         {% ifequal user selected_user %}
         <img class="clickable" src="/img/icons/edit.png" onclick="$('#profile_picture').toggle()" />
@@ -25,7 +25,7 @@
             {% endifnotequal %}
         </div>
     </div>
-    <div class="profilecolumn project">
+    <div class="profilecolumn">
         <h1>
             {{selected_user.get_profile}}
             {% ifequal user selected_user %}<a href="/user/myaccount"><img src="/img/icons/edit.png" /></a>{% endifequal %}
@@ -51,7 +51,7 @@
         </div>
     </div>
 </div>
-<div class="related">
+<div class="related" style="float: left;max-width: 300px;">
     {% if selected_user.get_profile.get_created_projects|filter_read:user %}<div class="tasktitle form_center">{% trans "Projects created" %}</div>{% endif %}
     <div id="created_visible">
         <ul class="home_ul_center">

@@ -325,7 +325,9 @@ div.minispec {
     padding: 10px 30px;
 }
 .prjbodyprofile {
-    margin-right: 25px;
+    margin-right: 0 !important;
+    max-width: 750px;
+    float: left;
 }
 .features {
     max-width: 275px;

@@ -87,12 +87,16 @@ div.blogicon {
     padding-top: 5px;
 }
 .profile_picture {
-    position: relative;
-    right: 40%;
+    background-color: white;
+    border-radius: 3px 3px 3px 3px;
+    float: left;
+    margin: 1%;
+    max-width: 170px;
+    width: 30%;
 }
 .profile_column {
-    width: 12em;
-    margin-right: 1em;
+    max-width: 170px;
+    width: 30%;
 }
 .profile_info {
     border: dotted 2px #E0E0E0;
@@ -106,7 +110,12 @@ div.blogicon {
 }
 .profilecolumn {
     float: left;
-    margin: 2px;
+    margin: 1%;
+    width: 60%;
+    background-color: white;
+    border-radius: 3px 3px 3px 3px;
+    padding: 1%;
+    padding-left: 5%;
 }
 .payment_popup_title {
     position: fixed; 
