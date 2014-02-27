@@ -140,6 +140,7 @@ a:hover {
     text-align: center;
     font-size: .9em;
     padding: 10px;
+    overflow: hidden;
 }
 .other_initiative_subtitle{
     border-left: 1px solid #0094B5;
