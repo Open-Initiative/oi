@@ -33,9 +33,6 @@
     .slidermore {top:180px;}
     .slidericons {top:190px;}
 }
-@media screen and (max-width:435px){
-    #arrow_header, #arrow_header_up {display: none;}
-}
 @media screen and (max-width:410px){
     #name_header {display: none;}
     .slidermore {display: none;} 

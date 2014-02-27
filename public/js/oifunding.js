@@ -200,13 +200,8 @@ function confirmBid(projectid) {
 function completeTask(projectid, taskid){
     OIajaxCall("/project/"+projectid+"/completetask/"+taskid, null, "output");
 }
-function arrow_Up_Down(divid, show){
+function arrow_Up_Down(divid){
     $('#'+divid).toggle();//show or hide the menu
-    if('show'==show){
-        $('#arrow_header_up').removeClass('invisible');//change arrow if the menu is visible or not
-        $('#arrow_header').addClass('invisible');
-    }else{
-        $('#arrow_header').removeClass('invisible');//change arrow if the menu is visible or not
-        $('#arrow_header_up').addClass('invisible');
-    }
+    $('#arrow_header_up').toggle();//change arrow if the menu is visible or not
+    $('#arrow_header').toggle();
 }
