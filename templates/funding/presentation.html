@@ -49,16 +49,45 @@
         <p>{% trans "We’re a team of 4, passionate about how technology changes our society, and looking forward to exploring new ways to work with them." %}</p>
 
         <span>{% trans "Team members" %}:</span><br/>
-        <span>{% trans "Founder: Sylvain (on left)" %}</span><br/>
-        <span>{% trans "UX Developer: Maxi (on right)" %}</span><br/>
-        <span>{% trans "Product Manager: Khushboo (in centre)" %}</span><br/>
-        <span>{% trans "Communication: Lucile" %}</span><br/>
+        
+        <div class="column">
+            <img src="/img/team/sylvain.png" alt="Sylvain" class="teampicture">
+            <div class="column">
+                <div class="usertitle">Sylvain</div>
+                <div class="cleared">{% trans "Founder" %}</div>
+            </div>
+        </div>
+        
+        <div class="column">
+            <img src="/img/team/maxi.png" alt="Maxi" class="teampicture">
+            <div class="column">
+                <div class="usertitle">Maxi</div>
+                <div class="cleared">{% trans "UX Developer" %}</div>
+            </div>
+        </div>
+        
+        <div class="column">
+            <img src="/img/team/khushboo.png" alt="Khushboo" class="teampicture">
+            <div class="column">
+                <div class="usertitle">Khushboo</div>
+                <div class="cleared">{% trans "Product Manager" %}</div>
+            </div>
+        </div>
+        
+        <div class="column">
+            <img src="/img/team/lucile.png" alt="Lucile" class="teampicture">
+            <div class="column">
+                <div class="usertitle">Lucile</div>
+                <div class="cleared">{% trans "Communication:" %}</div>
+            </div>
+        </div>
+        <br/>
         
         <img src="/img/team/oft.JPG" alt="{% trans 'Open Funding Team' %}">
         
         <h3 id="A10">{% trans "How do I get in touch with you guys?" %}</h3>
         
-        <p>{% trans "If you want to have a talk with us or ask us more about OpenFunding, then write us here" %}: <a href="mailto:contact@openinitiative.com?Subject=Hello">contact@open-initiative.com</a> </p>
+        <p>{% trans "If you want to have a talk with us or ask us more about OpenFunding, then write us here" %}: <a href="mailto:contact@openinitiative.com?Subject=Hello">contact@openinitiative.com</a> </p>
         <p>{% trans "If you’ve a project idea then go ahead and launch your project by clicking here:" %}</p>
         
         <div class="actions clickable actionbutton noright" onclick="$('#prjlist0').fadeToggle(); $('#promoted_project').fadeToggle(); $('#prjlist3').fadeToggle(); $('#oi_last_project').fadeToggle()">
