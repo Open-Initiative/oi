@@ -21,9 +21,11 @@
     #searchdiv {display: none;}
 }
 /*fait disparaitre les deux boutons du header pour les faire apparaitre sous le logo*/
-@media screen and (max-width:700px){
+@media screen and (max-width:702px){
     .learn_more > a {display: none;}
+    #logo {width: auto;margin-left: -30px;}
     .learn_more2 {display: block;}
+    #beta {left: 180px;top: 45px;}
 }
 @media screen and (max-width:580px){
     .blue_band_line_text {display: none;}
