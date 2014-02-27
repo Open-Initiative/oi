@@ -7,7 +7,7 @@
     .sliderimgcloser1 {margin-left: 30%;}
     .sliderimgcloser2, .sliderimgcloser3 {margin-left: 10%;}
     .sliderimgcloser4 {margin-left: -10px;}
-    #catcher {padding: 2%;}
+    #catcher {padding: 0 2%;}
     .slider {float: none; width: auto;}
     .slidermore {left: 10px; padding: .2em%;} 
     .submitproject {margin: 0 auto;}
@@ -48,6 +48,7 @@
 /*rend la page responsive*/
 @media screen and (max-width:750px){
     .prjbody {margin-right: 25px;} /*à voir margin*/
+    .block_shrinkrelated {border: 1px solid #9D9C9C;}
     #related {background: white;}
     .discussion_column {margin: 0 3%;} /*à voir margin*/
 /*    permet de voir le boutons pour voir la colonne de droite*/

@@ -645,6 +645,8 @@ div.sepspecfooter {
     position: fixed;
     top: 20px;
     z-index: 20;
+    max-height: 85%;
+    overflow: auto;
 }
 .reward_bottom_line{
     border-top: 2px dotted #D3CFCF;
@@ -681,7 +683,7 @@ div.sepspecfooter {
     border-radius: 10px;
     box-shadow: 3px 3px 4px;
     top: 151px;
-    width: 460px;
+    max-width: 460px;
 }
 /*TODO*/
 .of_close{
@@ -1196,6 +1198,8 @@ div.popup_spec {
     box-shadow: 3px 3px 4px;
     left: 5%;
     top: 30px;
+    max-height: 85%;
+    overflow: auto;
 }
 .popup{
     background: white;
@@ -1206,7 +1210,11 @@ div.popup_spec {
     z-index: 20;
     border-radius: 3px;
     box-shadow: 3px 3px 4px;
-    right: 5%;
+    right: 0;
+    top: 20px;
+    max-height: 85%;
+    max-width: 90%;
+    overflow: auto;
 }
 .actions {
     clear: right;
