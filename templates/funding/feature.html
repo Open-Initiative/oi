@@ -21,6 +21,23 @@
 
     <div id="featureDiv_{{task.id}}" class="featureblock" {% if not task.public_read %} style="opacity:.4;"{% endif %}>
         
+        <div>
+            <div id="feature_{{task.id}}" class="featuretitle clickable" onclick="expandFeature({{task.id}})">{% if linktitte %}<a href="/funding/{{object.id}}#feature_{{task.id}}" target="_blank">{{task.title}}</a>{% else %}{{task.title}}{% endif %}</div>
+            
+            <form onsubmit="var newtitle = getValue('feature_{{task.id}}_edit');if(newtitle){confirmEditTitle({{task.id}}, newtitle);}; seeMore('feature_{{task.id}}_edit', 'feature_{{task.id}}'); return false">
+            <input id="feature_{{task.id}}_edit" class="featuretitle invisible" value="{{task.title}}">
+            </form>
+            
+            <div>
+            {% if task|can_write:user and task.state < 4 %}
+                <span class="editfeature">
+                    {% if task.state < 2 %}{% trans "Edit" %} <img src="/img/icons/edit.png" alt="{% trans 'edit title' %}" title="{% trans 'edit title' %}" class="clickable" onclick="seeMore('feature_{{task.id}}_edit', 'feature_{{task.id}}')" />{% endif %}
+                    {% trans "Delete" %} <img src="/img/icons/delete.png" alt="{% trans 'delete feature' %}" title="{% trans 'delete feature' %}" class="clickable" onclick="deleteFeature({{task.id}})" />
+                </span>
+            {% endif %}
+            </div>
+        </div>
+        
         <div class="fundingright" style="width: 215px;">
             <div class="funding_space subtitle_news">{% trans "Funding phase" %}:</div>
             <div class="progressbar">
@@ -74,23 +91,6 @@
                 </form>
             </div>
             {% endif %}
-        </div>
-        
-        <div>
-            <div id="feature_{{task.id}}" class="featuretitle clickable" onclick="expandFeature({{task.id}})">{% if linktitte %}<a href="/funding/{{object.id}}#feature_{{task.id}}" target="_blank">{{task.title}}</a>{% else %}{{task.title}}{% endif %}</div>
-            
-            <form onsubmit="var newtitle = getValue('feature_{{task.id}}_edit');if(newtitle){confirmEditTitle({{task.id}}, newtitle);}; seeMore('feature_{{task.id}}_edit', 'feature_{{task.id}}'); return false">
-            <input id="feature_{{task.id}}_edit" class="featuretitle invisible" value="{{task.title}}">
-            </form>
-            
-            <div>
-            {% if task|can_write:user and task.state < 4 %}
-                <span class="editfeature">
-                    {% if task.state < 2 %}{% trans "Edit" %} <img src="/img/icons/edit.png" alt="{% trans 'edit title' %}" title="{% trans 'edit title' %}" class="clickable" onclick="seeMore('feature_{{task.id}}_edit', 'feature_{{task.id}}')" />{% endif %}
-                    {% trans "Delete" %} <img src="/img/icons/delete.png" alt="{% trans 'delete feature' %}" title="{% trans 'delete feature' %}" class="clickable" onclick="deleteFeature({{task.id}})" />
-                </span>
-            {% endif %}
-            </div>
         </div>
         
         <div id="specs_{{task.id}}_hide">
