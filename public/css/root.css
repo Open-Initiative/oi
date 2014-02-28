@@ -22,6 +22,7 @@ body {
     font-family: "ProximaNova",Verdana,Arial,Helvetica,sans-serif;
     font-size: 14px;
     color: #475E6C;
+    min-width: 320px;
 }
 img {
     border: None;
@@ -86,12 +87,12 @@ a:hover {
     height: 60px;
     font-size: 1.3em;
     margin: 0 auto;
-    padding: 20px 5px;
+    padding: 10px 5px 20px 5px;
 }
 .center_contact_us div {
     font-weight: bold;
     color: white;
-    margin-top: 10px;
+    margin-top: 30px;
     float: right;
 }
 .center_contact_us p {

@@ -9,7 +9,7 @@
     </div>
     {% endfor %}
     {% if task|can_write:user and task.state < 4 %}
-    <a class="clickable addfeature" onclick="addSpec({{task.id}})"><img src="/img/icons/add.png" /> 
+    <a class="clickable addfeature fundingleft" onclick="addSpec({{task.id}})"><img src="/img/icons/add.png" /> 
         {% trans "Add a description" %}
     </a>
     {% endif %}

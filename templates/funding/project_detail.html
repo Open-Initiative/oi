@@ -202,7 +202,7 @@
         </div>
         <div class="column maxwidth50">
             <div class="blockfeatureheight">
-                <form id="submit_title_price_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, getValue('offer_{{object.id}}'), function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); document.getElementById('offer_{{object.id}}').value = ''; return false">
+                <form id="submit_title_price_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, getValue('newtask_offer_{{object.id}}'), function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); document.getElementById('offer_{{object.id}}').value = ''; return false">
                     <table>
                         <tr>
                             <td>
