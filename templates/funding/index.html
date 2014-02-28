@@ -38,6 +38,10 @@
             </a>
         </div>
         <script type="text/javascript">
+            $(".indexslide dd").width($(window).width()-10);
+            $(window).resize(function() {
+              $(".indexslide dd").width($(window).width()-10);
+            });
             window.slide = true;
             window.sliding = false;
             window.setInterval(function (){if(window.slide) slideIndex()}, 8000);
