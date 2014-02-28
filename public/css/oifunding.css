@@ -1091,13 +1091,13 @@ img.tabicon {
 #catcherbg {
     background: #E4E5E5;
     background-image: url('/img/sliderbg.png');
+    overflow: hidden;
 }
 #catcher {
     height: 220px;
     max-width: 1020px;
     margin: auto;
     position: relative;
-    overflow: hidden;
 }
 .slider {
     float: right;
@@ -1355,7 +1355,6 @@ div.spectype {
 }
 #shrinkrelated {
     overflow:hidden;
-    padding-top: 20px;
 }
 .learn_more {
     position: relative; 
@@ -1424,4 +1423,16 @@ div.spectype {
 }
 .radio_order{
     display: inline-block;
+}
+.presslide > h3:first-child {
+    margin-top: 16px;
+}
+.presslide > h3 {
+    margin-top: 36px;
+}
+.newsproject {
+    margin-bottom: 10px;
+    padding: 12px 1% 12px 20px;
+    background-color: white;
+    border-radius: 3px;
 }

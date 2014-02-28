@@ -6,7 +6,7 @@
         {% trans "Project created by" %}
         <a href="/user/profile/{{project.author.username}}">{{project.author.get_profile}}</a>
         </div>
-    <div class="cleared"></div>
+    <div class="cleared"><br/></div>
     {% with project.spec_set.all|dictsort:"order" as specs%}
     {% with specs.0 as spec %}<a href="/funding/{{project.id}}"><div class="cardspec">{% include 'funding/spec/minispec.html' %}</div></a>{% endwith %}
     {% with specs.1 as spec %}<div class="cardspec" style="height: 8.5em;overflow:hidden">{% include 'funding/spec/minispec.html' %}</div>{% endwith %}

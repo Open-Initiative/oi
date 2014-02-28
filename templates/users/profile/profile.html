@@ -52,7 +52,7 @@
     </div>
 </div>
 <div class="related" style="float: left;max-width: 300px;">
-    {% if selected_user.get_profile.get_created_projects|filter_read:user %}<div class="tasktitle form_center">{% trans "Projects created" %}</div>{% endif %}
+    {% if selected_user.get_profile.get_created_projects|filter_read:user %}<div class="other_initiative_subtitle">{% trans "Projects created" %}</div>{% endif %}
     <div id="created_visible">
         <ul class="home_ul_center">
         {% for project in selected_user.get_profile.get_created_projects|filter_read:user|slice:":3" %}
@@ -79,7 +79,7 @@
     {% endwith %}
     
     <div class="cleared"></div>
-    {% if selected_user.get_profile.get_funded_projects|filter_read:user %}<div class="tasktitle form_center">{% trans "Projects funded" %}</div>{% endif %}
+    {% if selected_user.get_profile.get_funded_projects|filter_read:user %}<div class="other_initiative_subtitle">{% trans "Projects funded" %}</div>{% endif %}
     <div id="funded_visible">
         <ul class="home_ul_center">
         {% for project in selected_user.get_profile.get_funded_projects|filter_read:user|slice:":3" %}

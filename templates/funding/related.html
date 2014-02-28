@@ -8,7 +8,7 @@
         
     {% endif %}
     
-    <div class="project" style="margin-bottom: 10px;overflow: hidden;">
+    <div class="newsproject">
         {% with object.descendants|filter_read:user as tasks %}
         <div class="funding_space subtitle_news">
             {{tasks.count}}
