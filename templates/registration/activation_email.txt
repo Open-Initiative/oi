@@ -1,12 +1,12 @@
 {% load i18n %}
 {% load oifilters %}
-Open Initiative
-{% trans "The co-funding plateform for free software" %}
+Open Funding
+{% trans "The co-funding platform for free software" %}
 
 
-{% trans "Dear" %}
+{% trans "Hello" %}
 
-{% trans "Welcome to OpenFunding!" %} : )
+{% trans "Welcome to Open Funding!" %} : )
 {% trans "Your account has been created successfully. It needs just one last step of clicking on the following link: " %}
 
 http://{{site}}{% url registration.views.activate activation_key=activation_key %}
