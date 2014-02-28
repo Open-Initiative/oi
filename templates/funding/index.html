@@ -50,21 +50,17 @@
     <div class="cleared"></div>
 </div>
 <div class="fundingdesc">
-    <ul class="home_ul_center">
-    <li style="display: block;">
-        <div class="submitproject">
-            <img id="rocket" class="fundingleft" src="/img/rocket.png" />
-            <div class="helpstart">
-                <div class="blue_band_line_text">Open Funding {% trans "helps you fund your free software." %}</div>
-                <div class="fundingleft blue_band_line_text"><b>{% trans "Launch your project now!" %}</b></div>
-                <div class="actions clickable actionbutton" onclick="submitProject()">
-                    <div onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'">{% trans "submit a project" %}</div>
-                    <input id="appname" type="hidden" value="funding" />
-                </div>
+    <div class="submitproject">
+        <img id="rocket" class="fundingleft" src="/img/rocket.png" />
+        <div class="helpstart">
+            <div class="blue_band_line_text">Open Funding {% trans "helps you fund your free software." %}</div>
+            <div class="fundingleft blue_band_line_text"><b>{% trans "Launch your project now!" %}</b></div>
+            <div class="actions clickable actionbutton" onclick="submitProject()">
+                <div onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'">{% trans "submit a project" %}</div>
+                <input id="appname" type="hidden" value="funding" />
             </div>
         </div>
-    </li>
-    </ul>
+    </div>
     <div class="cleared"></div>
 </div>
 {% endblock %}
