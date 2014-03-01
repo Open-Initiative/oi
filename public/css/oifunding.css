@@ -640,12 +640,16 @@ div.sepspecfooter {
     box-shadow: 3px 3px 4px;
     color: black;
     max-width: 500px;
+    min-width: 310px;
     padding: 2%;
     position: fixed;
     top: 20px;
     z-index: 20;
     max-height: 85%;
     overflow: auto;
+}
+.popup_reward th {
+    width: 40%;
 }
 .reward_bottom_line{
     border-top: 2px dotted #D3CFCF;

@@ -687,6 +687,9 @@ class RewardForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(RewardForm, self).__init__(*args, **kwargs)
         self.fields['description'].widget.attrs.update({'style' : 'width:100%; height:130px'})
+        self.fields['title'].widget.attrs.update({'style' : 'width:100%;'})
+        self.fields['image'].widget.attrs.update({'style' : 'width:100%;'})
+        self.fields['nb_reward'].widget.attrs.update({'style' : 'width:100%;'})
         self.fields['description'].label = _('Description and conditions')
         self.fields['title'].label = _('Reward object (technical support, T-shirt, personnalized e-mail...)')
         self.fields['image'].label = _('Picture that illustrate the reward')
