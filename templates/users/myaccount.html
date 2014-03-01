@@ -91,9 +91,12 @@
             </div>
             
             <h3>{% trans "Birthdate" %} </h3>
-            <input readonly="true" type="text" id="birthdate" name="birthdate" /> <label for="birthdate"><img class="clickable" src="/img/icons/edit.png" /></label>
+            <input readonly="true" type="text" id="birthdate" name="birthdate" /> <label onclick="$(this).hide();$('#birthdate_hide').show();" id="birthdate_pen" for="birthdate"><img class="clickable" src="/img/icons/edit.png" /></label><img id="birthdate_hide" class="clickable invisible" onclick="$(this).hide();$('#birthdate_pen').show();"  src="/img/icons/delete.png" />
             <script>
-                jQuery("#birthdate").datepicker({changeMonth: true, changeYear: true, yearRange: "-100:+0", minDate: -36500, maxDate: 0, dateFormat: "DD, d MM yy", onSelect: function(dateText, inst) {setBirthdate(jQuery.datepicker.parseDate("DD, d MM yy", dateText))} }).datepicker('option', jQuery.datepicker.regional["{{LANGUAGE_CODE}}"]).datepicker("setDate", jQuery.datepicker.parseDate("yy-mm-dd","{{user.get_profile.birthdate|date:'Y-m-d'}}"))
+                jQuery("#birthdate").datepicker({changeMonth: true, changeYear: true, yearRange: "-100:+0", minDate: -36500, maxDate: 0, dateFormat: "DD, d MM yy", onSelect: function(dateText, inst) {setBirthdate(jQuery.datepicker.parseDate("DD, d MM yy", dateText))} }).datepicker('option', jQuery.datepicker.regional["{{LANGUAGE_CODE}}"]).datepicker("setDate", jQuery.datepicker.parseDate("yy-mm-dd","{{user.get_profile.birthdate|date:'Y-m-d'}}"));
+                $("#birthdate").mousedown(function(){$('#ui-datepicker-div').toggle();});
+                $("#birthdate").mousedown(function(){$('#birthdate_pen').toggle();});
+                $("#birthdate").mousedown(function(){$('#birthdate_hide').toggle();});
             </script>
             
             <h2>{% trans "Contact information" %} <img alt="{% trans 'Confidential' %}" title="{% trans 'Your details will only be shared with those who finance your project. Project leaders and users will have the personal information of another to approve the payment, corrections and validation projects.' %}" class="" src="/img/icons/padlock.png"/> <img onclick="$('#block_contact').toggle();$('#block_contact_info').toggle()" class="clickable" src="/img/icons/edit.png"/> 
