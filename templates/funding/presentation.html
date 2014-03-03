@@ -50,7 +50,7 @@
 
         <span>{% trans "Team members" %}:</span><br/>
         
-        <div class="column">
+        <div class="surrondteampicture">
             <img src="/img/team/sylvain.png" alt="Sylvain" class="teampicture">
             <div class="column">
                 <div class="usertitle">Sylvain</div>
@@ -58,7 +58,7 @@
             </div>
         </div>
         
-        <div class="column">
+        <div class="surrondteampicture">
             <img src="/img/team/maxi.png" alt="Maxi" class="teampicture">
             <div class="column">
                 <div class="usertitle">Maxi</div>
@@ -66,7 +66,7 @@
             </div>
         </div>
         
-        <div class="column">
+        <div class="surrondteampicture">
             <img src="/img/team/khushboo.png" alt="Khushboo" class="teampicture">
             <div class="column">
                 <div class="usertitle">Khushboo</div>
@@ -74,11 +74,11 @@
             </div>
         </div>
         
-        <div class="column">
+        <div class="surrondteampicture">
             <img src="/img/team/lucile.png" alt="Lucile" class="teampicture">
             <div class="column">
                 <div class="usertitle">Lucile</div>
-                <div class="cleared">{% trans "Communication:" %}</div>
+                <div class="cleared">{% trans "Communication" %}</div>
             </div>
         </div>
         <br/>
@@ -96,7 +96,7 @@
             <input id="appname" type="hidden" value="funding" />
         </div>
         <div class="invisible prjlist" id="prjlist0">
-            <div class="projectlisttitle">{% trans "Submit your project" %}</div>
+            <div class="other_initiative_subtitle">{% trans "Submit your project" %}</div>
             <form class="form_center" onsubmit="if(getValue('prjtitle')) addTask(getValue('prjtitle'), null, null,function(taskid){document.location = '/funding/'+taskid+'/edit'});return false" >
                 {% trans "Please enter your project title :" %}
                 <input id="prjtitle"/>
