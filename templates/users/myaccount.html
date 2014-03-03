@@ -5,7 +5,7 @@
 
     <div class="popupbox">
         <div id="confirmpayment" class="invisible confirmpaymentblock" onclick="document.ignoreClosePopups = true;">
-            <h1>{% trans "Confirm the deposit on" %}{% if request.GET.project and task %} {% if task.master.id == task.id %} {% trans "the project" %} {% else %} {% trans "the feature" %} {% endif %} "{{task.title}}"{% else %} {% trans "your account" %}{% endif %}?</h1>
+            <h1>{% trans "Deposit on" %}{% if request.GET.project and task %} {% if task.master.id == task.id %} {% trans "the project" %} {% else %} {% trans "the feature" %} {% endif %} "{{task.title}}"{% else %} {% trans "your account" %}{% endif %}</h1>
             <p>
                 {% trans "Amount" %}: <b style="font-size: 17px;">{{amount}}€ </b>
             </p>
