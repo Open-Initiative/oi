@@ -521,6 +521,7 @@ div.sepspecfooter {
     font-size: 11px;
     padding: 0.5%;
     width: 240px;
+    margin-bottom: 10px;
 }
 .detail_subtitle {
     font-size:25px; 
@@ -1208,6 +1209,9 @@ div.popup_spec {
     top: 30px;
     max-height: 85%;
     overflow: auto;
+    min-width: 270px;
+    max-width: 600px;
+    width: 50%;
 }
 .popup{
     background: white;
@@ -1447,4 +1451,10 @@ div.spectype {
     padding: 12px 1% 12px 20px;
     background-color: white;
     border-radius: 3px;
+}
+.separate_project_feature {
+    clear: both;
+    border-top: 2px dotted #D3CFCF;
+    margin: 10px 0;
+    margin-bottom: 10px;
 }

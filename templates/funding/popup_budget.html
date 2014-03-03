@@ -19,7 +19,7 @@
         
         <div class="radio_order"><input type=radio id="order_{{object.id}}" name="order" value="{{object.id}}" /><label for="order_{{object.id}}">{% trans "Back the project" %}</label></div>
         
-        <div class="cleared funding_space"></div>
+        <div class="separate_project_feature"></div>
         
         
         <div class="help-funding">{% trans "By contributing to this order you will be delivered the professional quality feature you always wished for. Once the feature is developed, you will receive an e-mail to test it and give your validation."%}</div>
@@ -33,7 +33,7 @@
             {% endfor %}
         </div>
         
-        <div class="cleared"></div>
+        <div class="separate_project_feature"></div>
         
         <label for="bid_{{task.id}}">{% trans "Please enter the amount:" %}</label><br /><br />
         <input id="bid_{{object.id}}" name="bid_{{object.id}}" class="bidfeature" value="{% if not zero %}{{object.missing_bid|floatformat:"-2"}}{% else %}0{% endif %}" /> €
