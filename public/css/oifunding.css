@@ -1088,6 +1088,16 @@ img.tabicon {
 #related {
     width: 265px;
 }
+#shrinkrelated {
+    overflow:hidden;
+}
+.block_shrinkrelated {
+    position: relative;
+    float:right; 
+    overflow: visible; 
+    width: 20px;
+    z-index: 1;
+}
 .presslide {
     padding: 5px;
     background: white;
@@ -1369,9 +1379,6 @@ div.spectype {
 .boldtext {
     font-weight: bold;
 }
-#shrinkrelated {
-    overflow:hidden;
-}
 .learn_more {
     position: relative; 
     top: 25px;
@@ -1414,11 +1421,6 @@ div.spectype {
     right: 30px;
     top: 30px;
     z-index: 20;
-}
-.block_shrinkrelated {
-    position: absolute;
-    right: 0;
-    z-index: 1;
 }
 .little_help {
     font-size: 9px;
