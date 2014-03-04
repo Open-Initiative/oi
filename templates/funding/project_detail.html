@@ -30,8 +30,8 @@
             <div class="cleared"></div>
             <span style="font-size:0.7em; color:#D3CFCF">{% trans 'Proposed by' %} {{object.author.get_profile|capfirst}}</span>
         </div>
-        <p class="form_center no_p_style" style="color:#0094B5">{{object.allbid_sum}}€ {% trans 'funding' %}</p>
-        <p class="form_center no_p_style" style="color:#0094B5">{{object.bid_set.count}} {% trans 'users' %}</p>
+        <div class="form_center" style="color:#0094B5">{{object.allbid_sum}}€ {% trans 'funding' %}</div>
+        <div class="form_center" style="color:#0094B5">{{object.bid_set.count}} {% trans 'users' %}</div>
         {% for funding_user in object.bid_set.all %}
             <img title="{{funding_user}}" alt="{{funding_user}}" src="/user/getpicture/{{funding_user}}"/>
         {% endfor %}
@@ -110,20 +110,18 @@
     <div id="project_{{object.id}}" class="project">
         <div id="prjdialogue_{{object.id}}" class="popup invisible"></div>
         <div class="prjheader">
-            <div>
-                <div class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">
-                    {{object.title}}
-                </div>
-                <div class="prj-block-fav">
-                    <img onclick="favProject(174)" src="/img/icons/starTrueFunding.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_174" />
-                    {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
-                </div>
-                {% with spec=project.spec_set.all|filter_order:1 object=project %}
-                <div style="position:relative; float:right" id="spec_{{object.id}}_{{spec.order}}" class="funding_space">
-                    {%include 'funding/spec/spec.html'%}
-                </div>
-                {% endwith %}
+            <div class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">
+                {{object.title}}
             </div>
+            <div class="prj-block-fav">
+                <img onclick="favProject(174)" src="/img/icons/starTrueFunding.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_174" />
+                {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
+            </div>
+            {% with spec=project.spec_set.all|filter_order:1 object=project %}
+            <div style="position:relative; float:right" id="spec_{{object.id}}_{{spec.order}}" class="funding_space">
+                {%include 'funding/spec/spec.html'%}
+            </div>
+            {% endwith %}
         </div>
         <div id="specs_{{project.id}}" class="prjdesc">
             {% for spec in project.all_specs_with_languages %}
@@ -148,7 +146,6 @@
     <div class="project">
         <h2 class="detail_subtitle">{% trans "Proposed features" %}</h2>
         
-        <div>
             <div id="featureid_blockHead" class="statebtns center_btn"> 
                 {% if object.all_not_started_tasks %}<div onclick="featureShowHide('features_0')" id="featureid_proposed" class="clickable statebtn invisible">{% trans "Proposed" %}</div>{% endif %}
                 {% if object.all_progress_tasks %}<div onclick="featureShowHide('features_3')" id="featureid_progress" class="clickable statebtn invisible">{% trans "In progress" %}</div>{% endif %}
@@ -183,7 +180,6 @@
                 <div class="cleared"></div>
             </ul>
             
-        </div>
     </div>
     {% endif %}
     {% endwith %}

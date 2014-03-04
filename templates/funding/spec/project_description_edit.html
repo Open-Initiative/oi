@@ -27,23 +27,20 @@
 </div>
 {% endwith %}
 
-<div>
-    {% regroup project.spec_without_group|dictsort:"language" by language as language_list %}
-    {% for spec_list in language_list %}
-    {% with specs=spec_list.list|dictsort:"order" lang=spec_list.grouper %}
-        {% with spec2=specs|filter_order:2 spec3=specs|filter_order:3  %}
-        <div class="cleared"></div>
-        <div style="position:relative" id="spec_{{project.id}}" class="cleared funding_space">
-            {%include 'funding/spec/project_description_short_long_edit.html'%}
-        </div>
-        {% endwith %}
+{% regroup project.spec_without_group|dictsort:"language" by language as language_list %}
+{% for spec_list in language_list %}
+{% with specs=spec_list.list|dictsort:"order" lang=spec_list.grouper %}
+    {% with spec2=specs|filter_order:2 spec3=specs|filter_order:3  %}
+    <div class="cleared"></div>
+    <div style="position:relative" id="spec_{{project.id}}" class="cleared funding_space">
+        {%include 'funding/spec/project_description_short_long_edit.html'%}
+    </div>
     {% endwith %}
-    {% empty %}
-        {% include 'funding/spec/project_description_short_long_edit.html' %}
-    {% endfor %}
+{% endwith %}
+{% empty %}
+    {% include 'funding/spec/project_description_short_long_edit.html' %}
+{% endfor %}
     
-</div>
-
 {% if not language_list|has_group:"fr" %}
     {% with lang="fr" %}
     <div class="cleared invisible" id="translationblock">

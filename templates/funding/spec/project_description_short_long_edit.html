@@ -8,11 +8,9 @@
 <input name="specorder" id="specorder_2_{{lang|default:'default'}}" value="2" type="hidden"/>
 <input name="speclang" id="lang_2_{{lang|default:'default'}}" value="{{lang|default:'default'}}" type="hidden"/>
 
-<div>
-    <b>{% trans "A short description of your project and why it is great" %}</b>  
-    {% with default='default' %}
-    <img class="invisible flag" src="/img/{% if lang == default %}en{% else %}{{lang|default:'en'}}{% endif %}.png"/>
-</div>
+<b>{% trans "A short description of your project and why it is great" %}</b>  
+{% with default='default' %}
+<img class="invisible flag" src="/img/{% if lang == default %}en{% else %}{{lang|default:'en'}}{% endif %}.png"/>
 <div class="help-funding">{% trans "This description is 200 characters maximum and will be shown in the home page, try to be specific." %}</div>
 
 <div id="{{project.id}}_2_{{lang|default:'default'}}" style="max-width: 500px">
@@ -27,9 +25,7 @@
 <input name="specorder" id="specorder_3_{{lang|default:'default'}}" value="3" type="hidden"/>
 <input name="speclang" id="lang_3_{{lang|default:'default'}}" value="{{lang|default:'default'}}" type="hidden"/>
 
-<div>
-    <b>{% trans "A long description including : who you are, why you do it, how it can be used..." %}</b>
-</div>
+<b>{% trans "A long description including : who you are, why you do it, how it can be used..." %}</b>
 <div class="help-funding">{% trans "Explain the details of your project: why you do it, how can it be used, and the information you found important to attract the backers. Be as specific as you can." %}</div>
 <div id="{{project.id}}_3_{{lang|default:'default'}}" style="max-width: 500px;clear:both;">
     <textarea id="text_{{project.id}}_3_{{lang|default:'default'}}" class="editable">{{spec3.text|oiunescape}}</textarea>
