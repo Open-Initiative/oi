@@ -1677,7 +1677,7 @@ msgstr "Présentation d'Open Funding"
 
 #: templates/funding/presentation.html:8
 msgid "About Open Funding"
-msgstr "À propos d'Open Funding ?"
+msgstr "À propos d'Open Funding"
 
 #: templates/funding/presentation.html:9
 msgid "How it works"
