@@ -88,11 +88,14 @@ div.blogicon {
 }
 .profile_picture {
     background-color: white;
-    border-radius: 3px 3px 3px 3px;
+    border-radius: 3px;
     float: left;
     margin: 1%;
+    margin-bottom: 10px;
+}
+.block_picture {
+    float: left;
     max-width: 170px;
-    width: 30%;
 }
 .profile_column {
     max-width: 170px;
@@ -110,12 +113,12 @@ div.blogicon {
 }
 .profilecolumn {
     float: left;
-    margin: 1%;
-    width: 60%;
+    margin-left: 1%;
     background-color: white;
-    border-radius: 3px 3px 3px 3px;
+    border-radius: 3px;
     padding: 1%;
-    padding-left: 5%;
+    max-width: 530px;
+    width: 70%;
 }
 .payment_popup_title {
     position: fixed; 
@@ -164,4 +167,34 @@ div.blogicon {
 }
 .log_style .required {
     width: 85%;
+}
+.profile_subtitle {
+    color: #0094B5;
+    font-size: 2em;
+    margin: 10px;
+    padding: 5px 50px;
+}
+.profile_subtitle:first-child {
+    border-right: 1px solid;
+}
+.h2title {
+    float: left;
+    color: #0094B5;
+    font-weight: bold;
+    font-size: 2em;
+    margin-bottom: 20px;
+    border-right: 1px solid;
+    padding-right: 10px;
+}
+.related > div:first-child {
+    margin: 20px 0;
+}
+.contact_me {
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 16px;
+}
+.blue_band {
+    height: 40px;
+    background: #0094B5;
 }
