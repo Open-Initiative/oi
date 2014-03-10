@@ -1477,3 +1477,10 @@ div.spectype {
     margin-right: 10px;
     padding-right: 10px;
 }
+.follow_project {
+    float: right;
+    padding: 5px;
+    background: #0094B5;
+    color: white;
+    border-radius: 3px;
+}
