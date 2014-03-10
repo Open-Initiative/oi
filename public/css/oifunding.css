@@ -365,9 +365,6 @@ div.minispec {
     float: left;
     width: 50px;
 }
-.statebtns {
-    margin-right: -3px;
-}
 .statebtn {
     border-radius: 3px 3px 3px 3px;
     color: white;
@@ -375,8 +372,10 @@ div.minispec {
     text-align: center;
     width: 5.5em;
     float: left;
-    margin: 0 1%;
-    padding: 0.4em 0;
+    margin-right: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 0.6em;
 }
 .supportbtn_complete {
     background: none repeat scroll 0 0 #0094B5;
@@ -536,12 +535,6 @@ div.sepspecfooter {
 .edit_title {
     font-size: 1.6em;
     text-align: center;
-}
-.center_btn {
-    margin-left: auto;
-    margin-right: auto;
-    min-width: 300px;
-    width: 40%;
 }
 .spec_author {
     color: #475E6C;
@@ -1459,4 +1452,28 @@ div.spectype {
     border-top: 2px dotted #D3CFCF;
     margin: 10px 0;
     margin-bottom: 10px;
+}
+.tabs_project {
+    margin: 5px 5px 15px 5px;
+    padding: 5px 15px 5px 5px;
+    color: #0094B5;
+    border-right: solid 1px #0094B5;
+    font-size: 20px;
+    float: left;
+    cursor: pointer;
+}
+.tabs_project:last-child {
+    border-right: none;
+}
+.participant {
+    border-top: 1px dotted;
+    padding-top: 10px;
+}
+.featureuser {
+    border-right: 1px solid #0094B5;
+    font-weight: bold;
+    float: left;
+    height: 10vh;
+    margin-right: 10px;
+    padding-right: 10px;
 }

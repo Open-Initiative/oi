@@ -144,11 +144,16 @@
     {% endwith %}
     
     {% with object.descendants|filter_read:user as tasks %}
+    <div class="tab_project">
+        <div id="tabs_project_features" class="tabs_project" onclick="project_content('featuresproject')"><a id="features" href="#features">{% trans "Features" %}</a></div>
+        <div id="tabs_project_community" class="tabs_project" onclick="project_content('communityproject')"><a id="community" href="#community">{% trans "Community" %}</div>
+        <div id="tabs_project_discussions" class="tabs_project" onclick="project_content('discussionsproject')"><a id="discussions" href="#discussions">{% trans "Discussions" %}</div>
+    </div>
+    <div class="cleared"></div>
     {% if object|can_manage:user or tasks.count %}
     <div class="project">
-        <h2 class="detail_subtitle">{% trans "Proposed features" %}</h2>
-        
-            <div id="featureid_blockHead" class="statebtns center_btn"> 
+        <div id="featuresproject" class="invisible">
+            <div id="featureid_blockHead"> 
                 {% if object.all_not_started_tasks %}<div onclick="featureShowHide('features_0')" id="featureid_proposed" class="clickable statebtn invisible">{% trans "Proposed" %}</div>{% endif %}
                 {% if object.all_progress_tasks %}<div onclick="featureShowHide('features_3')" id="featureid_progress" class="clickable statebtn invisible">{% trans "In progress" %}</div>{% endif %}
                 {% if object.all_finish_tasks %}<div onclick="featureShowHide('features_4')" id="featureid_finished" class="clickable statebtn invisible">{% trans "Finished" %}</div>{% endif %}
@@ -181,7 +186,62 @@
                 {% endfor %}
                 <div class="cleared"></div>
             </ul>
+        </div>
+        <div id="communityproject" class="invisible">
+        
+            <h3>{{object.bid_set.count}} {% trans "Bids" %} : {{object.allbid_sum}} €</h3>
             
+            <p style="color:#0094B5">{% trans "Here is the community that makes" %} {{object.title}} {% trans "possible. Are you a part of it? If not : <u>ORDER THE FEATURE</u> or <u>BACK THE PROJECT</u>" %}</p>
+            
+            
+            {% regroup object.all_funding_user by user as user_list %}
+            
+            <div id="bids_{{object.id}}">
+                {% for person in user_list %}
+                
+                <div class="participant">
+                    <img class="contactpicture fundingleft" src="/user/getpicture/{{person.grouper}}">
+                    <div class="featureuser">{{person.grouper}}&nbsp;</div>
+                    
+                    {% for bid in person.list|dictsort:"project" %}
+                    <div style="margin-left: 110px;">
+                        {% trans "order in" %} <u>{{bid.project.title}}</u> {% trans "with" %} {{bid.amount}} €
+                        {% if user == bid.user and task.state < 3 %}
+                        <div class="cleared"></div>
+                        <img class="clickable" src="/img/icons/add.png" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));hide('featurebudget_{{task.id}}')" /> {% trans "Add a new bid" %}
+                        <div class="cleared"></div>
+                        <img class="clickable" src="/img/icons/delete.png" onclick="cancelBid({{bid.project.id}}, {% if task.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "Cancel your bid on this task" %}" title="{% trans "Cancel your bid on this task" %}" /> {% trans "Cancel my bid" %}
+                        {% endif %}
+                    </div>
+                    <div class="cleared"><br/></div>
+                    {% endfor %}
+                </div>    
+                {% empty %}
+                    {% trans "No bid on this project" %}
+                {% endfor %}
+            </div>
+            
+        </div>
+        <div id="discussionsproject" class="invisible">
+            {% with object as project %}
+            <div class="cleared"></div>
+            <div class="discussion_column">
+                {% if project|can_answer:user %}
+                    <a style="margin-top: 20px; display: block" class="clickable op_larger" onclick="addMessage(null, {{project.id}})">
+                        {% if not project|can_answer:user %}{% trans "Create a discussion" %}{% else %}{% trans "Add a comment" %}{% endif %}
+                    </a>
+                {% endif %}
+                <div id="discussions_{{project.id}}" class="discussions">
+                    {% for message in project.message_set.all %}
+                    <div id="message_{{message.id}}_box">{% include 'messages/message.html' %}</div>
+                    <div class="cleared"></div>
+                    {% empty %}
+                    {% if project|can_answer:user %}{% trans "Discuss" %} {{object.title}}{% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endwith %}
+        </div>
     </div>
     {% endif %}
     {% endwith %}
@@ -259,30 +319,11 @@
     {% endif %}
 </div>
 
-{% with object as project %}
-
-<div class="cleared"></div>
-
-<div class="discussion_column">
-    {% if project|can_answer:user %}
-        <a style="margin-top: 20px; display: block" class="clickable op_larger" onclick="addMessage(null, {{project.id}})">
-            {% if not project|can_answer:user %}{% trans "Create a discussion" %}{% else %}{% trans "Add a comment" %}{% endif %}
-        </a>
-    {% endif %}
-    <div id="discussions_{{project.id}}" class="discussions">
-        {% for message in project.message_set.all %}
-        <div id="message_{{message.id}}_box">{% include 'messages/message.html' %}</div>
-        <div class="cleared"></div>
-        {% empty %}
-        {% if project|can_answer:user %}{% trans "Discuss" %} {{object.title}}{% endif %}
-        {% endfor %}
-    </div>
-</div>
-{% endwith %}
-
 <script>
     currentTask = {{object.id}};
-    allFeatureFunction();    
+    allFeatureFunction(); 
+    project_content('featuresproject');
+    project_oncload_page();
     {% if object|can_manage:user %}
     sortFeature({{object.id}});
     {% endif %}

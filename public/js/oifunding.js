@@ -203,3 +203,21 @@ function arrow_Up_Down(divid){
     $('#arrow_header_up').toggle();//change arrow if the menu is visible or not
     $('#arrow_header').toggle();
 }
+function project_content(divid){
+    var tabs_Headid = ["tabs_project_features", "tabs_project_community", "tabs_project_discussions"];
+    var tabs_blockid = ["featuresproject", "communityproject", "discussionsproject"];
+    for(var i = 0; i < tabs_Headid.length; i++){
+        if(divid == tabs_blockid[i]){
+            document.getElementById(tabs_Headid[i]).style.fontWeight = "bold";
+            $("#"+tabs_blockid[i]).removeClass('invisible');
+        }else{
+            document.getElementById(tabs_Headid[i]).style.fontWeight = "";
+            $("#"+tabs_blockid[i]).addClass('invisible');
+        }
+    }
+}
+function project_oncload_page(){
+    if(document.location.hash == "#features") project_content('featuresproject');
+    else if (document.location.hash == "#community") project_content('communityproject');
+    else if(document.location.hash == "#discussions") project_content('discussionsproject');
+}

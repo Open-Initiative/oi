@@ -502,12 +502,12 @@ class Project(models.Model):
         return total_user
         
     def all_funding_user(self):
-        """retunrs all the user who fund the project"""
-        list_user = []
-        for bid in Bid.objects.filter(project__master=self):
-            if not bid.user in list_user:   
-                list_user.append(bid.user)
-        return list_user
+        """retunrs all the bid of the project master and descendants"""
+        list_bid = []
+        for bid in Bid.objects.filter(project__master=self).order_by('user'):
+            if not bid in list_bid:   
+                list_bid.append(bid)
+        return list_bid
         
     def exist_rewards(self):
         """check if there are still rewards in the project"""
