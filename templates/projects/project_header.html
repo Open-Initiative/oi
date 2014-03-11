@@ -88,7 +88,7 @@
                 {% comment %}<img onclick="editProjectTitle({{object.id}})" class="clickable" src="/img/icons/edit.png" alt="{% trans 'Edit the title' %}" title="{% trans 'Edit the title' %}" />{% endcomment %}
             {% endif %}
         <div class="prj-block-fav">
-            <img onclick="favProject({{object.id}})" src="/img/icons/starTrue.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_{{object.id}}">
+            <img onclick="favProject({{object.id}})" src="/img/icons/star{{object|is_following:user}}.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_{{object.id}}">
             {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
         </div>
         {% include "projects/project_actions.html" %}

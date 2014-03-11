@@ -116,7 +116,7 @@
                 {{object.title}}
             </div>
             <div class="prj-block-fav">
-                <img onclick="favProject({{object.id}})" src="/img/icons/starTrueFunding.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_174" />
+                <img onclick="favProject({{object.id}}, 'Funding')" src="/img/icons/star{{object|is_following:user}}Funding.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_{{object.id}}" />
                 {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
             </div>
             {% with spec=project.spec_set.all|filter_order:1 object=project %}
@@ -260,7 +260,7 @@
         </div>
         <div id="communityproject" class="invisible">
         
-            <div class="follow_project clickable" onclick="favProject({{object.id}})">{% trans "Follow the project" %}</div>
+            <div class="follow_project clickable" onclick="favProject({{object.id}}, 'Funding')">{% trans "Follow the project" %}</div>
         
             <h3>{{object.bid_set.count}} {% trans "Bids" %} : {{object.allbid_sum}} €</h3>
             

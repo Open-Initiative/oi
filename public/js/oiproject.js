@@ -309,11 +309,12 @@ function updateProgress(projectid, progress) {
         function(){document.getElementById("progressbar_"+projectid).style.width = progress+"%";
         document.getElementById("progresslabel_"+projectid).innerHTML = progress+"%";});
 }
-function favProject(projectid){
+function favProject(projectid, funding){
     OIajaxCall("/project/"+projectid+"/fav", follow?"&stop=true":null, null, 
         function(response){
             if(document.getElementById("fav_"+projectid)){
-                document.getElementById("fav_"+projectid).src = "/img/icons/star"+response+".png";
+                if(funding) var localhost = "Funding"; else var localhost = ""; 
+                document.getElementById("fav_"+projectid).src = "/img/icons/star"+response+localhost+".png";
                 follow = (response=="True");
             }
         }
