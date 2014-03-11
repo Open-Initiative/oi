@@ -273,11 +273,9 @@
                 {% for person in user_list %}
                 
                 <div class="participant">
-                    <img class="contactpicture fundingleft" src="/user/getpicture/{{person.grouper}}">
-                    <div class="featureuser">{{person.grouper}}&nbsp;</div>
-                    
+                    <img class="contactpicture" src="/user/getpicture/{{person.grouper}}"><b>{{person.grouper}}</b>
                     {% for bid in person.list|dictsort:"project" %}
-                    <div style="margin-left: 110px;">
+                    <div class="line_featureuser">
                         {% trans "order in" %} <u>{{bid.project.title}}</u> {% trans "with" %} {{bid.amount}} €
                         {% if user == bid.user and task.state < 3 %}
                         <div class="cleared"></div>
@@ -286,7 +284,7 @@
                         <img class="clickable" src="/img/icons/delete.png" onclick="cancelBid({{bid.project.id}}, {% if task.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "Cancel your bid on this task" %}" title="{% trans "Cancel your bid on this task" %}" /> {% trans "Cancel my bid" %}
                         {% endif %}
                     </div>
-                    <div class="cleared"><br/></div>
+                    <div class="cleared"></div>
                     {% endfor %}
                 </div>    
                 {% empty %}

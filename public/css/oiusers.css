@@ -144,11 +144,13 @@ div.blogicon {
 .popupmsg{
     background: none repeat scroll 0 0 white;
     border: 1px solid #E0E0E0;
-    border-radius: 20px 20px 20px 20px;
+    border-radius: 3px 3px 3px 3px;
     box-shadow: 3px 3px 4px;
     color: black;
+    min-width: 299px;
     padding: 3% 1%;
-    position: absolute;
+    position: fixed;
+    top: 20px;
     z-index: 1;
 }
 .wrong_login{

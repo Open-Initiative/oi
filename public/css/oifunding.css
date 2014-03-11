@@ -1467,18 +1467,19 @@ div.spectype {
     border-top: 1px dotted;
     padding-top: 10px;
 }
-.featureuser {
-    border-right: 1px solid #0094B5;
-    font-weight: bold;
-    float: left;
-    height: 10vh;
-    margin-right: 10px;
-    padding-right: 10px;
-}
 .follow_project {
     float: right;
     padding: 5px;
     background: #0094B5;
     color: white;
     border-radius: 3px;
+    font-weight: bold;
+}
+.line_featureuser {
+    border-left: 1px solid #0094B5;
+    bottom: 50px;
+    position: relative;
+    margin-left: 110px;
+    padding-left: 20px;
+    margin-top: 10px;
 }

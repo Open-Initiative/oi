@@ -8,7 +8,8 @@
         <div class="profile_picture">
             <img id="user_picture" class="profilepicture" src="/user/getpicture/{{selected_user.username}}" />
             {% ifequal user selected_user %}
-            <img class="clickable" src="/img/icons/edit.png" onclick="$('#profile_picture').toggle()" />
+            <div class="cleared"></div>
+            <img style="margin-top: 10px;" class="clickable" src="/img/icons/edit.png" onclick="$('#profile_picture').toggle()" />
             <div id="profile_picture" class="cleared filebox invisible">
                 <form id="profile_picture_form" method="post" enctype="multipart/form-data" action="/user/uploadpicture" target="picturedest">
                     {% csrf_token %}
@@ -25,7 +26,7 @@
     
     <div class="profilecolumn">
     
-        <div class="fundingright"><span style="color:#0094B5">{{selected_user.get_profile.city}}, {{selected_user.get_profile.country}}</span><br/>{{selected_user.date_joined|date:"D d M Y"}}</div>
+        <div class="fundingright"><span style="color:#0094B5">{{selected_user.get_profile.city}}, {{selected_user.get_profile.country}}</span><br/>{{selected_user.date_joined|date:"M"}}, {{selected_user.date_joined|date:"Y"}}</div>
         
         <div class="h2title">
             {{selected_user.get_profile|capfirst }}
