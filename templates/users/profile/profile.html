@@ -9,7 +9,7 @@
             <img id="user_picture" style="margin: 0 auto;" class="profilepicture" src="/user/getpicture/{{selected_user.username}}" />
             {% ifequal user selected_user %}
             <div class="cleared"></div>
-            <img style="margin-top: 10px;" class="clickable" src="/img/icons/edit.png" onclick="$('#profile_picture').toggle()" />
+            <img style="margin-top: 10px;" class="clickable fundingright" src="/img/icons/edit.png" onclick="$('#profile_picture').toggle()" />
             <div id="profile_picture" class="cleared filebox invisible">
                 <form id="profile_picture_form" method="post" enctype="multipart/form-data" action="/user/uploadpicture" target="picturedest">
                     {% csrf_token %}
@@ -76,6 +76,11 @@
                 </li>
             {% endfor %}
             </ul>
+            <div class="cleared"></div>
+            {% with tasks=selected_user.get_profile.get_funded_projects|filter_read:user %}
+            {% if tasks.count > 3 %}<span class="clickable" onclick="seeMore('created_visible', 'created_invisible')"><a class="btn_feature fundingright bluesky">{% trans "See more" %}</a></span>
+            {% endif %}
+            {% endwith %}
         </div>
         
         <div id="created_invisible" class="invisible">
@@ -86,12 +91,8 @@
                 </li>
             {% endfor %}
             </ul>
+            <span class="clickable" onclick="seeMore('created_visible', 'created_invisible')"><a class="btn_feature fundingright bluesky">{% trans "See less" %}</a></span>
         </div>
-        <div class="cleared"></div>
-        {% with tasks=selected_user.get_profile.get_funded_projects|filter_read:user %}
-        {% if tasks.count > 3 %}<span class="clickable" onclick="seeMore('created_visible', 'created_invisible')"><a class="btn_feature fundingright bluesky">{% trans "See more" %}</a></span>
-        {% endif %}
-        {% endwith %}
     </div>
     
     <div class="cleared"></div>
@@ -105,6 +106,11 @@
                 </li>
             {% endfor %}
             </ul>
+            <div class="cleared"></div>
+            {% with tasks=selected_user.get_profile.get_funded_projects|filter_read:user %}
+            {% if tasks.count > 3 %}<span class="clickable" onclick="seeMore('funded_visible', 'funded_invisible')"><a class="btn_feature fundingright bluesky">{% trans "See more" %}</a></span>
+            {% endif %}
+            {% endwith %}
         </div>
         <div id="funded_invisible" class="invisible">
             <ul class="home_ul_center">
@@ -114,12 +120,9 @@
                 </li>
             {% endfor %}
             </ul>
+            <div class="cleared"></div>
+            <span class="clickable" onclick="seeMore('funded_visible', 'funded_invisible')"><a class="btn_feature fundingright bluesky">{% trans "See less" %}</a></span>
         </div>
-        <div class="cleared"></div>
-        {% with tasks=selected_user.get_profile.get_funded_projects|filter_read:user %}
-        {% if tasks.count > 3 %}<span class="clickable" onclick="seeMore('funded_visible', 'funded_invisible')"><a class="btn_feature fundingright bluesky">{% trans "See more" %}</a></span>
-        {% endif %}
-        {% endwith %}
     </div>
 </div>
 <div id="sendmp" class="popupmsg invisible"></div>
