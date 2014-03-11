@@ -273,19 +273,22 @@
                 {% for person in user_list %}
                 
                 <div class="participant">
-                    <img class="contactpicture" src="/user/getpicture/{{person.grouper}}"><b>{{person.grouper}}</b>
-                    {% for bid in person.list|dictsort:"project" %}
-                    <div class="line_featureuser">
-                        {% trans "order in" %} <u>{{bid.project.title}}</u> {% trans "with" %} {{bid.amount}} €
-                        {% if user == bid.user and task.state < 3 %}
+                    <div class="fundingleft"><img class="contactpicture" src="/user/getpicture/{{person.grouper}}"><b>{{person.grouper}}</b></div>
+                    <div class="fundingleft" style="margin-left: 20px;">
+                        {% for bid in person.list|dictsort:"project" %}
+                        <div class="line_featureuser">
+                            {% trans "order in" %} <u>{{bid.project.title}}</u> {% trans "with" %} {{bid.amount}} €
+                            {% if user == bid.user and task.state < 3 %}
+                            <div class="cleared"></div>
+                            <img class="clickable" src="/img/icons/add.png" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));hide('featurebudget_{{task.id}}')" /> {% trans "Add a new bid" %}
+                            <div class="cleared"></div>
+                            <img class="clickable" src="/img/icons/delete.png" onclick="cancelBid({{bid.project.id}}, {% if task.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "Cancel your bid on this task" %}" title="{% trans "Cancel your bid on this task" %}" /> {% trans "Cancel my bid" %}
+                            {% endif %}
+                        </div>
                         <div class="cleared"></div>
-                        <img class="clickable" src="/img/icons/add.png" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));hide('featurebudget_{{task.id}}')" /> {% trans "Add a new bid" %}
-                        <div class="cleared"></div>
-                        <img class="clickable" src="/img/icons/delete.png" onclick="cancelBid({{bid.project.id}}, {% if task.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "Cancel your bid on this task" %}" title="{% trans "Cancel your bid on this task" %}" /> {% trans "Cancel my bid" %}
-                        {% endif %}
+                        {% endfor %}
                     </div>
                     <div class="cleared"></div>
-                    {% endfor %}
                 </div>    
                 {% empty %}
                     {% trans "No bid on this project" %}

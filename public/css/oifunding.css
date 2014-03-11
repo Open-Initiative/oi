@@ -1465,7 +1465,7 @@ div.spectype {
 }
 .participant {
     border-top: 1px dotted;
-    padding-top: 10px;
+    padding: 10px 0;
 }
 .follow_project {
     float: right;
@@ -1477,9 +1477,6 @@ div.spectype {
 }
 .line_featureuser {
     border-left: 1px solid #0094B5;
-    bottom: 50px;
-    position: relative;
-    margin-left: 110px;
     padding-left: 20px;
     margin-top: 10px;
 }
