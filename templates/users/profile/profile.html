@@ -6,7 +6,7 @@
 <div class="prjbody prjbodyprofile">
     <div class="block_picture">
         <div class="profile_picture">
-            <img id="user_picture" class="profilepicture" src="/user/getpicture/{{selected_user.username}}" />
+            <img id="user_picture" style="margin: 0 auto;" class="profilepicture" src="/user/getpicture/{{selected_user.username}}" />
             {% ifequal user selected_user %}
             <div class="cleared"></div>
             <img style="margin-top: 10px;" class="clickable" src="/img/icons/edit.png" onclick="$('#profile_picture').toggle()" />
@@ -60,9 +60,9 @@
 <div class="blue_band cleared"></div>
 <div class="related">
     <div>
-        <div id="created" class="profile_subtitle fundingleft clickable" onclick="profile_content('all_created_project')">{% trans "Projects created" %}</div>
+        <span id="created" class="profile_subtitle clickable" onclick="profile_content('all_created_project')">{% trans "Projects created" %}</span>
         
-        <div id="funded" class="profile_subtitle fundingleft clickable" onclick="profile_content('all_funded_project')">{% trans "Projects funded" %}</div>
+        <span id="funded" class="profile_subtitle clickable" onclick="profile_content('all_funded_project')">{% trans "Projects funded" %}</span>
     </div>
     
     <div class="cleared"></div>

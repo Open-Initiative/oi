@@ -114,10 +114,9 @@ div.blogicon {
 }
 .profilecolumn {
     float: left;
-    margin-left: 2%;
     background-color: white;
     border-radius: 3px;
-    padding: 1%;
+    padding: 2%;
     max-width: 530px;
     width: 100%;
 }
@@ -173,9 +172,9 @@ div.blogicon {
 }
 .profile_subtitle {
     color: #0094B5;
-    font-size: 2em;
+    font-size: 1.7em;
     margin: 10px;
-    padding: 5px 50px;
+    padding: 5px 25px 5px 0;
 }
 .profile_subtitle:first-child {
     border-right: 1px solid;
@@ -191,6 +190,7 @@ div.blogicon {
 }
 .related > div:first-child {
     margin: 20px 0;
+    text-align: center;
 }
 .contact_me {
     margin-bottom: 10px;

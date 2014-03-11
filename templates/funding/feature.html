@@ -64,6 +64,11 @@
                 </form>
             {% endif %}
             
+            <div class="profile_info">
+                <img src="/img/logo_small.png" class="column">
+                <p><a class="clickable" href="#community" onclick="project_content('communityproject')">{{task.bid_set.count}} {% trans "users" %}</a></p>
+            </div>            
+            
             {% include 'funding/project_actions.html' %}
             <div class="featurebtns">
                 {% if task.state < 4 and task|can_bid:user or not user.is_authenticated and task.state < 4 %}

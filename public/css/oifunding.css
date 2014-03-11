@@ -695,7 +695,7 @@ div.sepspecfooter {
     border: 1px solid;
     border-radius: 3px;
     font-weight: bold;
-    padding: 1%;
+    padding: 10px;
 }
 .btn_feature:hover {
     color: #004f44;
@@ -1474,9 +1474,8 @@ div.spectype {
     color: white;
     border-radius: 3px;
     font-weight: bold;
+    margin-right: 7px;
 }
 .line_featureuser {
-    border-left: 1px solid #0094B5;
-    padding-left: 20px;
     margin-top: 10px;
 }

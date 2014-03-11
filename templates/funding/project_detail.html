@@ -264,7 +264,7 @@
         
             <h3>{{object.bid_set.count}} {% trans "Bids" %} : {{object.allbid_sum}} €</h3>
             
-            <p style="color:#0094B5">{% trans "Here is the community that makes" %} {{object.title}} {% trans "possible. Are you a part of it? If not : <u>ORDER THE FEATURE</u> or <u>BACK THE PROJECT</u>" %}</p>
+            <p style="color:#0094B5;margin-top: 24px;">{% trans "Here is the community that makes" %} {{object.title}} {% trans "possible. Are you a part of it? If not : <u>ORDER THE FEATURE</u> or <u>BACK THE PROJECT</u>" %}</p>
             
             
             {% regroup object.all_funding_user by user as user_list %}
@@ -273,11 +273,11 @@
                 {% for person in user_list %}
                 
                 <div class="participant">
-                    <div class="fundingleft"><img class="contactpicture" src="/user/getpicture/{{person.grouper}}"><b>{{person.grouper}}</b></div>
+                    <div class="fundingleft"><img class="contactpicture" src="/user/getpicture/{{person.grouper}}"><b style="border-right: 1px solid #0094B5; padding-right: 10px;">{{person.grouper}}</b></div>
                     <div class="fundingleft" style="margin-left: 20px;">
                         {% for bid in person.list|dictsort:"project" %}
                         <div class="line_featureuser">
-                            {% trans "order in" %} <u>{{bid.project.title}}</u> {% trans "with" %} {{bid.amount}} €
+                            {% trans "ordered" %} <u>{{bid.project.title}}</u> {% trans "with" %} {{bid.amount}} €
                             {% if user == bid.user and task.state < 3 %}
                             <div class="cleared"></div>
                             <img class="clickable" src="/img/icons/add.png" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));hide('featurebudget_{{task.id}}')" /> {% trans "Add a new bid" %}
