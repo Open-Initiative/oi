@@ -96,6 +96,7 @@ div.blogicon {
 .block_picture {
     float: left;
     max-width: 170px;
+    margin: 0 1%;
 }
 .profile_column {
     max-width: 170px;
@@ -113,12 +114,12 @@ div.blogicon {
 }
 .profilecolumn {
     float: left;
-    margin-left: 1%;
+    margin-left: 2%;
     background-color: white;
     border-radius: 3px;
     padding: 1%;
     max-width: 530px;
-    width: 70%;
+    width: 100%;
 }
 .payment_popup_title {
     position: fixed; 

@@ -70,3 +70,9 @@
 @media screen and (max-width:580px){
     .largecolumn, .creditblock {display: table;float: none;margin: 0 auto;text-align: center;width: auto;}
 }
+
+/*La page myaccount*/
+@media screen and (max-width:750px){
+    .prjbodyprofile {margin-right: 0;}
+}
+
