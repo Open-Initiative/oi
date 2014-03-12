@@ -43,7 +43,7 @@ div.userpicture {
 .profilepicture {
     max-width: 150px;
     max-height: 150px;
-    margin-top: 10px;
+    margin: 10px 0;
 }
 .usercontent {
     width:400px;
@@ -191,7 +191,6 @@ div.blogicon {
     text-align: center;
 }
 .contact_me {
-    margin-bottom: 10px;
     text-align: center;
     font-size: 18px;
 }

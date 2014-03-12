@@ -5,10 +5,12 @@
 {% block content %}
 <div class="prjbody prjbodyprofile">
     <div class="block_picture">
-        <img id="user_picture" style="margin: 0 auto;" class="profilepicture" src="/user/getpicture/{{selected_user.username}}" />
+        <img id="user_picture" class="profilepicture" src="/user/getpicture/{{selected_user.username}}" />
         {% ifequal user selected_user %}
         <div class="cleared"></div>
-        <img style="margin-top: 10px;" class="clickable fundingright" src="/img/icons/edit.png" onclick="$('#profile_picture').toggle()" />
+        <a class="clickable" onclick="$('#profile_picture').toggle()" >
+            {% trans "Change image" %}<img src="/img/icons/edit.png"/>
+        </a>
         <div id="profile_picture" class="cleared filebox invisible">
             <form id="profile_picture_form" method="post" enctype="multipart/form-data" action="/user/uploadpicture" target="picturedest">
                 {% csrf_token %}
