@@ -5,22 +5,20 @@
 {% block content %}
 <div class="prjbody prjbodyprofile">
     <div class="block_picture">
-        <div class="profile_picture">
-            <img id="user_picture" style="margin: 0 auto;" class="profilepicture" src="/user/getpicture/{{selected_user.username}}" />
-            {% ifequal user selected_user %}
-            <div class="cleared"></div>
-            <img style="margin-top: 10px;" class="clickable fundingright" src="/img/icons/edit.png" onclick="$('#profile_picture').toggle()" />
-            <div id="profile_picture" class="cleared filebox invisible">
-                <form id="profile_picture_form" method="post" enctype="multipart/form-data" action="/user/uploadpicture" target="picturedest">
-                    {% csrf_token %}
-                    <input id="picture" name="picture" type="file" size="1" onchange="document.getElementById('profile_picture_form').submit();hide('profile_picture')" class="filepicker" />
-                </form>
-            </div>
-            <iframe id="picturedest" name="picturedest" class="filedest"></iframe>
-            {% endifequal %}
+        <img id="user_picture" style="margin: 0 auto;" class="profilepicture" src="/user/getpicture/{{selected_user.username}}" />
+        {% ifequal user selected_user %}
+        <div class="cleared"></div>
+        <img style="margin-top: 10px;" class="clickable fundingright" src="/img/icons/edit.png" onclick="$('#profile_picture').toggle()" />
+        <div id="profile_picture" class="cleared filebox invisible">
+            <form id="profile_picture_form" method="post" enctype="multipart/form-data" action="/user/uploadpicture" target="picturedest">
+                {% csrf_token %}
+                <input id="picture" name="picture" type="file" size="1" onchange="document.getElementById('profile_picture_form').submit();hide('profile_picture')" class="filepicker" />
+            </form>
         </div>
+        <iframe id="picturedest" name="picturedest" class="filedest"></iframe>
+        {% endifequal %}
         {% ifnotequal user selected_user %}
-            <div class="contact_me"><a class="clickable" onclick="writeMP('{{selected_user.username}}')">{% trans "Contact Me!" %}</a></div>
+        <div class="contact_me"><a class="clickable" onclick="writeMP('{{selected_user.username}}')">{% trans "Contact Me!" %}</a></div>
         {% endifnotequal %}
     </div>
     

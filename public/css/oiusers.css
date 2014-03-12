@@ -41,11 +41,9 @@ div.userpicture {
     vertical-align: middle;
 }
 .profilepicture {
-    float: left;
     max-width: 150px;
     max-height: 150px;
-    margin-left: .2em;
-    margin-right: .6em;
+    margin-top: 10px;
 }
 .usercontent {
     width:400px;
@@ -195,10 +193,10 @@ div.blogicon {
 .contact_me {
     margin-bottom: 10px;
     text-align: center;
-    font-size: 16px;
+    font-size: 18px;
 }
 .blue_band {
-    height: 40px;
+    height: 10px;
     background: #0094B5;
     margin-top: 20px;
 }
