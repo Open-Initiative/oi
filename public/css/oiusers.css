@@ -117,6 +117,7 @@ div.blogicon {
     padding: 2%;
     max-width: 530px;
     width: 100%;
+    min-height: 150px;
 }
 .payment_popup_title {
     position: fixed; 
