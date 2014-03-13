@@ -279,11 +279,11 @@
                 {% for person in user_list %}
                 
                 <div class="participant">
-                    <div class="fundingleft"><img class="contactpicture" src="/user/getpicture/{{person.grouper}}"><b style="border-right: 1px solid #0094B5; padding-right: 10px;">{{person.grouper}}</b></div>
+                    <div class="fundingleft"><img class="contactpicture" src="/user/getpicture/{{person.grouper}}"><b style="border-right: 1px solid #0094B5; padding-right: 10px;"><a href="/user/profile/{{person.grouper}}">{{person.grouper}}</a></b></div>
                     <div class="fundingleft" style="margin-left: 20px;">
                         {% for bid in person.list|dictsort:"project" %}
                         <div class="line_featureuser">
-                            {% trans "ordered" %} <u>{{bid.project.title}}</u> {% trans "with" %} {{bid.amount}} €
+                            {% trans "ordered" %} "{{bid.project.title}}" {% trans "with" %} {{bid.amount}} €
                             {% if user == bid.user and task.state < 3 %}
                             <div class="cleared"></div>
                             <img class="clickable" src="/img/icons/add.png" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));hide('featurebudget_{{task.id}}')" /> {% trans "Add a new bid" %}
