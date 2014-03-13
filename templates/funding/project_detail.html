@@ -144,10 +144,10 @@
     {% endwith %}
     
     {% with object.descendants|filter_read:user as tasks %}
-    <div class="tab_project">
-        <div id="tabs_project_features" class="tabs_project" onclick="project_content('featuresproject')"><a id="features" href="#features">{% trans "Features" %}</a></div>
-        <div id="tabs_project_community" class="tabs_project" onclick="project_content('communityproject')"><a id="community" href="#community">{% trans "Community" %}</a></div>
-        <div id="tabs_project_discussions" class="tabs_project" onclick="project_content('discussionsproject')"><a id="discussions" href="#discussions">{% trans "Discussions" %}</a></div>
+    <div class="tabs_project">
+        <a id="features" class="tab_project" href="#features" onclick="project_content('featuresproject')">{% trans "Features" %}</a>
+        <a id="community" class="tab_project" href="#community" onclick="project_content('communityproject')">{% trans "Community" %}</a>
+        <a id="discussions" class="tab_project" href="#discussions" onclick="project_content('discussionsproject')">{% trans "Discussions" %}</a>
     </div>
     <div class="cleared"></div>
     {% if object|can_manage:user or tasks.count %}

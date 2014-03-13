@@ -1452,16 +1452,26 @@ div.spectype {
     margin-bottom: 10px;
 }
 .tabs_project {
-    margin: 5px 5px 15px 5px;
-    padding: 5px 15px 5px 5px;
+    background: white;
+    float: left;
+    margin-bottom: 10px;
+}
+.tab_project {
+    padding: 10px;
     color: #0094B5;
     border-right: solid 1px #0094B5;
     font-size: 20px;
     float: left;
+    display: block;
     cursor: pointer;
 }
-.tabs_project:last-child {
+.tab_project:last-child {
     border-right: none;
+}
+.tab_project_selected {
+    background: #0094B5;
+    color: white;
+    font-weight: bold;
 }
 .participant {
     border-top: 1px dotted;

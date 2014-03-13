@@ -149,3 +149,16 @@ function myConfirmationToclose() {
         return gettext('You are about to lose your data');
     }
 }
+function profile_content(divid){
+    var tabs_Headid = ["created", "funded"];
+    var tabs_blockid = ["all_created_project", "all_funded_project"];
+    for(var i = 0; i < tabs_Headid.length; i++){
+        if(divid == tabs_blockid[i]){
+            document.getElementById(tabs_Headid[i]).style.fontWeight = "bold";
+            $("#"+tabs_blockid[i]).removeClass('invisible');
+        }else{
+            document.getElementById(tabs_Headid[i]).style.fontWeight = "";
+            $("#"+tabs_blockid[i]).addClass('invisible');
+        }
+    }
+}

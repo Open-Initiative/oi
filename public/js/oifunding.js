@@ -204,14 +204,14 @@ function arrow_Up_Down(divid){
     $('#arrow_header').toggle();
 }
 function project_content(divid){
-    var tabs_Headid = ["tabs_project_features", "tabs_project_community", "tabs_project_discussions"];
+    var tabs_Headid = ["features", "community", "discussions"];
     var tabs_blockid = ["featuresproject", "communityproject", "discussionsproject"];
     for(var i = 0; i < tabs_Headid.length; i++){
         if(divid == tabs_blockid[i]){
-            document.getElementById(tabs_Headid[i]).style.fontWeight = "bold";
+            $("#"+tabs_Headid[i]).addClass('tab_project_selected');
             $("#"+tabs_blockid[i]).removeClass('invisible');
         }else{
-            document.getElementById(tabs_Headid[i]).style.fontWeight = "";
+            $("#"+tabs_Headid[i]).removeClass('tab_project_selected');
             $("#"+tabs_blockid[i]).addClass('invisible');
         }
     }
@@ -220,17 +220,4 @@ function project_oncload_page(){
     if(document.location.hash == "#features") project_content('featuresproject');
     else if (document.location.hash == "#community") project_content('communityproject');
     else if(document.location.hash == "#discussions") project_content('discussionsproject');
-}
-function profile_content(divid){
-    var tabs_Headid = ["created", "funded"];
-    var tabs_blockid = ["all_created_project", "all_funded_project"];
-    for(var i = 0; i < tabs_Headid.length; i++){
-        if(divid == tabs_blockid[i]){
-            document.getElementById(tabs_Headid[i]).style.fontWeight = "bold";
-            $("#"+tabs_blockid[i]).removeClass('invisible');
-        }else{
-            document.getElementById(tabs_Headid[i]).style.fontWeight = "";
-            $("#"+tabs_blockid[i]).addClass('invisible');
-        }
-    }
 }
