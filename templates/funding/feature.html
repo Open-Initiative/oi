@@ -57,8 +57,11 @@
             {% if task.state < 4 and task.assignee == user %}
                 <form class="funding_space" onsubmit="OIajaxCall('/project/confirmoffer/{{task.id}}', 'offer='+getValue('offer_manage_{{task.id}}'), 'output', function(){hide('offer_manage_{{task.id}}')}); return false">
                     <input type="text" id="offer_manage_{{task.id}}" value="{{task.offer}}" onFocus="this.select()" class="smallinput invisible" />
-                    <span id="changesum_{{task.id}}">{% trans "Change the price of this feature" %}</span>
-                    <img src="/img/icons/edit.png" class="clickable" onclick="$('#offer_manage_{{task.id}}').toggle(); $('#changesum_{{task.id}}').toggle(); $('#ok_{{task.id}}').toggle()">
+                    <a id="changesum_{{task.id}}" class="clickable" onclick="$('#offer_manage_{{task.id}}').toggle(); $('#changesum_{{task.id}}').toggle(); $('#ok_{{task.id}}').toggle();$('#changesum_{{task.id}}_del').toggle();">
+                        {% trans "Change the price of this feature" %}
+                        <img src="/img/icons/edit.png"/>
+                    </a>
+                    <img id="changesum_{{task.id}}_del" class="invisible" onclick="$('#offer_manage_{{task.id}}').toggle(); $('#changesum_{{task.id}}').toggle(); $('#ok_{{task.id}}').toggle();$('#changesum_{{task.id}}_del').toggle();" src="/img/icons/delete.png"/>
                     <img id="ok_{{task.id}}" src="/img/icons/ok.png" class="clickable invisible" onclick="OIajaxCall('/project/confirmoffer/{{task.id}}', 'offer='+getValue('offer_manage_{{task.id}}'), 'output', function(){hide('offer_manage_{{task.id}}')});">
                 </form>
             {% endif %}

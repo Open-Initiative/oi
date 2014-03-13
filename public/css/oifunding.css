@@ -1477,6 +1477,7 @@ div.spectype {
 .participant {
     border-top: 1px dotted;
     padding: 10px 0;
+    min-height: 50px;
 }
 .follow_project {
     float: right;
