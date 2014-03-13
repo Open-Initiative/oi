@@ -513,7 +513,7 @@ class Project(models.Model):
         """check if there are still rewards in the project"""
         return self.reward_set.all().exclude(nb_reward=0).count()
         
-    def spec_without_group(self):
+    def spec_with_lang(self):
         """delete groupe"""
         return self.spec_set.all().exclude(language="")
 
@@ -558,7 +558,7 @@ class Spec(models.Model):
     order = models.IntegerField()
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    language = models.CharField(max_length=10, blank=True, null=True)
+    language = models.CharField(max_length=10, blank=True)
     
     #saves project as well
     def save(self, *args, **kwargs):
