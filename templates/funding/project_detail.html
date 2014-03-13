@@ -274,10 +274,8 @@
             </div>
             
             {% regroup object.all_funding_user by user as user_list %}
-            
             <div id="bids_{{object.id}}">
                 {% for person in user_list %}
-                
                 <div class="participant">
                     <div class="fundingleft"><img class="contactpicture" src="/user/getpicture/{{person.grouper}}"><b style="border-right: 1px solid #0094B5; padding-right: 10px;"><a href="/user/profile/{{person.grouper}}">{{person.grouper}}</a></b></div>
                     <div class="fundingleft" style="margin-left: 20px;">
@@ -297,9 +295,10 @@
                     <div class="cleared"></div>
                 </div>    
                 {% empty %}
-                    {% trans "No bid on this project" %}
+                    <p>{% trans "No bid on this project" %}</p>
                 {% endfor %}
             </div>
+            
         </div>
         <div id="discussionsproject" class="invisible">
             {% with object as project %}

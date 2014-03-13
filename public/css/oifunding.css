@@ -900,7 +900,7 @@ a:hover {
     font-size: 1.2em;
     padding: 10px;
     position: relative;
-    z-index: 2;
+    z-index: 3;
     min-height: 109px;
     min-width: 170px;
 }
