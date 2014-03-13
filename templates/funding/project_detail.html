@@ -268,7 +268,7 @@
         
             <h3>{{object.bid_set.count}} {% trans "Bids" %} : {{object.allbid_sum}} €</h3>
             
-            <p style="color:#0094B5;margin-top: 24px;">{% trans "Here is the community that makes" %} {{object.title}} {% trans "possible. Are you a part of it? If not : <u>ORDER THE FEATURE</u> or <u>BACK THE PROJECT</u>" %}</p>
+            <div style="color:#0094B5;margin-top: 24px;"><p>{% trans "Here is the community that makes" %} {{object.title}} {% trans "possible." %}</p> <p>{% trans "Are you a part of it? If not : <u>ORDER THE FEATURE</u> or <u>BACK THE PROJECT</u>" %}</p></div>
             
             
             {% regroup object.all_funding_user by user as user_list %}
