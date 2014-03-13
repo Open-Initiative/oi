@@ -144,14 +144,15 @@
     {% endwith %}
     
     {% with object.descendants|filter_read:user as tasks %}
-    <div class="tabs_project">
-        <a id="features" class="tab_project" href="#features" onclick="project_content('featuresproject')">{% trans "Features" %}</a>
-        <a id="community" class="tab_project" href="#community" onclick="project_content('communityproject')">{% trans "Community" %}</a>
-        <a id="discussions" class="tab_project" href="#discussions" onclick="project_content('discussionsproject')">{% trans "Discussions" %}</a>
-    </div>
-    <div class="cleared"></div>
-    {% if object|can_manage:user or tasks.count %}
     <div class="project">
+    
+        <div class="tabs_project">
+            <a id="features" class="tab_project" href="#features" onclick="project_content('featuresproject')">{% trans "Features" %}</a>
+            <a id="community" class="tab_project" href="#community" onclick="project_content('communityproject')">{% trans "Community" %}</a>
+            <a id="discussions" class="tab_project" href="#discussions" onclick="project_content('discussionsproject')">{% trans "Discussions" %}</a>
+        </div>
+        <div class="cleared"></div>
+    
         <div id="featuresproject" class="invisible">
             <div id="featureid_blockHead"> 
                 {% if object.all_not_started_tasks %}<div onclick="featureShowHide('features_0')" id="featureid_proposed" class="clickable statebtn invisible">{% trans "Proposed" %}</div>{% endif %}
@@ -165,8 +166,11 @@
                     <li id="task_{{task.id}}">
                     {% include 'funding/feature.html' %}
                     </li>
+                {% empty %}
+                    <p>{% trans "No features yet" %}</p>
                 {% endfor %}
             </ul>
+            
             <div class="cleared"></div>
 
             <ul class="features_manage" id="features_3">
@@ -316,7 +320,7 @@
             {% endwith %}
         </div>
     </div>
-    {% endif %}
+    
     {% endwith %}
     {% endwith %}
     

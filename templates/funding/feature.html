@@ -4,7 +4,6 @@
 
 
     {% if task.state < 4 and task|can_manage:user or not user.is_authenticated %}
-    <div class="reward_bottom_line"></div>
     <div id="completepopup_{{task.id}}" class="popup_complete invisible" onclick="document.ignoreClosePopups = true;">
             <img class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hidePopups()" />
             <p class="bid_popup_title form_center">{% trans "Complete the fund of the feature" %} <b>{{task.title}}</b><br/> {% trans "by the project fund" %} <u>{{object.title}}</u></p>
@@ -129,4 +128,5 @@
             }
         });
     </script>
+    <div class="reward_bottom_line"></div>
 {% endif %}

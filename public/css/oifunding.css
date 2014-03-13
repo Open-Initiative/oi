@@ -1087,7 +1087,7 @@ img.tabicon {
     float:right; 
     overflow: visible; 
     width: 20px;
-    z-index: 1;
+    z-index: 2;
 }
 .presslide {
     padding: 5px;
