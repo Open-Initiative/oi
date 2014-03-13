@@ -286,7 +286,7 @@
                             <div class="cleared"></div>
                             <img class="clickable" src="/img/icons/add.png" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));hide('featurebudget_{{task.id}}')" /> {% trans "Add a new bid" %}
                             <div class="cleared"></div>
-                            <img class="clickable" src="/img/icons/delete.png" onclick="cancelBid({{bid.project.id}}, {% if task.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "Cancel your bid on this task" %}" title="{% trans "Cancel your bid on this task" %}" /> {% trans "Cancel my bid" %}
+                            <img class="clickable" src="/img/icons/delete.png" onclick="cancelBid({{bid.project.id}}, {% if task.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "close" %}" title="{% trans "Cancel your bid on this task" %}" /> {% trans "Cancel my bid" %}
                             {% endif %}
                         </div>
                         <div class="cleared"></div>
