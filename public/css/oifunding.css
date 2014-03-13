@@ -1479,3 +1479,8 @@ div.spectype {
 .line_featureuser {
     margin-top: 10px;
 }
+.avoid_overlapping{
+    position: relative;
+    width: 215px;
+    z-index: 1;
+}
