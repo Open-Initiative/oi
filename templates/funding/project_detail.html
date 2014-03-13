@@ -264,7 +264,7 @@
         </div>
         <div id="communityproject" class="invisible">
         
-            <div class="follow_project clickable" onclick="favProject({{object.id}}, 'Funding')">{% trans "Follow the project" %}</div>
+            <div class="follow_project clickable" onclick="favProject({{object.id}}, 'Funding')">{% if object|is_following:user %}{% trans "Follow the project" %}{% else %}{% trans "Stop follow the project" %}{% endif %}</div>
         
             <h3>{{object.bid_set.count}} {% trans "Bids" %} : {{object.allbid_sum}} €</h3>
             
