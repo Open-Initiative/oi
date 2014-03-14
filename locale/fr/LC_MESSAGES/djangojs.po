@@ -144,6 +144,16 @@ msgid "Are you sure you want to delete this specification permanently?"
 msgstr ""
 "Etes vous sûr de vouloir supprimer définitivement cette spécification ?"
 
+# oiproject.js
+#: public/js/oiproject.js:318
+msgid "Follow the project"
+msgstr "Suivre le projet"
+
+# oiproject.js
+#: public/js/oiproject.js:319
+msgid "Stop following the project"
+msgstr "Arreter de suivre le projet"
+
 #: public/js/oiuser.js:79
 msgid "Thank you to enter a valid url address"
 msgstr "Merci d'entrer une adresse valide"
