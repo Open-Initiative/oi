@@ -68,9 +68,9 @@
             
             <div class="profile_info">
                 {% if task.state < 3 and task|can_manage:user %}
-                <p class="form_center">
+                <div class="form_center">
                     <span>{% trans "Awaiting payment" %} <b>{{task.missing_bid|floatformat:2}}€</b></span><br><br><span class="tax">{% trans "Tax" %} 5% : <b>{{task.commission|default:task.allcommission_sum}}€</b></span><span class="tax"> {% trans "Commisions" %} 19.6%: <b>({{task.get_commission_tax|floatformat:2}}€)</b></span><br>
-                </p>
+                </div>
                 {% endif %}
                 <img src="/img/logo_small.png" class="column">
                 <p><a class="clickable" href="#community" onclick="project_content('communityproject')">{{task.bid_set.count}} {% trans "users" %}</a></p>

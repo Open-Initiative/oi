@@ -48,7 +48,7 @@
     {% if project.spec_set.all|filter_order:8 or object|can_manage:user %}
     <h4 class="subtitle_news">{% trans "Project website" %}</h4>
     {% with spec=project.spec_set.all|filter_order:8 order=8 divid='software' %}
-    <a id="{{divid}}" {% if spec.url %}href="{{spec.url}}"{% endif %} Target= "_blank">{% if spec.url %}{{spec.url}}{% else %}{% trans "No link given" %}{% endif %}</a> 
+    <a id="{{divid}}" {% if spec.url %}href="{{spec.url}}"{% else %}style="text-decoration:none"{% endif %} Target= "_blank">{% if spec.url %}{{spec.url}}{% else %}{% trans "Unspecified" %}{% endif %}</a> 
     {% if object|can_manage:user %}<img class="clickable fundingright" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('corner_{{divid}}'))">{% endif %}
     {% endwith %}
     {% endif %}
@@ -124,7 +124,7 @@
     <div class="column_right_dotted cleared"></div>
     <div class="corner_developpeur">{% trans "Deposit" %}</div>
     {% with spec=project.spec_set.all|filter_order:5 divid='deposit' %}
-    <a id="{{divid}}" {% if spec.url %}href="{{spec.url}}"{% endif %} Target= "_blank">{% if spec.url %}{{spec.url}}{% else %}{% trans "No link given" %}{% endif %}</a> 
+    <a id="{{divid}}" {% if spec.url %}href="{{spec.url}}"{% else %}style="text-decoration:none"{% endif %} Target= "_blank">{% if spec.url %}{{spec.url}}{% else %}{% trans "Unspecified" %}{% endif %}</a> 
     {% if object|can_manage:user %}<img class="clickable fundingright" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('corner_{{divid}}'))">{% endif %}
     {% endwith %}
     {% endif %}
@@ -133,7 +133,7 @@
     <div class="column_right_dotted cleared"></div>
     <div class="corner_developpeur">{% trans "Licence" %}</div>
     {% with spec=project.spec_set.all|filter_order:6 divid='licence' spec_divid='spec__6_content' %}
-    <a id="{{spec_divid}}" target="_blank" {% if spec.url %}href="{{spec.url}}"{% endif %}>{% if spec.text or spec.url %}{{spec.text|default:spec.url|oiunescape}}{% else %}{% trans "No link given" %}{% endif %}</a> 
+    <a id="{{spec_divid}}" target="_blank" {% if spec.url %}href="{{spec.url}}"{% else %}style="text-decoration:none"{% endif %}>{% if spec.text or spec.url %}{{spec.text|default:spec.url|oiunescape}}{% else %}{% trans "Unspecified" %}{% endif %}</a> 
     {% if object|can_manage:user %}<img class="clickable fundingright" title="{% trans 'Indicate the license used to distribute software' %}" alt="{% trans 'Indicate the license used to distribute software' %}" src="/img/icons/edit.png" onclick="showPopup(document.getElementById('licencedescription_{{spec.id}}'))"/>{% endif %}
         
     {% endwith %}
