@@ -74,7 +74,7 @@
         {% if project.author.get_profile.bio %}<div>{% autoescape off %}{% if project.author.get_profile.bio|length > 500 %} {{project.author.get_profile.bio|oiunescape|summarize_html}}{% else %}{{project.author.get_profile.bio|oiunescape}}{% endif %}{% endautoescape %}</div>{% endif %}
         
         <div class="cleared"></div>
-        <a class="fundingright displayblock btn_feature oigreen" href="/user/profile/{{project.author.username}}" target="_blank">{% trans "Full bio" %}</a>
+        <a class="fundingright displayblock btn_feature oigreen" href="/user/profile/{{project.author.username}}">{% trans "Full bio" %}</a>
         <div class="cleared"></div>
     </div>
 </div>
