@@ -1453,14 +1453,14 @@ div.spectype {
     margin-bottom: 10px;
 }
 .tabs_project {
-    background: white;
+    background: #F9F9F9;
     float: left;
     margin-bottom: 10px;
 }
 .tab_project {
     padding: 10px;
     color: #0094B5;
-    border-right: solid 1px #0094B5;
+    border-right: solid 1px white;
     font-size: 20px;
     float: left;
     display: block;

@@ -313,7 +313,16 @@ function favProject(projectid, funding){
     OIajaxCall("/project/"+projectid+"/fav", follow?"&stop=true":null, null, 
         function(response){
             if(document.getElementById("fav_"+projectid)){
-                if(funding) var localhost = "Funding"; else var localhost = ""; 
+                if(funding){ 
+                    var localhost = "Funding";
+                    if($("#fav_"+projectid+"_com").html()==gettext("Follow the project")){
+                        $("#fav_"+projectid+"_com").html(gettext("Stop following the project"));
+                    }else{
+                        $("#fav_"+projectid+"_com").html(gettext("Follow the project"));
+                    }
+                }else{ 
+                    var localhost = "";
+                }
                 document.getElementById("fav_"+projectid).src = "/img/icons/star"+response+localhost+".png";
                 follow = (response=="True");
             }
