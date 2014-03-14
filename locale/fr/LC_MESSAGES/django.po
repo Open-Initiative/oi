@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-14 11:41+0100\n"
+"POT-Creation-Date: 2014-02-18 05:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
 #: helpers.py:32 templates/funding/project_detail.html:163
@@ -1235,37 +1235,50 @@ msgstr "Objectif"
 msgid "Change the price of this feature"
 msgstr "Modifier l'offre de cette évolution"
 
-#: templates/funding/feature.html:71 templates/funding/project_detail.html:35
+#: templates/funding/feature.html:72
+msgid "Awaiting payment"
+msgstr "Paiement en attente"
+
+#: templates/funding/feature.html:72 templates/funding/feature_budget.html:43
+#: templates/projects/project_budget.html:38
+msgid "Tax"
+msgstr "Taxe"
+
+#: templates/funding/feature.html:72
+msgid "Commisions"
+msgstr "Commissions"
+
+#: templates/funding/feature.html:76 templates/funding/project_detail.html:35
 #: templates/funding/related.html:36
 msgid "users"
 msgstr "utilisateurs"
 
-#: templates/funding/feature.html:77 templates/funding/popup_budget.html:30
+#: templates/funding/feature.html:82 templates/funding/popup_budget.html:30
 msgid "Order the feature"
 msgstr "Commander l'évolution"
 
-#: templates/funding/feature.html:81
+#: templates/funding/feature.html:86
 msgid "Complete the funding"
 msgstr "Completer le financement"
 
-#: templates/funding/feature.html:89
+#: templates/funding/feature.html:94
 msgid "Visible feature to the users"
 msgstr "Évolution visible par les utilisateurs"
 
-#: templates/funding/feature.html:113
+#: templates/funding/feature.html:118
 #: templates/funding/feature_description.html:13
 #: templates/projects/project_description.html:18
 #: templates/projects/project_sum.html:14
 msgid "Add a description"
 msgstr "Ajouter une description"
 
-#: templates/funding/feature.html:113 templates/funding/spec/spec.html:26
+#: templates/funding/feature.html:118 templates/funding/spec/spec.html:26
 #: templates/users/profile/profile.html:83
 #: templates/users/profile/profile.html:115
 msgid "See more"
 msgstr "En voir plus"
 
-#: templates/funding/feature.html:115 templates/funding/spec/spec.html:35
+#: templates/funding/feature.html:120 templates/funding/spec/spec.html:35
 #: templates/users/profile/profile.html:96
 #: templates/users/profile/profile.html:128
 msgid "See less"
@@ -1302,11 +1315,6 @@ msgstr "a déjà une offre"
 #: templates/funding/feature_budget.html:36
 msgid "By making an offer, you agree to the"
 msgstr "En faisant une offre, vous acceptez les"
-
-#: templates/funding/feature_budget.html:43
-#: templates/projects/project_budget.html:38
-msgid "Tax"
-msgstr "Taxe"
 
 #: templates/funding/feature_budget.html:45
 #: templates/projects/project_budget.html:40
@@ -2004,7 +2012,7 @@ msgstr "Comment gagnez-vous de l'argent ?"
 #: templates/funding/presentation.html:119
 msgid ""
 "<p>As an intermediary between developers and users, Open Funding takes a fee "
-"limited to a 5% commission. It is added to the amount that the developer "
+"limited to a 5%% commission. It is added to the amount that the developer "
 "requested. We only get it once the feature is funded.</p>"
 msgstr ""
 "<p>En tant qu'intermédiaire entre les développeurs et utilisateurs, Open "
@@ -2038,7 +2046,7 @@ msgid ""
 "a list of its features. You explain your project and its features in the "
 "creation page, and for each feature you set the amount required for their "
 "development. You can add several features for each project. We add our "
-"5% commission to this sum.</p>"
+"commission to this sum.</p>"
 msgstr ""
 "<p>Si vous avez un projet de logiciel libre, vous le proposez sur la plate-"
 "forme avec une liste d'évolutions. Vous expliquez votre projet et ses "
@@ -2613,8 +2621,8 @@ msgid "Stop following the project"
 msgstr "Arreter de suivre le projet"
 
 #: templates/funding/project_detail.html:274
-msgid "User"
-msgid_plural "Users"
+msgid " User"
+msgid_plural " Users"
 msgstr[0] "Utilisateur"
 msgstr[1] "Utilisateurs"
 
@@ -3198,8 +3206,8 @@ msgstr "a mis Open Initiative dans la version:"
 #: templates/notification/delegate/notice.html:4
 #, python-format
 msgid ""
-"wants to delegate the task <a href=\"http://%(current_site)s%(REDIRECT_URL)s"
-"%(id)s\" target=\"_blank\">%(title)s</a>to you."
+"wants to delegate the task <a href=\"http://%(current_site)s%(REDIRECT_URL)s%"
+"(id)s\" target=\"_blank\">%(title)s</a>to you."
 msgstr ""
 "veut vous déléguer la tâche <a href=\"%(current_site)s%(REDIRECT_URL)s%(id)s"
 "\" target=\"_blank\">%(title)s</a>."
@@ -3207,8 +3215,8 @@ msgstr ""
 #: templates/notification/delegate/notice.html:6
 #, python-format
 msgid ""
-"wants to delegate the project <a href=\"http://%(current_site)s"
-"%(REDIRECT_URL)s%(id)s\" target=\"_blank\">%(title)s</a> to you."
+"wants to delegate the project <a href=\"http://%(current_site)s%"
+"(REDIRECT_URL)s%(id)s\" target=\"_blank\">%(title)s</a> to you."
 msgstr ""
 "veut vous déléguer la tâche <a href=\"%(current_site)s%(REDIRECT_URL)s%(id)s"
 "\" target=\"_blank\">%(title)s</a>."
@@ -4433,18 +4441,6 @@ msgstr "Message envoyé"
 #: users/views.py:358
 msgid "Notice archived"
 msgstr "Notification archivée"
-
-msgid "Unspecified"
-msgstr "Non précisée"
-
-msgid "Support the feature"
-msgstr "Soutenir cette évolution"
-
-msgid "of the project"
-msgstr "du projet"
-
-msgid "Confirm the deposit"
-msgstr "Confirmez-vous le dépôt ?"
 
 msgid "overview"
 msgstr "Suivi"
