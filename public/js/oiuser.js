@@ -155,10 +155,10 @@ function profile_content(divid){
     for(var i = 0; i < tabs_Headid.length; i++){
         if(divid == tabs_blockid[i]){
             document.getElementById(tabs_Headid[i]).style.fontWeight = "bold";
-            $("#"+tabs_blockid[i]).show("slide", { direction: "right" }, 1000);
+            $("#"+tabs_blockid[i]).removeClass('invisible');
         }else{
             document.getElementById(tabs_Headid[i]).style.fontWeight = "";
-            $("#"+tabs_blockid[i]).hide("slide", { direction: "right" }, 1000);
+            $("#"+tabs_blockid[i]).addClass('invisible');
         }
     }
 }
