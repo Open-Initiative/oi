@@ -27,7 +27,7 @@
 </div>
 {% endwith %}
 
-{% regroup project.spec_with_lang|dictsort:"language" by language as language_list %}{{language_list}}
+{% regroup project.spec_with_lang|dictsort:"language" by language as language_list %}
 {% for spec_list in language_list %}
 {% with specs=spec_list.list|dictsort:"order" lang=spec_list.grouper %}
     {% with spec2=specs|filter_order:2 spec3=specs|filter_order:3  %}

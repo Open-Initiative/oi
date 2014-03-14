@@ -74,6 +74,8 @@
                 <li>
                     {% include 'funding/project_card.html' %}
                 </li>
+            {% empty %}
+                <p>{% trans "No project created" %}</p>
             {% endfor %}
             </ul>
             <div class="cleared"></div>
@@ -104,6 +106,8 @@
                 <li>
                     {% include 'funding/project_card.html' %}
                 </li>
+            {% empty %}
+                <p>{% trans "No project funded" %}</p>
             {% endfor %}
             </ul>
             <div class="cleared"></div>
