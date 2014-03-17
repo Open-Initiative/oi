@@ -97,7 +97,7 @@
         <div class="plugintiny">
             <img class="pluginlogo" src="/img/logo_funding.png">
             {% with object.descendants|filter_read:user as descendants %}<div class="pluginsum">
-                <div class="progressbar">
+                <div class="progressbar" style="height: 0.3em;">
                     <span id="progressbar_{{object.id}}" class="progresstiny" style="width:{% widthratio descendants.allbid_sum|add:object.bid_sum object.get_selfbudget|default:descendants.allbudget 100 %}%;"></span>
                 </div>
             </div>{% endwith %}
