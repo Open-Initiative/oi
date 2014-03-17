@@ -11,6 +11,9 @@ ADMINS = (('Name', 'email'),)
 #Database configuration
 DATABASES ={'default': {'ENGINE': 'django.db.backends.mysql', 'NAME': 'OI', 'USER': 'root', 'PASSWORD': '', 'HOST':'', 'PORT': ''}}
 
+# Redirect params compressor to compress css and js files
+COMPRESS_ENABLED = False
+
 # SMTP configuration    
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = '/tmp/oimessages' # change this to a proper location

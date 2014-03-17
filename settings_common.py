@@ -86,7 +86,6 @@ TEMP_DIR = HOME_DIR + 'tmp/'
 MEDIA_URL = '/'
 
 # Redirect params compressor to compress css and js files
-COMPRESS_ENABLED = False
 COMPRESS_ROOT = ''
 COMPRESS_URL = '/'
 COMPRESS_OUTPUT_DIR = 'static/'
