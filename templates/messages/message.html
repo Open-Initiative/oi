@@ -13,18 +13,17 @@
             </div>
         </div>
     </a>
-</div>
-
-<div class="speech"></div>
-<div class="msgbubble">
-    <div class="clickable msgtitle" onclick="shrinkMessage({{message.id}}, {{depth|default:0}})">
-        {{message.title}}
+    <div class="speech"></div>
+    <div class="msgbubble">
+        <div class="clickable msgtitle" onclick="shrinkMessage({{message.id}}, {{depth|default:0}})">
+            {{message.title}}
+        </div>
+        <div id="msgdialogue_{{message.id}}"></div>
+        <div class="msgtext">
+            {{message.text|oiunescape}}
+        </div>
+        {% include "messages/message_actions.html" %}
     </div>
-    <div id="msgdialogue_{{message.id}}"></div>
-    <div class="msgtext">
-        {{message.text|oiunescape}}
-    </div>
-    {% include "messages/message_actions.html" %}
 </div>
 
 <div id="children_{{message.id}}" class="childrenlist">
