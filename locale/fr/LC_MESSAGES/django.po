@@ -1176,6 +1176,10 @@ msgstr "Vous n'avez pas encore de compte ??"
 msgid "close"
 msgstr "fermer"
 
+#: templates/funding/project_detail.html:273
+msgid "or"
+msgstr "ou"
+
 #: templates/funding/feature.html:9
 msgid "Complete the fund of the feature"
 msgstr "Completer le financement de l'évolution"

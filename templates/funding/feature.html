@@ -12,11 +12,6 @@
         <span style="position: relative;left: -3%;top: 2%;" class="fundingright continuebtn clickable" onclick="completeTask({{object.id}}, {{task.id}})">{% trans "Continue" %}</span>
     </div>
     {% endif %}
-    
-    <div id="featurebudget_{{task.id}}" class="featuredetail invisible" onclick="document.ignoreClosePopups = true;">
-        <div id="prjdialogue_{{task.id}}" class="popup invisible"></div>
-        {% include 'funding/feature_budget.html' %}
-    </div>
 
     <div id="featureDiv_{{task.id}}" class="featureblock" {% if not task.public_read %} style="opacity:.4;"{% endif %}>
         
@@ -124,9 +119,6 @@
     </div>
     <script>
         hide('see_less_{{task.id}}');
-        $(function() {
-            $("#featurebudget_{{task.id}}").draggable();
-        });
         $( document ).ready(function() {
             if(document.location.hash=='#feature_{{task.id}}'){
                 show('specs_{{task.id}}');

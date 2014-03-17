@@ -336,20 +336,6 @@ div.minispec {
     list-style-type: none;
     padding: 0;
 }
-.featuredetail {
-    background: none repeat scroll 0 0 white;
-    border: 1px solid #E3E3E5;
-    border-radius: 3px;
-    box-shadow: 3px 3px 4px;
-    padding: 1%;
-    position: fixed;
-    left: 5%;
-    top: 20px;
-    width: auto;
-    z-index: 20;
-    max-height: 85%;
-    overflow: auto;
-}
 .editoffer {
     position: absolute;
     z-index: 1;

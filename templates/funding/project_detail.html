@@ -270,7 +270,7 @@
             
             <div style="color:#0094B5;margin-top: 24px;">
                 <p>{% trans "Here is the community that makes" %} {{object.title}} {% trans "possible." %}</p> 
-                <p>{% trans "Are you a part of it? If not :" %} <u class="clickable" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));document.getElementById('order_{{object.id}}').checked=true;">{% trans "ORDER THE FEATURE" %}</u> or <u class="clickable" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));">{% trans "BACK THE PROJECT" %}</u></p>
+                <p>{% trans "Are you a part of it? If not :" %} <u class="clickable" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));document.getElementById('order_{{object.id}}').checked=true;">{% trans "ORDER THE FEATURE" %}</u> {% trans "or" %} <u class="clickable" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));">{% trans "BACK THE PROJECT" %}</u></p>
             </div>
             
             {% regroup object.all_funding_user by user as user_list %}
@@ -284,7 +284,7 @@
                             {% trans "ordered" %} "{{bid.project.title}}" {% trans "with" %} {{bid.amount}} €
                             {% if user == bid.user and task.state < 3 %}
                             <div class="cleared"></div>
-                            <img class="clickable" src="/img/icons/add.png" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));hide('featurebudget_{{task.id}}')" /> {% trans "Add a new bid" %}
+                            <img class="clickable" src="/img/icons/add.png" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));document.getElementById('order_{{bid.project.id}}').checked=true;" /> {% trans "Add a new bid" %}
                             <div class="cleared"></div>
                             <img class="clickable" src="/img/icons/delete.png" onclick="cancelBid({{bid.project.id}}, {% if task.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "close" %}" title="{% trans "Cancel your bid on this task" %}" /> {% trans "Cancel my bid" %}
                             {% endif %}
