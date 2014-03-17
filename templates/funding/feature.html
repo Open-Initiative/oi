@@ -14,7 +14,7 @@
     {% endif %}
 
     <div id="featureDiv_{{task.id}}" class="featureblock" {% if not task.public_read %} style="opacity:.4;"{% endif %}>
-        <div class="fundingleft">
+        <div class="fundingleft" style="margin-bottom: 10px;">
             <div id="feature_{{task.id}}" class="featuretitle clickable" onclick="expandFeature({{task.id}})">{% if linktitte %}<a href="/funding/{{object.id}}#feature_{{task.id}}" target="_blank">{{task.title}}</a>{% else %}{{task.title}}{% endif %}</div>
             
             <form onsubmit="var newtitle = getValue('feature_{{task.id}}_edit');if(newtitle){confirmEditTitle({{task.id}}, newtitle);}; seeMore('feature_{{task.id}}_edit', 'feature_{{task.id}}'); return false">
@@ -91,7 +91,7 @@
             {% endif %}
         </div>
         
-        <div style="word-break: break-all;" id="specs_{{task.id}}_hide">
+        <div style="word-break: break-all; clear: left;" id="specs_{{task.id}}_hide">
         {% with spec=task.spec_set.all|filter_order:1 %}
             {% if spec.type == 2 %}<br/>{% endif %}
             {{spec.text|oiunescape|summarize_html}}

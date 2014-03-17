@@ -20,7 +20,9 @@
         <iframe id="picturedest" name="picturedest" class="filedest"></iframe>
         {% endifequal %}
         {% ifnotequal user selected_user %}
+        {% if user.is_authenticated %}
         <div class="contact_me"><a class="clickable" onclick="writeMP('{{selected_user.username}}')">{% trans "Contact Me!" %}</a></div>
+        {% endif %}
         {% endifnotequal %}
     </div>
     
