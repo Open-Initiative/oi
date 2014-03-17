@@ -2716,7 +2716,7 @@ msgstr "Site web du projet"
 
 #: templates/funding/related.html:51 templates/funding/related.html.py:127
 #: templates/funding/related.html:136
-msgid "No link given"
+msgid "Unspecified"
 msgstr "Non précisé"
 
 #: templates/funding/related.html:71 templates/users/profile/profile.html:38
