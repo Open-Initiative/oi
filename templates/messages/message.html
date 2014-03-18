@@ -24,9 +24,8 @@
         </div>
         {% include "messages/message_actions.html" %}
     </div>
-</div>
-
-<div id="children_{{message.id}}" class="childrenlist">
+    
+    <div id="children_{{message.id}}" class="childrenlist">
     {% with depth|default:10 as depth %}{% if message.children.count == 1 %}
     {% with message.children.all|first as message %}
     <div id="message_{{message.id}}">
@@ -44,5 +43,7 @@
     </div>
     {% endif %}{% endfor %}{% endif %}
     {% endwith %}
+</div>
+    
 </div>
 
