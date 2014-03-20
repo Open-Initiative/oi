@@ -48,7 +48,6 @@
 /*rend la page responsive*/
 @media screen and (max-width:750px){
     .prjbody {margin-right: 25px;} /*à voir margin*/
-    .block_shrinkrelated {border: 1px solid #9D9C9C;}
     #related {background: white;}
     .discussion_column {margin: 0 3%;} /*à voir margin*/
 /*    permet de voir le boutons pour voir la colonne de droite*/
@@ -57,7 +56,7 @@
 /*    affiche la popup à la bonne taille pour le projet*/
     .mobile_popup_size{width: auto !important;}
 /*    permet de cacher la div en dessous d'une certaine taille*/
-    #shrinkrelated {box-shadow: 0 2px 3px 2px; width: 20px;background: none repeat scroll 0 0 white;}
+    #shrinkrelated {box-shadow: 0 2px 3px 2px; width: 20px;background: none repeat scroll 0 0 white;border: 1px solid #9D9C9C;}
 }
 /*améliorer les messages pour les projets*/
 @media screen and (max-width:400px){
