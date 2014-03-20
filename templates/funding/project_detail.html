@@ -43,9 +43,9 @@
 
 <div class="block_shrinkrelated">
     <div style="position:relative; float: right;">
-        <img id="btn_extend_open" class="btn_extend" src="/img/icons/openbtn.png" onclick="$('#shrinkrelated').animate({'width': '260px'}, 300);$('#btn_extend_close').removeClass('invisible');$('#btn_extend_open').addClass('invisible');" />    
+        <img id="btn_extend_open" class="btn_extend" src="/img/icons/openbtn.png" onclick="openPanel()" />    
             
-        <img id="btn_extend_close" class="invisible btn_extend" src="/img/icons/closebtn.png" onclick="document.getElementById('shrinkrelated').style.cssText='';$('#btn_extend_open').removeClass('invisible');$('#btn_extend_close').addClass('invisible');" />
+        <img id="btn_extend_close" class="invisible btn_extend" src="/img/icons/closebtn.png" onclick="closePanel()" />
         <div id="shrinkrelated">
             <div id="related">
                 {% include 'funding/related.html' %}
@@ -336,21 +336,18 @@
     {% if object|can_manage:user %}
     sortFeature({{object.id}});
     {% endif %}
-    //$(window).resize(function() {
-        //if (window.matchMedia("(max-width: 750px)").matches) {
+    
+    $(window).resize(function() {
+        if (window.matchMedia("(max-width: 750px)").matches) {
             var element = document.getElementById('shrinkrelated');
-            var hammertime = Hammer(element).on("swipeleft dragleft", function(event) {
-                $('#shrinkrelated').animate({'width': '260px'}, 300);
-                $('#btn_extend_close').removeClass('invisible');
-                $('#btn_extend_open').addClass('invisible');
-            });
-            var hammertime = Hammer(element).on("swiperight dragright", function(event) {
-                document.getElementById('shrinkrelated').style.cssText='';
-                $('#btn_extend_open').removeClass('invisible');
-                $('#btn_extend_close').addClass('invisible');
-            });
-        //}
-    //});
+            Hammer(element).on("swipeleft dragleft", openPanel);
+            Hammer(element).on("swiperight dragright", closePanel);
+        }else{
+            var element = document.getElementById('shrinkrelated');
+            Hammer(element).off("swipeleft dragleft", openPanel);
+            Hammer(element).off("swiperight dragright", closePanel);
+        }
+    });
 </script>
 {% else %}
 {% trans "Forbidden" %}

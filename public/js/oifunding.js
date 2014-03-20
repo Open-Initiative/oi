@@ -221,3 +221,13 @@ function project_oncload_page(){
     else if (document.location.hash == "#community") project_content('communityproject');
     else if(document.location.hash == "#discussions") project_content('discussionsproject');
 }
+function openPanel(){
+    $('#shrinkrelated').animate({'width': '265px'}, 300);
+    $('#btn_extend_close').removeClass('invisible');
+    $('#btn_extend_open').addClass('invisible');
+}
+function closePanel(){
+    document.getElementById('shrinkrelated').style.cssText='';
+    $('#btn_extend_open').removeClass('invisible');
+    $('#btn_extend_close').addClass('invisible');
+}

@@ -165,10 +165,10 @@
     if(document.location.hash == "#submit") submitProject();
     
     var slider = document.getElementById('catcherbg');
-    var hammertime = Hammer(slider).on("swipeleft dragleft", function(event) {
+    Hammer(slider).on("swipeleft dragleft", function(event) {
         slideIndex();
     });
-    var hammertime = Hammer(slider).on("swiperight dragright", function(event) {
+    Hammer(slider).on("swiperight dragright", function(event) {
         slideIndexReverse();
     });
 </script>

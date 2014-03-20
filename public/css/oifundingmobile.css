@@ -11,7 +11,7 @@
     .slider {float: none; width: auto;}
     .slidermore {left: 10px; padding: .2em%;} 
     .submitproject {margin: 0 auto;}
-    .indexslide {overflow: auto; width: auto;}
+    .indexslide {overflow: visible; width: auto;}
     .slidertip {width: auto;}
     .slider dd {height: auto;}
     #userheader_mobile {display: block;}
