@@ -159,19 +159,18 @@
 </div>
 {% endif %}
 <script>
-
-    $(document).ready(function() {
-	    Slider = $('#slider').Swipe({
-		    auto: 3000,
-		    continuous: true
-	    }).data('Swipe');
-    });
-
     ajaxParams = document.location.hash;
     listid = ajaxParams.substring(1);
     if(listid) switchPrjList(listid);
     if(document.location.hash == "#submit") submitProject();
     
+    var slider = document.getElementById('catcherbg');
+    var hammertime = Hammer(slider).on("swipeleft dragleft", function(event) {
+        slideIndex();
+    });
+    var hammertime = Hammer(slider).on("swiperight dragright", function(event) {
+        slideIndexReverse();
+    });
 </script>
 <div class="cleared" style="width:100%"></div>
 {% endblock %}

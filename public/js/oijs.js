@@ -168,10 +168,21 @@ function slideIndex(nextid) {
 //        document.getElementById('preslink').hash = '#' + nextSlide.attr('id')[10];
     }
 }
+function slideIndexReverse() {
+    if(document.getElementById("indexslide1").style.display=="block"){
+        slideIndex(4);
+    }else if(document.getElementById("indexslide2").style.display=="block"){
+        slideIndex(1);
+    }else if(document.getElementById("indexslide3").style.display=="block"){
+        slideIndex(2);
+    }else if(document.getElementById("indexslide4").style.display=="block"){
+        slideIndex(3);
+    }
+}
 function slidePres(blockid, id) {
     jQuery('.presslide').hide();
     jQuery("#"+id).show();
-    boldPresentation(blockid, "_"+id);
+    boldPresentation(blockid, id);
 }
 function boldPresentation(blockid, divid){
     //put in bold the title seleted
@@ -179,7 +190,7 @@ function boldPresentation(blockid, divid){
     for(var i=0; i<tabs.length; i++){
         tabs[i].style.fontWeight = "";
     }
-    document.getElementById(divid).style.fontWeight = "bold";
+    document.getElementById("_"+divid).style.fontWeight = "bold";
     document.location.hash = divid;
 }
 function expandCateg(img, categid, dest){
