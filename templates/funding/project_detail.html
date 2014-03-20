@@ -338,14 +338,13 @@
     {% endif %}
     //$(window).resize(function() {
         //if (window.matchMedia("(max-width: 750px)").matches) {
-            var elementleft = document.getElementById('shrinkrelated');
-            var hammerleft = Hammer(elementleft).on("swipeleft", function(event) {
+            var element = document.getElementById('shrinkrelated');
+            var hammertime = Hammer(element).on("swipeleft dragleft", function(event) {
                 $('#shrinkrelated').animate({'width': '260px'}, 300);
                 $('#btn_extend_close').removeClass('invisible');
                 $('#btn_extend_open').addClass('invisible');
             });
-            var elementright = document.getElementById('shrinkrelated');
-            var hammerright = Hammer(elementright).on("swiperight", function(event) {
+            var hammertime = Hammer(element).on("swiperight dragright", function(event) {
                 document.getElementById('shrinkrelated').style.cssText='';
                 $('#btn_extend_open').removeClass('invisible');
                 $('#btn_extend_close').addClass('invisible');
