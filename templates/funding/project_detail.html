@@ -337,15 +337,14 @@
     sortFeature({{object.id}});
     {% endif %}
     
+    var panel = document.getElementById('shrinkrelated');
     $(window).resize(function() {
         if (window.matchMedia("(max-width: 750px)").matches) {
-            var element = document.getElementById('shrinkrelated');
-            Hammer(element).on("swipeleft dragleft", openPanel);
-            Hammer(element).on("swiperight dragright", closePanel);
+            Hammer(panel).on("swipeleft dragleft", openPanel);
+            Hammer(panel).on("swiperight dragright", closePanel);
         }else{
-            var element = document.getElementById('shrinkrelated');
-            Hammer(element).off("swipeleft dragleft", openPanel);
-            Hammer(element).off("swiperight dragright", closePanel);
+            Hammer(panel).off("swipeleft dragleft", openPanel);
+            Hammer(panel).off("swiperight dragright", closePanel);
         }
     });
 </script>

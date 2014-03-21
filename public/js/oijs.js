@@ -178,6 +178,9 @@ function slideIndexReverse() {
     }else if(document.getElementById("indexslide4").style.display=="block"){
         slideIndex(3);
     }
+    //restart the setInterval to 0
+    clearInterval(refreshIntervalId);
+    refreshIntervalId = window.setInterval(function (){if(window.slide) slideIndex()}, 8000);
 }
 function slidePres(blockid, id) {
     jQuery('.presslide').hide();

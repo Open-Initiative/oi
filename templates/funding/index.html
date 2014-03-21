@@ -46,7 +46,7 @@
             });
             window.slide = true;
             window.sliding = false;
-            window.setInterval(function (){if(window.slide) slideIndex()}, 8000);
+            refreshIntervalId = window.setInterval(function (){if(window.slide) slideIndex()}, 8000);
         </script>
         <img id="sliderimg1" src="/img/slider1.png" class="sliderimg sliderimgcloser1" />
         <img id="sliderimg2" src="/img/slider2.png" class="sliderimg invisible sliderimgcloser2" />
@@ -165,12 +165,8 @@
     if(document.location.hash == "#submit") submitProject();
     
     var slider = document.getElementById('catcherbg');
-    Hammer(slider).on("swipeleft dragleft", function(event) {
-        slideIndex();
-    });
-    Hammer(slider).on("swiperight dragright", function(event) {
-        slideIndexReverse();
-    });
+    Hammer(slider).on("swipeleft dragleft", function(event) { slideIndex(); });
+    Hammer(slider).on("swiperight dragright", slideIndexReverse);
 </script>
 <div class="cleared" style="width:100%"></div>
 {% endblock %}
