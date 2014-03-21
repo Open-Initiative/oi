@@ -165,7 +165,7 @@
     if(document.location.hash == "#submit") submitProject();
     
     var slider = document.getElementById('catcherbg');
-    Hammer(slider).on("swipeleft dragleft", function(event) { slideIndex(); });
+    Hammer(slider).on("swipeleft dragleft", function(event) { slideIndex(); restartInterval();});
     Hammer(slider).on("swiperight dragright", slideIndexReverse);
 </script>
 <div class="cleared" style="width:100%"></div>

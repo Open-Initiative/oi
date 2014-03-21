@@ -169,15 +169,16 @@ function slideIndex(nextid) {
     }
 }
 function slideIndexReverse() {
-    if(document.getElementById("indexslide1").style.display=="block"){
-        slideIndex(4);
-    }else if(document.getElementById("indexslide2").style.display=="block"){
-        slideIndex(1);
-    }else if(document.getElementById("indexslide3").style.display=="block"){
-        slideIndex(2);
-    }else if(document.getElementById("indexslide4").style.display=="block"){
-        slideIndex(3);
+    //it is the reverse of sliderIndex
+    for(var i = 1; i < 5; i++){
+        if(document.getElementById("indexslide"+i).style.display=="block"){
+            if(i==1) slideIndex(4/i); else slideIndex(i-1);
+            break;
+        }
     }
+    restartInterval();
+}
+function restartInterval() {
     //restart the setInterval to 0
     clearInterval(refreshIntervalId);
     refreshIntervalId = window.setInterval(function (){if(window.slide) slideIndex()}, 8000);

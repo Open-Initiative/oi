@@ -231,3 +231,21 @@ function closePanel(){
     $('#btn_extend_open').removeClass('invisible');
     $('#btn_extend_close').addClass('invisible');
 }
+function initSwipePanel(){
+    var panel = document.getElementById('shrinkrelated');
+    if (window.matchMedia("(max-width: 750px)").matches) {
+        Hammer(panel).on("swipeleft dragleft", openPanel);
+        Hammer(panel).on("swiperight dragright", closePanel);
+    }
+}
+function resizeSwipePanelEffect(){
+    $(window).resize(function() {
+        if (window.matchMedia("(max-width: 750px)").matches) {
+            initSwipePanel();
+        }else{
+            var panel = document.getElementById('shrinkrelated');
+            Hammer(panel).off("swipeleft dragleft", openPanel);
+            Hammer(panel).off("swiperight dragright", closePanel);
+        }
+    });
+}
