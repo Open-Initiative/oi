@@ -691,13 +691,26 @@ def evaluateproject(request, id):
     comment = request.POST["comment"]
     if request.user == project.assignee:
         return HttpResponse(_("You can not evaluate your project"), status=433)
+        
     if project.state == OI_VALIDATED:
-        for bid in project.bid_set.filter(user=request.user):
+    
+        #for the project
+        for bid in project.bid_set.filter(user=request.user): #update user's bid
             if bid.rating is not None:
                 return HttpResponse(_("You have already evaluated this task"), status=433)
             bid.rating = rating
             bid.comment = comment
             bid.save()
+            
+        #for the descendants
+        for task in project.descendants.all().filter_perm(request.user, OI_READ):
+            for bid in task.bid_set.filter(user=request.user):
+                if bid.rating is not None:
+                    return HttpResponse(_("You have already evaluated this task"), status=433)
+                bid.rating = rating
+                bid.comment = comment
+                bid.save()
+    
         #notify assignee that he has an evaluation
         project.assignee.get_profile().get_default_observer(project).notify("project_eval", project=project, param=unicode(rating), sender=request.user)
     messages.info(request, _("Evaluation saved"))
