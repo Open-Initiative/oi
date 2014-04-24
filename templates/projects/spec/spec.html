@@ -5,13 +5,13 @@
 {% endif %}
 <div id="spec_{{project.id}}_{{spec.order}}_content"{% if project|can_write:user and project.state < 4 %} class="clickable" onclick="(new OISpot(this.parentNode, {{project.id}}, {{spec.id}}, 0, (event.pageX||(event.clientX + document.documentElement.scrollLeft))-this.parentNode.offsetLeft, (event.pageY||(event.clientY + document.documentElement.scrollTop))-this.parentNode.offsetTop)).edit();event.stopPropagation();"{% endif %}>
     <input type="hidden" id="specid_{{project.id}}_{{spec.order}}" value="{{spec.id}}" />
-    {% if spec.type == 2 or spec.type == 6 %}<img style="max-width:700px" src="{% if spec.file %}{{spec.file.url}}{% endif %}" />{% endif %}
+    {% if spec.type == 2 or spec.type == 6 %}{% if spec.file %}<img style="max-width:700px" src="{{spec.file.url}}" />{% endif %}{% endif %}
     {% if spec.type == 4 %}
     <iframe width="450" height="350" src="{{spec.url}}" frameborder="0" allowfullscreen>
     </iframe><br/>
     {% endif %}
     {% if spec.type == 3 or spec.type == 6 and spec.url != "http://" %}
-    <a target= "_blank" href="{{spec.url}}" > {{spec.text|oiunescape|default:spec.url}} </a>
+    {% if spec.url %}<a target= "_blank" href="{{spec.url}}" >{% endif %} {{spec.text|oiunescape|default:spec.url}} {% if spec.url %}</a>{% endif %}
     {% else %}{{spec.text|oiunescape}}{% endif %}
 </div>
 <div class="specfooter">
