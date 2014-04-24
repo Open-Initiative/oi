@@ -3,9 +3,13 @@
 {% load i18n %}
 {% block title %}{{object.title|default:_("Project")}}{% endblock %}
 {% block breadcrumb %}
+{% if object.ancestors|filter_read:user|length > 5 %}
+<div class="path-element"><a title="{{object.parent.title}}" href="/project/{{object.parent.id}}/view/overview">...</a></div>
+{% else %}
 {% for ancestor in object.ancestors|filter_read:user %}
 <div class="path-element"><a href="/project/{{ancestor.id}}/view/overview">{{ancestor.title}}</a></div>
 {% endfor %}
+{% endif %}
 <div class="path-element">{{object.title}}</div>
 {% endblock %}
 {% block actions %}

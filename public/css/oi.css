@@ -309,7 +309,7 @@ div.pagetitle {
 }
 .path-element:not(:first-child):before {
   border-bottom: 11px solid transparent;
-  border-left: 10px solid #F9F9F9;
+  border-left: 10px solid #0094B5;
   border-top: 11px solid transparent;
   content: " ";
   height: 0;
