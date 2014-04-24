@@ -656,15 +656,14 @@ def validateproject(request, id):
     """Validates the project by the user"""
     project = Project.objects.get(id=id)
     if project.state == OI_DELIVERED:
-        #for the project
-        for bid in project.bid_set.filter(user=request.user): #update user's bid
-            if bid.validated:
-                return HttpResponseForbidden(_("already validated!"))
-            bid.validated = True
-            bid.save()
-            
-        #for the descendants
+        list_project = []
+        list_project.append(project)
+        #fliter of all the project which have to be validated
         for task in project.descendants.all().filter_perm(request.user, OI_READ):
+            if task.bid_set.filter(user=request.user, validated=False):
+                list_project.append(task)
+            
+        for task in list_project:
             for bid in task.bid_set.filter(user=request.user):
                 if bid.validated:
                     return HttpResponseForbidden(_("already validated!"))
@@ -693,17 +692,14 @@ def evaluateproject(request, id):
         return HttpResponse(_("You can not evaluate your project"), status=433)
         
     if project.state == OI_VALIDATED:
-    
-        #for the project
-        for bid in project.bid_set.filter(user=request.user): #update user's bid
-            if bid.rating is not None:
-                return HttpResponse(_("You have already evaluated this task"), status=433)
-            bid.rating = rating
-            bid.comment = comment
-            bid.save()
-            
-        #for the descendants
+        list_project = []
+        #filter of all the project which have to be evaluate
+        list_project.append(project)
         for task in project.descendants.all().filter_perm(request.user, OI_READ):
+            if task.bid_set.filter(user=request.user, validated=True, rating=None):
+                list_project.append(task)
+            
+        for task in list_project:
             for bid in task.bid_set.filter(user=request.user):
                 if bid.rating is not None:
                     return HttpResponse(_("You have already evaluated this task"), status=433)
