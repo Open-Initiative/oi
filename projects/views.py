@@ -656,11 +656,21 @@ def validateproject(request, id):
     """Validates the project by the user"""
     project = Project.objects.get(id=id)
     if project.state == OI_DELIVERED:
+        #for the project
         for bid in project.bid_set.filter(user=request.user): #update user's bid
             if bid.validated:
                 return HttpResponseForbidden(_("already validated!"))
             bid.validated = True
             bid.save()
+            
+        #for the descendants
+        for task in project.descendants.all().filter_perm(request.user, OI_READ):
+            for bid in task.bid_set.filter(user=request.user):
+                if bid.validated:
+                    return HttpResponseForbidden(_("already validated!"))
+                bid.validated = True
+                bid.save()
+    
     if not project.switch_to(OI_VALIDATED, request.user):
         return HttpResponse(_("only bidders can validate the project!"))
     
