@@ -4,13 +4,13 @@
 {% block title %}{{object.title|default:_("Project")}}{% endblock %}
 {% block breadcrumb %}
 {% if object.ancestors|filter_read:user|length > 5 %}
-<div class="path-element"><a title="{{object.parent.title}}" href="/project/{{object.parent.id}}/view/overview">...</a></div>
+<div class="path-element"><a class="shortbreadcrumb" title="{{object.parent.title}}" href="/project/{{object.parent.id}}/view/overview">...</a></div>
 {% else %}
 {% for ancestor in object.ancestors|filter_read:user %}
-<div class="path-element"><a href="/project/{{ancestor.id}}/view/overview">{{ancestor.title}}</a></div>
+<div class="path-element"><a class="shortbreadcrumb" href="/project/{{ancestor.id}}/view/overview">{{ancestor.title}}</a></div>
 {% endfor %}
 {% endif %}
-<div class="path-element">{{object.title}}</div>
+<div class="path-element"><span class="shortbreadcrumb">{{object.title}}</span></div>
 {% endblock %}
 {% block actions %}
 <div class="prjtitle-block">

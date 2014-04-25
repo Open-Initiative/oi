@@ -291,17 +291,25 @@ div.pagetitle {
     border-bottom: solid 1px #E0E0E0;
     height: 20px;
 }
+.shortbreadcrumb{
+    display: block;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 .path-element {
     float: left;
     padding: 3px 0 3px 20px;
     position: relative;
 }
-.path-element:after {
+.path-element:not(:last-child):after {
     border-bottom: 11px solid transparent;
     border-top: 11px solid transparent;
     border-left: 10px solid #F9F9F9;
     content: " ";
     height: 0;
+    left: 0;
     position: absolute;
     margin-left: 5px;
     top: -1px;
