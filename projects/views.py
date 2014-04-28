@@ -38,6 +38,7 @@ from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
 from oi.prjnotify.models import Observer
 from oi.settings_specific import OI_DOMAINS
+import re
 
 #def getprojects(request):
 #    """Apply filter to project list"""
@@ -1062,7 +1063,6 @@ def savespec(request, id, specid='0'):
     if (spec.type == 3 or spec.type == 6) and spec.url == None:
         spec.url = ""
     if spec.type == 4:
-        import re
         #search if in the link there are as element platform and path
         regex = re.compile("(?P<platform>//player.vimeo.com/|//www.youtube.com/|http://www.dailymotion.com/)(?P<path>([^\"'])*)")
         match = regex.search(spec.url)

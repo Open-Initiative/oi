@@ -183,7 +183,7 @@ div.blogicon {
     color: #0094B5;
     font-weight: bold;
     font-size: 2em;
-    margin-bottom: 20px;
+/*    margin-bottom: 20px;*/
     padding-right: 10px;
 }
 .related > div:first-child {
