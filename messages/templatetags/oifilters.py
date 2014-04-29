@@ -24,25 +24,34 @@ OI_ALLOWED_ATTRIBUTES = "style|title|width|height|id|class|src|target|alt|href|l
 
 def cleantags(text):
     """return string with no special attributs"""
-    #regex to get all the attributes
-    regex_all_attributes = re.compile("((?P<attb> )(?P<res>([^>$])*(\"|\')))")
-    match = regex_all_attributes.search(text)
     
-    #if there are attributes
-    if match:
+    #check if the text begin and finish with a tag
+    start_tag = re.compile("(?P<tag>\<)(?P<res>([^\"])* )")
+    start_tag_match = start_tag.search(text)
     
-        #the string with all the attributes
-        string_all_attributes = match.group()
+    end_tag = re.compile("(?P<tag>\<\/)(?P<res>([^\"])*>)")
+    end_tag_match = end_tag.search(text)
+    
+    #if the text begin and finish with a tag
+    if start_tag_match and end_tag_match:
+    
+        #regex to get all the attributes
+        regex_all_attributes = re.compile("((?P<attb> )(?P<res>([^>$])*(\"|\')))")
+        match = regex_all_attributes.search(text)
+        if match:
         
-        allowed_attributes = " "
-        for attribute in OI_ALLOWED_ATTRIBUTES.split("|"):
-            #the string with all allowed attributes
-            regex = re.compile("((?P<attb>%s=(\"|\'))(?P<res>([^\"|\'|>$])*(\"|\')))"%attribute)
-            match2 = regex.search(string_all_attributes)
-            allowed_attributes += match2.group() + " " if match2 else ""
+            #the string with all the attributes
+            string_all_attributes = match.group()
+            
+            allowed_attributes = " "
+            for attribute in OI_ALLOWED_ATTRIBUTES.split("|"):
+                #the string with all allowed attributes
+                regex = re.compile("((?P<attb>%s=(\"|\'))(?P<res>([^\"|\'|>$])*(\"|\')))"%attribute)
+                match2 = regex.search(string_all_attributes)
+                allowed_attributes += match2.group() + " " if match2 else ""
+            
+            text = text.replace(match.group(), allowed_attributes)
         
-        text = text.replace(match.group(), allowed_attributes)
-    
     return text
         
 
@@ -81,12 +90,11 @@ def repl(tag):
 def oiescape(text):
     """escapes tags used by the rich text editor"""
     #if bad attributs exist, it remove it
-    text = cleantags(text)
     for code in OI_SPECIAL_ESCAPE_CODE:
         text = re.sub(code, repl(OI_SPECIAL_ESCAPE_CODE[code]), text)
     for code in OI_ESCAPE_CODE:
         text = text.replace(code, OI_ESCAPE_CODE[code])
-    return text
+    return cleantags(text)
     
 @register.filter
 def multiply(value, arg):
