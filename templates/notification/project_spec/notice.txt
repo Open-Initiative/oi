@@ -5,6 +5,5 @@
 {% else %}
 {% trans "has changed the specification of a project you follow:" %} 
 {% endif %}
-{{notice.project.title}} :
 {{notice.param|oiunescape}}
 http://{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}

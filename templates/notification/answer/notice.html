@@ -8,7 +8,7 @@
 {% blocktrans %} has published a message on a project you follow:{% endblocktrans %}
 {% endif %}
 </br>
-<div style="background-color: rgb(245, 243, 243); width: 70%; margin: auto; padding: 2%; border-radius: 20px 20px 20px 20px;">
+<div style="background-color: rgb(245, 243, 243); padding: 5px; border-radius: 3px;">
 	<b>{% trans "Object" %}:</b> {{notice.project.title}}
 	<br>
 	<b>{% trans "Message" %}:</b> {{notice.param|oiunescape}}

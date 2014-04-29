@@ -94,12 +94,12 @@ def savemessage(request, id):
     
     #notify users about this message
     if project:
-        project.notify_all(request.user, "answer", message.title)
+        project.notify_all(request.user, "answer", message.text)
         #adds the message to user's observation
         if author:
             author.get_profile().follow_project(project)
     for ancestor in message.ancestors.exclude(project=None):
-        ancestor.project.notify_all(request.user, "answer", message.title)
+        ancestor.project.notify_all(request.user, "answer", message.text)
         #adds the message to user's observation
         if author:
             author.get_profile().follow_project(ancestor.project)

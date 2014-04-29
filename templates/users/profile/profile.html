@@ -35,7 +35,7 @@
             {% ifequal user selected_user %}<a href="/user/myaccount"><img src="/img/icons/edit.png" /></a>{% endifequal %}
         </div>
         <div class="cleared"></div>
-        <div style="margin-bottom: 20px;"><a href="{{selected_user.get_profile.personal_website}}">{{selected_user.get_profile.personal_website}}</a></div>
+        {% if selected_user.get_profile.personal_website %}<div style="margin-bottom: 20px;"><a href="{{selected_user.get_profile.personal_website}}">{{selected_user.get_profile.personal_website}}</a></div>{% endif %}
         
         <div class="cleared">
             <img src="/img/logo_small.png" class="column" style="margin-top: -7px; margin-right: 15px;"> 
