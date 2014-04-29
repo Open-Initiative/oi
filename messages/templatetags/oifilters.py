@@ -20,27 +20,31 @@ OI_ESCAPE_CODE = {"<hr />":"[[hr]]","<p":"[[p]]","</p>":"[[/p]]","<strong>":"[[s
 
 OI_SPECIAL_ESCAPE_CODE = {"<a(?P<param>.*?)>":"[[a]]","<p(?P<param>.*?)>":"[[p]]","<img(?P<param>.*?)>":"[[img]]","<div(?P<param>.*?)>":"[[div]]","<span(?P<param>.*?)>":"[[s]]","<table(?P<param>.*?)>":"[[table]]","<col(?P<param>.*?)>":"[[col]]","<tr(?P<param>.*?)>":"[[tr]]","<td(?P<param>.*?)>":"[[td]]","<h(?P<param>\d)>":"[[h]]","</h(?P<param>\d)>":"[[/h]]","</ul(?P<param>\d)>":"[[/ul]]"}
 
-OI_FORBIDDEN_ATTRIBUTES = "onblur|onchange|onfocus|onselect|onsubmit|onreset|onkeypress|onkeyup|onkeydown|onmouseout|onmousedown|onmouseup|onmousemove|onmouseover|onclick|ondblclick|onload|onerror|onunload|onresize"
-
 OI_ALLOWED_ATTRIBUTES = "style|title|width|height|id|class|src|target|alt|href|lang|dir"
 
 def cleantags(text):
     """return string with no special attributs"""
     #regex to get all the attributes
-    regex_all_attributes = re.compile("((?P<attb> )(?P<res>([^>$])*))")
+    regex_all_attributes = re.compile("((?P<attb> )(?P<res>([^>$])*(\"|\')))")
     match = regex_all_attributes.search(text)
-    #the string with all the attributes
-    string_all_attributes = match.group() if match else ""
     
-    allowed_attributes = " "
-    for attribute in OI_ALLOWED_ATTRIBUTES.split("|"):
-        #the string with all allowed attributes
-        regex = re.compile("((?P<attb>%s=(\"|\'))(?P<res>([^\"|\'|>$])*(\"|\')))"%attribute)
-        match2 = regex.search(string_all_attributes)
-        allowed_attributes += match2.group() + " " if match2 else ""
+    #if there are attributes
+    if match:
     
-    text = text.replace(match.group(), allowed_attributes)
+        #the string with all the attributes
+        string_all_attributes = match.group()
+        
+        allowed_attributes = " "
+        for attribute in OI_ALLOWED_ATTRIBUTES.split("|"):
+            #the string with all allowed attributes
+            regex = re.compile("((?P<attb>%s=(\"|\'))(?P<res>([^\"|\'|>$])*(\"|\')))"%attribute)
+            match2 = regex.search(string_all_attributes)
+            allowed_attributes += match2.group() + " " if match2 else ""
+        
+        text = text.replace(match.group(), allowed_attributes)
+    
     return text
+        
 
 @register.filter
 def oiunescape(text, autoescape=None):
