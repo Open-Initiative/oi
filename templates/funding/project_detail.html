@@ -330,8 +330,6 @@
 <script>
     currentTask = {{object.id}};
     allFeatureFunction(); 
-    project_content('featuresproject');
-    project_oncload_page();
     follow = {% if object|is_following:user %}true{%else%}false{%endif%};
     {% if object|can_manage:user %}
     sortFeature({{object.id}});

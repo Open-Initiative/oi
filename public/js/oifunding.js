@@ -3,6 +3,8 @@ function allFeatureFunction(){
     isFeatureState();
     notVisibleBtnFeature();
     oneBtnFeatureToHide();
+    project_content('featuresproject');
+    project_oncload_page();
     showFeatureState();
 }
 function featureShowHide (divid){
@@ -204,6 +206,7 @@ function arrow_Up_Down(divid){
     $('#arrow_header').toggle();
 }
 function project_content(divid){
+    //show the content of feature, community or discussion
     var tabs_Headid = ["features", "community", "discussions"];
     var tabs_blockid = ["featuresproject", "communityproject", "discussionsproject"];
     for(var i = 0; i < tabs_Headid.length; i++){
@@ -239,6 +242,7 @@ function initSwipePanel(){
     }
 }
 function resizeSwipePanelEffect(){
+    //if window resize, do this effect
     $(window).resize(function() {
         if (window.matchMedia("(max-width: 750px)").matches) {
             initSwipePanel();
