@@ -163,15 +163,17 @@ function expandFeature(taskid){
     }
 }
 function selectplugin(projectid, plugintype) {
-    var width = "100%";
     if(plugintype == "big"){
+        var width = "100%";
         var height = "450px";
     }else if(plugintype == "small"){
         var height = "99px";
+        var width = "240px";
     }else{
         var height = "42px";
+        var width = "105px";
     }
-    var iframe = "<iframe style='border:none; width:"+width+"; height: "+height+"; max-width: 350px; min-width: 280px;' src='http://"+sites["Open Funding"]+"/funding/"+projectid+"/embed?type="+plugintype+"'></iframe>";
+    var iframe = "<iframe style='border:none; width:"+width+"; height: "+height+"; max-width: 350px;' src='http://"+sites["Open Funding"]+"/funding/"+projectid+"/embed?type="+plugintype+"'></iframe>";
     document.getElementById('plugincode').value = iframe;
     document.getElementById('plugin_preview').innerHTML = iframe;
 }

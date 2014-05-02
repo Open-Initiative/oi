@@ -47,7 +47,7 @@
         <script type="text/javascript" src="{% url django.views.i18n.javascript_catalog %}"></script>
     </head>
 
-    <body style="background-color: transparent;">
+    <body style="background-color: transparent; {% if request.GET.type == 'small' %}min-width: 240px;{% endif %} {% if request.GET.type == 'tiny' %}min-width: 100px;{% endif %} {% if request.GET.type == 'big' %}min-width: 100%;{% endif %}">
         <div id="messageoutput">
             <div><span id="output" class="info"></span></div>
         </div>
