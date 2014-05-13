@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="shortcut icon" href="/favicons.ico" />
+    {% block metadata %}{% endblock %}
     {% compress css %}
     <link rel="stylesheet" type="text/css" media="all" href="/css/jsDatePick_ltr.min.css" />
     <link rel="stylesheet" type="text/css" media="all" href="/css/oimessages.css" />
@@ -23,19 +24,7 @@
     <script type="text/javascript" src="/js/plugins/hammer.fakemultitouch.js"></script>
     <script type="text/javascript" src="/js/plugins/hammer.showtouches.js"></script>
     <script type="text/javascript" src="/js/jquery.ui.datepicker-fr.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/tinymce.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/advlist/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/autolink/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/link/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/image/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/lists/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/charmap/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/spellchecker/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/wordcount/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/visualblocks/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/media/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/paste/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/themes/modern/theme.min.js"></script> 
+    {% block compress_js %}{% endblock %}
     <script type="text/javascript" src="/js/dateFormat.js"></script>
     <script type="text/javascript" src="/js/oijs.js"></script>
     <script type="text/javascript" src="/js/oimessage.js"></script>

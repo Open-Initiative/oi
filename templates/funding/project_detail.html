@@ -2,6 +2,42 @@
 ﻿﻿{% load oifilters %}
 {% load i18n %}
 {% block title %}{{object.title|default:_("Project")}}{% endblock %}
+{% block metadata %}
+    <meta name="keywords" content="{{object.title}}, {% trans 'free' %}, {% trans 'software' %}, {% trans 'application' %}"/>
+    <meta name="generator" content="Django"/>
+    {% for spec in object.all_specs_with_languages %}
+        {% if spec.order == 2 %}
+        <meta name="description" content="{{spec.text}}"/>
+        <meta property="og:description" content="{{spec.text}}"/>
+        {% endif %}
+    {% endfor %}
+    <meta property="og:title" content="{{object.title}}"/>
+    <meta property="og:type" content="Open Funding:project"/>
+    {% with spec=object.spec_set.all|filter_order:1 %}
+    {% if spec.file.url %}
+        <meta property="og:image" content="{{current_site}}{{spec.file.url}}"/>
+    {% endif %}
+    {% endwith %}
+    <meta property="og:url" content="{{current_site}}{{request.path}}"/>
+    <meta property="og:site_name" content="Open Funding"/>
+{% endblock %}
+
+{% block compress_js %}
+    <script type="text/javascript" src="/js/tiny_mce/tinymce.min.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/plugins/advlist/plugin.min.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/plugins/autolink/plugin.min.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/plugins/link/plugin.min.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/plugins/image/plugin.min.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/plugins/lists/plugin.min.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/plugins/charmap/plugin.min.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/plugins/spellchecker/plugin.min.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/plugins/wordcount/plugin.min.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/plugins/visualblocks/plugin.min.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/plugins/media/plugin.min.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/plugins/paste/plugin.min.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/themes/modern/theme.min.js"></script> 
+{% endblock %}
+
 {% block breadcrumb %}
 <div class="path-element">{{object.title}}</div>
 {% endblock %}
@@ -112,9 +148,9 @@
     <div id="project_{{object.id}}" class="project">
         <div id="prjdialogue_{{object.id}}" class="popup invisible"></div>
         <div class="prjheader">
-            <div class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">
+            <h1 class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">
                 {{object.title}}
-            </div>
+            </h1>
             <div class="prj-block-fav">
                 <img onclick="favProject({{object.id}}, 'Funding')" src="/img/icons/star{{object|is_following:user}}Funding.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_{{object.id}}" />
                 {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
@@ -147,9 +183,9 @@
     <div class="project">
     
         <div class="tabs_project">
-            <a id="features" class="tab_project" href="#features" onclick="project_content('featuresproject')">{% trans "Features" %}</a>
-            <a id="community" class="tab_project" href="#community" onclick="project_content('communityproject')">{% trans "Community" %}</a>
-            <a id="discussions" class="tab_project" href="#discussions" onclick="project_content('discussionsproject')">{% trans "Discussions" %}</a>
+            <a id="features" class="tab_project" href="#features" onclick="project_content('featuresproject')"><h2>{% trans "Features" %}</h2></a>
+            <a id="community" class="tab_project" href="#community" onclick="project_content('communityproject')"><h2>{% trans "Community" %}</h2></a>
+            <a id="discussions" class="tab_project" href="#discussions" onclick="project_content('discussionsproject')"><h2>{% trans "Discussions" %}</h2></a>
         </div>
         <div class="cleared"></div>
     

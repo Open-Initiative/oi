@@ -1441,7 +1441,7 @@ div.spectype {
     float: left;
     margin-bottom: 10px;
 }
-.tab_project {
+.tab_project  > h2 {
     padding: 10px;
     color: #0094B5;
     border-right: solid 1px white;
@@ -1453,7 +1453,7 @@ div.spectype {
 .tab_project:last-child {
     border-right: none;
 }
-.tab_project_selected {
+.tab_project_selected > h2 {
     background: #0094B5;
     color: white;
     font-weight: bold;
