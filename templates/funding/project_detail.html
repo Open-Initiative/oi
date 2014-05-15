@@ -180,16 +180,16 @@
     <div id="project_{{object.id}}" class="project">
         <div id="prjdialogue_{{object.id}}" class="popup invisible"></div>
         <div class="prjheader">
-            <h1 class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">
-                {{object.title}}
-            </h1>
-            <img onclick="favProject({{object.id}}, 'Funding')" src="/img/icons/star{{object|is_following:user}}Funding.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_{{object.id}}" />
-                {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
             {% with spec=project.spec_set.all|filter_order:1 object=project %}
             <div style="position:relative; float:right" id="spec_{{object.id}}_{{spec.order}}" class="funding_space">
                 {%include 'funding/spec/spec.html'%}
             </div>
             {% endwith %}
+            <h1 class="tasktitle no_margin" id="prjtitle_{{object.id}}" title="{{object.title}}">
+                {{object.title}}
+            </h1>
+            <img onclick="favProject({{object.id}}, 'Funding')" src="/img/icons/star{{object|is_following:user}}Funding.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_{{object.id}}" />
+                {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
         </div>
         <div id="specs_{{project.id}}" class="prjdesc">
             {% for spec in project.all_specs_with_languages %}
