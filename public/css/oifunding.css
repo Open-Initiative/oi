@@ -1208,7 +1208,7 @@ div.popup_spec {
     z-index: 20;
     border-radius: 3px;
     box-shadow: 3px 3px 4px;
-    right: 0;
+    left: 0;
     top: 20px;
     max-height: 85%;
     max-width: 400px;
@@ -1483,14 +1483,14 @@ div.spectype {
 .social_integration{
     background: none repeat scroll 0 0 white;
     border-radius: 5px 0 0 5px;
-    height: 130px;
+    height: 160px;
     left: -35px;
     position: absolute;
-    top: 160px;
+    top: 150px;
     width: 35px;
 }
 .social_integration_img{
-    margin: 10px 5px;
+    margin: 5px;
 }
 .social_integration_text{
     background: #737477;

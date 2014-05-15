@@ -153,7 +153,7 @@
             </div>
             <img src="/img/social_icons/t.png" class="social_integration_img" alt="twitter" />
         </a>
-        <a style="position:relative;" onmouseover="$('#social_facebook').show();" onmouseout="$('#social_facebook').hide();" target="_blank" href="http://www.facebook.com/sharer.php?u=http://funding.openinitiative.com/funding/{{object.id}}&t={% trans 'Support' %}%20{{object.title}}">
+        <a style="position:relative;" onmouseover="$('#social_facebook').show();" onmouseout="$('#social_facebook').hide();" target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=http://funding.openinitiative.com/funding/{{object.id}}">
             <div id="social_facebook" class="invisible">
                 <div class="social_integration_text">{% trans "Share on Facebook" %}</div>
                 <div class="social_integration_buble"></div>
@@ -165,7 +165,14 @@
                 <div class="social_integration_text">{% trans "Share on Google Plus" %}</div>
                 <div class="social_integration_buble"></div>
             </div>
-            <img src="/img/social_icons/.png" class="social_integration_img" alt="google+">
+            <img src="/img/social_icons/g.png" class="social_integration_img" alt="google+">
+        </a>
+        <a class="clickable" style="position:relative;" onmouseover="$('#social_embed').show();" onmouseout="$('#social_embed').hide();" onclick="showPopup(document.getElementById('pluginpopup'))">
+            <div id="social_embed" class="invisible">
+                <div class="social_integration_text">{% trans "Embed the project page" %}</div>
+                <div class="social_integration_buble"></div>
+            </div>
+            <img src="/img/social_icons/embed.png" class="social_integration_img" alt="embed">
         </a>
     </div>    
     
@@ -176,10 +183,8 @@
             <h1 class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">
                 {{object.title}}
             </h1>
-            <div class="prj-block-fav">
-                <img onclick="favProject({{object.id}}, 'Funding')" src="/img/icons/star{{object|is_following:user}}Funding.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_{{object.id}}" />
+            <img onclick="favProject({{object.id}}, 'Funding')" src="/img/icons/star{{object|is_following:user}}Funding.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_{{object.id}}" />
                 {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
-            </div>
             {% with spec=project.spec_set.all|filter_order:1 object=project %}
             <div style="position:relative; float:right" id="spec_{{object.id}}_{{spec.order}}" class="funding_space">
                 {%include 'funding/spec/spec.html'%}

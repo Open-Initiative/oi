@@ -8,9 +8,7 @@
     <input type="hidden" id="specid_{{object.id}}_{{spec.order}}" value="{{spec.id}}" />
     
     {% if spec.type == 2 or spec.type == 6 and spec.file %}
-    <div class="form_center">
-        <img style="max-width:200px; max-height:200px" src="{% if spec.file %}{{spec.file.url}}{% endif %}" />
-    </div>
+    <img style="max-width:200px; max-height:200px" src="{% if spec.file %}{{spec.file.url}}{% endif %}" />
     {% endif %}
     {% if spec.type == 4 %}
     <iframe width="450" height="350" src="{{spec.url}}" frameborder="0" allowfullscreen>
