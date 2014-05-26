@@ -1214,6 +1214,7 @@ div.popup_spec {
     max-width: 400px;
     min-width: 280px;
     overflow: auto;
+    width: 340px;
 }
 .actions {
     clear: right;
@@ -1483,10 +1484,10 @@ div.spectype {
 .social_integration{
     background: none repeat scroll 0 0 white;
     border-radius: 5px 0 0 5px;
-    height: 160px;
-    left: -35px;
+    height: 150px;
+    margin-left: -1.5%;
     position: absolute;
-    top: 150px;
+    top: 80px;
     width: 35px;
 }
 .social_integration_img{

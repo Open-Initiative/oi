@@ -49,7 +49,7 @@
 
 {% if object|can_write:user %}
 <div id="pluginpopup" class="invisible popup" onclick="document.ignoreClosePopups = true;">
-    <p>{% trans "If you want to see the feature in your website, you have to" %} <span class="rewardtitle">{% trans "copy and paste the code" %}</span></p>
+    <p>{% trans "Embed this widget to share the feature on your blog or website" %}</p>
     <form>
         <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="big"/>{% trans "Big" %}
         <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="small"/>{% trans "Small" %}
