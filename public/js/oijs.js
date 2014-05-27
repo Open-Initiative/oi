@@ -183,19 +183,14 @@ function restartInterval() {
     clearInterval(refreshIntervalId);
     refreshIntervalId = window.setInterval(function (){if(window.slide) slideIndex()}, 8000);
 }
-function slidePres(blockid, id) {
+function slidePres(id) {
     jQuery('.presslide').hide();
-    jQuery("#"+id).show();
-    boldPresentation(blockid, id);
-}
-function boldPresentation(blockid, divid){
-    //put in bold the title seleted
-    var tabs = document.getElementById(blockid).getElementsByTagName("span");
-    for(var i=0; i<tabs.length; i++){
-        tabs[i].style.fontWeight = "";
-    }
-    document.getElementById("_"+divid).style.fontWeight = "bold";
-    document.location.hash = divid;
+    jQuery(id.replace(/[0-9]/g, '')).show();
+
+    //sets the selected title bold
+    jQuery(".presnav span").css("font-Weight", "")
+    jQuery(id.replace(/[0-9]/g, '')+"_").css("font-Weight", "bold");
+    document.location.hash = id;
 }
 function expandCateg(img, categid, dest){
     if(img.down != 1){

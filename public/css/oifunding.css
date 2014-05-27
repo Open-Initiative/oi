@@ -7,7 +7,7 @@
     padding: 0.5em;
     font-size: 1.2em;
     margin: 0 auto 20px;
-    max-width: 790px;
+    max-width: 900px;
     text-align: center;
 }
 .presnavtitle {
@@ -318,7 +318,7 @@ div.minispec {
 }
 .prjbodypresentation {
     background: white;
-    max-width: 750px;
+    max-width: 860px;
     margin: 0 auto;
     padding: 10px 30px;
 }
@@ -1529,7 +1529,6 @@ div.spectype {
 .opentheworld_help{
     font-size: 18px; 
     padding: 10px;
-    border: 1px dashed #000000;
 }
 .opentheworld_title{
     font-size: 1.7em;

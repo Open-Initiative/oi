@@ -3,13 +3,14 @@
 {% block title %}{% trans "Presentation of Open Funding" %}{% endblock %}
 {% block pagetitle %}{% trans "Presentation of Open Funding" %}{% endblock %}
 {% block content %}
-<div id="block_presnav" class="presnav">
+<div
+ class="presnav">
 
-    <span id="_A" onclick="slidePres('block_presnav', 'A');" class="presnavtitle">{% trans "About Open Funding" %}</span>
-    <span id="_B" onclick="slidePres('block_presnav', 'B');" class="presnavtitle">{% trans "How it works" %}</span>
-    <span id="_C" onclick="slidePres('block_presnav', 'C');" class="presnavtitle">{% trans "For Developers" %}</span>
-    
-    <span id="_D" onclick="slidePres('block_presnav', 'D');" class="presnavtitle">{% trans "For Users" %}</span>
+    <span id="A_" onclick="slidePres('#A');" class="presnavtitle">{% trans "About Open Funding" %}</span>
+    <span id="B_" onclick="slidePres('#B');" class="presnavtitle">{% trans "How it works" %}</span>
+    <span id="C_" onclick="slidePres('#C');" class="presnavtitle">{% trans "For Developers" %}</span>
+    <span id="D_" onclick="slidePres('#D');" class="presnavtitle">{% trans "For Users" %}</span>
+    <span id="E_" onclick="slidePres('#E');" class="presnavtitle">{% trans "#OpenTheWorld" %}</span>
     
 </div>
 <div class="cleared"></div>
@@ -179,15 +180,32 @@
         {% trans "<p>Free software communities are very informal group of users having interest for the same software. So, somehow, by just trying the software you joined the community. Giving feedback, talking about it to other people, reporting a bug, suggesting a new feature, translating the software in your language are some of the ways to contribute. But developing a new feature or funding this development is probably the best way!</p>" %}
         
         <h3 id="D10">{% trans "My software is not on Open Funding! I have an idea, can a developer work on it?" %}</h3>
-        <p>{% trans "Sure! Please come talk to us about it, we can help you find a developer for your project:" %} <a href="mailto:contact@openinitiative.com">contact@openinitiative.com</a> </p>        
+        <p>{% trans "Sure! Please come talk to us about it, we can help you find a developer for your project:" %} <a href="mailto:contact@openinitiative.com">contact@openinitiative.com</a> </p>
+    </div>
+    
+    <div class="presslide invisible" id="E">
+        <h3 id="E1">{% trans "What is OpentheWorld?" %}</h3>
+        {% trans "<p>Open the World is a unique campaign gathering several projects funding together their individual features in order to grow their community by empowering people and enabling diversity. These projects share values and all contribute to building commons, they have a common message to spread!</p>" %}
+        
+        <h3 id="E2">{% trans "Why would they communicate together?" %}</h3>
+        {% trans "<p>With this campaign they not only share their reputation. By sharing a message, they show it’s not only about funding one project, it’s about building something together. In the end, the principle behind this new campaign is the very principle of cofunding: strength lies in unity.</p>" %}
+    
+        <h3 id="E3">{% trans "So it’s just raising funds for individual projects?" %}</h3>
+        {% trans "<p>Actually, we expect this campaign to generate more than that; it may prove to be a new wave in the movement of ‘open source software and hardwares’, a wave that enables new discussions and questions its future. The campaign is also an opportunity for the movement to prove its credibility.</p>" %}
+    
+        <h3 id="E4">{% trans "Why would they communicate together?" %}</h3>
+        {% trans "<p>We’ll keep working until the world is fully open! This campaign is just a start and the projects will be able to propose other great features when they’re done with these ones.</p>" %}
+    
+        <h3 id="E5">{% trans "So it’s just raising funds for individual projects?" %}</h3>
+        {% trans "<p>You can share your contribution between all the features that you want!</p>" %}
     </div>
     
     <script>
         $(document).ready(function(){
             if(!document.location.hash){
-                slidePres('block_presnav','A');
+                slidePres('#A');
             }else{
-                slidePres('block_presnav',document.location.hash);
+                slidePres(document.location.hash);
             }
         });
     </script>
