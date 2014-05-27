@@ -75,3 +75,12 @@
     .prjbodyprofile {margin-right: 0;}
 }
 
+/*Open The world*/
+@media screen and (max-width:660px){
+    .opentheworld_separate_part{display:none;}
+}
+@media screen and (max-width:455px){
+    .opentheworld_cleared{display:block;}
+    .opentheworld_part1{width: auto;}
+    .opentheworld_description{max-width: 250px;}
+}

@@ -1,0 +1,55 @@
+{% load i18n %}
+{% load oifilters %}
+<div class="opentheworld_frame">
+    <div class="opentheworld_part1">
+    {% with spec=project.spec_set.all|filter_order:1 %}
+        <a class="fundingleft opentheworld_photo" href="/funding/{{project.id}}">
+            <div class="cardspec">{% include 'funding/spec/minispec.html' %}</div>
+        </a>
+        <div class="opentheworld_cleared invisible"></div>
+    {% endwith %}
+    
+    {% with spec=project.spec_set.all|filter_order:2 %}
+        <div class="cardspec fundingleft opentheworld_description">{% include 'funding/spec/minispec.html' %}</div>
+    {% endwith %}
+        <a class="clickable prj-btn opentheworld_btn_part1" href="/funding/{{project.id}}">{% trans "Learn more" %}</a>
+    </div>
+    
+    <div class="opentheworld_separate_part"></div>
+    
+    <div class="opentheworld_part2">
+        {% with project.descendants|filter_read:user as tasks %}
+        <div class="funding_space subtitle_news">
+            {{tasks.count}}
+            {% blocktrans count counter=tasks.count %}feature to be funded{% plural %} features to be funded{% endblocktrans %}
+        </div>
+        {% endwith %}
+        {% with project.descendants|filter_read:user as descendants %}
+        
+        <div class="opentheworld_projects_progressbar">
+            <div class="progressbar prjcard_margin_bottom">
+                <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio descendants.allbid_sum|add:project.bid_sum project.get_selfbudget|default:descendants.allbudget 100 %}%;"></span>
+                <span id="progresslabel_{{object.id}}" class="progresstitle" >{% widthratio descendants.allbid_sum|add:project.bid_sum project.get_selfbudget|default:descendants.allbudget 100 %} %</span>
+            </div>
+        </div>
+        
+        <div class="opentheworld_block_fund_goal">
+            <div class="fundingleft fund">
+                <span class="displayblock">{% trans "Funded" %}</span>
+                <span>{{project.allbid_sum|default:0|floatformat:"-2"}} €</span>
+            </div>
+            
+            <div class="goal">
+                <span class="displayblock">{% trans "Goal" %}</span>
+                <span class="">{{project.get_selfbudget|default:descendants.allbudget|floatformat:"-2"}} €</span>
+            </div>
+        </div>
+        
+        <img src="/img/logo_small.png" class="opentheworld_follower" alt="logo"> <div class="opentheworld_nbuser">{{project.bid_set.count}} {% trans "users" %}</div>
+        
+        {% endwith %}
+        <a class="clickable prj-btn opentheworld_btn_part2" href="/funding/{{project.id}}/#community">{% trans "Fund this project" %}</a>
+    </div>
+    
+</div>
+
