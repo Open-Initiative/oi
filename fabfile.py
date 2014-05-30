@@ -12,7 +12,7 @@ def init_south():
 
 @hosts('pp.open-initiative@ssh.alwaysdata.com')
 def deploy_pp(branch="devel"):
-    local("git push")
+    local("git push origin %s"%branch)
     with cd("oi"):
         run("git checkout %s"%branch)
         run("git branch -d pp")

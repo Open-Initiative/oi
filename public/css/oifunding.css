@@ -1491,7 +1491,7 @@ div.spectype {
     position: relative;
 }
 .opentheworld_logo{
-    left: 0px;
+    left: 20px;
     position: absolute; 
     z-index: 1;
 }
@@ -1500,7 +1500,7 @@ div.spectype {
     font-size: 2.5em;
     float: left;
     position: relative;
-    top: 40px;
+    top: 20px;
 }
 .opentheworld_learn_more{
     background: #0094B5; 
@@ -1575,12 +1575,9 @@ div.spectype {
     overflow:hidden;
 }
 .opentheworld_btn_part1{
-/*    margin-left: auto; */
-    position:absolute;
-    margin-left: 270px;
+    position:relative;
     margin-top: 142px;
-/*    top: 143px; */
-/*    left: 270px;*/
+    margin-bottom: 10px;
 }
 .opentheworld_projects_progressbar{
     padding-top: 10px;
@@ -1603,10 +1600,4 @@ div.spectype {
     float: left;
     position: relative;
     margin-top: 50px;
-/*    top: 40px;*/
-}
-.opentheworld_nbuser{
-    position: relative;
-/*    right: 37px;*/
-/*    top: 78px;*/
 }

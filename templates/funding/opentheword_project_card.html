@@ -45,7 +45,7 @@
             </div>
         </div>
         
-        <img src="/img/logo_small.png" class="opentheworld_follower" alt="logo"> <div class="opentheworld_nbuser">{{project.bid_set.count}} {% trans "users" %}</div>
+        <img src="/img/logo_small.png" class="opentheworld_follower" alt="logo"> {{project.bid_set.count}} {% trans "users" %}
         
         {% endwith %}
         <a class="clickable prj-btn opentheworld_btn_part2" href="/funding/{{project.id}}/#community">{% trans "Fund this project" %}</a>

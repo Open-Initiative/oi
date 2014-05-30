@@ -76,8 +76,8 @@
 }
 
 /*Open The world*/
-@media screen and (max-width:660px){
-    .opentheworld_separate_part{display:none;}
+@media screen and (max-width:686px){
+    .opentheworld_separate_part{border-right: none;border-bottom: 1px dashed #0094B5;margin: -5px 10px 0;min-width: 95%;min-height: 0;}
 }
 @media screen and (max-width:455px){
     .opentheworld_cleared{display:block;}
