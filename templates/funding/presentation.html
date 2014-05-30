@@ -8,8 +8,8 @@
 
     <span id="A_" onclick="slidePres('#A');" class="presnavtitle">{% trans "About Open Funding" %}</span>
     <span id="B_" onclick="slidePres('#B');" class="presnavtitle">{% trans "How it works" %}</span>
-    <span id="C_" onclick="slidePres('#C');" class="presnavtitle">{% trans "For Developers" %}</span>
-    <span id="D_" onclick="slidePres('#D');" class="presnavtitle">{% trans "For Users" %}</span>
+    <span id="C_" onclick="slidePres('#C');" class="presnavtitle">{% trans "For creators" %}</span>
+    <span id="D_" onclick="slidePres('#D');" class="presnavtitle">{% trans "For backers" %}</span>
     <span id="E_" onclick="slidePres('#E');" class="presnavtitle">{% trans "#OpenTheWorld" %}</span>
     
 </div>
@@ -17,7 +17,7 @@
 <div class="prjbodypresentation">
     <div class="presslide" id="A">
         <h3 id="A1">{% trans "What is cofunding? Is it different from crowdfunding?" %}</h3>
-        {% trans "<p>Open Funding is different from usual crowdfunding platforms. Cofunding provides a sustainable business model for free software and enables users to contribute and get their voice heard. It takes a professional approach to an open contribution world, and it makes the software more sustainable by helping professionals to keep working on it in the long run.</p>" %}
+        {% trans "<p>Open Funding is different from usual crowdfunding platforms.Cofunding provides a sustainable business model for free software and enables users to contribute and get their voice heard. It takes a professional approach to an open contribution world, and it makes the software more sustainable by helping professionals to keep working on it in the long run.</p>" %}
         
         <h3 id="A2">{% trans "A business model for free software developers! Really?" %}</h3>
         {% trans "<p>Open Funding is the best business model free software developers can have. Projects are funded feature by feature, thus reducing the risk associated with the development, and making sure the funds serve the user needs. Plus, as long as developers add features, they get funded, so projects can last for as many years as they need!</p>" %}
@@ -28,7 +28,7 @@
         {% trans "<p>Yes! It is free software: you can just make it yours! Give your opinion and fund the features you really need. Open Funding is the right place for you to join the community and make your software perfectly adapted to your needs!</p>" %}
         
         <h3 id="A4">{% trans "What is free software anyway?" %}</h3>
-        {% trans "<p>Free software has its origins in the 1980s, when some computer users wanted to be able to change the software that run these computers. So they created software with its source code made available and licensed with a license providing users the freedom to use, study, improve and share the software to anyone and for any purpose. As any developer can contribute to the software, we end up considering that software a common that anyone is welcome to contribute and take advantage of.</p>" %}
+        {% trans "<p>Free software has its origins in the 1980s, when some computer users wanted to be able to change the software that run these computers. So they created software w with its source code made available and licensed with a license providing users the freedom to use, study, improve and share the software to anyone and for any purpose. As any developer can contribute to the software, we end up considering that software a common that anyone is welcome to contribute and take advantage of.</p>" %}
         
         <p>{% trans "For more information, see <a href='http://en.wikipedia.org/wiki/Free_software'>Wikipedia</a>.</p>" %}
         
@@ -75,13 +75,6 @@
             </div>
         </div>
         
-<!--        <div class="surrondteampicture">-->
-<!--            <img src="/img/team/lucile.png" alt="Lucile" class="teampicture">-->
-<!--            <div class="column">-->
-<!--                <div class="usertitle">Lucile</div>-->
-<!--                <div class="cleared">{% trans "Communication" %}</div>-->
-<!--            </div>-->
-<!--        </div>-->
         <br/>
         
         <img src="/img/team/oft.JPG" style="width: 100%" alt="{% trans 'Open Funding Team' %}">
@@ -124,14 +117,37 @@
     </div>
     
     <div class="presslide invisible" id="C">
-        <h3 id="C1">{% trans "Ok, I want to get funded for the software I develop, what should I do now?" %}</h3>
-        {% trans "<p>If you have a free software project, you propose it on the platform with a list of its features. You explain your project and its features in the creation page, and for each feature you set the amount required for their development. You can add several features for each project. We add our commission to this sum.</p>" %}
+        <h3 id="C1">{% trans "How does Open Funding compare to other platforms?" %}</h3>
+        <ol>
+		    <li>
+                <b>{% trans "Greater flexibility" %}</b>
+                {% trans "<p>Campaigns are highly configurable, allowing individual features to be funded individually, like a new theme or plugin. You can fund several features at different times, or together; they need not start at the same time, and as soon as one is funded work can begin. Alternatively big projects can be funded all at once with all features included - you choose.</p>" %}
+                
+                {% trans "<p>Campaign duration is also flexible - payments may be accepted from one day to six months, and may be set in the project control panel.</p>" %}
+                
+                {% trans "<p>Rewards may be triggered by size of payment, and may include services or physical goods. Rewards may also be disabled entirely.</p>" %}
+            </li>
+		    <li>
+                <b>{% trans "Focus on Free Software and Hardware" %}</b>
+                {% trans "<p>Open Funding only hosts campaigns related to freedom-protecting products. This is the sole interest and focus of the platform, and tools, wording, and campaign pages reflect that.</p>" %}
+            </li>
+		    <li>
+                <b>{% trans "Competitive promotional tools" %}</b>
+                {% trans "<p>Campaigns on Open Funding are mobile, social media, and search enging friendly. Sharing links are available for individual features, and customised embeddable widgets of varying sizes are automatically generated. All new campaigns are featured on the front page and announced on Twitter.</p>" %}
+            </li>
+		    <li>
+                <b>{% trans "Resonable rates" %}</b>
+                {% trans "<p>Successful campaigns pay 5% of the total raised to Open Funding to cover operational costs. This compares to 9-11% commission by other software oriented platforms, and 5-9% charged by larger generic ones.</p>" %}
+            </li>
+        </ol>
+        
+        {% trans "<div>If you have a free software project, you propose it on the platform with a list of its features. You explain your project and its features in the creation page, and for each feature you set the amount required for their development. You can add several features for each project. We add our commission to this sum.</div>" %}
         
         <h3 id="C2">{% trans "Is there a time limit for the campaigns? How long can I run my project on Open Funding?" %}</h3>
         {% trans "<p>Open Funding is designed to make projects sustainable. So the projects can last as long as users need new features. Currently there is no limit to single feature campaigns because several features can be funded at the same time, but that might change in the future.</p>" %}
         
         <h3 id="C3">{% trans "I created a project, what now? Can I get help for my campaigns?" %}</h3>
-        {% trans "<p>Before publishing your project on the platform we will contact you by email and then by telephone. We wish to establish contact with project owners to learn a bit more from them directly, and assist them in the way they will promote the project.</p><p>Once we have validated this together, it’s time to share your project with the community. Each developer is free to communicate the way they wish and transmit the information to users to promote and fund the project. However, we are always available to guide you through this process. We can help in writing a good description, identifying your target, and elaborating your strategy. Just <a href='mailto:contact@openinitiative.com'>contact us</a></p>" %}
+        {% trans "<p>Before publishing your project on the platform we will contact you by email and then by telephone. We wish to establish contact with project owners to learn a bit more from them directly, and assist them in the way they will promote the project.</p><p>Once we have validated this together, it’s time to share your project with the community. Each developer is free to communicate the way they wish and transmit the information to users to promote and fund the project. However, we are always available to guide you through this process. We can help in writing a good description, identifying your target, and elaborating your strategy. Just <a href='mailto:contact@openinitiative.com'>contact us</a></p>." %}
         
         <h3 id="C4">{% trans "How do I convince users to participate?" %}</h3>
         {% trans "<p>There are lots of ways! But to make the long story short, the idea is to identify who are your users, and what features they need. You can add rewards to convince users to jump in or to participate with a bigger amount. Elaborating your strategy is essential, test your ideas with your early adopters. Be creative!</p>" %}
