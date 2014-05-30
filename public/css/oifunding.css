@@ -1539,6 +1539,9 @@ div.spectype {
     border-right: 1px solid #0094B5;
     padding: 5px;
 }
+.opentheworld_subtitle {
+    margin: 1em 3em;
+}
 .opentheworld_frame{
     border: 1px dashed #0094B5;
     background: none repeat scroll 0 0 #FFFFFF;
