@@ -2,8 +2,8 @@
 {% load i18n %}
 <div class="actions" style="min-width: 50px;">
     {% comment %}{% if not message|ip_has_voted:request.META.REMOTE_ADDR and user.is_anonymous or not message|has_voted:user and user.is_authenticated %}
-        <img class="clickable" src="/img/icons/relevantmsg.png" onclick="vote({{message.id}},1)" alt="{% trans "Message relevant" %}" title="{% trans "Message relevant" %}">
-        <img class="clickable" src="/img/icons/irrelevantmsg.png" onclick="vote({{message.id}},-1)" alt="{% trans "Message irrelevant" %}" title="{% trans "Message irrelevant" %}">
+        <img class="clickable" src="/img/icons/relevantmsg.png" onclick="vote({{message.id}},1)" alt="{% trans "Message relevant" %}" title="{% trans "Message relevant" %}" />
+        <img class="clickable" src="/img/icons/irrelevantmsg.png" onclick="vote({{message.id}},-1)" alt="{% trans "Message irrelevant" %}" title="{% trans "Message irrelevant" %}" />
     {% endif %}{% endcomment %}
     {% if user.is_authenticated %}
         {% if not message.parent %}

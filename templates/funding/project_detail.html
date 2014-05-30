@@ -75,7 +75,7 @@
             {% endwith %}
         {% endwith %}
     {% endfor %}
-    </div>
+</div>
 {% endfor %}
 
 {% comment %} for corner developpeur popup {% endcomment %}
@@ -176,7 +176,7 @@
             <ul class="features_manage" id="features_3">
                 {% for task in object.all_progress_tasks|filter_read:user %}
                     <li id="task_{{task.id}}">
-                    {% include 'funding/feature.html' %}
+                        {% include 'funding/feature.html' %}
                     </li>
                 {% endfor %}
                 <div class="cleared"></div>
@@ -185,7 +185,7 @@
             <ul class="features_manage" id="features_4">
                 {% for task in object.all_finish_tasks|filter_read:user %}
                     <li id="task_{{task.id}}">
-                    {% include 'funding/feature.html' %}
+                        {% include 'funding/feature.html' %}
                     </li>
                 {% endfor %}
                 <div class="cleared"></div>
