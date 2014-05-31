@@ -158,9 +158,9 @@
             <div class="fundingright">
                 {% if user.is_authenticated %}
                 <div class="fundingleft">
-                <span id="name_header" class="usertitle name_header clickable" onclick="arrow_Up_Down('toptext')">{{user.get_profile}}</span>
+                    <span id="name_header" class="usertitle name_header clickable" onclick="arrow_Up_Down('toptext')">{{user.get_profile}}</span>
                 
-                <img class="contactpicture user_picture_effect clickable" src="/user/getpicture/{{user.username}}" onclick="arrow_Up_Down('toptext')" />
+                    <img class="contactpicture user_picture_effect clickable" src="/user/getpicture/{{user.username}}" onclick="arrow_Up_Down('toptext')" />
                 </div>
                 {% endif %}
                 
