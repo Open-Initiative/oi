@@ -274,6 +274,7 @@ objectInitTinyMce = {
     width: "auto",
     height: 200,
     menubar: false,
+    resize: false,//TODO: prevent crash when resizing
     file_browser_callback: function(field_name, url, type, win) { 
         if(type=='image'){ 
             document.getElementById("fieldname").value = field_name;
