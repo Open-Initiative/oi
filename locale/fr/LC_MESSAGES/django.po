@@ -2399,7 +2399,7 @@ msgid ""
 msgstr ""
 "<p>OpenTheWorld est une campagne réunissant plusieurs projets finançant "
 "ensemble leurs évolutions pour développer leur communauté en "
-"leur permettant de contribuer et en favorisant la diversité. Ces projest partagent des valeurs et "
+"leur permettant de contribuer et en favorisant la diversité. Ces projets partagent des valeurs et "
 "contribuent aux biens communs, ils ont un message commun à partager !</p>"
 
 #: templates/funding/presentation.html:190
@@ -2414,9 +2414,9 @@ msgid ""
 "campaign is the very principle of cofunding: strength lies in unity.</p>"
 msgstr ""
 "<p>Avec cette campagne, ils ne partagent pas seulement leur réputation. Grâce à un "
-"message commun, ils montrent qu'il ne s'agit pas seulement de financer un projet, mais de"
+"message commun, ils montrent qu'il ne s'agit pas seulement de financer un projet, mais de "
 "construire quelque chose ensemble. En fait, le principe de cette "
-"campagne est le principe même du cofinancement: la force réside dans l'unité.</p>"
+"campagne est le principe même du cofinancement : la force réside dans l'unité.</p>"
 
 
 #: templates/funding/presentation.html:193
