@@ -1500,7 +1500,8 @@ div.spectype {
     font-size: 2.5em;
     float: left;
     position: relative;
-    top: 20px;
+    top: 50px;
+    left: 10px;
 }
 .opentheworld_learn_more{
     background: #0094B5; 
@@ -1538,9 +1539,6 @@ div.spectype {
     border-left: 1px solid #0094B5;
     border-right: 1px solid #0094B5;
     padding: 5px;
-}
-.opentheworld_subtitle {
-    margin: 1em 3em;
 }
 .opentheworld_frame{
     border: 1px dashed #0094B5;

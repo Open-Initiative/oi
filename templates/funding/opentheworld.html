@@ -32,12 +32,12 @@
         <div class="block_fund_goal">
             <div class="fundingleft fund">
                 <span class="displayblock">{% trans "Funded" %}</span>
-                <span>{{object_list.get_selfbudget|default:0|floatformat:"-2"}} €</span>
+                <span>{{object_list.get_selfbudget|default:0|floatformat:"-2"}} </span>
             </div>
             
             <div class="goal">
                 <span class="displayblock">{% trans "Goal" %}</span>
-                <span class="">{{object_list.allbid_sum|default:0|floatformat:"-2"}} €</span>
+                <span class="">{{object_list.allbid_sum|default:0|floatformat:"-2"}} </span>
             </div>
         </div>
     </div>
@@ -59,7 +59,7 @@
     </div>
 
     <div class="opentheworld_title">{% trans "Participating projects" %}</div>
-    <p class="opentheworld_subtitle">{% trans "Open Funding enables developers to connect with users to unlock the potential of their software and release it to the commons. We're part of a movement to make software differently: collaboratively, openly, and directly to what users want. Join us now and spread the word." %}</p>
+    <p class="opentheworld_help">{% trans "Open Funding enables developers to connect with users to unlock the potential of their software and release it to the commons. We're part of a movement to make software differently: collaboratively, openly, and directly to what users want. Join us now and spread the word." %}</p>
     
     <div style="position:relative">
         <div>
