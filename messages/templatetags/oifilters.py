@@ -15,10 +15,13 @@ OI_ESCAPE_CODE = {"<hr />":"[[hr]]","<p":"[[p]]","</p>":"[[/p]]","<strong>":"[[s
     "<ul":"[[ul]]","</ul>":"[[/ul]]","<li>":"[[li]]","</li>":"[[/li]]","<blockquote>":"[[quote]]","</blockquote>":"[[/quote]]",
     "<a":"[[a]]","</a>":"[[/a]]","<img":"[[img]]","</img>":"[[/img]]",'<div':'[[div]]','</div>':'[[/div]]','<span':'[[s]]','</span>':'[[/s]]','<sub>':'[[sub]]','</sub>':'[[/sub]]','<sup>':'[[sup]]','</sup>':'[[/sup]]',
     '<table':'[[table]]','</table>':'[[/table]]','<tbody>':'[[tbody]]','</tbody>':'[[/tbody]]','<colgroup>':'[[colgroup]]','</colgroup>':'[[/colgroup]]','<col':'[[col]]','</col>':'[[/col]]','<tr':'[[tr]]','</tr>':'[[/tr]]','<td':'[[td]]','</td>':'[[/td]]',
-    '<h':'[[h]]','</h':'[[/h]]','<pre>':'[[pre]]','</pre>':'[[/pre]]','<address>':'[[address]]','</address>':'[[/address]]',"<em>":"[[em]]","</em>":"[[/em]]","<ol>":"[[ol]]","</ol>":"[[/ol]]",
+    '<h':'[[h]]','</h':'[[/h]]', #Special case for h2, h3...
+    '<pre>':'[[pre]]','</pre>':'[[/pre]]','<address>':'[[address]]','</address>':'[[/address]]',"<em>":"[[em]]","</em>":"[[/em]]","<ol>":"[[ol]]","</ol>":"[[/ol]]",
     "<br/>":"[[br]]","<br />":"[[br]]", "<br>":"[[br]]","&":"[[amp]]",'"':"[[dstr]]","'":"[[sstr]]"}
 
-OI_SPECIAL_ESCAPE_CODE = {"<a(?P<param>.*?)>":"[[a]]","<p(?P<param>.*?)>":"[[p]]","<img(?P<param>.*?)>":"[[img]]","<div(?P<param>.*?)>":"[[div]]","<span(?P<param>.*?)>":"[[s]]","<table(?P<param>.*?)>":"[[table]]","<col(?P<param>.*?)>":"[[col]]","<tr(?P<param>.*?)>":"[[tr]]","<td(?P<param>.*?)>":"[[td]]","<h(?P<param>.*?)>":"[[h]]","</h(?P<param>.*?)>":"[[/h]]","<ul(?P<param>.*?)>":"[[ul]]"}
+OI_SPECIAL_ESCAPE_CODE = {"<a(?P<param>.*?)>":"[[a]]","<p(?P<param>.*?)>":"[[p]]","<img(?P<param>.*?)>":"[[img]]","<div(?P<param>.*?)>":"[[div]]","<span(?P<param>.*?)>":"[[s]]","<table(?P<param>.*?)>":"[[table]]","<col(?P<param>.*?)>":"[[col]]","<tr(?P<param>.*?)>":"[[tr]]","<td(?P<param>.*?)>":"[[td]]",
+    "<h(?P<param>.*?)>":"[[h]]","</h(?P<param>.*?)>":"[[/h]]", #Special case for h2, h3...
+    "<ul(?P<param>.*?)>":"[[ul]]"}
 
 OI_ALLOWED_ATTRIBUTES = "style|title|width|height|id|class|src|target|alt|href|lang|dir"
 
