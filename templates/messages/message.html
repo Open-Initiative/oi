@@ -26,24 +26,24 @@
     </div>
     
     <div id="children_{{message.id}}" class="childrenlist">
-    {% with depth|default:10 as depth %}{% if message.children.count == 1 %}
-    {% with message.children.all|first as message %}
-    <div id="message_{{message.id}}">
-        {% if depth > 1 %}{% with depth|add:-1 as depth %}{% with "messages/message.html" as templatename %}
-            {% include templatename %}
-        {% endwith %}{% endwith %}
-        {% else %}{% with "messages/messagesum.html" as templatename %}
-            {% include templatename %}
-        {% endwith %}{% endif %}
+        {% with depth|default:10 as depth %}{% if message.children.count == 1 %}
+        {% with message.children.all|first as message %}
+        <div id="message_{{message.id}}">
+            {% if depth > 1 %}{% with depth|add:-1 as depth %}{% with "messages/message.html" as templatename %}
+                {% include templatename %}
+            {% endwith %}{% endwith %}
+            {% else %}{% with "messages/messagesum.html" as templatename %}
+                {% include templatename %}
+            {% endwith %}{% endif %}
+        </div>
+        {% endwith %}
+        {% else %}{% for child in message.children.all|dictsortreversed:"relevance" %}{% if child|can_answer:user %}
+        <div id="message_{{child.id}}">
+            {% with child as message %}{% include "messages/messagesmall.html" %}{% endwith %}
+        </div>
+        {% endif %}{% endfor %}{% endif %}
+        {% endwith %}
     </div>
-    {% endwith %}
-    {% else %}{% for child in message.children.all|dictsortreversed:"relevance" %}{% if child|can_answer:user %}
-    <div id="message_{{child.id}}">
-        {% with child as message %}{% include "messages/messagesmall.html" %}{% endwith %}
-    </div>
-    {% endif %}{% endfor %}{% endif %}
-    {% endwith %}
-</div>
     
 </div>
 

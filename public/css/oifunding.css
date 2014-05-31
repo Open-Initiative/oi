@@ -7,7 +7,7 @@
     padding: 0.5em;
     font-size: 1.2em;
     margin: 0 auto 20px;
-    max-width: 790px;
+    max-width: 900px;
     text-align: center;
 }
 .presnavtitle {
@@ -307,7 +307,8 @@ div.minispec {
     max-width:100%
 }
 .cardspec img{
-    height: 85px;
+    max-height: 85px;
+    max-width: 175px;
 }
 .prjbody {
     width: auto;
@@ -317,7 +318,7 @@ div.minispec {
 }
 .prjbodypresentation {
     background: white;
-    max-width: 750px;
+    max-width: 860px;
     margin: 0 auto;
     padding: 10px 30px;
 }
@@ -1481,37 +1482,124 @@ div.spectype {
     width: 215px;
     z-index: 1;
 }
-.social_integration{
-    background: none repeat scroll 0 0 white;
-    border-radius: 5px 0 0 5px;
-    height: 150px;
-    margin-left: -1.5%;
-    position: absolute;
-    top: 80px;
-    width: 35px;
-}
-.social_integration_img{
-    margin: 5px;
-}
-.social_integration_text{
-    background: #737477;
-    border-radius: 10px;
-    color: white;
-    font-weight: bold;
-    opacity: 0.7;
-    left: -17px;
-    padding: 5px;
-    position: absolute;
-    top: -10px;
+/*Open The World*/
+.opentheworld_annoncement{
+    max-width: 1020px; 
+    width: auto; 
+    margin: 0 auto; 
     text-align: center;
-    top: -60px;
-    width: 85px;
+    padding-top: 10px;
+    position: relative;
 }
-.social_integration_buble{
-    border-left: 20px solid rgba(0, 0, 0, 0);
-    border-right: 20px solid rgba(0, 0, 0, 0);
-    border-top: 15px solid #737477;
-    opacity: 0.7;
-    position: absolute;
-    top: -20px;
+.opentheworld_logo{
+    left: 20px;
+    position: absolute; 
+    z-index: 1;
+}
+.opentheworld_sentence{
+    color: black; 
+    font-size: 2.5em;
+    float: left;
+    position: relative;
+    top: 50px;
+    left: 10px;
+}
+.opentheworld_learn_more{
+    background: #0094B5; 
+    font-size: 1.5em;
+    color: white;
+    padding: 10px;
+    border-radius: 3px; 
+    position: absolute; 
+    top:190px; 
+    left: 260px;
+}
+.opentheworld_progressbar{
+    float: right;
+    width: 270px;
+    text-align: start;
+    position:absolute; 
+    top:70px; 
+    right: 100px;
+}
+.opentheworld_content{
+    background: white; 
+    padding: 20px;
+    position: relative;
+    margin-top: 200px;
+}
+.opentheworld_help{
+    font-size: 18px; 
+    padding: 10px;
+}
+.opentheworld_title{
+    font-size: 1.7em;
+    color: #0094B5;
+    display: table;
+    margin: 20px auto;
+    border-left: 1px solid #0094B5;
+    border-right: 1px solid #0094B5;
+    padding: 5px;
+}
+.opentheworld_frame{
+    border: 1px dashed #0094B5;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 3px;
+    overflow: hidden;
+    padding: 1.2em;
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto 40px;
+}
+.opentheworld_separate_part{
+    border-right: 1px dashed #0094B5;
+    min-height: 175px; 
+    float: left; 
+    margin: 0 10px;
+}
+.opentheworld_part1{
+    float:left; 
+    width: 385px;
+    position: relative;
+}
+.opentheworld_part2{
+    float: left;
+    width: 200px;
+    text-align: justify;
+    position: relative;
+}
+.opentheworld_photo{
+    width:170px;
+    margin-right: 10px;
+}
+.opentheworld_description{
+    max-width: 200px;
+    overflow:hidden;
+}
+.opentheworld_btn_part1{
+    position:relative;
+    margin-top: 142px;
+    margin-bottom: 10px;
+}
+.opentheworld_projects_progressbar{
+    padding-top: 10px;
+    position: relative;
+    float:left;
+    width: 190px;
+}
+.opentheworld_btn_part2{
+    position:absolute;
+    margin-left: 40px;
+    margin-top: 35px;
+}
+.opentheworld_block_fund_goal{
+    border-bottom: 1px dashed #D3CFCF;
+    padding-bottom: 10px;
+    margin-top: 10px;
+    width: 85%;
+}
+.opentheworld_follower{
+    float: left;
+    position: relative;
+    margin-top: 50px;
 }

@@ -18,7 +18,7 @@ OI_ESCAPE_CODE = {"<hr />":"[[hr]]","<p":"[[p]]","</p>":"[[/p]]","<strong>":"[[s
     '<h':'[[h]]','</h':'[[/h]]','<pre>':'[[pre]]','</pre>':'[[/pre]]','<address>':'[[address]]','</address>':'[[/address]]',"<em>":"[[em]]","</em>":"[[/em]]","<ol>":"[[ol]]","</ol>":"[[/ol]]",
     "<br/>":"[[br]]","<br />":"[[br]]", "<br>":"[[br]]","&":"[[amp]]",'"':"[[dstr]]","'":"[[sstr]]"}
 
-OI_SPECIAL_ESCAPE_CODE = {"<a(?P<param>.*?)>":"[[a]]","<p(?P<param>.*?)>":"[[p]]","<img(?P<param>.*?)>":"[[img]]","<div(?P<param>.*?)>":"[[div]]","<span(?P<param>.*?)>":"[[s]]","<table(?P<param>.*?)>":"[[table]]","<col(?P<param>.*?)>":"[[col]]","<tr(?P<param>.*?)>":"[[tr]]","<td(?P<param>.*?)>":"[[td]]","<h(?P<param>\d)>":"[[h]]","</h(?P<param>\d)>":"[[/h]]","</ul(?P<param>\d)>":"[[/ul]]"}
+OI_SPECIAL_ESCAPE_CODE = {"<a(?P<param>.*?)>":"[[a]]","<p(?P<param>.*?)>":"[[p]]","<img(?P<param>.*?)>":"[[img]]","<div(?P<param>.*?)>":"[[div]]","<span(?P<param>.*?)>":"[[s]]","<table(?P<param>.*?)>":"[[table]]","<col(?P<param>.*?)>":"[[col]]","<tr(?P<param>.*?)>":"[[tr]]","<td(?P<param>.*?)>":"[[td]]","<h(?P<param>.*?)>":"[[h]]","<ul(?P<param>.*?)>":"[[ul]]"}
 
 OI_ALLOWED_ATTRIBUTES = "style|title|width|height|id|class|src|target|alt|href|lang|dir"
 
