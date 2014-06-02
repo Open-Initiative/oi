@@ -1482,6 +1482,40 @@ div.spectype {
     width: 215px;
     z-index: 1;
 }
+.social_integration{
+    background: none repeat scroll 0 0 white;
+    border-radius: 5px 0 0 5px;
+    height: 150px;
+    margin-left: -1.5%;
+    position: absolute;
+    top: 80px;
+    width: 35px;
+}
+.social_integration_img{
+    margin: 5px;
+}
+.social_integration_text{
+    background: #737477;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    opacity: 0.7;
+    left: -17px;
+    padding: 5px;
+    position: absolute;
+    top: -10px;
+    text-align: center;
+    top: -60px;
+    width: 85px;
+}
+.social_integration_buble{
+    border-left: 20px solid rgba(0, 0, 0, 0);
+    border-right: 20px solid rgba(0, 0, 0, 0);
+    border-top: 15px solid #737477;
+    opacity: 0.7;
+    position: absolute;
+    top: -20px;
+}
 /*Open The World*/
 .opentheworld_annoncement{
     max-width: 1020px; 
