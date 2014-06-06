@@ -512,8 +512,8 @@ class Project(models.Model):
         """retunrs all the bid of the project master and descendants"""
         list_bid = []
         for bid in Bid.objects.filter(project__master=self).order_by('user'):
-            if not bid in list_bid:   
-                list_bid.append(bid)
+            if not bid.user in list_bid:   
+                list_bid.append(bid.user)
         return list_bid
         
     def exist_rewards(self):

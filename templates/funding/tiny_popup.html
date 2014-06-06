@@ -1,0 +1,79 @@
+{% load i18n %}
+{% load oifilters %}
+{% load compress %}
+<html>
+<head>
+        {% compress css %}
+        <link rel="stylesheet" type="text/css" media="all" href="/css/oiusers.css" />
+        <link rel="stylesheet" type="text/css" media="all" href="/css/oifunding.css" />
+        <link rel="stylesheet" type="text/css" media="all" href="/css/jquery-ui-1.9.1.custom.css" /> 
+        {% endcompress %}
+        {% compress js %}
+        <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="/js/jquery-ui-1.9.1.custom.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/tinymce.min.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/plugins/advlist/plugin.min.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/plugins/autolink/plugin.min.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/plugins/link/plugin.min.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/plugins/image/plugin.min.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/plugins/lists/plugin.min.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/plugins/charmap/plugin.min.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/plugins/spellchecker/plugin.min.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/plugins/wordcount/plugin.min.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/plugins/visualblocks/plugin.min.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/plugins/media/plugin.min.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/plugins/paste/plugin.min.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/themes/modern/theme.min.js"></script>
+        <script type="text/javascript" src="/js/oijs.js"></script>
+        <script type="text/javascript" src="/js/oiproject.js"></script>
+        <script type="text/javascript" src="/js/oifunding.js"></script>
+        <script>
+            sites = {{Sites|safe}};
+            prjsite = "http://" + sites["Open Initiative objects"];
+   
+            function switchPrevFeature(){
+                var prevFeature=$('.pluginfeature:visible').prev(".pluginfeature");
+                $('.pluginfeature').animate({width: 'hide'});
+                (prevFeature.length?prevFeature:$('.pluginfeature').last()).animate({width: 'show'});
+            }
+            function switchNextFeature(){
+                var nextFeature=$('.pluginfeature:visible').next(".pluginfeature");
+                $('.pluginfeature').animate({width: 'hide'});
+                (nextFeature.length?nextFeature:$('.pluginfeature').first()).animate({width: 'show'});
+            }
+        </script>
+        {% endcompress %}
+        <script type="text/javascript" src="{% url django.views.i18n.javascript_catalog %}"></script>
+    </head>
+    <body style="background-color: transparent;">
+        <div style="width: 400px; background: white;border: 1px solid black;padding: 5px;">
+            <div class="featuretitle">
+                <a href="/" target="_blank"><img class="fundingright" style="max-width:80px; max-height:31px" src="/img/logo_funding.png"></a>
+                <a href="/funding/{{object.id}}" target="_blank">{{object.title}}</a>
+            
+                <div style="text-align: center;">    
+                    <div class="cleared"></div> 
+                    <div style="font-size:13px;color: #0094B5;font-weight: bold;">{{object.allbid_sum}} € {% trans "funded" %}</div>
+                    <div style="font-size:11px;color: #2EAC66;font-weight: bold;">{{object.count_all_funding_user}} {% blocktrans count counter=object.count_all_funding_user %} user {% plural %} users {% endblocktrans %}</div>
+                </div>
+            
+                <ul class="home_ul_center">
+                {% for user in object.all_funding_user|slice:":7" %}
+                    <li>
+                        <a href="/user/profile/{{user.username}}" target="_blank">
+                            <div style="height: 55px;width: 40px;">
+                                <img style="max-height: 55px;max-width: 40px;" alt="{{user.username}}" src="/user/getpicture/{{user.username}}">
+                            </div>
+                            <span style="font-size: 0.8em;">{{user.username}}</span>
+                        </a>
+                    </li>
+                {% endfor %}
+                </ul>
+                <div class="fundingright">
+                    <a style="background: none repeat scroll 0 0 #2EAC66;border-radius: 4px;color: #FFFFFF;display: table;font-weight: bold;margin: 5px;padding: 5px;text-transform: uppercase;font-size: 0.5em;" href="/funding/{{object.id}}#community" target="_blank">{% trans "Back the object" %}</a>
+                </div>
+            </div>
+            <div class="cleared"></div>
+        </div>
+    </body>
+</html>
