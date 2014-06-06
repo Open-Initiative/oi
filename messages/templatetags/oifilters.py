@@ -90,11 +90,12 @@ def repl(tag):
 def oiescape(text):
     """escapes tags used by the rich text editor"""
     #if bad attributs exist, it remove it
+    text = cleantags(text)
     for code in OI_SPECIAL_ESCAPE_CODE:
         text = re.sub(code, repl(OI_SPECIAL_ESCAPE_CODE[code]), text)
     for code in OI_ESCAPE_CODE:
         text = text.replace(code, OI_ESCAPE_CODE[code])
-    return cleantags(text)
+    return text
     
 @register.filter
 def multiply(value, arg):
