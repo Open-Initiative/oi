@@ -1,0 +1,65 @@
+###########################
+## Dependencies
+
+* Packages:
+Apache 2.2
+Django 1.3
+Mysql 5.1
+python-mysqldb 1.2.2
+python-flup 1.0.2
+python-xapian 1.0.17
+python-docutils 0.6
+libapache2-mod-fcgid 2.3.4
+libapache2-mod-xsendfile 0.9
+python-reportlab 2.4
+fabric 0.9
+python-django-south 0.6
+git 1.7.0.4
+
+* Python modules
+django_haystack 1.0.1
+xapian_haystack 1.1.3
+django_compressor 1.3
+django_cors_headers 0.05
+django_registration 0.8
+html5lib 0.90
+pisa 3.0.3
+PyGithub 1.9.1
+South 0.7.3
+
+###########################
+## Applications
+
+* Projects
+Main package, handling both the project (urls_api.py) API and the projects platform (urls.py). The models store all data regarding projects, including specifications, permissions and user bids.
+
+* Funding
+Handles the Funding platform. Relies on projects data.
+
+* Users
+Handles the user profiles, the user specific pages, the payment history and user payment accounts.
+
+* Messages
+Handles all the discussions. Also includes the template tags.
+
+* PrjNotify
+Handles notifications
+
+
+###########################
+## Security
+
+* User passwords
+User passwords are stored in Django's Auth application and hashed.
+
+* Financial data
+All data of the model Payment, and the balance of all users can be considered critical as they ensure the financial consistency of the system. No changes of these values should be allowed outside the payment procedures.
+
+* Personal data
+All data included in the model UserProfile should be considered as personal data and should never be disclosed without the user's permission.
+
+* Confidential data
+All data included in Projects and Messages are subject to Permission and should only be disclosed according to those permissions.
+
+* Security keys
+The file settings_specific.py contains critical security keys, including the database password and the payment provider key.
