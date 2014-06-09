@@ -54,11 +54,12 @@
                 <div style="text-align: center;">    
                     <div class="cleared"></div> 
                     <div style="font-size:13px;color: #0094B5;font-weight: bold;">{{object.allbid_sum}} € {% trans "funded" %}</div>
-                    <div style="font-size:11px;color: #2EAC66;font-weight: bold;">{{object.count_all_funding_user}} {% blocktrans count counter=object.count_all_funding_user %} user {% plural %} users {% endblocktrans %}</div>
+                    {% regroup object.all_funding_user by user as user_list %}
+                    <div style="font-size:11px;color: #2EAC66;font-weight: bold;">{{user_list|length}} {% blocktrans count counter=user_list|length %} user {% plural %} users {% endblocktrans %}</div>
                 </div>
             
                 <ul class="home_ul_center">
-                {% for user in object.all_funding_user|slice:":7" %}
+                {% for user in object.show_user_funders|slice:":7" %}
                     <li>
                         <a href="/user/profile/{{user.username}}" target="_blank">
                             <div style="height: 55px;width: 40px;">

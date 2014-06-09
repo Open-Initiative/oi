@@ -31,7 +31,9 @@
     
     <div class="profile_info cleared">
         <img src="/img/logo_small.png" class="column" />
-        <p><a class="clickable" href="#community" onclick="project_content('communityproject')">{{project.count_all_funding_user}} {% trans "users" %}</a></p>
+        <p><a class="clickable" href="#community" onclick="project_content('communityproject')">
+        {% regroup project.all_funding_user by user as user_list %}
+        {{user_list|length}} {% trans "users" %}</a></p>
     </div>
     
     <div class="featurebtns of_close">
