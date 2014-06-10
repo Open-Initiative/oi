@@ -191,6 +191,8 @@ function slidePres(id) {
     jQuery(".presnav span").css("font-Weight", "")
     jQuery(id.replace(/[0-9]/g, '')+"_").css("font-Weight", "bold");
     document.location.hash = id;
+    //scroll to the top of the content, hide by the tab fixed
+    window.scroll(0, 125);
 }
 function expandCateg(img, categid, dest){
     if(img.down != 1){

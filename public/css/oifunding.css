@@ -6,9 +6,21 @@
     border-radius: 3px;
     padding: 0.5em;
     font-size: 1.2em;
-    margin: 0 auto 20px;
+    margin: 0 auto;
     max-width: 900px;
     text-align: center;
+}
+.presnav_no_fixed{
+    padding-bottom: 20px;
+    background: #E3E3E3;
+}
+.presnav_fixed{
+    position:fixed; 
+    left: 0; 
+    top:0;
+    width: 100%;
+    padding-bottom: 20px;
+    background: #E3E3E3;
 }
 .presnavtitle {
     border-right: 1px solid;
@@ -1512,7 +1524,7 @@ div.spectype {
     color: white;
     font-weight: bold;
     opacity: 0.8;
-    left: -17px;
+    left: -30px;
     padding: 5px;
     position: absolute;
     top: -10px;

@@ -3,15 +3,14 @@
 {% block title %}{% trans "Presentation of Open Funding" %}{% endblock %}
 {% block pagetitle %}{% trans "Presentation of Open Funding" %}{% endblock %}
 {% block content %}
-<div
- class="presnav">
-
-    <span id="A_" onclick="slidePres('#A');" class="presnavtitle">{% trans "About Open Funding" %}</span>
-    <span id="B_" onclick="slidePres('#B');" class="presnavtitle">{% trans "How it works" %}</span>
-    <span id="C_" onclick="slidePres('#C');" class="presnavtitle">{% trans "For creators" %}</span>
-    <span id="D_" onclick="slidePres('#D');" class="presnavtitle">{% trans "For backers" %}</span>
-    <span id="E_" onclick="slidePres('#E');" class="presnavtitle">#OpenTheWorld</span>
-    
+<div id="presnav" class="presnav_no_fixed">
+    <div class="presnav">
+        <span id="A_" onclick="slidePres('#A');" class="presnavtitle">{% trans "About Open Funding" %}</span>
+        <span id="B_" onclick="slidePres('#B');" class="presnavtitle">{% trans "How it works" %}</span>
+        <span id="C_" onclick="slidePres('#C');" class="presnavtitle">{% trans "For creators" %}</span>
+        <span id="D_" onclick="slidePres('#D');" class="presnavtitle">{% trans "For backers" %}</span>
+        <span id="E_" onclick="slidePres('#E');" class="presnavtitle">#OpenTheWorld</span>
+    </div>
 </div>
 <div class="cleared"></div>
 <div class="prjbodypresentation">
@@ -225,6 +224,17 @@
                 slidePres(document.location.hash);
             }
         });
+        
+        $(document).scroll(function(){
+            //presnav_top represent the top of screen where the tab has to be fixed
+            presnav_top = document.getElementById("presnav").offsetTop + document.getElementById("content").offsetTop;
+            if(window.pageYOffset > presnav_top+document.getElementById("presnav").clientHeight){
+                document.getElementById("presnav").className = "presnav_fixed";
+            }else{
+                document.getElementById("presnav").className = "presnav_no_fixed";
+            }
+        })
+        
     </script>
 </div>
 {% endblock %}
