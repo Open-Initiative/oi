@@ -15,7 +15,7 @@
 
     <div id="featureDiv_{{task.id}}" class="featureblock" {% if not task.public_read %} style="opacity:.4;"{% endif %}>
         <div class="fundingright avoid_overlapping">
-            <div class="funding_space subtitle_news">{% trans "Funding phase" %}:</div>
+            <div class="funding_space subtitle_news">{% trans "Funding phase of the feature" %}:</div>
             <div class="progressbar">
                 <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%;"></span>
                 <span id="progresslabel_{{object.id}}" class="progresstitle" >{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%</span>

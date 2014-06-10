@@ -1223,6 +1223,7 @@ div.popup_spec {
     margin: 5px;
 }
 .actionbutton {
+    cursor: pointer;
     font-weight: bold;
     background-color: #E3E3E3;
     background-image: none;  
@@ -1230,12 +1231,22 @@ div.popup_spec {
     color: #0595BA;
     font-size: 15px;
     padding: 5px 12px;
-    position: relative;
 }
-.actionbutton div {
+.actionbutton_presentation {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #E3E3E3;
+    background-image: none;  
+    border-radius: 3px;
+    color: #0595BA;
     font-size: 15px;
-    margin-bottom: 0;
-    text-align: center;
+    padding: 5px 12px;
+    position: absolute;
+    right: 0;
+}
+.block_action_presentation{
+    margin-bottom: 60px;
+    position: relative;
 }
 .username {
     font-weight: bold;
@@ -1410,12 +1421,8 @@ div.spectype {
     display: table;
     font-size: 2em;
     font-weight: bold;
-    margin: 0 auto;
+    margin: 0 auto 40px;
     padding: 5px;
-    position: relative;
-    text-align: center;
-    top: 20px;
-    margin-bottom: 40px;
 }
 .radio_order{
     display: inline-block;
@@ -1504,22 +1511,24 @@ div.spectype {
     border-radius: 10px;
     color: white;
     font-weight: bold;
-    opacity: 0.7;
+    opacity: 0.8;
     left: -17px;
     padding: 5px;
     position: absolute;
     top: -10px;
     text-align: center;
-    top: -60px;
+    top: -55px;
     width: 85px;
+    z-index: 1;
 }
 .social_integration_buble{
-    border-left: 20px solid rgba(0, 0, 0, 0);
-    border-right: 20px solid rgba(0, 0, 0, 0);
-    border-top: 15px solid #737477;
-    opacity: 0.7;
+    border-left: 12px solid rgba(0, 0, 0, 0);
+    border-right: 12px solid rgba(0, 0, 0, 0);
+    border-top: 12px solid #737477;
+    opacity: 0.8;
     position: absolute;
-    top: -20px;
+    top: -15px;
+    left: 5px;
 }
 /*Open The World*/
 .opentheworld_annoncement{

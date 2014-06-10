@@ -8,8 +8,7 @@
 <div class="newsproject">
     {% with object.descendants|filter_read:user as tasks %}
     <div class="funding_space subtitle_news">
-        {{tasks.count}}
-        {% blocktrans count counter=tasks.count %}feature to be funded{% plural %} features to be funded{% endblocktrans %}
+        {% trans "Global funding of the project" %}
     </div>{% endwith %}
     {% with project.descendants|filter_read:user as descendants %}
     <div class="progressbar">

@@ -47,7 +47,6 @@
 
 {% with object as project %}
 
-{% if object|can_write:user %}
 <div id="pluginpopup" class="invisible popup" onclick="document.ignoreClosePopups = true;">
     <p>{% trans "Embed this widget to share the feature on your blog or website" %}</p>
     <form>
@@ -75,7 +74,7 @@
     </div>
     <div class="cleared"></div>
 </div>
-{% endif %}
+
 <div class="block_shrinkrelated">
     <div style="position:relative; float: right;">
         <img id="btn_extend_open" class="btn_extend" src="/img/icons/openbtn.png" onclick="openPanel()"/>    

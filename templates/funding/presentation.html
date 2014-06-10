@@ -84,10 +84,11 @@
         <p>{% trans "If you want to have a talk with us or ask us more about OpenFunding, then write us here" %}: <a href="mailto:contact@openinitiative.com">contact@openinitiative.com</a> </p>
         <p>{% trans "If you’ve a project idea then go ahead and launch your project by clicking here:" %}</p>
         
-        <div class="actions clickable actionbutton noright" onclick="$('#prjlist0').fadeToggle(); $('#promoted_project').fadeToggle(); $('#prjlist3').fadeToggle(); $('#oi_last_project').fadeToggle()">
-            <div>{% trans "Submit" %}</div>
-            {% trans "your project" %}
-            <input id="appname" type="hidden" value="funding" />
+        <div class="block_action_presentation">
+            <div class="actions actionbutton_presentation" onclick="$('#prjlist0').fadeToggle(); $('#promoted_project').fadeToggle(); $('#prjlist3').fadeToggle(); $('#oi_last_project').fadeToggle()">
+                <div class="form_center">{% trans "Submit" %}<br/>{% trans "your project" %}</div>
+                <input id="appname" type="hidden" value="funding" />
+            </div>
         </div>
         <div class="invisible prjlist" id="prjlist0">
             <div class="other_initiative_subtitle">{% trans "Submit your project" %}</div>
@@ -193,7 +194,7 @@
         {% trans "<p> No money lost! The developer will maybe adapt the amount or the feature itself to make it happen. But you too can help! Talk to other users you know, spread the word about that great new feature that would make the software so nice.</p><p>In any case, you can always cancel your order of the feature until the developer has started the development. You can then use the money on another feature, or get a refund.</p>" %}
         
         <h3 id="D9">{% trans "How would I be part of the community by just funding the software??" %}</h3>
-        {% trans "<p>Free software communities are very informal group of users having interest for the same software. So, somehow, by just trying the software you joined the community. Giving feedback, talking about it to other people, reporting a bug, suggesting a new feature, translating the software in your language are some of the ways to contribute. But developing a new feature or funding this development is probably the best way!</p>" %}
+        {% trans "<p>Free software communities are very informal group of users having interest for the same software. So, somehow, by just trying the software you have already joined the community. You could choose to dive in for a more meaningful involvement by several ways. In this link you can understand and choose the way you want to contribute as a user: <a href='http://blog.openinitiative.com/2014/05/27/the-revolution-is-yours/'>http://blog.openinitiative.com/2014/05/27/the-revolution-is-yours/</a>.</p>" %}
         
         <h3 id="D10">{% trans "My software is not on Open Funding! I have an idea, can a developer work on it?" %}</h3>
         <p>{% trans "Sure! Please come talk to us about it, we can help you find a developer for your project:" %} <a href="mailto:contact@openinitiative.com">contact@openinitiative.com</a> </p>
