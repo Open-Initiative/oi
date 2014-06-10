@@ -188,12 +188,13 @@ function selectplugin(projectid, plugintype) {
         var height = "42px";
         var width = "105px";
     }
-    var iframe = "<iframe id='popup_"+plugintype+"' style='border:none; width:"+width+"; height: "+height+"; max-width: 350px;' src='http://"+sites["Open Funding"]+"/funding/"+projectid+"/embed?type="+plugintype+"'></iframe>";
+    var iframe = "<iframe id='popup_"+projectid+"_"+plugintype+"' style='border:none; width:"+width+"; height: "+height+"; max-width: 350px;' src='http://"+sites["Open Funding"]+"/funding/"+projectid+"/embed?type="+plugintype+"'></iframe>";
     document.getElementById('plugincode').value = iframe;
     document.getElementById('plugin_preview').innerHTML = iframe;
     
+    //this script gonna create iframe to see user who funded this project
     if(plugintype=='tiny'){
-        var script = '<br/><script>document.getElementById("popup_tiny").onmouseover = function() {if(!document.body.getElementsByTagName("iframe")[1]){obj_iframe = document.createElement("iframe");document.body.appendChild(obj_iframe);obj_iframe.id ="iframe_tiny";obj_iframe.style.cssText="border:none;width:430px;height:200px;";obj_iframe.src = "http://'+sites["Open Funding"]+'/funding/'+projectid+'/embed_popup";}};document.getElementById("popup_tiny").onmouseout = function() {iframe_tiny = document.getElementById("iframe_tiny");timer = setTimeout(function(){document.body.removeChild(iframe_tiny);},6000);if(iframe_tiny){iframe_tiny.onmouseover = function() {clearTimeout(timer);};iframe_tiny.onmouseout = function() {setTimeout(function(){document.body.removeChild(iframe_tiny);},3000);}}}</script>';
+        var script = '<br/><script>document.getElementById("popup_'+projectid+'_tiny").onmouseover = function() {if(!document.body.getElementsByTagName("iframe")[1]){obj_iframe = document.createElement("iframe");document.body.appendChild(obj_iframe);obj_iframe.id ="iframe_tiny";obj_iframe.style.cssText="border:none;width:430px;height:200px;";obj_iframe.src = "http://'+sites["Open Funding"]+'/funding/'+projectid+'/embed_popup";}};document.getElementById("popup_'+projectid+'_tiny").onmouseout = function() {iframe_tiny = document.getElementById("iframe_tiny");timer = setTimeout(function(){document.body.removeChild(iframe_tiny);},6000);if(iframe_tiny){iframe_tiny.onmouseover = function() {clearTimeout(timer);};iframe_tiny.onmouseout = function() {setTimeout(function(){document.body.removeChild(iframe_tiny);},3000);}}}</script>';
         document.getElementById('plugincode').value += script;
     }
     
