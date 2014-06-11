@@ -9,7 +9,8 @@
     {% with object.descendants|filter_read:user as tasks %}
     <div class="funding_space subtitle_news">
         {% trans "Global funding of the project" %}
-    </div>{% endwith %}
+    </div>
+    {% endwith %}
     {% with project.descendants|filter_read:user as descendants %}
     <div class="progressbar">
         <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio descendants.allbid_sum|add_up:project.bid_sum project.get_selfbudget|default:descendants.allbudget 100 %}%;"></span>
@@ -29,19 +30,28 @@
     </div>
     
     <div class="profile_info cleared">
+    
+        {% if not project.missing_bid and not project|can_manage:user %}
+        <div class="extrat_amount clickable" onclick="showPopup(document.getElementById('extrat_amount_{{project.id}}'))">
+            <a>{% trans "An extra amount" %} {{project.extrat_amount|floatformat:"-2"}} €</a>
+        </div>
+        {% endif %}
+        
         <img src="/img/logo_small.png" class="column" />
         <p><a class="clickable" href="#community" onclick="project_content('communityproject')">
         {% regroup project.all_funding_user by user as user_list %}
         {{user_list|length}} {% trans "users" %}</a></p>
+        
     </div>
     
-    <div class="featurebtns of_close">
+    <div class="featurebtns">
     {% if project.state < 4 and project|can_bid:user or not user.is_authenticated %}
-        <span class="supportbtn clickable fundingleft backtoproject" onclick="showPopup(document.getElementById('bidpopup_{{project.id}}'));document.getElementById('order_{{object.id}}').checked=true;">{% trans "Back the project" %}</span>
+        <span class="supportbtn clickable fundingleft" onclick="showPopup(document.getElementById('bidpopup_{{project.id}}'));document.getElementById('order_{{object.id}}').checked=true;">{% trans "Back the project" %}</span>
     {% endif %}
         <div class="cleared"></div>
     </div>
     {% endwith %}
+    
     <div class="cleared"></div>
     
     {% if project.spec_set.all|filter_order:8 or object|can_manage:user %}

@@ -803,8 +803,16 @@ div.sepspecfooter {
     margin-left: -90px;
     margin-top: 0px;
 }
-.backtoproject{
-     width: 150%;
+.body_color{
+    color: #6F6F6E !important;
+}
+.extrat_amount{
+    border-left: 1px dashed #E0E0E0;
+    float: right;
+    margin-right: 10px;
+    max-width: 100px;
+    padding:5px 5px 5px 10px;
+    text-align: center;
 }
 .column_right_dotted{
     border-top: dotted 2px;
