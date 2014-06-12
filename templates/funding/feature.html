@@ -89,7 +89,7 @@
         </span>
         {% endif %}
         
-        <div style="word-break: break-all; clear: left;" id="specs_{{task.id}}_hide">
+        <div style="clear: left;" id="specs_{{task.id}}_hide">
         {% with spec=task.spec_set.all|filter_order:1 %}
             {% if spec.type == 2 %}<br/>{% endif %}
             {{spec.text|oiunescape|summarize_html}}
