@@ -1233,7 +1233,7 @@ div.popup_spec {
     max-width: 400px;
     min-width: 280px;
     overflow: auto;
-    width: 340px;
+    width: 350px;
 }
 .actions {
     clear: right;
@@ -1391,7 +1391,7 @@ div.spectype {
     top: 25px;
 }
 .learn_more2 {
-    margin: 12px 10px;
+/*    margin: 12px 10px;*/
 }
 .headernews:last-child {
     padding-right: 0;
@@ -1518,14 +1518,14 @@ div.spectype {
 .social_integration{
     background: none repeat scroll 0 0 white;
     border-radius: 5px 0 0 5px;
-    height: 150px;
+    height: 185px;
     margin-left: -1.5%;
     position: absolute;
     top: 80px;
     width: 35px;
 }
 .social_integration_img{
-    margin: 5px;
+    margin: 10px 5px;
 }
 .social_integration_text{
     background: #737477;
