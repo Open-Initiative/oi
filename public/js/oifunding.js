@@ -277,6 +277,7 @@ function closePanel(){
     $('#btn_extend_close').addClass('invisible');
 }
 function initSwipePanel(){
+    //init the window with this params
     var panel = document.getElementById('shrinkrelated');
     if (window.matchMedia("(max-width: 750px)").matches) {
         Hammer(panel).on("swipeleft dragleft", openPanel);
