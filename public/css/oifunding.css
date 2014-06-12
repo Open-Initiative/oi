@@ -768,6 +768,11 @@ div.sepspecfooter {
     font-size: 14px;
     font-weight: bold;
     padding-right: 20px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+.headernews:last-child {
+    padding-right: 0;
 }
 .headerbtn{
     border: 1px solid #0595BA;
@@ -1387,14 +1392,8 @@ div.spectype {
     font-weight: bold;
 }
 .learn_more {
-    position: relative; 
-    top: 25px;
-}
-.learn_more2 {
-/*    margin: 12px 10px;*/
-}
-.headernews:last-child {
-    padding-right: 0;
+    float: left;
+    padding-top: 25px;
 }
 .name_header {
     float: left;
