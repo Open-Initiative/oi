@@ -14,7 +14,7 @@
     <meta property="og:title" content="{{object.title}}"/>
     <meta property="og:type" content="Open Funding:project"/>
     {% with spec=object.spec_set.all|filter_order:1 %}
-    {% if spec.file.url %}
+    {% if spec.file and spec.file.url %}
         <meta property="og:image" content="{{current_site}}{{spec.file.url}}"/>
     {% endif %}
     {% endwith %}
