@@ -72,7 +72,7 @@
         <img id="btn_extend_close" class="invisible btn_extend" src="/img/icons/closebtn.png" onclick="closePanel()" />
         <div id="shrinkrelated">
             <div id="related">
-                {% include 'funding/related.html' %}
+                {% include 'funding/project_related.html' %}
             </div>
         </div>
     </div>
@@ -80,7 +80,7 @@
 
 {% comment %} website developpeur popup {% endcomment %}
 {% with spec=project.spec_set.all|filter_order:8 order=8 divid='software' %}
-{%include 'funding/project_detail_column_right.html'%}
+{%include 'funding/project_website_popup.html'%}
 {% endwith %}
 
 {% comment %} reward popup {% endcomment %}
@@ -103,7 +103,7 @@
 {% endfor %}
 
 {% comment %} for corner developpeur popup {% endcomment %}
-{% with spec=project.spec_set.all|filter_order:5 order=5 divid='deposit' %}{%include 'funding/project_detail_column_right.html'%}{% endwith %}
+{% with spec=project.spec_set.all|filter_order:5 order=5 divid='deposit' %}{%include 'funding/project_website_popup.html'%}{% endwith %}
 
 {% with spec=project.spec_set.all|filter_order:6 order=6 divid='licence' spec_divid='spec__6_content' %}
 <div class="popup_corner invisible" id="licencedescription_{{spec.id}}" onclick="document.ignoreClosePopups = true;">
