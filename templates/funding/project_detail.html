@@ -56,23 +56,6 @@
         <textarea readonly id="plugincode" style="width:100%; float:right; height:65px"></textarea>
     </form>
     <div id="plugin_preview"></div>
-    
-    {% comment %}it is for the popup plugin | has to be deleted{% endcomment %}
-    <div id="tiny_popup" class="invisible">
-        <div class="featuretitle">
-            <img class="pluginlogo" src="/img/logo_funding.png"/>
-            <a href="/funding/{{object.id}}" target="_blank">{{object.title}}</a>
-            <div class="cleared"></div>
-            <span style="font-size:0.7em; color:#D3CFCF">{% trans 'Proposed by' %} {{object.author.get_profile|capfirst}}</span>
-        </div>
-        <div class="form_center" style="color:#0094B5">{{object.allbid_sum}}€ {% trans 'funding' %}</div>
-        <div class="form_center" style="color:#0094B5">{{object.bid_set.count}} {% trans 'users' %}</div>
-        {% for funding_user in object.bid_set.all %}
-            <img title="{{funding_user}}" alt="{{funding_user}}" src="/user/getpicture/{{funding_user}}"/>
-        {% endfor %}
-        <span class="prj-btn_green fundingright">{% trans 'Support' %}</span>
-    </div>
-    <div class="cleared"></div>
 </div>
 
 {% if not object.missing_bid and not object|can_manage:user %}
@@ -407,6 +390,15 @@
     {% endif %}
     initSwipePanel();
     resizeSwipePanelEffect();
+    
+    $("#plugin_preview").mouseover(function() {
+        shwoTinyIframe({{object.id}});
+    });
+    
+    $("#plugin_preview").mouseout(function() {
+        hideTinyIframe({{object.id}});
+    });
+
 </script>
 {% else %}
 {% trans "Forbidden" %}

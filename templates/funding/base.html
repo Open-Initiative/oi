@@ -54,11 +54,6 @@
                 <div id="baseline">{% trans "The Co-funding platform for free software" %}</div>
                 <img src="/img/baseunderline.png" />
             </div>
-            <div class="learn_more">
-                <a href="/presentation" class="clickable headernews">{% trans "Learn more" %}</a>
-                <a href="/#submit" class="clickable headernews" onclick="submitProject()">{% trans "Submit a project" %}</a>
-            </div>
-            
             <div id="userheader">
                 {% with fr="fr" en="en" %}
                 <form method="post" onsubmit="OIajaxCall('/user/changeuserlanguage', 'language={% if request.LANGUAGE_CODE == fr %}en{% else %}fr{% endif %}', 'output'); return false;" class="actions">
@@ -138,8 +133,6 @@
                 
                 {%endif%}
             </div>
-            {% endblock %}
-            
             <div class="fundingright">
                 {% if user.is_authenticated %}
                 <div class="fundingleft">
@@ -163,13 +156,15 @@
                 
                 {%endif%}
             </div>
+               <div class="learn_more">
+                    <a href="/presentation" class="clickable headernews">{% trans "Learn more" %}</a>
+                    <a href="/#submit" class="clickable headernews" onclick="submitProject()">{% trans "Submit a project" %}</a>
+                    <a href="/opentheworld" class="clickable headernews">{% trans "OpenTheWorld Campaign" %}</a>
+                </div> 
+            </div>
+            {% endblock %}
             
-        </div>
         <div class="cleared"></div>
-        <div class="learn_more2 invisible">
-            <a href="/presentation" class="clickable headernews">{% trans "Learn more" %}</a>
-            <a href="/#submit" class="clickable headernews" onclick="submitProject()">{% trans "Submit a project" %}</a>
-        </div>
     </div>
     {% block announcement %}
     {% endblock %}
