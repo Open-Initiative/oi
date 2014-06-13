@@ -5,12 +5,10 @@
 {% block metadata %}
     <meta name="keywords" content="{{object.title}}, {% trans 'free' %}, {% trans 'software' %}, {% trans 'application' %}"/>
     <meta name="generator" content="Django"/>
-    {% for spec in object.all_specs_with_languages %}
-        {% if spec.order == 2 %}
+    {% with spec=object.all_specs_with_languages|filter_order:2 %}
         <meta name="description" content="{{spec.text}}"/>
         <meta property="og:description" content="{{spec.text}}"/>
-        {% endif %}
-    {% endfor %}
+    {% endwith %}
     <meta property="og:title" content="{{object.title}}"/>
     <meta property="og:type" content="Open Funding:project"/>
     {% with spec=object.spec_set.all|filter_order:1 %}
@@ -20,22 +18,6 @@
     {% endwith %}
     <meta property="og:url" content="{{current_site}}{{request.path}}"/>
     <meta property="og:site_name" content="Open Funding"/>
-{% endblock %}
-
-{% block compress_js %}
-    <script type="text/javascript" src="/js/tiny_mce/tinymce.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/advlist/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/autolink/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/link/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/image/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/lists/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/charmap/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/spellchecker/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/wordcount/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/visualblocks/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/media/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/paste/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/themes/modern/theme.min.js"></script> 
 {% endblock %}
 
 {% block breadcrumb %}
@@ -58,12 +40,10 @@
     <div id="plugin_preview"></div>
 </div>
 
-{% if not object.missing_bid and not object|can_manage:user %}
 <div id="extrat_amount_{{object.id}}" class="popup invisible body_color">
-    <p>{% trans "We have received an extra" %} <b>{{object.extrat_amount|floatformat:"-2"}} €</b> {% trans "which the developer will use for the development of the other features. In case there is no need in this phase the extra amount will be used for the development of new features in the next phase." %}</p>
+    <p>{% trans "We have received an extra" %} <b>{{object.bid_sum|floatformat:"-2"}} €</b> {% trans "which the developer will use for the development of the other features. In case there is no need in this phase the extra amount will be used for the development of new features in the next phase." %}</p>
     <p>{% trans "Thank you and we'll keep you updated." %}</p>
 </div>
-{% endif %}
 
 <div class="block_shrinkrelated">
     <div style="position:relative; float: right;">
@@ -258,7 +238,7 @@
                 </div>
                 <div class="column maxwidth50">
                     <div class="blockfeatureheight">
-                        <form id="submit_title_price_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, getValue('newtask_offer_{{object.id}}'), function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); document.getElementById('offer_{{object.id}}').value = ''; return false">
+                        <form id="submit_title_price_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, getValue('newtask_offer_{{object.id}}'), function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); document.getElementById('newtask_offer_{{object.id}}').value = ''; return false">
                             <table>
                                 <tr>
                                     <td>

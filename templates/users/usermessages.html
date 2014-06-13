@@ -2,21 +2,6 @@
 {% load i18n %}
 {% load oifilters %}
 {% block title %}{% trans "Personal messages" %}{% endblock %}
-{% block compress_js %}
-    <script type="text/javascript" src="/js/tiny_mce/tinymce.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/advlist/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/autolink/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/link/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/image/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/lists/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/charmap/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/spellchecker/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/wordcount/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/visualblocks/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/media/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/plugins/paste/plugin.min.js"></script>
-    <script type="text/javascript" src="/js/tiny_mce/themes/modern/theme.min.js"></script> 
-{% endblock %}
 {% block nav %}<a href="#sendmp">{% trans "Send a personal message to" %} {{contact.get_profile}}</a>{% endblock %}
 {% block content %}
 <div class="usercontentlarge">

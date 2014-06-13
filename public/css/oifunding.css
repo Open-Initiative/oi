@@ -699,7 +699,7 @@ div.sepspecfooter {
     border-radius: 3px 3px 3px 3px;
     margin-bottom: 2%;
     padding: 1% 1% 1% 20px;
-    min-height: 200px;
+    min-height: 220px;
 }
 .btn_feature {
     border: 1px solid;
@@ -1533,14 +1533,14 @@ div.spectype {
 .social_integration{
     background: none repeat scroll 0 0 white;
     border-radius: 5px 0 0 5px;
-    height: 185px;
-    margin-left: -1.5%;
+    height: 145px;
+    left: -20px;
     position: absolute;
     top: 80px;
     width: 35px;
 }
 .social_integration_img{
-    margin: 10px 5px;
+    margin: 5px 3px;
 }
 .social_integration_text{
     background: #737477;
@@ -1551,7 +1551,6 @@ div.spectype {
     left: -30px;
     padding: 5px;
     position: absolute;
-    top: -10px;
     text-align: center;
     top: -55px;
     width: 85px;
@@ -1563,7 +1562,7 @@ div.spectype {
     border-top: 12px solid #737477;
     opacity: 0.8;
     position: absolute;
-    top: -15px;
+    top: -17px;
     left: 5px;
 }
 /*Open The World*/
