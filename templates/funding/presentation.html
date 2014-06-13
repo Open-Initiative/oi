@@ -226,11 +226,9 @@
         });
         
         $(document).scroll(function(){
-            //presnav_top represent the top of screen where the tab has to be fixed
-            presnav_top = document.getElementById("presnav").offsetTop + document.getElementById("content").offsetTop;
-            if(window.pageYOffset > presnav_top+document.getElementById("presnav").clientHeight){
+            if(window.pageYOffset > 125){
                 document.getElementById("presnav").className = "presnav_fixed";
-            }else{
+            }else if(window.pageYOffset < 120){
                 document.getElementById("presnav").className = "presnav_no_fixed";
             }
         })
