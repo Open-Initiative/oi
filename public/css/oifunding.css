@@ -1531,7 +1531,7 @@ div.spectype {
     background: none repeat scroll 0 0 white;
     border-radius: 5px 0 0 5px;
     height: 185px;
-    margin-left: -1.5%;
+    left: -1.5%;
     position: absolute;
     top: 80px;
     width: 35px;
