@@ -1008,6 +1008,9 @@ a:hover {
     color: white;
     float: left;
 }
+.newprojectform {
+    margin: 3em;
+}
 .blogtag {
     border-radius: 5px;
     color: #0094B5;
@@ -1447,7 +1450,7 @@ div.spectype {
 .little_help {
     font-size: 9px;
 }
-.other_initiative_subtitle{
+.section_title{
     border-left: 1px solid #0094B5;
     border-right: 1px solid #0094B5;
     color: #0094B5;

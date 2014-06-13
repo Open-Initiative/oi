@@ -80,21 +80,20 @@
 {% endblock %}
 {% block content %}
 
-<div>
-    <div class="invisible prjlist" id="prjlist0">
-        <div id="submit" class="other_initiative_subtitle">{% trans "Submit your project" %}</div>
-        <div class="cleared"></div>
+<div class="invisible" id="newproject">
+    <div id="prjlist0" class="newprojectform">
+        <div id="submit" class="section_title">{% trans "Submit your project" %}</div>
         <form id="submit_title_project" class="form_center" onsubmit="if(getValue('prjtitle')) addTask(getValue('prjtitle'), null, null,function(taskid){document.location = '/funding/'+taskid+'/edit'});return false" >
             <p class="details_title">{% trans "You are about to start funding your free software project." %}</p>
             <p class="form_center details_title">{% trans "First enter your project title" %}</p>
             <input id="prjtitle"/>
-            <div class="cleared"><br/></div>
-            <span class="continuebtn clickable" onclick="$('#submit_title_project').submit()">{% trans 'Create' %}</span>
-            <div class="cleared"><br/></div>
+            <p>
+                <span class="continuebtn clickable" onclick="$('#submit_title_project').submit()">{% trans 'Create' %}</span>
+            </p>
         </form>
     </div>
 
-    <div id="details_create_task" class="invisible">
+    <div id="details_create_task">
         <div id="feature_by_feature" class="details_task">
             <h3>{% trans "Feature by feature" %}</h3>
             <p>
@@ -133,34 +132,35 @@
         </div>
     </div>
 </div>
+<div id="projects">
+    <div class="section_title">{% trans "Latest projects" %}</div>
+    <div id="promoted_project">
+        <ul class="home_ul_center">
+        {% for project in object_list %}
+            <li>
+                {% if project.promotedproject_set.all.0.location == "fundingindex_comingsoon" %}
+                {% include 'funding/project_card_comingsoon.html' %}
+                {% else %}
+                {% include 'funding/project_card.html' %}
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
 
-<div class="other_initiative_subtitle">{% trans "Latest projects" %}</div>
-<div id="promoted_project">
-    <ul class="home_ul_center">
-    {% for project in object_list %}
-        <li>
-            {% if project.promotedproject_set.all.0.location == "fundingindex_comingsoon" %}
-            {% include 'funding/project_card_comingsoon.html' %}
-            {% else %}
+    {% if user.is_authenticated %}
+    <div class="section_title">{% trans "My projects" %}</div>
+    <div class="prjlist" id="prjlist3">
+        <ul class="home_ul_center">
+        {% for project in user.get_profile.get_observed_projects.distinct %}
+            <li>
             {% include 'funding/project_card.html' %}
-            {% endif %}
-        </li>
-    {% endfor %}
-    </ul>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
 </div>
-
-{% if user.is_authenticated %}
-<div class="other_initiative_subtitle">{% trans "My projects" %}</div>
-<div class="prjlist" id="prjlist3">
-    <ul class="home_ul_center">
-    {% for project in user.get_profile.get_observed_projects.distinct %}
-        <li>
-        {% include 'funding/project_card.html' %}
-        </li>
-    {% endfor %}
-    </ul>
-</div>
-{% endif %}
 <script>
     ajaxParams = document.location.hash;
     listid = ajaxParams.substring(1);

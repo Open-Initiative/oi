@@ -90,7 +90,7 @@
             </div>
         </div>
         <div class="invisible prjlist" id="prjlist0">
-            <div class="other_initiative_subtitle">{% trans "Submit your project" %}</div>
+            <div class="section_title">{% trans "Submit your project" %}</div>
             <form class="form_center" onsubmit="if(getValue('prjtitle')) addTask(getValue('prjtitle'), null, null,function(taskid){document.location = '/funding/'+taskid+'/edit'});return false" >
                 {% trans "Please enter your project title :" %}
                 <input id="prjtitle"/>

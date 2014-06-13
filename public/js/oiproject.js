@@ -156,7 +156,7 @@ function setActiveTask(projectid, canAdd) {
     }
 }
 function submitProject(){
-    $('#prjlist0').fadeToggle(); $('#promoted_project').fadeToggle(); $('#prjlist3').fadeToggle(); $('#oi_last_project').fadeToggle();$('#details_create_task').fadeToggle();
+    $('#projects').fadeToggle(); $('#newproject').fadeToggle();
 }
 function editDate(projectid, field_name, date) {
     OIajaxCall("/project/editdate/"+projectid, "field_name="+field_name+"&date="+date.dateFormat("Y-m-d"), "output");
