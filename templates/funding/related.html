@@ -31,11 +31,9 @@
     
     <div class="profile_info cleared">
     
-        {% if not project.missing_bid %}
         <div class="extrat_amount clickable" onclick="showPopup(document.getElementById('extrat_amount_{{project.id}}'))">
-            <a>{% trans "An extra amount" %} {{project.extrat_amount|floatformat:"-2"}} €</a>
+            <a>{% trans "An extra amount" %} {{project.bid_sum|floatformat:"-2"}} €</a>
         </div>
-        {% endif %}
         
         <img src="/img/logo_small.png" class="column" />
         <p><a class="clickable" href="#community" onclick="project_content('communityproject')">

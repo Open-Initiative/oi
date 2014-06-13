@@ -402,10 +402,6 @@ class Project(models.Model):
         else:
             return self.descendants.all().allbudget()
             
-    def extrat_amount(self):
-        """return the extra amount of the project"""
-        return self.allbid_sum() - self.get_budget()
-    
     def bid_sum(self):
         """returns the sum of all bids on this project"""
         return self.bid_set.aggregate(models.Sum("amount"))["amount__sum"] or 0
