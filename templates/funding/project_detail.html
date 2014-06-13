@@ -5,12 +5,10 @@
 {% block metadata %}
     <meta name="keywords" content="{{object.title}}, {% trans 'free' %}, {% trans 'software' %}, {% trans 'application' %}"/>
     <meta name="generator" content="Django"/>
-    {% for spec in object.all_specs_with_languages %}
-        {% if spec.order == 2 %}
+    {% with spec=object.all_specs_with_languages|filter_order:2 %}
         <meta name="description" content="{{spec.text}}"/>
         <meta property="og:description" content="{{spec.text}}"/>
-        {% endif %}
-    {% endfor %}
+    {% endwith %}
     <meta property="og:title" content="{{object.title}}"/>
     <meta property="og:type" content="Open Funding:project"/>
     {% with spec=object.spec_set.all|filter_order:1 %}
