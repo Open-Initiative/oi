@@ -699,7 +699,7 @@ div.sepspecfooter {
     border-radius: 3px 3px 3px 3px;
     margin-bottom: 2%;
     padding: 1% 1% 1% 20px;
-    min-height: 250px;
+    min-height: 220px;
 }
 .btn_feature {
     border: 1px solid;
@@ -1530,14 +1530,14 @@ div.spectype {
 .social_integration{
     background: none repeat scroll 0 0 white;
     border-radius: 5px 0 0 5px;
-    height: 185px;
-    left: -1.5%;
+    height: 150px;
+    left: -20px;
     position: absolute;
     top: 80px;
     width: 35px;
 }
 .social_integration_img{
-    margin: 10px 5px;
+    margin: 5px 3px;
 }
 .social_integration_text{
     background: #737477;
