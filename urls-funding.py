@@ -8,7 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Page d'accueil
-    (r'^$', ListView.as_view(queryset=Project.objects.filter(promotedproject__location='fundingindex'), template_name='funding/index.html')),
+    (r'^$', ListView.as_view(queryset=Project.objects.filter(promotedproject__location__startswith='fundingindex').order_by("promotedproject__location"), template_name='funding/index.html')),
     #OpenTheWorld page
     (r'^opentheworld$', ListView.as_view(queryset=Project.objects.filter(promotedproject__location='otw1'), template_name='funding/opentheworld.html')),
     (r'^opentheworld$', direct_to_template, {'template': "funding/opentheworld.html"}),

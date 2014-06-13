@@ -134,20 +134,23 @@
     </div>
 </div>
 
-<div id="oi_last_project">
-    <div class="other_initiative_subtitle">{% trans "Latest projects" %}</div>
-    </div>
+<div class="other_initiative_subtitle">{% trans "Latest projects" %}</div>
 <div id="promoted_project">
     <ul class="home_ul_center">
     {% for project in object_list %}
         <li>
+            {% if project.promotedproject_set.all.0.location == "fundingindex_comingsoon" %}
+            {% include 'funding/project_card_comingsoon.html' %}
+            {% else %}
             {% include 'funding/project_card.html' %}
+            {% endif %}
         </li>
     {% endfor %}
     </ul>
 </div>
 
 {% if user.is_authenticated %}
+<div class="other_initiative_subtitle">{% trans "My projects" %}</div>
 <div class="prjlist" id="prjlist3">
     <ul class="home_ul_center">
     {% for project in user.get_profile.get_observed_projects.distinct %}

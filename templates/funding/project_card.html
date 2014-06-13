@@ -8,14 +8,14 @@
         </div>
     <div class="cleared"><br/></div>
     {% with project.spec_set.all|dictsort:"order" as specs%}
-    {% with specs.0 as spec %}<a href="/funding/{{project.id}}"><div class="cardspec">{% include 'funding/spec/minispec.html' %}</div></a>{% endwith %}
-    {% with specs.1 as spec %}<div class="cardspec" style="height: 8.5em;overflow:hidden">{% include 'funding/spec/minispec.html' %}</div>{% endwith %}
+    {% with spec=project.spec_set.all|filter_order:1 %}<a href="/funding/{{project.id}}"><div class="cardspec">{% include 'funding/spec/minispec.html' %}</div></a>{% endwith %}
+    {% with spec=project.spec_set.all|filter_order:1 %}<div class="cardspec" style="height: 8.5em;overflow:hidden">{% include 'funding/spec/minispec.html' %}</div>{% endwith %}
     {% endwith %}
     {% with project.descendants|filter_read:user as descendants %}
     <div class="fundingprogress">
         <div class="progressbar prjcard_margin_bottom">
-            <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio descendants.allbid_sum|add:project.bid_sum project.get_selfbudget|default:descendants.allbudget 100 %}%;"></span>
-            <span id="progresslabel_{{object.id}}" class="progresstitle" >{% widthratio descendants.allbid_sum|add:project.bid_sum project.get_selfbudget|default:descendants.allbudget 100 %} %</span>
+            <span id="progressbar_{{project.id}}" class="progress" style="width:{% widthratio descendants.allbid_sum|add:project.bid_sum project.get_selfbudget|default:descendants.allbudget 100 %}%;"></span>
+            <span id="progresslabel_{{project.id}}" class="progresstitle" >{% widthratio descendants.allbid_sum|add:project.bid_sum project.get_selfbudget|default:descendants.allbudget 100 %} %</span>
         </div>
         <div class="cleared"></div>
         {{descendants.allbid_sum|add:project.bid_sum|floatformat:"-2"}} € {% trans "funded out of" %}

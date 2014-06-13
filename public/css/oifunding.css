@@ -240,7 +240,7 @@ div.prj-action-wait {
     background: url('/img/prjbtm.png');
 }
 .prjcard {
-    background: none repeat scroll 0 0 white;
+    background: white;
     border-radius: 3px 3px 3px 3px;
     float: left;
     height: 350px;
@@ -249,6 +249,19 @@ div.prj-action-wait {
     padding: 1.2em;
     position: relative;
     width: 275px;
+}
+.prjcard_comingsoon {
+    filter:alpha(opacity=50);
+    opacity:0.5;
+}
+.prjcard_comingsoon_tag {
+    font-size: 200%;
+    transform: rotate(-20deg);
+    position: absolute;
+    left: 2.5em;
+    top: 6em;
+    border: solid;
+    padding: .1em;
 }
 
 ul.home_ul_center {
@@ -1441,7 +1454,7 @@ div.spectype {
     display: table;
     font-size: 2em;
     font-weight: bold;
-    margin: 0 auto 40px;
+    margin: 40px auto;
     padding: 5px;
 }
 .radio_order{
