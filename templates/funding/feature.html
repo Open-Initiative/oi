@@ -6,9 +6,9 @@
     {% if task.state < 4 and task|can_manage:user or not user.is_authenticated %}
     <div id="completepopup_{{task.id}}" class="popup_complete invisible" onclick="document.ignoreClosePopups = true;">
             <img class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hidePopups()" />
-            <p class="bid_popup_title form_center">{% trans "Complete the fund of the feature" %} <b>{{task.title}}</b><br/> {% trans "by the project fund" %} <u>{{object.title}}</u></p>
+            <p class="bid_popup_title form_center">{% trans "Complete the funding of the feature" %} <b>{{task.title}}</b><br/> {% trans "by the project fund" %} <u>{{object.title}}</u></p>
             <div class="cleared"></div>
-        <p>{% trans "You are about to fund the feature with the project fund, are you sure you want to do it?" %}</p>
+        <p>{% trans "You are about to fund the feature with the project funds not yet allocated, are you sure you want to do it?" %}</p>
         <span style="position: relative;left: -3%;top: 2%;" class="fundingright continuebtn clickable" onclick="completeTask({{object.id}}, {{task.id}})">{% trans "Continue" %}</span>
     </div>
     {% endif %}
