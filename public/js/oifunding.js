@@ -173,49 +173,25 @@ function selectplugin(projectid, plugintype) {
         var height = "42px";
         var width = "105px";
     }
-    var iframe = "<iframe id='popup_"+projectid+"_"+plugintype+"' style='border:none; width:"+width+"; height: "+height+"; max-width: 350px;' src='http://"+sites["Open Funding"]+"/funding/"+projectid+"/embed?type="+plugintype+"'></iframe>";
+    var iframe = "<iframe id='widget_"+projectid+"_"+plugintype+"' style='border:none; width:"+width+"; height: "+height+"; max-width: 350px;' src='http://"+sites["Open Funding"]+"/funding/"+projectid+"/embed?type="+plugintype+"'></iframe>";
+
+    //Popup for tiny plugin
+    if(plugintype=='tiny') iframe += '<iframe id="tinypopup" class="of_'+projectid+'_iframe_tiny" style="display:none;border:none;position:absolute;width:430px;height:200px;" src="http://'+sites["Open Funding"]+'/funding/'+projectid+'/embed_popup" onmouseout="hideOFWidgetPopup()" onmouseover="clearTimeout(timer);"></iframe><script>function hideOFWidgetPopup() {timer = setTimeout(function(){document.getElementById("tinypopup").style.display = "none";},3000);} var widget=document.getElementById("widget_'+projectid+'_tiny");widget.onmouseout=hideOFWidgetPopup;widget.onmouseover=function() {document.getElementById("tinypopup").style.display = "block"; clearTimeout(timer);}</script>';
+    
     document.getElementById('plugincode').value = iframe;
     document.getElementById('plugin_preview').innerHTML = iframe;
-
-    if(plugintype=='tiny'){
-        //this script is for the user who go to copy and cut the code on their personal website
-        //to see the user when you're hover the tiny plugin
-        var script = '<br/><script>document.getElementById("popup_'+projectid+'_tiny").onmouseover = function() {if(!document.body.getElementsByClassName("of_'+projectid+'_iframe_tiny")[0]){obj_iframe = document.createElement("iframe");document.body.appendChild(obj_iframe);obj_iframe.id ="iframe_tiny_'+projectid+'";obj_iframe.className ="of_'+projectid+'_iframe_tiny";obj_iframe.style.cssText="border:none;width:430px;height:200px;";obj_iframe.src = "http://'+sites["Open Funding"]+'/funding/'+projectid+'/embed_popup";}};document.getElementById("popup_'+projectid+'_tiny").onmouseout = function() {iframe_tiny = document.getElementById("iframe_tiny_'+projectid+'");timer = setTimeout(function(){document.body.removeChild(iframe_tiny);},6000);if(iframe_tiny){iframe_tiny.onmouseover = function() {clearTimeout(timer);};iframe_tiny.onmouseout = function() {setTimeout(function(){document.body.removeChild(iframe_tiny);},3000);}}}</script>';
-        document.getElementById('plugincode').value += script;
-    }
     
-}
-//this function show an iframe as a popup of the user who funded this project
-function shwoTinyIframe(projectid){
-    if(document.getElementById("popup_"+projectid+"_tiny")){
-        document.getElementById("popup_"+projectid+"_tiny").onmouseover = function() {
-            if(!document.body.getElementsByClassName("of_"+projectid+"_iframe_tiny")[0]){
-                var obj_iframe = document.createElement("iframe");
-                document.body.appendChild(obj_iframe);
-                obj_iframe.id ="iframe_tiny_"+projectid;
-                obj_iframe.className ="of_iframe_tiny";
-                obj_iframe.style.cssText="border:none;width:430px;height:200px;position:fixed;top:230px;z-index:20;left:20px;";
-                obj_iframe.src = "http://"+sites["Open Funding"]+"/funding/"+projectid+"/embed_popup";
-            }
-        };
+    //for preview
+     var widget=document.getElementById("widget_"+projectid+"_tiny");
+     widget.onmouseout=hideOFWidgetPopup;
+     widget.onmouseover=function() {
+        document.getElementById('tinypopup').style.display = 'block';
+        clearTimeout(timer);
     }
 }
-//this function hide the iframe of the user who funded this project
-function hideTinyIframe(projectid){
-    if(document.getElementById("popup_"+projectid+"_tiny")){
-        document.getElementById("popup_"+projectid+"_tiny").onmouseout = function() {
-            var iframe_tiny = document.getElementById("iframe_tiny_"+projectid);
-            var timer = setTimeout(function(){document.body.removeChild(iframe_tiny);},6000);
-            if(iframe_tiny){
-                iframe_tiny.onmouseover = function() {
-                    clearTimeout(timer);
-                };
-                iframe_tiny.onmouseout = function() {
-                    setTimeout(function(){document.body.removeChild(iframe_tiny);},3000);
-                }
-            }
-        }
-    }
+//For preview
+function hideOFWidgetPopup() {
+    timer = setTimeout(function(){document.getElementById('tinypopup').style.display = 'none';},3000);
 }
 function updateStockReward(projectid, rewardid, moreOrLess){
     if(moreOrLess) var nb = 1; else var nb = -1;
