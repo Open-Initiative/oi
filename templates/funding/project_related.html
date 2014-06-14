@@ -3,6 +3,7 @@
 
 {% if object|can_write:user %}
     <a href="edit"><div class="bidaction">{% trans "Edit your project" %}</div></a>
+    <div class="bidaction clickable" onclick="showPopup(document.getElementById('pluginpopup'))">{% trans "Integrate your project" %}</div>
 {% endif %}
 
 <div class="newsproject">
