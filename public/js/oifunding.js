@@ -178,7 +178,12 @@ function selectplugin(projectid, plugintype) {
     //Popup for tiny plugin
     if(plugintype=='tiny') {
         iframe += '<iframe id="tinypopup" class="of_'+projectid+'_iframe_tiny" style="display:none;border:none;position:absolute;width:430px;height:200px;" src="http://'+sites["Open Funding"]+'/funding/'+projectid+'/embed_popup" onmouseout="hideOFWidgetPopup()" onmouseover="clearTimeout(timer);"></iframe><script>function hideOFWidgetPopup() {timer = setTimeout(function(){document.getElementById("tinypopup").style.display = "none";},3000);} var widget=document.getElementById("widget_'+projectid+'_tiny");widget.onmouseout=hideOFWidgetPopup;widget.onmouseover=function() {document.getElementById("tinypopup").style.display = "block"; clearTimeout(timer);}</script>';
-        //for preview
+    }
+    document.getElementById('plugincode').value = iframe;
+    document.getElementById('plugin_preview').innerHTML = iframe;
+    
+    //for preview
+    if(plugintype=='tiny') {
          var widget=document.getElementById("widget_"+projectid+"_tiny");
          widget.onmouseout=hideOFWidgetPopup;
          widget.onmouseover=function() {
@@ -186,9 +191,6 @@ function selectplugin(projectid, plugintype) {
             clearTimeout(timer);
         }
     }
-    
-    document.getElementById('plugincode').value = iframe;
-    document.getElementById('plugin_preview').innerHTML = iframe;
 }
 //For preview
 function hideOFWidgetPopup() {
