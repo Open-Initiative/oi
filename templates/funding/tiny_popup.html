@@ -29,7 +29,7 @@
         <script type="text/javascript" src="/js/oifunding.js"></script>
         <script>
             sites = {{Sites|safe}};
-            prjsite = "http://" + sites["Open Initiative objects"];
+            prjsite = "http://" + sites["Open Initiative projects"];
    
             function switchPrevFeature(){
                 var prevFeature=$('.pluginfeature:visible').prev(".pluginfeature");
@@ -71,7 +71,7 @@
                 {% endfor %}
                 </ul>
                 <div class="fundingright">
-                    <a style="background: none repeat scroll 0 0 #2EAC66;border-radius: 4px;color: #FFFFFF;display: table;font-weight: bold;margin: 5px;padding: 5px;text-transform: uppercase;font-size: 0.5em;" href="/funding/{{object.id}}#community" target="_blank">{% trans "Back the object" %}</a>
+                    <a style="background: none repeat scroll 0 0 #2EAC66;border-radius: 4px;color: #FFFFFF;display: table;font-weight: bold;margin: 5px;padding: 5px;text-transform: uppercase;font-size: 0.5em;" href="/funding/{{object.id}}#community" target="_blank">{% trans "Back the project" %}</a>
                 </div>
             </div>
             <div class="cleared"></div>
