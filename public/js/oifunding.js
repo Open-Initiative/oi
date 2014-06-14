@@ -177,24 +177,25 @@ function selectplugin(projectid, plugintype) {
 
     //Popup for tiny plugin
     if(plugintype=='tiny') {
-        iframe += '<iframe id="tinypopup" class="of_'+projectid+'_iframe_tiny" style="display:none;border:none;position:absolute;width:430px;height:200px;" src="http://'+sites["Open Funding"]+'/funding/'+projectid+'/embed_popup" onmouseout="hideOFWidgetPopup()" onmouseover="clearTimeout(timer);"></iframe><script>function hideOFWidgetPopup() {timer = setTimeout(function(){document.getElementById("tinypopup").style.display = "none";},3000);} var widget=document.getElementById("widget_'+projectid+'_tiny");widget.onmouseout=hideOFWidgetPopup;widget.onmouseover=function() {document.getElementById("tinypopup").style.display = "block"; clearTimeout(timer);}</script>';
+        iframe += '<iframe id="tinypopup" class="of_'+projectid+'_iframe_tiny" style="display:none;border:none;position:absolute;width:430px;height:200px;" src="http://'+sites["Open Funding"]+'/funding/'+projectid+'/embed_popup" onmouseout="hideOFWidgetPopup()" onmouseover="clearTimeout(oftimer);"></iframe><script>function hideOFWidgetPopup() {oftimer = setTimeout(function(){document.getElementById("tinypopup").style.display = "none";},3000);} oftimer=""; var widget=document.getElementById("widget_'+projectid+'_tiny");widget.onmouseout=hideOFWidgetPopup;widget.onmouseover=function() {document.getElementById("tinypopup").style.display = "block"; clearTimeout(oftimer);}</script>';
     }
     document.getElementById('plugincode').value = iframe;
     document.getElementById('plugin_preview').innerHTML = iframe;
     
     //for preview
     if(plugintype=='tiny') {
+        oftimer="";
          var widget=document.getElementById("widget_"+projectid+"_tiny");
          widget.onmouseout=hideOFWidgetPopup;
          widget.onmouseover=function() {
             document.getElementById('tinypopup').style.display = 'block';
-            clearTimeout(timer);
+            clearTimeout(oftimer);
         }
     }
 }
 //For preview
 function hideOFWidgetPopup() {
-    timer = setTimeout(function(){document.getElementById('tinypopup').style.display = 'none';},3000);
+    oftimer = setTimeout(function(){document.getElementById('tinypopup').style.display = 'none';},3000);
 }
 function updateStockReward(projectid, rewardid, moreOrLess){
     if(moreOrLess) var nb = 1; else var nb = -1;
