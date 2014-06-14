@@ -28,11 +28,7 @@
 <b>{% trans "A long description including : who you are, why you do it, how it can be used..." %}</b>
 <div class="help-funding">{% trans "Explain the details of your project: why you do it, how can it be used, and the information you found important to attract the backers. Be as specific as you can." %}</div>
 <div id="{{project.id}}_3_{{lang|default:'default'}}" style="max-width: 500px;clear:both;">
-    {% with lang=lang|default:'default' %}
-    {% with textvalue=spec3.text id=project.id|add:"_3_"|add:lang %}
-        {% include 'messages/uploadImageTextarea.html' %}
-    {% endwith %}
-    {% endwith %}
+    <textarea id="text_{{project.id}}_3_{{lang|default:'default'}}" class="editable">{{spec3.text|oiunescape}}</textarea>
 </div>
 
 
