@@ -176,18 +176,19 @@ function selectplugin(projectid, plugintype) {
     var iframe = "<iframe id='widget_"+projectid+"_"+plugintype+"' style='border:none; width:"+width+"; height: "+height+"; max-width: 350px;' src='http://"+sites["Open Funding"]+"/funding/"+projectid+"/embed?type="+plugintype+"'></iframe>";
 
     //Popup for tiny plugin
-    if(plugintype=='tiny') iframe += '<iframe id="tinypopup" class="of_'+projectid+'_iframe_tiny" style="display:none;border:none;position:absolute;width:430px;height:200px;" src="http://'+sites["Open Funding"]+'/funding/'+projectid+'/embed_popup" onmouseout="hideOFWidgetPopup()" onmouseover="clearTimeout(timer);"></iframe><script>function hideOFWidgetPopup() {timer = setTimeout(function(){document.getElementById("tinypopup").style.display = "none";},3000);} var widget=document.getElementById("widget_'+projectid+'_tiny");widget.onmouseout=hideOFWidgetPopup;widget.onmouseover=function() {document.getElementById("tinypopup").style.display = "block"; clearTimeout(timer);}</script>';
+    if(plugintype=='tiny') {
+        iframe += '<iframe id="tinypopup" class="of_'+projectid+'_iframe_tiny" style="display:none;border:none;position:absolute;width:430px;height:200px;" src="http://'+sites["Open Funding"]+'/funding/'+projectid+'/embed_popup" onmouseout="hideOFWidgetPopup()" onmouseover="clearTimeout(timer);"></iframe><script>function hideOFWidgetPopup() {timer = setTimeout(function(){document.getElementById("tinypopup").style.display = "none";},3000);} var widget=document.getElementById("widget_'+projectid+'_tiny");widget.onmouseout=hideOFWidgetPopup;widget.onmouseover=function() {document.getElementById("tinypopup").style.display = "block"; clearTimeout(timer);}</script>';
+        //for preview
+         var widget=document.getElementById("widget_"+projectid+"_tiny");
+         widget.onmouseout=hideOFWidgetPopup;
+         widget.onmouseover=function() {
+            document.getElementById('tinypopup').style.display = 'block';
+            clearTimeout(timer);
+        }
+    }
     
     document.getElementById('plugincode').value = iframe;
     document.getElementById('plugin_preview').innerHTML = iframe;
-    
-    //for preview
-     var widget=document.getElementById("widget_"+projectid+"_tiny");
-     widget.onmouseout=hideOFWidgetPopup;
-     widget.onmouseover=function() {
-        document.getElementById('tinypopup').style.display = 'block';
-        clearTimeout(timer);
-    }
 }
 //For preview
 function hideOFWidgetPopup() {
