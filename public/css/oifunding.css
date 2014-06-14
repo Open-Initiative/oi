@@ -1538,11 +1538,12 @@ div.spectype {
     position: absolute;
     top: 80px;
     width: 35px;
+    padding: .3em .2em .5em;
 }
 .social_integration_img{
     margin: 5px 3px;
 }
-.social_integration_text{
+.social_integration_bubble{
     background: #737477;
     border-radius: 10px;
     color: white;
@@ -1556,14 +1557,15 @@ div.spectype {
     width: 85px;
     z-index: 1;
 }
-.social_integration_buble{
+.social_integration_bubble:after{
+    content: " ";
     border-left: 12px solid rgba(0, 0, 0, 0);
     border-right: 12px solid rgba(0, 0, 0, 0);
     border-top: 12px solid #737477;
     opacity: 0.8;
     position: absolute;
-    top: -17px;
-    left: 5px;
+    top: 40px;
+    left: 35px;
 }
 /*Open The World*/
 .opentheworld_annoncement{
