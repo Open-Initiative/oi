@@ -66,6 +66,8 @@ def myaccount(request):
             project = Project.objects.get(id=dict_params.pop("project"))
             params = {"PARAMPLUS": project}
 
+            #delta is the amount actually added, considering this function can be called several times
+            #the second time, delta is probably 0
             delta = request.user.get_profile().update_payment(dict_params)
             if delta:
                 project.makebid(request.user, delta) #to update the user account

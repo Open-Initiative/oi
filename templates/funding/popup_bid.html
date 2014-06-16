@@ -33,11 +33,12 @@
         <label for="bid_{{task.id}}">{% trans "Please enter the amount:" %}</label><br /><br />
         <input id="bid_{{object.id}}" name="bid_{{object.id}}" class="bidfeature" value="{% if not zero %}{{object.missing_bid|floatformat:"-2"}}{% else %}0{% endif %}" /> €
         <br /><br>
+        
+        <p>{% trans "Thank you for joining community which makes" %} {{task.title}} {% trans "possible" %}</p>
+        <p>{% trans "By continuing, you agree to the" %} <a href="/cgu" target="_blank">{% trans "Terms of Use" %}</a></p>
+        <input type="submit" class="fundingright continuebtn nobtnstyle clickable" value="{% trans 'Continue' %}"/>
+        
     </form>
-    
-    <p>{% trans "Thank you for joining community which makes" %} {{task.title}} {% trans "possible" %}</p>
-    <p>{% trans "By continuing, you agree to the" %} <a href="/cgu" target="_blank">{% trans "Terms of Use" %}</a></p>
-    <span class="fundingright continuebtn clickable" onclick="OIajaxCall('/project/confirmbid/{{task.id}}', 'bid='+getValue('bid_{{task.id}}'), 'output')">{% trans "Continue" %}</span>
 </div>
 
 {% endif %}

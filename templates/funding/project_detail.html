@@ -173,7 +173,7 @@
     {% comment %} popup for the project funding {% endcomment %}        
             
     {% with task=project zero='0' %}
-        {% include 'funding/popup_budget.html' %}
+        {% include 'funding/popup_bid.html' %}
     {% endwith %}
     
     {% with object.descendants|filter_read:user as tasks %}
