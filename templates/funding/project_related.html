@@ -32,8 +32,8 @@
     
     <div class="profile_info cleared">
     
-        <div class="extra_amount clickable" onclick="showPopup(document.getElementById('extra_amount_{{project.id}}'))">
-            <a>{% trans "An extra amount" %} {{project.bid_sum|floatformat:"-2"}} €</a>
+        <div class="not_allocated clickable" onclick="showPopup(document.getElementById('not_allocated_{{project.id}}'))">
+            <a>{{project.bid_sum|floatformat:"-2"}} € {% trans "not allocated" %}</a>
         </div>
         
         <img src="/img/logo_small.png" class="column" />
