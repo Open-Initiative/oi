@@ -93,6 +93,10 @@
     </div>
 
     <div id="details_create_task">
+        <a class="clickable" onclick="submitProject()">
+            <img src="/img/icons/previous.png" title="{% trans 'Back to the previous page' %}" alt="{% trans 'Back to the previous page' %}" style="position: relative;top: 3px;">
+            {% trans "Back to the projects" %}
+        </a>
         <div id="feature_by_feature" class="details_task">
             <h3>{% trans "Feature by feature" %}</h3>
             <p>
@@ -141,7 +145,7 @@
         <ul class="home_ul_center">
             <li>
                 <div class="prjcard">
-                    <a href="/funding/{{project.id}}"><div class="prjtitle funding_space">{% trans "Launch your project now" %}</div></a>
+                    <div onclick="submitProject()" class="prjtitle funding_space"><a href="#submit">{% trans "Launch your project now" %}</a></div>
                     <div class="prjcard_sumbit">
                         <img src="/img/rocket.png" />
                         <p>{% trans "Open funding helps you to fund your free software" %}</p>
