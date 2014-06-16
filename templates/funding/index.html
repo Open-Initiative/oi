@@ -58,9 +58,9 @@
 <div class="fundingdesc">
     <div class="submitproject">
         <div class="helpstart">
-            <div class="blue_band_line_text">{% trans "Contribuate to the projects that" %}</div>
-            <div class="blue_band_line_img"><img src="/img/opentheworld/blue_band_logo.png" /></div>
-            <div class="actions actionbutton" onclick="submitProject()">
+            <div class="blue_band_line_text">{% trans "Contribute to the projects that" %}</div>
+            <div class="blue_band_line_img"><img src="/img/opentheworld/otwhome_blue_band.png" /></div>
+            <div class="actionbutton" onclick="submitProject()">
                 <a href="/opentheworld" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'">{% trans "Learn More" %}</a>
                 <input id="appname" type="hidden" value="funding" />
             </div>
@@ -161,7 +161,7 @@
         </ul>
     </div>
 
-    {% if user.is_authenticated %}
+    {% if user.is_authenticated and user.get_profile.get_observed_projects %}
     <div class="section_title">{% trans "My projects" %}</div>
     <div class="prjlist" id="prjlist3">
         <ul class="home_ul_center">

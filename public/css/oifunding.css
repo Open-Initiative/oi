@@ -47,7 +47,8 @@
 }
 .blue_band_line_text{
     font-size: 1.2em;
-    margin-top: 5px;
+    margin-top: 10px;
+    margin-left: 30px;
 }
 .blue_band_line_img{
     position: absolute;
@@ -1272,12 +1273,9 @@ div.popup_spec {
     margin: 5px;
 }
 .actionbutton {
-    cursor: pointer;
-    font-weight: bold;
-    background-color: #E3E3E3;
-    background-image: none;  
+    float: right;
+    background-color: white;
     border-radius: 3px;
-    color: #0595BA;
     font-size: 15px;
     padding: 5px 12px;
 }
