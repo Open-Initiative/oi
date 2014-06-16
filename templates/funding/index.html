@@ -129,12 +129,26 @@
                 {% trans "If you want to know more about Open Funding and project creation, visit our" %} <a href="/presentation">{% trans "presentation page" %}</a> {% trans "or contact us" %} <a href="mailto:contact@openinitiative.com?Subject={% trans 'Know%20more' %}" target="_top">{% trans "here" %}</a>.
             </p>
         </div>
+        <a class="clickable" onclick="submitProject()">
+            <img src="/img/icons/previous.png" title="{% trans 'Back to the previous page' %}" alt="{% trans 'Back to the previous page' %}" style="position: relative;top: 3px;">
+            {% trans "Back to the projects" %}
+        </a>
     </div>
 </div>
 <div id="projects">
     <div class="section_title">{% trans "Latest projects" %}</div>
     <div id="promoted_project">
         <ul class="home_ul_center">
+            <li>
+                <div class="prjcard">
+                    <a href="/funding/{{project.id}}"><div class="prjtitle funding_space">{% trans "Launch your project now" %}</div></a>
+                    <div class="prjcard_sumbit">
+                        <img src="/img/rocket.png" />
+                        <p>{% trans "Open funding helps you to fund your free software" %}</p>
+                        <div onclick="submitProject()"><a href="#submit">{% trans "Submit your project" %}</a></div>
+                    </div>
+                </div>
+            </li>
         {% for project in object_list %}
             <li>
                 {% if project.promotedproject_set.all.0.location == "fundingindex_comingsoon" %}

@@ -1698,3 +1698,22 @@ div.spectype {
     position: relative;
     margin-top: 50px;
 }
+.prjcard_sumbit{
+    background: #0094B5;
+    border-radius: 30px;
+    color: #FFFFFF;
+    height: 290px;
+    margin: 10px auto 0;
+    padding-top: 20px;
+    width: 230px;
+}
+.prjcard_sumbit a{
+    color: white;
+}
+.prjcard_sumbit > p{
+    margin-top: 30px;
+}
+.prjcard_sumbit > div{
+    font-size: 1.5em;
+    margin-top: 90px;
+}
