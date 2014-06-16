@@ -163,7 +163,7 @@
 
     {% if user.is_authenticated and user.get_profile.get_observed_projects %}
     <div class="section_title">{% trans "My projects" %}</div>
-    <div class="prjlist" id="prjlist3">
+    <div> 
         <ul class="home_ul_center">
         {% for project in user.get_profile.get_observed_projects.distinct %}
             <li>
