@@ -45,6 +45,15 @@
     max-width: 650px;
     margin: 0 auto;
 }
+.blue_band_line_text{
+    font-size: 1.2em;
+    margin-top: 5px;
+}
+.blue_band_line_img{
+    position: absolute;
+    right: 190px;
+    top: 0;
+}
 .btn_extend {
     position: absolute;
     left: -27px;
@@ -753,6 +762,7 @@ div.sepspecfooter {
 }
 .helpstart {
     padding-top: 2%;
+    position: relative;
 }
 .log_style{
     color: #0595BA;

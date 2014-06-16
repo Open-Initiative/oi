@@ -57,12 +57,11 @@
 </div>
 <div class="fundingdesc">
     <div class="submitproject">
-        <img id="rocket" class="fundingleft" src="/img/rocket.png" />
         <div class="helpstart">
-            <div class="blue_band_line_text">Open Funding {% trans "helps you fund your free software." %}</div>
-            <div class="fundingleft blue_band_line_text"><b>{% trans "Launch your project now!" %}</b></div>
+            <div class="blue_band_line_text">{% trans "Contribuate to the projects that" %}</div>
+            <div class="blue_band_line_img"><img src="/img/opentheworld/blue_band_logo.png" /></div>
             <div class="actions actionbutton" onclick="submitProject()">
-                <span onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'">{% trans "submit a project" %}</span>
+                <a href="/opentheworld" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'">{% trans "Learn More" %}</a>
                 <input id="appname" type="hidden" value="funding" />
             </div>
         </div>
