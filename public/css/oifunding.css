@@ -1267,6 +1267,9 @@ div.popup_spec {
     overflow: auto;
     width: 350px;
 }
+.visible{
+    overflow: visible;
+}
 .actions {
     clear: right;
     float: right;

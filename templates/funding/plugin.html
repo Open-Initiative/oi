@@ -111,12 +111,12 @@
                             
                             <div class="profile_info">
                                 <img src="/img/logo_small.png" class="column">
-                                <p><a class="clickable" href="funding/{{object.id}}/#community" onclick="project_content('communityproject')">{{task.bid_set.count}} {% trans "users" %}</a></p>
+                                <p><a class="clickable" target="_blank" href="/funding/{{object.id}}/#community" onclick="project_content('communityproject')">{{task.bid_set.count}} {% trans "users" %}</a></p>
                             </div>            
                             
                             <div class="featurebtns">
                                 {% if task.state < 4 and task|can_bid:user or not user.is_authenticated and task.state < 4 %}
-                                    <a class="supportbtn clickable" href="/funding/{{object.id}}/">{% trans "Order the feature" %}</a>
+                                    <a class="supportbtn clickable" href="#community" target="_blank">{% trans "Order the feature" %}</a>
                                 {% endif %}
                                 <br/>
                             </div>

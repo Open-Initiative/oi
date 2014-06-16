@@ -80,7 +80,7 @@
 {% block content %}
 
 <div class="invisible" id="newproject">
-    <div id="prjlist0" class="newprojectform">
+    <div class="newprojectform">
         <div id="submit" class="section_title">{% trans "Submit your project" %}</div>
         <form id="submit_title_project" class="form_center" onsubmit="if(getValue('prjtitle')) addTask(getValue('prjtitle'), null, null,function(taskid){document.location = '/funding/'+taskid+'/edit'});return false" >
             <p class="details_title">{% trans "You are about to start funding your free software project." %}</p>
@@ -181,7 +181,6 @@
 <script>
     ajaxParams = document.location.hash;
     listid = ajaxParams.substring(1);
-    if(listid) switchPrjList(listid);
     if(document.location.hash == "#submit") submitProject();
     
     var slider = document.getElementById('catcherbg');

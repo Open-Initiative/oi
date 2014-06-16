@@ -29,7 +29,7 @@
 
 {% with object as project %}
 
-<div id="pluginpopup" class="invisible popup" onclick="document.ignoreClosePopups = true;">
+<div id="pluginpopup" class="invisible popup visible" onclick="document.ignoreClosePopups = true;">
     <p>{% trans "Embed this widget to share the feature on your blog or website" %}</p>
     <form>
         <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="big"/>{% trans "Big" %}
