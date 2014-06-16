@@ -84,7 +84,7 @@
                             <a href="/funding/{{object.id}}#feature_{{task.id}}" target="_blank">
                                 <div id="feature_{{task.id}}" style="text-align: center;" class="featuretitle clickable">{{task.title}}</div>
                             </a>
-                            <div style="text-align: center;font-size:11px;color: #6F6F6E;">{% trans "by developer's" %} {{object.author}}</div>
+                            <div style="text-align: center;font-size:11px;color: #6F6F6E;">{% trans "developed by" %} {{object.author}}</div>
                             
                             <form onsubmit="var newtitle = getValue('feature_{{task.id}}_edit');if(newtitle){confirmEditTitle({{task.id}}, newtitle);}; seeMore('feature_{{task.id}}_edit', 'feature_{{task.id}}'); return false">
                                 <input id="feature_{{task.id}}_edit" class="featuretitle invisible" value="{{task.title}}">
