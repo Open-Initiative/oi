@@ -8,7 +8,8 @@
         </div>
     <div class="cleared"><br/></div>
     {% with project.spec_set.all|dictsort:"order" as specs%}
-    {% with spec=project.spec_set.all|filter_order:1 %}<a href="/funding/{{project.id}}"><div class="cardspec" style="height: 8.5em;overflow:hidden">{% include 'funding/spec/minispec.html' %}</div></a>{% endwith %}
+    {% with spec=project.spec_set.all|filter_order:1 %}<a href="/funding/{{project.id}}"><div class="cardspec">{% include 'funding/spec/minispec.html' %}</div></a>{% endwith %}
+    {% with spec=project.spec_set.all|filter_order:2 %}<div class="cardspec" style="height: 8.5em;overflow:hidden">{% include 'funding/spec/minispec.html' %}</div>{% endwith %}
     {% endwith %}
     {% with project.descendants|filter_read:user as descendants %}
     <div class="fundingprogress">
