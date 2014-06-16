@@ -84,12 +84,12 @@
         <p>{% trans "If you’ve a project idea then go ahead and launch your project by clicking here:" %}</p>
         
         <div class="block_action_presentation">
-            <div class="actions actionbutton_presentation" onclick="$('#prjlist0').fadeToggle(); $('#promoted_project').fadeToggle(); $('#prjlist3').fadeToggle(); $('#oi_last_project').fadeToggle()">
+            <div class="actions actionbutton_presentation" onclick="$('#presentation_submit').fadeToggle();">
                 <div class="form_center">{% trans "Submit" %}<br/>{% trans "your project" %}</div>
                 <input id="appname" type="hidden" value="funding" />
             </div>
         </div>
-        <div class="invisible prjlist" id="prjlist0">
+        <div class="invisible" id="presentation_submit">
             <div class="section_title">{% trans "Submit your project" %}</div>
             <form class="form_center" onsubmit="if(getValue('prjtitle')) addTask(getValue('prjtitle'), null, null,function(taskid){document.location = '/funding/'+taskid+'/edit'});return false" >
                 {% trans "Please enter your project title :" %}
