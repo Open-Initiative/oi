@@ -116,7 +116,7 @@
                             
                             <div class="featurebtns">
                                 {% if task.state < 4 and task|can_bid:user or not user.is_authenticated and task.state < 4 %}
-                                    <a class="supportbtn clickable" href="/funding/{{object.id}}/#community" target="_blank">{% trans "Order the feature" %}</a>
+                                    <a class="supportbtn clickable" href="/funding/{{object.id}}/" target="_blank">{% trans "Order the feature" %}</a>
                                 {% endif %}
                                 <br/>
                             </div>
