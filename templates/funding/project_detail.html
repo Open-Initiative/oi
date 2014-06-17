@@ -303,17 +303,17 @@
         
             <h3>{{user_list|length}} {% blocktrans count counter=object.user_list|length %} User{% plural %} Users{% endblocktrans %}: {{object.allbid_sum}} €</h3>
             
-            <div style="color:#0094B5;margin-top: 24px;">
+            <div class="head_community">
                 <p>{% trans "Here is the community that makes" %} {{object.title}} {% trans "possible." %}</p> 
                 <p>{% trans "Are you a part of it? If not :" %} <u class="clickable" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));document.getElementById('order_{{object.id}}').checked=true;">{% trans "ORDER THE FEATURE" %}</u> {% trans "or" %} <u class="clickable" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));">{% trans "BACK THE PROJECT" %}</u></p>
             </div>
             <div id="bids_{{object.id}}">
                 {% for person in user_list %}
                 <div class="participant">
-                    <div class="fundingleft"><img class="contactpicture" src="/user/getpicture/{{person.grouper}}"><b style="border-right: 1px solid #0094B5; padding-right: 10px;"><a href="/user/profile/{{person.grouper}}">{{person.grouper}}</a></b></div>
+                    <div class="fundingleft"><img class="contactpicture" src="/user/getpicture/{{person.grouper}}"><b class="line_featureuser_name"><a href="/user/profile/{{person.grouper}}">{{person.grouper}}</a></b></div>
                     <div class="fundingleft" style="margin-left: 20px;">
                         {% for bid in person.list|dictsort:"project" %}
-                        <div class="line_featureuser">
+                        <div class="line_separate">
                             {% trans "ordered" %} "{{bid.project.title}}" {% trans "with" %} {{bid.amount}} €
                             {% if user == bid.user and task.state < 3 %}
                             <div class="cleared"></div>
