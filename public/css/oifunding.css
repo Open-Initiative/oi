@@ -404,7 +404,7 @@ div.minispec {
     padding: 0.3em;
     text-transform: uppercase;
 }
-.supportbtn_sipmle {
+.supportbtn_simple {
     background: none repeat scroll 0 0 #0094b5;
     border-radius: 3px;
     color: white;
@@ -414,8 +414,8 @@ div.minispec {
     margin: 0 auto;
     padding: 0.3em;
     text-transform: uppercase;
-    width: 200px;
-    
+    width: 220px;
+    text-align: center;
 }
 .supportbtn {
     background: none repeat scroll 0 0 #0094B5;
