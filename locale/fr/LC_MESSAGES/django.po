@@ -1533,11 +1533,11 @@ msgstr "Ouvrez le monde"
 
 #: templates/funding/opentheworld.html:56
 msgid ""
-"What technology would you open up to the world? These five Open Source apps "
+"What technology would you open up to the world? These Open Source apps "
 "are making powerful new tools that are open to everyone. Help make their "
 "dreams a reality: back the projects and #OpenTheWorld!"
 msgstr ""
-"Quelle technologie voudriez-vous ouvrir au monde ? Ces cinq applications "
+"Quelle technologie voudriez-vous ouvrir au monde ? Ces applications "
 "Open Source développent des outils puissants ouverts à tous. Aidez les à "
 "réaliser leurs rêves : soutenez les projets et #OpenTheWorld !"
 
