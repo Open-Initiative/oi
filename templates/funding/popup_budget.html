@@ -37,7 +37,7 @@
     
     <p>{% trans "Thank you for joining community which makes" %} {{task.title}} {% trans "possible" %}</p>
     <p>{% trans "By continuing, you agree to the" %} <a href="/cgu" target="_blank">{% trans "Terms of Use" %}</a></p>
-    <span class="fundingright continuebtn clickable" onclick="OIajaxCall('/project/confirmbid/{{task.id}}', 'bid='+getValue('bid_{{task.id}}'), 'output')">{% trans "Continue" %}</span>
+    <span class="fundingright continuebtn clickable" onclick="confirmBid({{object.id}})">{% trans "Continue" %}</span>
 </div>
 
 {% endif %}

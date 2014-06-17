@@ -105,6 +105,8 @@ class UserProfile(models.Model):
             logger.warning("Paiement %s non validé : %s"%(payment.id,info['STATUS'].__str__()))
             delta = 0
         payment.save()
+        #delta is the amount actually added, considering this function can be called several times
+        #the second time, delta is probably 0
         return delta
 
     def get_message_updates(self):
