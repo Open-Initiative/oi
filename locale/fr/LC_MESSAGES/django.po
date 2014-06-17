@@ -2679,7 +2679,7 @@ msgstr "Mini"
 
 #: templates/funding/project_detail.html:44
 msgid "We have received an extra"
-msgstr "Vous avez reçu un supplément de"
+msgstr "Nous avons reçu un supplément de"
 
 #: templates/funding/project_detail.html:44
 msgid ""
