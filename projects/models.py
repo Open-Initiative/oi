@@ -61,14 +61,6 @@ class ProjectQuerySet(QuerySet):
         """get the sum of all missing bids of a set of projects to be fully fund"""
         return self.allbudget() - self.allbid_sum()
         
-    def nbtotaltask(self):
-        """return the number of task"""
-        nbtasks = 0
-        for project in self:
-            if project.descendants:
-                nbtasks =+ project.descendants.all().count()
-        return nbtasks
-        
 class ProjectManager(models.Manager):
     def get_query_set(self):
         """Returns a new QuerySet object.  Subclasses can override this method
@@ -498,15 +490,7 @@ class Project(models.Model):
         or without language, excluding image (order=1)"""
         return self.spec_set.filter(language=get_language()).order_by('order') or self.spec_set.filter(language="default").order_by('order')
         
-    def show_user_funders(self):
-        """retunrs all the bid of the project master and descendants"""
-        list_bid = []
-        for bid in Bid.objects.filter(project__master=self).order_by('user'):
-            if not bid.user in list_bid:   
-                list_bid.append(bid.user)
-        return list_bid
-        
-    def all_funding_user(self):
+    def all_bid_user(self):
         """retunrs all the bid of the project master and descendants"""
         list_bid = []
         for bid in Bid.objects.filter(project__master=self).order_by('user'):

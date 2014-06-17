@@ -1535,8 +1535,16 @@ div.spectype {
     font-weight: bold;
     margin-right: 7px;
 }
-.line_featureuser {
+.head_community{
+    color:#0094B5;
+    margin-top: 24px;
+}
+.line_separate {
     margin-top: 10px;
+}
+.line_featureuser_name{
+    border-right: 1px solid #0094B5; 
+    padding-right: 10px;
 }
 .avoid_overlapping{
     position: relative;

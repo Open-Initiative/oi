@@ -86,9 +86,8 @@
             <p class="details_title">{% trans "You are about to start funding your free software project." %}</p>
             <p class="form_center details_title">{% trans "First enter your project title" %}</p>
             <input id="prjtitle"/>
-            <p>
-                <span class="continuebtn clickable" onclick="$('#submit_title_project').submit()">{% trans 'Create' %}</span>
-            </p>
+            <div class="cleared line_separate"></div>
+            <input type="submit" class="continuebtn nobtnstyle clickable" value="{% trans 'Create' %}"/>
         </form>
     </div>
 
