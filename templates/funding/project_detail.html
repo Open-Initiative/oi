@@ -299,7 +299,7 @@
         
             <div id="fav_{{object.id}}_com" class="follow_project clickable" onclick="favProject({{object.id}}, 'Funding')">{% if not object|is_following:user %}{% trans "Follow the project" %}{% else %}{% trans "Stop following the project" %}{% endif %}</div>
         
-            {% regroup object.all_funding_user by user as user_list %}
+            {% regroup object.all_bid_user by user as user_list %}
         
             <h3>{{user_list|length}} {% blocktrans count counter=object.user_list|length %} User{% plural %} Users{% endblocktrans %}: {{object.allbid_sum}} €</h3>
             

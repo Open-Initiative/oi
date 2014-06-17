@@ -54,7 +54,7 @@
                 <div style="text-align: center;">    
                     <div class="cleared"></div> 
                     <div style="font-size:13px;color: #0094B5;font-weight: bold;">{{object.allbid_sum}} € {% trans "funded" %}</div>
-                    {% regroup object.all_funding_user by user as user_list %}
+                    {% regroup object.all_bid_user by user as user_list %}
                     <div style="font-size:11px;color: #2EAC66;font-weight: bold;">{{user_list|length}} {% blocktrans count counter=user_list|length %} user {% plural %} users {% endblocktrans %}</div>
                 </div>
             
