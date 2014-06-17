@@ -61,14 +61,6 @@ class ProjectQuerySet(QuerySet):
         """get the sum of all missing bids of a set of projects to be fully fund"""
         return self.allbudget() - self.allbid_sum()
         
-    def nbtotaltask(self):
-        """return the number of task"""
-        nbtasks = 0
-        for project in self:
-            if project.descendants:
-                nbtasks =+ project.descendants.all().count()
-        return nbtasks
-        
 class ProjectManager(models.Manager):
     def get_query_set(self):
         """Returns a new QuerySet object.  Subclasses can override this method

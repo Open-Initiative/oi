@@ -16,8 +16,6 @@
     
     <div class="opentheworld_progressbar">
         <div class="funding_space subtitle_news">
-            {{object_list.nbtotaltask}}
-            {% blocktrans count counter=object_list.nbtotaltask %}feature to be funded{% plural %} features to be funded{% endblocktrans %}
         </div>
     
     {% with object_list|filter_read:user as descendants %}
