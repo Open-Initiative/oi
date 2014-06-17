@@ -59,13 +59,13 @@
                 </div>
             
                 <ul class="home_ul_center">
-                {% for user in object.show_user_funders|slice:":7" %}
+                {% for person in user_list|slice:":7" %}
                     <li>
-                        <a href="/user/profile/{{user.username}}" target="_blank">
+                        <a href="/user/profile/{{person.grouper}}" target="_blank">
                             <div style="height: 55px;width: 40px;">
-                                <img style="max-height: 55px;max-width: 40px;" alt="{{user.username}}" src="/user/getpicture/{{user.username}}">
+                                <img style="max-height: 55px;max-width: 40px;" alt="{{person.grouper}}" src="/user/getpicture/{{person.grouper}}">
                             </div>
-                            <span style="font-size: 0.8em;">{{user.username}}</span>
+                            <span style="font-size: 0.8em;">{{person.grouper}}</span>
                         </a>
                     </li>
                 {% endfor %}
