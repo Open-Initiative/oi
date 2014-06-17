@@ -1533,11 +1533,11 @@ msgstr "Ouvrez le monde"
 
 #: templates/funding/opentheworld.html:56
 msgid ""
-"What technology would you open up to the world? These five Open Source apps "
+"What technology would you open up to the world? These Open Source apps "
 "are making powerful new tools that are open to everyone. Help make their "
 "dreams a reality: back the projects and #OpenTheWorld!"
 msgstr ""
-"Quelle technologie voudriez-vous ouvrir au monde ? Ces cinq applications "
+"Quelle technologie voudriez-vous ouvrir au monde ? Ces applications "
 "Open Source développent des outils puissants ouverts à tous. Aidez les à "
 "réaliser leurs rêves : soutenez les projets et #OpenTheWorld !"
 
@@ -2534,12 +2534,12 @@ msgstr "C'est quoi #OpenTheWorld ?"
 
 #: templates/funding/presentation.html:204
 msgid ""
-"<p>OpenTheWorld is a unique campaign gathering several projects funding "
+"is a unique campaign gathering several projects funding "
 "together their individual features in order to grow their community by "
 "empowering people and enabling diversity. These projects share values and "
 "all contribute to building commons, they have a common message to spread!</p>"
 msgstr ""
-"<p>OpenTheWorld est une campagne réunissant plusieurs projets finançant "
+"est une campagne réunissant plusieurs projets finançant "
 "ensemble leurs évolutions pour développer leur communauté en leur permettant "
 "de contribuer et en favorisant la diversité. Ces projets partagent des "
 "valeurs et contribuent aux biens communs, ils ont un message commun à "
