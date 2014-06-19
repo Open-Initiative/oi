@@ -73,9 +73,7 @@
                 {% with linktitte="true" %}
                 {% for task in object.all_not_started_tasks|filter_read:user %}
                 
-                    {% with position='absolute' %}
                     {% include 'funding/popup_bid.html' %}
-                    {% endwith %}
                     
                 <li class="pluginfeature{% if not forloop.first %} invisible{% endif %}" id="task_{{task.id}}">
                     
