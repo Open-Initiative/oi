@@ -46,7 +46,7 @@
         <script type="text/javascript" src="{% url django.views.i18n.javascript_catalog %}"></script>
     </head>
 
-    <body style="background-color: transparent; {% if request.GET.type == 'small' %}min-width: 240px;{% endif %} {% if request.GET.type == 'tiny' %}min-width: 100px;{% endif %} {% if request.GET.type == 'big' %}min-width: 100%; overflow: hidden;{% endif %}">
+    <body style="background-color: transparent; {% if request.GET.type == 'small' %}min-width: 240px;{% endif %} {% if request.GET.type == 'tiny' %}min-width: 100px;{% endif %} {% if request.GET.type == 'big' %}min-width: 100%; overflow: hidden;{% endif %}{% if request.GET.type == 'simple' %}min-width: 240px;{% endif %}">
         <div id="messageoutput">
             <div><span id="output" class="info"></span></div>
         </div>
@@ -174,6 +174,23 @@
         </div>
         </a>
         <div id="plugin_preview_tiny"></div>
-        {% endif %}{% endif %}{% endif %}
+        {% else %}{% if request.GET.type == "simple" %}
+        <div class="pluginsimple">
+            <a target="_blank" href="/"><img class="pluginlogo" src="/img/logo_funding.png"></a>
+            <div class="pluginsimpletitle">{% trans "Support " %}<br/>{{object.title}}</div>
+            {% with object.descendants|filter_read:user as descendants %}
+            <div class="pluginsum">
+                {% with amount=descendants.missingbid_sum|floatformat:"-2" %}
+                    {{amount}} €
+                {% endwith %}
+                <div class="cleared"></div>
+            </div>
+            {% endwith %}
+            <div class="cleared"></div>
+            <a target="_blank" href="/funding/{{object.id}}#community" style="margin: 0 17%;" class="supportbtn">{% trans "Back this project" %}</a>
+            <div class="cleared"><br/></div>
+            <a target="_blank" href="/funding/{{object.id}}" class="pluginsimplevisite"><u>{% trans "Visite the page here" %}</u></a>
+        </div>
+        {% endif %}{% endif %}{% endif %}{% endif %}
     </body>
 </html>

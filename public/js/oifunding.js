@@ -169,9 +169,12 @@ function selectplugin(projectid, plugintype) {
     }else if(plugintype == "small"){
         var height = "99px";
         var width = "240px";
-    }else{
+    }else if(plugintype == "tiny"){
         var height = "42px";
         var width = "105px";
+    }else{
+        var height = "120px";
+        var width = "340px";
     }
     var iframe = "<iframe id='widget_"+projectid+"_"+plugintype+"' style='border:none; width:"+width+"; height: "+height+"; max-width: 350px;' src='http://"+sites["Open Funding"]+"/funding/"+projectid+"/embed?type="+plugintype+"'></iframe>";
 

@@ -582,6 +582,16 @@ div.sepspecfooter {
     padding: 0 10px;
     width: 80px;
 }
+.pluginsimple {
+    background: none repeat scroll 0 0 white;
+    border: 1px solid #e0e0e0;
+    color: #0595ba;
+    font-weight: bold;
+    height: 110px;
+    overflow: hidden;
+    padding: 3px;
+    width: 330px;
+}
 .progresstiny {
     background: #2EAC66;
     color: white;
@@ -590,22 +600,39 @@ div.sepspecfooter {
     height: .3em;
     text-align: center;
 }
-/*TODO*/
+.pluginsimpletitle{
+    border-right: 2px solid;
+    float: left;
+    padding-right: 20px;
+    margin-right: 20px;
+}
+.pluginsimplevisite{
+    text-align: center;
+    color: #6F6F6E;
+    display: block;
+}
+.supportbtn {
+    background: none repeat scroll 0 0 #0094b5;
+    border-radius: 3px;
+    color: white;
+    display: table;
+    font-size: 1.4em;
+    font-weight: bold;
+    padding: 0.3em;
+    text-transform: uppercase;
+    margin: 0 auto;
+}
 .plugin-arrow {
     float: left;
     margin: 100px 5px;
 }
-/*TODO*/
 .pluginsum {
-    color: black;
+    color: #6F6F6E;
     margin: 7px;
-    text-align: center;
 }
-/*TODO*/
 .plugin-nobold {
     font-weight: normal;
 }
-/*TODO*/
 .pluginlogo {
     float: right;
     width: 80px;
