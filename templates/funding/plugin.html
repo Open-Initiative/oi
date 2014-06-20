@@ -177,7 +177,8 @@
         {% else %}{% if request.GET.type == "simple" %}
         <div class="pluginsimple">
             <a target="_blank" href="/"><img class="pluginlogo" src="/img/logo_funding.png"></a>
-            <div class="pluginsimpletitle">{% trans "Support " %}<br/>{{object.title}}</div>
+            <div class="fundingleft">{% trans "Support " %}<br/>{{object.title}}</div>
+            
             {% with object.descendants|filter_read:user as descendants %}
             <div class="pluginsum">
                 {% with amount=descendants.missingbid_sum|floatformat:"-2" %}
@@ -189,7 +190,7 @@
             <div class="cleared"></div>
             <a target="_blank" href="/funding/{{object.id}}#community" style="margin: 0 17%;" class="supportbtn">{% trans "Back this project" %}</a>
             <div class="cleared"><br/></div>
-            <a target="_blank" href="/funding/{{object.id}}" class="pluginsimplevisite"><u>{% trans "Visite the page here" %}</u></a>
+            <a target="_blank" href="/funding/{{object.id}}" class="pluginsimplevisite"><u>{% trans "Visit the page here" %}</u></a>
         </div>
         {% endif %}{% endif %}{% endif %}{% endif %}
     </body>

@@ -600,12 +600,6 @@ div.sepspecfooter {
     height: .3em;
     text-align: center;
 }
-.pluginsimpletitle{
-    border-right: 2px solid;
-    float: left;
-    padding-right: 20px;
-    margin-right: 20px;
-}
 .pluginsimplevisite{
     text-align: center;
     color: #6F6F6E;
@@ -627,8 +621,11 @@ div.sepspecfooter {
     margin: 100px 5px;
 }
 .pluginsum {
-    color: #6F6F6E;
-    margin: 7px;
+    border-left: 1px solid #0094b5;
+    color: #6f6f6e;
+    float: left;
+    margin: 7px 7px 17px 20px;
+    padding-left: 10px;
 }
 .plugin-nobold {
     font-weight: normal;
