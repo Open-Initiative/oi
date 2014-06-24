@@ -404,6 +404,19 @@ div.minispec {
     padding: 0.3em;
     text-transform: uppercase;
 }
+.supportbtn_sipmle {
+    background: none repeat scroll 0 0 #0094b5;
+    border-radius: 3px;
+    color: white;
+    display: table;
+    font-size: 1.4em;
+    font-weight: bold;
+    margin: 0 auto;
+    padding: 0.3em;
+    text-transform: uppercase;
+    width: 200px;
+    
+}
 .supportbtn {
     background: none repeat scroll 0 0 #0094B5;
     border-radius: 3px;
@@ -604,17 +617,6 @@ div.sepspecfooter {
     text-align: center;
     color: #6F6F6E;
     display: block;
-}
-.supportbtn {
-    background: none repeat scroll 0 0 #0094b5;
-    border-radius: 3px;
-    color: white;
-    display: table;
-    font-size: 1.4em;
-    font-weight: bold;
-    padding: 0.3em;
-    text-transform: uppercase;
-    margin: 0 auto;
 }
 .plugin-arrow {
     float: left;
