@@ -2833,8 +2833,8 @@ msgid "possible."
 msgstr "possible."
 
 #: templates/funding/project_detail.html:313
-msgid "Are you a part of it? If not :"
-msgstr "En faites vous partie? Si ce n'est pas le cas :"
+msgid "Are you a part of it?"
+msgstr "En faites vous partie?"
 
 #: templates/funding/project_detail.html:313
 msgid "ORDER THE FEATURE"
