@@ -268,10 +268,12 @@ div.prj-action-wait {
     font-size: 200%;
     transform: rotate(-20deg);
     position: absolute;
-    left: 2.5em;
+    left: 0;
+    right: 0;
     top: 6em;
     border: solid;
     padding: .1em;
+    color: #0094b5;
 }
 
 ul.home_ul_center {
