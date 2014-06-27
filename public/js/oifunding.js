@@ -201,6 +201,7 @@ function hideOFWidgetPopup() {
     oftimer = setTimeout(function(){document.getElementById('tinypopup').style.display = 'none';},3000);
 }
 function updateStockReward(projectid, rewardid, moreOrLess){
+    //deals with the stock of reward
     if(moreOrLess) var nb = 1; else var nb = -1;
     OIajaxCall("/project/"+projectid+"/updatestockreward/"+rewardid, "update="+nb, "output", function(){
         var oldvalue = parseInt(document.getElementById("nb_reward_"+rewardid).innerHTML);
@@ -209,6 +210,7 @@ function updateStockReward(projectid, rewardid, moreOrLess){
     })
 }
 function deleteReward(projectid, rewardid){
+    //delete reward
     if(confirm(gettext("Are you sure you want to delete this reward permanently?"))) {
         OIajaxCall("/project/"+projectid+"/deletereward/"+rewardid, null, "output", 
         function(){
@@ -218,6 +220,15 @@ function deleteReward(projectid, rewardid){
             linereward.parentNode.removeChild(linereward);
         })
     }
+}
+function checkConfirmation(projectid){
+    //check if exist value before send it by the form
+    var form_valid = document.getElementById('simple_sum_'+projectid).value != '';
+    if(!form_valid){
+        document.getElementById('output').innerHTML = gettext("Please indicate the amount");
+        return false;
+    }
+    return true;
 }
 function confirmBid(projectid) {
     //get the feature or project id and make a bid on it
@@ -247,16 +258,19 @@ function project_content(divid){
     }
 }
 function project_oncload_page(){
+    //on project page, chose which part to show
     if(document.location.hash == "#features") project_content('featuresproject');
     else if (document.location.hash == "#community") project_content('communityproject');
     else if(document.location.hash == "#discussions") project_content('discussionsproject');
 }
 function openPanel(){
+    //open related panel, it appear when the screen is small
     $('#shrinkrelated').animate({'width': '265px'}, 300);
     $('#btn_extend_close').removeClass('invisible');
     $('#btn_extend_open').addClass('invisible');
 }
 function closePanel(){
+    //close related panel, it appear when the screen is small
     document.getElementById('shrinkrelated').style.cssText='';
     $('#btn_extend_open').removeClass('invisible');
     $('#btn_extend_close').addClass('invisible');

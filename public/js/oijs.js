@@ -35,7 +35,7 @@ function OIajaxCall(url, params, divid, callBack) {
             document.getElementById("output").innerHTML = gettext('Forbidden : ') + xmlhttp.responseText;
         else if(xmlhttp.status >= 404) //page not found
             document.getElementById("output").innerHTML = gettext('ERROR : ') +gettext('Could not find object');
-        else if(xmlhttp.status == 332) document.location.reload(true); //reload the page and the serve too thank to the 'true'
+        else if(xmlhttp.status == 332) document.location.reload(true); //reload the page by passing the cache thank to the 'true'
         else if(xmlhttp.status == 333) document.location = xmlhttp.responseText; //redirect to another page
         else if(xmlhttp.status == 200){ //all is fine
             if(divid)document.getElementById(divid).innerHTML = xmlhttp.responseText;

@@ -189,7 +189,7 @@
             {% endwith %}
             <div class="cleared"></div>
             
-            <form class="form_center" target="_blank" method="post" action="{% url projects.views.bidproject object.id %}">
+            <form class="form_center" onsubmit="return checkConfirmation({{object.id}})" target="_blank" method="post" action="{% url projects.views.bidproject object.id %}">
                 {% csrf_token %}
                 <input id="simple_sum_{{object.id}}" class="simple_sum" type="number" name="bid" min="0"> €
                 <div class="cleared"><br/></div>
