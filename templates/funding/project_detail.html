@@ -35,7 +35,7 @@
         <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="big"/>{% trans "Big" %}
         <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="small"/>{% trans "Small" %}
         <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="tiny"/>{% trans "Tiny" %}
-        <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="simple"/>{% trans "Simple" %}
+        {% if object|can_bid:user %}<input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="simple"/>{% trans "Simple" %}{% endif %}
         <textarea readonly id="plugincode" style="width:100%; float:right; height:65px"></textarea>
     </form>
     <div id="plugin_preview"></div>
@@ -306,7 +306,7 @@
             
             <div class="head_community">
                 <p>{% trans "Here is the community that makes" %} {{object.title}} {% trans "possible." %}</p> 
-                <p>{% trans "Are you a part of it? If not :" %} <u class="clickable" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));document.getElementById('order_{{object.id}}').checked=true;">{% trans "ORDER THE FEATURE" %}</u> {% trans "or" %} <u class="clickable" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));">{% trans "BACK THE PROJECT" %}</u></p>
+                {% if object|can_bid:user %}<p>{% trans "Are you a part of it? If not :" %} <u class="clickable" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));document.getElementById('order_{{object.id}}').checked=true;">{% trans "ORDER THE FEATURE" %}</u> {% trans "or" %} <u class="clickable" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));">{% trans "BACK THE PROJECT" %}</u></p>{% endif %}
             </div>
             <div id="bids_{{object.id}}">
                 {% for person in user_list %}

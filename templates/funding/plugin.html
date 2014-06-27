@@ -188,8 +188,15 @@
             </div>
             {% endwith %}
             <div class="cleared"></div>
-            <a target="_blank" href="/funding/{{object.id}}#community" style="" class="supportbtn_sipmle">{% trans "Back this project" %}</a>
-            <div class="cleared"><br/></div>
+            
+            <form class="form_center" target="_blank" method="post" action="{% url projects.views.bidproject object.id %}">
+                {% csrf_token %}
+                <input id="simple_sum_{{object.id}}" class="simple_sum" type="number" name="bid" min="0"> €
+                <div class="cleared"><br/></div>
+                <input type="submit" class="supportbtn_sipmle nobtnstyle" value="{% trans 'Back this project' %}">
+                <div class="cleared"></div>
+            </form>
+            
             <a target="_blank" href="/funding/{{object.id}}" class="pluginsimplevisit"><u>{% trans "Visit the project page here" %}</u></a>
         </div>
         {% endif %}{% endif %}{% endif %}{% endif %}

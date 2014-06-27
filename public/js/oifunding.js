@@ -173,8 +173,8 @@ function selectplugin(projectid, plugintype) {
         var height = "42px";
         var width = "105px";
     }else{
-        var height = "120px";
-        var width = "340px";
+        var height = "170px";
+        var width = "350px";
     }
     var iframe = "<iframe id='widget_"+projectid+"_"+plugintype+"' style='border:none; width:"+width+"; height: "+height+"; max-width: 350px;' src='http://"+sites["Open Funding"]+"/funding/"+projectid+"/embed?type="+plugintype+"'></iframe>";
 
@@ -220,9 +220,11 @@ function deleteReward(projectid, rewardid){
     }
 }
 function confirmBid(projectid) {
+    //get the feature or project id and make a bid on it
     OIajaxCall("/project/confirmbid/"+$("input[name='order']:checked").val(), "bid="+getValue("bid_"+projectid), "output");
 }
 function completeTask(projectid, taskid){
+    //complete the feature with project bid
     OIajaxCall("/project/"+projectid+"/completetask/"+taskid, null, "output");
 }
 function arrow_Up_Down(divid){
