@@ -49,7 +49,7 @@
 <div class="block_shrinkrelated">
     <div style="position:relative; float: right;">
         <img id="btn_extend_open" class="btn_extend" src="/img/icons/openbtn.png" onclick="openPanel()"/>
-            
+
         <img id="btn_extend_close" class="invisible btn_extend" src="/img/icons/closebtn.png" onclick="closePanel()" />
         <div id="shrinkrelated">
             <div id="related">
@@ -88,14 +88,14 @@
 
 {% with spec=project.spec_set.all|filter_order:6 order=6 divid='licence' spec_divid='spec__6_content' %}
 <div class="popup_corner invisible" id="licencedescription_{{spec.id}}" onclick="document.ignoreClosePopups = true;">
-                
+
     <div class="cleared"></div>
-    
+
     <input name="spectype" id="type_{{spec_divid}}" value="3" type="hidden"/>
     <input name="specid" id="specid_{{spec_divid}}" value="{{spec.id|default:0}}" type="hidden"/>
     <input name="projectid" id="projectid_{{spec_divid}}" value="{{project.id}}" type="hidden"/>
     <input name="specorder" id="specorder_{{spec_divid}}" value="{{order}}" type="hidden"/>
-    
+
     <form onsubmit="saveSpec('{{spec_divid}}',{{project.id}},getValue('specorder_{{spec_divid}}'),{{spec.id|default:0}});hidePopups(); return false">
         <span class="rewardtitle">{% trans "Indicate the license used to distribute software" %}</span><br/>
         <input id="text_{{spec_divid}}" type="text" value="{{spec.text|oiunescape}}">
@@ -113,7 +113,7 @@
 {% endwith %}
 
 <div class="prjbody">
-    
+
     <div class="social_integration">
         <a style="position:relative;" onmouseover="$('#social_twitter').show();" onmouseout="$('#social_twitter').hide();" target="_blank" href="https://twitter.com/intent/tweet?text={% trans 'I%20am%20supporting%20the%20project%20' %}{{object.title}}&via=Open_Initiative&url=http://funding.openinitiative.com/funding/{{object.id}}">
             <div id="social_twitter" class="invisible">
@@ -142,8 +142,8 @@
             </div>
             <img src="/img/social_icons/embed.png" class="social_integration_img" alt="embed">
         </a>
-    </div>    
-    
+    </div>
+
     {% with object as project %}
     <div id="project_{{object.id}}" class="project">
         <div id="prjdialogue_{{object.id}}" class="popup invisible"></div>
@@ -168,27 +168,27 @@
         </div>
         <div class="cleared"></div>
     </div>
-    
+
     <div class="cleared"></div>
-     
-    {% comment %} popup for the project funding {% endcomment %}        
-            
+
+    {% comment %} popup for the project funding {% endcomment %}
+
     {% with task=project zero='0' %}
         {% include 'funding/popup_bid.html' %}
     {% endwith %}
-    
+
     {% with object.descendants|filter_read:user as tasks %}
     <div class="project">
-    
+
         <div class="tabs_project">
             <h2 id="features" class="tab_project"><a href="#features" onclick="project_content('featuresproject')">{% trans "Features" %}</a></h2>
             <h2 id="community" class="tab_project"><a href="#community" onclick="project_content('communityproject')">{% trans "Community" %}</a></h2>
             <h2 id="discussions" class="tab_project"><a href="#discussions" onclick="project_content('discussionsproject')">{% trans "Discussions" %}</a></h2>
         </div>
         <div class="cleared"></div>
-    
+
         <div id="featuresproject" class="invisible">
-            <div id="featureid_blockHead"> 
+            <div id="featureid_blockHead">
                 {% if object.all_not_started_tasks %}<div onclick="featureShowHide('features_0')" id="featureid_proposed" class="clickable statebtn invisible">{% trans "Proposed" %}</div>{% endif %}
                 {% if object.all_progress_tasks %}<div onclick="featureShowHide('features_3')" id="featureid_progress" class="clickable statebtn invisible">{% trans "In progress" %}</div>{% endif %}
                 {% if object.all_finish_tasks %}<div onclick="featureShowHide('features_4')" id="featureid_finished" class="clickable statebtn invisible">{% trans "Finished" %}</div>{% endif %}
@@ -204,7 +204,7 @@
                     <p>{% trans "No features yet" %}</p>
                 {% endfor %}
             </ul>
-            
+
             <div class="cleared"></div>
 
             <ul class="features_manage" id="features_3">
@@ -224,7 +224,7 @@
                 {% endfor %}
                 <div class="cleared"></div>
             </ul>
-            
+
             {% if object|can_manage:user or object|can_answer:user %}
             <div class="submit_feature">
                 {% if object|can_manage:user %}
@@ -297,13 +297,13 @@
             {% endif %}
         </div>
         <div id="communityproject" class="invisible">
-        
+
             <div id="fav_{{object.id}}_com" class="follow_project clickable" onclick="favProject({{object.id}}, 'Funding')">{% if not object|is_following:user %}{% trans "Follow the project" %}{% else %}{% trans "Stop following the project" %}{% endif %}</div>
-        
+
             {% regroup object.all_bid_user by user as user_list %}
-        
+
             <h3>{{user_list|length}} {% blocktrans count counter=object.user_list|length %} User{% plural %} Users{% endblocktrans %}: {{object.allbid_sum}} €</h3>
-            
+
             <div class="head_community">
                 <p>{% trans "Here is the community that makes" %} {{object.title}} {% trans "possible." %}</p> 
                 {% if object|can_bid:user %}<p>{% trans "Are you a part of it? If not :" %} <u class="clickable" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));document.getElementById('order_{{object.id}}').checked=true;">{% trans "ORDER THE FEATURE" %}</u> {% trans "or" %} <u class="clickable" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));">{% trans "BACK THE PROJECT" %}</u></p>{% endif %}
@@ -327,12 +327,12 @@
                         {% endfor %}
                     </div>
                     <div class="cleared"></div>
-                </div>    
+                </div>
                 {% empty %}
                     <p>{% trans "No bid on this project" %}</p>
                 {% endfor %}
             </div>
-            
+
         </div>
         <div id="discussionsproject" class="invisible">
             {% with object as project %}
@@ -355,15 +355,15 @@
             {% endwith %}
         </div>
     </div>
-    
+
     {% endwith %}
     {% endwith %}
-    
+
 </div>
 
 <script>
     currentTask = {{object.id}};
-    allFeatureFunction(); 
+    allFeatureFunction();
     follow = {% if object|is_following:user %}true{%else%}false{%endif%};
     {% if object|can_manage:user %}
     sortFeature({{object.id}});

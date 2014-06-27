@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-17 01:22+0200\n"
+"POT-Creation-Date: 2014-06-17 08:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Language: \n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
-#: helpers.py:32 templates/funding/project_detail.html:195
+#: helpers.py:32 templates/funding/project_detail.html:196
 #: templates/projects/table_overview/table_state.html:4
 msgid "Proposed"
 msgstr "Proposé"
@@ -118,14 +118,14 @@ msgstr "Publié sur"
 #: projects/views.py:1026 projects/views.py:1049 projects/views.py:1078
 #: projects/views.py:1106 projects/views.py:1108 projects/views.py:1111
 #: projects/views.py:1122 projects/views.py:1134 projects/views.py:1138
-#: projects/views.py:1155 users/views.py:304
+#: projects/views.py:1155 users/views.py:306
 msgid "Wrong arguments"
 msgstr "Arguments incorrects"
 
 #: messages/models.py:140 messages/views.py:66 messages/views.py:76
-#: messages/views.py:80 projects/models.py:544 projects/views.py:290
+#: messages/views.py:80 projects/models.py:528 projects/views.py:290
 #: projects/views.py:343 projects/views.py:576
-#: templates/funding/project_detail.html:378
+#: templates/funding/project_detail.html:379
 #: templates/funding/project_edit.html:44
 #: templates/projects/project_detail.html:124
 msgid "Forbidden"
@@ -252,8 +252,8 @@ msgstr "notification"
 msgid "notices"
 msgstr "notifications"
 
-#: prjnotify/views.py:132 users/views.py:214 users/views.py:277
-#: users/views.py:284 users/views.py:307 users/views.py:314
+#: prjnotify/views.py:132 users/views.py:216 users/views.py:279
+#: users/views.py:286 users/views.py:309 users/views.py:316
 msgid "Modification saved"
 msgstr "Mofication enregistrée"
 
@@ -451,33 +451,33 @@ msgstr "Le propriétaire a utilisé votre financement pour une évolution"
 msgid "Recompute all descendants"
 msgstr "Recalculer tous les descendants"
 
-#: projects/models.py:356
+#: projects/models.py:348
 msgid "Bid"
 msgstr "Participation"
 
-#: projects/models.py:357 projects/views.py:772
+#: projects/models.py:349 projects/views.py:772
 #: templates/projects/project_budget.html:36
 msgid "Commission"
 msgstr "Commission"
 
-#: projects/models.py:618
+#: projects/models.py:602
 msgid "Refund of bid"
 msgstr "Remboursement de la participation"
 
-#: projects/models.py:698 templates/funding/project_related.html:116
+#: projects/models.py:682 templates/funding/project_related.html:116
 msgid "Description and conditions"
 msgstr "Description et conditions"
 
-#: projects/models.py:699
+#: projects/models.py:683
 msgid "Reward object (technical support, T-shirt, personnalized e-mail...)"
 msgstr ""
 "Objet de la récompense (support technique, T-shirt, e-mail personnalisé...) "
 
-#: projects/models.py:700
+#: projects/models.py:684
 msgid "Picture that illustrate the reward"
 msgstr "Photo qui illustre la récompense"
 
-#: projects/models.py:701
+#: projects/models.py:685
 msgid "Number of rewards remaining"
 msgstr "Nombre de récompenses restantes"
 
@@ -533,8 +533,8 @@ msgstr "Récompense supprimé"
 msgid "Can not change a finished task"
 msgstr "Impossible de modifier une tâche terminée"
 
-#: projects/views.py:325 templates/funding/project_detail.html:248
-#: templates/funding/project_detail.html:284
+#: projects/views.py:325 templates/funding/project_detail.html:249
+#: templates/funding/project_detail.html:285
 msgid "insert a title"
 msgstr "insérer un titre"
 
@@ -961,10 +961,9 @@ msgid "Follow us on google+"
 msgstr "Suivez nous sur google+"
 
 #: templates/base.html:170 templates/index-root.html:118
-#: templates/funding/base.html:203 templates/funding/popup_budget.html:39
-#: templates/funding/project_detail.html:261
-#: templates/funding/project_detail.html:289
-#: templates/funding/dialogue/bid.html:5
+#: templates/funding/base.html:203 templates/funding/popup_bid.html:38
+#: templates/funding/project_detail.html:262
+#: templates/funding/project_detail.html:290
 #: templates/projects/dialogue/bid.html:5
 #: templates/projects/dialogue/offer.html:5 templates/users/register.html:35
 msgid "Terms of Use"
@@ -1100,7 +1099,7 @@ msgstr ""
 "réalisation"
 
 #: templates/index.html:43 templates/funding/index.html:37
-#: templates/funding/index.html.py:64 templates/funding/opentheworld.html:58
+#: templates/funding/index.html.py:64 templates/funding/opentheworld.html:56
 msgid "Learn More"
 msgstr "En savoir plus"
 
@@ -1173,8 +1172,8 @@ msgstr "Déposer un projet"
 msgid "OpenTheWorld Campaign"
 msgstr "Campagne OpenTheWorld"
 
-#: templates/funding/feature.html:8 templates/funding/popup_budget.html:7
-#: templates/funding/project_detail.html:326
+#: templates/funding/feature.html:8 templates/funding/popup_bid.html:7
+#: templates/funding/project_detail.html:327
 msgid "close"
 msgstr "fermer"
 
@@ -1194,7 +1193,7 @@ msgstr ""
 "Vous êtes sur le point de financer cette évolution avec les fonds du projet "
 "pas encore alloués à des évolutions, êtes-vous sûr ?"
 
-#: templates/funding/feature.html:12 templates/funding/popup_budget.html:40
+#: templates/funding/feature.html:12 templates/funding/popup_bid.html:39
 #: templates/funding/spec/project_description_edit.html:86
 #: templates/users/myaccount.html:20 templates/users/myaccount.html.py:32
 #: templates/users/myaccount.html:44
@@ -1207,13 +1206,13 @@ msgstr "Phase de Financement de l'évolution"
 
 #: templates/funding/feature.html:26
 #: templates/funding/opentheword_project_card.html:38
-#: templates/funding/plugin.html:102 templates/funding/project_related.html:23
+#: templates/funding/plugin.html:100 templates/funding/project_related.html:23
 msgid "Funded"
 msgstr "Financé"
 
 #: templates/funding/feature.html:31
 #: templates/funding/opentheword_project_card.html:43
-#: templates/funding/plugin.html:107 templates/funding/project_related.html:28
+#: templates/funding/plugin.html:105 templates/funding/project_related.html:28
 msgid "Goal"
 msgstr "Objectif"
 
@@ -1235,12 +1234,12 @@ msgstr "Commissions"
 
 #: templates/funding/feature.html:55
 #: templates/funding/opentheword_project_card.html:48
-#: templates/funding/plugin.html:114 templates/funding/project_related.html:42
+#: templates/funding/plugin.html:112 templates/funding/project_related.html:42
 msgid "users"
 msgstr "utilisateurs"
 
-#: templates/funding/feature.html:61 templates/funding/plugin.html:119
-#: templates/funding/popup_budget.html:25
+#: templates/funding/feature.html:61 templates/funding/plugin.html:117
+#: templates/funding/popup_bid.html:25
 msgid "Order the feature"
 msgstr "Commander l'évolution"
 
@@ -1279,7 +1278,7 @@ msgstr "supprimer l'évolution"
 msgid "Add a description"
 msgstr "Ajouter une description"
 
-#: templates/funding/feature.html:109 templates/funding/plugin.html:137
+#: templates/funding/feature.html:109 templates/funding/plugin.html:135
 #: templates/funding/spec/spec.html:24 templates/users/profile/profile.html:87
 #: templates/users/profile/profile.html:119
 msgid "See more"
@@ -1330,8 +1329,8 @@ msgid ""
 "Use our built-in tools for your project communication to reach a bigger "
 "audience and build a stronger community."
 msgstr ""
-"Utilisez nos outils intégrés pour la communication de votre projet, touchez une "
-"plus grande audience, et construisez une communauté plus solide."
+"Utilisez nos outils intégrés pour la communication de votre projet, touchez "
+"une plus grande audience, et construisez une communauté plus solide."
 
 #: templates/funding/index.html:25
 msgid "More powerful together"
@@ -1349,7 +1348,7 @@ msgstr ""
 msgid "Contribute to the projects that"
 msgstr "Contribuez aux projets qui"
 
-#: templates/funding/index.html:84 templates/funding/index.html.py:152
+#: templates/funding/index.html:84 templates/funding/index.html.py:151
 #: templates/funding/presentation.html:93
 msgid "Submit your project"
 msgstr "Déposer votre projet"
@@ -1366,20 +1365,20 @@ msgstr "Merci d'entrer le titre de votre projet"
 msgid "Create"
 msgstr "Créer"
 
-#: templates/funding/index.html:97 templates/funding/index.html.py:137
+#: templates/funding/index.html:96 templates/funding/index.html.py:136
 #: templates/users/paymenthistory.html:38
 msgid "Back to the previous page"
 msgstr "Retour à la page précédente"
 
-#: templates/funding/index.html:98 templates/funding/index.html.py:138
+#: templates/funding/index.html:97 templates/funding/index.html.py:137
 msgid "Back to the projects"
 msgstr "Revenir aux projets"
 
-#: templates/funding/index.html:101
+#: templates/funding/index.html:100
 msgid "Feature by feature"
 msgstr "Évolution par évolution"
 
-#: templates/funding/index.html:103
+#: templates/funding/index.html:102
 msgid ""
 "On Open Funding projects are funded feature by feature. That means once you "
 "have created the project you list the different features to develop, with a "
@@ -1392,11 +1391,11 @@ msgstr ""
 "pour chacune une description pour bien décrire ce qui sera fait. Planifiez "
 "le logiciel en comprenant ce que veulent vos utilisateurs !"
 
-#: templates/funding/index.html:107
+#: templates/funding/index.html:106
 msgid "Results engagement"
 msgstr "Engagement sur le résultat"
 
-#: templates/funding/index.html:109
+#: templates/funding/index.html:108
 msgid ""
 "Open Funding proposes to fund a service delivery and not donations to the "
 "projects. Developers are committed to their results as the users validate "
@@ -1409,11 +1408,11 @@ msgstr ""
 "Vous êtes payé pour votre travail, les utilisateurs voient le logiciel "
 "évoluer. Tout le monde est content."
 
-#: templates/funding/index.html:113
+#: templates/funding/index.html:112
 msgid "Reach your community"
 msgstr "Touchez votre communauté"
 
-#: templates/funding/index.html:115
+#: templates/funding/index.html:114
 msgid ""
 "Funding your project with Open Funding allows you to simply connect with "
 "your users and with a wider community interested in free software. But money "
@@ -1430,7 +1429,7 @@ msgstr ""
 "canauxsur lesquels vous pourrez toucher votre cible. Si vous avez besoin de "
 "plus d'aide sur ce sujet, nous sommes"
 
-#: templates/funding/index.html:115 templates/funding/index.html.py:133
+#: templates/funding/index.html:114 templates/funding/index.html.py:132
 #: templates/notification/answer/notice.html:16
 #: templates/notification/funded_project/notice.html:21
 #: templates/notification/has_funded_project/notice.html:20
@@ -1442,15 +1441,15 @@ msgstr ""
 msgid "here"
 msgstr "ici"
 
-#: templates/funding/index.html:115
+#: templates/funding/index.html:114
 msgid "to help."
 msgstr "pour vous aider."
 
-#: templates/funding/index.html:119 templates/funding/project_related.html:142
+#: templates/funding/index.html:118 templates/funding/project_related.html:142
 msgid "Licence"
 msgstr "Licence"
 
-#: templates/funding/index.html:121
+#: templates/funding/index.html:120
 msgid ""
 "All the projects on Open Funding are distributed under a free license. It's "
 "up to each developer to specify the licence they use."
@@ -1458,11 +1457,11 @@ msgstr ""
 "Les projets sur Open Funding sont distribuées sous licence libre. Chaque "
 "développeur peut indiquer la licence qu'il utilise."
 
-#: templates/funding/index.html:125 templates/funding/project_related.html:93
+#: templates/funding/index.html:124 templates/funding/project_related.html:93
 msgid "Reward"
 msgstr "Récompense"
 
-#: templates/funding/index.html:127
+#: templates/funding/index.html:126
 msgid ""
 "On our platform users and developers exchange a product delivery, but "
 "developers also have the option to encourage their funders through bonus "
@@ -1477,42 +1476,42 @@ msgstr ""
 "ou tout ce que vous pouvez imaginer. Soyez créatif pour attirer l'attention "
 "sur votre projet."
 
-#: templates/funding/index.html:131
+#: templates/funding/index.html:130
 msgid "More info"
 msgstr "Plus d'info"
 
-#: templates/funding/index.html:133
+#: templates/funding/index.html:132
 msgid ""
 "If you want to know more about Open Funding and project creation, visit our"
 msgstr ""
 "Si vous voulez en savoir plus à propos d'Open Funding et de la création de "
 "projets, visitez notre"
 
-#: templates/funding/index.html:133
+#: templates/funding/index.html:132
 msgid "presentation page"
 msgstr "page de présentation"
 
-#: templates/funding/index.html:133
+#: templates/funding/index.html:132
 msgid "or contact us"
 msgstr "ou contactez nous"
 
-#: templates/funding/index.html:133
+#: templates/funding/index.html:132
 msgid "Know%20more"
 msgstr "En%20savoir%20plus"
 
-#: templates/funding/index.html:143
+#: templates/funding/index.html:142
 msgid "Latest projects"
 msgstr "Derniers projets"
 
-#: templates/funding/index.html:148
+#: templates/funding/index.html:147
 msgid "Launch your project now"
 msgstr "Faites décoller votre projet"
 
-#: templates/funding/index.html:151
+#: templates/funding/index.html:150
 msgid "Open Funding helps you to fund your free software"
 msgstr "Open Funding vous aide à financer vos logiciels libres"
 
-#: templates/funding/index.html:169 templates/users/dashboard.html:4
+#: templates/funding/index.html:168 templates/users/dashboard.html:4
 #: templates/users/dashboard.html.py:7
 msgid "My projects"
 msgstr "Mes projets"
@@ -1531,21 +1530,21 @@ msgstr "Financer ce projet"
 msgid "Open the world"
 msgstr "Ouvrez le monde"
 
-#: templates/funding/opentheworld.html:56
+#: templates/funding/opentheworld.html:54
 msgid ""
-"What technology would you open up to the world? These Open Source apps "
-"are making powerful new tools that are open to everyone. Help make their "
-"dreams a reality: back the projects and #OpenTheWorld!"
+"What technology would you open up to the world? These Open Source apps are "
+"making powerful new tools that are open to everyone. Help make their dreams "
+"a reality: back the projects and #OpenTheWorld!"
 msgstr ""
-"Quelle technologie voudriez-vous ouvrir au monde ? Ces applications "
-"Open Source développent des outils puissants ouverts à tous. Aidez les à "
-"réaliser leurs rêves : soutenez les projets et #OpenTheWorld !"
+"Quelle technologie voudriez-vous ouvrir au monde ? Ces applications Open "
+"Source développent des outils puissants ouverts à tous. Aidez les à réaliser "
+"leurs rêves : soutenez les projets et #OpenTheWorld !"
 
-#: templates/funding/opentheworld.html:62
+#: templates/funding/opentheworld.html:60
 msgid "Participating projects"
 msgstr "Projets participants"
 
-#: templates/funding/opentheworld.html:63
+#: templates/funding/opentheworld.html:61
 msgid ""
 "Open Funding enables developers to connect with users to unlock the "
 "potential of their software and release it to the commons. We're part of a "
@@ -1562,13 +1561,13 @@ msgstr ""
 msgid "start"
 msgstr "Démarrer"
 
-#: templates/funding/plugin.html:64 templates/funding/project_detail.html:161
+#: templates/funding/plugin.html:64 templates/funding/project_detail.html:162
 #: templates/funding/project_edit.html:31
 #: templates/projects/project_header.html:92
 msgid "follow the project"
 msgstr "suivre le projet"
 
-#: templates/funding/plugin.html:65 templates/funding/project_detail.html:162
+#: templates/funding/plugin.html:65 templates/funding/project_detail.html:163
 #: templates/funding/project_edit.html:32
 #: templates/projects/project_header.html:93
 msgid " subscriber "
@@ -1576,19 +1575,19 @@ msgid_plural " subscribers "
 msgstr[0] "abonné"
 msgstr[1] "abonnés"
 
-#: templates/funding/plugin.html:87
+#: templates/funding/plugin.html:85
 msgid "developed by"
 msgstr "développé par"
 
-#: templates/funding/plugin.html:94
+#: templates/funding/plugin.html:92
 msgid "Funding phase"
 msgstr "Phase de Financement"
 
-#: templates/funding/plugin.html:154
+#: templates/funding/plugin.html:152 templates/funding/plugin.html.py:180
 msgid "Support "
 msgstr "Soutenir"
 
-#: templates/funding/plugin.html:156
+#: templates/funding/plugin.html:154
 #, python-format
 msgid ""
 "\n"
@@ -1600,11 +1599,19 @@ msgstr ""
 "                        <span class=\"plugin-nobold\">Plus que </span>\n"
 "%(amount)s €                    "
 
-#: templates/funding/popup_budget.html:9
+#: templates/funding/plugin.html:191
+msgid "Back this project"
+msgstr "Soutenir ce projet"
+
+#: templates/funding/plugin.html:193
+msgid "Visit the project page here"
+msgstr "Visiter la page du projet"
+
+#: templates/funding/popup_bid.html:9
 msgid "Please indicate what you want to do:"
 msgstr "Merci d'indiquer ce que vous souhaitez faire"
 
-#: templates/funding/popup_budget.html:13
+#: templates/funding/popup_bid.html:13
 msgid ""
 "By Co-funding this project you enable the developer to choose what feature "
 "to develop, so that the software on the whole makes better sense for you. "
@@ -1616,13 +1623,13 @@ msgstr ""
 "le développement terminé, vous recevez un e-mail vous permettant de tester "
 "le développement et donner votre validation."
 
-#: templates/funding/popup_budget.html:15
+#: templates/funding/popup_bid.html:15
 #: templates/funding/project_related.html:48
 #: templates/funding/tiny_popup.html:74
 msgid "Back the project"
 msgstr "Soutenir le projet"
 
-#: templates/funding/popup_budget.html:20
+#: templates/funding/popup_bid.html:20
 msgid ""
 "By contributing to this order you will be delivered the professional quality "
 "feature you always wished for. Once the feature is developed, you will "
@@ -1633,19 +1640,19 @@ msgstr ""
 "développement terminé, vous recevrez un e-mail pour le tester et donner "
 "votre validation."
 
-#: templates/funding/popup_budget.html:33
+#: templates/funding/popup_bid.html:33
 msgid "Please enter the amount:"
 msgstr "Merci d'indiquer le montant :"
 
-#: templates/funding/popup_budget.html:38
+#: templates/funding/popup_bid.html:37
 msgid "Thank you for joining community which makes"
 msgstr "Merci de participer à la communauté qui rend"
 
-#: templates/funding/popup_budget.html:38
+#: templates/funding/popup_bid.html:37
 msgid "possible"
 msgstr "possible."
 
-#: templates/funding/popup_budget.html:39
+#: templates/funding/popup_bid.html:38
 msgid "By continuing, you agree to the"
 msgstr "En continuant, vous acceptez les"
 
@@ -2106,13 +2113,15 @@ msgid ""
 "<p>Successful campaigns pay 5% of the total raised to Open Funding to cover "
 "operational costs."
 msgstr ""
-"<p>Les campagnes réussies paient 5% du total levé à Open Funding pour couvrir "
-"les coûts d'opération."
+"<p>Les campagnes réussies paient 5% du total levé à Open Funding pour "
+"couvrir les coûts d'opération."
 
 #: templates/funding/presentation.html:140
 #, python-format
 msgid "This compares to 9-11% of other software oriented platforms,"
-msgstr "Ce chiffre est à comparer aux commissions de 9 à 11% des autres plates-formes dédiées au logiciel,"
+msgstr ""
+"Ce chiffre est à comparer aux commissions de 9 à 11% des autres plates-"
+"formes dédiées au logiciel,"
 
 #: templates/funding/presentation.html:140
 #, python-format
@@ -2534,16 +2543,15 @@ msgstr "C'est quoi #OpenTheWorld ?"
 
 #: templates/funding/presentation.html:204
 msgid ""
-"is a unique campaign gathering several projects funding "
-"together their individual features in order to grow their community by "
-"empowering people and enabling diversity. These projects share values and "
-"all contribute to building commons, they have a common message to spread!</p>"
+"is a unique campaign gathering several projects funding together their "
+"individual features in order to grow their community by empowering people "
+"and enabling diversity. These projects share values and all contribute to "
+"building commons, they have a common message to spread!</p>"
 msgstr ""
-"est une campagne réunissant plusieurs projets finançant "
-"ensemble leurs évolutions pour développer leur communauté en leur permettant "
-"de contribuer et en favorisant la diversité. Ces projets partagent des "
-"valeurs et contribuent aux biens communs, ils ont un message commun à "
-"partager !</p>"
+"est une campagne réunissant plusieurs projets finançant ensemble leurs "
+"évolutions pour développer leur communauté en leur permettant de contribuer "
+"et en favorisant la diversité. Ces projets partagent des valeurs et "
+"contribuent aux biens communs, ils ont un message commun à partager !</p>"
 
 #: templates/funding/presentation.html:206
 msgid "Why would they communicate together?"
@@ -2635,7 +2643,7 @@ msgstr "Attente de validation"
 msgid "Project created by"
 msgstr "Projet proposé par"
 
-#: templates/funding/project_card.html:20
+#: templates/funding/project_card.html:21
 msgid "funded out of"
 msgstr "financés sur"
 
@@ -2677,11 +2685,15 @@ msgstr "Petit"
 msgid "Tiny"
 msgstr "Mini"
 
-#: templates/funding/project_detail.html:44
+#: templates/funding/project_detail.html:38
+msgid "Simple"
+msgstr "Simple"
+
+#: templates/funding/project_detail.html:45
 msgid "We have received an extra"
 msgstr "Nous avons reçu un supplément de"
 
-#: templates/funding/project_detail.html:44
+#: templates/funding/project_detail.html:45
 msgid ""
 "which the developer will allocate on one of the features. In case there is "
 "no need in this phase the extra amount will be used for the development of "
@@ -2692,72 +2704,72 @@ msgstr ""
 "supplémentaire pourra être utilisé pour le développement de nouvelles "
 "évolutions."
 
-#: templates/funding/project_detail.html:45
+#: templates/funding/project_detail.html:46
 msgid "We'll keep you updated."
 msgstr "Nous vous tiendrons informés."
 
-#: templates/funding/project_detail.html:102
+#: templates/funding/project_detail.html:103
 #: templates/funding/project_related.html:145
 msgid "Indicate the license used to distribute software"
 msgstr "Indiquer la licence utilisée pour distribuer le logiciel"
 
-#: templates/funding/project_detail.html:105
+#: templates/funding/project_detail.html:106
 msgid "Url licence repository"
 msgstr "Url de la licence"
 
-#: templates/funding/project_detail.html:109
+#: templates/funding/project_detail.html:110
 msgid "Save the description"
 msgstr "Enregistrer la description"
 
-#: templates/funding/project_detail.html:120
+#: templates/funding/project_detail.html:121
 msgid "I%20am%20supporting%20the%20project%20"
 msgstr "Je%20soutiens%20le%20projet%20"
 
-#: templates/funding/project_detail.html:122
+#: templates/funding/project_detail.html:123
 msgid "Tweet on Twitter"
 msgstr "Poster sur Twitter"
 
-#: templates/funding/project_detail.html:129
+#: templates/funding/project_detail.html:130
 msgid "Share on Facebook"
 msgstr "Partager sur Facebook"
 
-#: templates/funding/project_detail.html:136
+#: templates/funding/project_detail.html:137
 msgid "Share on Google Plus"
 msgstr "Partager sur Google Plus"
 
-#: templates/funding/project_detail.html:143
+#: templates/funding/project_detail.html:144
 msgid "Embed the project page"
 msgstr "Intégrer le projet"
 
-#: templates/funding/project_detail.html:187
+#: templates/funding/project_detail.html:188
 msgid "Features"
 msgstr "Évolutions"
 
-#: templates/funding/project_detail.html:188
+#: templates/funding/project_detail.html:189
 msgid "Community"
 msgstr "Communauté"
 
-#: templates/funding/project_detail.html:189
+#: templates/funding/project_detail.html:190
 msgid "Discussions"
 msgstr "Discussions"
 
-#: templates/funding/project_detail.html:196
+#: templates/funding/project_detail.html:197
 msgid "In progress"
 msgstr "En cours"
 
-#: templates/funding/project_detail.html:197
+#: templates/funding/project_detail.html:198
 msgid "Finished"
 msgstr "Terminées"
 
-#: templates/funding/project_detail.html:207
+#: templates/funding/project_detail.html:208
 msgid "No features yet"
 msgstr "Pas encore d'évolutions"
 
-#: templates/funding/project_detail.html:236
+#: templates/funding/project_detail.html:237
 msgid "What you have to do :"
 msgstr "Ce que vous devez faire :"
 
-#: templates/funding/project_detail.html:238
+#: templates/funding/project_detail.html:239
 msgid ""
 "You can create and edit new developments for your projects. Specify the "
 "title, make a description that explains its characteristics and determine "
@@ -2770,27 +2782,27 @@ msgstr ""
 "d'autres développements sur la page projet, vous pouvez accepter / "
 "reformuler si vous le souhaitez."
 
-#: templates/funding/project_detail.html:255
+#: templates/funding/project_detail.html:256
 msgid "Feature price"
 msgstr "Prix de l'évolution"
 
-#: templates/funding/project_detail.html:261
-#: templates/funding/project_detail.html:289
+#: templates/funding/project_detail.html:262
+#: templates/funding/project_detail.html:290
 msgid ""
 "By adding this change you acknowledge that you have read and accepted the"
 msgstr ""
 "En ajoutant ce changement, vous reconnaissez que vous avez lu et accepté les "
 
-#: templates/funding/project_detail.html:266
-#: templates/funding/project_detail.html:294
+#: templates/funding/project_detail.html:267
+#: templates/funding/project_detail.html:295
 msgid "Propose"
 msgstr "Proposer"
 
-#: templates/funding/project_detail.html:272
+#: templates/funding/project_detail.html:273
 msgid "Propose a new feature"
 msgstr "Proposez une évolution"
 
-#: templates/funding/project_detail.html:274
+#: templates/funding/project_detail.html:275
 msgid ""
 "You can propose to the developer a new feature for this project. If it is "
 "accepted by the developer, the feature will be included in the project."
@@ -2798,82 +2810,82 @@ msgstr ""
 "Vous pouvez proposer au développeur une nouvelle évolution pour son projet. "
 "S'il l'accepte, l'évolution sera incluse dans le projet."
 
-#: templates/funding/project_detail.html:304
+#: templates/funding/project_detail.html:305
 msgid "Follow the project"
 msgstr "Suivre le projet"
 
-#: templates/funding/project_detail.html:304
+#: templates/funding/project_detail.html:305
 msgid "Stop following the project"
 msgstr "Arreter de suivre le projet"
 
-#: templates/funding/project_detail.html:308
+#: templates/funding/project_detail.html:309
 msgid " User"
 msgid_plural " Users"
 msgstr[0] "Utilisateur"
 msgstr[1] "Utilisateurs"
 
-#: templates/funding/project_detail.html:311
+#: templates/funding/project_detail.html:312
 msgid "Here is the community that makes"
 msgstr "Ici est la communauté qui rend"
 
-#: templates/funding/project_detail.html:311
+#: templates/funding/project_detail.html:312
 msgid "possible."
 msgstr "possible."
 
-#: templates/funding/project_detail.html:312
-msgid "Are you a part of it? If not :"
-msgstr "En faites vous partie? Si ce n'est pas le cas :"
+#: templates/funding/project_detail.html:313
+msgid "Are you a part of it?"
+msgstr "En faites vous partie?"
 
-#: templates/funding/project_detail.html:312
+#: templates/funding/project_detail.html:313
 msgid "ORDER THE FEATURE"
 msgstr "COMMANDER L'EVOLUTION"
 
-#: templates/funding/project_detail.html:312
+#: templates/funding/project_detail.html:313
 msgid "or"
 msgstr "ou"
 
-#: templates/funding/project_detail.html:312
+#: templates/funding/project_detail.html:313
 msgid "BACK THE PROJECT"
 msgstr "SOUTENIR LE PROJECT"
 
-#: templates/funding/project_detail.html:321
+#: templates/funding/project_detail.html:322
 msgid "ordered"
 msgstr "commandé"
 
-#: templates/funding/project_detail.html:321
+#: templates/funding/project_detail.html:322
 #: templates/notification/funded_project/notice.html:4
 #: templates/notification/has_funded_project/notice.html:3
 msgid "with"
 msgstr "avec"
 
-#: templates/funding/project_detail.html:324
+#: templates/funding/project_detail.html:325
 #: templates/projects/project_budget.html:92
 msgid "Add a new bid"
 msgstr "Ajouter une nouvelle souscription"
 
-#: templates/funding/project_detail.html:326
+#: templates/funding/project_detail.html:327
 #: templates/projects/project_budget.html:93
 msgid "Cancel your bid on this task"
 msgstr "Annuler votre financement à la tâche"
 
-#: templates/funding/project_detail.html:326
+#: templates/funding/project_detail.html:327
 #: templates/projects/project_budget.html:93
 msgid "Cancel my bid"
 msgstr "Annuler mon financement"
 
-#: templates/funding/project_detail.html:335
+#: templates/funding/project_detail.html:336
 msgid "No bid on this project"
 msgstr "Aucune souscription sur ce projet"
 
-#: templates/funding/project_detail.html:346
+#: templates/funding/project_detail.html:347
 msgid "Create a discussion"
 msgstr "Créer une discussion"
 
-#: templates/funding/project_detail.html:346
+#: templates/funding/project_detail.html:347
 msgid "Add a comment"
 msgstr "Ajouter un commentaire"
 
-#: templates/funding/project_detail.html:354
+#: templates/funding/project_detail.html:355
 msgid "Discuss"
 msgstr "Discuter de"
 
@@ -2992,12 +3004,6 @@ msgid " user "
 msgid_plural " users "
 msgstr[0] "utilisateur"
 msgstr[1] "utilisateurs"
-
-#: templates/funding/dialogue/bid.html:5
-#: templates/projects/dialogue/bid.html:5
-#: templates/projects/dialogue/offer.html:5 templates/users/register.html:35
-msgid "I have read and accepted the"
-msgstr "J'ai lu et j'accepte les"
 
 #: templates/funding/spec/edit_spot.html:4
 #: templates/projects/spec/edit_spot.html:4
@@ -4043,6 +4049,11 @@ msgstr "Tous les autres utilisateurs"
 msgid "Validator"
 msgstr "Valideur"
 
+#: templates/projects/dialogue/bid.html:5
+#: templates/projects/dialogue/offer.html:5 templates/users/register.html:35
+msgid "I have read and accepted the"
+msgstr "J'ai lu et j'accepte les"
+
 #: templates/projects/spec/edit_type2.html:3
 msgid "A design, a scheme, a picture..."
 msgstr "Une maquette, un schéma, une image..."
@@ -4233,7 +4244,7 @@ msgstr "Modifier le mot de passe"
 msgid "Former password"
 msgstr "Ancien mot de passe"
 
-#: templates/users/changepwd.html:13 users/views.py:171
+#: templates/users/changepwd.html:13 users/views.py:173
 msgid "New password"
 msgstr "Nouveau mot de passe"
 
@@ -4567,143 +4578,143 @@ msgstr "Versement par paiement en ligne"
 msgid "Paiement %s validated"
 msgstr "Paiement %s validé"
 
-#: users/models.py:176
+#: users/models.py:178
 msgid "Title"
 msgstr "Titre"
 
-#: users/models.py:177
+#: users/models.py:179
 msgid "Main skill"
 msgstr "Compétence principale"
 
-#: users/models.py:178 users/models.py:199
+#: users/models.py:180 users/models.py:201
 msgid "Comment"
 msgstr "Commentaire"
 
-#: users/models.py:184 users/models.py:195
+#: users/models.py:186 users/models.py:197
 msgid "Begining"
 msgstr "Début"
 
-#: users/models.py:185 users/models.py:196
+#: users/models.py:187 users/models.py:198
 msgid "End"
 msgstr "Fin"
 
-#: users/models.py:186
+#: users/models.py:188
 msgid "Company"
 msgstr "Société"
 
-#: users/models.py:187
+#: users/models.py:189
 msgid "Job"
 msgstr "Emploi"
 
-#: users/models.py:188
+#: users/models.py:190
 msgid "Description"
 msgstr "Description"
 
-#: users/models.py:197
+#: users/models.py:199
 msgid "Degree"
 msgstr "Diplôme"
 
-#: users/models.py:198
+#: users/models.py:200
 msgid "University"
 msgstr "Université"
 
-#: users/models.py:255
+#: users/models.py:257
 #, python-format
 msgid "%s's blog"
 msgstr "blog de %s"
 
-#: users/views.py:117
+#: users/views.py:119
 msgid "Setting saved"
 msgstr "Paramètre enregistré"
 
-#: users/views.py:125
+#: users/views.py:127
 msgid "Name saved"
 msgstr "Nom enregistré"
 
-#: users/views.py:137
+#: users/views.py:139
 msgid "Thank you to enter a valid url address"
 msgstr "Merci d'entrer une adresse valide"
 
-#: users/views.py:140
+#: users/views.py:142
 msgid "Information saved"
 msgstr "Information enregistrée"
 
-#: users/views.py:155
+#: users/views.py:157
 msgid "Contact already added"
 msgstr "Contact déjà ajouté"
 
-#: users/views.py:158
+#: users/views.py:160
 msgid "Invitation sent"
 msgstr "Invitation envoyée"
 
-#: users/views.py:165
+#: users/views.py:167
 msgid "The user doesn't exist"
 msgstr "L'utilisateur n'existe pas"
 
-#: users/views.py:167
+#: users/views.py:169
 msgid "E-mail address did not match"
 msgstr "L'adresse e-mail ne correspond pas"
 
-#: users/views.py:171
+#: users/views.py:173
 #, python-format
 msgid "Your password has been reset. Your new password is: %s"
 msgstr ""
 "Votre mot de passe a été réinitialisé. Votre nouveau mot de passe est : %s"
 
-#: users/views.py:172
+#: users/views.py:174
 msgid "The new password has been sent to you by e-mail"
 msgstr "Le nouveau mot de passe vous a été envoyé par e-mail"
 
-#: users/views.py:178
+#: users/views.py:180
 msgid "Old password did not match"
 msgstr "L'ancien mot de passe ne correspond pas"
 
-#: users/views.py:183
+#: users/views.py:185
 msgid "Your password has been updated"
 msgstr "Votre mot de passe a été mis-à-jour."
 
-#: users/views.py:193
+#: users/views.py:195
 msgid "Your email has been updated"
 msgstr "Votre adresse e-mail a été mise-à-jour"
 
-#: users/views.py:219
+#: users/views.py:221
 msgid "Please accept the terms of use"
 msgstr "Merci d'accepter les Conditions Générales d'Utilisation"
 
-#: users/views.py:221
+#: users/views.py:223
 msgid "Invalid username. Please use only letters, digits, - and _."
 msgstr ""
 "Nom d'utilisateur non valide. Merci d'utiliser des lettres, chiffres, - et _."
 
-#: users/views.py:223
+#: users/views.py:225
 msgid "Please enter a password"
 msgstr "Veuillez choisir un mot de passe"
 
-#: users/views.py:225
+#: users/views.py:227
 msgid "Passwords did not match"
 msgstr "Les mots de passe ne correspondent pas"
 
-#: users/views.py:229
+#: users/views.py:231
 msgid "This username is already used"
 msgstr "Ce nom d'utilisateur n'est pas disponible"
 
-#: users/views.py:262
+#: users/views.py:264
 msgid "Incorrect data"
 msgstr "Données incorrectes"
 
-#: users/views.py:275
+#: users/views.py:277
 msgid "Can not change other users' profiles"
 msgstr "Impossible de modifier le profil d'un autre utilisateur"
 
-#: users/views.py:292
+#: users/views.py:294
 msgid "Tax rate saved"
 msgstr "Taux enregistré"
 
-#: users/views.py:349
+#: users/views.py:351
 msgid "Message sent"
 msgstr "Message envoyé"
 
-#: users/views.py:358
+#: users/views.py:360
 msgid "Notice archived"
 msgstr "Notification archivée"
 
