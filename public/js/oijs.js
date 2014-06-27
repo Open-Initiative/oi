@@ -29,15 +29,15 @@ function OIajaxCall(url, params, divid, callBack) {
         if(xmlhttp.readyState < 4) return;
         if(xmlhttp.status == 531)
             document.getElementById("output").innerHTML = gettext('ERROR : ') + xmlhttp.responseText;
-        else if(xmlhttp.status >= 500)
+        else if(xmlhttp.status >= 500) // server error
             document.getElementById("output").innerHTML = gettext('ERROR : ') +gettext('Unkown server error');
         else if(xmlhttp.status >= 431 || xmlhttp.status == 403)
             document.getElementById("output").innerHTML = gettext('Forbidden : ') + xmlhttp.responseText;
-        else if(xmlhttp.status >= 404)
+        else if(xmlhttp.status >= 404) //page not found
             document.getElementById("output").innerHTML = gettext('ERROR : ') +gettext('Could not find object');
-        else if(xmlhttp.status == 332) document.location.reload(true);
-        else if(xmlhttp.status == 333) document.location = xmlhttp.responseText;
-        else if(xmlhttp.status == 200){
+        else if(xmlhttp.status == 332) document.location.reload(true); //reload the page and the serve too thank to the 'true'
+        else if(xmlhttp.status == 333) document.location = xmlhttp.responseText; //redirect to another page
+        else if(xmlhttp.status == 200){ //all is fine
             if(divid)document.getElementById(divid).innerHTML = xmlhttp.responseText;
             if(callBack)callBack(xmlhttp.responseText);
         }

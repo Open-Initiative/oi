@@ -84,11 +84,20 @@ def ajax_login_required(function=None, keep_fields=None):
         def new_f(request, id, *args, **kwargs):
             if request.user.is_authenticated():
                 return f(request, id, *args, **kwargs)
+            # if keep_fields, the function will check every field and will keep it after login 
+            # to no forget the args
             if keep_fields:
                 for field in keep_fields:
                     if field and request.POST.has_key(field):
                         request.session[field] = request.POST[field]
-                return HttpResponse('%s?%s=%s'%(settings.LOGIN_URL, REDIRECT_FIELD_NAME, request.build_absolute_uri()),status=333)
+                # we can have two situations for the login case 
+                # using ajax use 333 status      
+                if request.is_ajax():
+                    return HttpResponse('%s?%s=%s'%(settings.LOGIN_URL, REDIRECT_FIELD_NAME, request.build_absolute_uri()),status=333)
+                # don't using ajax no need 333 status
+                else:
+                    return HttpResponseRedirect('%s?%s=%s'%(settings.LOGIN_URL, REDIRECT_FIELD_NAME, request.build_absolute_uri()))
+                    
             return HttpResponse('%s?%s=%s%s'%(settings.LOGIN_URL, REDIRECT_FIELD_NAME, settings.REDIRECT_URL, id),status=333)
         return new_f
     if function:
