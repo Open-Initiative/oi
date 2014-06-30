@@ -1,5 +1,5 @@
 {% load oifilters %}
-<div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared form_center">
+<div style="position:relative" id="spec_{{object.id}}_{{spec.order}}" class="cleared form_center">
     {% if spec.type == 2 %}<img src="{% if spec.file %}{{spec.file.url}}{% endif %}" />{% else %}
     <p class="funding_minispec">{{spec.text|oiunescape}}</p>
     {% endif %}

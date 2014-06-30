@@ -21,8 +21,8 @@
     {% with object_list|filter_read:user as descendants %}
         <div>
             <div style="background: white;" class="progressbar prjcard_margin_bottom">
-                <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio descendants.allbid_sum|add:project.bid_sum project.get_selfbudget|default:descendants.allbudget 100 %}%;"></span>
-                <span id="progresslabel_{{object.id}}" class="progresstitle" >{% widthratio descendants.allbid_sum|add:project.bid_sum project.get_selfbudget|default:descendants.allbudget 100 %} %</span>
+                <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio descendants.allbid_sum|add:object.bid_sum object.get_selfbudget|default:descendants.allbudget 100 %}%;"></span>
+                <span id="progresslabel_{{object.id}}" class="progresstitle" >{% widthratio descendants.allbid_sum|add:object.bid_sum object.get_selfbudget|default:descendants.allbudget 100 %} %</span>
             </div>
         </div>
         {% endwith %}
@@ -62,7 +62,7 @@
     <div style="position:relative">
         <div>
             <ul class="home_ul_center">
-            {% for project in object_list %}
+            {% for object in object_list %}
                 <li>{% include 'funding/opentheword_project_card.html' %}</li>
             {% endfor %}
             </ul>

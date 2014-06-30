@@ -27,8 +27,6 @@
 {% block content %}
 {% if object|can_read:user %}
 
-{% with object as project %}
-
 <div id="pluginpopup" class="invisible popup visible" onclick="document.ignoreClosePopups = true;">
     <p>{% trans "Embed this widget to share the feature on your blog or website" %}</p>
     <form>
@@ -60,7 +58,7 @@
 </div>
 
 {% comment %} website developpeur popup {% endcomment %}
-{% with spec=project.spec_set.all|filter_order:8 order=8 divid='software' %}
+{% with spec=object.spec_set.all|filter_order:8 order=8 divid='software' %}
 {%include 'funding/project_website_popup.html'%}
 {% endwith %}
 
@@ -84,19 +82,19 @@
 {% endfor %}
 
 {% comment %} for corner developpeur popup {% endcomment %}
-{% with spec=project.spec_set.all|filter_order:5 order=5 divid='deposit' %}{%include 'funding/project_website_popup.html'%}{% endwith %}
+{% with spec=object.spec_set.all|filter_order:5 order=5 divid='deposit' %}{%include 'funding/project_website_popup.html'%}{% endwith %}
 
-{% with spec=project.spec_set.all|filter_order:6 order=6 divid='licence' spec_divid='spec__6_content' %}
+{% with spec=object.spec_set.all|filter_order:6 order=6 divid='licence' spec_divid='spec__6_content' %}
 <div class="popup_corner invisible" id="licencedescription_{{spec.id}}" onclick="document.ignoreClosePopups = true;">
 
     <div class="cleared"></div>
 
     <input name="spectype" id="type_{{spec_divid}}" value="3" type="hidden"/>
     <input name="specid" id="specid_{{spec_divid}}" value="{{spec.id|default:0}}" type="hidden"/>
-    <input name="projectid" id="projectid_{{spec_divid}}" value="{{project.id}}" type="hidden"/>
+    <input name="projectid" id="projectid_{{spec_divid}}" value="{{object.id}}" type="hidden"/>
     <input name="specorder" id="specorder_{{spec_divid}}" value="{{order}}" type="hidden"/>
 
-    <form onsubmit="saveSpec('{{spec_divid}}',{{project.id}},getValue('specorder_{{spec_divid}}'),{{spec.id|default:0}});hidePopups(); return false">
+    <form onsubmit="saveSpec('{{spec_divid}}',{{object.id}},getValue('specorder_{{spec_divid}}'),{{spec.id|default:0}});hidePopups(); return false">
         <span class="rewardtitle">{% trans "Indicate the license used to distribute software" %}</span><br/>
         <input id="text_{{spec_divid}}" type="text" value="{{spec.text|oiunescape}}">
         <div class="cleared"></div><br/>
@@ -107,9 +105,6 @@
     <input alt="{% trans 'Save the description' %}" title="{% trans 'Save the description' %}" class="fundingright" type="image" src="/img/icons/ok-32.png">
     </form>
 </div>
-{% endwith %}
-
-
 {% endwith %}
 
 <div class="prjbody">
@@ -144,11 +139,10 @@
         </a>
     </div>
 
-    {% with object as project %}
     <div id="project_{{object.id}}" class="project">
         <div id="prjdialogue_{{object.id}}" class="popup invisible"></div>
         <div class="prjheader">
-            {% with spec=project.spec_set.all|filter_order:1 object=project %}
+            {% with spec=object.spec_set.all|filter_order:1 %}
             <div style="position:relative; float:right" id="spec_{{object.id}}_{{spec.order}}" class="funding_space">
                 {%include 'funding/spec/spec.html'%}
             </div>
@@ -159,10 +153,10 @@
             <img onclick="favProject({{object.id}}, 'Funding')" src="/img/icons/star{{object|is_following:user}}Funding.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_{{object.id}}" />
                 {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
         </div>
-        <div id="specs_{{project.id}}" class="prjdesc">
-            {% for spec in project.all_specs_with_languages %}
+        <div id="specs_{{object.id}}" class="prjdesc">
+            {% for spec in object.all_specs_with_languages %}
                 <div style="position:relative;" id="spec_{{object.id}}_{{spec.order}}" class="funding_space">
-                    {% with project as object %}{%include 'funding/spec/spec.html'%}{% endwith %}
+                    {%include 'funding/spec/spec.html'%}
                 </div>
             {% endfor %}
         </div>
@@ -177,7 +171,6 @@
 
     {% with object.descendants|filter_read:user as tasks %}
     <div class="project">
-
         <div class="tabs_project">
             <h2 id="features" class="tab_project"><a href="#features" onclick="project_content('featuresproject')">{% trans "Features" %}</a></h2>
             <h2 id="community" class="tab_project"><a href="#community" onclick="project_content('communityproject')">{% trans "Community" %}</a></h2>
@@ -313,12 +306,12 @@
                     <div class="fundingleft" style="margin-left: 20px;">
                         {% for bid in person.list|dictsort:"project" %}
                         <div class="line_separate">
-                            {% trans "ordered" %} "{{bid.project.title}}" {% trans "with" %} {{bid.amount}} €
+                            {% trans "ordered" %} "{{bid.object.title}}" {% trans "with" %} {{bid.amount}} €
                             {% if user == bid.user and task.state < 3 %}
                             <div class="cleared"></div>
-                            <img class="clickable" src="/img/icons/add.png" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));document.getElementById('order_{{bid.project.id}}').checked=true;" /> {% trans "Add a new bid" %}
+                            <img class="clickable" src="/img/icons/add.png" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));document.getElementById('order_{{bid.object.id}}').checked=true;" /> {% trans "Add a new bid" %}
                             <div class="cleared"></div>
-                            <img class="clickable" src="/img/icons/delete.png" onclick="cancelBid({{bid.project.id}}, {% if task.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "close" %}" title="{% trans "Cancel your bid on this task" %}" /> {% trans "Cancel my bid" %}
+                            <img class="clickable" src="/img/icons/delete.png" onclick="cancelBid({{bid.object.id}}, {% if task.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "close" %}" title="{% trans "Cancel your bid on this task" %}" /> {% trans "Cancel my bid" %}
                             {% endif %}
                         </div>
                         <div class="cleared"></div>
@@ -333,28 +326,24 @@
 
         </div>
         <div id="discussionsproject" class="invisible">
-            {% with object as project %}
             <div class="cleared"></div>
             <div class="discussion_column">
-                {% if project|can_answer:user %}
-                    <a style="margin-top: 20px; display: block" class="clickable op_larger" onclick="addMessage(null, {{project.id}})">
-                        {% if not project|can_answer:user %}{% trans "Create a discussion" %}{% else %}{% trans "Add a comment" %}{% endif %}
+                {% if object|can_answer:user %}
+                    <a style="margin-top: 20px; display: block" class="clickable op_larger" onclick="addMessage(null, {{object.id}})">
+                        {% if not object|can_answer:user %}{% trans "Create a discussion" %}{% else %}{% trans "Add a comment" %}{% endif %}
                     </a>
                 {% endif %}
-                <div id="discussions_{{project.id}}" class="discussions">
-                    {% for message in project.message_set.all %}
+                <div id="discussions_{{object.id}}" class="discussions">
+                    {% for message in object.message_set.all %}
                     <div id="message_{{message.id}}_box">{% include 'messages/message.html' %}</div>
                     <div class="cleared"></div>
                     {% empty %}
-                    {% if project|can_answer:user %}{% trans "Discuss" %} {{object.title}}{% endif %}
+                    {% if object|can_answer:user %}{% trans "Discuss" %} {{object.title}}{% endif %}
                     {% endfor %}
                 </div>
             </div>
-            {% endwith %}
         </div>
     </div>
-
-    {% endwith %}
     {% endwith %}
 
 </div>

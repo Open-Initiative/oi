@@ -1,5 +1,5 @@
 {% load i18n %}﻿﻿{% load oifilters %}
-<form id="reward_form_{{reward.id|default:0}}" method="post" enctype="multipart/form-data" action="/project/{{project.id}}/savereward/{{reward.id|default:0}}" target="rewardimage">
+<form id="reward_form_{{reward.id|default:0}}" method="post" enctype="multipart/form-data" action="/project/{{object.id}}/savereward/{{reward.id|default:0}}" target="rewardimage">
     {% trans "<span class='rewardtitle'>You can add a reward to engage your users better.</span> Ex: 3 months of free support for users who fund more than 400 euros, a free mug with your name for the user who will fund the most this week, Your name on a web page for the first 30 funders, etc. <span class='rewardtitle'>Be creative!</span>" %}
     <br/><br/>
     <table>{{reward_form.as_table}}</table>

@@ -2,13 +2,13 @@
 {% load oifilters %}
 <div style="position:relative">
     <div class="prjcard prjcard_comingsoon">
-        <div class="prjtitle funding_space">{{project.title}}</div>
+        <div class="prjtitle funding_space">{{object.title}}</div>
         <div class="prjcardauthor">
             {% trans "Project created by" %}
-            {{project.author.get_profile}}
+            {{object.author.get_profile}}
             </div>
         <div class="cleared"><br/></div>
-        {% with spec=project.spec_set.all|filter_order:1 %}
+        {% with spec=object.spec_set.all|filter_order:1 %}
         <div class="cardspec">{% include 'funding/spec/minispec.html' %}</div>
         {% endwith %}
     </div>

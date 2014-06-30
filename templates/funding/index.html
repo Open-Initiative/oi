@@ -152,9 +152,9 @@
                     </div>
                 </div>
             </li>
-        {% for project in object_list %}
+        {% for object in object_list %}
             <li>
-                {% if project.promotedproject_set.all.0.location == "fundingindex_comingsoon" %}
+                {% if object.promotedproject_set.all.0.location == "fundingindex_comingsoon" %}
                 {% include 'funding/project_card_comingsoon.html' %}
                 {% else %}
                 {% include 'funding/project_card.html' %}
@@ -168,7 +168,7 @@
     <div class="section_title">{% trans "My projects" %}</div>
     <div> 
         <ul class="home_ul_center">
-        {% for project in user.get_profile.get_observed_projects.distinct %}
+        {% for object in user.get_profile.get_observed_projects.distinct %}
             <li>
             {% include 'funding/project_card.html' %}
             </li>
