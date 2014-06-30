@@ -71,10 +71,8 @@
         <div class="fundingleft" style="width: 280px;">
             <ul class="features_manage" id="features_0">
                 {% with linktitte="true" %}
+                {% include 'funding/popup_bid.html' %}
                 {% for task in object.all_not_started_tasks|filter_read:user %}
-                
-                    {% include 'funding/popup_bid.html' %}
-                    
                 <li class="pluginfeature{% if not forloop.first %} invisible{% endif %}" id="task_{{task.id}}">
                     
                     <div id="featureDiv_{{task.id}}" class="featureblock" {% if not task.public_read %} style="opacity:.4;"{% endif %}>

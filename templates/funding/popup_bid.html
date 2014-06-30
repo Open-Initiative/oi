@@ -1,7 +1,7 @@
 {% load oifilters %}
 {% load i18n %}
 
-{% if task.state < 4 and task|can_bid:user or not user.is_authenticated %}
+{% if object.state < 4 and object|can_bid:user or not user.is_authenticated %}
 
 <div id="bidpopup_{{object.id}}" class="popup_spec invisible" onclick="document.ignoreClosePopups = true;">
     <img class="clickable actions" src="/img/icons/delete.png" alt="{% trans 'close' %}" title="{% trans 'close' %}" onclick="hidePopups()" />    
@@ -30,11 +30,11 @@
         
         <div class="separate_project_feature"></div>
         
-        <label for="bid_{{task.id}}">{% trans "Please enter the amount:" %}</label><br /><br />
-        <input id="bid_{{object.id}}" name="bid_{{object.id}}" class="bidfeature" value="{% if not zero %}{{object.missing_bid|floatformat:"-2"}}{% else %}0{% endif %}" /> €
+        <label for="bid_{{object.id}}">{% trans "Please enter the amount:" %}</label><br /><br />
+        <input id="bid_{{object.id}}" name="bid_{{object.id}}" class="bidfeature" value="0" /> €
         <br /><br>
         
-        <p>{% trans "Thank you for joining community which makes" %} {{task.title}} {% trans "possible" %}</p>
+        <p>{% trans "Thank you for joining community which makes" %} {{object.title}} {% trans "possible" %}</p>
         <p>{% trans "By continuing, you agree to the" %} <a href="/cgu" target="_blank">{% trans "Terms of Use" %}</a></p>
         <input type="submit" class="fundingright continuebtn nobtnstyle clickable" value="{% trans 'Continue' %}"/>
         
