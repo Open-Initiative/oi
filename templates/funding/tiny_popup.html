@@ -47,7 +47,7 @@
                     <div style="font-size:11px;color: #2EAC66;font-weight: bold;">{{user_list|length}} {% blocktrans count counter=user_list|length %} user {% plural %} users {% endblocktrans %}</div>
                 </div>
             
-                <ul class="home_ul_center">
+                <ul class="center_content">
                 {% for person in user_list|slice:":7" %}
                     <li>
                         <a href="/user/profile/{{person.grouper}}" target="_blank">

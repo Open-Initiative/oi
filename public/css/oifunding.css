@@ -276,13 +276,13 @@ div.prj-action-wait {
     color: #0094b5;
 }
 
-ul.home_ul_center {
+ul.center_content {
     list-style-type: none;
     padding: 0;
     text-align: center;
     margin: 0;
 }
-ul.home_ul_center li {
+ul.center_content li {
     display: inline-block;
     margin: 2px;
     vertical-align: middle;
