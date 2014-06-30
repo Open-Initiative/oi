@@ -67,12 +67,13 @@
         
         </div>
         
-        {% if object.all_not_started_tasks.count > 1 %}<img id="prevfeature" class="clickable plugin-arrow" src="/img/icons/plugin_left_arrow.png" onclick="switchPrevFeature()"/>{% endif %}
+        {% with listtasks=object.all_not_started_tasks|filter_read:user  %}
+        {% if listtasks.count > 1 %}<img id="prevfeature" class="clickable plugin-arrow" src="/img/icons/plugin_left_arrow.png" onclick="switchPrevFeature()"/>{% endif %}
         <div class="fundingleft" style="width: 280px;">
             <ul class="features_manage" id="features_0">
                 {% with linktitte="true" %}
                 {% include 'funding/popup_bid.html' %}
-                {% for task in object.all_not_started_tasks|filter_read:user %}
+                {% for task in listtasks %}
                 <li class="pluginfeature{% if not forloop.first %} invisible{% endif %}" id="task_{{task.id}}">
                     
                     <div id="featureDiv_{{task.id}}" class="featureblock" {% if not task.public_read %} style="opacity:.4;"{% endif %}>
@@ -141,7 +142,8 @@
                 {% endwith %}
             </ul>
         </div>
-        {% if object.all_not_started_tasks.count > 1 %}<img id="nextfeature" class="clickable plugin-arrow" src="/img/icons/plugin_right_arrow.png" onclick="switchNextFeature()"/>{% endif %}
+        {% if listtasks.count > 1 %}<img id="nextfeature" class="clickable plugin-arrow" src="/img/icons/plugin_right_arrow.png" onclick="switchNextFeature()"/>{% endif %}
+        {% endwith %}
         
         {% else %}{% if request.GET.type == "small" %}
         <a href="/funding/{{object.id}}" target="_blank" style="text-decoration: none !important;">
