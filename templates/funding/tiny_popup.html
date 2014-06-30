@@ -30,17 +30,6 @@
         <script>
             sites = {{Sites|safe}};
             prjsite = "http://" + sites["Open Initiative projects"];
-   
-            function switchPrevFeature(){
-                var prevFeature=$('.pluginfeature:visible').prev(".pluginfeature");
-                $('.pluginfeature').animate({width: 'hide'});
-                (prevFeature.length?prevFeature:$('.pluginfeature').last()).animate({width: 'show'});
-            }
-            function switchNextFeature(){
-                var nextFeature=$('.pluginfeature:visible').next(".pluginfeature");
-                $('.pluginfeature').animate({width: 'hide'});
-                (nextFeature.length?nextFeature:$('.pluginfeature').first()).animate({width: 'show'});
-            }
         </script>
         {% endcompress %}
         <script type="text/javascript" src="{% url django.views.i18n.javascript_catalog %}"></script>
