@@ -33,13 +33,13 @@
    
             function switchPrevFeature(){
                 var prevFeature=$('.pluginfeature:visible').prev(".pluginfeature");
-                $('.pluginfeature').animate({width: 'hide'});
-                (prevFeature.length?prevFeature:$('.pluginfeature').last()).animate({width: 'show'});
+                $('.pluginfeature').hide('slide', {direction: 'right'}, 1000);
+                (prevFeature.length?prevFeature:$('.pluginfeature').last()).show('slide', {direction: 'right'}, 1000);
             }
             function switchNextFeature(){
                 var nextFeature=$('.pluginfeature:visible').next(".pluginfeature");
-                $('.pluginfeature').animate({width: 'hide'});
-                (nextFeature.length?nextFeature:$('.pluginfeature').first()).animate({width: 'show'});
+                $('.pluginfeature').hide('slide', {direction: 'left'}, 1000);
+                (nextFeature.length?nextFeature:$('.pluginfeature').first()).show('slide', {direction: 'left'}, 1000);
             }
         </script>
         {% endcompress %}
