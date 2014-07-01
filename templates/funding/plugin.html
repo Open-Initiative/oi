@@ -33,13 +33,13 @@
    
             function switchPrevFeature(){
                 var prevFeature=$('.pluginfeature:visible').prev(".pluginfeature");
-                $('.pluginfeature').hide('slide', {direction: 'left'}, 400);
-                (prevFeature.length?prevFeature:$('.pluginfeature').last()).show('slide', {direction: 'right'}, 900);
+                $('.pluginfeature').hide('slide', {direction: 'left'}, 150);
+                (prevFeature.length?prevFeature:$('.pluginfeature').last()).show('slide', {direction: 'right'}, 800);
             }
             function switchNextFeature(){
                 var nextFeature=$('.pluginfeature:visible').next(".pluginfeature");
-                $('.pluginfeature').hide('slide', {direction: 'right'}, 400);
-                (nextFeature.length?nextFeature:$('.pluginfeature').first()).show('slide', {direction: 'left'}, 900);
+                $('.pluginfeature').hide('slide', {direction: 'right'}, 150);
+                (nextFeature.length?nextFeature:$('.pluginfeature').first()).show('slide', {direction: 'left'}, 800);
             }
         </script>
         {% endcompress %}
