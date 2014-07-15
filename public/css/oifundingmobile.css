@@ -38,6 +38,7 @@
 @media screen and (max-width:1035px){
     .social_integration {left: 0; height: 0; position: initial; width: auto;}
     .social_integration_img {float: left; margin: 5px 10px; padding-left: 10px;}
+    .social_integration_bubble {visibility:hidden;}
 }
 @media screen and (max-width:430px){
     .prjheader > div.funding_space.fundingright {float:none;}
@@ -50,7 +51,7 @@
 
 /*rend la page responsive*/
 @media screen and (max-width:750px){
-    .prjbody {margin-right: 25px;} /*à voir margin*/
+    .prjbody {margin-right: 0;} /*à voir margin*/
     #related {background: white;}
     .discussion_column {margin: 0 3%;} /*à voir margin*/
 /*    permet de voir le boutons pour voir la colonne de droite*/
