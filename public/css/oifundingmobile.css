@@ -35,12 +35,19 @@
 }
 
 /*La page projet*/
-@media screen and (max-width:1060px){
-    .social_integration {left: 0;}
+@media screen and (max-width:1035px){
+    .social_integration {left: 0; height: 0; position: initial; width: auto;}
+    .social_integration_img {float: left; margin: 5px 10px; padding-left: 10px;}
 }
+@media screen and (max-width:430px){
+    .prjheader > div.funding_space.fundingright {float:none;}
+    .prjheader {padding: 28px 28px 9px 9px;}
+}
+
 @media screen and (min-width:751px){
     #btn_extend_close, #btn_extend_open  {display: none;}
 }
+
 /*rend la page responsive*/
 @media screen and (max-width:750px){
     .prjbody {margin-right: 25px;} /*à voir margin*/
