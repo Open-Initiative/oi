@@ -15,9 +15,10 @@ from django.db.models import get_app, Count, Avg
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render_to_response, get_object_or_404
+from django.template.response import TemplateResponse
 from django.utils.simplejson import JSONEncoder, JSONDecoder
 from django.utils.translation import ugettext as _
-from django.views.generic.simple import direct_to_template
+from django.views.generic import TemplateView
 from django.views.decorators.csrf import csrf_exempt
 from django.views.i18n import set_language
 from oi.prjnotify.models import Notice, NoticeType, Observer
@@ -33,7 +34,7 @@ def myprofile(request):
     """shows the profile of the current user"""
     extra_context = {'selected_user':request.user}
     extra_context.update(Bid.objects.filter(project__assignee=request.user).aggregate(Count("rating"),Avg("rating")))
-    return direct_to_template(request, template="users/profile/profile.html", extra_context = extra_context)
+    return TemplateResponse(request, "users/profile/profile.html", extra_context)
 
 @login_required
 def exportresume(request, username):
@@ -50,7 +51,7 @@ def userprofile(request, username):
         raise Http404
     extra_context={'selected_user':user}
     extra_context.update(Bid.objects.filter(project__assignee=user).aggregate(Count("rating"),Avg("rating")))
-    return direct_to_template(request, template="users/profile/profile.html", extra_context = extra_context)
+    return TemplateView.as_view(request, template="users/profile/profile.html", extra_context = extra_context)
 
 @login_required
 def myaccount(request):
@@ -75,7 +76,7 @@ def myaccount(request):
             request.user.get_profile().update_payment(dict_params) 
         
         extra_context['params'] = params
-        return direct_to_template(request, template='users/myaccount.html', extra_context=extra_context)
+        return TemplateView.as_view(request, template='users/myaccount.html', extra_context=extra_context)
         
     elif request.GET.get("amount"): #request for payment
         amount = Decimal((request.GET['amount']).replace(',','.')).quantize(Decimal('.01'))
@@ -107,8 +108,8 @@ def myaccount(request):
         extra_context['action'] = PAYMENT_ACTION
         extra_context['amount'] = amount
         
-    extra_context['contact_form'] = UserProfileForm(instance=request.user.get_profile())    
-    return direct_to_template(request, template='users/myaccount.html', extra_context=extra_context)
+    extra_context['contact_form'] = UserProfileForm(instance=request.user.profile)    
+    return TemplateResponse(request, 'users/myaccount.html', extra_context)
 
 @login_required
 def setemailing(request):
@@ -132,9 +133,9 @@ def savecontactinfo(request):
     form = UserProfileForm(request.POST, instance=request.user.get_profile())
     
     if request.POST.get("personal_website"):
-        validate = URLValidator(verify_exists=True)
+        validate = validate_email(request.POST.get("personal_website"))
         try:
-            validate(request.POST.get("personal_website"))
+            validate_email(request.POST.get("personal_website"))
         except ValidationError, e:
             return HttpResponse(_("Thank you to enter a valid url address"))
     
@@ -164,14 +165,17 @@ def resetpassword(request):
     try:
         user = User.objects.get(username=request.POST.get("username"))
     except User.DoesNotExist:
-        return direct_to_template(request, template="users/resetpwd.html", extra_context = {'message': _("The user doesn't exist")})
+        extra_context = {'message': _("The user doesn't exist")}
+        return TemplateResponse(request, "users/resetpwd.html", extra_context)
     if user.email != request.POST["email"]:
-        return direct_to_template(request, template="users/resetpwd.html", extra_context = {'message': _("E-mail address did not match")})
+        extra_context = {'message': _("E-mail address did not match")}
+        return TemplateResponse(request, "users/resetpwd.html", extra_context)
     password = User.objects.make_random_password()
     user.set_password(password)
     user.save()
-    send_mail(_("New password"), _("Your password has been reset. Your new password is: %s")%password, "admin@open-initiative.com", [user.email])    
-    return direct_to_template(request, template="users/resetpwd.html", extra_context = {'message': _("The new password has been sent to you by e-mail"),})
+    send_mail(_("New password"), _("Your password has been reset. Your new password is: %s")%password, "admin@open-initiative.com", [user.email]) 
+    extra_context = {'message': _("The new password has been sent to you by e-mail"),}   
+    return TemplateResponse(request, "users/resetpwd.html", extra_context)
 
 @login_required
 def changepassword(request):
@@ -218,17 +222,22 @@ def savebio(request):
 def createuser(request):
     """creates a new user"""
     if request.POST.get("acceptcgu") != "on":
-        return direct_to_template(request, template="users/register.html", extra_context = {'message':_("Please accept the terms of use")})
+        extra_context = {'message':_("Please accept the terms of use")}
+        return TemplateResponse(request, "users/register.html", extra_context)
     if not re.compile("^[\w\-\.]+$").search(request.POST.get("username")):
-        return direct_to_template(request, template="users/register.html", extra_context = {'message':_("Invalid username. Please use only letters, digits, - and _.")})
+        extra_context = {'message':_("Invalid username. Please use only letters, digits, - and _.")}
+        return TemplateResponse(request, "users/register.html", extra_context)
     if not request.POST["password"]:
-        return direct_to_template(request, template="users/register.html", extra_context = {'message':_("Please enter a password")})
+        extra_context = {'message':_("Please enter a password")}
+        return TemplateResponse(request, "users/register.html", extra_context)
     if request.POST["password"] != request.POST["password_confirm"]:
-        return direct_to_template(request, template="users/register.html", extra_context = {'message':_("Passwords did not match")})
+        extra_context = {'message':_("Passwords did not match")}
+        return TemplateResponse(request, "users/register.html", extra_context)
     try:
         user = User.objects.create_user(request.POST["username"], request.POST["email"], request.POST["password"])
     except IntegrityError:
-        return direct_to_template(request, template="users/register.html", extra_context = {'message':_("This username is already used")})
+        extra_context = {'message':_("This username is already used")}
+        return TemplateResponse(request, "users/register.html", extra_context)
     user.first_name = request.POST["firstname"]
     user.last_name = request.POST["lastname"]
     user.save()
@@ -297,7 +306,8 @@ def settaxrate(request):
 def listnamedisplays(request):
     """returns a list of user's possible name displays"""
     displays = map(lambda s:s%{'username':request.user.username, 'first':request.user.first_name, 'last':request.user.last_name}, OI_DISPLAYNAME_TYPES)
-    return direct_to_template(request, template='users/profile/namedisplay.html', extra_context={'displays':displays})
+    extra_context={'displays':displays}
+    return TemplateResponse(request, 'users/profile/namedisplay.html', extra_context)
 
 @login_required
 def setnamedisplay(request):
@@ -366,7 +376,8 @@ def getusermessages(request, username):
     to_messages = PersonalMessage.objects.filter(from_user=contact).filter(to_user=request.user)
     from_messages = PersonalMessage.objects.filter(to_user=contact).filter(from_user=request.user)
     messages = (to_messages|from_messages).order_by('sent_date')
-    return direct_to_template(request, template="users/usermessages.html", extra_context = {'contact':contact,'personalmessages':messages})
+    extra_context = {'contact':contact,'personalmessages':messages}
+    return TemplateResponse(request, "users/usermessages.html", extra_context)
 
 @csrf_exempt
 def updatepayment(request):

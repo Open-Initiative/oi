@@ -9,7 +9,7 @@
 <div class="logbox">
     <div style="font-size: 2em;margin-bottom: 8%;" class="fundinggreen form_center fundingtitle">{% trans "LOG-IN" %}</div>
     <br/>
-    <form method="post" action="{% url django.contrib.auth.views.login %}">{% csrf_token %}
+    <form method="post" action="{% url 'django.contrib.auth.views.login' %}">{% csrf_token %}
         <div class="ui-widget"><div class="ui-state-error ui-corner-all"><span style="float:left;margin-right: 0.3em;margin-top: 1em;" class="ui-icon ui-icon-alert"></span><p>{% trans "Please fix errors in registration form." %}</p></div></div>
         <table>
             <tr>

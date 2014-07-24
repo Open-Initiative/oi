@@ -1,6 +1,5 @@
-from django.conf.urls.defaults import *
-from django.views.generic.simple import direct_to_template
-from django.views.generic import ListView
+from django.conf.urls import *
+from django.views.generic import TemplateView, ListView
 from oi.projects.models import Project
 # Activation de l'admin
 from django.contrib import admin
@@ -11,11 +10,11 @@ urlpatterns = patterns('',
     (r'^$', ListView.as_view(queryset=Project.objects.filter(promotedproject__location__startswith='fundingindex').order_by("promotedproject__location"), template_name='funding/index.html')),
     #OpenTheWorld page
     (r'^opentheworld$', ListView.as_view(queryset=Project.objects.filter(promotedproject__location='otw1'), template_name='funding/opentheworld.html')),
-    (r'^opentheworld$', direct_to_template, {'template': "funding/opentheworld.html"}),
+    (r'^opentheworld$', TemplateView.as_view(template_name="funding/opentheworld.html")),
     # contenu statique
-    (r'^cgu$', direct_to_template, {'template': "cgu.html"}),    
-    (r'^contact$', direct_to_template, {'template': "contact.html"}),
-    (r'^presentation$', direct_to_template, {'template': "funding/presentation.html"}),
+    (r'^cgu$', TemplateView.as_view(template_name="cgu.html")),    
+    (r'^contact$', TemplateView.as_view(template_name="contact.html")),
+    (r'^presentation$', TemplateView.as_view(template_name="funding/presentation.html")),
     # Pages des messages
     (r'^message/', include('oi.messages.urls')),
     (r'^funding/', include('oi.funding.urls')),

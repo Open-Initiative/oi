@@ -93,7 +93,10 @@ COMPRESS_OUTPUT_DIR = 'static/'
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/'
+
+#old params to media
+#ADMIN_MEDIA_PREFIX = '/media/'
+STATIC_URL = '/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '-bue#^ex11(nq3d%&9+w0cvdvuq*&=3=s7m-%$b57qh5@&xpy)'
@@ -115,7 +118,7 @@ NOTIFICATION_LANGUAGE_MODULE = 'users.UserProfile'
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.load_template_source',
+    'django.template.loaders.app_directories.Loader',
 )
 
 MIDDLEWARE_CLASSES = (

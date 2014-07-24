@@ -47,7 +47,7 @@
         prjsite = "http://" + sites["Open Initiative Projects"];
     </script>
     {% endcompress %}
-    <script type="text/javascript" src="{% url django.views.i18n.javascript_catalog %}"></script>
+    <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
     <title>{% block title %}{% endblock %} - Open Funding</title>
 </head>
 
@@ -89,7 +89,7 @@
                 
                 <div id="popup_register" class="invisible popup_login_header" onclick="document.ignoreClosePopups = true;" >
                 
-                    <form method="post" action="{% url django.contrib.auth.views.login %}">{% csrf_token %}
+                    <form method="post" action="{% url 'django.contrib.auth.views.login' %}">{% csrf_token %}
                         <table>
                             <tr>
                                 <td class="log_style">

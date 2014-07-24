@@ -11,8 +11,8 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidde
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext as _
-from django.views.generic.list_detail import object_list
-from django.views.generic.simple import direct_to_template
+#from django.views.generic.list_detail import object_list
+from django.views.generic import TemplateView, ListView
 from oi.helpers import OI_PAGE_SIZE, OI_ALL_PERMS, OI_READ, OI_ANSWER, OI_WRITE, ajax_login_required
 from oi.helpers import OI_SCORE_ADD, OI_SCORE_DEFAULT_RELEVANCE, OI_EXPERTISE_FROM_ANSWER, OI_EXPERTISE_TO_MESSAGE
 from oi.settings import MEDIA_ROOT, MEDIA_URL
@@ -30,7 +30,7 @@ def getmessage(request, id):
     if mode == "small":
         return render_to_response('messages/messagesmall.html',{'message':message, 'depth':depth})
     extra_context={'object':message, 'depth':depth, 'is_ajax':request.GET.get("mode")}
-    return direct_to_template(request, template="messages/message_detail.html", extra_context=extra_context)
+    return TemplateView.as_view(request, template="messages/message_detail.html", extra_context=extra_context)
 
 def editmessage(request, id):
     """Edit form of the message"""
@@ -50,7 +50,7 @@ def editmessage(request, id):
         if not message.has_perm(request.user, OI_WRITE):
             return HttpResponseForbidden('Forbidden')
         title = message.title
-    return direct_to_template(request, template='messages/editmessage.html',extra_context={'message':message, 'title':title})
+    return TemplateView.as_view(request, template='messages/editmessage.html',extra_context={'message':message, 'title':title})
 
 def savemessage(request, id):
     """Saves the edited message and redirects to its view"""
