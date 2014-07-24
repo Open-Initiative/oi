@@ -17,9 +17,9 @@ def deploy_pp(branch="devel"):
         run("git checkout %s"%branch)
         run("git branch -d pp")
         run("git checkout -b pp")
-        run(".oi/manage.py syncdb")
-        run(".oi/manage.py migrate")
-        run(".oi/manage.py register_notice_types")
+        run("./manage.py syncdb")
+        run("./manage.py migrate")
+        run("./manage.py register_notice_types")
         
 @hosts('open-initiative@ssh.alwaysdata.com')
 def deploy_PROD():
