@@ -116,21 +116,18 @@
             </div>
             <img src="/img/social_icons/t.png" class="social_integration_img" alt="twitter" />
         </a>
-        <div class="cleared"></div>
         <a style="position:relative;" onmouseover="$('#social_facebook').show();" onmouseout="$('#social_facebook').hide();" target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=http://funding.openinitiative.com/funding/{{object.id}}">
             <div id="social_facebook" class="invisible">
                 <div class="social_integration_bubble">{% trans "Share on Facebook" %}</div>
             </div>
             <img src="/img/social_icons/f.png" class="social_integration_img" alt="facebook">
         </a>
-        <div class="cleared"></div>
         <a style="position:relative;" onmouseover="$('#social_google').show();" onmouseout="$('#social_google').hide();" target="_blank" href="https://plus.google.com/share?url=http://funding.openinitiative.com/funding/{{object.id}}">
             <div id="social_google" class="invisible">
                 <div class="social_integration_bubble">{% trans "Share on Google Plus" %}</div>
             </div>
             <img src="/img/social_icons/g.png" class="social_integration_img" alt="google+">
         </a>
-        <div class="cleared"></div>
         <a class="clickable" style="position:relative;" onmouseover="$('#social_embed').show();" onmouseout="$('#social_embed').hide();" onclick="showPopup(document.getElementById('pluginpopup'))">
             <div id="social_embed" class="invisible">
                 <div class="social_integration_bubble">{% trans "Embed the project page" %}</div>
@@ -143,7 +140,7 @@
         <div id="prjdialogue_{{object.id}}" class="popup invisible"></div>
         <div class="prjheader">
             {% with spec=object.spec_set.all|filter_order:1 %}
-            <div style="position:relative; float:right" id="spec_{{object.id}}_{{spec.order}}" class="funding_space">
+            <div id="spec_{{object.id}}_{{spec.order}}" class="funding_space fundingright">
                 {%include 'funding/spec/spec.html'%}
             </div>
             {% endwith %}

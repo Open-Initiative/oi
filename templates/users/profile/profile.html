@@ -74,7 +74,7 @@
     <div id="all_created_project" class="invisible">
         <div id="created_visible">
             <ul class="center_content">
-            {% for project in selected_user.get_profile.get_created_projects|filter_read:user|slice:":3" %}
+            {% for object in selected_user.get_profile.get_created_projects|filter_read:user|slice:":3" %}
                 <li>
                     {% include 'funding/project_card.html' %}
                 </li>
@@ -91,7 +91,7 @@
         
         <div id="created_invisible" class="invisible">
             <ul class="center_content">
-            {% for project in selected_user.get_profile.get_created_projects|filter_read:user %}
+            {% for object in selected_user.get_profile.get_created_projects|filter_read:user %}
                 <li>
                     {% include 'funding/project_card.html' %}
                 </li>
@@ -106,7 +106,7 @@
     <div id="all_funded_project" class="invisible">
         <div id="funded_visible">
             <ul class="center_content">
-            {% for project in selected_user.get_profile.get_funded_projects|filter_read:user|slice:":3" %}
+            {% for object in selected_user.get_profile.get_funded_projects|filter_read:user|slice:":3" %}
                 <li>
                     {% include 'funding/project_card.html' %}
                 </li>
@@ -122,7 +122,7 @@
         </div>
         <div id="funded_invisible" class="invisible">
             <ul class="center_content">
-            {% for project in selected_user.get_profile.get_funded_projects|filter_read:user %}
+            {% for object in selected_user.get_profile.get_funded_projects|filter_read:user %}
                 <li>
                     {% include 'funding/project_card.html' %}
                 </li>
