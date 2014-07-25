@@ -675,7 +675,7 @@ def validateproject(request, id):
         return HttpResponse(_("only bidders can validate the project!"))
     
     if request.user==project.assignee:
-        bid.rating = OI_NO_EVAL # the assignee doesn't evaluates himproject
+        bid.rating = OI_NO_EVAL # the assignee doesn't evaluate himself
         bid.save()
     # pays the assignee
     project.assignee.get_profile().make_payment(bid.amount - bid.commission, _("Payment"), project)
