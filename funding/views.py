@@ -1,6 +1,9 @@
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
+<<<<<<< HEAD
 from django.template.response import TemplateResponse
+=======
+>>>>>>> 7fa5d3715e6ee848c6627c9066dd540aa9c6761e
 from django.views.generic import TemplateView, DetailView
 #from django.views.generic.list_detail import object_detail
 from oi.projects.models import Project, OINeedsPrjPerms, Spec, Reward, RewardForm
@@ -21,15 +24,23 @@ def get_project(request, id):
     extra_context['reward_form'] = RewardForm() 
     extra_context['object'] = project
     extra_context['types'] = SPEC_TYPES
+<<<<<<< HEAD
     return TemplateResponse(request, "funding/project_detail.html", extra_context)
+=======
+    return TemplateView.as_view(request, template="funding/project_detail.html", extra_context=extra_context)
+>>>>>>> 7fa5d3715e6ee848c6627c9066dd540aa9c6761e
     
 def get_feature(request, id):
     """gets the feature block"""
     task = Project.objects.get(id=id)
     if not task.has_perm(request.user, OI_READ):
         raise Http404
+<<<<<<< HEAD
     extra_context={'object': task.master, 'task': task}
     return TemplateResponse(request, "funding/feature.html", extra_context)
+=======
+    return TemplateView.as_view(request, template="funding/feature.html", extra_context={'object': task.master, 'task': task})
+>>>>>>> 7fa5d3715e6ee848c6627c9066dd540aa9c6761e
     
 @OINeedsPrjPerms(OI_WRITE)
 def editspec(request, id, specid):

@@ -56,12 +56,24 @@ import re
 #    promotedprj = PromotedProject.objects.filter(location="index")
 #    return object_list(request, queryset=projects[:10], extra_context={'promotedprj': promotedprj})
 
+class Projectview(DetailView):
+    model = Project
+    def get_context_data(self, request, object_id, view="overview"): 
+        return {'current_view':view or 'overview', 'views':OI_PRJ_VIEWS, 'table_overview': OI_TABLE_OVERVIEW, 'release': request.session.get("releases", {}).get(project.master.id, project.master.target.name if project.master.target else None)}
+        
+    def get_object(self):
+        return 
+
 @OINeedsPrjPerms(OI_READ)
 def getproject(request, id, view="overview"):
     if not view: view = "overview"
     project = Project.objects.get(id=id)
+<<<<<<< HEAD
     extra_context = {'object': project, 'current_view':view, 'views':OI_PRJ_VIEWS, 'types':SPEC_TYPES, 'table_overview': OI_TABLE_OVERVIEW, 'release': request.session.get("releases", {}).get(project.master.id, project.master.target.name if project.master.target else None)}
     return TemplateResponse(request, "projects/project_detail.html", extra_context)
+=======
+    return TemplateView.as_view(request, template="projects/project_detail.html", extra_context={'object': project, 'current_view':view, 'views':OI_PRJ_VIEWS, 'types':SPEC_TYPES, 'table_overview': OI_TABLE_OVERVIEW, 'release': request.session.get("releases", {}).get(project.master.id, project.master.target.name if project.master.target else None)})
+>>>>>>> 7fa5d3715e6ee848c6627c9066dd540aa9c6761e
 
 @OINeedsPrjPerms(OI_READ)
 def listtasks(request, id):
@@ -312,11 +324,15 @@ def editproject(request, id):
         project = Project.objects.get(id=id)
         if not project.has_perm(request.user, OI_WRITE):
             return HttpResponseForbidden(_("Forbidden"))
+<<<<<<< HEAD
             
     request_dict = QueryDict(request.body)
     if request.method == "GET":
         extra_context = {'user': request.user, 'parent':request_dict.get("parent"), 'project':project}
         return TemplateResponse(request, 'projects/editproject.html', extra_context)
+=======
+    return TemplateView.as_view(request, template='projects/editproject.html', extra_context={'user': request.user, 'parent':request.GET.get("parent"), 'project':project})
+>>>>>>> 7fa5d3715e6ee848c6627c9066dd540aa9c6761e
 
 def create_new_task(parent, title, author, githubid=None):
     if parent:
@@ -1084,6 +1100,7 @@ def createtask(request, id):
 def editspec(request, id, specid):
     """Edit template of a spec contains a spec details edit template"""
     spec=None
+<<<<<<< HEAD
     request_dict = QueryDict(request.body)
     if request.method == "GET":
         order = request_dict.get("specorder")
@@ -1094,10 +1111,21 @@ def editspec(request, id, specid):
             order = spec.order
         extra_context = {'divid': request_dict["divid"], 'spec':spec, 'types':SPEC_TYPES, 'specorder':order}
         return DetailView.as_view(request, queryset=Project.objects, object_id=id, context_object_name='project', template_name='projects/spec/editspec.html', extra_context=extra_context)
+=======
+    order = request.GET.get("specorder")
+    if specid!='0':
+        spec = get_object_or_404(Spec, id=specid)
+        if spec.project.id != int(id):
+            return HttpResponse(_("Wrong arguments"), status=531)
+        order = spec.order
+    extra_context = {'divid': request.GET["divid"], 'spec':spec, 'types':SPEC_TYPES, 'specorder':order}
+    return DetailView.as_view(request, queryset=Project.objects, object_id=id, context_object_name='project', template_name='projects/spec/editspec.html', extra_context=extra_context)
+>>>>>>> 7fa5d3715e6ee848c6627c9066dd540aa9c6761e
 
 @OINeedsPrjPerms(OI_WRITE)
 def editspecdetails(request, id, specid):
     """Edit template of a spec detail, ie: text, image, file..."""
+<<<<<<< HEAD
     request_dict = QueryDict(request.body)
     if request.method == "GET":
         type = int(request_dict["type"])
@@ -1111,6 +1139,18 @@ def editspecdetails(request, id, specid):
                 return HttpResponse(_("Wrong arguments"), status=531)
         extra_context = {'user': request.user, 'divid': request_dict["divid"], 'project':project, 'spec':spec}
         return TemplateResponse(request, 'projects/spec/edit_type%s.html'%(type), extra_context)
+=======
+    type = int(request.GET["type"])
+    project = Project.objects.get(id=id)
+    spec=None
+    if specid!='0':
+        if project.state > OI_ACCEPTED:
+            return HttpResponse(_("Can not change a task already started"), status=431)
+        spec = Spec.objects.get(id=specid)
+        if spec.project.id != int(id):
+            return HttpResponse(_("Wrong arguments"), status=531)
+    return TemplateView.as_view(request, template='projects/spec/edit_type%s.html'%(type), extra_context={'user': request.user, 'divid': request.GET["divid"], 'project':project, 'spec':spec})
+>>>>>>> 7fa5d3715e6ee848c6627c9066dd540aa9c6761e
 
 @login_required
 @OINeedsPrjPerms(OI_WRITE)

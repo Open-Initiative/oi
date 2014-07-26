@@ -51,7 +51,11 @@ def userprofile(request, username):
         raise Http404
     extra_context={'selected_user':user}
     extra_context.update(Bid.objects.filter(project__assignee=user).aggregate(Count("rating"),Avg("rating")))
+<<<<<<< HEAD
     return TemplateResponse(request, "users/profile/profile.html", extra_context)
+=======
+    return TemplateView.as_view(request, template="users/profile/profile.html", extra_context = extra_context)
+>>>>>>> 7fa5d3715e6ee848c6627c9066dd540aa9c6761e
 
 @login_required
 def myaccount(request):
@@ -69,6 +73,7 @@ def myaccount(request):
                 project = Project.objects.get(id=dict_params.pop("project"))
                 params = {"PARAMPLUS": project}
 
+<<<<<<< HEAD
                 #delta is the amount actually added, considering this function can be called several times
                 #the second time, delta is probably 0
                 delta = request.user.profile.update_payment(dict_params)
@@ -76,10 +81,29 @@ def myaccount(request):
                     project.makebid(request.user, delta) #to update the user account
             else:
                 request.user.profile.update_payment(dict_params) 
+=======
+            #delta is the amount actually added, considering this function can be called several times
+            #the second time, delta is probably 0
+            delta = request.user.get_profile().update_payment(dict_params)
+            if delta:
+                project.makebid(request.user, delta) #to update the user account
+        else:
+            request.user.get_profile().update_payment(dict_params) 
+        
+        extra_context['params'] = params
+        return TemplateView.as_view(request, template='users/myaccount.html', extra_context=extra_context)
+        
+    elif request.GET.get("amount"): #request for payment
+        amount = Decimal((request.GET['amount']).replace(',','.')).quantize(Decimal('.01'))
+        if request.GET.get("project"): #from a bid
+            extra_context['task'] = Project.objects.get(id=request.GET["project"])
+            amount = amount - request.user.get_profile().balance #only pay what the user lacks
+>>>>>>> 7fa5d3715e6ee848c6627c9066dd540aa9c6761e
             
             extra_context['params'] = params
             return TemplateResponse(request, 'users/myaccount.html', extra_context)
             
+<<<<<<< HEAD
         elif request_dict.get("amount"): #request for payment
             amount = Decimal((request_dict['amount']).replace(',','.')).quantize(Decimal('.01'))
             if request_dict.get("project"): #from a bid
@@ -112,6 +136,31 @@ def myaccount(request):
             
         extra_context['contact_form'] = UserProfileForm(instance=request.user.profile)    
         return TemplateResponse(request, 'users/myaccount.html', extra_context)
+=======
+        payment = Payment(user=request.user, amount=0, project_id=0, reason='Paiement en attente de validation')
+        payment.save()
+        
+        params = {"PSPID":"openinitiative", "currency":"EUR", "TITLE":"", "BGCOLOR":"", "TXTCOLOR":"", "TBLBGCOLOR":"", "TBLTXTCOLOR":"", "BUTTONBGCOLOR":"", "BUTTONTXTCOLOR":"", "LOGO":"", "FONTTYPE":""}
+        params['orderID'] = payment.id
+        params['amount'] = (amount*100).quantize(Decimal('1.'))
+        params["CN"] = "%s %s"%(request.user.first_name, request.user.last_name)
+        params["EMAIL"] = request.user.email
+        params["ownerZIP"] = request.user.get_profile().postcode
+        params["owneraddress"] = request.user.get_profile().address
+        params["ownercty"] = request.user.get_profile().country
+        params["ownertown"] = request.user.get_profile().city
+        params["ownertelno"] = request.user.get_profile().phone
+        params["language"] = "%s_%s"%(request.LANGUAGE_CODE,request.LANGUAGE_CODE)
+        if request.GET.get("project"):
+            params["PARAMPLUS"] = "project=%s"%request.GET["project"]
+        params["SHASign"] = computeSHA(params)
+        extra_context['params'] = params 
+        extra_context['action'] = PAYMENT_ACTION
+        extra_context['amount'] = amount
+        
+    extra_context['contact_form'] = UserProfileForm(instance=request.user.profile)    
+    return TemplateResponse(request, 'users/myaccount.html', extra_context)
+>>>>>>> 7fa5d3715e6ee848c6627c9066dd540aa9c6761e
 
 @login_required
 def setemailing(request):
@@ -136,6 +185,7 @@ def savename(request):
 @login_required
 def savecontactinfo(request):
     """saves user contact information"""
+<<<<<<< HEAD
     request_dict = QueryDict(request.body)
     form = UserProfileForm(request_dict, instance=request.user.profile)
     if request.method == "POST":
@@ -148,6 +198,19 @@ def savecontactinfo(request):
         if form.is_valid():
             form.save() 
             return HttpResponse(_("Information saved"))
+=======
+    form = UserProfileForm(request.POST, instance=request.user.get_profile())
+    
+    if request.POST.get("personal_website"):
+        validate = validate_email(request.POST.get("personal_website"))
+        try:
+            validate_email(request.POST.get("personal_website"))
+        except ValidationError, e:
+            return HttpResponse(_("Thank you to enter a valid url address"))
+    
+    form.save() 
+    return HttpResponse(_("Information saved"))
+>>>>>>> 7fa5d3715e6ee848c6627c9066dd540aa9c6761e
 
 @login_required
 def setrss(request):
@@ -171,6 +234,7 @@ def invite(request, username):
 
 def resetpassword(request):
     """sends an e-mail to the user with a new password"""
+<<<<<<< HEAD
     request_dict = QueryDict(request.body)
     if request.method == "POST":
         try:
@@ -187,6 +251,22 @@ def resetpassword(request):
         send_mail(_("New password"), _("Your password has been reset. Your new password is: %s")%password, "admin@open-initiative.com", [user.email]) 
         extra_context = {'message': _("The new password has been sent to you by e-mail"),}   
         return TemplateResponse(request, "users/resetpwd.html", extra_context)
+=======
+    try:
+        user = User.objects.get(username=request.POST.get("username"))
+    except User.DoesNotExist:
+        extra_context = {'message': _("The user doesn't exist")}
+        return TemplateResponse(request, "users/resetpwd.html", extra_context)
+    if user.email != request.POST["email"]:
+        extra_context = {'message': _("E-mail address did not match")}
+        return TemplateResponse(request, "users/resetpwd.html", extra_context)
+    password = User.objects.make_random_password()
+    user.set_password(password)
+    user.save()
+    send_mail(_("New password"), _("Your password has been reset. Your new password is: %s")%password, "admin@open-initiative.com", [user.email]) 
+    extra_context = {'message': _("The new password has been sent to you by e-mail"),}   
+    return TemplateResponse(request, "users/resetpwd.html", extra_context)
+>>>>>>> 7fa5d3715e6ee848c6627c9066dd540aa9c6761e
 
 @login_required
 def changepassword(request):
@@ -240,6 +320,7 @@ def savebio(request):
 
 def createuser(request):
     """creates a new user"""
+<<<<<<< HEAD
     request_dict = QueryDict(request.body)
     if request.method == "POST":
         if request_dict.get("acceptcgu") != "on":
@@ -263,6 +344,29 @@ def createuser(request):
         user.last_name = request_dict["lastname"]
         user.save()
         return HttpResponseRedirect(reverse('oi.users.views.myprofile'))
+=======
+    if request.POST.get("acceptcgu") != "on":
+        extra_context = {'message':_("Please accept the terms of use")}
+        return TemplateResponse(request, "users/register.html", extra_context)
+    if not re.compile("^[\w\-\.]+$").search(request.POST.get("username")):
+        extra_context = {'message':_("Invalid username. Please use only letters, digits, - and _.")}
+        return TemplateResponse(request, "users/register.html", extra_context)
+    if not request.POST["password"]:
+        extra_context = {'message':_("Please enter a password")}
+        return TemplateResponse(request, "users/register.html", extra_context)
+    if request.POST["password"] != request.POST["password_confirm"]:
+        extra_context = {'message':_("Passwords did not match")}
+        return TemplateResponse(request, "users/register.html", extra_context)
+    try:
+        user = User.objects.create_user(request.POST["username"], request.POST["email"], request.POST["password"])
+    except IntegrityError:
+        extra_context = {'message':_("This username is already used")}
+        return TemplateResponse(request, "users/register.html", extra_context)
+    user.first_name = request.POST["firstname"]
+    user.last_name = request.POST["lastname"]
+    user.save()
+    return HttpResponseRedirect(reverse('oi.users.views.myprofile'))
+>>>>>>> 7fa5d3715e6ee848c6627c9066dd540aa9c6761e
 
 @login_required
 def editdetail(request, id):
