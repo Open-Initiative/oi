@@ -3,8 +3,8 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
-from django.contrib.syndication.views import feed
-from django.views.generic.simple import direct_to_template
+from django.contrib.syndication.views import Feed
+from django.views.generic import TemplateView
 
 from oi.prjnotify.models import Notice, NoticeType, NoticeSetting, Observer
 from oi.prjnotify.decorators import basic_auth_required, simple_basic_auth_callback
@@ -35,7 +35,7 @@ def notices(request):
 def notice_settings(request):
     default = request.user.get_profile().get_default_observer()
     observers = Observer.objects.filter(user=request.user).order_by("project__id")
-    return direct_to_template(request, template="notification/settings.html", extra_context={'default_observer': default, 'observers': observers})
+    return TemplateView.as_view(request, template="notification/settings.html", extra_context={'default_observer': default, 'observers': observers})
 
 
 @login_required

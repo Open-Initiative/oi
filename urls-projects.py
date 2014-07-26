@@ -1,6 +1,5 @@
-from django.conf.urls.defaults import *
-from django.views.generic.simple import direct_to_template
-from django.views.generic import ListView
+from django.conf.urls import *
+from django.views.generic import TemplateView, ListView
 #from haystack.views import SearchView
 #from haystack.query import SearchQuerySet
 from oi.projects.models import Project
@@ -15,7 +14,7 @@ admin.autodiscover()
 
 def index(request):
     if request.user.is_authenticated():
-        return direct_to_template(request, "users/dashboard.html")
+        return TemplateView.as_view(request, "users/dashboard.html")
     else:
         return ListView.as_view(queryset=Project.objects.filter(promotedproject__location='index'), template_name='index.html')(request)
 
@@ -23,10 +22,10 @@ urlpatterns = patterns('',
     # Page d'accueil
     (r'^$', index),
     # contenu statique
-    (r'^cgu$', direct_to_template, {'template': "cgu.html"}),    
-    (r'^contact$', direct_to_template, {'template': "contact.html"}),
-    (r'^presentation$', direct_to_template, {'template': "presentation.html"}),
-    (r'^presentation-fr$', direct_to_template, {'template': "presentation-fr.html"}),
+    (r'^cgu$', TemplateView.as_view(template_name="cgu.html")),    
+    (r'^contact$', TemplateView.as_view(template_name="contact.html")),
+    (r'^presentation$', TemplateView.as_view(template_name="presentation.html")),
+    (r'^presentation-fr$', TemplateView.as_view(template_name="presentation-fr.html")),
     # Pages des messages
     (r'^message/', include('oi.messages.urls')),
     # Pages des projets

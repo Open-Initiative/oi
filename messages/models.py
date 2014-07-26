@@ -19,7 +19,7 @@ class Message(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     icon = models.CharField(max_length=100, blank=True)
-    category = models.BooleanField()
+    category = models.BooleanField(default=False)
     parent = models.ForeignKey('self', blank=True, null=True, related_name='children')
     project = models.ForeignKey(Project, blank=True, null=True)
     ancestors = models.ManyToManyField('self',symmetrical=False, related_name='descendants', blank=True)

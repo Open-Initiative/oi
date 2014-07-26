@@ -45,7 +45,7 @@
         fundingsite = "http://" + sites["Open Funding"];
     </script>
     {% endcompress %}
-    <script type="text/javascript" src="{% url django.views.i18n.javascript_catalog %}"></script>
+    <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
     <title>{% block title %}{% endblock %} - Open Initiative</title>
 </head>
 
@@ -99,7 +99,7 @@
                 {%else%}
                 <span id="loginbox">{% trans "Login" %}</span>
                 <div id="loginarea">
-                    <form method="post" action="{% url django.contrib.auth.views.login %}">{% csrf_token %}<table>
+                    <form method="post" action="{% url 'django.contrib.auth.views.login' %}">{% csrf_token %}<table>
                         <tr>
                             <td>
                                 <label class="loginlabel" for="username_field">{% trans "username" %}</label>

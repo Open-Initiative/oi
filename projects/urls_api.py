@@ -2,9 +2,9 @@
 # Url handlers des projets
 from random import choice
 from string import letters
-from django.conf.urls.defaults import *
-from django.views.generic.list_detail import object_detail
-from django.views.generic.simple import direct_to_template
+from django.conf.urls import *
+#from django.views.generic.list_detail import object_detail
+from django.views.generic import TemplateView, DetailView
 from oi.projects.models import Project, Spec, OINeedsPrjPerms, OI_READ, OI_WRITE
 from oi.helpers import SPEC_TYPES
 

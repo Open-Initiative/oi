@@ -43,7 +43,7 @@
             }
         </script>
         {% endcompress %}
-        <script type="text/javascript" src="{% url django.views.i18n.javascript_catalog %}"></script>
+        <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
     </head>
 
     <body style="background-color: transparent; {% if request.GET.type == 'small' %}min-width: 240px;{% endif %} {% if request.GET.type == 'tiny' %}min-width: 100px;{% endif %} {% if request.GET.type == 'big' %}min-width: 100%; overflow: hidden;{% endif %}{% if request.GET.type == 'simple' %}min-width: 240px;{% endif %}">
@@ -187,7 +187,7 @@
             {% endwith %}
             <div class="cleared"></div>
             
-            <form class="form_center" onsubmit="return checkConfirmation({{object.id}})" target="_blank" method="post" action="{% url projects.views.bidproject object.id %}">
+            <form class="form_center" onsubmit="return checkConfirmation({{object.id}})" target="_blank" method="post" action="{% url 'projects.views.bidproject' object.id %}">
                 {% csrf_token %}
                 <input id="simple_sum_{{object.id}}" class="simple_sum" type="number" name="bid" min="0"> €
                 <div class="cleared"><br/></div>

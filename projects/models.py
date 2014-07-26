@@ -12,6 +12,7 @@ from django.http import HttpResponseForbidden, Http404
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext as _, get_language, activate
 from django.db.models.query import QuerySet
+from django.views.generic import TemplateView, DetailView
 from oi.settings import MEDIA_ROOT
 from oi.helpers import OI_ALL_PERMS, OI_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_ANSWER, OI_BID, OI_MANAGE, OI_COMMISSION, OI_COM_ON_BID, OI_CANCELLED_BID, OI_VAT_RATE
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS, OI_TABLE_OVERVIEW
@@ -554,6 +555,22 @@ class Spec(models.Model):
         self.project.save()
         super(Spec, self).save(*args, **kwargs)
 
+class ExtraContext(object):
+    extra_context = {}
+
+    def get_context_data(self, **kwargs):
+        context = super(ExtraContext, self).get_context_data(**kwargs)
+        context.update(self.extra_context)
+        return context
+
+class ExtraDetailView(ExtraContext, DetailView):
+    pass
+
+class ExtraCloneView(ExtraDetailView):
+    def post(self, request, *args, **kwargs):
+       return ExtraCreateView.as_view(model=self.model,template_name=self.template_name,extra_context=self.extra_context)(request, *args, **kwargs) 
+
+
 class Spot(models.Model):
     author = models.ForeignKey(User, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -660,9 +677,9 @@ def getpathreward(instance, filename):
 class Reward(models.Model):
     project = models.ForeignKey(Project)
     title = models.CharField(max_length=200)
-    image = models.ImageField(upload_to=getpathreward,null=True, blank=True)
-    description = models.TextField(blank=True)
-    nb_reward = models.IntegerField(null=True,blank=True,default=0)
+    image = models.ImageField(upload_to=getpathreward, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    nb_reward = models.IntegerField(null=True, blank=True, default=0)
     
     def __unicode__(self):
         return "Project '%s' reward is '%s'"%(self.project, self.title)

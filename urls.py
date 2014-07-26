@@ -1,15 +1,15 @@
-from django.conf.urls.defaults import *
-from django.views.generic.simple import direct_to_template
+from django.conf.urls import *
+from django.views.generic import TemplateView
 # Activation de l'admin
 from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
     # contenu statique
-    (r'^$', direct_to_template, {'template': "index-root.html"}),
-    (r'^cgu$', direct_to_template, {'template': "cgu.html"}),
-    (r'^contact$', direct_to_template, {'template': "contact.html"}),
-    (r'^presentation$', direct_to_template, {'template': "funding/presentation.html"}),
+    (r'^$', TemplateView.as_view(template_name="index-root.html")),
+    (r'^cgu$', TemplateView.as_view(template_name="cgu.html")),
+    (r'^contact$', TemplateView.as_view(template_name="contact.html")),
+    (r'^presentation$', TemplateView.as_view(template_name="funding/presentation.html")),
     # Pages des utilisateurs
     (r'^user/', include('oi.users.urls')),
     (r'^message/', include('oi.messages.urls')),
