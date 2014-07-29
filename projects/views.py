@@ -56,6 +56,14 @@ import re
 #    promotedprj = PromotedProject.objects.filter(location="index")
 #    return object_list(request, queryset=projects[:10], extra_context={'promotedprj': promotedprj})
 
+class Projectview(DetailView):
+    model = Project
+    def get_context_data(self, request, object_id, view="overview"): 
+        return {'current_view':view or 'overview', 'views':OI_PRJ_VIEWS, 'table_overview': OI_TABLE_OVERVIEW, 'release': request.session.get("releases", {}).get(project.master.id, project.master.target.name if project.master.target else None)}
+        
+    def get_object(self):
+        return 
+
 @OINeedsPrjPerms(OI_READ)
 def getproject(request, id, view="overview"):
     if not view: view = "overview"

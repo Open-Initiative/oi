@@ -136,6 +136,7 @@ def savename(request):
 @login_required
 def savecontactinfo(request):
     """saves user contact information"""
+    
     request_dict = QueryDict(request.body)
     form = UserProfileForm(request_dict, instance=request.user.profile)
     if request.method == "POST":
@@ -148,6 +149,7 @@ def savecontactinfo(request):
         if form.is_valid():
             form.save() 
             return HttpResponse(_("Information saved"))
+        return HttpResponse(_("The form is not valid"))
 
 @login_required
 def setrss(request):
