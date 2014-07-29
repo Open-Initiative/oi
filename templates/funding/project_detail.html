@@ -303,12 +303,12 @@
                     <div class="fundingleft" style="margin-left: 20px;">
                         {% for bid in person.list|dictsort:"project" %}
                         <div class="line_separate">
-                            {% trans "ordered" %} "{{bid.object.title}}" {% trans "with" %} {{bid.amount}} €
-                            {% if user == bid.user and task.state < 3 %}
+                            {% trans "ordered" %} "{{bid.project.title}}" {% trans "with" %} {{bid.amount}} €
+                            {% if user == bid.user and bid.project.state < 3 %}
                             <div class="cleared"></div>
                             <img class="clickable" src="/img/icons/add.png" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));document.getElementById('order_{{bid.object.id}}').checked=true;" /> {% trans "Add a new bid" %}
                             <div class="cleared"></div>
-                            <img class="clickable" src="/img/icons/delete.png" onclick="cancelBid({{bid.object.id}}, {% if task.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "close" %}" title="{% trans "Cancel your bid on this task" %}" /> {% trans "Cancel my bid" %}
+                            <img class="clickable" src="/img/icons/delete.png" onclick="cancelBid({{bid.project.id}}, {% if bid.project.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "close" %}" title="{% trans "Cancel your bid on this task" %}" /> {% trans "Cancel my bid" %}
                             {% endif %}
                         </div>
                         <div class="cleared"></div>

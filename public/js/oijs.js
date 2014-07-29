@@ -45,7 +45,7 @@ function OIajaxCall(url, params, divid, callBack) {
     xmlhttp.open(method, url, true);
     xmlhttp.withCredentials = true;
     xmlhttp.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-    xmlhttp.setRequestHeader("X_REQUESTED_WITH", 'XMLHttpRequest')
+    xmlhttp.setRequestHeader("X-Requested-With", 'XMLHttpRequest');
     xmlhttp.send(params);
 }
 function makeObjectCallback(method, object) {

@@ -67,13 +67,11 @@
                 <img src="/img/baseunderline.png" />
             </div>
             <div id="userheader">
-                {% with fr="fr" en="en" %}
-                <form method="post" onsubmit="OIajaxCall('/user/changeuserlanguage', 'language={% if request.LANGUAGE_CODE == fr %}en{% else %}fr{% endif %}', 'output'); return false;" class="actions">
+                <form method="post" action="/user/changeuserlanguage" class="actions">
                     {% csrf_token %}
                     <input type="hidden" name="language" value="{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}"/>
                     <input id="oi_lang" type="image" src="/img/{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}.png" />
                 </form>
-                {% endwith %}
                 {%if user.is_authenticated%}
                 <div class="header_close">
                     <div class="cleared"></div>

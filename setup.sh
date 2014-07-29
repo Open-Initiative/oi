@@ -4,6 +4,7 @@ sudo easy_install django-haystack xapian-haystack django-notification pisa html5
 #sudo pip install django-email-bandit
 sudo a2enmod rewrite
 sudo a2enmod fcgid
+sudo a2enmod xsendfile
 
 #~ **clone oi repository**
 git clone ssh://pp.open-initiative@ssh.alwaysdata.com/home/pp.open-initiative/oi
@@ -20,7 +21,10 @@ mv ./public ./www
 
 #~ **Create database**
 mysql -u root -p -e "CREATE DATABASE OI; CREATE USER \"maxi\"; SET password FOR \"maxi\" = password(\"maximaxi1234\"); GRANT ALL ON OI.* TO \"maxi\""
-oi/manage.py syncdb
-oi/manage.py migrate
+./manage.py syncdb
+./manage.py migrate
+
+#~ **Create all the notices in database**
+./manage.py register_notices_types
 
 

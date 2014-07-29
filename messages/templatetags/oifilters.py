@@ -68,10 +68,11 @@ def oiunescape(text, autoescape=None):
     return mark_safe(text.replace("[[close]]",">"))
 oiunescape.needs_autoescape = True
 
-@register.filter
-def summarize_html(string, autoescape=None):
-    return mark_safe(text.truncate_html_words(oiunescape(string, autoescape), 100))
-summarize_html.needs_autoescape = True
+#no need it anymore in 1.6
+#@register.filter
+#def summarize_html(string, autoescape=None):
+#    return mark_safe(text.truncate_html_words(oiunescape(string, autoescape), 100))
+#summarize_html.needs_autoescape = True
 
 @register.filter
 def summarize(text, autoescape=None):

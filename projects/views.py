@@ -253,22 +253,20 @@ def savereward(request, id, rewardid):
     """Save Reward""" 
     project = Project.objects.get(id=id)
     
-    request_dict = QueryDict(request.body)
-    if request.method == "POST":
-        #new reward
-        if rewardid == '0':
-            form = RewardForm(request_dict, request.FILES)
-            reward = form.save(commit=False)
-            reward.project = project
-            
-        #existing reward
-        else:
-            form = RewardForm(request_dict, request.FILES, instance=project.reward_set.all().get(id=rewardid))
-            reward = form.save(commit=False)
-            
-        reward.image.name = normalize("NFKD", reward.image.name).encode('ascii', 'ignore').replace('"', '') 
-        reward.save()
-        return HttpResponse("<script>window.parent.location.reload(true)</script>")
+    #new reward
+    if rewardid == '0':
+        form = RewardForm(request.POST, request.FILES)
+        reward = form.save(commit=False)
+        reward.project = project
+        
+    #existing reward
+    else:
+        form = RewardForm(request.POST, request.FILES, instance=project.reward_set.all().get(id=rewardid))
+        reward = form.save(commit=False)
+        
+    reward.image.name = normalize("NFKD", reward.image.name).encode('ascii', 'ignore').replace('"', '') 
+    reward.save()
+    return HttpResponse("<script>window.parent.location.reload(true)</script>")
 
 @OINeedsPrjPerms(OI_MANAGE)
 def updatestockreward(request, id, rewardid):
@@ -1084,33 +1082,29 @@ def createtask(request, id):
 def editspec(request, id, specid):
     """Edit template of a spec contains a spec details edit template"""
     spec=None
-    request_dict = QueryDict(request.body)
-    if request.method == "GET":
-        order = request_dict.get("specorder")
-        if specid!='0':
-            spec = get_object_or_404(Spec, id=specid)
-            if spec.project.id != int(id):
-                return HttpResponse(_("Wrong arguments"), status=531)
-            order = spec.order
-        extra_context = {'divid': request_dict["divid"], 'spec':spec, 'types':SPEC_TYPES, 'specorder':order}
-        return DetailView.as_view(request, queryset=Project.objects, object_id=id, context_object_name='project', template_name='projects/spec/editspec.html', extra_context=extra_context)
+    order = request.GET.get("specorder")
+    if specid!='0':
+        spec = get_object_or_404(Spec, id=specid)
+        if spec.project.id != int(id):
+            return HttpResponse(_("Wrong arguments"), status=531)
+        order = spec.order
+    extra_context = {'divid': request.GET["divid"], 'spec':spec, 'specorder':order, 'project':Project.objects.get(id=id)}
+    return TemplateResponse(request, 'projects/spec/editspec.html', extra_context)
 
 @OINeedsPrjPerms(OI_WRITE)
 def editspecdetails(request, id, specid):
     """Edit template of a spec detail, ie: text, image, file..."""
-    request_dict = QueryDict(request.body)
-    if request.method == "GET":
-        type = int(request_dict["type"])
-        project = Project.objects.get(id=id)
-        spec=None
-        if specid!='0':
-            if project.state > OI_ACCEPTED:
-                return HttpResponse(_("Can not change a task already started"), status=431)
-            spec = Spec.objects.get(id=specid)
-            if spec.project.id != int(id):
-                return HttpResponse(_("Wrong arguments"), status=531)
-        extra_context = {'user': request.user, 'divid': request_dict["divid"], 'project':project, 'spec':spec}
-        return TemplateResponse(request, 'projects/spec/edit_type%s.html'%(type), extra_context)
+    type = int(request.GET["type"])
+    project = Project.objects.get(id=id)
+    spec=None
+    if specid!='0':
+        if project.state > OI_ACCEPTED:
+            return HttpResponse(_("Can not change a task already started"), status=431)
+        spec = Spec.objects.get(id=specid)
+        if spec.project.id != int(id):
+            return HttpResponse(_("Wrong arguments"), status=531)
+    extra_context = {'user': request.user, 'divid': request.GET["divid"], 'project':project, 'spec':spec}
+    return TemplateResponse(request, 'projects/spec/edit_type%s.html'%(type), extra_context)
 
 @login_required
 @OINeedsPrjPerms(OI_WRITE)
@@ -1180,10 +1174,10 @@ def savespec(request, id, specid='0'):
         return redirect_funding_or_project(request, {'user': request.user, 'project' : project, 'spec' : spec})
     
 def redirect_funding_or_project(request, obj):
-    """Return project param in project or funding"""
+    """ """
     if request.get_host() == OI_DOMAINS[1][1]:  #check if is the project host
         return render_to_response("projects/spec/spec.html", obj)
-    elif request.get_host() == OI_DOMAINS[3][1]:    #check if is the fundig host
+    elif request.get_host() == OI_DOMAINS[2][1]:    #check if is the funding host
         return render_to_response("funding/spec/spec.html", obj)
         
 @OINeedsPrjPerms(OI_WRITE)
@@ -1250,17 +1244,15 @@ def removeSpot(request, id, specid, spotid):
 def uploadfile(request, id, specid='0'):
     """temporarily stores a file to be used in a spec"""
     uploadedfile = request.FILES['file']
-    request_dict = QueryDict(request.body)
-    if request.method == "POST":
-        divid = request_dict['divid']
-        ts = int(time())
-    #    filename = normalize("NFC", uploadedfile.name).encode('utf-8').
-        filename = normalize("NFKD", uploadedfile.name).encode('ascii', 'ignore').replace('"', '')
-        tempfile = open("%s%s_%s_%s"%(TEMP_DIR,request.user.id,ts,filename), 'wb+')
-        for chunk in uploadedfile.chunks():
-            tempfile.write(chunk)
-        tempfile.close()
-        return render_to_response('projects/spec/fileframe.html',{'divid':divid,'filename':filename,'ts':ts,'projectid':id})
+    divid = request.POST['divid']
+    ts = int(time())
+#    filename = normalize("NFC", uploadedfile.name).encode('utf-8').
+    filename = normalize("NFKD", uploadedfile.name).encode('ascii', 'ignore').replace('"', '')
+    tempfile = open("%s%s_%s_%s"%(TEMP_DIR,request.user.id,ts,filename), 'wb+')
+    for chunk in uploadedfile.chunks():
+        tempfile.write(chunk)
+    tempfile.close()
+    return render_to_response('projects/spec/fileframe.html',{'divid':divid,'filename':filename,'ts':ts,'projectid':id})
 
 @OINeedsPrjPerms(OI_WRITE)
 def deltmpfile(request, id):

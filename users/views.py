@@ -217,17 +217,14 @@ def changeemail(request):
 def changeuserlanguage(request):
     """change user language"""
     user = request.user
-    request_dict = QueryDict(request.body)
-    if request.method == "POST":
-        lang = request_dict.get("language")
+    lang = request.POST.get("language")
+
+    if user.is_authenticated():
+        user.profile.language = lang
+        user.profile.save()
     
-        if user.is_authenticated():
-            user.profile.language = lang
-            user.profile.save()
-        
-        #change the website language    
-        set_language(request)   
-        return HttpResponse("", status=332) 
+    #change the website language    
+    return set_language(request) 
 
 @login_required
 def savebio(request):

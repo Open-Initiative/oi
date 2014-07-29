@@ -2,7 +2,6 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.views.generic import TemplateView, DetailView
-#from django.views.generic.list_detail import object_detail
 from oi.projects.models import Project, OINeedsPrjPerms, Spec, Reward, RewardForm
 from oi.helpers import OI_READ, OI_WRITE, SPEC_TYPES
 

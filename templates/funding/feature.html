@@ -92,7 +92,7 @@
         <div style="clear: left;" id="specs_{{task.id}}_hide">
         {% with spec=task.spec_set.all|filter_order:1 %}
             {% if spec.type == 2 %}<br/>{% endif %}
-            {{spec.text|oiunescape|summarize_html}}
+            {{spec.text|oiunescape|truncatewords_html:50}}
         {% endwith %}
         </div>
         

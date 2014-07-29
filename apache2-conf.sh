@@ -32,6 +32,8 @@ sudo cat <<EOF > /etc/apache2/sites-available/001-funding.conf
 		AllowOverride None
 		Order allow,deny
 		Allow from all
+		XSendFile On
+		XSendFilePath $PWD/OIFS
 		RewriteEngine On
         RewriteCond %{REQUEST_FILENAME} !-f
         RewriteRule ^(.*)$ django_funding.fcgi/$1 [QSA,L]
@@ -54,6 +56,8 @@ sudo cat <<EOF > /etc/apache2/sites-available/002-project.conf
 		AllowOverride None
 		Order allow,deny
 		Allow from all
+		XSendFile On
+		XSendFilePath $PWD/OIFS
 		RewriteEngine On
         RewriteCond %{REQUEST_FILENAME} !-f
         RewriteRule ^(.*)$ django_projects.fcgi/$1 [QSA,L]
