@@ -343,7 +343,7 @@ def saveproject(request, id='0'):
             return HttpResponseForbidden(_("Forbidden"))
         project.title = request.POST["title"]
 
-    for field in ["start_date","due_date","validaton","progress", "offer"]:
+    for field in ["start_date","due_date","validation","progress", "offer"]:
         if request.POST.has_key(field) and len(request.POST[field])>0:
             project.__setattr__(field, request.POST[field])
             if field == "offer":
@@ -675,7 +675,7 @@ def validateproject(request, id):
         return HttpResponse(_("only bidders can validate the project!"))
     
     if request.user==project.assignee:
-        bid.rating = OI_NO_EVAL # the assignee doesn't evaluates himproject
+        bid.rating = OI_NO_EVAL # the assignee doesn't evaluate himself
         bid.save()
     # pays the assignee
     project.assignee.get_profile().make_payment(bid.amount - bid.commission, _("Payment"), project)
