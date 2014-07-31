@@ -1,0 +1,87 @@
+{% load i18n %}
+<table id="userprofile">
+    <tr>
+        <td width="70%">
+            <h1 id="fullname">
+                {{selected_user.get_profile.get_display_name}}
+                {% ifequal user selected_user %}<img class="clickable" src="/img/icons/edit.png" onclick="selectNameDisplay()" />{% endifequal %}
+            </h1>
+            <h2>{{selected_user.username}}</h2>
+            <h3 id="usertitle">
+                {% if selected_user.get_profile.title %}
+                {{selected_user.get_profile.title}}
+                {% else %}
+                {{selected_user.get_profile.get_titles|first}}
+                {% endif %}
+                {% ifequal user selected_user %}
+                <img class="clickable" src="/img/icons/edit.png" onclick="editUserTitle()" />
+                {% endifequal %}
+            </h3>
+        </td>
+        <td>
+            <div class="userpicture">
+                <img id="user_picture" width="125" height="150" src="/user/getpicture/{{selected_user.username}}" />
+                {% ifequal user selected_user %}
+                <img class="clickable" src="/img/icons/edit.png" onclick="show('profile_picture')" />
+                <div id="profile_picture" class="invisible">
+                    <form id="profile_picture_form" method="post" enctype="multipart/form-data" action="/user/uploadpicture" target="picturedest">
+                        {% csrf_token %}
+                        <input id="picture" name="picture" type="file" size="1" onchange="document.getElementById('profile_picture_form').submit();hide('profile_picture')" />
+                    </form>
+                </div>
+                <iframe id="picturedest" name="picturedest" class="filedest"></iframe>
+                {% endifequal %}
+            </div>
+            <div class="actions">
+                {{selected_user.get_profile.city|default:""}}<br/>
+                ({{selected_user.get_profile.country|default:_("location unknown")}})
+                {% ifequal user selected_user %}
+                <a href="/user/myaccount"><img src="/img/icons/edit.png" /></a>
+                {% endifequal %}
+                <br />
+                {% trans "Birth date:" %} <span id="birthdate">{{selected_user.get_profile.birthdate|date:"d/m/Y"}}</span>
+                {% ifequal user selected_user %}{% include "users/profile/edit_date.html" %}{% endifequal %}
+            </div>
+        </td>
+    </tr>
+</table>
+<div id="personal_website" class="userblock">
+    <h2 class="resumetitle">{% trans "Personal web site" %}</h2>
+    <a href="{{selected_user.get_profile.personal_website|default:""}}">{{selected_user.get_profile.personal_website|default:""}}</a>
+    {% ifequal user selected_user %}
+        <a href="/user/myaccount"><img src="/img/icons/edit.png" /></a>
+    {% endifequal %}
+</div>
+<div id="skill" class="userblock">
+    {% ifequal user selected_user %}<div class="actions">
+        <img src="/img/icons/add.png" class="clickable" onclick="editDetail('skill')" alt="{% trans "Add a skill" %}" title="{% trans "Add a skill" %}" />
+    </div>{% endifequal %}
+    <h2 class="resumetitle">{% trans "Skills" %}</h2>
+    {% for skill in selected_user.skill_set.all %}
+        {% include "users/profile/skill.html" %}
+    {% endfor %}
+</div>
+<div id="experience" class="userblock">
+    {% ifequal user selected_user %}<div class="actions">
+        <img src="/img/icons/add.png" class="clickable" onclick="editDetail('experience')" alt="{% trans "Add an experience" %}" title="{% trans "Add an experience" %}" />
+    </div>{% endifequal %}
+    <h2 class="resumetitle">{% trans "Experience" %}</h2>
+    {% for experience in selected_user.experience_set.with_start_date|dictsortreversed:"begining" %}
+        {% include "users/profile/experience.html" %}
+    {% endfor %}
+    {% for experience in selected_user.experience_set.with_no_start_date %}
+        {% include "users/profile/experience.html" %}
+    {% endfor %}
+</div>
+<div id="training" class="userblock">
+    {% ifequal user selected_user %}<div class="actions">
+        <img src="/img/icons/add.png" class="clickable" onclick="editDetail('training')" alt="{% trans "Add a training" %} title="{% trans "Add a training" %}" />
+    </div>{% endifequal %}
+    <h2 class="resumetitle">{% trans "Training" %}</h2>
+    {% for training in selected_user.training_set.with_start_date|dictsortreversed:"begining" %}
+        {% include "users/profile/training.html" %}
+    {% endfor %}
+    {% for training in selected_user.training_set.with_no_start_date %}
+        {% include "users/profile/training.html" %}
+    {% endfor %}
+</div>

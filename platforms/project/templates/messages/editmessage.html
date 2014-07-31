@@ -1,0 +1,31 @@
+{% load i18n %}
+{% load oifilters %}
+{% with request.GET.divid|default:"newmessage" as divid %}
+<div class="message">
+    <div class="column">
+        <img class="contactpicture" src="/user/getpicture/{{user.username}}" />
+        <div class="author">{{user.get_profile}}<br />{% now "d/m/Y" %}</div>
+    </div>
+    <div class="msgbubble">
+        <div class="msgtop">
+            <div id="msgtitle_{{divid}}" class="msgtitle">
+                {% if "Re: " in title %}
+                {{title}}
+                <input id="title_{{divid}}" class="msgfield" type="hidden" value="{{title}}"/>
+                <img class="clickable" src="/img/icons/edit.png" title="Modifier le titre" onclick="editMessageTitle('{{divid}}','{{title|addslashes}}')" />
+                {% else %}
+                <input id="title_{{divid}}" class="msgfield" type="text" value="{{title}}" maxlength=100 />
+                {% endif %}
+            </div>
+        </div>
+        <div class="msgbody">
+            <textarea id="text_{{divid}}" rows="15" class="msgfield">{{message.text|oiunescape}}</textarea>
+            <input id="parent_{{divid}}" type="hidden" value="{{request.GET.parent}}" />
+            <input id="project_{{divid}}" type="hidden" value="{% if object %}{{object.id}}{% else %}{{request.GET.project}}{% endif %}" />
+            <img class="clickable actions" src="/img/icons/ok-32.png" onclick="saveMessage('{{divid}}',{{message.id|default:0}})" />
+            <div class="cleared"></div>
+        </div>
+        <div class="msgbtm"></div>
+    </div>
+</div>
+{% endwith %}

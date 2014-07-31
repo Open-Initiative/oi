@@ -4,8 +4,8 @@ sudo cat <<EOF > /etc/apache2/sites-available/000-default.conf
 <VirtualHost *:8050>
 
 	ServerAdmin webmaster@localhost
-	DocumentRoot $PWD/www
-	<Directory $PWD/www>
+	DocumentRoot $PWD/www_root
+	<Directory $PWD/www_root>
 		Options FollowSymLinks MultiViews ExecCGI
 		AllowOverride None
 		Order allow,deny
@@ -26,8 +26,8 @@ sudo cat <<EOF > /etc/apache2/sites-available/001-funding.conf
 <VirtualHost *:8051>
 
 	ServerAdmin webmaster@localhost
-	DocumentRoot $PWD/www
-	<Directory $PWD/www>
+	DocumentRoot $PWD/www_funding
+	<Directory $PWD/www_funding>
 		Options FollowSymLinks MultiViews ExecCGI
 		AllowOverride None
 		Order allow,deny
@@ -36,7 +36,7 @@ sudo cat <<EOF > /etc/apache2/sites-available/001-funding.conf
 		XSendFilePath $PWD/OIFS
 		RewriteEngine On
         RewriteCond %{REQUEST_FILENAME} !-f
-        RewriteRule ^(.*)$ django_funding.fcgi/$1 [QSA,L]
+        RewriteRule ^(.*)$ django.fcgi/$1 [QSA,L]
 	</Directory>
 
 	ErrorLog ${APACHE_LOG_DIR}/error.log
@@ -50,8 +50,8 @@ sudo cat <<EOF > /etc/apache2/sites-available/002-project.conf
 <VirtualHost *:8052>
 
 	ServerAdmin webmaster@localhost
-	DocumentRoot $PWD/www
-	<Directory $PWD/www>
+	DocumentRoot $PWD/www_project
+	<Directory $PWD/www_project>
 		Options FollowSymLinks MultiViews ExecCGI
 		AllowOverride None
 		Order allow,deny
@@ -60,7 +60,7 @@ sudo cat <<EOF > /etc/apache2/sites-available/002-project.conf
 		XSendFilePath $PWD/OIFS
 		RewriteEngine On
         RewriteCond %{REQUEST_FILENAME} !-f
-        RewriteRule ^(.*)$ django_projects.fcgi/$1 [QSA,L]
+        RewriteRule ^(.*)$ django.fcgi/$1 [QSA,L]
 	</Directory>
 
 	ErrorLog ${APACHE_LOG_DIR}/error.log

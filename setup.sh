@@ -13,11 +13,20 @@ git clone ssh://pp.open-initiative@ssh.alwaysdata.com/home/pp.open-initiative/oi
 mkdir log
 chmod +x oi/public/django*.fcgi
 chmod 744 oi/manage.py
-ln -s /usr/lib/python2.7/dist-packages/django/contrib/admin/static/admin/ oi/public/
 #that was before, now it's admin
 #mv oi/public/admin oi/public/media
-ln -s oi/public ./
-mv ./public ./www
+#root
+ln -s /usr/lib/python2.7/dist-packages/django/contrib/admin/static/admin/ oi/platforms/root/public/
+ln -s oi/platforms/root/public ./
+mv ./public ./www_root
+#funding
+ln -s /usr/lib/python2.7/dist-packages/django/contrib/admin/static/admin/ oi/platforms/funding/public/
+ln -s oi/platforms/funding/public ./
+mv ./public ./www_funding
+#project
+ln -s /usr/lib/python2.7/dist-packages/django/contrib/admin/static/admin/ oi/platforms/project/public/
+ln -s oi/platforms/project/public ./
+mv ./public ./www_project
 
 #~ **Create database**
 mysql -u root -p -e "CREATE DATABASE OI; CREATE USER \"maxi\"; SET password FOR \"maxi\" = password(\"maximaxi1234\"); GRANT ALL ON OI.* TO \"maxi\""

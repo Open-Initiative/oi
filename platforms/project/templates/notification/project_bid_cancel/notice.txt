@@ -1,0 +1,9 @@
+{% load i18n %}
+{{notice.sender.get_profile}} 
+{% if notice.project.parent %}
+{% trans "has cancelled his bid on a task you follow:" %}
+{% else %}
+{% trans "has cancelled his bid on a project you follow:" %} 
+{% endif %}
+{{notice.project.title}}
+http://{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}

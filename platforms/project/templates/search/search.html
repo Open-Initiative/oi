@@ -1,0 +1,21 @@
+{% extends 'funding/base.html' %}
+{% load i18n %}
+{% block content %}
+<h1>{% trans "Results for" %} '{{query}}'</h1>
+{% if page.object_list %}
+    <ol>
+        {% for result in page.object_list %}
+            <li>
+                {% ifequal result.model_name 'message' %}
+                <a href="{% url 'oi.messages.views.getmessage' id=result.object.id%}">{{ result.object.title }}</a>
+                {% else %}
+                <a href="/project/{{result.object.id}}">{{ result.object.title }}</a>
+                {% endifequal %}
+            </li>
+        {% endfor %}
+    </ol>
+{% else %}
+    <p>{% trans "No results found." %}</p>
+{% endif %}
+
+{% endblock %}

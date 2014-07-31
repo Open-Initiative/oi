@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+﻿﻿{% load oifilters %}
+{% load i18n %}
+{% block title %}{{object.title|default:_("Project")}}{% endblock %}
+{% block breadcrumb %}
+{% if object.ancestors|filter_read:user|length > 5 %}
+<div class="path-element"><a class="shortbreadcrumb" title="{{object.parent.title}}" href="/project/{{object.parent.id}}/view/overview">...</a></div>
+{% else %}
+{% for ancestor in object.ancestors|filter_read:user %}
+<div class="path-element"><a title="{{ancestor.title}}" class="shortbreadcrumb" href="/project/{{ancestor.id}}/view/overview">{{ancestor.title}}</a></div>
+{% endfor %}
+{% endif %}
+<div class="path-element"><span title="{{object.title}}" class="shortbreadcrumb">{{object.title}}</span></div>
+{% endblock %}
+{% block actions %}
+<div class="prjtitle-block">
+    {% trans "Project:" %}
+    <div class="prjtitle">{{object.master.title}}</div>
+</div>
+<div id="releaseblock">
+    <div class="currentreleaseblock">
+        {% trans "Current release:" %}
+        {% if object.master.state < 4 and object.master|can_manage:user %}<div class="switchrelease clickable" onclick="$('#nextreleaseblock').show();" title="{% trans 'Switch the project to another version'%}" >{% trans "Switch" %}</div>{% endif %}
+        <br /> 
+        <b>{{object.master.target.name|default:_("Initial release")}}</b>
+        {% if object.master|can_manage:user %}
+            <div id="nextreleaseblock" class="invisible">
+                <p>{% trans "Please select the next release" %}</p>
+                <select id="nextrelease" onchange="changeRelease({{object.id}}, '{{object.master.target.name}}')">
+                    <option selected ></option>
+                    {% for release in object.future_releases %}
+                    <option value="{{release.name}}">{{release.name}}</option>
+                    {% endfor %}
+                    <option id="change_release" >{% trans "Add a new release" %}</option>
+                </select>
+                <img src="/img/icons/delete.png" class="clickable actions" alt="{% trans 'Close this window' %}" title="{% trans 'Close this window' %}" onclick="$('#nextreleaseblock').hide()" />
+            </div>
+        {% endif %}
+    </div>
+    <div>
+        {% trans "Show:" %}
+        <select id="release" onchange="initOITree()" title="{% trans 'Show only this release' %}">
+            {% for old_release in object.old_releases|dictsort:"due_date" %}
+                <option class="oldrelease" value="{{old_release.name}}" {% if release == old_release.name %} selected {% endif %}>{{old_release.name}}</option>
+            {% endfor %}
+            {% if object.master.target %}<option class="currentrelease" value="{{object.master.target.name}}" {% if release == object.master.target.name %} selected {% endif %}>{{object.master.target.name}} *</option>{% endif %}
+            {% for future_release in object.future_releases %}
+                <option value="{{future_release.name}}" {% if release == future_release.name %} selected {% endif %}>{{future_release.name}}</option>
+            {% endfor %}
+            <option value="*" {% if release == "*" %} selected {% endif %}>{% trans "tasks without release" %}</option>
+            <option value="**" {% if release == "**" %} selected {% endif %}>{% trans "all releases" %}</option>
+            {% if object.master|can_manage:user %}<option id="add_new_release"  >{% trans "Add a new release" %}</option>{% endif %}
+        </select>
+    </div>
+    <script>
+        $('#nextrelease').change(function(){$('#nextreleaseblock').hide();});
+    </script>
+</div>
+{% endblock %}
+{% block nav %}
+<div id="projecttree"></div> <div id="loading_{{object.id}}"> </div> 
+{% if object.master.descendants.count < 1 %}<div class="tasktip"><img src="/img/askoi.png" />{% trans "Tasks in the project are to be listed here" %}</div>{% endif %}
+{% endblock %}
+{% block content %}
+{% if object|can_read:user %}
+<div class="pagebody">
+    {% include "projects/project_header.html" %}
+    <div id="tabs">
+    {% for view in views %}
+        <div class="{% ifequal current_view view %}selectedtab {% endifequal %}tab">
+            <a href="/project/{{object.id}}/view/{{view}}"><img class="tabicon" src="/img/icons/{{view}}{% ifequal current_view view %}white{% endifequal %}.png"/>{% trans view %}</a>
+        </div>
+    {% endfor %}
+    </div>
+    <div class="cleared"></div>
+    {% with object as project %}
+    <div id="project_{{object.id}}" class="project">
+        <div id="prjdialogue_{{object.id}}" class="popup invisible"></div>
+        <div>
+        {% with "projects/project_"|add:current_view|add:".html" as template_name %}
+        {% include template_name %}
+        {% endwith %}
+            <div class="cleared"></div> 
+        </div>
+    </div>
+    {% endwith %}
+    <script>
+        function initOITree() {
+            if(document.getElementById("add_new_release")){
+                if (document.getElementById("add_new_release").selected){ 
+                    addRelease({{object.id}});
+                    document.getElementById("add_new_release").selected = false;
+                };
+            }
+            oiTree.init();
+            if(oiTable) {
+                oiTable.init();
+                oiTable.addLine({{object.master.id}}, firstLine);
+            }
+            var rootdiv = oiTree.setRoot({{object.master.id}}, {{object.master.state}}, 0);
+            setTaskName(rootdiv, {{object.master.id}}, "{{object.master.title}}", "{{current_view}}");
+            rootdiv.className += " treeroot";
+            OIajaxCall("/project/{{object.id}}/listtasks?release="+getValue("release")+"&expand={% for ancestor in object.get_path %}{{ancestor.id}},{% endfor %}", null, "loading_{{object.id}}",  
+                function(response){
+                    populateTaskList(eval('('+response+')'));
+                    {% for ancestor in object.get_path %}
+                    if(oiTree.nodes[{{ancestor.id}}]) oiTree.nodes[{{ancestor.id}}].expand();
+                    {% endfor %}
+                    if(oiTree.nodes[{{object.id}}]) setActiveTask({{object.id}}{% if object.state < 4 and object|can_write:user %}, true{% endif %});
+                    clearDiv("loading_{{object.id}}");
+                }
+            );
+        }
+        currentTask = {{object.id}};
+        coloration = {{object.state}};
+        follow = {% if object|is_following:user %}true{%else%}false{%endif%};
+        username = '{{user.username}}';
+        viewname = '{{current_view}}';
+        oiTree = new OITree("projecttree", onExpandNode, onShrinkNode, deleteProject, confirmEditTitle);
+        initOITree();
+    </script>
+</div>
+{% else %}
+{% trans "Forbidden" %}
+{% endif %}
+{% endblock %}

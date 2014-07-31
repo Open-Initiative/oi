@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+﻿{% load i18n %}
+{% load oifilters %}
+{% block title %}{% trans "My projects" %}{% endblock %}
+{% block actions %}
+<div id="navhome">
+    <div class="navtitlehome">{% trans "My projects" %}</div>
+    {% regroup user.get_profile.get_observed_projects.distinct|dictsort:"state" by state as project_list %}
+    {% for projects in project_list %}{% if projects.list %}
+    <a href="#{{projects.grouper}}" onclick="switchPrjList({{projects.grouper}})">
+        <div class="treetitlehome">{{OI_PRJ_STATES|get:projects.grouper}}</div>
+    </a>
+    {% endif %}{% endfor %}
+</div>
+{% endblock %}
+{% block nav %}
+{% endblock %}
+{% comment %}contacts, network updates, blog, finance, notification!, mp!{% endcomment %}
+{% block content %}
+{% regroup user.get_profile.get_observed_projects.distinct|dictsort:"state" by state as project_list %}
+{% for projects in project_list %}
+<div class="invisible prjlist" id="prjlist{{projects.grouper}}">
+{% for project in projects.list %}
+{% include 'projects/project_card.html' %}
+{% endfor %}
+</div>
+{% endfor %}
+<script>
+    ajaxParams = document.location.hash;
+    listid = ajaxParams.substring(1) || "{{project_list.0.grouper}}";
+    switchPrjList(listid);
+</script>
+<div class="cleared" style="width:100%"></div>
+{% endblock %}

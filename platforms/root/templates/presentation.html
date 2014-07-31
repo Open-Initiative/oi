@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Présentation d'Open Initiative{% endblock %}
+{% block pagetitle %}Présentation d'Open&nbspInitiative{% endblock %}
+{% block nav %}
+<a class="clickable" onclick="slidePres('#about')"><div class="navitem">Qui sommes-nous ?</a></div>
+<a class="clickable" onclick="slidePres('#commitment')"><div class="navitem">Nos engagements</a></div>
+<a class="clickable" onclick="slidePres('#guaranty')"><div class="navitem">Nos garanties</a></div>
+<a class="clickable" onclick="slidePres('#methodology')"><div class="navitem">Notre méthodologie</a></div>
+{% endblock %}
+{% block content %}
+<div class="presslide" id="about">
+<div class="userpicture">Sylvain Le Bon<br />Fondateur d'Open Initiative<br /><br /></div>
+<h2>Qui sommes-nous ?</h2>
+<p>Open Initiative, la communauté informatique au service des entreprises.</p>
+Open Initiative se pose en intermédiaire crédible entre les entreprises qui recherchent des prestataires informatiques compétents et les développeurs indépendants qui souhaitent mener des projets individuellement ou en équipe.</p>
+<p>Basée sur l’esprit communautaire et l’entraide, Open Initiative entend ainsi répondre aux enjeux du secteur informatique indépendant, souvent soumis au dumping financier, mais aussi aider les entreprises, plus particulièrement les PME et les TPE, à réaliser leur projet dans les meilleures conditions.</p>
+<p>Cette place de marché virtuelle propose ainsi des outils méthodologiques et technologiques performants, ainsi que des garanties financières et l’assistance de toute une communauté professionnelle, fédérée autour d’un objectif commun : donner vie à vos projets.</p>
+</div>
+<div class="presslide invisible" id="commitment">
+<h2>Nos engagements</h2>
+La communauté au service de tous</p>
+Open initiative s’engage sur la qualité de son offre auprès des entreprises qui recourent à ses services et des prestataires qui choisissent de participer aux projets qui leur sont soumis. Pour cela, elle se base sur :
+<ul>
+<li><b>L’approche humaine dans les relations professionnelles</b>, basée sur l’échange entre le prestataire et le souscripteur, avec comme principes clés, l’entraide et le conseil.</li>
+<li><b>La recommandation communautaire</b>, à l’issue de leur mission, les prestataires sont notés par l’entreprise selon des critères humains (conscience professionnelle, respect des délais) et professionnels (efficacité, performance de la solution installée…). Un système d’évaluation qui encourage les développeurs à s’impliquer fortement dans les missions qui leur sont confiées et qui assure une transparence totale de la gestion de projet.</li>
+<li><b>Le principe de e-réputation</b>, chaque membre d’Open Initiative est soumis à  un système de notation automatique, qui évolue en fonction de sa participation aux différents projets, de son implication, de la taille du projet qu’il conduit, etc. : plus il est actif et plus son score, et donc son e-réputation, augmente.</li>
+<li><b>L’application de la méthodologie Agile</b>, systématique au lancement du projet, elle offre la possibilité de gérer ses développements au fur et à mesure de ses besoins. Par ailleurs, le principe de décomposition du projet par tâches permet d’effectuer ses règlements chaque fois qu’une étape est validée et d’avancer progressivement en fonction de son budget.</li>
+<li><b>L’indépendance</b>, Open Initiative n’intervient à aucun moment dans la gestion des projets sauf en cas de litige(s) entre les parties. Les prestataires décident, en concertation avec l’entreprise, de la somme exigée pour une mission donnée.</li>
+<li><b>L’accompagnement</b>, Open Initiative entreprend des démarches afin de favoriser le développement commercial de la plateforme et assurer ainsi aux prestataires l’accès récurrent à des projets qualifiés.</li>
+</ul></p>
+</div>
+<div class="presslide invisible" id="guaranty">
+<h2>Nos garanties</h2>
+<h3>Votre intermédiaire financier</h3>
+Open initiative agit avant tout comme un intermédiaire financier entre les deux parties (entreprise et prestataire) grâce à un système de gestion de compte sécurisé et responsabilisant. Nous garantissons d’une part aux entrepreneurs l’aboutissement de leur projet et, d’autre part, aux informaticiens le paiement de leurs prestations une fois celles-ci réalisées. 
+<h3>Un arbitrage rassurant</h3>
+En établissant un système d’arbitrage, Open Initiative assure au client l’aboutissement de son projet. Le règlement n'est effectué qu’en cas de succès de l’action engagée par le prestataire, conduisant ce-dernier à tout mettre en œuvre pour la mener à terme.
+<h3>Un mode de rémunération transparent</h3>
+L’accès à la plateforme est entièrement gratuit pour l’entreprise comme pour le prestataire. La rémunération d’Open Initiative passe par une commission commerciale limitée à 5% et déduite du montant versé au prestataire une fois la mission achevée.
+</div>
+<div class="presslide invisible" id="methodology">
+<h2>Notre méthodologie</h2>
+<h3>La méthodologie Agile, c’est quoi ?</h3>
+<p>Tous nos projets sont traités suivant la méthodologie Agile. Il s’agit d’une procédure de développement informatique, qui offre une grande souplesse au projet et implique le client au maximum, tout au long du développement. Très pragmatique, cette méthode a pour objectifs la rapidité de réalisation et la satisfaction réelle du besoin. Open Initiative facilite et encourage ainsi la conversation entre les différents protagonistes.</p>
+<p>Sur le site, chaque projet est soumis à une discussion entre un ou plusieurs prestataires et le client final. Cet échange se poursuit tout au long des actions menées, offrant la possibilité de rediscuter des postulats de départ en fonction des avancées effectives.</p>
+<p>Le client paye le prestataire auquel il recourt à chaque étape validée, ce qui donne une vraie souplesse à la proposition de départ, puisque des tâches peuvent être supprimées ou ajoutées à tout moment sans impacter le projet dans sa globalité.</p>
+<p>Open Initiative encourage ses clients à rendre leur projet public, afin de favoriser l’aspect collaboratif inhérent la méthodologie Agile. Toutefois, s’ils le désirent, ils peuvent également choisir de le rendre confidentiel.</p>
+<p>Enfin, la méthodologie Agile offre la possibilité de faire entrer, à tout moment, un nouveau prestataire sur le projet, permettant ainsi d’élargir très facilement les compétences des équipes déjà en place.</p>
+</div>
+{% endblock %}

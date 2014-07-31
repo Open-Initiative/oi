@@ -1,0 +1,8 @@
+{% load i18n %}
+<img src="/img/icons/delete.png" class="clickable" title="{% trans 'Close the window' %}" alt="{% trans 'Close the window' %}" onclick="$('#sendmp').hide()">
+<input type="text" id="MPsubject" /><br />
+{% with classname='mp' id='MPmessage' %}
+    {% include 'messages/uploadImageTextarea.html' %}
+{% endwith %}
+<br />
+<button onclick="sendMP('{{ params.username }}');">{% trans "send" %}</button>

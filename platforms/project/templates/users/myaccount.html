@@ -1,0 +1,182 @@
+{% extends "funding/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "My account" %}{% endblock %}
+{% block content %}
+
+    <div class="popupbox">
+        <div id="confirmpayment" class="invisible confirmpaymentblock" onclick="document.ignoreClosePopups = true;">
+            <h1>{% trans "Deposit on" %}{% if request.GET.project and task %} {% if task.master.id == task.id %} {% trans "the project" %} {% else %} {% trans "the feature" %} {% endif %} "{{task.title}}"{% else %} {% trans "your account" %}{% endif %}</h1>
+            <p>
+                {% trans "Amount" %}: <b style="font-size: 17px;">{{amount}}€ </b>
+            </p>
+            {% trans "You are about to be redirected to our payment service provider who will confirm the transaction." %}<br /><br/>
+            {% trans "Do you confirm?" %}
+            <div class="cleared"></div>
+            <br /><br/>
+            <form method="post" action="{{action}}" id=form1 name=form1>
+                {% for key,value in params.items %}
+                <input type="hidden" name="{{key}}" value="{{value}}" />
+                {% endfor %}
+                <input style="padding: 1.3%;" class="fundingright nobtnstyle continuebtn" type="submit" value="{% trans 'Continue' %}" id=submit2 name=submit2>
+                <img style="width: 20px;" class="fundingleft clickable" src="/img/icons/del-32.png" onclick="{% if request.GET.project %}document.location.href='/funding/{{request.GET.project}}#feature_{{request.GET.project}}'{% else %}hidePopups(){% endif %}" />
+            </form>
+            <div class="cleared"></div>
+        </div>
+        {% if request.GET.orderID and request.GET.STATUS == '9' %}
+        <div id="didpayment" class="confirmpaymentblock">
+            <h2>{% if request.GET.project %}{% trans "Thank you for contributing to the feature" %} <b><i>{{params.PARAMPLUS.title}}</i></b> {% trans "on the project" %} {{params.PARAMPLUS.parent.title}}{% else %}{% trans "Thank you for supporting Open Funding" %}{% endif %}</h2>
+            <div class="cleared"></div>
+            <br /><br/>
+            <p>{% if request.GET.project %}{% trans "You will be redirected to the project page" %}{% else %}{% trans "You will be redirected to my account" %}{% endif %}</p>
+            <form action="{% if request.GET.project %}/funding/{{request.GET.project}}/#feature_{{request.GET.project}}{% else %}/user/myaccount{% endif %}">
+                <input style="padding: 1.3%;" class="form_center nobtnstyle continuebtn" type="submit" value="{% trans 'Continue' %}">
+            </form>
+        </div>
+        <script>showPopup(document.getElementById('didpayment'));</script>
+        {% endif %}
+        {% if request.GET.orderID and request.GET.STATUS != '9' %}
+        <div id="didpayment" class="confirmpaymentblock">
+            <h2>{% trans "The payment has been cancelled" %}</h2>
+            <div class="cleared"></div>
+            <br /><br/>
+            <p>{% if request.GET.project %}{% trans "You will be redirected to the project page" %}{% else %}{% trans "You will be redirected to my account" %}{% endif %}</p>
+            <form action="{% if request.GET.project %}/funding/{{request.GET.project}}/#feature_{{request.GET.project}}{% else %}/user/myaccount{% endif %}">
+                <input style="padding: 1.3%;" class="form_center nobtnstyle continuebtn" type="submit" value="{% trans 'Continue' %}">
+            </form>
+        </div>
+        <script>showPopup(document.getElementById('didpayment'));</script>
+        {% endif %}
+    </div>
+
+<div class="pagebody userbody">
+    <div class="largecolumn">
+        <h1 id="fullname">
+            {{user.get_profile.get_display_name}} 
+            <img class="clickable" src="/img/icons/edit.png" onclick="selectNameDisplay()" />
+        </h1>
+        <h4>login: {{user.username}}</h4>
+        <div>
+            <h3>{% trans "Name" %} <img onclick="$('#block_name').toggle();$('#block_name_info').toggle()" class="clickable" src="/img/icons/edit.png"/></h3>
+            <div id="block_name_info">
+                <span id="contact_lastname">{{user.last_name}}</span> <span id="contact_firstname">{{user.first_name}}</span>
+            </div>
+            <div id="block_name" class="invisible">
+                
+                <form id="contact_name" onsubmit="saveName(); $('#block_name').hide(); $('#block_name_info').show(); return false">
+                
+                    <div class="actions of_close">
+                        <input type="image" class="clickable" src="/img/icons/ok-32.png" />
+                        <img class="clickable" src="/img/icons/delete.png" onclick="$('#block_name').hide();$('#block_name_info').show()" />
+                    </div>
+                    <table>
+                        <tr>
+                            <td class="username"><label for="lastname">{% trans "Last name" %}</label></td>
+                            <td><input type="text" id="contact_lastname_info" name="lastname" value="{{user.last_name}}" /></td>
+                        </tr>
+                        <tr>
+                            <td class="username"><label for="firstname">{% trans "First name" %}</label></td>
+                            <td><input type="text" id="contact_firstname_info" name="firstname" value="{{user.first_name}}" /></td>
+                        </tr>
+                    </table>
+                    
+                </form>
+                <br/>
+            </div>
+            
+            <h3>{% trans "Birthdate" %} </h3>
+            <input readonly="true" type="text" id="birthdate" name="birthdate" /> <label onclick="$(this).hide();$('#birthdate_hide').show();" id="birthdate_pen" for="birthdate"><img class="clickable" src="/img/icons/edit.png" /></label><img id="birthdate_hide" class="clickable invisible" onclick="$(this).hide();$('#birthdate_pen').show();"  src="/img/icons/delete.png" />
+            <script>
+                jQuery("#birthdate").datepicker({changeMonth: true, changeYear: true, yearRange: "-100:+0", minDate: -36500, maxDate: 0, dateFormat: "DD, d MM yy", onSelect: function(dateText, inst) {setBirthdate(jQuery.datepicker.parseDate("DD, d MM yy", dateText))} }).datepicker('option', jQuery.datepicker.regional["{{LANGUAGE_CODE}}"]).datepicker("setDate", jQuery.datepicker.parseDate("yy-mm-dd","{{user.get_profile.birthdate|date:'Y-m-d'}}"));
+                $("#birthdate").mousedown(function(){$('#ui-datepicker-div').toggle();});
+                $("#birthdate").mousedown(function(){$('#birthdate_pen').toggle();});
+                $("#birthdate").mousedown(function(){$('#birthdate_hide').toggle();});
+            </script>
+            
+            <h2>{% trans "Contact information" %} <img alt="{% trans 'Confidential' %}" title="{% trans 'Your details will only be shared with those who finance your project. Project leaders and users will have the personal information of another to approve the payment, corrections and validation projects.' %}" class="" src="/img/icons/padlock.png"/> <img onclick="$('#block_contact').toggle();$('#block_contact_info').toggle()" class="clickable" src="/img/icons/edit.png"/> 
+            </h2>
+            <div id="block_contact_info">
+                <table>
+                    <tr>
+                        <td class="username">{% trans "Address" %}</td> <td><span id="contact_address">{{user.get_profile.address}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="username">{% trans "Post Code" %}</td> <td><span id="contact_postcode">{{user.get_profile.postcode}}</span> - <span id="contact_city">{{user.get_profile.city}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="username">{% trans "Country" %}</td> <td><span id="contact_country">{{user.get_profile.country}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="username">{% trans "Mobile" %}</td> <td><span id="contact_mobile">{{user.get_profile.mobile}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="username">{% trans "Fixed Phone" %}</td> <td><span id="contact_phone">{{user.get_profile.phone}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="username">{% trans "Personal Website" %}</td> <td><span id="contact_personal_website">{{user.get_profile.personal_website|default:""}}</span></td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div id="block_contact" class="invisible">
+                
+                <form id="contact_form" onsubmit="saveContactInfo(); $('#block_contact').hide(); $('#block_contact_info').show(); return false">
+                    <div class="actions of_close">
+                        <input type="image" class="clickable" src="/img/icons/ok-32.png" />
+                        <img class="clickable" src="/img/icons/delete.png" onclick="resetContactInfo();$('#block_contact').toggle();$('#block_contact_info').toggle()" />
+                    </div>
+                    <table>{{contact_form.as_table}}</table>
+                </form>
+                
+            </div>
+        </div>
+        <br/><br/>
+        <div>
+            <a href="/user/changepassword">{% trans "Change your password" %}</a>
+        </div>
+        <div>
+            {{user.email}}
+            <a href="/user/changeemail">{% trans "Change your e-mail address" %}</a>
+        </div>
+        <div>
+            <a href="/notification/settings">{% trans "Notification settings" %}</a>
+        </div>
+    </div>
+    
+    <div class="creditblock">
+        <h2>{% trans "Your credit" %}</h2>
+        <div class="credittip">
+            <p>{% trans "When you create an account you can also determine the credit you will have. With this credit you can help crowd fund your favorite projects. You set the amount and you administrate according to your interests." %}</p>
+            
+            <p>{% trans "We have a secure system that will keep your account and your investments safe!" %}</p>
+        </div>
+        
+        <div id="block_account">
+            <div>
+                <p>{% trans "You have" %} <b>{{user.get_profile.balance}}€</b> {% trans "in your account" %}</p>
+                <p>{% trans "Add money to your account" %}</p>
+                <form id="form_payment" method="get" >
+                    <input type="text" name="deposit" id="deposit" class="smallinput accountinput" value="{{request.GET.deposit|default:0}}"/>
+                    <input type="hidden" name="amount" id="amount" value="0"/>
+                    <input type="image" src="/img/icons/ok-32.png" id="submit2">
+                </form>
+
+                <br/>
+                <p><a href="/user/paymenthistory"> {% trans "Payment history" %}</a></p>
+            </div>
+                
+            {% if request.GET.deposit or request.GET.amount and not request.GET.orderID %}
+            <script>
+                showPopup(document.getElementById('confirmpayment'));
+                if(document.getElementById('payment_popup_title')){
+                    showPopup(document.getElementById('payment_popup_title'));
+                }
+            </script>
+            {% endif %}
+        </div>
+    </div>
+    <div class="cleared"></div>
+</div>
+<script>
+window.onbeforeunload = myConfirmationToclose;
+</script>
+{% endblock %}

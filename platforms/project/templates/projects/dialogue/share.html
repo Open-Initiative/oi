@@ -1,0 +1,5 @@
+<form onsubmit="confirmShareProject({{params.id}});return false">
+    <input id="usershare_{{params.id}}" type="text" />
+    <input type="image" class="clickable" src="/img/icons/ok-32.png"/>
+    <img class="clickable" src="/img/icons/del-32.png" onclick="hide('prjdialogue_{{params.id}}')" />
+</form>

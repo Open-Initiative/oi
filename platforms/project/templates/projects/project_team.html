@@ -1,0 +1,91 @@
+{% load oifilters %}
+{% load i18n %}
+<div id="team" class="prjtable"></div>
+<div class="largecolumn">
+    <div>
+        <div class="smallcolumn">
+            <img src="/img/askoi.png" title="{% trans 'The owner can describe the task, appoint it and detail it.' %}" alt="{% trans 'The owner can describe the task, appoint it and detail it.' %}" class="head-help"><h3>{% trans "Owner" %}</h3>
+            <a href="/user/profile/{{object.author}}">
+                <img class="contactpicture" src="/user/getpicture/{{object.author}}">
+                <div class="username">{{object.author.get_profile}}</div>
+            </a>
+        </div>
+        <div class="oired smallcolumn">
+        <img src="/img/askoi.png" title="{% trans 'The assignee executes the task and can delegate it.' %}" alt="{% trans 'The assignee executes the task and can delegate it.' %}" class="head-help"><h3>{% trans "Assignee" %}</h3>
+        {% if project.assignee %}
+            <a href="/user/profile/{{project.assignee.username}}">
+                <img class="contactpicture" src="/user/getpicture/{{project.assignee.username}}">
+                <div class="username">{{project.assignee.get_profile}}</div>
+            </a>
+            <div class="cleared"></div>
+            {% if project.assignee == user and project.state < 3 %}
+            <div>{% trans "You are in charge of this task" %}</div>
+            <div class="bidaction clickable" onclick="delegateProject({{project.id}})">{% trans "Delegate" %}</div>
+            {% endif %}
+            {% if project.delegate_to %}
+                {% ifequal user project.delegate_to %}
+                <div id="question_delegate_{{project.id}}">
+                    {{project.assignee}} {% trans "wants to delegate this task to you." %}
+                    {% trans "Do you accept it?" %}
+                    <img class="clickable" src="/img/icons/ok.png" onclick="answerDelegate({{project.id}}, true, 'question_delegate_{{project.id}}')" title="{% trans "Accept" %}" alt="{% trans "Accept" %}"/>
+                    <img class="clickable" src="/img/icons/delete.png" onclick="answerDelegate({{project.id}}, false, 'question_delegate_{{project.id}}')" title="{%trans "Refuse" %}" alt="{%trans "Refuse" %}"/>
+                </div>
+                {% else %}
+                <div class="cleared">{% trans "Delegation offer sent to" %} {{project.delegate_to}}</div>
+                {% endifequal %}
+            {% endif %}
+        {% else %}
+            {% trans "No one is in charge of this task" %}
+            {% if project.state < 2 and project|can_read:user %}
+            <div class="bidaction clickable" onclick="offerProject({{project.id}})">{% trans "Take on" %}</div>
+            {% endif %}
+        {% endif %}
+        </div>
+        <div class="cleared"></div>
+    </div>
+    <div>
+        <div class="smallcolumn">
+            <img src="/img/askoi.png" title="{% trans 'The validators confirm that the work done coresponds to what was required.' %}" alt="{% trans 'The validators confirm that the work done coresponds to what was required.' %}" class="head-help"><h3>{{project.bid_set.count}} {% blocktrans count counter=project.bid_set.count %} Validator {% plural %} Validators {% endblocktrans %}</h3>
+            {% for bid in project.bid_set.all %}
+                <a href="/user/profile/{{bid.user.username}}"><div class="cleared">
+                    <img class="contactpicture" src="/user/getpicture/{{bid.user.username}}">
+                    <div class="username">{{bid.user.get_profile}}</div>
+                </div></a>
+            {% empty %}
+                {% trans "No bidder on this project" %}
+            {% endfor %}
+            {% if project|can_manage:user %}<div class="cleared"><a class="clickable" onclick="validatorProject({{project.id}})"><img class="clickable" src="/img/icons/add.png"> {% trans "Invite members" %}</a></div>{% endif %}
+        </div> 
+        <div class="smallcolumn">
+            <img src="/img/askoi.png" title="{% trans 'Guests can see the task and comment it.' %}" alt="{% trans 'Guests can see the task and comment it.' %}" class="head-help"><h3>{{project.list_guests.count}} {% blocktrans count counter=project.list_guests.count %} Guest {% plural %} Guests {% endblocktrans %}</h3></h3>
+            {% for guest in project.list_guests %}
+            <a href="/user/profile/{{guest.username}}"><div class="cleared">
+                <img class="contactpicture" src="/user/getpicture/{{guest.username}}">
+                <div class="username">{{guest.get_profile}}</div>
+            </div></a>
+            {% empty %}
+            {% trans "No guest on this task" %}
+            {% endfor %}
+            {% if project|can_manage:user %}<div class="cleared"><a class="clickable" onclick="shareProject({{project.id}})"><img class="clickable" src="/img/icons/add.png"> {% trans "Invite members" %}</a></div>{% endif %}
+        </div>
+        <div class="cleared"></div>
+        <div class="smallcolumn" id="public">
+            <img src="/img/askoi.png" title="{% trans 'All other users.' %}" alt="{% trans 'All other users.' %}" class="head-help"><h3>{% trans "Public" %}</h3>
+            {% trans "The public can" %}
+            <br /><input id="public_read_{{project.id}}" type="checkbox" {% if project.public_read %}checked="checked"{% endif %} {% if not project.assignee == user and not project|can_write:user  %}disabled="true"{% endif %} onclick="OIajaxCall('/project/{{project.id}}/setpublic', 'read='+this.checked, 'output')" /><label for="public_read_{{project.id}}">{% trans "see the task and its content" %}</label>
+            <br /><input id="public_answer_{{project.id}}" type="checkbox" {% if project.public_answer %}checked="checked"{% endif %} {% if not project.assignee == user and not project|can_write:user %}disabled="true"{% endif %} onclick="OIajaxCall('/project/{{project.id}}/setpublic', 'answer='+this.checked, 'output')" /><label for="public_answer_{{project.id}}">{% trans "add comments and tasks" %}</label>
+            <br /><input id="public_bid_{{project.id}}" type="checkbox" {% if project.public_bid %}checked="checked"{% endif %} {% if not project.assignee == user and not project|can_write:user %}disabled="true"{% endif %} onclick="OIajaxCall('/project/{{project.id}}/setpublic', 'bid='+this.checked, 'output')" /><label for="public_bid_{{project.id}}">{% trans "bid and vote" %}</label>
+        </div>
+    </div>
+</div>
+<script>
+    oiTable = new OITable("team", ["{% trans 'Owner' %}", "{% trans 'Assignee' %}", "{% trans 'Validator' %}"]);
+    firstLine = ["{{project.author.get_profile}}" ,"{{project.master.assignee.get_profile}}", "{{project.master.bid_set.count}}"];
+    
+    oiTable.addFromTask = function addFromTask(task, afterid, bgClass) {
+        var owner = task.fields.author_get_profile || username;
+        var assignee = task.fields.assignee_get_profile_get_display_name || "-";
+        var validator = task.fields.bid_set_count || 0;
+        oiTable.addLine(task.pk, [owner , assignee, validator], afterid, bgClass);
+    }
+</script>

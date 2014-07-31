@@ -1,0 +1,12 @@
+{% load i18n %}{% load oifilters %}
+<a href="http://{{current_site}}/user/profile/{{notice.sender.username}}" target="_blank">{{notice.sender.get_profile|capfirst}}</a>
+{% if notice.project.parent %}
+{% trans "has changed the specification of a task you follow:" %} 
+{% else %}
+{% trans "has changed the specification of a project you follow:" %}
+{% endif %}
+</br>
+{% if notice.param %}<div style="background-color: rgb(245, 243, 243); padding: 5px; border-radius: 3px;">
+	{{notice.param|oiunescape}}
+</div>{% endif %}
+<p>{% trans "If you’d like to see the specification, you can go" %} <a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}" target="_blank">{% trans "here" %}</a></p>

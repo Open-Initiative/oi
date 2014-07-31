@@ -1,0 +1,7 @@
+{% load i18n %}
+<select name="filter_echeance" class="smallinput" onchange="populateOverviewTable({{project.id}}); $('#table_{{cell}}').hide();">
+    <option value="" selected> </option>
+    <option value="86400"> {% trans "Today" %} </option>
+    <option value="604800"> {% trans "This week" %} </option>
+    <option value="2678400"> {% trans "This month" %} </option>
+</select>

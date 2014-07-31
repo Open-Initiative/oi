@@ -1,0 +1,2 @@
+{% load i18n %}
+{{notice.sender.username}} {% trans "has added you to his contacts." %}<br />

@@ -1,0 +1,198 @@
+@font-face {
+    font-family: "ProximaNova";
+    src: url('/fonts/proximanova-light-webfont.eot?') format('eot'), url('/fonts/ProximaNova-Light.otf') format('opentype');
+}
+@font-face {
+    font-family: "ProximaNova";
+    font-weight: bold;
+    src: url('/fonts/proximanova-bold-webfont.eot?') format('eot'), url('/fonts/ProximaNova-Bold.otf') format('opentype');
+}
+@font-face {
+    font-family: "ProximaNova";
+    font-weight: 900;
+    src: url('/fonts/proximanova-extrabold-webfont.eot?') format('eot'), url('/fonts/ProximaNova-Extrabold.otf') format('opentype');
+}
+@font-face {
+    font-family: "CCRA";
+    src: url('/fonts/CCRA.eot?') format('eot'), url('/fonts/CCRA.ttf') format('opentype');
+}
+body {
+    background: white;
+    margin:0;
+    font-family: "ProximaNova",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    color: #475E6C;
+    min-width: 320px;
+}
+img {
+    border: None;
+}
+a {
+    text-decoration: None;
+    color: #0094B5;
+}
+a:hover {
+    text-decoration: underline;
+}
+.cleared {
+    clear: both;
+}
+#catcherbg {
+    max-width: 1020px;
+    margin: 10px auto;
+}
+.actions {
+    clear: right;
+    float: right;
+    margin: 5px;
+}
+.center{
+    margin: auto;
+    max-width: 1020px;
+}
+.root_home_page{
+    background: none repeat scroll 0 0 white;
+    color: #6F6F6E;
+    font-size: 1.3em;
+    margin: 20px auto;
+    max-width: 400px;
+    padding: 20px;
+    text-align: center;
+}
+.root_home_page p {
+    margin: 7px 0;
+}
+.join_community{
+    background: #0094B5;
+    border-radius: 3px;
+    color: white;
+    display: table;
+    text-align: center; 
+    padding: 7px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+.root_img{
+    text-align: center;
+    display: table;
+    margin: 0 auto;
+}
+.center_contact_us{
+    max-width: 700px;
+    margin: 0 auto;
+}
+.contact_us{
+    background: #0094B5;
+    color: white;
+    height: 60px;
+    font-size: 1.3em;
+    margin: 0 auto;
+    padding: 10px 5px 20px 5px;
+}
+.center_contact_us div {
+    font-weight: bold;
+    color: white;
+    margin-top: 30px;
+    float: right;
+}
+.center_contact_us p {
+    margin: 0;
+}
+.other_initiative{
+    background: #E3E3E3;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.rootdesc {
+    text-align: center;
+    width: 150px;
+}
+.rootlogo {
+    width: 100px;
+}
+.blogtag {
+    border-radius: 5px;
+    background: #362a32;
+    padding: 0.5em 1em;
+    margin: 1%;
+}
+.blogtagline {
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 0.2em;
+    color: white;
+}
+.op_icon {
+    margin: 0 auto;
+    min-width: 320px;
+    width: 30%;
+}
+.op_icon img{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 5px;
+    width: 26px;
+}
+#footer {
+    clear: left;
+    background: white;
+    text-align: center;
+    font-size: .9em;
+    padding: 10px;
+    overflow: hidden;
+}
+.other_initiative_subtitle{
+    border-left: 1px solid #0094B5;
+    border-right: 1px solid #0094B5;
+    color: #0094B5;
+    display: table;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 0 auto;
+    padding: 5px;
+    position: relative;
+    top: 20px;
+}
+ul.root_ul {
+    list-style-type: none;
+    margin: 4% auto;
+    padding: 0;
+    text-align: center;
+}
+ul.root_ul li {
+    display: inline-block;
+    margin: 12px 50px;
+    vertical-align: middle;
+}
+#logo {
+    float: left;
+    padding-top: 5px;
+    width: 200px;
+}
+#searchdiv {
+    float: left;
+    height: 60px;
+    margin-top: 5px;
+    width: 200px;
+}
+#baseline {
+    color: #0094B5;
+    font-family: "CCRA";
+    font-size: 13px;
+    text-transform: uppercase;
+    width: 160px;
+}
+.root_project {
+    float: left;
+    margin-top: -14px;
+    position: relative;
+}
+
+@media screen and (max-width:470px){
+    .root_project {opacity: 0.3;position: absolute;}
+}
+@media screen and (max-width:430px){
+    #searchdiv {display: none;}
+}

@@ -1,0 +1,9 @@
+{% load i18n %}
+<a href="http://{{current_site}}/user/profile/{{sender.username}}" target="_blank">{{notice.sender.get_profile}}</a>
+{% if notice.project.parent %}
+{% trans "has cancelled his fund on a task you follow:" %}
+{% else %}
+{% trans "has cancelled his fund on a project you follow:" %}
+{% endif %}
+</br>
+<a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}" target="_blank">{{notice.project.title}}</a>

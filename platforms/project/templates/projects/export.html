@@ -1,0 +1,18 @@
+{% load oifilters %}
+{% load i18n %}
+{% if object|can_read:user %}
+{% with level|default:0|add:1 as level %}
+</div>
+    {% if level < 5 %}<h{{level}}>{% else %}<li>{% endif %}{{object.title}}{% if level < 5 %}</h{{level}}>{% else %}</li>{% endif %}
+    {% if object.spec_set.all %}<div id="specs_{{object.id}}">
+        {% for spec in object.spec_set.all|dictsort:"order" %}{% include 'projects/spec/minispec.html' %}{% endfor %}
+    </div>{% endif %}
+    {% if object.tasks.all %}{% if level > 4 %}<ul>{% endif %}
+    {% for task in object.tasks.all %}{% with task as object %}
+    {% with "projects/export.html" as template_name %}{% include template_name %}{% endwith %}
+    {% endwith %}{% endfor %}
+    {% if level > 4  %}</ul>{% endif %}
+    {% endif %}
+</div>
+{% endwith %}
+{% endif %}

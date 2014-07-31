@@ -1,0 +1,10 @@
+{% load oifilters %}
+<h1>Description</h1>
+<style type="text/css">
+.test{color:red}
+</style>
+{% include 'projects/export/spec.html' %}
+<h1>Budget</h1>
+<table style="empty-cells:show"cellpadding=0 cellspacing=0><tbody valign="top">
+{% include 'projects/export/budget.html' %}
+</tbody></table>

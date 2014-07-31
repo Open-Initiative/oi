@@ -1,0 +1,6 @@
+{% load i18n %}
+<form onsubmit="confirmValidatorProject({{object.id}});return false">
+    <input id="validator_{{object.id}}" type="text" onFocus="this.select()"/>
+    <input type="image" class="clickable" src="/img/icons/ok-32.png"/>
+    <img class="clickable" src="/img/icons/del-32.png" onclick="hide('prjdialogue_{{object.id}}')" />
+</form>
