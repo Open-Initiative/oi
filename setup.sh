@@ -16,14 +16,14 @@ chmod 744 manage.py
 #that was before, now it's admin
 #mv oi/public/admin oi/public/media
 #root
-ln -s /usr/lib/python2.7/dist-packages/django/contrib/admin/static/admin/ oi/platforms/root/public/
-ln -s oi/platforms/root/public ../www_root
+ln -sf /usr/lib/python2.7/dist-packages/django/contrib/admin/static/admin/ oi/platforms/root/public/
+ln -sf oi/platforms/root/public ../www_root
 #funding
-ln -s /usr/lib/python2.7/dist-packages/django/contrib/admin/static/admin/ oi/platforms/funding/public/
-ln -s oi/platforms/funding/public ../www_funding
+ln -sf /usr/lib/python2.7/dist-packages/django/contrib/admin/static/admin/ oi/platforms/funding/public/
+ln -sf oi/platforms/funding/public ../www_funding
 #project
-ln -s /usr/lib/python2.7/dist-packages/django/contrib/admin/static/admin/ oi/platforms/project/public/
-ln -s oi/platforms/project/public ../www_project
+ln -sf /usr/lib/python2.7/dist-packages/django/contrib/admin/static/admin/ oi/platforms/project/public/
+ln -sf oi/platforms/project/public ../www_project
 
 #~ **Create database**
 mysql -u root -p -e "CREATE DATABASE OI; CREATE USER \"maxi\"; SET password FOR \"maxi\" = password(\"maximaxi1234\"); GRANT ALL ON OI.* TO \"maxi\""

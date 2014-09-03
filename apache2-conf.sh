@@ -1,11 +1,11 @@
 #!/bin/bash
 
-sudo cat <<EOF > /etc/apache2/sites-available/000-default.conf
+cat <<EOF > 000-default.conf
 <VirtualHost *:8050>
 
 	ServerAdmin webmaster@localhost
-	DocumentRoot $PWD/www_root
-	<Directory $PWD/www_root>
+	DocumentRoot $PWD/../www_root
+	<Directory $PWD/../www_root>
 		Options FollowSymLinks MultiViews ExecCGI
 		AllowOverride None
 		Order allow,deny
@@ -22,12 +22,12 @@ sudo cat <<EOF > /etc/apache2/sites-available/000-default.conf
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
 EOF
-sudo cat <<EOF > /etc/apache2/sites-available/001-funding.conf
+cat <<EOF > 001-funding.conf
 <VirtualHost *:8051>
 
 	ServerAdmin webmaster@localhost
-	DocumentRoot $PWD/www_funding
-	<Directory $PWD/www_funding>
+	DocumentRoot $PWD/../www_funding
+	<Directory $PWD/../www_funding>
 		Options FollowSymLinks MultiViews ExecCGI
 		AllowOverride None
 		Order allow,deny
@@ -46,12 +46,12 @@ sudo cat <<EOF > /etc/apache2/sites-available/001-funding.conf
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
 EOF
-sudo cat <<EOF > /etc/apache2/sites-available/002-project.conf
+cat <<EOF > 002-project.conf
 <VirtualHost *:8052>
 
 	ServerAdmin webmaster@localhost
-	DocumentRoot $PWD/www_project
-	<Directory $PWD/www_project>
+	DocumentRoot $PWD/../www_project
+	<Directory $PWD/../www_project>
 		Options FollowSymLinks MultiViews ExecCGI
 		AllowOverride None
 		Order allow,deny
@@ -71,19 +71,15 @@ sudo cat <<EOF > /etc/apache2/sites-available/002-project.conf
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
 EOF
 
-sudo ln -s /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-enabled/000-default.conf
-sudo ln -s /etc/apache2/sites-available/001-funding.conf /etc/apache2/sites-enabled/001-funding.conf
-sudo ln -s /etc/apache2/sites-available/002-project.conf /etc/apache2/sites-enabled/002-project.conf
+sudo mv 00*.conf /etc/apache2/sites-available/
 
-#~ **configuration for port.conf
+sudo ln -sf /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-enabled/000-default.conf
+sudo ln -sf /etc/apache2/sites-available/001-funding.conf /etc/apache2/sites-enabled/001-funding.conf
+sudo ln -sf /etc/apache2/sites-available/002-project.conf /etc/apache2/sites-enabled/002-project.conf
 
-#Listen *:80
-#Listen *:8050
-#Listen *:8051
-#Listen *:8052
 
-#NameVirtualHost *:80
-#NameVirtualHost *:8050
-#NameVirtualHost *:8051
-#NameVirtualHost *:8052
-
+echo "configuration for port.conf:"
+echo "Listen *:80"
+echo "Listen *:8050"
+echo "Listen *:8051"
+echo "Listen *:8052"

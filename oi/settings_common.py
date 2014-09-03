@@ -30,8 +30,8 @@ LOGGING = {
         'null': {'level':'DEBUG', 'class':'django.utils.log.NullHandler',},
         'console':{'level':'DEBUG', 'class':'logging.StreamHandler', 'formatter': 'simple'},
         'mail_admins': {'level': 'ERROR','class': 'django.utils.log.AdminEmailHandler', 'formatter': 'simple'},
-        'oi_file': {'level': 'DEBUG','class': 'oi.settings.OIFileHandler', 'formatter': 'verbose'},
-        'payment_file': {'level': 'INFO','class': 'oi.settings.OIPaymentFileHandler', 'formatter': 'verbose'},
+        'oi_file': {'level': 'DEBUG','class': 'oi.settings_common.OIFileHandler', 'formatter': 'verbose'},
+        'payment_file': {'level': 'INFO','class': 'oi.settings_common.OIPaymentFileHandler', 'formatter': 'verbose'},
     },
     'loggers': {
         'django': {'handlers':['null'], 'propagate': True, 'level':'INFO',},
