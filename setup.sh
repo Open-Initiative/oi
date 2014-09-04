@@ -22,9 +22,23 @@ ln -sf /usr/lib/python2.7/dist-packages/django/contrib/admin/static/admin/ oi/pl
 ln -sf oi/platforms/project/public ../www_project
 
 #~ **Create database**
-mysql -u root -p -e "CREATE DATABASE OI; CREATE USER \"maxi\"; SET password FOR \"maxi\" = password(\"maximaxi1234\"); GRANT ALL ON OI.* TO \"maxi\""
-./manage.py syncdb
-./manage.py migrate
+#mysql -u root -p -e "CREATE DATABASE OI; CREATE USER \"maxi\"; SET password FOR \"maxi\" = password(\"maximaxi1234\"); GRANT ALL ON OI.* TO \"maxi\""
+
+import getpass
+
+user = raw_input("Create a user for your database : ");
+mdp = getpass.getpass('Create a password for you : ');
+checkmdp = getpass.getpass("Check if the password is the same : ");
+try = 0
+
+while mdp != checkmdp:
+    checkmdp = getpass.getpass("Sorry, please put the good password : ");
+    try++;
+    if try == 3:
+        break;
+    
+if mdp == checkmdp:
+    mysql -u root -p -e "CREATE DATABASE OI; CREATE USER "\".user."\"; SET password FOR "\".user."\" = password("\".mdp."\"); GRANT ALL ON OI.* TO "\".user."\""
 
 #~ **Create all the notices in database**
 ./manage.py register_notices_types
