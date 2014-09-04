@@ -13,13 +13,13 @@ chmod 744 manage.py
 ## **platform links creation**
 #root
 ln -sf /usr/lib/python2.7/dist-packages/django/contrib/admin/static/admin/ oi/platforms/root/public/
-ln -sf oi/platforms/root/public ../www_root
+ln -sf oi/oi/platforms/root/public ../www_root
 #funding
 ln -sf /usr/lib/python2.7/dist-packages/django/contrib/admin/static/admin/ oi/platforms/funding/public/
-ln -sf oi/platforms/funding/public ../www_funding
+ln -sf oi/oi/platforms/funding/public ../www_funding
 #project
 ln -sf /usr/lib/python2.7/dist-packages/django/contrib/admin/static/admin/ oi/platforms/project/public/
-ln -sf oi/platforms/project/public ../www_project
+ln -sf oi/oi/platforms/project/public ../www_project
 
 #~ **Create database**
 read -p "Please enter your MySql username:" sqlusername
