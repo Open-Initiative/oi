@@ -3,21 +3,28 @@ import datetime
 from south.db import db
 from south.v2 import DataMigration
 from django.db import models
+from django.db.utils import OperationalError
+from django.core.exceptions import FieldError
 from oi.users.models import UserProfile
 from oi.prjnotify.models import Observer
 
 class Migration(DataMigration):
     depends_on = (("prjnotify", "0001_initial"),)
     def forwards(self, orm):
-        for user in UserProfile.objects.filter(observed_projects__isnull=False).distinct():
-            for project in user.observed_projects.all():
-                Observer.objects.get_or_create(user=user.user, project=project)
+        try:
+            for user in UserProfile.objects.filter(observed_projects__isnull=False).distinct():
+                for project in user.observed_projects.all():
+                    Observer.objects.get_or_create(user=user.user, project=project)
+        except (OperationalError, FieldError):
+            pass
 
     def backwards(self, orm):
-        for observer in Observer.objects.all():
-            if observer.project:
-                observer.user.observed_projects.add(observer.project)
-
+        try:
+            for observer in Observer.objects.all():
+                if observer.project:
+                    observer.user.observed_projects.add(observer.project)
+        except (OperationalError, FieldError):
+            pass
 
     models = {
         'auth.group': {

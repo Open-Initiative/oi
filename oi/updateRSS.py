@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import os, sys
-os.environ['DJANGO_SETTINGS_MODULE'] = "oi.settings"
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "oi.platforms.root.settings")
 _PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, _PROJECT_DIR)
 sys.path.insert(0, os.path.dirname(_PROJECT_DIR))

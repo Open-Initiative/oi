@@ -3,19 +3,27 @@ import datetime
 from south.db import db
 from south.v2 import DataMigration
 from django.db import models
+from django.db.utils import OperationalError
+from django.core.exceptions import FieldError
 from oi.projects.models import Project
 
 class Migration(DataMigration):
 
     def forwards(self, orm):
-        for project in Project.objects.all():
-            project.public_read = project.public
-            project.save()
+        try:
+            for project in Project.objects.all():
+                project.public_read = project.public
+                project.save()
+        except (OperationalError, FieldError):
+            pass
 
     def backwards(self, orm):
-        for project in Project.objects.all():
-            project.public = project.public_read
-            project.save()
+        try:
+            for project in Project.objects.all():
+                project.public = project.public_read
+                project.save()
+        except (OperationalError, FieldError):
+            pass
 
 
     models = {
