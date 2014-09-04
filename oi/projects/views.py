@@ -10,15 +10,15 @@ from github import Github
 from urllib import quote, urlencode
 from urllib2 import Request, urlopen
 from unicodedata import normalize
-from django.core import serializers
-from django.core.urlresolvers import reverse
-from django.core.files import File
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.syndication.views import Feed
 from django.contrib.sites.models import get_current_site
-from django.conf import settings
+from django.core import serializers
+from django.core.urlresolvers import reverse
+from django.core.files import File
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q, Sum
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect, Http404, QueryDict
@@ -27,10 +27,8 @@ from django.template.response import TemplateResponse
 from django.utils.simplejson import JSONEncoder, JSONDecoder
 from django.utils.translation import ugettext as _
 from django.views.decorators.csrf import csrf_exempt
-#from django.views.generic.list_detail import object_detail, object_list
 from django.views.generic import TemplateView, ListView, DetailView
 from django.template import RequestContext
-from oi.settings import MEDIA_ROOT, TEMP_DIR, github_id, github_secret
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS, OI_TABLE_OVERVIEW
 from oi.helpers import OI_PRJ_DONE, OI_NO_EVAL, OI_ACCEPT_DELAY, OI_READ, OI_ANSWER, OI_BID, OI_MANAGE, OI_WRITE, OI_ALL_PERMS, OI_CANCELLED_BID, OI_COM_ON_BID, OI_COMMISSION
 from oi.helpers import OI_PRJ_VIEWS, SPEC_TYPES, OIAction, ajax_login_required, oi_redirecturl
@@ -38,7 +36,6 @@ from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeed
 from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
 from oi.prjnotify.models import Observer
-from oi.settings_specific import OI_DOMAINS
 import re
 
 #def getprojects(request):
@@ -1018,7 +1015,7 @@ def setgihubtoken(request, id):
         if not int(request_dict['state']) == request.user.id:
             messages.info(request, _("Forbidden: could not identify requester"))
             return HttpResponseRedirect("/project/%s/view/github"%project.id)
-        params = urlencode({'client_id': github_id, 'client_secret': github_secret, 'code': request_dict['code'], 'state': request_dict['state']})
+        params = urlencode({'client_id': settings.github_id, 'client_secret': settings.github_secret, 'code': request_dict['code'], 'state': request_dict['state']})
         req = Request('https://github.com/login/oauth/access_token', params, {'Accept': 'application/json'})
         response = JSONDecoder().decode(urlopen(req).read())
         if response.has_key('error'):
@@ -1183,9 +1180,9 @@ def savespec(request, id, specid='0'):
     
 def redirect_funding_or_project(request, obj):
     """ """
-    if request.get_host() == OI_DOMAINS[1][1]:  #check if is the project host
+    if request.get_host() == settings.OI_DOMAINS[1][1]:  #check if is the project host
         return render_to_response("projects/spec/spec.html", obj)
-    elif request.get_host() == OI_DOMAINS[2][1]:    #check if is the funding host
+    elif request.get_host() == settings.OI_DOMAINS[2][1]:    #check if is the funding host
         return render_to_response("funding/spec/spec.html", obj)
         
 @OINeedsPrjPerms(OI_WRITE)

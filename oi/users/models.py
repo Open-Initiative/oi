@@ -3,13 +3,13 @@
 import logging
 from decimal import Decimal
 from datetime import datetime
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.forms import ModelForm, DateField, PasswordInput
 from django.forms.extras.widgets import SelectDateWidget
 from django.utils.translation import ugettext_lazy, ugettext as _, get_language
-from oi.settings import SHASIGN_NAME
 from oi.helpers import OI_DISPLAYNAME_TYPES, computeSHA
 from oi.messages.models import Message, Expert
 from oi.projects.models import Project, Bid
@@ -80,7 +80,7 @@ class UserProfile(models.Model):
         logger = logging.getLogger('oi.payments')
         logger.info(info)
         payment = Payment.objects.get(id=info['orderID'])
-        shasign = info.pop(SHASIGN_NAME) #remove the signature from the info
+        shasign = info.pop(settings.SHASIGN_NAME) #remove the signature from the info
         if shasign != computeSHA(info): #invalid SHA signature
             logger.error("Signature SHA incorrecte : %s"%shasign)
             return False

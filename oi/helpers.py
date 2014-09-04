@@ -13,7 +13,7 @@ from django.template.loader import render_to_string
 from django.utils.decorators import available_attrs
 from django.utils.http import urlquote
 from django.utils.translation import ugettext_lazy as _
-from ho import pisa
+from xhtml2pdf import pisa
 from django.conf import settings
 
 # Constantes de transmission de pertinence

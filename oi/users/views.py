@@ -3,6 +3,7 @@
 import os, re
 from random import random
 from decimal import Decimal
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -22,7 +23,6 @@ from django.views.generic import TemplateView
 from django.views.decorators.csrf import csrf_exempt
 from django.views.i18n import set_language
 from oi.prjnotify.models import Notice, NoticeType, Observer
-from oi.settings import MEDIA_ROOT, MEDIA_URL, PAYMENT_ACTION
 from oi.helpers import render_to_pdf, OI_DISPLAYNAME_TYPES, computeSHA
 from oi.messages.templatetags.oifilters import oiescape
 from oi.users.models import User, UserProfile, UserProfileForm, PersonalMessage, Payment
@@ -107,7 +107,7 @@ def myaccount(request):
                 params["PARAMPLUS"] = "project=%s"%request_dict["project"]
             params["SHASign"] = computeSHA(params)
             extra_context['params'] = params 
-            extra_context['action'] = PAYMENT_ACTION
+            extra_context['action'] = settings.PAYMENT_ACTION
             extra_context['amount'] = amount
             
         extra_context['contact_form'] = UserProfileForm(instance=request.user.profile)    
@@ -372,9 +372,9 @@ def getpicture(request, username):
     if not username or not get_object_or_404(User, username=username).profile.picture:
         return HttpResponseRedirect('/img/defaultusr.png') #default picture
     response = HttpResponse(mimetype='image/jpeg')
-    response['X-Sendfile'] = "%suser/%s/profile.jpg"%(MEDIA_ROOT,username)
+    response['X-Sendfile'] = "%suser/%s/profile.jpg"%(settings.MEDIA_ROOT,username)
     try:
-        response['Content-Length'] = os.path.getsize("%suser/%s/profile.jpg"%(MEDIA_ROOT,username))
+        response['Content-Length'] = os.path.getsize("%suser/%s/profile.jpg"%(settings.MEDIA_ROOT,username))
     except OSError:
         raise Http404
     return response

@@ -9,9 +9,9 @@ from rfc822 import mktime_tz, parsedate_tz
 from datetime import datetime
 from urllib2 import urlopen
 from xml.dom.minidom import parse
+from django.conf import settings
 from django.db.models import get_model
 from django.utils.translation import get_language, activate, ugettext as _
-from oi.settings import NOTIFICATION_LANGUAGE_MODULE, LANGUAGE_CODE
 from oi.helpers import OI_SCORE_DEFAULT_RELEVANCE
 from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape
@@ -21,13 +21,13 @@ users = UserProfile.objects.exclude(rss_feed="")
 for user in users:
     try:
         print user.user.username
-        app_label, model_name = NOTIFICATION_LANGUAGE_MODULE.split('.')
+        app_label, model_name = settings.NOTIFICATION_LANGUAGE_MODULE.split('.')
         model = get_model(app_label, model_name)
         language_model = model._default_manager.get(user__id__exact=user.id)
         if hasattr(language_model, 'language'):
             language = language_model.language
         else:
-            language = LANGUAGE_CODE
+            language = settings.LANGUAGE_CODE
         print language_model.language
         activate(language)
 

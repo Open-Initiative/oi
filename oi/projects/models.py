@@ -13,7 +13,6 @@ from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext as _, get_language, activate
 from django.db.models.query import QuerySet
 from django.views.generic import TemplateView, DetailView
-from oi.settings import MEDIA_ROOT
 from oi.helpers import OI_ALL_PERMS, OI_PERMS, OI_RIGHTS, OI_READ, OI_WRITE, OI_ANSWER, OI_BID, OI_MANAGE, OI_COMMISSION, OI_COM_ON_BID, OI_CANCELLED_BID, OI_VAT_RATE
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS, OI_TABLE_OVERVIEW
 from oi.helpers import SPEC_TYPES, TEXT_TYPE, to_date

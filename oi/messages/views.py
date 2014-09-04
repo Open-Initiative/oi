@@ -4,6 +4,7 @@ import os
 from time import time
 from datetime import datetime
 from unicodedata import normalize
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.syndication.views import Feed
@@ -15,7 +16,6 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView, ListView
 from oi.helpers import OI_PAGE_SIZE, OI_ALL_PERMS, OI_READ, OI_ANSWER, OI_WRITE, ajax_login_required
 from oi.helpers import OI_SCORE_ADD, OI_SCORE_DEFAULT_RELEVANCE, OI_EXPERTISE_FROM_ANSWER, OI_EXPERTISE_TO_MESSAGE
-from oi.settings import MEDIA_ROOT, MEDIA_URL
 from oi.projects.models import Project
 from oi.messages.models import Message, PromotedMessage, OINeedsMsgPerms
 from oi.messages.templatetags.oifilters import oiescape, summarize
@@ -146,7 +146,7 @@ def uploadFile(request):
     uploadedfile = request.FILES['image']
     ts = time()
     filename = normalize("NFKD", uploadedfile.name).encode('ascii', 'ignore').replace('"', '')
-    image = open("%s%.0f_%s"%(MEDIA_ROOT,ts,filename), 'wb+')
+    image = open("%s%.0f_%s"%(settings.MEDIA_ROOT,ts,filename), 'wb+')
     for chunk in uploadedfile.chunks():
         image.write(chunk)
     image.close()
@@ -156,9 +156,9 @@ def getFile(request, filename):
     """gets a file in the FS for download"""
     response = HttpResponse(mimetype='application/force-download')
     response['Content-Disposition'] = 'attachment; filename=%s'%filename
-    response['X-Sendfile'] = "%s%s"%(MEDIA_ROOT,filename)
+    response['X-Sendfile'] = "%s%s"%(settings.MEDIA_ROOT,filename)
     try:
-        response['Content-Length'] = os.path.getsize("%s%s"%(MEDIA_ROOT,filename))
+        response['Content-Length'] = os.path.getsize("%s%s"%(settings.MEDIA_ROOT,filename))
     except OSError:
         raise Http404
     return response
