@@ -1,6 +1,6 @@
 #~ **install packages**
 sudo apt-get install git apache2 mysql-server python-django python-mysqldb python-flup python-xapian python-docutils libapache2-mod-fcgid libapache2-mod-xsendfile python-setuptools fabric python-django-south python-pip
-sudo pip install django-haystack xapian-haystack django-notification reportlab html2pdf html5lib PyGitHub django-cors-headers django-registration django_compressor lxml "BeautifulSoup<4.0" versiontools
+sudo pip install --pre django-haystack xapian-haystack django-notification reportlab xhtml2pdf html5lib PyGitHub django-cors-headers django-registration django_compressor lxml "BeautifulSoup<4.0" versiontools
 sudo a2enmod rewrite
 sudo a2enmod fcgid
 sudo a2enmod xsendfile
@@ -22,7 +22,12 @@ ln -sf /usr/lib/python2.7/dist-packages/django/contrib/admin/static/admin/ oi/pl
 ln -sf oi/platforms/project/public ../www_project
 
 #~ **Create database**
-mysql -u root -p -e "CREATE DATABASE OI; CREATE USER \"maxi\"; SET password FOR \"maxi\" = password(\"maximaxi1234\"); GRANT ALL ON OI.* TO \"maxi\""
+read -p "Please enter your MySql username:" sqlusername
+read -p "Please enter your MySql password:" -s sqlpassword
+echo ""
+echo "Creating Database with root credentials:"
+mysql -u root -p -e "CREATE DATABASE OI; CREATE USER \"$sqlusername\"; SET password FOR \"$sqlusername\" = password(\"$sqlpassword\"); GRANT ALL ON OI.* TO \"$sqlusername\""
+echo "\nCreating Database structure..."
 ./manage.py syncdb
 ./manage.py migrate
 
