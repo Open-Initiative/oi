@@ -55,8 +55,8 @@ CORS_ALLOW_HEADERS = (
 )
 
 # Github configuration
-github_id = "723cf00e03393afa2f32"
-github_secret = "ebf46f0e906b808303f2b6240f5dd6eaf8897c62"
+OI_GITHUB_ID = "723cf00e03393afa2f32"
+OI_GITHUB_SECRET = "ebf46f0e906b808303f2b6240f5dd6eaf8897c62"
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name

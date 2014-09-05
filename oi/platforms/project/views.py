@@ -36,6 +36,7 @@ from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeed
 from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
 from oi.prjnotify.models import Observer
+from oi.settings_common import OI_GITHUB_ID, OI_GITHUB_SECRET
 import re
 
 #def getprojects(request):
@@ -1015,7 +1016,7 @@ def setgihubtoken(request, id):
         if not int(request_dict['state']) == request.user.id:
             messages.info(request, _("Forbidden: could not identify requester"))
             return HttpResponseRedirect("/project/%s/view/github"%project.id)
-        params = urlencode({'client_id': settings.github_id, 'client_secret': settings.github_secret, 'code': request_dict['code'], 'state': request_dict['state']})
+        params = urlencode({'client_id': OI_GITHUB_ID, 'client_secret': OI_GITHUB_SECRET, 'code': request_dict['code'], 'state': request_dict['state']})
         req = Request('https://github.com/login/oauth/access_token', params, {'Accept': 'application/json'})
         response = JSONDecoder().decode(urlopen(req).read())
         if response.has_key('error'):
