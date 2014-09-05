@@ -13,7 +13,7 @@ cat <<EOF > 000-root.conf
         Allow from all
         RewriteEngine On
         RewriteCond %{REQUEST_FILENAME} !-f
-        RewriteRule ^(.*)$ django.fcgi/$1 [QSA,L]
+        RewriteRule ^(.*)$ django.fcgi/\$1 [QSA,L]
     </Directory>
 
     ErrorLog \${APACHE_LOG_DIR}/error-root.log
@@ -38,7 +38,7 @@ cat <<EOF > 001-funding.conf
         XSendFilePath $PWD/OIFS
         RewriteEngine On
         RewriteCond %{REQUEST_FILENAME} !-f
-        RewriteRule ^(.*)$ django.fcgi/$1 [QSA,L]
+        RewriteRule ^(.*)$ django.fcgi/\$1 [QSA,L]
     </Directory>
 
     ErrorLog \${APACHE_LOG_DIR}/error-funding.log
@@ -63,7 +63,7 @@ cat <<EOF > 002-project.conf
         XSendFilePath $PWD/OIFS
         RewriteEngine On
         RewriteCond %{REQUEST_FILENAME} !-f
-        RewriteRule ^(.*)$ django.fcgi/$1 [QSA,L]
+        RewriteRule ^(.*)$ django.fcgi/\$1 [QSA,L]
     </Directory>
 
     ErrorLog \${APACHE_LOG_DIR}/error-project.log
