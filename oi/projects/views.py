@@ -36,23 +36,8 @@ from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeed
 from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
 from oi.prjnotify.models import Observer
-from oi.settings_common import OI_GITHUB_ID, OI_GITHUB_SECRET
+from oi.settings_common import OI_GITHUB_ID, OI_GITHUB_SECRET, MEDIA_ROOT
 import re
-
-#def getprojects(request):
-#    """Apply filter to project list"""
-#    datemin = datetime.strptime(request.GET.get("datemin","2000,1,1"),"%Y,%m,%d")
-#    datemax = datetime.strptime(request.GET.get("datemax","2100,1,1"),"%Y,%m,%d")
-#    projects = Project.objects.filter(created__gte=datemin, created__lte=datemax, parent=None, public=True)
-#    if request.GET.has_key("state"):
-#        projects = projects.filter(state=request.GET["state"])
-
-#    ancestors = [id for id in request.GET.get("categs","").split(",") if id!=""]
-#    if ancestors:
-#        projects = projects.filter(message__ancestors__in=ancestors)
-
-#    promotedprj = PromotedProject.objects.filter(location="index")
-#    return object_list(request, queryset=projects[:10], extra_context={'promotedprj': promotedprj})
 
 class Projectview(DetailView):
     model = Project
@@ -61,13 +46,6 @@ class Projectview(DetailView):
         
     def get_object(self):
         return 
-
-@OINeedsPrjPerms(OI_READ)
-def getproject(request, id, view="overview"):
-    if not view: view = "overview"
-    project = Project.objects.get(id=id)
-    extra_context = {'object': project, 'current_view':view, 'views':OI_PRJ_VIEWS, 'types':SPEC_TYPES, 'table_overview': OI_TABLE_OVERVIEW, 'release': request.session.get("releases", {}).get(project.master.id, project.master.target.name if project.master.target else None)}
-    return TemplateResponse(request, "projects/project_detail.html", extra_context)
 
 @OINeedsPrjPerms(OI_READ)
 def listtasks(request, id):
@@ -308,20 +286,6 @@ def deletereward(request, id, rewardid):
     reward.delete()
     return HttpResponse(_("Reward deleted"))
     
-@login_required
-def editproject(request, id):
-    """Shows the Edit template of the project"""
-    project=None
-    if id!='0':
-        project = Project.objects.get(id=id)
-        if not project.has_perm(request.user, OI_WRITE):
-            return HttpResponseForbidden(_("Forbidden"))
-            
-    request_dict = QueryDict(request.body)
-    if request.method == "GET":
-        extra_context = {'user': request.user, 'parent':request_dict.get("parent"), 'project':project}
-        return TemplateResponse(request, 'projects/editproject.html', extra_context)
-
 def create_new_task(parent, title, author, githubid=None):
     if parent:
         parent.inc_tasks_priority(0)
@@ -459,25 +423,6 @@ def sorttasks(request, id):
             if param.startswith("task_"):
                 Project.objects.filter(id=param[5:]).update(priority=value)
         return HttpResponse(_("Features sorted"))
-
-@OINeedsPrjPerms(OI_WRITE)
-def edittitle(request, id):
-    """Changes the title of the project"""
-    project = Project.objects.get(id=id)
-    
-    if project.state > OI_STARTED:
-        return HttpResponse(_("Can not change a finished task"), status=431)
-    if project.state > OI_ACCEPTED:
-        return HttpResponse(_("Can not change a task already started"), status=431)
-
-    request_dict = QueryDict(request.body)
-    if request.method == "POST":
-        project.title = request_dict["title"]
-        project.save()
-    
-        #notify users about this project
-        project.notify_all(request.user, "project_modified", project.title)
-        return HttpResponse(_("Title updated"))
 
 @OINeedsPrjPerms(OI_MANAGE)
 @ajax_login_required
@@ -1084,34 +1029,6 @@ def createtask(request, id):
             logging.getLogger("oi").debug("Github Sync Error : " + sys.exc_info())
             return HttpResponse('', status=422)
     
-@OINeedsPrjPerms(OI_WRITE)
-def editspec(request, id, specid):
-    """Edit template of a spec contains a spec details edit template"""
-    spec=None
-    order = request.GET.get("specorder")
-    if specid!='0':
-        spec = get_object_or_404(Spec, id=specid)
-        if spec.project.id != int(id):
-            return HttpResponse(_("Wrong arguments"), status=531)
-        order = spec.order
-    extra_context = {'divid': request.GET["divid"], 'spec':spec, 'specorder':order, 'project':Project.objects.get(id=id)}
-    return TemplateResponse(request, 'projects/spec/editspec.html', extra_context)
-
-@OINeedsPrjPerms(OI_WRITE)
-def editspecdetails(request, id, specid):
-    """Edit template of a spec detail, ie: text, image, file..."""
-    type = int(request.GET["type"])
-    project = Project.objects.get(id=id)
-    spec=None
-    if specid!='0':
-        if project.state > OI_ACCEPTED:
-            return HttpResponse(_("Can not change a task already started"), status=431)
-        spec = Spec.objects.get(id=specid)
-        if spec.project.id != int(id):
-            return HttpResponse(_("Wrong arguments"), status=531)
-    extra_context = {'user': request.user, 'divid': request.GET["divid"], 'project':project, 'spec':spec}
-    return TemplateResponse(request, 'projects/spec/edit_type%s.html'%(type), extra_context)
-
 @login_required
 @OINeedsPrjPerms(OI_WRITE)
 def savespec(request, id, specid='0'):

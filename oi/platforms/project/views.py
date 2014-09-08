@@ -36,7 +36,7 @@ from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeed
 from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
 from oi.prjnotify.models import Observer
-from oi.settings_common import OI_GITHUB_ID, OI_GITHUB_SECRET
+from oi.settings_common import OI_GITHUB_ID, OI_GITHUB_SECRET, MEDIA_ROOT
 import re
 
 #def getprojects(request):

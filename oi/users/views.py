@@ -28,6 +28,7 @@ from oi.messages.templatetags.oifilters import oiescape
 from oi.users.models import User, UserProfile, UserProfileForm, PersonalMessage, Payment
 from oi.users.models import Training, TrainingForm, Experience, ExperienceForm, Skill, SkillForm, OI_USERPROFILE_DETAILS_CLASSES
 from oi.projects.models import Bid, Project
+from oi.settings_common import MEDIA_ROOT
 
 @login_required
 def myprofile(request):
