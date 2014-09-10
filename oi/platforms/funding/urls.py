@@ -22,7 +22,6 @@ urlpatterns = patterns('',
     # Pages des messages
     (r'^message/', include('oi.messages.urls')),
     # Funding pages
-#    (r'^funding/', include('oi.platforms.funding.urls')),
     (r'^funding/', include('oi.platforms.funding.extend-urls')),
     # Pages des projets
     (r'^project/', include('oi.projects.urls')),

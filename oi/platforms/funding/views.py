@@ -36,9 +36,10 @@ def editspec(request, id, specid):
     spec=None
     order = request.GET.get("specorder")
     if specid!='0':
-        spec = Spec.objects.get(id=specid)
+        spec = get_object_or_404(Spec, id=specid)
         if spec.project.id != int(id):
             return HttpResponse(_("Wrong arguments"), status=531)
         order = spec.order
-    extra_context = {'divid': request.GET["divid"], 'spec':spec, 'types':SPEC_TYPES, 'specorder':order}
-    return DetailView.as_view(request, queryset=Project.objects, object_id=id, context_object_name='project', template_name='funding/spec/editspec.html', extra_context=extra_context)
+    extra_context = {'divid': request.GET["divid"], 'spec':spec, 'specorder':order, 'project':Project.objects.get(id=id)}
+    return TemplateResponse(request, 'projects/spec/editspec.html', extra_context)
+    

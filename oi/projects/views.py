@@ -424,6 +424,25 @@ def sorttasks(request, id):
                 Project.objects.filter(id=param[5:]).update(priority=value)
         return HttpResponse(_("Features sorted"))
 
+@OINeedsPrjPerms(OI_WRITE)
+def edittitle(request, id):
+    """Changes the title of the project"""
+    project = Project.objects.get(id=id)
+    
+    if project.state > OI_STARTED:
+        return HttpResponse(_("Can not change a finished task"), status=431)
+    if project.state > OI_ACCEPTED:
+        return HttpResponse(_("Can not change a task already started"), status=431)
+
+    request_dict = QueryDict(request.body)
+    if request.method == "POST":
+        project.title = request_dict["title"]
+        project.save()
+    
+        #notify users about this project
+        project.notify_all(request.user, "project_modified", project.title)
+        return HttpResponse(_("Title updated"))
+
 @OINeedsPrjPerms(OI_MANAGE)
 @ajax_login_required
 def offerproject(request, id):
@@ -1199,40 +1218,3 @@ def getfile(request, id, filename):
         raise Http404
     return response
     
-class OIFeed(Feed):
-    """generates RSS feed"""
-    title = "Open Initiative"
-    link = "http://openinitiative.com/"
-    description = _(u"Latest updates of Open Initiative ")
-    id = None
-    
-    def __new__(cls, request, id):
-        obj = super(Feed, cls).__new__(cls)
-        obj.id=id
-        if id != '0':
-            obj.description += " - " + Project.objects.get(id=id).title
-        return obj(request)
-
-    def get_object(self, request, *args, **kwargs):
-        if self.id=='0':
-            return None
-        else:
-            return Project.objects.get(id=self.id)
-
-    def items(self, obj):
-        if obj:
-            return obj.descendants.order_by('-created')[:20]
-        else:
-            return Project.objects.order_by('-created')[:20]
-
-    def item_title(self, item):
-        return item.title
-
-    def item_description(self, item):
-        desc = _("Created by") + " " + item.author.get_profile().get_display_name()
-        for spec in item.spec_set.all():
-            desc += "\n- " + summarize(spec.text)
-        return desc
-        
-    def item_link(self, item):
-        return "/project/%s"%item.id
