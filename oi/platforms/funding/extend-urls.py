@@ -13,5 +13,6 @@ urlpatterns = patterns('oi.platforms.funding.views',
     (r'^(?P<pk>\d+)/embed$', DetailView.as_view(model=Project, template_name='funding/plugin.html',context_object_name='Project.objects.all()')),
     (r'^(?P<pk>\d+)/embed_popup$', DetailView.as_view(model=Project, template_name='funding/tiny_popup.html',context_object_name='Project.objects.all()')),
     (r'^(?P<id>\d+)/editspec/(?P<specid>\d+)$', 'editspec'),
+    (r'^(?P<id>\d+)/editspecdetails/(?P<specid>\d+)$', 'editspecdetails'),
 #    (r'^', include('oi.platforms.funding.urls')),
 )

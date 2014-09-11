@@ -1097,7 +1097,7 @@ def savespec(request, id, specid='0'):
             
         filename = request_dict.get("filename")
         
-        #for spec with 
+        #for spec with attachment
         if not filename and not spec.file and spec.type in (2,5):
             return HttpResponse(_("Wrong arguments"), status=531)
         if filename:

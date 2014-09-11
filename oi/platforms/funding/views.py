@@ -43,3 +43,18 @@ def editspec(request, id, specid):
     extra_context = {'divid': request.GET["divid"], 'spec':spec, 'specorder':order, 'project':Project.objects.get(id=id)}
     return TemplateResponse(request, 'projects/spec/editspec.html', extra_context)
     
+@OINeedsPrjPerms(OI_WRITE)
+def editspecdetails(request, id, specid):
+    """Edit template of a spec detail, ie: text, image, file..."""
+    type = int(request.GET["type"])
+    project = Project.objects.get(id=id)
+    spec=None
+    if specid!='0':
+        if project.state > OI_ACCEPTED:
+            return HttpResponse(_("Can not change a task already started"), status=431)
+        spec = Spec.objects.get(id=specid)
+        if spec.project.id != int(id):
+            return HttpResponse(_("Wrong arguments"), status=531)
+    extra_context = {'user': request.user, 'divid': request.GET["divid"], 'project':project, 'spec':spec}
+    return TemplateResponse(request, 'projects/spec/edit_type%s.html'%(type), extra_context)
+    
