@@ -1,0 +1,5 @@
+{% load i18n %}
+{{notice.sender.get_profile}}
+{% trans "has cancelled a feature you follow:" %}
+{{notice.project.title}}
+http://{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}

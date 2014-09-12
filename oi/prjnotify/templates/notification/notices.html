@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Notices" %}{% if project %} {% trans "on project" %} {{project.title}}{% endif %}{% endblock %}
+{% block content %}
+<div class="usercontent">
+    <div class="actions">{% if see_archived %}<a href="/notification">{% trans "Don't show archived notices" %}</a></div>
+    {% else %}<a href="/notification?archived=yes">{% trans "Show archived notices" %}</a>{% endif %}
+    {% if project %}<a href="/notification">{% trans "Show all notices" %}</a>{% endif %}</div>
+    <h1>{% trans "Notices" %}{% if project %} {% trans "on project" %} {{project.title}}{% endif %}</h1>
+    {% for notice in notices %}
+    <div class="contactinfo" id="notice_{{notice.id}}">
+        {% if notice.archived %}<div class="actions">{% trans "Archived" %}</div>
+        {% else %}<div class="actions"><a class="clickable" onclick="archiveNotice('{{notice.id}}')">{% trans "Archive" %}</a></div>{% endif %}
+        <img class="contactpicture" src="/user/getpicture/{{notice.sender.username}}" />
+        <h3>{% trans notice.notice_type.display %}</h3>
+        {% with 'notification/'|add:notice.notice_type.label|add:'/notice.html' as template_name %}
+        <p>{% include template_name %}</p>
+        {% endwith %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

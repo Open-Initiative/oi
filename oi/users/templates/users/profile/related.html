@@ -1,0 +1,28 @@
+{% load i18n %}
+{% load oifilters %}
+<div class="related">
+    <h3>{{rating__count}} {% trans "evaluations" %} : {% show_stars rating__avg %}</h3>
+    {% for eval in selected_user.get_profile.get_comments %}
+    <div class="contactinfo">
+        <img class="contactpicture" src="/user/getpicture/{{eval.user.username}}" />
+        {{eval.user}} {% trans "on " %} <a href="/project/{{eval.project.id}}">{{eval.project.title}}</a> :<br />
+        "{{eval.comment}}"<br />{% show_stars eval.rating %} 
+    </div>
+    {% endfor %}
+    {% comment %}
+    <h3>{% trans "My latest posts" %}</h3>
+    <div>
+        {% for message in selected_user.get_profile.blog.children.all|slice:":5" %}
+        <a  href="/message/get/{{message.id}}">{{message.title}}</a>
+        {% empty %}
+        {% trans "No publication" %}
+        {%endfor%}
+        {% if selected_user.get_profile.blog.children.all %}<a href="/user/blog/{{selected_user.id}}">{% trans "See all publications" %}</a>{% endif %}
+    </div>
+    <h3>{% trans "My latest projects" %}</h3>
+        {% for project in selected_user.ownprojects.all|filter_read:user|dictsortreversed:"modified"|slice:":5" %}
+            <div><a  href="/project/{{project.id}}">{{project.title}}</a></div>
+        {% endfor %}
+    {% endcomment %}
+</div>
+

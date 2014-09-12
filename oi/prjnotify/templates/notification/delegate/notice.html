@@ -1,0 +1,9 @@
+{% load i18n %}
+<a href="http://{{current_site}}/user/profile/{{notice.sender.username}}" target="_blank">{{notice.sender.get_profile}}</a>
+{% if notice.project.parent %}
+{% blocktrans with title=notice.project.title id=notice.project.id %}wants to delegate the task <a href="http://{{current_site}}{{REDIRECT_URL}}{{id}}" target="_blank">{{title}}</a>to you.{% endblocktrans %}
+{% else %}
+{% blocktrans with title=notice.project.title id=notice.project.id %}wants to delegate the project <a href="http://{{current_site}}{{REDIRECT_URL}}{{id}}" target="_blank">{{title}}</a> to you.{% endblocktrans %}
+{% endif %}
+<br />
+<a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}" target="_blank">{% trans 'answer' %}</a>

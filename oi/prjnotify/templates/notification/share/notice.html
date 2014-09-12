@@ -1,0 +1,9 @@
+{% load i18n %}
+<a href="http://{{current_site}}/user/profile/{{notice.sender.username}}" target="_blank">{{notice.sender.get_profile}}</a>
+{% if notice.project.parent %}
+{% blocktrans %}has invited you on a task:{% endblocktrans %}
+{% else %}
+{% blocktrans %}has invited you on a project:{% endblocktrans %}
+{% endif %}
+</br>
+<a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}" target="_blank">{{notice.project.title}}</a>

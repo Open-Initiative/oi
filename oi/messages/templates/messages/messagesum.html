@@ -1,0 +1,24 @@
+{% load oifilters %}
+{% load i18n %}
+<div id="message_{{message.id}}" class="msgblue cleared">
+    <div class="column">
+        <img class="contactpicture" src="/user/getpicture/{{message.author.username}}" /><br />
+        <div class="author">{{message.author.get_profile}}<br />{{message.created|date:"d/m/Y"}}</div>
+    </div>
+    <div class="msgbubble">
+        <div class="msgtop">
+            <div class="msgtitle">
+                {{message.title}}
+            </div>
+        </div>
+        <div class="msgbody">
+            <div class="msgtext">
+                {{message.text|summarize}}
+            </div>
+            <div class="moreicon">
+                <div class="moreblue">+</div>
+            </div>
+        </div>
+        <div class="msgbtm"></div>
+    </div>
+</div>

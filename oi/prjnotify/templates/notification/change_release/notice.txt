@@ -1,0 +1,5 @@
+{% load i18n %}
+{{notice.sender.get_profile}} {% blocktrans %}has put Open Initiative release's on:{% endblocktrans %}
+{{notice.param}}
+{{notice.project.title}}
+http://{{current_site}}{{REDIRECT_URL}}get/{{notice.project.id}}

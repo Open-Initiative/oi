@@ -1,0 +1,42 @@
+{% load i18n %}
+{% if not project.spec_set.count < 1  %}
+<div class="cleared"></div>
+<div style="border: solid 1px #CCC;border-radius: 5px;padding: 5px; margin-bottom: 1%">
+    <img class="fundingright" src="/img/icons/delete.png" onclick="hide('{{divid}}')">
+    <div class="cleared"></div>
+    <div class="spectypes">
+        {% for elttype in types.items %}
+            <div id="type{{elttype.0}}_{{divid}}" onclick="changeSpecType('{{divid}}', {{elttype.0}})" class="spectype clickable {% ifequal elttype.0 spec.type %}spectypeselected {% endifequal %}">{{elttype.1}}</div>
+        {% endfor %}
+    </div>
+
+    <input name="spectype" id="type_{{divid}}" value="{{spec.type|default:1}}" type="hidden"/>
+    <input name="specid" id="specid_{{divid}}" value="{{spec.id|default:0}}" type="hidden"/>
+    <input name="projectid" id="projectid_{{divid}}" value="{{project.id}}" type="hidden"/>
+    <input name="specorder" id="specorder_{{divid}}" value="{{specorder|default:"-1"}}" type="hidden"/>
+    <div id="spec_{{divid}}" class="cleared specedit"></div>
+    <div class="cleared"></div>
+    <div id="validspec_{{divid}}" class="actions"><img class="clickable" src="/img/icons/ok-32.png" onclick="if(document.getElementById('bug_report_{{divid}}_1')){prepareText('{{divid}}')}; if(document.getElementById('text_{{divid}}')){saveSpec('{{divid}}',{{project.id}},getValue('specorder_{{divid}}'),{{spec.id|default:0}})}else{changeSpecType('{{divid}}', 1)}"/></div>
+    <div class="cleared"></div>
+</div>
+
+{% else %}
+
+{% if not project.spec_set.count < 1 %}<div class="cleared"></div><img class="fundingright" src="/img/icons/delete.png" onclick="hide('{{divid}}')">{% endif %}
+<div class="cleared"></div>
+<div class="spectypes">
+    {% for elttype in types.items %}
+        <div id="type{{elttype.0}}_{{divid}}" onclick="changeSpecType('{{divid}}', {{elttype.0}})" class="spectype clickable {% ifequal elttype.0 spec.type %}spectypeselected {% endifequal %}">{{elttype.1}}</div>
+    {% endfor %}
+</div>
+
+<input name="spectype" id="type_{{divid}}" value="{{spec.type|default:1}}" type="hidden"/>
+<input name="specid" id="specid_{{divid}}" value="{{spec.id|default:0}}" type="hidden"/>
+<input name="projectid" id="projectid_{{divid}}" value="{{project.id}}" type="hidden"/>
+<input name="specorder" id="specorder_{{divid}}" value="{{specorder|default:"-1"}}" type="hidden"/>
+<div id="spec_{{divid}}" class="cleared specedit"></div>
+<div class="cleared"></div>
+<div id="validspec_{{divid}}" class="actions"><img class="clickable" src="/img/icons/ok-32.png" onclick="if(document.getElementById('bug_report_{{divid}}_1')){prepareText('{{divid}}')}; if(document.getElementById('text_{{divid}}')){saveSpec('{{divid}}',{{project.id}},getValue('specorder_{{divid}}'),{{spec.id|default:0}})}else{changeSpecType('{{divid}}', 1)}"/></div>
+<div class="cleared"></div>
+
+{% endif %}

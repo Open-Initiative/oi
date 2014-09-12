@@ -1,0 +1,21 @@
+{% load i18n %}
+{% if notice.project %}
+{% trans "we have great news! Your feature" %} <b><i>{{notice.project.title}}</i></b> {% trans "from the project" %} <a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}" target="_blank">{{notice.project.parent.title}}</a> {% trans "which you have contributed to, has reached 100% of its funding. It can now be developed!" %}
+
+{% comment %}
+<!--I disabled it because it was breaking the notification e-mail. Please reactivate it later -->
+{% with task=notice.project user=notice.recipient %}
+<div>
+    <ul class="features_manage" id="features_0">
+        <li class="featurebox" id="task_{{task.id}}">
+        {% include 'funding/feature.html' %}
+        </li>
+    </ul>
+</div>
+{% endwith %}
+{% endcomment %}
+
+{% trans "Visit the project page" %} <a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}#feature_{{notice.project.id}}" target="_blank">{% trans "here" %}</a>.
+{% else %}
+{% trans "The project has been funded, but it is now deleted" %}
+{% endif %}

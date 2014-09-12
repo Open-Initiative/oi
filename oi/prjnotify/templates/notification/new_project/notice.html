@@ -1,0 +1,22 @@
+{% load i18n %}
+{% if notice.project %}
+<a href="http://{{current_site}}/user/profile/{{notice.sender.username}}" target="_blank">{{notice.sender.get_profile}}</a>
+{% trans "added the feature:" %} <b><i>{{notice.project.title}}</i></b> {% trans "in the project" %} <a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}" target="_blank">{{notice.project.parent.title}}</a> {% trans "which you follow and we think it may interest you." %}
+{% comment %}
+<!--I disabled it because it was breaking the notification e-mail. Please reactivate it later -->
+{% with task=notice.project user=notice.recipient %}
+<div>
+    <ul class="features_manage" id="features_0">
+        <li class="featurebox" id="task_{{task.id}}">
+        {% include 'funding/feature.html' %}
+        </li>
+    </ul>
+</div>
+{% endwith %}
+{% endcomment %}
+
+{% trans "Visit the project page" %} <a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}#feature_{{notice.project.id}}" target="_blank">{% trans "here" %}</a>.
+{% else %}
+<a href="http://{{current_site}}/user/profile/{{notice.sender.username}}">{{notice.sender.get_profile}}</a>
+{% trans "added the feature which has been deleted" %}
+{% endif %}

@@ -1,0 +1,5 @@
+{% load i18n %}
+<a href="http://{{current_site}}/user/profile/{{notice.sender.username}}" target="_blank">{{notice.sender.get_profile}}</a>
+{% trans "has cancelled a feature you follow:" %}
+</br>
+<a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}" target="_blank">{{notice.project.title}}</a>

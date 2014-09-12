@@ -1,0 +1,22 @@
+{% extends "funding/base.html" %}
+{% load i18n %}
+{% block title %}Nouvelle discussion{% endblock %}
+{% block nav %}
+{% comment %}
+<!--{% trans "Create in" %}:-->
+<!--<div id="arbo"></div>-->
+<!--<script>-->
+<!--    OIajaxCall("/message/listcategories/0","","arbo");-->
+<!--    {% for categ in categs %}selectCateg(document.getElementById("categ_{{categ}}"),{{categ}});{% endfor %}-->
+<!--</script>-->
+{% endcomment %}
+{% endblock %}
+{% block content %}
+<div class="column">
+    {% with "newmessage" as divid %}
+    <div id="newmessage">
+        {% with message.title as title %}{% include "messages/editmessage.html" %}{% endwith %}
+    </div>
+    {% endwith %}
+</div>
+{% endblock %}
