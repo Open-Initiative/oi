@@ -24,5 +24,5 @@ urlpatterns = patterns('oi.projects.views',
     (r'^(?P<id>\d+)/editspec/(?P<specid>\d+)$', 'editspec'),
     (r'^(?P<id>\d+)/editspecdetails/(?P<specid>\d+)$', 'editspecdetails'),
     (r'^rss/(?P<id>\d+)$', 'OIFeed'),
-#    (r'^', include('oi.platforms.project.urls')),
+    (r'^', include('oi.platforms.project.urls')),
 )
