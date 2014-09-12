@@ -1,9 +1,0 @@
-{% load i18n %}{% load oifilters %}
-{{notice.sender.get_profile}} 
-{% if notice.project.parent %}
-{% trans "has changed the specification of a task you follow:" %} 
-{% else %}
-{% trans "has changed the specification of a project you follow:" %} 
-{% endif %}
-{{notice.param|oiunescape}}
-http://{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}

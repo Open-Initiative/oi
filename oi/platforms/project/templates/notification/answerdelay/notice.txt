@@ -1,9 +1,0 @@
-{% load i18n %}
-{{notice.sender.get_profile}} {% trans "has" %} {% ifequal answer "true" %}{% trans "accepted" %}{% else %}{% trans "refused" %}{% endifequal %} 
-{% if notice.project.parent %}
-{% trans "to change the due date of the task:" %} 
-{% else %}
-{% trans "to change the due date of the project:" %}
-{% endif %}
-{{notice.project.title}}
-http://{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}

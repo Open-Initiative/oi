@@ -12,14 +12,14 @@
         <div class="cleared"></div>
         {% if object.spec_set.all %}
         {% if object.spec_set.count > 1 %}<img id="nextminispec" class="clickable minispec-arrow" src="/img/icons/next.png"/>{% endif %}
-        <a href="/project/{{object.id}}/view/description">
+        <a href="/prjmgt/{{object.id}}/view/description">
         {% for spec in object.spec_set.all %}
             <div class="minispec {% if not forloop.first %}invisible {% endif %}">{% include 'projects/spec/minispec.html' %}</div>
         {% endfor %}
         </a>
         {% if object.spec_set.count > 1 %}<img id="prevminispec" class="clickable minispec-arrow" src="/img/icons/previous.png"/>{% endif %}
         {% else %}
-        <div class="no-mini-spec"> <a href="/project/{{object.id}}/view/description"> {% trans "Click here to describe the task" %} </a> </div>
+        <div class="no-mini-spec"> <a href="/prjmgt/{{object.id}}/view/description"> {% trans "Click here to describe the task" %} </a> </div>
         {% endif %}
         <script type="text/javascript">
             $('#prevminispec').click(function(){
@@ -35,21 +35,21 @@
         </script>
 
         <div>
-            <a href="/project/{{object.id}}/view/team#public">{% if object.public_read %}{% trans "Public task" %}{% else %}{% trans "Private task" %}{% endif %} <img src="/img/icons/bluebtn.png"/></a>
-            <div><span class="entitle-overview">{% trans "Assignee:" %} </span><a href="/project/{{object.id}}/view/team">
+            <a href="/prjmgt/{{object.id}}/view/team#public">{% if object.public_read %}{% trans "Public task" %}{% else %}{% trans "Private task" %}{% endif %} <img src="/img/icons/bluebtn.png"/></a>
+            <div><span class="entitle-overview">{% trans "Assignee:" %} </span><a href="/prjmgt/{{object.id}}/view/team">
                 {% if object.assignee %}{{object.assignee.get_profile}}
                 {% else %}{% trans "Nobody" %}{% endif %}
                 <img src="/img/icons/bluebtn.png" /></a>
             </div>
             <div>
-                <span class="entitle-overview">{% trans "Deadline:" %} </span><a href="/project/{{object.id}}/view/planning">
+                <span class="entitle-overview">{% trans "Deadline:" %} </span><a href="/prjmgt/{{object.id}}/view/planning">
                 {% if object.due_date %}{{object.due_date|date:"d/m/Y"}}
                 {% else %}{% trans "Not set" %}{% endif %}
                 <img src="/img/icons/bluebtn.png" /></a>
             </div>
             <div>
                 <span class="entitle-overview">{% trans "Requested budget:" %} </span>
-                <a href="/project/{{object.id}}/view/budget"> {{object.offer}}€<img src="/img/icons/bluebtn.png" /></a>
+                <a href="/prjmgt/{{object.id}}/view/budget"> {{object.offer}}€<img src="/img/icons/bluebtn.png" /></a>
             </div>
             
             {% if object.parent %}

@@ -1,7 +1,0 @@
-<select id="select_title">
-    {% for title in user.get_profile.get_titles %}
-    <option value="{{title}}" {% ifequal title user.get_profile.title %}SELECTED{% endifequal %}>{{title}}</option>
-    {% endfor %}
-</select>
-<img class="clickable" src="/img/icons/ok.png" onclick="setUserTitle()" />
-<img class="clickable" src="/img/icons/delete.png" onclick="resetUserTitle('{{user.get_profile.title|default:user.get_profile.get_titles|first}}')" />

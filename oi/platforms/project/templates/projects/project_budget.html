@@ -48,7 +48,7 @@
             <h4>{% trans "includes" %}</h4>
             {% for task in project.descendants.all %}
             {% if task.offer %}
-                <div><a href="/project/{{task.id}}/view/budget">{{task.title}} : {{task.offer}} €</a></div>
+                <div><a href="/prjmgt/{{task.id}}/view/budget">{{task.title}} : {{task.offer}} €</a></div>
             {% endif %}
             {% endfor %}
         </div>
@@ -73,7 +73,7 @@
             <h4>{% trans "Depends on" %}</h4>
             {% for req in project.requirements.all %}
                 <div id="req_{{req.id}}">
-                    <a href="/project/{{req.id}}/view/budget">{{req.title}}: {{req.missing_bid}} €</a>
+                    <a href="/prjmgt/{{req.id}}/view/budget">{{req.title}}: {{req.missing_bid}} €</a>
                     <img class="clickable" src="/img/icons/delete.png" alt="{% trans 'Delete this dependency' %}" title="{% trans 'Delete this dependency' %}" onclick="OIajaxCall('/project/{{project.id}}/removerequirement', 'req={{req.id}}', 'output', function(){req_{{req.id}}.innerHTML=''})" />
                 </div>
             {% endfor %}

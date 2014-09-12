@@ -41,7 +41,7 @@ def editspec(request, id, specid):
             return HttpResponse(_("Wrong arguments"), status=531)
         order = spec.order
     extra_context = {'divid': request.GET["divid"], 'spec':spec, 'specorder':order, 'project':Project.objects.get(id=id)}
-    return TemplateResponse(request, 'projects/spec/editspec.html', extra_context)
+    return TemplateResponse(request, 'funding/spec/editspec.html', extra_context)
     
 @OINeedsPrjPerms(OI_WRITE)
 def editspecdetails(request, id, specid):
@@ -56,5 +56,5 @@ def editspecdetails(request, id, specid):
         if spec.project.id != int(id):
             return HttpResponse(_("Wrong arguments"), status=531)
     extra_context = {'user': request.user, 'divid': request.GET["divid"], 'project':project, 'spec':spec}
-    return TemplateResponse(request, 'projects/spec/edit_type%s.html'%(type), extra_context)
+    return TemplateResponse(request, 'funding/spec/edit_type%s.html'%(type), extra_context)
     

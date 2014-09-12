@@ -2,7 +2,7 @@
 {% load oifilters %}
 {% with object as project %}
 <img src='/img/icons/delete.png' class="clickable actions" alt="{% trans 'delete this task' %}" title="{% trans 'delete this task' %}" onclick='this.parentElement.spot.remove()'/>
-<div class="prjtitle"><a href="/project/{{object.id}}">{{object.title}}</a></div>
+<div class="prjtitle"><a href="/prjmgt/{{object.id}}">{{object.title}}</a></div>
 <div id="specs_{{object.id}}">
 {% for spec in object.spec_set.all %}
 <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared">

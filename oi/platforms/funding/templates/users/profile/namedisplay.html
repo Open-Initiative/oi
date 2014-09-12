@@ -1,7 +1,0 @@
-<select id="select_display">
-    {% for display in displays %}
-    <option value="{{forloop.counter0}}" {% ifequal display user.get_profile.get_display_name %}SELECTED{% endifequal %}>{{display}}</option>
-    {% endfor %}
-</select>
-<img class="clickable" src="/img/icons/ok.png" onclick="setNameDisplay()" />
-<img class="clickable" src="/img/icons/delete.png" onclick="resetFullName('{{user.get_profile.get_display_name}}')" />

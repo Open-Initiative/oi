@@ -1,9 +1,0 @@
-{% load i18n %}
-<a href="http://{{current_site}}/user/profile/{{notice.sender.username}}" target="_blank">{{notice.sender.get_profile}}</a>
-{% if notice.project.parent %}
-{% trans "has evaluated you on task:" %}
-{% else %}
-{% trans "has evaluated you on project:" %}
-{% endif %}
-</br>
-<a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}" target="_blank">{{notice.project.title}}</a> : {{notice.param}}/5

@@ -31,8 +31,8 @@ urlpatterns = patterns('',
     # Pages des messages
     (r'^message/', include('oi.messages.urls')),
     # Pages des projets
+    (r'^prjmgt/', include('oi.platforms.project.extend-urls')),
     (r'^project/', include('oi.projects.urls')),
-#    (r'^', include('oi.platforms.project.extend-urls')),
     # Pages des utilisateurs
     (r'^user/', include('oi.users.urls')),
     # notifications

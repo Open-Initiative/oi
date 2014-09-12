@@ -1,9 +1,0 @@
-{% load i18n %}
-<a href="http://{{current_site}}/user/profile/{{notice.sender.username}}" target="_blank">{{notice.sender.get_profile}}</a>
-{% if notice.project.parent %}
-{% trans "has changed a task you follow:" %}
-{% else %}
-{% trans "has changed a project you follow:" %}
-{% endif %}
-<a href="http://{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}" target="_blank">{{notice.project.title}}</a><br />
-{{notice.param}}

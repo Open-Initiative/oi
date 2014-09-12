@@ -1,9 +1,0 @@
-{% load i18n %}
-{{notice.sender.get_profile}} 
-{% if notice.project.parent %}
-{% blocktrans %}has invited you on a task:{% endblocktrans %}
-{% else %}
-{% blocktrans %}has invited you on a project:{% endblocktrans %}
-{% endif %}
-{{notice.project.title}}
-http://{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}

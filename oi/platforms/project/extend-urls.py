@@ -6,7 +6,7 @@ from django.conf.urls import *
 from django.views.generic import TemplateView, DetailView
 from oi.projects.models import Project, Spec, OINeedsPrjPerms, OI_READ, OI_WRITE
 
-urlpatterns = patterns('oi.projects.views',
+urlpatterns = patterns('oi.platforms.project.views',
     (r'^(?P<id>\d+)/$', 'getproject'),
     (r'^(?P<id>\d+)/view/(?P<view>\w*)$', 'getproject'),
     (r'^get/(?P<id>\d+)/(?P<view>\w*)$', 'getproject'),
@@ -24,5 +24,5 @@ urlpatterns = patterns('oi.projects.views',
     (r'^(?P<id>\d+)/editspec/(?P<specid>\d+)$', 'editspec'),
     (r'^(?P<id>\d+)/editspecdetails/(?P<specid>\d+)$', 'editspecdetails'),
     (r'^rss/(?P<id>\d+)$', 'OIFeed'),
-    (r'^', include('oi.platforms.project.urls')),
+#    (r'^', include('oi.platforms.project.urls')),
 )

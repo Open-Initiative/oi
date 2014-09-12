@@ -326,3 +326,4 @@ function changeSpecType(divid, type) {
         });
 }
 
+

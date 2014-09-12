@@ -1,7 +1,0 @@
-{% load i18n %}
-{% if notice.project %}
-{{notice.sender.get_profile}} {% trans "added the feature:" %} {{notice.project.title}} {% trans "in the project" %} {{notice.project.parent.title}} {% trans "which you follow and we think it may interest you." %}
-http://{{current_site}}{{REDIRECT_URL}}{{notice.project.parent.id}}#feature_{{notice.project.id}}
-{% else %}
-{{notice.sender.get_profile}} {% trans "added the feature which now is deleted" %}
-{% endif %}

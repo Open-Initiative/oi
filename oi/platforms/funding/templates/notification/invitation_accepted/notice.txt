@@ -1,2 +1,0 @@
-{% load i18n %}
-{{notice.sender.get_profile}} {% trans "has accepted your invitation." %}

@@ -1,9 +1,0 @@
-{% load i18n %}
-{% if notice.sender.is_authenticated %}{{notice.sender.get_profile}}{% else %}{% trans "guest" %}{% endif %}
-{% if notice.project.parent %}
-{% blocktrans %} has published a message on a task you follow:{% endblocktrans %} 
-{% else %}
-{% blocktrans %} has published a message on a project you follow:{% endblocktrans %}
-{% endif %}
-{{notice.param}}
-http://{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}

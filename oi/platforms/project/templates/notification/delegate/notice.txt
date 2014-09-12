@@ -1,8 +1,0 @@
-{% load i18n %}
-{{notice.sender.get_profile}}
-{% if notice.project.parent %}
- {% blocktrans with title=notice.project.title %}wants to delegate the task{{title}}to you.{% endblocktrans %}
-{% else %}
-{% blocktrans with title=notice.project.title %}wants to delegate the project{{title}} to you.{% endblocktrans %}
-{% endif %}
-http://{{current_site}}{{REDIRECT_URL}}{{notice.project.id}}

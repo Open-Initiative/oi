@@ -1,3 +1,0 @@
-{% load i18n %}
-{{notice.sender.get_profile}} {% trans "has sent you a personal message:" %} {{notice.param}}
-http://{{current_site}}/user/messageswith/{{notice.sender.username}}

@@ -1,8 +1,0 @@
-{% load oifilters %}
-{% load i18n %}
-<div style="height: 24px;padding-bottom: 20px;padding-top: 20px;text-align: center;">{% trans "A link to another task or a web page..." %}</div>
-<div style="margin-bottom: 6%;margin-left: 32%;">
-    <label for="url_{{divid}}">Url</label>
-    <input style="border: 1px solid #CCCCCC;" id="url_{{divid}}" type="text" value="{% if spec.type != 4 %}{{spec.url}}{% else %}http://{% endif %}" />
-</div>
-<textarea id="text_{{divid}}" class="speclegend_file">{{spec.text|oiunescape}}</textarea>

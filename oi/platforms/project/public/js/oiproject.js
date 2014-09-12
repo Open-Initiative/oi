@@ -172,13 +172,6 @@ function resetProjectTitle(projectid, title) {
     if(document.getElementById("feature_"+projectid)) document.getElementById('feature_'+projectid).innerHTML = title;
     if(oiTree) setTaskName(oiTree.nodes[projectid].titleDiv, projectid, title, viewname);
 }
-function bidProject(projectid) {
-    OIajaxCall("/project/bid/"+projectid, null, "prjdialogue_"+projectid,
-        function(){show("prjdialogue_"+projectid);
-            document.getElementById('bid_'+projectid).focus();
-        }
-    );
-}
 function confirmBidProject(projectid) {
     if(document.getElementById("acceptcgu").checked){
         OIajaxCall("/project/confirmbid/"+projectid, "bid="+getValue("bid_"+projectid), "output", 
@@ -187,19 +180,9 @@ function confirmBidProject(projectid) {
         alert(gettext("Please accept the Terms of Use"));
     }
 }
-function validatorProject(projectid){
-    OIajaxCall("/project/validator/"+projectid, null, "prjdialogue_"+projectid,
-        function(){show("prjdialogue_"+projectid);
-        document.getElementById('validator_'+projectid).focus();});
-}
 function confirmValidatorProject(projectid) {
     OIajaxCall("/project/confirmvalidator/"+projectid, "username="+getValue("validator_"+projectid), "output", 
         function(){hide("prjdialogue_"+projectid);});
-}
-function offerProject(projectid) {
-    OIajaxCall("/project/offer/"+projectid, null, "prjdialogue_"+projectid, 
-        function(){show("prjdialogue_"+projectid);
-        document.getElementById('offer_'+projectid).focus();});
 }
 function confirmOfferProject(projectid) {
     if(document.getElementById("acceptcgu").checked){
@@ -208,10 +191,6 @@ function confirmOfferProject(projectid) {
     } else {
         alert(gettext("Please accept the Terms of Use"));
     }
-}
-function delegateProject(projectid) {
-    OIajaxCall("/project/delegate/"+projectid, null, "prjdialogue_"+projectid, 
-        function(){show("prjdialogue_"+projectid);document.getElementById('delegate_to_'+projectid).focus();});
 }
 function confirmDelegateProject(projectid) {
     OIajaxCall("/project/confirmdelegate/"+projectid, "delegate_to="+getValue("delegate_to_"+projectid), "output",
@@ -244,19 +223,9 @@ function resetStar(id, dest) {
 function setPriority(projectid) {
     OIajaxCall("/project/setpriority/"+projectid, "priority="+getValue(projectid+"_priority"), "output");
 }
-function evalProject(projectid) {
-    OIajaxCall("/project/eval/"+projectid, null, "prjdialogue_"+projectid, 
-        function(){show("prjdialogue_"+projectid);});
-}
 function confirmEvalProject(projectid) {
     OIajaxCall("/project/confirmeval/"+projectid, "rating="+getValue(projectid+"_eval")+"&comment="+getValue("eval_comment_"+projectid), "output", 
         function(){hide("prjdialogue_"+projectid);});
-}
-function shareProject(projectid) {
-    OIajaxCall("/project/"+projectid+"/share", null, "prjdialogue_"+projectid, 
-        function(){show("prjdialogue_"+projectid);
-        document.getElementById('usershare_'+projectid).focus();
-        });
 }
 function confirmShareProject(projectid) {
     OIajaxCall("/project/"+projectid+"/confirmshare", "username="+getValue("usershare_"+projectid), "output", 
@@ -417,12 +386,6 @@ function updateGithubRepos() {
     for(repo=repos[github_login.value][i]; i<repos[github_login.value].length; repo=repos[github_login.value][++i])
         github_repo.add(new Option(repo));
 }
-function addSpec(projectid) {
-    var divid = newDiv("specs_"+projectid);
-    OIajaxCall(prjsite+"/project/"+projectid+"/editspec/0?divid="+divid+"&specorder=-1", null, divid, 
-        function(){changeSpecType(divid, 1);});
-        document.getElementById(divid).scrollIntoView();
-}
 function moveSpec(projectid, specorder, moveUp){
     var div = jQuery("#spec_"+projectid+"_"+specorder);
     var specid = div.find("input").first().val();
@@ -438,30 +401,6 @@ function moveSpec(projectid, specorder, moveUp){
                 }
             }
         );  
-}
-function editSpec(projectid, specorder, type) {
-    var specid = getValue("specid_"+projectid+"_"+specorder);
-    var divid = "spec_"+projectid+"_"+specorder;
-    OIajaxCall(prjsite+"/project/"+projectid+"/editspec/"+specid+"?divid="+divid, null, divid,
-        function(){changeSpecType(divid, type);});
-}
-function changeSpecType(divid, type) {
-    if(getValue("type_"+divid)==1)tinymce.remove('#text_'+divid);
-    var text = getValue("text_"+divid);
-    var projectid = getValue("projectid_"+divid);
-    var specid = getValue("specid_"+divid);
-    document.getElementById("type"+getValue("type_"+divid)+"_"+divid).className = "spectype";
-    document.getElementById("type"+type+"_"+divid).className = "spectype spectypeselected";
-    document.getElementById("type_"+divid).value = type;
-    var url = prjsite+"/project/"+projectid+"/editspecdetails/"+specid+"?divid="+divid+"&type="+type+"&ts="+(new Date()).getTime();
-    OIajaxCall(url, null, "spec_"+divid, 
-        function(){
-            if(getValue("type_"+divid)==6) buildText(divid);
-            if(getValue("type_"+divid)==1){
-                var ed = new tinymce.Editor('text_'+divid, objectInitTinyMce, tinymce.EditorManager);
-                ed.render();
-            }
-        });
 }
 function prepareText(divid){
     var allvalue = "<dl>";

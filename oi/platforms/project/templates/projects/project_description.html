@@ -19,7 +19,7 @@
     {% if object.spot_set.all %}
     <div class="actions cleared">{% trans "linked to" %}</div>
     <div class="cleared"></div>
-    {% for spot in object.spot_set.all %} {% with spot.spec as spec %}<div class="minispec"><a href="/project/{{spot.spec.project.id}}">{{spot.spec.project.title|truncatewords:4}}{% include 'projects/spec/minispec.html' %}</a></div>
+    {% for spot in object.spot_set.all %} {% with spot.spec as spec %}<div class="minispec"><a href="/prjmgt/{{spot.spec.project.id}}">{{spot.spec.project.title|truncatewords:4}}{% include 'projects/spec/minispec.html' %}</a></div>
     {% endwith %}{% endfor %}
     {% endif %}
     <div class="cleared"></div>

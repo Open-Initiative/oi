@@ -1,8 +1,0 @@
-{{object.title}}
-{{object.title}}
-{{object.title}}
-{{object.title}}
-{{object.title}}
-
-{{object.text}}
-
