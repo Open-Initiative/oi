@@ -4,6 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.serializers import base
 from django.core.serializers import python
 from django.utils.encoding import is_protected_type
+from django.utils import six
 
 def oiserialize(format, queryset, **options):
     """
@@ -22,15 +23,17 @@ def _oiserialize(self, queryset, **options):
     """
     self.options = options
 
-    self.stream = options.pop("stream", StringIO())
+    self.stream = options.pop("stream", six.StringIO())
     self.selected_fields = options.pop("fields", None)
     self.use_natural_keys = options.pop("use_natural_keys", False)
     self.extra_fields = options.pop("extra_fields", [])
 
     self.start_serialization()
+    self.first = True
     for obj in queryset:
         self.start_object(obj)
-        for field in obj._meta.local_fields:
+        concrete_model = obj._meta.concrete_model
+        for field in concrete_model._meta.local_fields:
             if field.serialize:
                 if field.rel is None:
                     if self.selected_fields is None or field.attname in self.selected_fields:
@@ -38,16 +41,18 @@ def _oiserialize(self, queryset, **options):
                 else:
                     if self.selected_fields is None or field.attname[:-3] in self.selected_fields:
                         self.handle_fk_field(obj, field)
-        for field in obj._meta.many_to_many:
+        for field in concrete_model._meta.many_to_many:
             if field.serialize:
                 if self.selected_fields is None or field.attname in self.selected_fields:
                     self.handle_m2m_field(obj, field)
         for field in self.extra_fields:
             self.handle_extra_field(obj, field)
         self.end_object(obj)
+        if self.first:
+            self.first = False
     self.end_serialization()
     return self.getvalue()
-
+    
 base.Serializer._oiserialize = _oiserialize
 
 def handle_extra_field(self, obj, field_name):

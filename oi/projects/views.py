@@ -54,7 +54,7 @@ def listtasks(request, id):
     #takes the given id as default if expand is not provided
     request_dict = QueryDict(request.body)
     if request.method == "GET":
-        idlist = [id] if not request_dict.has_key("expand") else request_dict["expand"].split(",")
+        idlist = [id] if not request.GET.has_key("expand") else request.GET["expand"].split(",")
         for taskid in idlist:
             if taskid:
                 project = Project.objects.get(id=taskid)
