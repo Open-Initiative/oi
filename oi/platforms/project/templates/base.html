@@ -16,6 +16,11 @@
     <link rel="stylesheet" type="text/css" media="all" href="http://{{Sites|get:'Open Initiative'}}/css/jquery-ui-1.9.1.custom.css" /> 
     {% endcompress %}
     {% compress js %}
+    <script>
+        sites = {{Sites|safe}};
+        prjsite = "http://" + sites["Open Initiative Projects"];
+        fundingsite = "http://" + sites["Open Funding"];
+    </script>
     <script type="text/javascript" src="http://{{Sites|get:'Open Initiative'}}/js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="http://{{Sites|get:'Open Initiative'}}/js/jquery-ui-1.9.1.custom.js"></script>
     <script type="text/javascript" src="http://{{Sites|get:'Open Initiative'}}/js/tiny_mce/tinymce.min.js"></script>
@@ -40,11 +45,6 @@
     <script type="text/javascript" src="/js/oitree.js"></script>
     <script type="text/javascript" src="/js/oitable.js"></script>
     <script type="text/javascript" src="/js/oigantt.js"></script>
-    <script>
-        sites = {{Sites|safe}};
-        prjsite = "http://" + sites["Open Initiative Projects"];
-        fundingsite = "http://" + sites["Open Funding"];
-    </script>
     {% endcompress %}
     <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
     <title>{% block title %}{% endblock %} - Open Initiative</title>

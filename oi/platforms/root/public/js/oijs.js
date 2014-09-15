@@ -269,7 +269,7 @@ function setPrjState(span,statenum) {
 }
 
 // Allow tinyMCE to find css files
-tinyMCE.baseURL = "/js/tiny_mce/";// trailing slash important
+tinyMCE.baseURL = "http://"+sites["Open Initiative"]+"/js/tiny_mce/";// trailing slash important
 //I created an object to init the tinymce in textarea and call it instead of mceAddControl in other js function
 objectInitTinyMce = {
     selector: "textarea.editable",
@@ -284,7 +284,7 @@ objectInitTinyMce = {
         };
     },
     plugins: ["advlist autolink link image lists charmap spellchecker visualblocks media paste"],
-   content_css: "/css/tinymce.css",
+   content_css: "http://"+sites["Open Initiative"]+"/css/tinymce.css",
    toolbar_items_size : 'small',
    toolbar: "insertfile | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image", 
    style_formats: [

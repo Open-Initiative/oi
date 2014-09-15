@@ -17,6 +17,10 @@
     <link rel="stylesheet" type="text/css" media="all" href="/css/oifundingmobile.css" />
     {% endcompress %}
     {% compress js %}
+    <script>
+        sites = {{Sites|safe}};
+        prjsite = "http://" + sites["Open Funding"];
+    </script>
     <script type="text/javascript" src="http://{{Sites|get:'Open Initiative'}}/js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="http://{{Sites|get:'Open Initiative'}}/js/jquery-ui-1.9.1.custom.js"></script>
     <script type="text/javascript" src="/js/hammer.min.js"></script>
@@ -42,10 +46,6 @@
     <script type="text/javascript" src="/js/oiproject.js"></script>
     <script type="text/javascript" src="/js/oifunding.js"></script>
     <script type="text/javascript" src="http://{{Sites|get:'Open Initiative'}}/js/oiuser.js"></script>
-    <script>
-        sites = {{Sites|safe}};
-        prjsite = "http://" + sites["Open Funding"];
-    </script>
     {% endcompress %}
     <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
     <title>{% block title %}{% endblock %} - Open Funding</title>
