@@ -1,11 +1,11 @@
 #!/bin/bash
-
+cd ..
 cat <<EOF > 000-root.conf
 <VirtualHost *:8050>
 
     ServerAdmin webmaster@localhost
-    DocumentRoot $PWD/../www_root
-    <Directory $PWD/../www_root>
+    DocumentRoot $PWD/www_root
+    <Directory $PWD/www_root>
         Options FollowSymLinks MultiViews ExecCGI
         AllowOverride None
         Require all granted
@@ -27,8 +27,8 @@ cat <<EOF > 001-funding.conf
 <VirtualHost *:8051>
 
     ServerAdmin webmaster@localhost
-    DocumentRoot $PWD/../www_funding
-    <Directory $PWD/../www_funding>
+    DocumentRoot $PWD/www_funding
+    <Directory $PWD/www_funding>
         Options FollowSymLinks MultiViews ExecCGI
         AllowOverride None
         Require all granted
@@ -52,8 +52,8 @@ cat <<EOF > 002-project.conf
 <VirtualHost *:8052>
 
     ServerAdmin webmaster@localhost
-    DocumentRoot $PWD/../www_project
-    <Directory $PWD/../www_project>
+    DocumentRoot $PWD/www_project
+    <Directory $PWD/www_project>
         Options FollowSymLinks MultiViews ExecCGI
         AllowOverride None
         Order allow,deny
