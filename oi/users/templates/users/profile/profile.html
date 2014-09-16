@@ -1,4 +1,4 @@
-{% extends "funding/base.html" %}
+{% extends "base.html" %}
 {% load i18n %}
 {% load oifilters %}
 {% block title %}{{selected_user.username}}{% endblock %}
@@ -28,7 +28,7 @@
     
     <div class="profilecolumn">
     
-        <div class="fundingright"><span style="color:#0094B5">{{selected_user.get_profile.city}}, {{selected_user.get_profile.country}}</span><br/>{{selected_user.date_joined|date:"M"}}, {{selected_user.date_joined|date:"Y"}}</div>
+        <div class="oiright"><span style="color:#0094B5">{{selected_user.get_profile.city}}, {{selected_user.get_profile.country}}</span><br/>{{selected_user.date_joined|date:"M"}}, {{selected_user.date_joined|date:"Y"}}</div>
         
         <div class="h2title">
             {{selected_user.get_profile|capfirst }}
@@ -62,7 +62,7 @@
     </div>
 </div>
 <div class="blue_band cleared"></div>
-<div class="related">
+<div class="related no_related_class">
     <div>
         <span id="created" class="profile_subtitle clickable" onclick="profile_content('all_created_project')">{% trans "Projects created" %}</span>
         
@@ -76,7 +76,7 @@
             <ul class="center_content">
                 {% for object in selected_user.get_profile.get_created_projects|filter_read:user|slice:":3" %}
                     <li>
-                        {% include 'funding/project_card.html' %}
+                        {% include 'project_card.html' %}
                     </li>
                 {% empty %}
                     <p>{% trans "No project created" %}</p>
@@ -84,7 +84,7 @@
                 </ul>
                 <div class="cleared"></div>
                 {% with tasks=selected_user.get_profile.get_funded_projects|filter_read:user %}
-                {% if tasks.count > 3 %}<span class="clickable" onclick="seeMore('created_visible', 'created_invisible')"><a class="btn_feature fundingright bluesky">{% trans "See more" %}</a></span>
+                {% if tasks.count > 3 %}<span class="clickable" onclick="seeMore('created_visible', 'created_invisible')"><a class="btn_feature oiright bluesky">{% trans "See more" %}</a></span>
                 {% endif %}
                 {% endwith %}
             </div>
@@ -93,11 +93,11 @@
                 <ul class="center_content">
                 {% for object in selected_user.get_profile.get_created_projects|filter_read:user %}
                     <li>
-                        {% include 'funding/project_card.html' %}
+                        {% include 'project_card.html' %}
                     </li>
                 {% endfor %}
             </ul>
-            <span class="clickable" onclick="seeMore('created_visible', 'created_invisible')"><a class="btn_feature fundingright bluesky">{% trans "See less" %}</a></span>
+            <span class="clickable" onclick="seeMore('created_visible', 'created_invisible')"><a class="btn_feature oiright bluesky">{% trans "See less" %}</a></span>
         </div>
     </div>
     
@@ -108,7 +108,7 @@
             <ul class="center_content">
                 {% for object in selected_user.get_profile.get_funded_projects|filter_read:user|slice:":3" %}
                     <li>
-                        {% include 'funding/project_card.html' %}
+                        {% include 'project_card.html' %}
                     </li>
                 {% empty %}
                     <p>{% trans "No project funded" %}</p>
@@ -116,7 +116,7 @@
             </ul>
             <div class="cleared"></div>
             {% with tasks=selected_user.get_profile.get_funded_projects|filter_read:user %}
-            {% if tasks.count > 3 %}<span class="clickable" onclick="seeMore('funded_visible', 'funded_invisible')"><a class="btn_feature fundingright bluesky">{% trans "See more" %}</a></span>
+            {% if tasks.count > 3 %}<span class="clickable" onclick="seeMore('funded_visible', 'funded_invisible')"><a class="btn_feature oiright bluesky">{% trans "See more" %}</a></span>
             {% endif %}
             {% endwith %}
             </div>
@@ -124,12 +124,12 @@
                 <ul class="center_content">
                 {% for object in selected_user.get_profile.get_funded_projects|filter_read:user %}
                     <li>
-                        {% include 'funding/project_card.html' %}
+                        {% include 'project_card.html' %}
                     </li>
                 {% endfor %}
             </ul>
             <div class="cleared"></div>
-            <span class="clickable" onclick="seeMore('funded_visible', 'funded_invisible')"><a class="btn_feature fundingright bluesky">{% trans "See less" %}</a></span>
+            <span class="clickable" onclick="seeMore('funded_visible', 'funded_invisible')"><a class="btn_feature oiright bluesky">{% trans "See less" %}</a></span>
         </div>
     </div>
 </div>
