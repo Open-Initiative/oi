@@ -5,7 +5,7 @@ function setTaskName(div, id, title, view) {
     var titleDiv = document.createElement('div');
     titleDiv.className = "treetitle";
     div.appendChild(titleDiv);
-    titleDiv.innerHTML = '<a href="/project/'+id+'/view/'+view+'">'+title+'</a>';
+    titleDiv.innerHTML = '<a href="/prjmgt/'+id+'/view/'+view+'">'+title+'</a>';
     titleDiv.title = title;
     var newTaskForm = document.createElement("form");
     newTaskForm.id = "newtask_"+id;

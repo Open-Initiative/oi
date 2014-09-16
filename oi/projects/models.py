@@ -634,7 +634,7 @@ class Release(models.Model):
     project = models.ForeignKey(Project)
     name = models.CharField(max_length=50)
     due_date = models.DateTimeField(blank=True, null=True)
-    done = models.BooleanField()
+    done = models.BooleanField(default=False)
     
     class Meta:
         unique_together = ("project", "name")
