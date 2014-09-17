@@ -52,7 +52,6 @@ def listtasks(request, id):
     """list tasks of requested projects in id or optionnal url parameter expand. Takes care of permissions and order"""
     lists = []
     #takes the given id as default if expand is not provided
-    request_dict = QueryDict(request.body)
     if request.method == "GET":
         idlist = [id] if not request.GET.has_key("expand") else request.GET["expand"].split(",")
         for taskid in idlist:
@@ -63,7 +62,7 @@ def listtasks(request, id):
                     #adding the task if the user has no right on it, but with no info
                     lists.append('[{"pk": %s, "fields": {"state": 4, "parent": "%s", "title": "..."}}]'%(project.id,project.parent.id))
             
-                if request_dict.has_key("listall"): #for the overview table
+                if request.GET.has_key("listall"): #for the overview table
                     tasks = project.descendants.filter_perm(request.user, OI_READ)
                 else: #for the tree
                     tasks = project.tasks.filter_perm(request.user, OI_READ)
@@ -92,75 +91,67 @@ def listtasks(request, id):
 def paginateoverview(request, tasks):
     """paginate tasks on overview table"""
     paginator = Paginator(tasks, 25, 0, True)
-    request_dict = QueryDict(request.body)
-    if request.method == "GET":
-        if request_dict.has_key('page'):
-            paginator = Paginator(tasks, 25, 0, True)
-            page = request_dict.get('page')
-            try:
-                tasks = paginator.page(page).object_list
-            except PageNotAnInteger:
-                tasks = paginator.page(1).object_list
-            except EmptyPage:
-                tasks = paginator.page(paginator.num_pages).object_list
-        return {'num_pages':paginator.num_pages, 'nbtask':tasks.count(), 'tasks':tasks}
+    if request.GET.has_key('page'):
+        paginator = Paginator(tasks, 25, 0, True)
+        page = request.GET.get('page')
+        try:
+            tasks = paginator.page(page).object_list
+        except PageNotAnInteger:
+            tasks = paginator.page(1).object_list
+        except EmptyPage:
+            tasks = paginator.page(paginator.num_pages).object_list
+    return {'num_pages':paginator.num_pages, 'nbtask':tasks.count(), 'tasks':tasks}
 
 def orderoverview(request, tasks):
     """sort with ascending order or decreasing order"""
-    request_dict = QueryDict(request.body)
-    if request.method == "GET":
-        if request_dict.has_key("order"):
-            tasks = tasks.order_by(request_dict['order'])
-        else:
-            tasks = tasks.order_by('-priority')
-        return tasks
+    if request.GET.has_key("order"):
+        tasks = tasks.order_by(request.GET['order'])
+    else:
+        tasks = tasks.order_by('-priority')
+    return tasks
 
 def releaseoverview(request, tasks, project):
     """filter the tasks on release"""
-    request_dict = QueryDict(request.body)
-    if request.method == "GET":
-        if request_dict.get("release"):
-            releases = request.session.get("releases", {})
-            releases[project.master.id] = request_dict['release']
-            request.session["releases"] = releases
-            if request_dict['release'] != '**':
-                if request_dict['release'] == '*':
-                    tasks = tasks.filter(Q(target__isnull=True)|Q(descendants__isnull=False, descendants__target__isnull=True)).distinct()
-                
-                else:
-                    tasks = tasks.filter(Q(target__name = request_dict['release'])|Q(descendants__target__name = request_dict['release'])).distinct()
-        return tasks
+    if request.GET.get("release"):
+        releases = request.session.get("releases", {})
+        releases[project.master.id] = request.GET['release']
+        request.session["releases"] = releases
+        if request.GET['release'] != '**':
+            if request.GET['release'] == '*':
+                tasks = tasks.filter(Q(target__isnull=True)|Q(descendants__isnull=False, descendants__target__isnull=True)).distinct()
+            
+            else:
+                tasks = tasks.filter(Q(target__name = request.GET['release'])|Q(descendants__target__name = request.GET['release'])).distinct()
+    return tasks
 
 def filteroverview(request, tasks):
     """filter on overview table"""
-    request_dict = QueryDict(request.body)
-    if request.method == "GET":
-        #this queryset filter with request key 'filter_title' in overview table   
-        if request_dict.get('filter_title'):
-            tasks = tasks.filter(title__contains=request_dict['filter_title'])
-           
-        #this queryset filter with request key 'filter_state' in overview table     
-        if request_dict.get('filter_state'):
-            tasks = tasks.filter(state=request_dict['filter_state'])
-         
-        #this queryset filter with request key 'filter_echeance' in overview table    
-        if request_dict.get('filter_echeance'):
-            tasks = tasks.filter(
-                Q(start_date__gte=datetime.now(), start_date__lte=datetime.now()+timedelta(0, int(request_dict['filter_echeance'])))|
-                Q(due_date__gte=datetime.now(), due_date__lte=datetime.now()+timedelta(hours=0, seconds=int(request_dict['filter_echeance'])))|
-                Q(validation__gte=datetime.now(), validation__lte=datetime.now()+timedelta(0, int(request_dict['filter_echeance']))))
+    #this queryset filter with request key 'filter_title' in overview table   
+    if request.GET.get('filter_title'):
+        tasks = tasks.filter(title__contains=request.GET['filter_title'])
+       
+    #this queryset filter with request key 'filter_state' in overview table     
+    if request.GET.get('filter_state'):
+        tasks = tasks.filter(state=request.GET['filter_state'])
+     
+    #this queryset filter with request key 'filter_echeance' in overview table    
+    if request.GET.get('filter_echeance'):
+        tasks = tasks.filter(
+            Q(start_date__gte=datetime.now(), start_date__lte=datetime.now()+timedelta(0, int(request.GET['filter_echeance'])))|
+            Q(due_date__gte=datetime.now(), due_date__lte=datetime.now()+timedelta(hours=0, seconds=int(request.GET['filter_echeance'])))|
+            Q(validation__gte=datetime.now(), validation__lte=datetime.now()+timedelta(0, int(request.GET['filter_echeance']))))
+    
+    #this queryset filter with request key 'filter_assignee' in overview table    
+    if request.GET.get('filter_assignee'):
+        tasks = tasks.filter(assignee__username=request.GET['filter_assignee'])
         
-        #this queryset filter with request key 'filter_assignee' in overview table    
-        if request_dict.get('filter_assignee'):
-            tasks = tasks.filter(assignee__username=request_dict['filter_assignee'])
-            
-        if request_dict.get('filter_budget_min') and request_dict.get('filter_budget_max'):
-            tasks = tasks.filter(Q(offer__gte=request_dict['filter_budget_min']),Q(offer__lte=request_dict['filter_budget_max']))
-          
-        #this queryset filter with request key 'filter_release' in overview table  
-        if request_dict.get('filter_release'):
-            tasks = tasks.filter(target__name__contains=request_dict['filter_release'])
-        return tasks
+    if request.GET.get('filter_budget_min') and request.GET.get('filter_budget_max'):
+        tasks = tasks.filter(Q(offer__gte=request.GET['filter_budget_min']),Q(offer__lte=request.GET['filter_budget_max']))
+      
+    #this queryset filter with request key 'filter_release' in overview table  
+    if request.GET.get('filter_release'):
+        tasks = tasks.filter(target__name__contains=request.GET['filter_release'])
+    return tasks
 
 @OINeedsPrjPerms(OI_MANAGE)
 def addrelease(request, id):
