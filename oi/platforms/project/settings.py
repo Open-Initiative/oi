@@ -3,7 +3,7 @@
 # Django settings for oi project.
 from oi.settings_common import *
 
-REDIRECT_URL = "/project/"
+REDIRECT_URL = "/prjmgt/"
 ROOT_URLCONF = 'oi.platforms.project.urls'
 SITE_NAME = "Open Initiative Projects"
 

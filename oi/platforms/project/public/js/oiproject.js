@@ -173,28 +173,28 @@ function resetProjectTitle(projectid, title) {
     if(oiTree) setTaskName(oiTree.nodes[projectid].titleDiv, projectid, title, viewname);
 }
 function confirmBidProject(projectid) {
-    if(document.getElementById("acceptcgu").checked){
+    if(document.getElementById("acceptcgubid").checked){
         OIajaxCall("/project/confirmbid/"+projectid, "bid="+getValue("bid_"+projectid), "output", 
-            function(){hide("prjdialogue_"+projectid);});
+            function(){hide("prjdialoguebid_"+projectid);});
     } else {
         alert(gettext("Please accept the Terms of Use"));
     }
 }
 function confirmValidatorProject(projectid) {
     OIajaxCall("/project/confirmvalidator/"+projectid, "username="+getValue("validator_"+projectid), "output", 
-        function(){hide("prjdialogue_"+projectid);});
+        function(){hide("prjdialoguevalidator_"+projectid);});
 }
 function confirmOfferProject(projectid) {
-    if(document.getElementById("acceptcgu").checked){
+    if(document.getElementById("acceptcguoffer").checked){
         OIajaxCall("/project/confirmoffer/"+projectid, "offer="+getValue("offer_"+projectid), "output", 
-        function(){hide("prjdialogue_"+projectid);});  
+        function(){hide("prjdialogueoffer_"+projectid);});  
     } else {
         alert(gettext("Please accept the Terms of Use"));
     }
 }
 function confirmDelegateProject(projectid) {
     OIajaxCall("/project/confirmdelegate/"+projectid, "delegate_to="+getValue("delegate_to_"+projectid), "output",
-        function(){hide("prjdialogue_"+projectid);});
+        function(){hide("prjdialoguedelegate_"+projectid);});
 }
 function startProject(projectid) {
     if(confirm(gettext("Are you sure you want to start this task?")))
@@ -225,11 +225,11 @@ function setPriority(projectid) {
 }
 function confirmEvalProject(projectid) {
     OIajaxCall("/project/confirmeval/"+projectid, "rating="+getValue(projectid+"_eval")+"&comment="+getValue("eval_comment_"+projectid), "output", 
-        function(){hide("prjdialogue_"+projectid);});
+        function(){hide("prjdialogueeval_"+projectid);});
 }
 function confirmShareProject(projectid) {
     OIajaxCall("/project/"+projectid+"/confirmshare", "username="+getValue("usershare_"+projectid), "output", 
-        function(){hide("prjdialogue_"+projectid);});
+        function(){hide("prjdialogueshare_"+projectid);});
 }
 function cancelProject(projectid, state) {
     question = gettext("Are you sure you want to cancel this task?");

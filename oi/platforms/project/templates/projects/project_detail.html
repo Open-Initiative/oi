@@ -75,7 +75,15 @@
     <div class="cleared"></div>
     {% with object as project %}
     <div id="project_{{object.id}}" class="project">
-        <div id="prjdialogue_{{object.id}}" class="popup invisible"></div>
+        
+        {% for obj in prjdialogues %}
+            <div id="prjdialogue{{obj}}_{{object.id}}" class="popup invisible">
+            {% with 'projects/dialogue/'|add:obj|add:'.html' as template_name %}
+                {% include template_name %}
+            {% endwith %}
+            </div>
+        {% endfor %}
+        
         <div>
         {% with "projects/project_"|add:current_view|add:".html" as template_name %}
         {% include template_name %}

@@ -28,34 +28,3 @@ function changeSpecType(divid, type) {
             }
         });
 }
-function validatorProject(projectid){
-    OIajaxCall("/prjmgt/validator/"+projectid, null, "prjdialogue_"+projectid,
-        function(){show("prjdialogue_"+projectid);
-        document.getElementById('validator_'+projectid).focus();});
-}
-function shareProject(projectid) {
-    OIajaxCall("/prjmgt/"+projectid+"/share", null, "prjdialogue_"+projectid, 
-        function(){show("prjdialogue_"+projectid);
-        document.getElementById('usershare_'+projectid).focus();
-        });
-}
-function evalProject(projectid) {
-    OIajaxCall("/prjmgt/eval/"+projectid, null, "prjdialogue_"+projectid, 
-        function(){show("prjdialogue_"+projectid);});
-}
-function bidProject(projectid) {
-    OIajaxCall("/prjmgt/bid/"+projectid, null, "prjdialogue_"+projectid,
-        function(){show("prjdialogue_"+projectid);
-            document.getElementById('bid_'+projectid).focus();
-        }
-    );
-}
-function delegateProject(projectid) {
-    OIajaxCall("/prjmgt/delegate/"+projectid, null, "prjdialogue_"+projectid, 
-        function(){show("prjdialogue_"+projectid);document.getElementById('delegate_to_'+projectid).focus();});
-}
-function offerProject(projectid) {
-    OIajaxCall("/prjmgt/offer/"+projectid, null, "prjdialogue_"+projectid, 
-        function(){show("prjdialogue_"+projectid);
-        document.getElementById('offer_'+projectid).focus();});
-}

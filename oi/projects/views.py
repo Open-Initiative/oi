@@ -39,13 +39,6 @@ from oi.prjnotify.models import Observer
 from oi.settings_common import OI_GITHUB_ID, OI_GITHUB_SECRET, MEDIA_ROOT, TEMP_DIR
 import re
 
-class Projectview(DetailView):
-    model = Project
-    def get_context_data(self, request, object_id, view="overview"): 
-        return {'current_view':view or 'overview', 'views':OI_PRJ_VIEWS, 'table_overview': OI_TABLE_OVERVIEW, 'release': request.session.get("releases", {}).get(project.master.id, project.master.target.name if project.master.target else None)}
-        
-    def get_object(self):
-        return 
 
 @OINeedsPrjPerms(OI_READ)
 def listtasks(request, id):

@@ -38,6 +38,9 @@ OI_PRJ_VIEWS = ['overview','description','planning','team','budget', 'github']
 # Available table_overview
 OI_TABLE_OVERVIEW = ['title','state','due_date','assignee','offer','target']
 
+# Available prjdialogue
+OI_PRJDIALOGUES = ['bid','delegate','eval','offer','share','validator']
+
 # Project constants
 OI_PRJ_DONE = 100
 OI_CANCELLED_BID = -1

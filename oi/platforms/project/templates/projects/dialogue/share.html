@@ -1,5 +1,6 @@
-<form onsubmit="confirmShareProject({{params.id}});return false">
-    <input id="usershare_{{params.id}}" type="text" />
+{% load i18n %}
+<form onsubmit="confirmShareProject({{object.id}});return false">
+    <input id="usershare_{{object.id}}" type="text" />
     <input type="image" class="clickable" src="/img/icons/ok-32.png"/>
-    <img class="clickable" src="/img/icons/del-32.png" onclick="hide('prjdialogue_{{params.id}}')" />
+    <img class="clickable" src="/img/icons/del-32.png" onclick="hide('prjdialogueshare_{{object.id}}')" />
 </form>

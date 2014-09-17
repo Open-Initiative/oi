@@ -20,7 +20,7 @@
             <div class="cleared"></div>
             {% if project.assignee == user and project.state < 3 %}
             <div>{% trans "You are in charge of this task" %}</div>
-            <div class="bidaction clickable" onclick="delegateProject({{project.id}})">{% trans "Delegate" %}</div>
+            <div class="bidaction clickable" onclick="show('prjdialoguedelegate_{{project.id}}')">{% trans "Delegate" %}</div>
             {% endif %}
             {% if project.delegate_to %}
                 {% ifequal user project.delegate_to %}
@@ -54,7 +54,7 @@
             {% empty %}
                 {% trans "No bidder on this project" %}
             {% endfor %}
-            {% if project|can_manage:user %}<div class="cleared"><a class="clickable" onclick="validatorProject({{project.id}})"><img class="clickable" src="/img/icons/add.png"> {% trans "Invite members" %}</a></div>{% endif %}
+            {% if project|can_manage:user %}<div class="cleared"><a class="clickable" onclick="show('prjdialoguevalidator_{{project.id}}')"><img class="clickable" src="/img/icons/add.png"> {% trans "Invite members" %}</a></div>{% endif %}
         </div> 
         <div class="smallcolumn">
             <img src="/img/askoi.png" title="{% trans 'Guests can see the task and comment it.' %}" alt="{% trans 'Guests can see the task and comment it.' %}" class="head-help"><h3>{{project.list_guests.count}} {% blocktrans count counter=project.list_guests.count %} Guest {% plural %} Guests {% endblocktrans %}</h3></h3>
@@ -66,7 +66,7 @@
             {% empty %}
             {% trans "No guest on this task" %}
             {% endfor %}
-            {% if project|can_manage:user %}<div class="cleared"><a class="clickable" onclick="shareProject({{project.id}})"><img class="clickable" src="/img/icons/add.png"> {% trans "Invite members" %}</a></div>{% endif %}
+            {% if project|can_manage:user %}<div class="cleared"><a class="clickable" onclick="show('prjdialogueshare_{{project.id}}')"><img class="clickable" src="/img/icons/add.png"> {% trans "Invite members" %}</a></div>{% endif %}
         </div>
         <div class="cleared"></div>
         <div class="smallcolumn" id="public">

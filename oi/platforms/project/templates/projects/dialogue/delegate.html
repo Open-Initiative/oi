@@ -1,5 +1,6 @@
-<form onsubmit="confirmDelegateProject({{params.id}});return false">
-    <input id="delegate_to_{{params.id}}" type="text" />
+﻿﻿{% load oifilters %}
+<form onsubmit="confirmDelegateProject({{object.id}});return false">
+    <input id="delegate_to_{{object.id}}" type="text" />
     <input type="image" class="clickable" src="/img/icons/ok-32.png"/>
-    <img class="clickable" src="/img/icons/del-32.png" onclick="hide('prjdialogue_{{params.id}}')" />
+    <img class="clickable" src="/img/icons/del-32.png" onclick="hide('prjdialoguedelegate_{{object.id}}')" />
 </form>

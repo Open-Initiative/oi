@@ -5,7 +5,7 @@
     <div>
         <h3>{% if project.missing_bid > 0 %}{% trans "Payment awaiting:" %} {{project.missing_bid|floatformat:2}} €{% endif %}</h3>
         {% if project.state < 3 %}{% if project|can_bid:user %}{% if not project|bids:user %}
-        <div onclick="bidProject({{project.id}})" class="clickable bidaction">{% trans "Bid_verb" %}</div>
+        <div onclick="show('prjdialogueoffer_{{project.id}}')" class="clickable bidaction">{% trans "Bid_verb" %}</div>
         {% endif %}{% endif %}{% endif %}
     </div>
     <div>
@@ -89,7 +89,7 @@
                 <div class="username">{{bid.user}}</div>
                 <div>{{bid.amount}} €</div>
                 {% if user == bid.user and project.state < 3 %}
-                    <div><img class="clickable" src="/img/icons/add.png" onclick="bidProject({{project.id}})" /> {% trans "Add a new bid" %}</div>
+                    <div><img class="clickable" src="/img/icons/add.png" onclick="show('prjdialoguebid_{{project.id}}')" /> {% trans "Add a new bid" %}</div>
                     <div><img class="clickable" src="/img/icons/delete.png" onclick="cancelBid({{project.id}}, {% if project.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "Cancel your bid on this task" %}" title="{% trans "Cancel your bid on this task" %}" /> {% trans "Cancel my bid" %}</div>
                 {% endif %}
                 <div class="cleared"></div>
