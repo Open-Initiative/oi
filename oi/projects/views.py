@@ -36,7 +36,7 @@ from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeed
 from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
 from oi.prjnotify.models import Observer
-from oi.settings_common import OI_GITHUB_ID, OI_GITHUB_SECRET, MEDIA_ROOT
+from oi.settings_common import OI_GITHUB_ID, OI_GITHUB_SECRET, MEDIA_ROOT, TEMP_DIR
 import re
 
 class Projectview(DetailView):
@@ -52,41 +52,40 @@ def listtasks(request, id):
     """list tasks of requested projects in id or optionnal url parameter expand. Takes care of permissions and order"""
     lists = []
     #takes the given id as default if expand is not provided
-    if request.method == "GET":
-        idlist = [id] if not request.GET.has_key("expand") else request.GET["expand"].split(",")
-        for taskid in idlist:
-            if taskid:
-                project = Project.objects.get(id=taskid)
-                #if user doesn't have permission to see the project, add it as '...'
-                if project.parent and not project.has_perm(request.user, OI_READ):
-                    #adding the task if the user has no right on it, but with no info
-                    lists.append('[{"pk": %s, "fields": {"state": 4, "parent": "%s", "title": "..."}}]'%(project.id,project.parent.id))
+    idlist = [id] if not request.GET.has_key("expand") else request.GET["expand"].split(",")
+    for taskid in idlist:
+        if taskid:
+            project = Project.objects.get(id=taskid)
+            #if user doesn't have permission to see the project, add it as '...'
+            if project.parent and not project.has_perm(request.user, OI_READ):
+                #adding the task if the user has no right on it, but with no info
+                lists.append('[{"pk": %s, "fields": {"state": 4, "parent": "%s", "title": "..."}}]'%(project.id,project.parent.id))
+        
+            if request.GET.has_key("listall"): #for the overview table
+                tasks = project.descendants.filter_perm(request.user, OI_READ)
+            else: #for the tree
+                tasks = project.tasks.filter_perm(request.user, OI_READ)
             
-                if request.GET.has_key("listall"): #for the overview table
-                    tasks = project.descendants.filter_perm(request.user, OI_READ)
-                else: #for the tree
-                    tasks = project.tasks.filter_perm(request.user, OI_READ)
-                
-                #this function is use to filter on overview table
-                tasks = filteroverview(request, tasks)
-                
-                #this function sort on the project for the release
-                tasks = releaseoverview(request, tasks, project)
-                
-                #this function sort by order
-                tasks = orderoverview(request, tasks)
-                
-                #this function paginate on overview table
-                dict_overview = paginateoverview(request, tasks)
-                tasks = dict_overview['tasks']
-                lists.append({'num_pages':dict_overview['num_pages'] ,'nbtask':dict_overview['nbtask']})
-                        
-                #appends the serialized task list to the global list
-                lists.append(serializers.oiserialize("json", tasks,
-                    extra_fields=("author.get_profile","assignee.get_profile.get_display_name","get_budget","allbid_sum",
-                        "bid_set.count","target.name","target.done","target.project","created","start_date",
-                        "due_date","validation", "githubsync_set.get.repository", "githubsync_set.get.label","tasks.count")))
-        return HttpResponse(JSONEncoder().encode(lists)) #serializes the whole thing
+            #this function is use to filter on overview table
+            tasks = filteroverview(request, tasks)
+            
+            #this function sort on the project for the release
+            tasks = releaseoverview(request, tasks, project)
+            
+            #this function sort by order
+            tasks = orderoverview(request, tasks)
+            
+            #this function paginate on overview table
+            dict_overview = paginateoverview(request, tasks)
+            tasks = dict_overview['tasks']
+            lists.append({'num_pages':dict_overview['num_pages'] ,'nbtask':dict_overview['nbtask']})
+                    
+            #appends the serialized task list to the global list
+            lists.append(serializers.oiserialize("json", tasks,
+                extra_fields=("author.get_profile","assignee.get_profile.get_display_name","get_budget","allbid_sum",
+                    "bid_set.count","target.name","target.done","target.project","created","start_date",
+                    "due_date","validation", "githubsync_set.get.repository", "githubsync_set.get.label","tasks.count")))
+    return HttpResponse(JSONEncoder().encode(lists)) #serializes the whole thing
 
 def paginateoverview(request, tasks):
     """paginate tasks on overview table"""
