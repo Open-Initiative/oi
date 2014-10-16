@@ -65,8 +65,10 @@ function addRelease(projectid){
         OIajaxCall("/project/"+projectid+"/addrelease", "release="+value, "output", 
             function(){
                 var newRelease = ["release","nextrelease","entitle-overview_"+projectid];
-                for(var i = 0; i < newRelease.length; i++){
-                    document.getElementById(newRelease[i]).appendChild(document.createElement("option")).innerHTML = value;
+                if(document.getElementById(newRelease[i])){
+                    for(var i = 0; i < newRelease.length; i++){
+                        document.getElementById(newRelease[i]).appendChild(document.createElement("option")).innerHTML = value;
+                    }
                 }
             }
         );
@@ -360,7 +362,7 @@ function populateOverviewTable(projectid){
                     };
                     if(fields[j]=="offer")task.fields[field] += " €";
                     if(fields[j]=="target_name"){if(!task.fields[field]) {task.fields[field]="-";}; };
-                    line.appendChild(document.createElement('td')).innerHTML = "<a href=/project/"+task.pk+"/view/"+views[j]+">"+task.fields[field]+"</a>";
+                    line.appendChild(document.createElement('td')).innerHTML = "<a href=/prjmgt/"+task.pk+"/view/"+views[j]+">"+task.fields[field]+"</a>";
                 }
                 document.getElementById('dynamicTableOverview').appendChild(line);
             }
