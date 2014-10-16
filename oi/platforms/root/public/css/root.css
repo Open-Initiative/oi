@@ -16,6 +16,12 @@
     font-family: "CCRA";
     src: url('/fonts/CCRA.eot?') format('eot'), url('/fonts/CCRA.ttf') format('opentype');
 }
+h1, h2, h3, h4 {
+    color: #0094b5;
+    font-family: "ProximaNova",Helvetica,sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+}
 body {
     background: white;
     margin:0;
@@ -187,6 +193,14 @@ ul.root_ul li {
 .root_project {
     float: left;
     margin-top: -14px;
+    position: relative;
+}
+
+#content {
+    background: none repeat scroll 0 0 #f9f9f9;
+    margin: auto;
+    max-width: 1020px;
+    padding: 20px;
     position: relative;
 }
 

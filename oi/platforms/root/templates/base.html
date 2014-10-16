@@ -1,0 +1,54 @@
+{% load oifilters %}
+{% load i18n %}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="shortcut icon" href="/favicons.ico" />
+    <link rel="stylesheet" type="text/css" media="all" href="/css/root.css" />
+    <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
+    <script>
+        sites = {{Sites|safe}};
+        prjsite = "http://" + sites["Open Initiative Projects"];
+        fundingsite = "http://" + sites["Open Funding"];
+    </script>
+    <title>Open Initiative</title>
+</head>
+<body>
+    <div id="catcherbg">
+        <form action="/i18n/setlang/" method="post" class="actions">
+            {% csrf_token %}
+            <input type="hidden" name="language" value="{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}">
+            <input type="image" src="/img/{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}.png" />
+        </form>
+        <div style="width:0;float: left;font-size: 12px;font-weight: bold;left: 185px;padding: 1px;position: relative;top: 56px;">BETA</div>
+        <div id="logo">
+            <a href="/"><img class="rootlogo" src="/img/logo.png" style="height: 65px; width: 183px;" alt="logo openinitiative" /></a>
+        </div>
+        <div id="searchdiv">
+            <div id="baseline">{% trans "The IT community dedicated to your business" %}</div>
+            <img src="/img/baseunderline.png">
+        </div>
+        <div class="cleared" ></div>
+    </div>    
+    <div class="cleared" ></div>
+    <div style="border-top: 3px solid #E3E3E3"></div>
+    
+    {% block content %}
+    {% endblock %}
+    
+    <div style="border-top: 3px solid #E3E3E3"></div>
+    <div id="footer">
+        <div class="op_icon">
+            <a class="footlink" href="https://www.facebook.com/myopeninitiative?filter=1" target="_blank"><img alt="Facebook" title="{% trans 'Follow us on facebook' %}" src="/img/facebook.png"></a>
+            <a class="footlink" href="https://twitter.com/Open_Initiative" target="_blank"><img alt="Twitter" title="{% trans 'Follow us on twitter' %}" src="/img/twitter.png"></a>
+            <a class="footlink" href="https://plus.google.com/104128139611924726489/posts" target="_blank"><img title="{% trans 'Follow us on google+' %}" alt="Google+" src="/img/google+.png"></a>
+        </div>
+        <a class="footlink" href="/cgu">{% trans "Terms of Use" %}</a> |
+        <a class="footlink" href="/contact">{% trans "Legal notice" %}</a> |
+        <a class="footlink" href="/contact">{% trans "Contact" %}</a>
+    </div>
+</body>
+</html>
