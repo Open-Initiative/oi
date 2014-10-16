@@ -1,5 +1,6 @@
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response, get_object_or_404
+from django.template.response import TemplateResponse
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
@@ -35,8 +36,8 @@ def notices(request):
 def notice_settings(request):
     default = request.user.get_profile().get_default_observer()
     observers = Observer.objects.filter(user=request.user).order_by("project__id")
-    return TemplateView.as_view(request, template="notification/settings.html", extra_context={'default_observer': default, 'observers': observers})
-
+    extra_context = {'default_observer': default, 'observers': observers}
+    return TemplateResponse(request, "notification/settings.html", extra_context)
 
 @login_required
 def single(request, id, mark_seen=True):
