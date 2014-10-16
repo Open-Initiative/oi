@@ -1,5 +1,5 @@
 {% load i18n %}
-<!--<input name="filter_release" class="smallinput">-->
+{% load oifilters %}
 
 <select name="filter_release" class="smallinput" onchange="populateOverviewTable({{project.id}}); $('#table_{{cell}}').hide();">
     <option value="" selected></option>
