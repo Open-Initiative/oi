@@ -73,8 +73,8 @@
             <div id="userheader">
                 <form method="post" action="/user/changeuserlanguage" class="actions">
                     {% csrf_token %}
-                    <input type="hidden" name="language" value="{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}"/>
-                    <input id="oi_lang" type="image" src="/img/{% if LANGUAGE_CODE = "fr" %}en{% else %}fr{% endif %}.png" />
+                    <input type="hidden" name="language" value="{% if LANGUAGE_CODE = 'fr' %}en{% else %}fr{% endif %}"/>
+                    <input id="oi_lang" type="image" src="/img/{% if LANGUAGE_CODE = 'fr' %}en{% else %}fr{% endif %}.png" />
                 </form>
                 {%if user.is_authenticated%}
                 <div id="toptext">
