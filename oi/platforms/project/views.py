@@ -124,4 +124,4 @@ class OIFeed(Feed):
         return desc
         
     def item_link(self, item):
-        return "/project/%s"%item.id   
+        return "/prjmgt/%s"%item.id   

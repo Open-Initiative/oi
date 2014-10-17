@@ -2,7 +2,7 @@ function addSpec(projectid) {
     var divid = newDiv("specs_"+projectid);
     OIajaxCall(prjsite+"/prjmgt/"+projectid+"/editspec/0?divid="+divid+"&specorder=-1", null, divid, 
         function(){changeSpecType(divid, 1);});
-        document.getElementById(divid).scrollIntoView();
+    document.getElementById(divid).scrollIntoView();
 }
 function editSpec(projectid, specorder, type) {
     var specid = getValue("specid_"+projectid+"_"+specorder);
