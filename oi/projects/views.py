@@ -120,7 +120,7 @@ def filteroverview(request, tasks):
     """filter on overview table"""
     #this queryset filter with request key 'filter_title' in overview table   
     if request.GET.get('filter_title'):
-        tasks = tasks.filter(title__contains=request.GET['filter_title'])
+        tasks = tasks.filter(title__icontains=request.GET['filter_title'])
        
     #this queryset filter with request key 'filter_state' in overview table     
     if request.GET.get('filter_state'):
@@ -142,7 +142,7 @@ def filteroverview(request, tasks):
       
     #this queryset filter with request key 'filter_release' in overview table  
     if request.GET.get('filter_release'):
-        tasks = tasks.filter(target__name__contains=request.GET['filter_release'])
+        tasks = tasks.filter(target__name=request.GET['filter_release'])
     return tasks
 
 @OINeedsPrjPerms(OI_MANAGE)
