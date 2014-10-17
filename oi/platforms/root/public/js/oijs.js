@@ -269,7 +269,9 @@ function setPrjState(span,statenum) {
 }
 
 // Allow tinyMCE to find css files
-tinyMCE.baseURL = "http://"+sites["Open Initiative"]+"/js/tiny_mce/";// trailing slash important
+// the cross-domain doesn't work || if cross-domain work remove tiny_mce folder from funding and project
+//tinyMCE.baseURL = "http://"+sites["Open Initiative"]+"/js/tiny_mce/";// trailing slash important
+tinyMCE.baseURL = "/js/tiny_mce/";// trailing slash important
 //I created an object to init the tinymce in textarea and call it instead of mceAddControl in other js function
 objectInitTinyMce = {
     selector: "textarea.editable",
