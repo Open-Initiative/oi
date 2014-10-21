@@ -93,14 +93,6 @@ function resetContactInfo() {
         document.getElementById("id_"+contact[i].split("=")[0]).value = "";
     }
 }
-function writeMP(username) {
-    OIajaxCall("/user/writemp/"+username, null, "sendmp", 
-        function(){
-            var ed = new tinymce.Editor('text_MPmessage', objectInitTinyMce, tinymce.EditorManager);
-    ed.render();
-            show("sendmp");
-        });
-}
 function sendMP(username) {
     tinymce.remove('#text_MPmessage');
     OIajaxCall("/user/sendmp/"+username, "message="+encodeURIComponent(getValue("text_MPmessage"))+"&subject="+getValue("MPsubject"), "output",
