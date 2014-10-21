@@ -40,6 +40,14 @@ cat <<EOF > 001-funding.conf
         RewriteCond %{REQUEST_FILENAME} !-f
         RewriteRule ^(.*)$ django.fcgi/\$1 [QSA,L]
     </Directory>
+    
+    Alias /js_commons $PWD/oi/oi/platforms/js_commons
+    <Directory $PWD/oi/oi/platforms/js_commons>
+        AllowOverride None
+        Order allow,deny
+        Require all granted
+        Allow from all
+    </Directory>
 
     ErrorLog \${APACHE_LOG_DIR}/error-funding.log
     CustomLog \${APACHE_LOG_DIR}/access-funding.log combined
@@ -64,6 +72,14 @@ cat <<EOF > 002-project.conf
         RewriteEngine On
         RewriteCond %{REQUEST_FILENAME} !-f
         RewriteRule ^(.*)$ django.fcgi/\$1 [QSA,L]
+    </Directory>
+    
+    Alias /js_commons $PWD/oi/oi/platforms/js_commons
+    <Directory $PWD/oi/oi/platforms/js_commons>
+        AllowOverride None
+        Order allow,deny
+        Require all granted
+        Allow from all
     </Directory>
 
     ErrorLog \${APACHE_LOG_DIR}/error-project.log
