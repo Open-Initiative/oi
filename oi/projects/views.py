@@ -106,7 +106,7 @@ def filterrelease(request, tasks, project):
     """filter the tasks on release"""
     if request.GET.get("release"):
         releases = request.session.get("releases", {})
-        releases[project.master.id] = request.GET['release']
+        releases[str(project.master.id)] = request.GET['release']
         request.session["releases"] = releases
         if request.GET['release'] != '**':
             if request.GET['release'] == '*':
@@ -312,7 +312,7 @@ def saveproject(request, id='0'):
         if id=='0': #new project
             project = create_new_task(parent, title, request.user)
             
-            target_name = request.session.get("releases", {}).get(project.master.id, "")
+            target_name = request.session.get("releases", {}).get(str(project.master.id), "")
             if target_name:
                 if target_name != "*" and target_name != "**":
                     get_release = Release.objects.get(name = target_name, project = project.master)

@@ -43,7 +43,7 @@ import re
 def getproject(request, id, view="overview"):
     if not view: view = "overview"
     project = Project.objects.get(id=id)
-    extra_context = {'object': project, 'current_view':view, 'views':OI_PRJ_VIEWS, 'types':SPEC_TYPES, 'prjdialogues': OI_PRJDIALOGUES, 'table_overview': OI_TABLE_OVERVIEW, 'release': request.session.get("releases", {}).get(project.master.id, project.master.target.name if project.master.target else None)}
+    extra_context = {'object': project, 'current_view':view, 'views':OI_PRJ_VIEWS, 'types':SPEC_TYPES, 'prjdialogues': OI_PRJDIALOGUES, 'table_overview': OI_TABLE_OVERVIEW, 'release': request.session.get("releases", {}).get(str(project.master.id), project.master.target.name if project.master.target else None)}
     return TemplateResponse(request, "projects/project_detail.html", extra_context)
 
 @login_required
