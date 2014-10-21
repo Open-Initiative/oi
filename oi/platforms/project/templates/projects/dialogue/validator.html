@@ -1,6 +1,9 @@
+﻿﻿{% load oifilters %}
 {% load i18n %}
-<form onsubmit="confirmValidatorProject({{object.id}});return false">
+{% trans 'Allow the validation of' %} {{object.title}} {% trans 'for' %}:
+<br/><br/>
+<form onsubmit="confirmValidatorProject({{object.id}});hidePopups();return false">
     <input id="validator_{{object.id}}" type="text" onFocus="this.select()"/>
     <input type="image" class="clickable" src="/img/icons/ok-32.png"/>
-    <img class="clickable" src="/img/icons/del-32.png" onclick="hide('prjdialoguevalidator_{{object.id}}')" />
+    <img class="clickable" src="/img/icons/del-32.png" onclick="hidePopups()" />
 </form>

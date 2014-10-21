@@ -1,6 +1,9 @@
+﻿﻿{% load oifilters %}
 {% load i18n %}
-<form onsubmit="confirmShareProject({{object.id}});return false">
+{% trans 'Share' %} {{object.title}} {% trans 'with' %}:
+<br/><br/>
+<form onsubmit="confirmShareProject({{object.id}});hidePopups();return false">
     <input id="usershare_{{object.id}}" type="text" />
     <input type="image" class="clickable" src="/img/icons/ok-32.png"/>
-    <img class="clickable" src="/img/icons/del-32.png" onclick="hide('prjdialogueshare_{{object.id}}')" />
+    <img class="clickable" src="/img/icons/del-32.png" onclick="hidePopups()" />
 </form>

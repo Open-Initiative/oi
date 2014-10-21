@@ -542,14 +542,14 @@ div.popup_spec {
     left: 203px;
 }
 .popup{
-    background: white;
-    border: solid 1px #E0E0E0;
-    color: black;
-    position: relative;
-    padding: 6% 3% 6% 3%;
-    z-index: 1;
-    border-radius: 20px;
+    background: none repeat scroll 0 0 white;
+    border: 1px solid #e0e0e0;
+    border-radius: 3%;
     box-shadow: 3px 3px 4px;
+    color: black;
+    padding: 1%;
+    position: fixed;
+    z-index: 1;
 }
 .actions {
     clear: right;

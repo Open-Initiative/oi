@@ -77,7 +77,7 @@
     <div id="project_{{object.id}}" class="project">
         
         {% for obj in prjdialogues %}
-            <div id="prjdialogue{{obj}}_{{object.id}}" class="popup invisible">
+            <div id="prjdialogue{{obj}}_{{object.id}}" class="popup invisible" onclick="document.ignoreClosePopups = true;">
             {% with 'projects/dialogue/'|add:obj|add:'.html' as template_name %}
                 {% include template_name %}
             {% endwith %}

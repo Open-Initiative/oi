@@ -20,7 +20,7 @@
     <div class="clickable prj-btn" onclick="validateProject({{object.id}})">{% trans "Validate" %}</div>
     {% endif %}
     {% if object.state == 4 and object.assignee != user and bids.0.rating == None %}
-    <div class="clickable prj-btn" onclick="show('prjdialogueeval_{{object.id}}')">{% trans "Evaluate" %}</div>
+    <div class="clickable prj-btn" onclick="showPopup(document.getElementById('prjdialogueeval_{{object.id}}'))">{% trans "Evaluate" %}</div>
     {% endif %}
 {% endif %}{% endwith %}
 {% if object.assignee == user %}

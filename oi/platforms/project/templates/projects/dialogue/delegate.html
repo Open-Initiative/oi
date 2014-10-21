@@ -1,6 +1,9 @@
 ﻿﻿{% load oifilters %}
-<form onsubmit="confirmDelegateProject({{object.id}});return false">
+{% load i18n %}
+{% trans 'Delegate' %} {{object.title}} {% trans 'to' %}:
+<br/><br/>
+<form onsubmit="confirmDelegateProject({{object.id}});hidePopups();return false">
     <input id="delegate_to_{{object.id}}" type="text" />
     <input type="image" class="clickable" src="/img/icons/ok-32.png"/>
-    <img class="clickable" src="/img/icons/del-32.png" onclick="hide('prjdialoguedelegate_{{object.id}}')" />
+    <img class="clickable" src="/img/icons/del-32.png" onclick="hidePopups()" />
 </form>

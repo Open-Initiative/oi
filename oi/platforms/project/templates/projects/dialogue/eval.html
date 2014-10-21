@@ -3,5 +3,5 @@
     {% with object.id|stringformat:"s"|add:"_eval" as dest %}{% show_stars 5 dest %}{% endwith %}
 </div>
 <div><textarea id="eval_comment_{{object.id}}"></textarea></div>
-<img class="clickable" src="/img/icons/ok-32.png" onclick="confirmEvalProject({{object.id}})" />
-<img class="clickable" src="/img/icons/del-32.png" onclick="hide('prjdialogueeval_{{object.id}}')" />
+<img class="clickable" src="/img/icons/ok-32.png" onclick="confirmEvalProject({{object.id}});hidePopups()" />
+<img class="clickable" src="/img/icons/del-32.png" onclick="hidePopups()" />
