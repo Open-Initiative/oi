@@ -59,60 +59,58 @@ def myaccount(request):
     """user settings page or asks user for confirmation before redirecting to payment service provider"""
     import logging
     logging.getLogger("oi").debug("user returned: %s"%request)
-    request_dict = QueryDict(request.body)
     extra_context = {}
     params = {}
-    if request.method == "GET":
-        if request_dict.get("orderID"): #return from payment
-            
-            dict_params = dict(request_dict.items()) #to obtain a mutable version of the QueryDict
-            if dict_params.get("project"): 
-                project = Project.objects.get(id=dict_params.pop("project"))
-                params = {"PARAMPLUS": project}
+    if request.GET.get("orderID"): #return from payment
+        
+        dict_params = dict(request.GET.items()) #to obtain a mutable version of the QueryDict
+        if dict_params.get("project"): 
+            project = Project.objects.get(id=dict_params.pop("project"))
+            params = {"PARAMPLUS": project}
 
-                #delta is the amount actually added, considering this function can be called several times
-                #the second time, delta is probably 0
-                delta = request.user.profile.update_payment(dict_params)
-                if delta:
-                    project.makebid(request.user, delta) #to update the user account
-            else:
-                request.user.profile.update_payment(dict_params) 
-            
-            extra_context['params'] = params
-            return TemplateResponse(request, 'users/myaccount.html', extra_context)
-            
-        elif request_dict.get("amount"): #request for payment
-            amount = Decimal((request_dict['amount']).replace(',','.')).quantize(Decimal('.01'))
-            if request_dict.get("project"): #from a bid
-                extra_context['task'] = Project.objects.get(id=request_dict["project"])
-                amount = amount - request.user.profile.balance #only pay what the user lacks
-                
-            if request_dict.get("deposit"): #from account page
-                amount += Decimal((request_dict['deposit']).replace(',','.')).quantize(Decimal('.01'))
-                
-            payment = Payment(user=request.user, amount=0, project_id=0, reason='Paiement en attente de validation')
-            payment.save()
-            
-            params = {"PSPID":"openinitiative", "currency":"EUR", "TITLE":"", "BGCOLOR":"", "TXTCOLOR":"", "TBLBGCOLOR":"", "TBLTXTCOLOR":"", "BUTTONBGCOLOR":"", "BUTTONTXTCOLOR":"", "LOGO":"", "FONTTYPE":""}
-            params['orderID'] = payment.id
-            params['amount'] = (amount*100).quantize(Decimal('1.'))
-            params["CN"] = "%s %s"%(request.user.first_name, request.user.last_name)
-            params["EMAIL"] = request.user.email
-            params["ownerZIP"] = request.user.profile.postcode
-            params["owneraddress"] = request.user.profile.address
-            params["ownercty"] = request.user.profile.country
-            params["ownertown"] = request.user.profile.city
-            params["ownertelno"] = request.user.profile.phone
-            params["language"] = "%s_%s"%(request.LANGUAGE_CODE,request.LANGUAGE_CODE)
-            if request_dict.get("project"):
-                params["PARAMPLUS"] = "project=%s"%request_dict["project"]
-            params["SHASign"] = computeSHA(params)
-            extra_context['params'] = params 
-            extra_context['action'] = settings.PAYMENT_ACTION
-            extra_context['amount'] = amount
-            
-        extra_context['contact_form'] = UserProfileForm(instance=request.user.profile)    
+            #delta is the amount actually added, considering this function can be called several times
+            #the second time, delta is probably 0
+            delta = request.user.profile.update_payment(dict_params)
+            if delta:
+                project.makebid(request.user, delta) #to update the user account
+        else:
+            request.user.profile.update_payment(dict_params) 
+        
+        extra_context['params'] = params
         return TemplateResponse(request, 'users/myaccount.html', extra_context)
+        
+    elif request.GET.get("amount"): #request for payment
+        amount = Decimal((request.GET['amount']).replace(',','.')).quantize(Decimal('.01'))
+        if request.GET.get("project"): #from a bid
+            extra_context['task'] = Project.objects.get(id=request.GET["project"])
+            amount = amount - request.user.profile.balance #only pay what the user lacks
+            
+        if request.GET.get("deposit"): #from account page
+            amount += Decimal((request.GET['deposit']).replace(',','.')).quantize(Decimal('.01'))
+            
+        payment = Payment(user=request.user, amount=0, project_id=None, reason='Paiement en attente de validation')
+        payment.save()
+        
+        params = {"PSPID":"openinitiative", "currency":"EUR", "TITLE":"", "BGCOLOR":"", "TXTCOLOR":"", "TBLBGCOLOR":"", "TBLTXTCOLOR":"", "BUTTONBGCOLOR":"", "BUTTONTXTCOLOR":"", "LOGO":"", "FONTTYPE":""}
+        params['orderID'] = payment.id
+        params['amount'] = (amount*100).quantize(Decimal('1.'))
+        params["CN"] = "%s %s"%(request.user.first_name, request.user.last_name)
+        params["EMAIL"] = request.user.email
+        params["ownerZIP"] = request.user.profile.postcode
+        params["owneraddress"] = request.user.profile.address
+        params["ownercty"] = request.user.profile.country
+        params["ownertown"] = request.user.profile.city
+        params["ownertelno"] = request.user.profile.phone
+        params["language"] = "%s_%s"%(request.LANGUAGE_CODE,request.LANGUAGE_CODE)
+        if request.GET.get("project"):
+            params["PARAMPLUS"] = "project=%s"%request.GET["project"]
+        params["SHASign"] = computeSHA(params)
+        extra_context['params'] = params 
+        extra_context['action'] = settings.PAYMENT_ACTION
+        extra_context['amount'] = amount
+        
+    extra_context['contact_form'] = UserProfileForm(instance=request.user.profile)    
+    return TemplateResponse(request, 'users/myaccount.html', extra_context)
 
 @login_required
 def setemailing(request):

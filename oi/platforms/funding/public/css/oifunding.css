@@ -1759,3 +1759,9 @@ div.spectype {
     font-size: 1.5em;
     margin-top: 90px;
 }
+.oiright{
+    float: right;
+}
+.oileft{
+    float: left;
+}
