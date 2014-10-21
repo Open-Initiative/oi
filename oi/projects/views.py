@@ -62,8 +62,8 @@ def listtasks(request, id):
             #this function is use to filter on overview table
             tasks = filteroverview(request, tasks)
             
-            #this function sort on the project for the release
-            tasks = releaseoverview(request, tasks, project)
+            #this function filters the project on the release
+            tasks = filterrelease(request, tasks, project)
             
             #this function sort by order
             tasks = orderoverview(request, tasks)
@@ -102,7 +102,7 @@ def orderoverview(request, tasks):
         tasks = tasks.order_by('-priority')
     return tasks
 
-def releaseoverview(request, tasks, project):
+def filterrelease(request, tasks, project):
     """filter the tasks on release"""
     if request.GET.get("release"):
         releases = request.session.get("releases", {})
