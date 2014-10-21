@@ -21,7 +21,7 @@
         {% endifequal %}
         {% ifnotequal user selected_user %}
         {% if user.is_authenticated %}
-        <div class="contact_me"><a class="clickable" onclick="writeMP('{{selected_user.username}}')">{% trans "Contact Me!" %}</a></div>
+        <div class="contact_me"><a class="clickable" onclick="show('sendmp')">{% trans "Contact Me!" %}</a></div>
         {% endif %}
         {% endifnotequal %}
     </div>
@@ -133,7 +133,11 @@
         </div>
     </div>
 </div>
-<div id="sendmp" class="popupmsg invisible"></div>
+<div id="sendmp" class="popupmsg invisible">
+{% with selected_user as params %}
+{% include "users/writemp.html" %}
+{% endwith %}
+</div>
 <script>
 profile_content('all_created_project');
 </script>
