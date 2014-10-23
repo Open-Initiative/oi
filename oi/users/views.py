@@ -172,48 +172,42 @@ def invite(request, username):
 
 def resetpassword(request):
     """sends an e-mail to the user with a new password"""
-    request_dict = QueryDict(request.body)
-    if request.method == "POST":
-        try:
-                user = User.objects.get(username=request_dict.get("username"))
-        except User.DoesNotExist:
-            extra_context = {'message': _("The user doesn't exist")}
-            return TemplateResponse(request, "users/resetpwd.html", extra_context)
-            if user.email != request_dict["email"]:
-                extra_context = {'message': _("E-mail address did not match")}
-                return TemplateResponse(request, "users/resetpwd.html", extra_context)
-        password = User.objects.make_random_password()
-        user.set_password(password)
-        user.save()
-        send_mail(_("New password"), _("Your password has been reset. Your new password is: %s")%password, "admin@open-initiative.com", [user.email]) 
-        extra_context = {'message': _("The new password has been sent to you by e-mail"),}   
+    try:
+            user = User.objects.get(username=request.POST.get("username"))
+    except User.DoesNotExist:
+        extra_context = {'message': _("The user doesn't exist")}
         return TemplateResponse(request, "users/resetpwd.html", extra_context)
+        if user.email != request.POST["email"]:
+            extra_context = {'message': _("E-mail address did not match")}
+            return TemplateResponse(request, "users/resetpwd.html", extra_context)
+    password = User.objects.make_random_password()
+    user.set_password(password)
+    user.save()
+    send_mail(_("New password"), _("Your password has been reset. Your new password is: %s")%password, "admin@open-initiative.com", [user.email]) 
+    extra_context = {'message': _("The new password has been sent to you by e-mail"),}   
+    return TemplateResponse(request, "users/resetpwd.html", extra_context)
 
 @login_required
 def changepassword(request):
     """updates user's password"""
-    request_dict = QueryDict(request.body)
-    if request.method == "POST":
-        if not request.user.check_password(request_dict["oldpassword"]):
-            return HttpResponse(_("Old password did not match"))
-        if request_dict['newpassword'] != request_dict['confirmpassword']:
-            return HttpResponse('Passwords did not match')
-        request.user.set_password(request_dict['newpassword'])
-        request.user.save()
-        messages.info(request, _("Your password has been updated"))
-        return HttpResponseRedirect("/user/myaccount")
+    if not request.user.check_password(request.POST["oldpassword"]):
+        return HttpResponse(_("Old password did not match"))
+    if request.POST['newpassword'] != request.POST['confirmpassword']:
+        return HttpResponse('Passwords did not match')
+    request.user.set_password(request.POST['newpassword'])
+    request.user.save()
+    messages.info(request, _("Your password has been updated"))
+    return HttpResponseRedirect("/user/myaccount")
 
 @login_required
 def changeemail(request):
     """updates user's email address"""
-    request_dict = QueryDict(request.body)
-    if request.method == "POST":
-        if request_dict['newemail'] != request_dict['confirmemail']:
-            return HttpResponse('Addresses did not match')
-        request.user.email = request_dict['newemail']
-        request.user.save()
-        messages.info(request, _("Your email has been updated"))
-        return HttpResponseRedirect("/user/myaccount")
+    if request.POST['newemail'] != request.POST['confirmemail']:
+        return HttpResponse('Addresses did not match')
+    request.user.email = request.POST['newemail']
+    request.user.save()
+    messages.info(request, _("Your email has been updated"))
+    return HttpResponseRedirect("/user/myaccount")
     
 def changeuserlanguage(request):
     """change user language"""
@@ -238,29 +232,27 @@ def savebio(request):
 
 def createuser(request):
     """creates a new user"""
-    request_dict = QueryDict(request.body)
-    if request.method == "POST":
-        if request_dict.get("acceptcgu") != "on":
-            extra_context = {'message':_("Please accept the terms of use")}
-            return TemplateResponse(request, "users/register.html", extra_context)
-        if not re.compile("^[\w\-\.]+$").search(request_dict.get("username")):
-            extra_context = {'message':_("Invalid username. Please use only letters, digits, - and _.")}
-            return TemplateResponse(request, "users/register.html", extra_context)
-        if not request_dict["password"]:
-            extra_context = {'message':_("Please enter a password")}
-            return TemplateResponse(request, "users/register.html", extra_context)
-        if request_dict["password"] != request_dict["password_confirm"]:
-            extra_context = {'message':_("Passwords did not match")}
-            return TemplateResponse(request, "users/register.html", extra_context)
-        try:
-            user = User.objects.create_user(request_dict["username"], request_dict["email"], request_dict["password"])
-        except IntegrityError:
-            extra_context = {'message':_("This username is already used")}
-            return TemplateResponse(request, "users/register.html", extra_context)
-        user.first_name = request_dict["firstname"]
-        user.last_name = request_dict["lastname"]
-        user.save()
-        return HttpResponseRedirect(reverse('oi.users.views.myprofile'))
+    if request.POST.get("acceptcgu") != "on":
+        extra_context = {'message':_("Please accept the terms of use")}
+        return TemplateResponse(request, "users/register.html", extra_context)
+    if not re.compile("^[\w\-\.]+$").search(request_dict.get("username")):
+        extra_context = {'message':_("Invalid username. Please use only letters, digits, - and _.")}
+        return TemplateResponse(request, "users/register.html", extra_context)
+    if not request.POST["password"]:
+        extra_context = {'message':_("Please enter a password")}
+        return TemplateResponse(request, "users/register.html", extra_context)
+    if request.POST["password"] != request.POST["password_confirm"]:
+        extra_context = {'message':_("Passwords did not match")}
+        return TemplateResponse(request, "users/register.html", extra_context)
+    try:
+        user = User.objects.create_user(request.POST["username"], request.POST["email"], request.POST["password"])
+    except IntegrityError:
+        extra_context = {'message':_("This username is already used")}
+        return TemplateResponse(request, "users/register.html", extra_context)
+    user.first_name = request.POST["firstname"]
+    user.last_name = request.POST["lastname"]
+    user.save()
+    return HttpResponseRedirect(reverse('oi.users.views.myprofile'))
 
 @login_required
 def editdetail(request, id):
