@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python
 import os, sys
 
 _ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
