@@ -698,3 +698,11 @@ div.sepspecfooter {
 .tax{
     font-size: 11px;
 }
+.line_separate {
+    margin-top: 10px;
+}
+.newproject {
+    background: none repeat scroll 0 0 #0595ba;
+    border-radius: 3px;
+    padding: 10px;
+}
