@@ -520,7 +520,7 @@ OISpot.prototype.edit = function editSpot() {
     this.show();
 }
 OISpot.prototype.fillDiv = function fillDiv() {
-    if(this.linkid) OIajaxCall(prjsite+'/project/'+this.linkid+'/summarize', null, this.div.id);
+    if(this.linkid) OIajaxCall(prjsite+'/prjmgt/'+this.linkid+'/summarize', null, this.div.id);
 }
 OISpot.prototype.saveTask = function saveTaskSpot() {
     addTask(encodeURIComponent(this.div.getElementsByClassName("newtask_title")[0].value), this.projectid, null, makeObjectCallback(this.save, this));
