@@ -266,7 +266,7 @@ function deleteProject(projectid) {
         OIajaxCall("/project/delete/"+projectid, null, "output",
             function(){
                 if(currentTask == projectid){
-                    if(oiTree.nodes[projectid].parent) document.location = "/project/"+oiTree.nodes[projectid].parent.id;
+                    if(oiTree.nodes[projectid].parent) document.location = "/prjmgt/"+oiTree.nodes[projectid].parent.id;
                     else document.location = "/";
                 } else {
                        if(oiTree) oiTree.deleteNode(projectid);
