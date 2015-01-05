@@ -250,4 +250,12 @@ class PersonalMessage(models.Model):
     sent_date = models.DateTimeField(auto_now_add=True)
     def __unicode__(self):
         return "%s to %s : %s"%(self.from_user, self.to_user, self.subject)
+        
+    # Sets the UserProfile class to be the profile of the given django User class
+    def set_profile(sender, instance, created, **kwargs):
+        if created==True:
+            instance.userprofile_set.add(UserProfile(blog=Message.objects.create(author=instance, relevance=1, title=_("%s's blog")%instance.username), language=get_language()))
+    
+    # Sets the profile on user creation
+    post_save.connect(set_profile, sender=User)
 
