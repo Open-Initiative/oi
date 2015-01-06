@@ -347,6 +347,7 @@ img.tabicon {
 #nav {
     background:#D7E7F0;
     max-width:280px;
+    overflow: hidden;
 }
 #navhome {
     margin-bottom: 1em;
