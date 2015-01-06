@@ -41,14 +41,16 @@ div.author {
     width:80px;
 }
 .moreblue {
-    background:url('/img/discblue.png');
-    height:17px;
-    width:8px;
-    padding:3px 9px;
-    margin: -0.2em -0.8em;
+/*    background:url('/img/discblue.png');*/
+/*    height:17px;*/
+/*    width:8px;*/
+/*    padding:3px 9px;*/
+/*    margin: -0.2em -0.8em;*/
     float:right;
-    color:white;
-    font-weight:900;
+/*    color:white;*/
+    font-weight:bold;
+    font-size: 25px;
+    margin-top: -4px;
 }
 .moreicon {
     height:23px;
