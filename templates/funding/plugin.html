@@ -181,7 +181,7 @@
             
             {% with object.descendants|filter_read:user as descendants %}
             <div class="pluginsum">
-                {{object.get_selfbudget|default:descendants.allbid_sum|floatformat:"-2"}} €
+                {{object.allbid_sum|floatformat:"-2"}} €
                 <div class="cleared"></div>
             </div>
             {% endwith %}
