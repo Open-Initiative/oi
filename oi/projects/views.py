@@ -37,6 +37,7 @@ from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
 from oi.prjnotify.models import Observer
 from oi.settings_common import OI_GITHUB_ID, OI_GITHUB_SECRET, MEDIA_ROOT, TEMP_DIR
+from settings_specific import OI_DOMAINS
 import re
 
 
@@ -1177,7 +1178,13 @@ def uploadfile(request, id, specid='0'):
     for chunk in uploadedfile.chunks():
         tempfile.write(chunk)
     tempfile.close()
-    return render_to_response('projects/spec/fileframe.html',{'divid':divid,'filename':filename,'ts':ts,'projectid':id})
+    actual_platform = request.META["HTTP_HOST"]
+    funding = OI_DOMAINS[2][1]
+    if funding == actual_platform:
+        platform = "funding"
+    else :
+        platform = "projects"
+    return render_to_response('%s/spec/fileframe.html'%platform,{'divid':divid,'filename':filename,'ts':ts,'projectid':id})
 
 @OINeedsPrjPerms(OI_WRITE)
 def deltmpfile(request, id):
