@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.views.generic import TemplateView, DetailView
 from oi.projects.models import Project, OINeedsPrjPerms, Spec, Reward, RewardForm
-from oi.helpers import OI_READ, OI_WRITE, SPEC_TYPES
+from oi.helpers import OI_READ, OI_WRITE, SPEC_TYPES, OI_ACCEPTED
 
 def get_project(request, id):
     """get the main project page"""
