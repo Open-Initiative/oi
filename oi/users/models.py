@@ -254,7 +254,11 @@ class PersonalMessage(models.Model):
     # Sets the UserProfile class to be the profile of the given django User class
     def set_profile(sender, instance, created, **kwargs):
         if created==True:
-            userprofile = UserProfile.objects.create(user=instance, language=get_language())
-            userprofile.blog = Message.objects.create(author=instance, relevance=1, title=_("%s's blog")%instance.username)
-            userprofile.save()
+            profile = UserProfile(user=instance, language=get_language())
+            blog = Message(author=instance, relevance=1, title=_("%s's blog")%instance.username)
+            blog.save()
+            profile.blog = blog
+            profile.save()
             
+    # Sets the profile on user creation
+    post_save.connect(set_profile, sender=User)
