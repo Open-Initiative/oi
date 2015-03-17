@@ -281,7 +281,7 @@ function updateProgress(projectid, progress) {
         document.getElementById("progresslabel_"+projectid).innerHTML = progress+"%";});
 }
 function favProject(projectid, funding){
-    OIajaxCall("/project/"+projectid+"/fav", follow?"&stop=true":null, null, 
+    OIajaxCall("/project/"+projectid+"/fav", follow?"&stop=true":false, null, 
         function(response){
             if(document.getElementById("fav_"+projectid)){
                 if(funding){ 

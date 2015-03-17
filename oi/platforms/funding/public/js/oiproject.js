@@ -41,7 +41,7 @@ function cancelBid(projectid, started) {
         OIajaxCall("/project/cancelbid/"+projectid, null, "output");
 }
 function favProject(projectid, funding){
-    OIajaxCall("/project/"+projectid+"/fav", follow?"&stop=true":null, null, 
+    OIajaxCall("/project/"+projectid+"/fav", follow?"&stop=true":false, null, 
         function(response){
             if(document.getElementById("fav_"+projectid)){
                 if(funding){ 
