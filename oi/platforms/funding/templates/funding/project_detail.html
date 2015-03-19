@@ -227,22 +227,15 @@
                 <div class="column maxwidth50">
                     <div class="blockfeatureheight">
                         <form id="submit_title_price_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, getValue('newtask_offer_{{object.id}}'), function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); document.getElementById('newtask_offer_{{object.id}}').value = ''; return false">
-                            <table>
-                                <tr>
-                                    <td>
-                                    <label class="loginlabel oigreen" for="newtask_title_{{object.id}}">{% trans "insert a title" %}</label>
-                                <input type="text" class="fieldfeature" id="newtask_title_{{object.id}}" onkeyup="focusInOut('newtask_title_{{object.id}}')">
+                       
+                                <input type="text" class="fieldfeature loginlabel oigreen" placeholder="{% trans 'Insert a title' %}" id="newtask_title_{{object.id}}">
+                                
                                 <div class="cleared"></div>
-                                        </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="loginlabel oigreen" for="newtask_offer_{{object.id}}">{% trans "Feature price" %}</label>
-                                        <input type="text" class="fieldfeature" id="newtask_offer_{{object.id}}" onkeyup="focusInOut('newtask_offer_{{object.id}}')">  €
-                                        <div class="cleared"></div>
-                                    </td>
-                                </tr>
-                            </table>
+                                
+                                <input type="text" class="fieldfeature loginlabel oigreen" placeholder="{% trans 'Feature price' %}" id="newtask_offer_{{object.id}}">  €
+                                
+                                <div class="cleared"></div>
+                                
                             <p>{% trans "By adding this change you acknowledge that you have read and accepted the" %} <a href="/cgu">{% trans "Terms of Use" %}</a></p>
                             <input type="image" hidden>
                         </form>
@@ -263,14 +256,10 @@
                     <div class="column maxwidth50">
                         <div class="blockfeatureheight">
                             <form id="submit_title_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, null,function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); return false" id="newtask_{{object.id}}">
-                                <table>
-                                    <tr>
-                                        <td>
-                                        <label class="loginlabel oigreen" for="newtask_title_{{object.id}}">{% trans "insert a title" %}</label>
-                                        <input type="text" class="fieldfeature" id="newtask_title_{{object.id}}" onkeyup="focusInOut('newtask_title_{{object.id}}')">
-                                        </td>
-                                    </tr>
-                                </table>
+                            
+                                <input type="text" class="fieldfeature loginlabel oigreen" placeholder="{% trans 'Insert a title' %}" id="newtask_title_{{object.id}}">
+                                <div class="cleared"></div>
+                                        
                                 <p>{% trans "By adding this change you acknowledge that you have read and accepted the" %} <a href="/cgu">{% trans "Terms of Use" %}</a></p>
                                 <input type="image" hidden>
                             </form>
