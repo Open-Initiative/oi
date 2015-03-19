@@ -5,7 +5,7 @@
     <div>
         <h3>{% if project.missing_bid > 0 %}{% trans "Payment awaiting:" %} {{project.missing_bid|floatformat:2}} €{% endif %}</h3>
         {% if project.state < 3 %}{% if project|can_bid:user %}{% if not project|bids:user %}
-        <div onclick="showPopup(document.getElementById('prjdialogueoffer_{{project.id}}'))" class="clickable bidaction">{% trans "Bid_verb" %}</div>
+        <div onclick="showPopup(document.getElementById('prjdialoguebid_{{project.id}}'))" class="clickable bidaction">{% trans "Bid_verb" %}</div>
         {% endif %}{% endif %}{% endif %}
     </div>
     <div>
@@ -23,12 +23,10 @@
                     <div>
                         {% if project.descendants.with_offer %}
                             {% trans "The task" %} "{{project.descendants.with_offer.0.title}}" {% trans "already has an offer" %} 
+                        {% elif project.ancestors.with_offer %}
+                            {% trans "The task" %} "{{project.ancestors.with_offer.0.title}}" {% trans "already has an offer" %}
                         {% else %}
-                            {% if project.ancestors.with_offer %}
-                                {% trans "The task" %} "{{project.ancestors.with_offer.0.title}}" {% trans "already has an offer" %}
-                            {% else %}
-                                <img class="clickable" src="/img/icons/edit2.png" onclick="offerProject({{project.id}})" /> {% trans "Change my offer" %}
-                            {% endif %} 
+                            <img class="clickable" src="/img/icons/edit2.png" onclick="showPopup(document.getElementById('prjdialogueoffer_{{project.id}}'))" /> {% trans "Change my offer" %}
                         {% endif %}
                     </div>
                 {% endif %}
