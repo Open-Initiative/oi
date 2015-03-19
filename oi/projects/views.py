@@ -478,7 +478,8 @@ def delegateproject(request, id):
             return HttpResponse(_("Cannot find user"), status=531)
         project.save()
         project.delegate_to.get_profile().get_default_observer(project).notify("delegate", project=project, sender=request.user)
-        return HttpResponse(_("Sent delegation offer"))
+        messages.info(request, _("Sent delegation offer"))
+        return HttpResponse('', status=332)
 
 @ajax_login_required
 @OINeedsPrjPerms(OI_READ)
@@ -500,7 +501,8 @@ def answerdelegate(request, id):
             #adds the project to user's observation
             request.user.get_profile().follow_project(project.master)
         project.save()
-        return HttpResponse(_("reply sent"))
+        messages.info(request, _("reply sent"))
+        return HttpResponse('', status=332)
 
 @ajax_login_required
 @OINeedsPrjPerms(OI_READ)
