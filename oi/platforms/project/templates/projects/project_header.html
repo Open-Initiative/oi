@@ -73,7 +73,7 @@
     <div>
         <div class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">
             {{object.title}}
-            {% if object|can_write:user %}
+            {% if object|can_write:user and object.state < 2 %}
             <img onclick="document.getElementById('prjtitle_{{object.id}}').innerHTML = document.getElementById('edittitle').innerHTML" class="clickable" src="/img/icons/edit.png" alt="{% trans 'Edit the title' %}" title="{% trans 'Edit the title' %}" />
         </div>
         <div id="edittitle" class="invisible">
