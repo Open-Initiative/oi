@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="msgbody">
-            <textarea id="text_{{divid}}" rows="15" class="msgfield">{{message.text|oiunescape}}</textarea>
+            <textarea id="text_{{divid}}"  rows="15" class="msgfield editable">{{message.text|oiunescape}}</textarea>
             <input id="parent_{{divid}}" type="hidden" value="{{request.GET.parent}}" />
             <input id="project_{{divid}}" type="hidden" value="{% if object %}{{object.id}}{% else %}{{request.GET.project}}{% endif %}" />
             <img class="clickable actions" src="/img/icons/ok-32.png" onclick="saveMessage('{{divid}}',{{message.id|default:0}})" />
