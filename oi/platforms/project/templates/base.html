@@ -88,30 +88,21 @@
                     <div class="usertitle">{{user.get_profile}}</div>
                     {{user.get_profile.title}}
                 </a>
-<!--                <div id="userlinks">-->
-<!--                    <a class="homelink" href="/user/dashboard">{% trans "Dashboard" %}</a> |-->
-<!--                    <a class="homelink" href="/notification">{% trans "Notices" %}</a> |-->
-<!--                    <a class="homelink" href="/user/discussions">{% trans "Personal Messages" %}</a> <br/>-->
-<!--                    <a class="toplink" href="/user/myblog">{% trans "Publications" %}</a> |-->
-<!--                    <a class="toplink" href="/user/myaccount">{% trans "Transactions" %}</a>-->
-<!--                </div>-->
                 {%else%}
                 <span id="loginbox">{% trans "Login" %}</span>
                 <div id="loginarea">
                     <form method="post" action="{% url 'django.contrib.auth.views.login' %}">{% csrf_token %}<table>
                         <tr>
                             <td>
-                                <label class="loginlabel" for="username_field">{% trans "username" %}</label>
-                                <input id="username_field" type="text" name="username" tabindex=1 class="loginfield" onkeyup="focusInOut('username_field')" />
+                                <input id="username_field" type="text" placeholder="{% trans 'username' %}" name="username" tabindex=1 class="loginfield" />
                             </td>
                             <td colspan="2"><a href="/user/resetpassword" class="forgotpwd">{% trans "Forgot your password?" %}</a></td>
                         </tr>
                         <tr>
                             <td>
-                                <label class="loginlabel" for="id_password">{% trans "password" %}</label>
-                                <input type="password" name="password" id="id_password" tabindex=2 class="loginfield" onkeyup="focusInOut('id_password')" />
+                                <input type="password" name="password" placeholder="{% trans 'password' %}" id="id_password" tabindex=2 class="loginfield" />
                             </td>
-                            <td><input id="loginbtn" type="submit" tabindex=3 value="{% trans "login" %}" /></td>
+                            <td><input id="loginbtn" type="submit" tabindex=3 value="{% trans 'login' %}" /></td>
                             <td><a href="/user/accounts/register">
                                 <div id="registerbtn">{% trans "Register" %}</div>
                             </a></td>
@@ -170,13 +161,5 @@
         <a class="footlink" href="/contact">{% trans "Legal notice" %}</a> |
         <a class="footlink" href="/contact">{% trans "Contact" %}</a>
     </div>
-    <script>
-        $(document).ready(function(){
-            if(document.getElementById('username_field') && document.getElementById('id_password')){
-                focusInOut('username_field');
-                focusInOut('id_password');
-            }
-        })
-    </script>
 </body>
 </html>

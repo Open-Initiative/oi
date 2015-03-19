@@ -300,10 +300,6 @@ objectInitTinyMce = {
 //init tinymce in the web page after loading
 tinyMCE.init(objectInitTinyMce); 
 
-function focusInOut(fieldid){
-    //jquery animation for focus in ou out for field
-    if(document.getElementById(""+fieldid).value)$("#"+fieldid).prev().fadeOut(); else $("#"+fieldid).prev().fadeIn();
-}
 //IE compatibility
 if (!Array.prototype.indexOf)
 {
