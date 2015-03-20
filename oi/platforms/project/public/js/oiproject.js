@@ -280,11 +280,12 @@ function updateProgress(projectid, progress) {
         function(){document.getElementById("progressbar_"+projectid).style.width = progress+"%";
         document.getElementById("progresslabel_"+projectid).innerHTML = progress+"%";});
 }
-function favProject(projectid, funding){
+function favProject(projectid, val){
     OIajaxCall("/project/"+projectid+"/fav", follow?"&stop=true":false, null, 
         function(response){
             if(document.getElementById("fav_"+projectid)){
-                if(funding){ 
+                // check if the platform is fundig
+                if(val){ 
                     var localhost = "Funding";
                     if($("#fav_"+projectid+"_com").html()==gettext("Follow the project")){
                         $("#fav_"+projectid+"_com").html(gettext("Stop following the project"));

@@ -28,7 +28,7 @@
                     {% endif %}
                 </div>
                 <div class="prj-block-fav">
-                    <img onclick="favProject(174)" src="/img/icons/starTrueFunding.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_174">
+                    <img onclick="favProject({{object.id}}, true)" src="/img/icons/starTrueFunding.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_{{object.id}}">
                     {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
                 </div>
             </div>
@@ -40,6 +40,7 @@
     </div>
     {% endwith %}
 </div>
+<script>follow = {% if object|is_following:user %}true{%else%}false{%endif%};</script>
 {% else %}
 {% trans "Forbidden" %}
 <script>document.location.href="/funding/{{object.id}}";</script>
