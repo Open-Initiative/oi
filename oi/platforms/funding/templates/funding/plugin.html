@@ -1,0 +1,202 @@
+{% load i18n %}
+{% load oifilters %}
+{% load compress %}
+<html>
+    <head>
+        {% compress css %}
+        <link rel="stylesheet" type="text/css" media="all" href="/css/oiusers.css" />
+        <link rel="stylesheet" type="text/css" media="all" href="/css/oifunding.css" />
+        <link rel="stylesheet" type="text/css" media="all" href="/css/jquery-ui-1.9.1.custom.css" /> 
+        {% endcompress %}
+        {% compress js %}
+        <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="/js/jquery-ui-1.9.1.custom.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/tinymce.min.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/plugins/advlist/plugin.min.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/plugins/autolink/plugin.min.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/plugins/link/plugin.min.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/plugins/image/plugin.min.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/plugins/lists/plugin.min.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/plugins/charmap/plugin.min.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/plugins/spellchecker/plugin.min.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/plugins/wordcount/plugin.min.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/plugins/visualblocks/plugin.min.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/plugins/media/plugin.min.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/plugins/paste/plugin.min.js"></script>
+        <script type="text/javascript" src="/js/tiny_mce/themes/modern/theme.min.js"></script>
+        <script type="text/javascript" src="/js/oijs.js"></script>
+        <script type="text/javascript" src="/js/oiproject.js"></script>
+        <script type="text/javascript" src="/js/oifunding.js"></script>
+        <script>
+            sites = {{Sites|safe}};
+            prjsite = "http://" + sites["Open Funding"];
+   
+            function switchPrevFeature(){
+                var prevFeature=$('.pluginfeature:visible').prev(".pluginfeature");
+                $('.pluginfeature').hide('slide', {direction: 'left'}, 150);
+                (prevFeature.length?prevFeature:$('.pluginfeature').last()).show('slide', {direction: 'right'}, 800);
+            }
+            function switchNextFeature(){
+                var nextFeature=$('.pluginfeature:visible').next(".pluginfeature");
+                $('.pluginfeature').hide('slide', {direction: 'right'}, 150);
+                (nextFeature.length?nextFeature:$('.pluginfeature').first()).show('slide', {direction: 'left'}, 800);
+            }
+        </script>
+        {% endcompress %}
+        <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
+    </head>
+
+    <body style="background-color: transparent; {% if request.GET.type == 'small' %}min-width: 240px;{% endif %} {% if request.GET.type == 'tiny' %}min-width: 100px;{% endif %} {% if request.GET.type == 'big' %}min-width: 100%; overflow: hidden;{% endif %}{% if request.GET.type == 'simple' %}min-width: 240px;{% endif %}">
+        <div id="messageoutput">
+            <div><span id="output" class="info"></span></div>
+        </div>
+        {% if request.GET.type == "big" %}
+        <div class="featuretitle">
+            <a href="/" target="_blank"><img class="fundingright" style="max-width:80px; max-height:31px" src="/img/logo_funding.png"></a>
+            {% with spec=object.spec_set.all|filter_order:1 %}
+                {% if spec.file %}<a href="/funding/{{spec.id}}" target="_blank"><img style="max-width:80px; max-height:31px" class="fundingleft" src="{{spec.file.url}}"></a>{% endif %}
+            {% endwith %}
+        
+
+            <div style="text-align: center;">    
+                <a href="/funding/{{object.id}}" target="_blank">{{object.title}}</a>
+                <div class="cleared"></div> 
+                <img src="/img/icons/star{{object|is_following:user}}Funding.png" alt="{% trans 'start' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_{{object.id}}" />
+                <span style="font-size:11px;color: #6F6F6E;">{{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}</span>
+            </div>
+        
+        </div>
+        
+        {% with listtasks=object.all_not_started_tasks|filter_read:user  %}
+        {% if listtasks.count > 1 %}<img id="prevfeature" class="clickable plugin-arrow" src="/img/icons/plugin_left_arrow.png" onclick="switchPrevFeature()"/>{% endif %}
+        <div class="fundingleft" style="width: 280px;">
+            <ul class="features_manage" id="features_0">
+                {% with linktitte="true" %}
+                {% include 'funding/popup_bid.html' %}
+                {% for task in listtasks %}
+                <li class="pluginfeature{% if not forloop.first %} invisible{% endif %}" id="task_{{task.id}}">
+                    
+                    <div id="featureDiv_{{task.id}}" class="featureblock" {% if not task.public_read %} style="opacity:.4;"{% endif %}>
+                        <div style="margin-bottom: 10px;">
+                            <a href="/funding/{{object.id}}#feature_{{task.id}}" target="_blank">
+                                <div id="feature_{{task.id}}" style="text-align: center;" class="featuretitle clickable">{{task.title}}</div>
+                            </a>
+                            <div style="text-align: center;font-size:11px;color: #6F6F6E;">{% trans "developed by" %} {{object.author}}</div>
+                            
+                            <form onsubmit="var newtitle = getValue('feature_{{task.id}}_edit');if(newtitle){confirmEditTitle({{task.id}}, newtitle);}; seeMore('feature_{{task.id}}_edit', 'feature_{{task.id}}'); return false">
+                                <input id="feature_{{task.id}}_edit" class="featuretitle invisible" value="{{task.title}}">
+                            </form>
+                        </div>
+                        <div style="margin: 0 auto;" class="avoid_overlapping">
+                            <div class="funding_space subtitle_news">{% trans "Funding phase" %}:</div>
+                            <div class="progressbar">
+                                <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%;"></span>
+                                <span id="progresslabel_{{object.id}}" class="progresstitle" >{% widthratio task.allbid_sum|default:0 task.get_budget|default:0 100 %}%</span>
+                            </div>
+                            <div class="cleared"></div>
+                            <div class="block_fund_goal">
+                                <div class="fundingleft fund">
+                                    <span class="displayblock">{% trans "Funded" %}</span>
+                                    <span>{{task.allbid_sum|default:0|floatformat:"-2"}} €</span>
+                                </div>
+                                
+                                <div class="goal">
+                                    <span class="displayblock">{% trans "Goal" %}</span>
+                                    <span class="">{{task.get_budget|floatformat:"-2"}} €</span>
+                                </div>
+                            </div>
+                            
+                            <div class="profile_info">
+                                <img src="/img/logo_small.png" class="column">
+                                <p><a class="clickable" target="_blank" href="/funding/{{object.id}}/#community" onclick="project_content('communityproject')">{{task.bid_set.count}} {% trans "users" %}</a></p>
+                            </div>            
+                            
+                            <div class="featurebtns">
+                                {% if task.state < 4 and task|can_bid:user or not user.is_authenticated and task.state < 4 %}
+                                    <a class="supportbtn clickable" href="/funding/{{object.id}}/" target="_blank">{% trans "Order the feature" %}</a>
+                                {% endif %}
+                                <br/>
+                            </div>
+                        </div>
+                        
+                        <div style="word-break: break-all; clear: left;" id="specs_{{task.id}}_hide">
+                        {% with spec=task.spec_set.all|filter_order:1 %}
+                            {% if spec.type == 2 %}<br/>{% endif %}
+                            {{spec.text|oiunescape|truncatewords_html:50}}
+                        {% endwith %}
+                        </div>
+                        
+                        {% if task|can_manage:user or task.spec_set.count %}
+                            {% include 'funding/feature_description.html' %}
+                        {% endif %}
+                        
+                        <div class="cleared">
+                            <a target="_blank" class="clickable see-more btn_feature fundingright bluesky" href="/funding/{{object.id}}/#feature_{{task.id}}">{% trans "See more" %}</a>
+                        </div>
+                        
+                    </div>
+                    <div class="reward_bottom_line"></div>
+
+                </li>
+                {% endfor %}
+                {% endwith %}
+            </ul>
+        </div>
+        {% if listtasks.count > 1 %}<img id="nextfeature" class="clickable plugin-arrow" src="/img/icons/plugin_right_arrow.png" onclick="switchNextFeature()"/>{% endif %}
+        {% endwith %}
+        
+        {% else %}{% if request.GET.type == "small" %}
+        <a href="/funding/{{object.id}}" target="_blank" style="text-decoration: none !important;">
+            <div class="pluginsmall">
+                <img class="pluginlogo" src="/img/logo_funding.png">
+                {% trans "Support " %}<br/>{{object.title}}
+                {% with object.descendants|filter_read:user as descendants %}<div class="pluginsum">
+                    {% blocktrans with amount=descendants.missingbid_sum|floatformat:"-2" %}
+                        {{amount}} € <span class="plugin-nobold">to go!</span>
+                    {% endblocktrans %}
+                    <div class="progressbar">
+                        <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio descendants.allbid_sum|add:object.bid_sum object.get_selfbudget|default:descendants.allbudget 100 %}%;"></span>
+                        <div id="progresslabel_{{object.id}}" class="progresstitle" >{% widthratio descendants.allbid_sum|add:object.bid_sum object.get_selfbudget|default:descendants.allbudget 100 %} %</div>
+                    </div>
+                </div>{% endwith %}
+            </div>
+        </a>
+
+        {% else %}{% if request.GET.type == "tiny" %}
+        <a href="/funding/{{object.id}}" target="_blank" onmouseover="$('#test').show();" onmouseout="$('#test').hide();">
+        <div class="plugintiny">
+            <img class="pluginlogo" src="/img/logo_funding.png">
+            {% with object.descendants|filter_read:user as descendants %}<div class="pluginsum">
+                <div class="progressbar" style="height: 0.3em;">
+                    <span id="progressbar_{{object.id}}" class="progresstiny" style="width:{% widthratio descendants.allbid_sum|add:object.bid_sum object.get_selfbudget|default:descendants.allbudget 100 %}%;"></span>
+                </div>
+            </div>{% endwith %}
+        </div>
+        </a>
+        <div id="plugin_preview_tiny"></div>
+        {% else %}{% if request.GET.type == "simple" %}
+        <div class="pluginsimple">
+            <a target="_blank" href="/"><img class="pluginlogo" src="/img/logo_funding.png"></a>
+            <div class="fundingleft">{% trans "Support " %}<br/>{{object.title}}</div>
+            
+            {% with object.descendants|filter_read:user as descendants %}
+            <div class="pluginsum">
+                {{object.allbid_sum|floatformat:"-2"}} €
+                <div class="cleared"></div>
+            </div>
+            {% endwith %}
+            <div class="cleared"></div>
+            
+            <form class="form_center" onsubmit="return checkConfirmation({{object.id}})" target="_blank" method="post" action="{% url 'projects.views.bidproject' object.id %}">
+                {% csrf_token %}
+                <input id="simple_sum_{{object.id}}" class="simple_sum" type="number" name="bid" min="0"> €
+                <div class="cleared"><br/></div>
+                <input type="submit" class="supportbtn_simple nobtnstyle" value="{% trans 'Back this project' %}">
+                <div class="cleared"></div>
+            </form>
+            
+            <a target="_blank" href="/funding/{{object.id}}" class="pluginsimplevisit"><u>{% trans "Visit the project page here" %}</u></a>
+        </div>
+        {% endif %}{% endif %}{% endif %}{% endif %}
+    </body>
+</html>

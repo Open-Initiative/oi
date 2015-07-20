@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load oifilters %}
+{% block title %}{% trans "Fund your software!" %}{% endblock %}
+{% block announcement %}
+<div class="cleared"></div>
+<div id="catcherbg">
+    <div id="catcher">
+        <div id="slider" class="slider" onmouseover="window.slide=false" onmouseout="if(event.target.id=='slider')window.slide=true">
+            <div class="slidertext">
+                <dl>
+                    <div id="indexslide1" class="indexslide">
+                        <dd>{% trans "Flexible funding that suits your needs" %}</dd>
+                    </div>
+                    <div class="slidertip">{% trans "Fund new features separately, or all at once. Fund over days or months; you choose. Offer any kind of reward, or none at all." %}</div>
+                    <div id="indexslide2" class="indexslide invisible">
+                        <dd>{% trans "Dedicated to Free Software" %}</dd>
+                    </div>
+                    <div class="slidertip invisible">{% trans "Join the platform dedicated to Free Software - get listed beside other leading apps and benefit from experienced fundraisers." %}</div>
+                    <div id="indexslide3" class="indexslide invisible">
+                        <dd>{% trans "Powerful promotional tools" %}</dd>
+                    </div>
+                    <div class="slidertip invisible">{% trans "Use our built-in tools for your project communication to reach a bigger audience and build a stronger community." %}</div>
+                    <div id="indexslide4" class="indexslide invisible">
+                        <dd>{% trans "More powerful together" %}</dd>
+                    </div>
+                    <div class="slidertip invisible">{% trans "Join the international movement that's revolutionising technology and society: the collaborative economy is thriving, dive in!" %}</div>
+                </dl>
+            </div>
+            <div class="clickable slidericons">
+                <div id="slidericon1" class="slidericon slidericonselected" onclick="slideIndex(1)"></div>
+                <div id="slidericon2" class="slidericon" onclick="slideIndex(2)"></div>
+                <div id="slidericon3" class="slidericon" onclick="slideIndex(3)"></div>
+                <div id="slidericon4" class="slidericon" onclick="slideIndex(4)"></div>
+            </div>
+            <a id="preslink" href="/presentation" class="slidermore" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0595BA'">
+                {% trans "Learn More" %}
+            </a>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $(".indexslide dd").width($(window).width()-10);
+            });
+            $(window).resize(function() {
+              $(".indexslide dd").width($(window).width()-10);
+            });
+            window.slide = true;
+            window.sliding = false;
+            refreshIntervalId = window.setInterval(function (){if(window.slide) slideIndex()}, 8000);
+        </script>
+        <img id="sliderimg1" src="/img/slider1.png" class="sliderimg sliderimgcloser1" />
+        <img id="sliderimg2" src="/img/slider2.png" class="sliderimg invisible sliderimgcloser2" />
+        <img id="sliderimg3" src="/img/slider3.png" class="sliderimg invisible sliderimgcloser3" />
+        <img id="sliderimg4" src="/img/slider4.png" class="sliderimg invisible sliderimgcloser4" />
+    </div>
+    <div class="cleared"></div>
+</div>
+<div class="fundingdesc">
+    <div class="submitproject">
+        <div class="helpstart">
+            <div class="blue_band_line_text">{% trans "Contribute to the projects that" %}</div>
+            <div class="blue_band_line_img"><img src="/img/opentheworld/otwhome_blue_band.png" /></div>
+            <div class="actionbutton">
+                <a href="/opentheworld" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0094B5'">{% trans "Learn More" %}</a>
+                <input id="appname" type="hidden" value="funding" />
+            </div>
+        </div>
+    </div>
+    <div class="cleared"></div>
+</div>
+{% endblock %}
+{% block headersep %}
+{% if not user.is_authenticated %}
+<div class="registerline">
+    <a href="/user/accounts/register"><div class="registertext">{% trans "Register now!" %}</div></a>
+</div>
+{% endif %}
+
+{% endblock %}
+{% block content %}
+
+<div class="invisible" id="newproject">
+    <div class="newprojectform">
+        <div id="submit" class="section_title">{% trans "Submit your project" %}</div>
+        <form id="submit_title_project" class="form_center" onsubmit="if(getValue('prjtitle')) addTask(getValue('prjtitle'), null, null,function(taskid){document.location = '/funding/'+taskid+'/edit'});return false" >
+            <p class="details_title">{% trans "You are about to start funding your free software project." %}</p>
+            <p class="form_center details_title">{% trans "First enter your project title" %}</p>
+            <input id="prjtitle"/>
+            <div class="cleared line_separate"></div>
+            <input type="submit" class="continuebtn nobtnstyle clickable" value="{% trans 'Create' %}"/>
+        </form>
+    </div>
+
+    <div id="details_create_task">
+        <a class="clickable" onclick="submitProject()">
+            <img src="/img/icons/previous.png" title="{% trans 'Back to the previous page' %}" alt="{% trans 'Back to the previous page' %}" style="position: relative;top: 3px;">
+            {% trans "Back to the projects" %}
+        </a>
+        <div id="feature_by_feature" class="details_task">
+            <h3>{% trans "Feature by feature" %}</h3>
+            <p>
+                {% trans "On Open Funding projects are funded feature by feature. That means once you have created the project you list the different features to develop, with a description on each to let people know what they're about. Plan the software and see what your users want!" %}
+            </p>
+        </div>
+        <div id="results_engagement" class="details_task">
+            <h3>{% trans "Results engagement" %}</h3>
+            <p>
+                {% trans "Open Funding proposes to fund a service delivery and not donations to the projects. Developers are committed to their results as the users validate the result of the development. You get paid, they get the feature, everyone's happy." %}
+            </p>
+        </div>
+        <div id="reache_your_community" class="details_task">
+            <h3>{% trans "Reach your community" %}</h3>
+            <p>
+                {% trans "Funding your project with Open Funding allows you to simply connect with your users and with a wider community interested in free software. But money won't come by itself. To achieve your goals, you'll have to spread the word and let the people know about your project, by promoting it in any way that help you reach them so they can fund your work. If you need more guidance in this topic, we're" %} <a href="/contact">{% trans "here" %}</a> {% trans "to help." %}
+            </p>
+        </div>
+        <div id="licence" class="details_task">
+            <h3>{% trans "Licence" %}</h3>
+            <p>
+                {% trans "All the projects on Open Funding are distributed under a free license. It's up to each developer to specify the licence they use." %}
+            </p>
+        </div>
+        <div id="reward" class="details_task">
+            <h3>{% trans "Reward" %}</h3>
+            <p>
+                {% trans "On our platform users and developers exchange a product delivery, but developers also have the option to encourage their funders through bonus rewards. This can mean goodies (e.g. t-shirts of your project), technical support, or anything you imagine. Be creative to bring the attention in to your project." %}
+            </p>
+        </div>
+        <div id="more_info" class="details_task">
+            <h3>{% trans "More info" %}</h3>
+            <p>
+                {% trans "If you want to know more about Open Funding and project creation, visit our" %} <a href="/presentation">{% trans "presentation page" %}</a> {% trans "or contact us" %} <a href="mailto:contact@openinitiative.com?Subject={% trans 'Know%20more' %}" target="_top">{% trans "here" %}</a>.
+            </p>
+        </div>
+        <a class="clickable" onclick="submitProject()">
+            <img src="/img/icons/previous.png" title="{% trans 'Back to the previous page' %}" alt="{% trans 'Back to the previous page' %}" style="position: relative;top: 3px;">
+            {% trans "Back to the projects" %}
+        </a>
+    </div>
+</div>
+<div id="projects">
+    <div class="section_title">{% trans "Latest projects" %}</div>
+    <div id="promoted_project">
+        <ul class="center_content">
+            <li>
+                <div class="prjcard">
+                    <div onclick="submitProject()" class="prjtitle funding_space"><a href="#submit">{% trans "Launch your project now" %}</a></div>
+                    <div class="prjcard_sumbit">
+                        <img src="/img/rocket.png" />
+                        <p>{% trans "Open Funding helps you to fund your free software" %}</p>
+                        <div onclick="submitProject()"><a href="#submit">{% trans "Submit your project" %}</a></div>
+                    </div>
+                </div>
+            </li>
+        {% for object in object_list %}
+            <li>
+                {% if object.promotedproject_set.all.0.location == "fundingindex_comingsoon" %}
+                {% include 'project_card_comingsoon.html' %}
+                {% else %}
+                {% include 'project_card.html' %}
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+
+    {% if user.is_authenticated and user.get_profile.get_observed_projects %}
+    <div class="section_title">{% trans "My projects" %}</div>
+    <div> 
+        <ul class="center_content">
+        {% for object in user.get_profile.get_observed_projects.distinct %}
+            <li>
+            {% include 'project_card.html' %}
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
+<script>
+    ajaxParams = document.location.hash;
+    listid = ajaxParams.substring(1);
+    if(document.location.hash == "#submit") submitProject();
+    
+    var slider = document.getElementById('catcherbg');
+    Hammer(slider).on("swipeleft dragleft", function(event) { slideIndex(); restartInterval();});
+    Hammer(slider).on("swiperight dragright", slideIndexReverse);
+</script>
+<div class="cleared" style="width:100%"></div>
+{% endblock %}

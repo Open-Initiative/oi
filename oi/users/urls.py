@@ -1,0 +1,52 @@
+#coding: utf-8
+# Url handlers des utilisateurs
+from django.conf.urls import *
+from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView, ListView, DetailView
+from oi.messages.models import Message
+from oi.users.models import UserProfile, User
+
+urlpatterns = patterns('oi.users.views',
+    (r'^myprofile', 'myprofile'),
+    (r'^exportresume/(?P<username>[\w\-\.]+)$', 'exportresume'),
+    (r'^profile/(?P<username>[\w\-\.]+)$','userprofile'),
+    (r'^dashboard', login_required(TemplateView.as_view(template_name="users/dashboard.html"))),
+    (r'^myblog', login_required(TemplateView.as_view(template_name="users/blog.html"))),
+    (r'^blog/(?P<object_id>\d+)$', DetailView.as_view(template_name='users/blog.html', queryset='User.objects.all()', context_object_name="selected_user")),
+    (r'^paymenthistory', login_required(TemplateView.as_view(template_name="users/paymenthistory.html"))),
+    (r'^confirmpayment', 'myaccount'),
+    (r'^updatepayment', 'updatepayment'),
+    (r'^changeuserlanguage', 'changeuserlanguage'),
+    (r'^myaccount', 'myaccount'),
+    (r'^setemailing', 'setemailing'),
+    (r'^savecontactinfo', 'savecontactinfo'),
+    (r'^savename', 'savename'),
+    (r'^setrss', 'setrss'),    
+    (r'^discussions', TemplateView.as_view(template_name='users/discussions.html')),
+    (r'^messageswith/(?P<username>[\w\-\.]+)$', 'getusermessages'),
+    (r'^createuser$', 'createuser'),
+    (r'^resetpassword$', TemplateView.as_view(template_name='users/resetpwd.html')),
+    (r'^confirmresetpassword$', 'resetpassword'),
+    (r'^changepassword$', TemplateView.as_view(template_name='users/changepwd.html')),
+    (r'^confirmchangepassword$', 'changepassword'),
+    (r'^changeemail$', TemplateView.as_view(template_name='users/changeemail.html')),
+    (r'^confirmchangeemail$', 'changeemail'),
+    (r'^savebio$', 'savebio'),
+    (r'^invite/(?P<username>[\w\-\.]+)$', 'invite'),
+    (r'^sendmp/(?P<username>[\w\-\.]+)$', 'sendMP'),
+    (r'^archivenotice$', 'archivenotice'),
+    (r'^register$', TemplateView.as_view(template_name='users/register.html')),
+    (r'^editdetail/(?P<id>\d+)$', 'editdetail'),
+    (r'^savedetail/(?P<id>\d+)$', 'savedetail'),
+    (r'^deletedetail/(?P<id>\d+)$', 'deletedetail'),    
+    (r'^edittitle$', login_required(TemplateView.as_view(template_name='users/profile/edittitle.html'))),
+    (r'^settitle$', 'settitle'),
+    (r'^settaxrate$', 'settaxrate'),
+    (r'^selectnamedisplay$', 'listnamedisplays'),
+    (r'^setnamedisplay$', 'setnamedisplay'),
+    (r'^invoice', 'invoice'),
+    (r'^setbirthdate$', 'setbirthdate'),    
+    (r'^getpicture/(?P<username>[\w\-\.]*)$', 'getpicture'),    
+    (r'^uploadpicture$', 'uploadpicture'),
+    (r'^accounts/', include('registration.backends.default.urls')),    
+)

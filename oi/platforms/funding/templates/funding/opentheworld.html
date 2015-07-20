@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load oifilters %}
+{% block title %}{% trans "Open the world" %}{% endblock %}
+{% block pagetitle %}{% trans "Open the world" %}{% endblock %}
+{% block announcement %}
+<div class="cleared"></div>
+<div class="opentheworld_annoncement">
+<img class="opentheworld_logo" src="/img/opentheworld/logo.png" />
+    <div class="opentheworld_sentence">{% trans "Contribute to the projects that" %}</div>
+    
+    {% comment %}
+    <a href="" class="opentheworld_learn_more">
+        {% trans "How?" %} <span style="font-size:0.8em;">{% trans " Several ways...learn more!" %}</span>
+    </a>
+    
+    <div class="opentheworld_progressbar">
+        <div class="funding_space subtitle_news">
+        </div>
+    
+    {% with object_list|filter_read:user as descendants %}
+        <div>
+            <div style="background: white;" class="progressbar prjcard_margin_bottom">
+                <span id="progressbar_{{object.id}}" class="progress" style="width:{% widthratio descendants.allbid_sum|add:object.bid_sum object.get_selfbudget|default:descendants.allbudget 100 %}%;"></span>
+                <span id="progresslabel_{{object.id}}" class="progresstitle" >{% widthratio descendants.allbid_sum|add:object.bid_sum object.get_selfbudget|default:descendants.allbudget 100 %} %</span>
+            </div>
+        </div>
+        {% endwith %}
+        
+        <div class="block_fund_goal">
+            <div class="fundingleft fund">
+                <span class="displayblock">{% trans "Funded" %}</span>
+                <span>{{object_list.get_selfbudget|default:0|floatformat:"-2"}} </span>
+            </div>
+            
+            <div class="goal">
+                <span class="displayblock">{% trans "Goal" %}</span>
+                <span class="">{{object_list.allbid_sum|default:0|floatformat:"-2"}} </span>
+            </div>
+        </div>
+    </div>
+    {% endcomment %}
+    
+</div>
+    
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="opentheworld_content">
+
+    <div class="opentheworld_help">
+        <p>{% trans "What technology would you open up to the world? These Open Source apps are making powerful new tools that are open to everyone. Help make their dreams a reality: back the projects and #OpenTheWorld!" %}</p>
+        <a id="preslink" href="/presentation#E" class="slidermore" style="position:static" onmouseover="this.style.color='#004f44'" onmouseout="this.style.color='#0595BA'">
+            {% trans "Learn More" %}
+        </a>
+    </div>
+
+    <div class="opentheworld_title">{% trans "Participating projects" %}</div>
+    <p class="opentheworld_help">{% trans "Open Funding enables developers to connect with users to unlock the potential of their software and release it to the commons. We're part of a movement to make software differently: collaboratively, openly, and directly to what users want. Join us now and spread the word." %}</p>
+    
+    <div style="position:relative">
+        <div>
+            <ul class="center_content">
+            {% for object in object_list %}
+                <li>{% include 'funding/opentheword_project_card.html' %}</li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="cleared"></div>
+    </div>
+    
+</div>
+{% endblock %}

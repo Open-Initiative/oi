@@ -1,0 +1,108 @@
+{% load oifilters %}
+{% load i18n %}
+<div class="prjheader">
+    <div class="prjdetail">
+        {% if object|can_write:user and object.state < 2 and object.bid_set.count == 0 and object.tasks.count == 0 %}
+            <img src="/img/icons/delete.png" class="clickable delbtn" alt="{% trans "Delete the task" %}" title="{% trans "Delete the task" %}" onclick="deleteProject({{object.id}})" />
+        {% endif %}
+        {% if object.state < 4 and object.bid_set.count > 0 and user == object.assignee %}
+            <img src="/img/icons/delete.png" class="clickable delbtn" alt="{% trans "Cancel" %}" title="{% trans "Cancel" %}" onclick="cancelProject({{object.id}}, {{object.state}})" />
+        {% endif %}
+        <div class="prjauthor">{% trans "Task created on" %} {{object.created|date:"d/m/Y"}} {% trans "by" %} <a href="/user/profile/{{object.author.username}}">{{object.author.get_profile}} </a></div>
+        <div class="cleared"></div>
+        {% if object.spec_set.all %}
+        {% if object.spec_set.count > 1 %}<img id="nextminispec" class="clickable minispec-arrow" src="/img/icons/next.png"/>{% endif %}
+        <a href="/prjmgt/{{object.id}}/view/description">
+        {% for spec in object.spec_set.all %}
+            <div class="minispec {% if not forloop.first %}invisible {% endif %}">{% include 'projects/spec/minispec.html' %}</div>
+        {% endfor %}
+        </a>
+        {% if object.spec_set.count > 1 %}<img id="prevminispec" class="clickable minispec-arrow" src="/img/icons/previous.png"/>{% endif %}
+        {% else %}
+        <div class="no-mini-spec"> <a href="/prjmgt/{{object.id}}/view/description"> {% trans "Click here to describe the task" %} </a> </div>
+        {% endif %}
+        <script type="text/javascript">
+            $('#prevminispec').click(function(){
+                $('.minispec').animate({width: 'hide'});
+                var prevSpec=$('.minispec:visible').prev(".minispec");
+                (prevSpec.length?prevSpec:$('.minispec').last()).animate({width: 'show'});
+            });
+            $('#nextminispec').click(function(){
+                $('.minispec').animate({width: 'hide'});
+                var nextSpec=$('.minispec:visible').next(".minispec");
+                (nextSpec.length?nextSpec:$('.minispec').first()).animate({width: 'show'});
+            });
+        </script>
+
+        <div>
+            <a href="/prjmgt/{{object.id}}/view/team#public">{% if object.public_read %}{% trans "Public task" %}{% else %}{% trans "Private task" %}{% endif %} <img src="/img/icons/bluebtn.png"/></a>
+            <div><span class="entitle-overview">{% trans "Assignee:" %} </span><a href="/prjmgt/{{object.id}}/view/team">
+                {% if object.assignee %}{{object.assignee.get_profile}}
+                {% else %}{% trans "Nobody" %}{% endif %}
+                <img src="/img/icons/bluebtn.png" /></a>
+            </div>
+            <div>
+                <span class="entitle-overview">{% trans "Deadline:" %} </span><a href="/prjmgt/{{object.id}}/view/planning">
+                {% if object.due_date %}{{object.due_date|date:"d/m/Y"}}
+                {% else %}{% trans "Not set" %}{% endif %}
+                <img src="/img/icons/bluebtn.png" /></a>
+            </div>
+            <div>
+                <span class="entitle-overview">{% trans "Requested budget:" %} </span>
+                <a href="/prjmgt/{{object.id}}/view/budget"> {{object.offer}}€<img src="/img/icons/bluebtn.png" /></a>
+            </div>
+            
+            {% if object.parent %}
+            <div>
+                <span class="entitle-overview">{% trans "Release:" %}</span> <span id="assignRelease">{{object.target.name}}</span> 
+                {% if object|can_manage:user and object.state < 3 %}
+                    <img src="/img/icons/edit.png" class="clickable" alt="{% trans 'Select in which release this task will be done' %}" title="{% trans 'Select in which release this task will be done' %}" onclick="$('#entitle-overview_{{object.id}}').toggle()" /> 
+                {% endif %}
+                <select id="entitle-overview_{{object.id}}" class="invisible" onchange="assignRelease({{object.id}}); $('#entitle-overview_{{object.id}}').hide()">
+                    <option selected ></option>
+                    <option class="currentrelease" value="{{object.master.target.name}}">{{object.master.target.name}} *</option>
+                    {% for release in object.future_releases %}
+                        <option value="{{release.name}}">{{release.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% endif %}
+            
+        </div>
+    </div>
+    <div>
+        <div class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">
+            {{object.title}}
+            {% if object|can_write:user and object.state < 2 %}
+            <img onclick="document.getElementById('prjtitle_{{object.id}}').innerHTML = document.getElementById('edittitle').innerHTML" class="clickable" src="/img/icons/edit.png" alt="{% trans 'Edit the title' %}" title="{% trans 'Edit the title' %}" />
+        </div>
+        <div id="edittitle" class="invisible">
+            <form onsubmit="confirmEditTitle({{object.id}}, getValue('title_{{object.id}}'));return false">
+                <input id="title_{{object.id}}" type="text" value="{{object.title}}" />
+                <input type="image" class="clickable" src="/img/icons/ok-32.png"/>
+                <img class="clickable" src="/img/icons/del-32.png" onclick="resetProjectTitle({{object.id}},'{{object.title}}')" />
+            </form>
+            {% endif %}
+        </div>
+        {% if object|can_write:user and object.state < 3 %}
+                {% comment %}<img onclick="editProjectTitle({{object.id}})" class="clickable" src="/img/icons/edit.png" alt="{% trans 'Edit the title' %}" title="{% trans 'Edit the title' %}" />{% endcomment %}
+            {% endif %}
+        <div class="prj-block-fav">
+            <img onclick="favProject({{object.id}})" src="/img/icons/star{{object|is_following:user}}.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_{{object.id}}">
+            {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
+        </div>
+        {% include "projects/project_actions.html" %}
+    </div>
+    {% if object.state == 2 %}
+    <div class="progressbar{% ifequal object.assignee user %} clickable" onclick="updateProgress({{object.id}},(event.clientX-this.offsetLeft)/this.offsetWidth){% endifequal %}">
+        <span id="progressbar_{{object.id}}" class="progress" style="width:{{object.progress|default:0|floatformat:0}}%;"></span>
+        <span id="progresslabel_{{object.id}}" class="progresstitle" >{{object.progress|default:0|floatformat:0}}%</span>
+    </div>
+    {% endif %}
+    <div class="cleared"></div>
+    <div class="prjstatebar">
+        {% for phase in OI_PRJ_PHASES %}
+            <div class="{% if phase.0 == object.state %}currentstate {% endif %}prjstate state{{phase.0}}">{{phase.1}}</div>
+        {% endfor %}
+    </div>
+</div>

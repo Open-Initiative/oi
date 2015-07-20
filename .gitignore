@@ -1,3 +1,6 @@
 *.pyc
 settings_specific.py
 public/media
+oi/oi/platforms/funding/public/admin
+oi/oi/platforms/project/public/admin
+oi/oi/platforms/root/public/admin

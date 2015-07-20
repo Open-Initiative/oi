@@ -1,0 +1,90 @@
+/*La page d'acceuil*/
+
+@media screen and (max-width:1025px){
+/*    les deux images apparaissent sous le text*/
+    #rocket {margin-left: 10px;}
+    .sliderimg {opacity: 0.2;position: absolute;top: 0;}
+    .sliderimgcloser1 {margin-left: 30%;}
+    .sliderimgcloser2, .sliderimgcloser3 {margin-left: 10%;}
+    .sliderimgcloser4 {margin-left: -10px;}
+    #catcher {padding: 0 2%;}
+    .slider {float: none; width: auto;}
+    .slidermore {left: 10px; padding: .2em%;} 
+    .submitproject {margin: 0 auto;}
+    .indexslide {overflow: visible; width: auto;}
+    .slidertip {width: auto;}
+    .slider dd {height: auto;}
+    #userheader_mobile {display: block;}
+}
+/*Push line qui disparait*/
+@media screen and (max-width:500px){
+    #searchdiv {display: none;}
+}
+@media screen and (max-width:580px){
+    .blue_band_line_text {display: none;}
+    .actions.clickable.actionbutton {margin-top: 25px; float: none;margin-left: 100px;}
+}
+@media screen and (max-width:470px){
+    .slidermore {top:180px;}
+    .slidericons {top:190px;}
+}
+@media screen and (max-width:410px){
+    #name_header {display: none;}
+    .slidermore {display: none;} 
+    .slidericons {top:200px;}
+}
+
+/*La page projet*/
+@media screen and (max-width:1035px){
+    .social_integration {left: 0; height: 0; position: initial; width: auto;}
+    .social_integration_img {float: left; margin: 5px 10px; padding-left: 10px;}
+    .social_integration_bubble {visibility:hidden;}
+}
+@media screen and (max-width:430px){
+    .prjheader > div.funding_space.fundingright {float:none;}
+    .prjheader {padding: 28px 28px 9px 9px;}
+}
+
+@media screen and (min-width:751px){
+    #btn_extend_close, #btn_extend_open  {display: none;}
+}
+
+/*rend la page responsive*/
+@media screen and (max-width:750px){
+    .prjbody {margin-right: 0;} /*à voir margin*/
+    #related {background: white;}
+    .discussion_column {margin: 0 3%;} /*à voir margin*/
+/*    permet de voir le boutons pour voir la colonne de droite*/
+/*    donne une taille bien visible pour le blockfeatureheight */
+    .maxwidth50 {max-width: 100%;}
+/*    affiche la popup à la bonne taille pour le projet*/
+    .mobile_popup_size{width: auto !important;}
+/*    permet de cacher la div en dessous d'une certaine taille*/
+    #shrinkrelated {box-shadow: 0 2px 3px 2px; width: 20px;background: none repeat scroll 0 0 white;border: 1px solid #9D9C9C;}
+}
+/*améliorer les messages pour les projets*/
+@media screen and (max-width:400px){
+    .discussion_column .column {float:none;}
+    .speech {display: none;}
+    .msgbubble {margin-left: 0;}
+}
+
+/*La page myaccount*/
+@media screen and (max-width:580px){
+    .largecolumn, .creditblock {display: table;float: none;margin: 0 auto;text-align: center;width: auto;}
+}
+
+/*La page myaccount*/
+@media screen and (max-width:750px){
+    .prjbodyprofile {margin-right: 0;}
+}
+
+/*Open The world*/
+@media screen and (max-width:686px){
+    .opentheworld_separate_part{border-right: none;border-bottom: 1px dashed #0094B5;margin: -5px 10px 0;min-width: 95%;min-height: 0;}
+}
+@media screen and (max-width:455px){
+    .opentheworld_cleared{display:block;}
+    .opentheworld_part1{width: auto;}
+    .opentheworld_description{max-width: 250px;}
+}

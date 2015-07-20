@@ -1,0 +1,26 @@
+{% load i18n %}
+{% load oifilters %}
+Open Funding
+{% trans "The co-funding platform for free software" %}
+
+
+{% trans "Hello" %}
+
+{% trans "Welcome to Open Funding!" %} : )
+{% trans "Your account has been created successfully. It needs just one last step of clicking on the following link: " %}
+
+http://{{site}}/user/accounts/activate/{{activation_key}}
+
+{% trans "If there is a problem with your registration, please reply to this email." %}
+
+{% trans "Thank you very much for joining this community." %}
+
+{% trans "Cheers!" %}
+
+{% trans "The OpenFunding team" %}
+http://{{site}}">http://www.openinitiative.com/
+{% trans "The Co-funding Platform for Free Software" %}
+
+
+contact@open-initiative.com
+twitter: @Open_Initiative

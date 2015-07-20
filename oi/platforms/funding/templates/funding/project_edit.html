@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+﻿﻿{% load oifilters %}
+{% load i18n %}
+{% block title %}{{object.title|default:_("Project")}}{% endblock %}
+{% block breadcrumb %}
+<div class="path-element">{{object.title}}</div>
+{% endblock %}
+{% block content %}
+{% if object|can_write:user %}
+<div class="pagebody">
+    {% with object as project %}
+    <div id="project_{{object.id}}" class="project">
+        <div id="prjdialogue_{{object.id}}" class="popup invisible"></div>
+        <div class="prjheader">
+            <div class="prjauthor">{% trans "Project created by" %} {{object.author.get_profile}}</div>
+            <div class="fundingleft">
+                <div class="tasktitle" id="prjtitle_{{object.id}}" title="{{object.title}}">
+                    {{object.title}}
+                    {% if object|can_write:user and object.state < 2 %}
+                    <img onclick="document.getElementById('prjtitle_{{object.id}}').innerHTML = document.getElementById('edittitle').innerHTML" class="clickable" src="/img/icons/edit.png" alt="{% trans 'Edit the title' %}" title="{% trans 'Edit the title' %}" />
+                </div>
+                <div id="edittitle" class="invisible">
+                    <form onsubmit="confirmEditTitle({{object.id}}, getValue('title_{{object.id}}'));return false">
+                        <input id="title_{{object.id}}" type="text" value="{{object.title}}" />
+                        <input type="image" class="clickable" src="/img/icons/ok-32.png"/>
+                        <img class="clickable" src="/img/icons/del-32.png" onclick="resetProjectTitle({{object.id}},'{{object.title}}')" />
+                    </form>
+                    {% endif %}
+                </div>
+                <div class="prj-block-fav">
+                    <img onclick="favProject({{object.id}}, true)" src="/img/icons/starTrueFunding.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_{{object.id}}">
+                    <span id="fav_number">{{object.observer_set.count}}</span> {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
+                </div>
+            </div>
+            <div class="cleared"></div>
+        </div>
+        <div id="specs_{{object.id}}" class="prjdesc">
+                {% include "funding/spec/project_description_edit.html" %}
+        </div>
+    </div>
+    {% endwith %}
+</div>
+<script>follow = {% if object|is_following:user %}true{%else%}false{%endif%};</script>
+{% else %}
+{% trans "Forbidden" %}
+<script>document.location.href="/funding/{{object.id}}";</script>
+{% endif %}
+{% endblock %}

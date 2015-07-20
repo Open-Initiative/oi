@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load oifilters %}
+{% block content %}
+
+<div class="root_home_page">
+    <a href="http://{{Sites|get:"Open Funding"}}">
+        <img class="root_img" src="/img/logo_funding.png" alt="logo Open Funding">
+    </a>
+    <p>{% trans "Fund your free software on OpenFunding the" %} <b>{% trans "co-funding" %}</b> {% trans "platform for all your free software" %}</p> 
+    <a href="http://{{Sites|get:"Open Funding"}}" class="join_community clickable">{% trans "Join the community" %}</a>   
+</div>
+
+<div class="contact_us">
+    <div class="center_contact_us">
+        <img class="root_project" src="/img/root_project.png" alt="project">
+        <a href="/contact"><div>{% trans "Contact us!" %}</div></a>
+        <p>{% trans "You're wishing for a project to be funded?" %}</p>
+        <p>{% trans "You're looking for a great project to develop?" %}</p>
+    </div>
+</div>
+
+<div class="other_initiative">
+    <span class="other_initiative_subtitle">{% trans "Our other initiatives" %}</span>
+    <div class="cleared"></div>
+    
+    <div class="center">
+        <ul class="root_ul">
+            
+            <li id="blog">
+                <a href="http://blog.openinitiative.com/">
+                    <div class="rootdesc">
+                        <div>Follow us on</div>
+                        <div class="blogtag blogtagline">The blog</div>
+                    </div>
+                </a>
+            </li>
+            
+            <li id="openinitiative">
+                <a href="http://{{Sites|get:"Open Initiative Projects"}}">
+                    <div class="rootdesc">
+                        <div>
+                            <img class="rootlogo" src="/img/logo.png" alt="logo openinitiative" />
+                            <div class="cleared" style="margin-bottom: 5px;"></div>
+                            <span>{% trans "An agile project management platform" %}</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            
+            <li id="conference">
+                <a href="http://flat-conference.com/">
+                    <div class="rootdesc">
+                        <div>
+                            <img class="rootlogo" src="/img/flat.png" alt="flat logo" />
+                            <div class="cleared" style="margin-bottom: 5px;"></div>
+                            <span>{% trans "A conference rethinking management" %}</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="cleared"></div>
+</div>
+{% endblock %}

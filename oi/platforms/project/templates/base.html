@@ -1,0 +1,165 @@
+{% load i18n %}
+{% load oifilters %}
+{% load compress %}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="shortcut icon" href="/favicons.ico" />
+    {% compress css %}
+    <link rel="stylesheet" type="text/css" media="all" href="http://{{Sites|get:'Open Initiative'}}/css/oi.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="http://{{Sites|get:'Open Initiative'}}/css/oimessages.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="/css/oiprojects.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="http://{{Sites|get:'Open Initiative'}}/css/oiusers.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="http://{{Sites|get:'Open Initiative'}}/css/jquery-ui-1.9.1.custom.css" /> 
+    {% endcompress %}
+    {% compress js %}
+    <script>
+        sites = {{Sites|safe}};
+        prjsite = "http://" + sites["Open Initiative Projects"];
+        fundingsite = "http://" + sites["Open Funding"];
+    </script>
+    <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui-1.9.1.custom.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/tinymce.min.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/plugins/advlist/plugin.min.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/plugins/autolink/plugin.min.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/plugins/link/plugin.min.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/plugins/image/plugin.min.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/plugins/lists/plugin.min.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/plugins/charmap/plugin.min.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/plugins/spellchecker/plugin.min.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/plugins/wordcount/plugin.min.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/plugins/visualblocks/plugin.min.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/plugins/media/plugin.min.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/plugins/paste/plugin.min.js"></script>
+    <script type="text/javascript" src="/js/tiny_mce/themes/modern/theme.min.js"></script>
+    <script type="text/javascript" src="/js/dateFormat.js"></script>
+    <script type="text/javascript" src="/js/oijs.js"></script>
+    <script type="text/javascript" src="/js/oimessage.js"></script>
+    <script type="text/javascript" src="/js/oiuser.js"></script>
+    <script type="text/javascript" src="/js/oiproject.js"></script>
+    <script type="text/javascript" src="/js/extend-oiproject.js"></script>
+    <script type="text/javascript" src="/js/oitree.js"></script>
+    <script type="text/javascript" src="/js/oitable.js"></script>
+    <script type="text/javascript" src="/js/oigantt.js"></script>
+    {% endcompress %}
+    <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
+    <title>{% block title %}{% endblock %} - Open Initiative</title>
+</head>
+
+<body>
+    <div id="messageoutput">
+        {% for message in messages %}
+        <div><span class="{{ message.tags }}">{{ message }}</span></div>
+        {% endfor %}
+        <div><span id="output" class="info"></span></div>
+    </div>
+    <div id="header">
+        <div class="center">
+            {% block header %}
+            <div style='width:0;float: left;font-size: 12px;font-weight: bold;left: 185px;padding: 1px;position: relative;top: 56px;'>BETA</div>
+            <div id="logo"><a href="/"><img style="height:75px" src="/img/logo.png" /></a></div>
+            <div id="searchdiv">
+                <div id="baseline">{% trans "The IT community dedicated to your business" %}</div>
+                <img src="/img/baseunderline.png" />
+                {% comment %}<div id="search"><form name="searchform" action="/search" method="GET">
+                    <input class="searchbox" name="q" type="text" value="Rechercher..." onclick="value=''" />
+                    <input id="searchbtn" type="image" src="/img/icons/search.png" />
+                </form></div>{% endcomment %}
+            </div>
+            <div id="userheader">
+                <form method="post" action="/user/changeuserlanguage" class="actions">
+                    {% csrf_token %}
+                    <input type="hidden" name="language" value="{% if LANGUAGE_CODE = 'fr' %}en{% else %}fr{% endif %}"/>
+                    <input id="oi_lang" type="image" src="/img/{% if LANGUAGE_CODE = 'fr' %}en{% else %}fr{% endif %}.png" />
+                </form>
+                {%if user.is_authenticated%}
+                <div id="toptext">
+                    <a class="toplink" href="/user/myprofile"><img src="/img/icons/miniuser.png" />{% trans "My profile" %}</a>
+                    <a class="toplink" href="/user/myaccount"><img src="/img/icons/minisettings.png" />{% trans "My account" %}</a>
+                    <a class="toplink" href="/logout"><img src="/img/icons/minilogout.png" />{% trans "Disconnect" %} {{user}}</a>
+                </div>
+                {% endif %}
+                {%if user.is_authenticated%}
+                <a href="/user/myprofile">
+                    <div class="usertitle">{{user.get_profile}}</div>
+                    {{user.get_profile.title}}
+                </a>
+                {%else%}
+                <span id="loginbox">{% trans "Login" %}</span>
+                <div id="loginarea">
+                    <form method="post" action="{% url 'django.contrib.auth.views.login' %}">{% csrf_token %}<table>
+                        <tr>
+                            <td>
+                                <input id="username_field" type="text" placeholder="{% trans 'username' %}" name="username" tabindex=1 class="loginfield" />
+                            </td>
+                            <td colspan="2"><a href="/user/resetpassword" class="forgotpwd">{% trans "Forgot your password?" %}</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="password" name="password" placeholder="{% trans 'password' %}" id="id_password" tabindex=2 class="loginfield" />
+                            </td>
+                            <td><input id="loginbtn" type="submit" tabindex=3 value="{% trans 'login' %}" /></td>
+                            <td><a href="/user/accounts/register">
+                                <div id="registerbtn">{% trans "Register" %}</div>
+                            </a></td>
+                        </tr>
+                    </table>
+                    <input type="hidden" name="next" value="{{request.get_full_path}}" />
+                </form></div>
+                {%endif%}
+            </div>
+            {%if user.is_authenticated%}<div class="headerpic"><img class="contactpicture" src="/user/getpicture/{{user.username}}" /></div>{%endif%}
+            {% endblock %}
+        </div>
+    </div>
+    {% block announcement %}
+    {% endblock %}
+    <div class="headersep">
+        {% block headersep %}
+        <div class="center">
+        </div>
+        {% endblock %}
+    </div>
+    <div id="breadcrumb">
+        <div class="center">
+            <div class="path-element"><a href="/"><img src="/img/icons/home.png" alt="home" /></a></div>
+            {% block breadcrumb %}{% endblock %}
+        </div>
+        <div class="cleared"></div>
+    </div>
+    <div class="center">
+       <script>
+            follow = {% if object|is_following:user %}true{%else%}false{%endif%};
+       </script>
+        <div class="column">
+            <div id="actions"> 
+                {% block actions %}{% endblock %}
+            </div>
+            
+            <div id="nav">
+                {% block nav %}{% endblock %}
+            </div>
+        </div>
+        
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
+        <div class="cleared"></div>
+    </div>    
+    <div id="footer">
+        <div class="op_icon">
+            <a class="footlink" href="https://www.facebook.com/myopeninitiative?filter=1"><img alt="Facebook" title="{% trans 'Follow us on facebook' %}" src="/img/facebook.png"></a>
+            <a class="footlink" href="https://twitter.com/Open_Initiative"><img alt="Twitter" title="{% trans 'Follow us on twitter' %}" src="/img/twitter.png"></a>
+            <a class="footlink" href="https://plus.google.com/104128139611924726489/posts" target="_blank"><img title="{% trans 'Follow us on google+' %}" alt="Google+" src="/img/google+.png"></a>
+        </div>
+        <a class="footlink" href="/cgu">{% trans "Terms of Use" %}</a> |
+        <a class="footlink" href="{%trans '/presentation' %}">{% trans "Presentation" %}</a> |
+        <a class="footlink" href="/contact">{% trans "Legal notice" %}</a> |
+        <a class="footlink" href="/contact">{% trans "Contact" %}</a>
+    </div>
+</body>
+</html>

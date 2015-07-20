@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Change your password" %}{% endblock %}
+{% block content %}
+<form method="post" action="/user/confirmchangepassword">
+    {% csrf_token %}
+    <table>
+        <tr>
+            <td><label for="oldpassword">{% trans "Former password" %}</label></td>
+            <td><input type="password" id="oldpassword" name="oldpassword" /></td>
+        </tr>
+        <tr>
+            <td><label for="newpassword">{% trans "New password" %}</label></td>
+            <td><input type="password" id="newpassword" name="newpassword" /></td>
+        </tr>
+        <tr>
+            <td><label for="confirmpassword">{% trans "Confirm new password" %}</label></td>
+            <td><input type="password" id="confirmpassword" name="confirmpassword" /></td>
+        </tr>
+    </table>
+<input type="submit" value="{% trans "Set new password" %}" />
+</form>
+{% endblock %}

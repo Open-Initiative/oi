@@ -1,0 +1,350 @@
+{% extends "base.html" %}
+﻿﻿{% load oifilters %}
+{% load i18n %}
+{% block title %}{{object.title|default:_("Project")}}{% endblock %}
+{% block metadata %}
+    <meta name="keywords" content="{{object.title}}, {% trans 'free' %}, {% trans 'software' %}, {% trans 'application' %}"/>
+    <meta name="generator" content="Django"/>
+    {% with spec=object.all_specs_with_languages|filter_order:2 %}
+        <meta name="description" content="{{spec.text}}"/>
+        <meta property="og:description" content="{{spec.text}}"/>
+    {% endwith %}
+    <meta property="og:title" content="{{object.title}}"/>
+    <meta property="og:type" content="Open Funding:project"/>
+    {% with spec=object.spec_set.all|filter_order:1 %}
+    {% if spec.file and spec.file.url %}
+        <meta property="og:image" content="{{current_site}}{{spec.file.url}}"/>
+    {% endif %}
+    {% endwith %}
+    <meta property="og:url" content="{{current_site}}{{request.path}}"/>
+    <meta property="og:site_name" content="Open Funding"/>
+{% endblock %}
+
+{% block breadcrumb %}
+<div class="path-element">{{object.title}}</div>
+{% endblock %}
+
+{% block content %}
+{% if object|can_read:user %}
+
+<div id="pluginpopup" class="invisible popup visible" onclick="document.ignoreClosePopups = true;">
+    <p>{% trans "Embed this widget to share the feature on your blog or website" %}</p>
+    <form>
+        <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="big"/>{% trans "Big" %}
+        <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="small"/>{% trans "Small" %}
+        <input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="tiny"/>{% trans "Tiny" %}
+        {% if object|can_bid:user %}<input type="radio" name="plugintype" onclick="selectplugin({{object.id}}, this.value)" value="simple"/>{% trans "Simple" %}{% endif %}
+        <textarea readonly id="plugincode" style="width:100%; float:right; height:65px"></textarea>
+    </form>
+    <div id="plugin_preview"></div>
+</div>
+
+<div id="not_allocated_{{object.id}}" class="popup invisible body_color">
+    <p>{% trans "We have received an extra" %} <b>{{object.bid_sum|floatformat:"-2"}} €</b> {% trans "which the developer will allocate on one of the features. In case there is no need in this phase the extra amount will be used for the development of new features in the future." %}</p>
+    <p>{% trans "We'll keep you updated." %}</p>
+</div>
+
+<div class="block_shrinkrelated">
+    <div style="position:relative; float: right;">
+        <img id="btn_extend_open" class="btn_extend" src="/img/icons/openbtn.png" onclick="openPanel()"/>
+
+        <img id="btn_extend_close" class="invisible btn_extend" src="/img/icons/closebtn.png" onclick="closePanel()" />
+        <div id="shrinkrelated">
+            <div id="related">
+                {% include 'funding/project_related.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% comment %} website developpeur popup {% endcomment %}
+{% with spec=object.spec_set.all|filter_order:8 order=8 divid='software' %}
+{%include 'funding/project_website_popup.html'%}
+{% endwith %}
+
+{% comment %} reward popup {% endcomment %}
+<div id="newreward" class="invisible popup_reward" onclick="document.ignoreClosePopups = true;">
+    {% include 'funding/rewardblock.html' %}
+</div>
+
+{% for reward in object.reward_set.all %}
+<div id="newreward_{{reward.id}}" class="invisible popup_reward" onclick="document.ignoreClosePopups = true;">
+    {% for key, value in forms.items %}
+        {% with reward_form=value %}
+            {% with "reward_form_"|int_to_string:reward.id as form %}
+                {% if form == key %}
+                    {% include 'funding/rewardblock.html' %}
+                {% endif %}
+            {% endwith %}
+        {% endwith %}
+    {% endfor %}
+</div>
+{% endfor %}
+
+{% comment %} for corner developpeur popup {% endcomment %}
+{% with spec=object.spec_set.all|filter_order:5 order=5 divid='deposit' %}{%include 'funding/project_website_popup.html'%}{% endwith %}
+
+{% with spec=object.spec_set.all|filter_order:6 order=6 divid='licence' spec_divid='spec__6_content' %}
+<div class="popup_corner invisible" id="licencedescription_{{spec.id}}" onclick="document.ignoreClosePopups = true;">
+
+    <div class="cleared"></div>
+
+    <input name="spectype" id="type_{{spec_divid}}" value="3" type="hidden"/>
+    <input name="specid" id="specid_{{spec_divid}}" value="{{spec.id|default:0}}" type="hidden"/>
+    <input name="projectid" id="projectid_{{spec_divid}}" value="{{object.id}}" type="hidden"/>
+    <input name="specorder" id="specorder_{{spec_divid}}" value="{{order}}" type="hidden"/>
+
+    <form onsubmit="saveSpec('{{spec_divid}}',{{object.id}},getValue('specorder_{{spec_divid}}'),{{spec.id|default:0}});hidePopups(); return false">
+        <span class="rewardtitle">{% trans "Indicate the license used to distribute software" %}</span><br/>
+        <input id="text_{{spec_divid}}" type="text" value="{{spec.text|oiunescape}}">
+        <div class="cleared"></div><br/>
+        <span class="rewardtitle">{% trans "Url licence repository" %}</span><br/>
+        <input id="url_{{spec_divid}}" type="text" value="{{spec.url|default:"http://"}}">
+        <div class="cleared"></div>
+    <input id="divid_{{spec_divid}}" name="divid" type="hidden" value="{{spec_divid}}" />
+    <input alt="{% trans 'Save the description' %}" title="{% trans 'Save the description' %}" class="fundingright" type="image" src="/img/icons/ok-32.png">
+    </form>
+</div>
+{% endwith %}
+
+<div class="prjbody">
+
+    <div class="social_integration">
+        <a style="position:relative;" onmouseover="$('#social_twitter').show();" onmouseout="$('#social_twitter').hide();" target="_blank" href="https://twitter.com/intent/tweet?text={% trans 'I%20am%20supporting%20the%20project%20' %}{{object.title}}&via=Open_Initiative&url=http://funding.openinitiative.com/funding/{{object.id}}">
+            <div id="social_twitter" class="invisible">
+                <div class="social_integration_bubble">{% trans "Tweet on Twitter" %}</div>
+            </div>
+            <img src="/img/social_icons/t.png" class="social_integration_img" alt="twitter" />
+        </a>
+        <a style="position:relative;" onmouseover="$('#social_facebook').show();" onmouseout="$('#social_facebook').hide();" target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=http://funding.openinitiative.com/funding/{{object.id}}">
+            <div id="social_facebook" class="invisible">
+                <div class="social_integration_bubble">{% trans "Share on Facebook" %}</div>
+            </div>
+            <img src="/img/social_icons/f.png" class="social_integration_img" alt="facebook">
+        </a>
+        <a style="position:relative;" onmouseover="$('#social_google').show();" onmouseout="$('#social_google').hide();" target="_blank" href="https://plus.google.com/share?url=http://funding.openinitiative.com/funding/{{object.id}}">
+            <div id="social_google" class="invisible">
+                <div class="social_integration_bubble">{% trans "Share on Google Plus" %}</div>
+            </div>
+            <img src="/img/social_icons/g.png" class="social_integration_img" alt="google+">
+        </a>
+        <a class="clickable" style="position:relative;" onmouseover="$('#social_embed').show();" onmouseout="$('#social_embed').hide();" onclick="showPopup(document.getElementById('pluginpopup'))">
+            <div id="social_embed" class="invisible">
+                <div class="social_integration_bubble">{% trans "Embed the project page" %}</div>
+            </div>
+            <img src="/img/social_icons/embed.png" class="social_integration_img" alt="embed">
+        </a>
+    </div>
+
+    <div id="project_{{object.id}}" class="project">
+        <div id="prjdialogue_{{object.id}}" class="popup invisible"></div>
+        <div class="prjheader">
+            {% with spec=object.spec_set.all|filter_order:1 %}
+            <div id="spec_{{object.id}}_{{spec.order}}" class="funding_space fundingright">
+                {%include 'funding/spec/spec.html'%}
+            </div>
+            {% endwith %}
+            <h1 class="tasktitle no_margin" id="prjtitle_{{object.id}}" title="{{object.title}}">
+                {{object.title}}
+            </h1>
+            <img onclick="favProject({{object.id}}, 'Funding')" src="/img/icons/star{{object|is_following:user}}Funding.png" alt="{% trans 'follow the project' %}" title="{% trans 'follow the project' %}" class="clickable followicon" id="fav_{{object.id}}" />
+                {{object.observer_set.count}} {% blocktrans count counter=object.observer_set.count %} subscriber {% plural %} subscribers {% endblocktrans %}
+        </div>
+        <div id="specs_{{object.id}}" class="prjdesc">
+            {% for spec in object.all_specs_with_languages %}
+                <div style="position:relative;" id="spec_{{object.id}}_{{spec.order}}" class="funding_space">
+                    {%include 'funding/spec/spec.html'%}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="cleared"></div>
+    </div>
+
+    <div class="cleared"></div>
+
+    {% comment %} popup for the project funding {% endcomment %}
+
+    {% include 'funding/popup_bid.html' %}
+
+    {% with object.descendants|filter_read:user as tasks %}
+    <div class="project">
+        <div class="tabs_project">
+            <h2 id="features" class="tab_project"><a href="#features" onclick="project_content('featuresproject')">{% trans "Features" %}</a></h2>
+            <h2 id="community" class="tab_project"><a href="#community" onclick="project_content('communityproject')">{% trans "Community" %}</a></h2>
+            <h2 id="discussions" class="tab_project"><a href="#discussions" onclick="project_content('discussionsproject')">{% trans "Discussions" %}</a></h2>
+        </div>
+        <div class="cleared"></div>
+
+        <div id="featuresproject" class="invisible">
+            <div id="featureid_blockHead">
+                {% if object.all_not_started_tasks %}<div onclick="featureShowHide('features_0')" id="featureid_proposed" class="clickable statebtn invisible">{% trans "Proposed" %}</div>{% endif %}
+                {% if object.all_progress_tasks %}<div onclick="featureShowHide('features_3')" id="featureid_progress" class="clickable statebtn invisible">{% trans "In progress" %}</div>{% endif %}
+                {% if object.all_finish_tasks %}<div onclick="featureShowHide('features_4')" id="featureid_finished" class="clickable statebtn invisible">{% trans "Finished" %}</div>{% endif %}
+                <div class="cleared"></div>
+            </div>
+
+            <ul class="features_manage" id="features_0">
+                {% for task in object.all_not_started_tasks|filter_read:user %}
+                    <li id="task_{{task.id}}">
+                    {% include 'funding/feature.html' %}
+                    </li>
+                {% empty %}
+                    <p>{% trans "No features yet" %}</p>
+                {% endfor %}
+            </ul>
+
+            <div class="cleared"></div>
+
+            <ul class="features_manage" id="features_3">
+                {% for task in object.all_progress_tasks|filter_read:user %}
+                    <li id="task_{{task.id}}">
+                        {% include 'funding/feature.html' %}
+                    </li>
+                {% endfor %}
+                <div class="cleared"></div>
+            </ul>
+
+            <ul class="features_manage" id="features_4">
+                {% for task in object.all_finish_tasks|filter_read:user %}
+                    <li id="task_{{task.id}}">
+                        {% include 'funding/feature.html' %}
+                    </li>
+                {% endfor %}
+                <div class="cleared"></div>
+            </ul>
+
+            {% if object|can_manage:user or object|can_answer:user %}
+            <div class="submit_feature">
+                {% if object|can_manage:user %}
+                <div class="column maxwidth50">
+                    <div class="bordertitledetails">
+                        <div class="navtitlehome oigreen">{% trans "What you have to do :" %}</div>
+                        <p>
+                            {% trans "You can create and edit new developments for your projects. Specify the title, make a description that explains its characteristics and determine the expected price for each. Your users can suggest other developments on the project page, you can accept / rephrase if you wish." %}
+                        </p>
+                    </div>
+                </div>
+                <div class="column maxwidth50">
+                    <div class="blockfeatureheight">
+                        <form id="submit_title_price_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, getValue('newtask_offer_{{object.id}}'), function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); document.getElementById('newtask_offer_{{object.id}}').value = ''; return false">
+                       
+                                <input type="text" class="fieldfeature loginlabel oigreen" placeholder="{% trans 'Insert a title' %}" id="newtask_title_{{object.id}}">
+                                
+                                <div class="cleared"></div>
+                                
+                                <input type="text" class="fieldfeature loginlabel oigreen" placeholder="{% trans 'Feature price' %}" id="newtask_offer_{{object.id}}">  €
+                                
+                                <div class="cleared"></div>
+                                
+                            <p>{% trans "By adding this change you acknowledge that you have read and accepted the" %} <a href="/cgu">{% trans "Terms of Use" %}</a></p>
+                            <input type="image" hidden>
+                        </form>
+                        <div class="cleared"></div>
+                    </div>
+                    <span class="clickable continuebtn fundingright" onclick="$('#submit_title_price_{{object.id}}').submit()">{% trans 'Propose' %}</span>
+                </div>
+                {% else %}
+                    {% if object|can_answer:user %}
+                    <div class="column maxwidth50">
+                        <div class="bordertitledetails">
+                            <div class="navtitlehome oigreen">{% trans "Propose a new feature" %}</div>
+                            <p>
+                                {% trans "You can propose to the developer a new feature for this project. If it is accepted by the developer, the feature will be included in the project." %}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="column maxwidth50">
+                        <div class="blockfeatureheight">
+                            <form id="submit_title_{{object.id}}" onsubmit="addTask(getValue('newtask_title_{{object.id}}', true), {{object.id}}, null,function(taskid){OIajaxCall('/funding/'+taskid+'/task', null, newDiv('features_0'))}); return false" id="newtask_{{object.id}}">
+                            
+                                <input type="text" class="fieldfeature loginlabel oigreen" placeholder="{% trans 'Insert a title' %}" id="newtask_title_{{object.id}}">
+                                <div class="cleared"></div>
+                                        
+                                <p>{% trans "By adding this change you acknowledge that you have read and accepted the" %} <a href="/cgu">{% trans "Terms of Use" %}</a></p>
+                                <input type="image" hidden>
+                            </form>
+                            <div class="cleared"></div>
+                        </div>
+                        <span class="continuebtn fundingright clickable" onclick="$('#submit_title_{{object.id}}').submit()">{% trans 'Propose' %}</span>
+                    </div>
+                    {% endif %}
+                {% endif %}
+                <div class="cleared"></div>
+            </div>
+            {% endif %}
+        </div>
+        <div id="communityproject" class="invisible">
+
+            <div id="fav_{{object.id}}_com" class="follow_project clickable" onclick="favProject({{object.id}}, 'Funding')">{% if not object|is_following:user %}{% trans "Follow the project" %}{% else %}{% trans "Stop following the project" %}{% endif %}</div>
+
+            {% regroup object.all_bid_user by user as user_list %}
+
+            <h3>{{user_list|length}} {% blocktrans count counter=object.user_list|length %} User{% plural %} Users{% endblocktrans %}: {{object.allbid_sum}} €</h3>
+
+            <div class="head_community">
+                <p>{% trans "Here is the community that makes" %} {{object.title}} {% trans "possible." %}</p> 
+                {% if object|can_bid:user %}<p>{% trans "Are you a part of it? If not :" %} <u class="clickable" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));document.getElementById('order_{{object.id}}').checked=true;">{% trans "ORDER THE FEATURE" %}</u> {% trans "or" %} <u class="clickable" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));">{% trans "BACK THE PROJECT" %}</u></p>{% endif %}
+            </div>
+            <div id="bids_{{object.id}}">
+                {% for person in user_list %}
+                <div class="participant">
+                    <div class="fundingleft"><img class="contactpicture" src="/user/getpicture/{{person.grouper}}"><b class="line_featureuser_name"><a href="/user/profile/{{person.grouper}}">{{person.grouper}}</a></b></div>
+                    <div class="fundingleft" style="margin-left: 20px;">
+                        {% for bid in person.list|dictsort:"project" %}
+                        <div class="line_separate">
+                            {% trans "ordered" %} "{{bid.project.title}}" {% trans "with" %} {{bid.amount}} €
+                            {% if user == bid.user and bid.project.state < 3 %}
+                            <div class="cleared"></div>
+                            <img class="clickable" src="/img/icons/add.png" onclick="showPopup(document.getElementById('bidpopup_{{object.id}}'));document.getElementById('order_{{bid.object.id}}').checked=true;" /> {% trans "Add a new bid" %}
+                            <div class="cleared"></div>
+                            <img class="clickable" src="/img/icons/delete.png" onclick="cancelBid({{bid.project.id}}, {% if bid.project.state > 1 %}true{% else %}false{% endif %})" alt="{% trans "close" %}" title="{% trans "Cancel your bid on this task" %}" /> {% trans "Cancel my bid" %}
+                            {% endif %}
+                        </div>
+                        <div class="cleared"></div>
+                        {% endfor %}
+                    </div>
+                    <div class="cleared"></div>
+                </div>
+                {% empty %}
+                    <p>{% trans "No bid on this project" %}</p>
+                {% endfor %}
+            </div>
+
+        </div>
+        <div id="discussionsproject" class="invisible">
+            <div class="cleared"></div>
+            <div class="discussion_column">
+                {% if object|can_answer:user %}
+                    <a style="margin-top: 20px; display: block" class="clickable op_larger" onclick="addMessage(null, {{object.id}})">
+                        {% if not object|can_answer:user %}{% trans "Create a discussion" %}{% else %}{% trans "Add a comment" %}{% endif %}
+                    </a>
+                {% endif %}
+                <div id="discussions_{{object.id}}" class="discussions">
+                    {% for message in object.message_set.all %}
+                    <div id="message_{{message.id}}_box">{% include 'messages/message.html' %}</div>
+                    <div class="cleared"></div>
+                    {% empty %}
+                    {% if object|can_answer:user %}{% trans "Discuss" %} {{object.title}}{% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endwith %}
+
+</div>
+
+<script>
+    currentTask = {{object.id}};
+    allFeatureFunction();
+    follow = {% if object|is_following:user %}true{%else%}false{%endif%};
+    {% if object|can_manage:user %}
+    sortFeature({{object.id}});
+    {% endif %}
+    initSwipePanel();
+    resizeSwipePanelEffect();
+</script>
+{% else %}
+{% trans "Forbidden" %}
+{% endif %}
+{% endblock %}

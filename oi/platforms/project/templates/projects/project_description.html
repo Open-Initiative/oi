@@ -1,0 +1,39 @@
+{% load oifilters %}
+{% load i18n %}
+<div class="prjdesc">
+    <div class="prjauthor">{% trans "Project created by" %} <a href="/user/profile/{{object.author.username}}">{{object.author.get_profile}}</a></div>
+    <div id="specs_{{project.id}}">
+        {%for spec in project.spec_set.all|dictsort:"order"%}
+        <div style="position:relative" id="spec_{{project.id}}_{{spec.order}}" class="cleared">
+            {%include 'projects/spec/spec.html'%}
+        </div>
+        {% endfor %}
+        {% if project|can_write:user and project.state < 4 %}
+        {% with "newspec" as divid %}{% if not project.spec_set.all %}
+        <div id="{{divid}}">{% include 'projects/spec/editspec.html' %}</div>
+        <script>changeSpecType("newspec", 1);</script>
+        <div id="sepspec_{{object.id}}" class="sepspec"></div>
+        {% endif %}{% endwith %}{% endif %}
+    </div>
+    {% if project|can_write:user and project.state < 4 %}<a class="clickable" onclick="addSpec({{project.id}})"><img src="/img/icons/add.png" /> {% trans "Add a description" %}</a>{% endif %}
+    {% if object.spot_set.all %}
+    <div class="actions cleared">{% trans "linked to" %}</div>
+    <div class="cleared"></div>
+    {% for spot in object.spot_set.all %} {% with spot.spec as spec %}<div class="minispec"><a href="/prjmgt/{{spot.spec.project.id}}">{{spot.spec.project.title|truncatewords:4}}{% include 'projects/spec/minispec.html' %}</a></div>
+    {% endwith %}{% endfor %}
+    {% endif %}
+    <div class="cleared"></div>
+    <div id="discussions_{{project.id}}">
+        {% for message in project.message_set.all %}
+        <div id="message_{{message.id}}_box">{% include 'messages/message.html' %}</div>
+        {% endfor %}
+    </div>
+    {% if project|can_write:user %}
+    {% if project.message_set.all %}
+    <a class="actions clickable" onclick="addMessage(null, {{project.id}})">
+        <div class="moreblue" alt="{% trans "Add a discussion" %}" title="{% trans "Add a discussion" %}">+</div> {% trans "Add a discussion" %}
+    </a>
+    {% else %}{% with "Re: "|add:object.title as title %}
+    <div id="newmessage">{% include 'messages/editmessage.html' %}</div>
+    {% endwith %}{% endif %}{% endif %}
+</div>

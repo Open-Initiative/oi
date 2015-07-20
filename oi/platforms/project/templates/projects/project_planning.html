@@ -1,0 +1,41 @@
+{% load oifilters %}
+{% load i18n %}
+<script type="text/javascript" src="/js/jsDatePick.min.1.3.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="/css/jsDatePick_ltr.min.css" />
+{% comment %}
+<div>
+    {% trans "Started on:" %} <span id="start_date_{{project.id}}">{{project.start_date|date:"d/m/Y"}}</span>
+    {% if project|can_write:user %}{% if project.state < 2 %}
+    {% with "start_date" as field_name %}{% with project.start_date as date %}
+    {% include "projects/edit_date.html" %}
+    {% endwith %}{% endwith %}
+    {% endif %}{% endif %}
+</div>
+<div>
+    {% trans "Due on:" %} <span id="due_date_{{project.id}}">{{project.due_date|date:"d/m/Y"}}</span>
+    {% if project|can_write:user and project.state < 2 %}{% with "due_date" as field_name %}
+    {% include "projects/edit_date.html" %}
+    {% endwith %}{% endif %}
+    {% ifequal user project.assignee %}{% ifequal project.state 2 %}{% with "due_date" as field_name %}{% with project.due_date as date %}
+    {% include "projects/edit_date.html" %}
+    {% endwith %}{% endwith %}{% endifequal %}{% endifequal %}
+</div>
+{% endcomment %}
+<div id="ganttdiv"></div>
+<div id="ganttspace">
+    {% trans "Created on:" %} <span class="ganttdate" id="created_{{project.id}}">{{project.created|date:"d/m/Y"}}</span>
+    {% trans "Start on:" %} <span class="ganttdate" id="start_date_{{project.id}}">{{project.start_date|date:"d/m/Y"}}</span>
+    {% if project|can_write:user and project.state < 2 %}{% with "start_date" as field_name %}{% with project.start_date as date %}{% include "projects/edit_date.html" %}{% endwith %}{% endwith %}{% endif %}
+    <br />
+    {% trans "Due on:" %} <span class="ganttdate" id="due_date_{{project.id}}">{{project.due_date|date:"d/m/Y"}}</span>
+    {% if project|can_write:user and project.state < 2 %}{% with "due_date" as field_name %}{% with project.due_date as date %}{% include "projects/edit_date.html" %}{% endwith %}{% endwith %}{% endif %}
+    {% trans "Validation on:" %} <span class="ganttdate" id="validation_{{project.id}}">{{project.validation|date:"d/m/Y"}}</span>
+</div>
+<script>
+    oiTable = new OIGantt("ganttdiv", new Date({{project.master.created|date:"Y,m-1,d"}}), new Date({{project.master.validation|date:"Y,m-1,d"}}));
+    firstLine = [new Date({{project.master.created|date:"Y,m-1,d"}}),new Date({{project.master.start_date|date:"Y,m-1,d"}}),new Date({{project.master.due_date|date:"Y,m-1,d"}}),new Date({{project.master.validation|date:"Y,m-1,d"}})];
+    oiTable.addFromTask = function addFromTask(task, afterid, bgClass) {
+        oiTable.addLine(task.pk, [parseDate(task.fields.created) || new Date(), parseDate(task.fields.start_date),
+        parseDate(task.fields.due_date), parseDate(task.fields.validation)], afterid, bgClass);
+    }
+</script>
