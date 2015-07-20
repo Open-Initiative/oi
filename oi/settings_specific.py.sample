@@ -2,6 +2,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 HOME_DIR = '/path/to/your/django/project'
 OI_DOMAINS = ((u'Open Initiative', u'www.openinitiative.mydomain'),(u'Open Communities', u'communities.openinitiative.mydomain'),(u'Open Funding', u'funding.openinitiative.mydomain'))
+OI_PLATFORMS = {OI_DOMAIN+':8052':"projects", OI_DOMAIN+':8051':"funding"}
 SESSION_COOKIE_DOMAIN = ".openinitiative.mydomain"
 CSRF_COOKIE_DOMAIN = ".openinitiative.mydomain"
 
