@@ -9,7 +9,7 @@ urlpatterns = patterns('',
     (r'^$', TemplateView.as_view(template_name="index-root.html")),
     (r'^cgu$', TemplateView.as_view(template_name="cgu.html")),
     (r'^contact$', TemplateView.as_view(template_name="contact.html")),
-    (r'^presentation$', TemplateView.as_view(template_name="funding/presentation.html")),
+    (r'^presentation$', TemplateView.as_view(template_name="presentation.html")),
     # Pages des utilisateurs
     (r'^user/', include('oi.users.urls')),
     (r'^message/', include('oi.messages.urls')),
