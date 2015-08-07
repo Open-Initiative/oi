@@ -23,7 +23,7 @@ def deploy_pp(branch="devel"):
         
 @hosts('open-initiative@ssh.alwaysdata.com')
 def deploy_PROD():
-    local("git push prod")
+    local("git push prod master")
     with cd("oi"):
         run("git merge master")
         run("./manage.py syncdb")
