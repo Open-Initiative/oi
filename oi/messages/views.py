@@ -8,6 +8,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.syndication.views import Feed
+from django.contrib.sites.models import get_current_site
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden, Http404, QueryDict
 from django.template.response import TemplateResponse
 from django.shortcuts import render_to_response
@@ -31,6 +32,34 @@ def getmessage(request, id):
         return render_to_response('messages/messagesmall.html',{'message':message, 'depth':depth})
     extra_context={'object':message, 'depth':depth, 'is_ajax':request.GET.get("mode")}
     return TemplateResponse(request, "messages/message_detail.html", extra_context)
+    
+def messagetojsonld(request, id):
+    """Return jsonLd object"""
+    message = Message.objects.get(id=id)
+
+    def concat_message(m): 
+        return """{"@id":"http://%s%s%s"}"""%(get_current_site(request),"/message/ldpcontainermessage/",m.pk)
+    
+    messages_descendants = "[%s]"%",".join(map(concat_message, message.descendants.all()))
+    messages_ancestors = "[%s]"%",".join(map(concat_message, message.ancestors.all()))
+    jsonLd = """{
+        "@context" : "http://owl.openinitiative.com/oicontext.jsonld",
+        "@graph" : [{
+            "@id": "%(id)s",
+            "@type": "http://www.w3.org/ns/ldp#BasicContainer",
+            "title": "%(title)s",
+            "author": "http://%(current_site)s/user/ldpcontaineruser/%(author)s",
+            "descendants": %(messages)s,
+            "date" : "%(date)s",
+            "text" : "%(text)s",
+            "ancestors" : %(ancestors)s
+        }]
+    }"""%{"id": message.pk, "title": message.title, "author": message.author, "messages": messages_descendants, "text":message.text, "date": message.created, "current_site": get_current_site(request), "ancestors": messages_ancestors}
+    
+    response = HttpResponse(jsonLd)
+#    response["Content-Type"] = "application/ld+json"
+    response["Access-Control-Allow-Origin"] = "*"
+    return response
 
 def editmessage(request, id):
     """Edit form of the message"""

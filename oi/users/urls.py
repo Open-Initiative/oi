@@ -8,6 +8,7 @@ from oi.users.models import UserProfile, User
 
 urlpatterns = patterns('oi.users.views',
     (r'^myprofile', 'myprofile'),
+    (r'^ldpcontaineruser/(?P<username>[\w\-\.]+)$', 'usertojsonld'),
     (r'^exportresume/(?P<username>[\w\-\.]+)$', 'exportresume'),
     (r'^profile/(?P<username>[\w\-\.]+)$','userprofile'),
     (r'^dashboard', login_required(TemplateView.as_view(template_name="users/dashboard.html"))),
