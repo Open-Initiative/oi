@@ -1,0 +1,15 @@
+{
+  "@context": {
+    "@vocab": "http://localhost:8052/project/"
+    "website": "foaf:homepage",
+    "interest": "cco:interest",
+    "describedBy": "rel:describedby",
+    "currentLocation": "opo:currentLocation",
+    "attendeeIn": { "@reverse": "attendee" },
+    "authorOf": { "@reverse": "author" },
+    "subjectOf": { "@reverse": "about" },
+    
+    // moi
+    "tasks":"ldp:contains" 
+  }
+}

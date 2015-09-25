@@ -10,6 +10,7 @@ from oi.helpers import SPEC_TYPES
 
 urlpatterns = patterns('oi.projects.views',
     (r'^(?P<id>\d+)/listtasks$', 'listtasks'),
+    (r'^ldpcontainer/(?P<id>\d+)$', 'projecttojsonld'),
     (r'^(?P<id>\d+)/addrelease$', 'addrelease'),
     (r'^(?P<id>\d+)/changerelease$', 'changerelease'),
     (r'^(?P<id>\d+)/assignrelease$', 'assignrelease'),
