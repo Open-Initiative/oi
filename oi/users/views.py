@@ -52,7 +52,7 @@ def usertojsonld(request, username):
     }"""%{"id": user.id, "firstname": user.first_name, "lastname": user.last_name, "picture": user.profile.picture}
     
     response = HttpResponse(jsonLd)
-#    response["Content-Type"] = "application/ld+json"
+    response["Content-Type"] = "application/ld+json"
     response["Access-Control-Allow-Origin"] = "*"
     return response
 

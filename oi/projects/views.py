@@ -83,13 +83,15 @@ def listtasks(request, id):
 def projecttojsonld(request, id):
     """Return jsonLd object"""
     project = Project.objects.get(id=id)
+    
+    current_site = get_current_site(request)
 
     def concat_task(t): 
-        return """{"@id":"http://%s%s%s"}"""%(get_current_site(request),"/project/ldpcontainer/",t.pk)
+        return """{"@id" : "http://%s%s%s"}"""%(current_site,"/project/ldpcontainer/",t.pk)
     tasks_jsonLd = "[%s]"%",".join(map(concat_task, project.tasks.all()))
     
     def concat_message(m): 
-        return """{"@id":"http://%s%s%s"}"""%(get_current_site(request),"/message/ldpcontainermessage/",m.pk)
+        return """{"@id":"http://%s%s%s"}"""%(current_site,"/message/ldpcontainermessage/",m.pk)
     messages = "[%s]"%",".join(map(concat_message, project.message_set.all()))
     
     jsonLd = """{
@@ -98,15 +100,16 @@ def projecttojsonld(request, id):
             "@id" : "%(id)s",
             "@type" : "http://www.w3.org/ns/ldp#BasicContainer",
             "title" : "%(title)s",
-            "author" : "http://%(current_site)s/user/ldpcontaineruser/%(author)s",
+            "author" : {"@id" : "http://%(current_site)s/user/ldpcontaineruser/%(author)s", "fullName" : "%(fullName)s"},
             "tasks" : %(tasks)s,
             "state" : "%(state)s",
-            "comments" : %(messages)s
+            "comments" : %(messages)s,
+            "id" : "%(id)s"
         }]
-    }"""%{"id": project.pk, "title": project.title, "author": project.author, "tasks": tasks_jsonLd, "messages": messages, "state": project.state, "current_site": get_current_site(request)}
+    }"""%{"id": project.pk, "title": project.title, "author": project.author, "tasks": tasks_jsonLd, "messages": messages, "state": project.state, "current_site": current_site, "fullName": project.author.get_full_name() or project.author.username}
     
     response = HttpResponse(jsonLd)
-#    response["Content-Type"] = "application/ld+json"
+    response["Content-Type"] = "application/ld+json"
     response["Access-Control-Allow-Origin"] = "*"
     return response
 

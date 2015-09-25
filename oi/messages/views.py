@@ -36,9 +36,11 @@ def getmessage(request, id):
 def messagetojsonld(request, id):
     """Return jsonLd object"""
     message = Message.objects.get(id=id)
+    
+    current_site = get_current_site(request)
 
     def concat_message(m): 
-        return """{"@id":"http://%s%s%s"}"""%(get_current_site(request),"/message/ldpcontainermessage/",m.pk)
+        return """{"@id":"http://%s%s%s"}"""%(current_site,"/message/ldpcontainermessage/",m.pk)
     
     messages_descendants = "[%s]"%",".join(map(concat_message, message.descendants.all()))
     messages_ancestors = "[%s]"%",".join(map(concat_message, message.ancestors.all()))
@@ -48,16 +50,17 @@ def messagetojsonld(request, id):
             "@id": "%(id)s",
             "@type": "http://www.w3.org/ns/ldp#BasicContainer",
             "title": "%(title)s",
-            "author": "http://%(current_site)s/user/ldpcontaineruser/%(author)s",
+            "author": {"@id" : "http://%(current_site)s/user/ldpcontaineruser/%(author)s", "fullName" : "%(fullName)s"},
             "descendants": %(messages)s,
             "date" : "%(date)s",
             "text" : "%(text)s",
-            "ancestors" : %(ancestors)s
+            "ancestors" : %(ancestors)s,
+            "project" : "http://%(current_site)s/project/ldpcontainer/%(project)s"
         }]
-    }"""%{"id": message.pk, "title": message.title, "author": message.author, "messages": messages_descendants, "text":message.text, "date": message.created, "current_site": get_current_site(request), "ancestors": messages_ancestors}
+    }"""%{"id": message.pk, "title": message.title, "author": message.author, "messages": messages_descendants, "text":message.text, "date": message.created, "current_site": current_site, "ancestors": messages_ancestors, "project" : message.project.id, "fullName": message.author.get_full_name() or message.author.username}
     
     response = HttpResponse(jsonLd)
-#    response["Content-Type"] = "application/ld+json"
+    response["Content-Type"] = "application/ld+json"
     response["Access-Control-Allow-Origin"] = "*"
     return response
 
