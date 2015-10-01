@@ -94,6 +94,10 @@ def projecttojsonld(request, id):
         return """{"@id":"http://%s%s%s"}"""%(current_site,"/message/ldpcontainermessage/",m.pk)
     messages = "[%s]"%",".join(map(concat_message, project.message_set.all()))
     
+    def concat_spec(s): 
+        return """{"@id":"http://%s%s%s/%s"}"""%(current_site,"/prjmgt/ldpcontainerspec/",project.pk,s.pk)
+    specs_jsonld = "[%s]"%",".join(map(concat_spec, project.spec_set.all()))
+    
     jsonLd = """{
         "@context" : "http://owl.openinitiative.com/oicontext.jsonld",
         "@graph" : [{
@@ -103,10 +107,11 @@ def projecttojsonld(request, id):
             "author" : {"@id" : "http://%(current_site)s/user/ldpcontaineruser/%(author)s", "fullName" : "%(fullName)s"},
             "tasks" : %(tasks)s,
             "state" : "%(state)s",
+            "specs" : %(specs)s,
             "comments" : %(messages)s,
             "id" : "%(id)s"
         }]
-    }"""%{"id": project.pk, "title": project.title, "author": project.author, "tasks": tasks_jsonLd, "messages": messages, "state": project.state, "current_site": current_site, "fullName": project.author.get_full_name() or project.author.username}
+    }"""%{"id": project.pk, "title": project.title, "author": project.author, "tasks": tasks_jsonLd, "messages": messages, "state": project.state, "current_site": current_site, "fullName": project.author.get_full_name() or project.author.username, "specs" : specs_jsonld}
     
     response = HttpResponse(jsonLd)
     response["Content-Type"] = "application/ld+json"
