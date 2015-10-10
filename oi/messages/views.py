@@ -11,11 +11,11 @@ from django.contrib.syndication.views import Feed
 from django.contrib.sites.models import get_current_site
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden, Http404, QueryDict
 from django.template.response import TemplateResponse
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView, ListView
-from oi.helpers import OI_PAGE_SIZE, OI_ALL_PERMS, OI_READ, OI_ANSWER, OI_WRITE, ajax_login_required
+from oi.helpers import OI_PAGE_SIZE, OI_ALL_PERMS, OI_READ, OI_ANSWER, OI_WRITE, ajax_login_required, jsonld_array
 from oi.helpers import OI_SCORE_ADD, OI_SCORE_DEFAULT_RELEVANCE, OI_EXPERTISE_FROM_ANSWER, OI_EXPERTISE_TO_MESSAGE
 from oi.projects.models import Project
 from oi.messages.models import Message, PromotedMessage, OINeedsMsgPerms
@@ -33,31 +33,35 @@ def getmessage(request, id):
     extra_context={'object':message, 'depth':depth, 'is_ajax':request.GET.get("mode")}
     return TemplateResponse(request, "messages/message_detail.html", extra_context)
     
-def messagetojsonld(request, id):
+def ldpmessage(request, id):
     """Return jsonLd object"""
-    message = Message.objects.get(id=id)
+    message = get_object_or_404(Message, id=id)
     
-    current_site = get_current_site(request)
-
-    def concat_message(m): 
-        return """{"@id":"http://%s%s%s"}"""%(current_site,"/message/ldpcontainermessage/",m.pk)
-    
-    messages_descendants = "[%s]"%",".join(map(concat_message, message.descendants.all()))
-    messages_ancestors = "[%s]"%",".join(map(concat_message, message.ancestors.all()))
     jsonLd = """{
         "@context" : "http://owl.openinitiative.com/oicontext.jsonld",
         "@graph" : [{
             "@id": "%(id)s",
             "@type": "http://www.w3.org/ns/ldp#BasicContainer",
             "title": "%(title)s",
-            "author": {"@id" : "http://%(current_site)s/user/ldpcontaineruser/%(author)s", "fullName" : "%(fullName)s"},
-            "descendants": %(messages)s,
+            "author": {"@id" : "http://%(current_site)s/user/ldpcontainer/%(author)s", "fullName" : "%(fullName)s"},
+            "descendants": %(descendants)s,
             "date" : "%(date)s",
             "text" : "%(text)s",
             "ancestors" : %(ancestors)s,
             "project" : "http://%(current_site)s/project/ldpcontainer/%(project)s"
         }]
-    }"""%{"id": message.pk, "title": message.title, "author": message.author, "messages": messages_descendants, "text":message.text, "date": message.created, "current_site": current_site, "ancestors": messages_ancestors, "project" : message.project.id, "fullName": message.author.get_full_name() or message.author.username}
+    }"""%{
+        "id": message.pk,
+        "current_site": get_current_site(request),
+        "title": message.title,
+        "author": message.author,
+        "descendants": jsonld_array(request, message.descendants, "/message/ldpcontainer/"),
+        "ancestors": jsonld_array(request, message.ancestors, "/message/ldpcontainer/"),
+        "text":message.text,
+        "date": message.created,
+        "project" : message.project.id,
+        "fullName": message.author.get_full_name() or message.author.username
+    }
     
     response = HttpResponse(jsonLd)
     response["Content-Type"] = "application/ld+json"

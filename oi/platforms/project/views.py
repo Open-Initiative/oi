@@ -45,39 +45,6 @@ def getproject(request, id, view="overview"):
     project = Project.objects.get(id=id)
     extra_context = {'object': project, 'current_view':view, 'views':OI_PRJ_VIEWS, 'types':SPEC_TYPES, 'prjdialogues': OI_PRJDIALOGUES, 'table_overview': OI_TABLE_OVERVIEW, 'release': request.session.get("releases", {}).get(str(project.master.id), project.master.target.name if project.master.target else None)}
     return TemplateResponse(request, "projects/project_detail.html", extra_context)
-    
-def spectojsonld(request, id, specid):
-    """Return jsonLd object"""
-    project = Project.objects.get(id=id)
-    spec = Spec.objects.get(id=specid)
-    current_site = get_current_site(request)
-    
-    if spec.file:
-        file = spec.file.url
-    else:
-        file = "" 
-
-    jsonLd = """{
-        "@context" : "http://owl.openinitiative.com/oicontext.jsonld",
-        "@graph" : [{
-            "@id" : "%(id)s",
-            "author" : {"@id" : "http://%(current_site)s/user/ldpcontaineruser/%(author)s", "fullName" : "%(fullName)s"},
-            "project" : "http://%(current_site)s/project/ldpcontainer/%(project)s",
-            "date" : "%(date)s",
-            "type" : "%(type)s",
-            "language" : "%(language)s",
-            "text" : "%(text)s",
-            "url" : "http://%(current_site)s%(url)s",
-            "image" : "http://%(current_site)s%(image)s",
-            "order" : "%(order)s",
-            "file" : "http://%(current_site)s%(file)s"
-        }]
-    }"""%{"id": spec.id, "author": spec.author, "project": project.id, "date" : spec.created, "type" : spec.type, "language" : spec.language, "text" : spec.text, "url" : spec.url, "image" : file, "order" : spec.order , "file" : file, "current_site" : current_site, "fullName" : spec.author.get_full_name() or project.author.username}
-    
-    response = HttpResponse(jsonLd)
-    response["Content-Type"] = "application/ld+json"
-    response["Access-Control-Allow-Origin"] = "*"
-    return response
 
 @login_required
 def editproject(request, id):

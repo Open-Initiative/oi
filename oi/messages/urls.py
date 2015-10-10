@@ -7,7 +7,7 @@ from oi.messages.models import Message
 
 urlpatterns = patterns('oi.messages.views',
     (r'^get/(?P<id>\d+)$', 'getmessage'),
-    (r'^ldpcontainermessage/(?P<id>\d+)$', 'messagetojsonld'),
+    (r'^ldpcontainer/(?P<id>\d+)$', 'ldpmessage'),
     (r'^new$', TemplateView.as_view(template_name="messages/newmessage.html")),
     (r'^getFile/(?P<filename>.+)$', 'getFile'),
     (r'^edit/(?P<id>\d+)$', 'editmessage'),

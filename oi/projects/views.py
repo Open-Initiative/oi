@@ -31,7 +31,7 @@ from django.views.generic import TemplateView, ListView, DetailView
 from django.template import RequestContext
 from oi.helpers import OI_PRJ_STATES, OI_PROPOSED, OI_ACCEPTED, OI_STARTED, OI_DELIVERED, OI_VALIDATED, OI_CANCELLED, OI_POSTPONED, OI_CONTENTIOUS, OI_TABLE_OVERVIEW
 from oi.helpers import OI_PRJ_DONE, OI_NO_EVAL, OI_ACCEPT_DELAY, OI_READ, OI_ANSWER, OI_BID, OI_MANAGE, OI_WRITE, OI_ALL_PERMS, OI_CANCELLED_BID, OI_COM_ON_BID, OI_COMMISSION
-from oi.helpers import OI_PRJ_VIEWS, SPEC_TYPES, OIAction, ajax_login_required, oi_redirecturl
+from oi.helpers import OI_PRJ_VIEWS, SPEC_TYPES, OIAction, ajax_login_required, oi_redirecturl, jsonld_array
 from oi.projects.models import Project, Spec, Spot, Bid, PromotedProject, OINeedsPrjPerms, Release, GitHubSync, Reward, RewardForm
 from oi.messages.models import Message
 from oi.messages.templatetags.oifilters import oiescape, summarize
@@ -80,23 +80,9 @@ def listtasks(request, id):
                     "due_date","validation", "githubsync_set.get.repository", "githubsync_set.get.label","tasks.count")))
     return HttpResponse(JSONEncoder().encode(lists)) #serializes the whole thing
 
-def projecttojsonld(request, id):
+def ldpproject(request, id):
     """Return jsonLd object"""
-    project = Project.objects.get(id=id)
-    
-    current_site = get_current_site(request)
-
-    def concat_task(t): 
-        return """{"@id" : "http://%s%s%s"}"""%(current_site,"/project/ldpcontainer/",t.pk)
-    tasks_jsonLd = "[%s]"%",".join(map(concat_task, project.tasks.all()))
-    
-    def concat_message(m): 
-        return """{"@id":"http://%s%s%s"}"""%(current_site,"/message/ldpcontainermessage/",m.pk)
-    messages = "[%s]"%",".join(map(concat_message, project.message_set.all()))
-    
-    def concat_spec(s): 
-        return """{"@id":"http://%s%s%s/%s"}"""%(current_site,"/prjmgt/ldpcontainerspec/",project.pk,s.pk)
-    specs_jsonld = "[%s]"%",".join(map(concat_spec, project.spec_set.all()))
+    project = get_object_or_404(Project, id=id)
     
     jsonLd = """{
         "@context" : "http://owl.openinitiative.com/oicontext.jsonld",
@@ -104,14 +90,98 @@ def projecttojsonld(request, id):
             "@id" : "%(id)s",
             "@type" : "http://www.w3.org/ns/ldp#BasicContainer",
             "title" : "%(title)s",
-            "author" : {"@id" : "http://%(current_site)s/user/ldpcontaineruser/%(author)s", "fullName" : "%(fullName)s"},
+            "author" : {"@id" : "http://%(current_site)s/user/ldpcontainer/%(author)s", "fullName" : "%(fullName)s"},
             "tasks" : %(tasks)s,
+            "descendants" : %(descendants)s,
             "state" : "%(state)s",
             "specs" : %(specs)s,
+            "releases" : %(releases)s,
             "comments" : %(messages)s,
             "id" : "%(id)s"
         }]
-    }"""%{"id": project.pk, "title": project.title, "author": project.author, "tasks": tasks_jsonLd, "messages": messages, "state": project.state, "current_site": current_site, "fullName": project.author.get_full_name() or project.author.username, "specs" : specs_jsonld}
+    }"""%{
+        "id": project.pk,
+        "title": project.title,
+        "author": project.author.username,
+        "tasks": jsonld_array(request, project.tasks, "/project/ldpcontainer/"),
+        "descendants": jsonld_array(request, project.descendants, "/project/ldpcontainer/"),
+        "messages": jsonld_array(request, project.message_set, "/message/ldpcontainer/"),
+        "state": project.state,
+        "current_site": get_current_site(request),
+        "fullName": project.author.get_full_name() or project.author.username,
+        "specs" : jsonld_array(request, project.spec_set, "/prjmgt/ldpcontainer/%s/specs/"%project.pk),
+        "releases" : jsonld_array(request, project.release_set, "/prjmgt/ldpcontainer/%s/releases/"%project.pk, extra_fields=("name",)),
+    }
+    
+    response = HttpResponse(jsonLd)
+    response["Content-Type"] = "application/ld+json"
+    response["Access-Control-Allow-Origin"] = "*"
+    return response
+
+def ldpspec(request, id, specid):
+    """Return jsonLd object"""
+    project = get_object_or_404(Project, id=id)
+    spec = get_object_or_404(Spec, id=specid)
+    current_site = get_current_site(request)
+
+    jsonLd = """{
+        "@context" : "http://owl.openinitiative.com/oicontext.jsonld",
+        "@graph" : [{
+            "@id" : "%(id)s",
+            "author" : {"@id" : "http://%(current_site)s/user/ldpcontainer/%(author)s", "fullName" : "%(fullName)s"},
+            "project" : "http://%(current_site)s/project/ldpcontainer/%(project)s",
+            "date" : "%(date)s",
+            "type" : "%(type)s",
+            "language" : "%(language)s",
+            "text" : "%(text)s",
+            "url" : "http://%(current_site)s%(url)s",
+            "image" : "http://%(current_site)s%(image)s",
+            "order" : "%(order)s",
+            "file" : "http://%(current_site)s%(file)s"
+        }]
+    }"""%{
+        "id": spec.id,
+        "author": spec.author,
+        "project": project.id,
+        "date" : spec.created,
+        "type" : spec.type,
+        "language" : spec.language,
+        "text" : spec.text,
+        "url" : spec.url,
+        "image" : file,
+        "order" : spec.order,
+        "file" : spec.file.url if spec.file else "",
+        "current_site" : current_site,
+        "fullName" : spec.author.get_full_name() or project.author.username
+    }
+    
+    response = HttpResponse(jsonLd)
+    response["Content-Type"] = "application/ld+json"
+    response["Access-Control-Allow-Origin"] = "*"
+    return response
+
+def ldprelease(request, id, specid):
+    """Return jsonLd object"""
+    project = get_object_or_404(Project, id=id)
+    release = get_object_or_404(Release, id=specid)
+    current_site = get_current_site(request)
+
+    jsonLd = """{
+        "@context" : "http://owl.openinitiative.com/oicontext.jsonld",
+        "@graph" : [{
+            "@id" : "%(id)s",
+            "project" : "http://%(current_site)s/project/ldpcontainer/%(project)s",
+            "name" : "%(name)s",
+            "due_date" : "%(due_date)s",
+            "done" : "%(done)s",
+        }]
+    }"""%{
+        "id": release.id,
+        "current_site" : current_site,
+        "name": release.name,
+        "due_date": release.due_date,
+        "done" : release.done,
+    }
     
     response = HttpResponse(jsonLd)
     response["Content-Type"] = "application/ld+json"

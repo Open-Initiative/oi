@@ -37,9 +37,9 @@ def myprofile(request):
     extra_context.update(Bid.objects.filter(project__assignee=request.user).aggregate(Count("rating"),Avg("rating")))
     return TemplateResponse(request, "users/profile/profile.html", extra_context)
 
-def usertojsonld(request, username):
+def ldpuser(request, username):
     """Return jsonLd object"""
-    user = User.objects.get(username=username)
+    user = get_object_or_404(User, username=username)
 
     jsonLd = """{
         "@context" : "http://owl.openinitiative.com/oicontext.jsonld",
@@ -49,7 +49,7 @@ def usertojsonld(request, username):
             "lastname" : "%(lastname)s",
             "picture" : "%(picture)s"
         }]
-    }"""%{"id": user.id, "firstname": user.first_name, "lastname": user.last_name, "picture": user.profile.picture}
+    }"""%{"id": user.id, "firstname": user.first_name, "lastname": user.last_name, "picture": user.profile.picture.url}
     
     response = HttpResponse(jsonLd)
     response["Content-Type"] = "application/ld+json"

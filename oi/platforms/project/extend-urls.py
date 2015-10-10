@@ -17,7 +17,6 @@ urlpatterns = patterns('oi.platforms.project.views',
     (r'^(?P<object_id>\d+)/export$', DetailView.as_view(template_name="projects/export/export.html",queryset='Project.objects.all()')),
     (r'^(?P<id>\d+)/editspec/(?P<specid>\d+)$', 'editspec'),
     (r'^(?P<id>\d+)/editspecdetails/(?P<specid>\d+)$', 'editspecdetails'),
-    (r'^ldpcontainerspec/(?P<id>\d+)/(?P<specid>\d+)$', 'spectojsonld'),
     (r'^rss/(?P<id>\d+)$', 'OIFeed'),
 #    (r'^', include('oi.platforms.project.urls')),
 )

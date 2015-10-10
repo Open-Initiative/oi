@@ -8,6 +8,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.contrib.sites.models import get_current_site
 from django.db.models import DateTimeField
 from django.template.loader import render_to_string
 from django.utils.decorators import available_attrs
@@ -76,6 +77,12 @@ class OIAction:
     extra_param = None
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
+
+def jsonld_array(request, queryset, url, extra_fields=()):
+    def make_object(obj):
+        fields = "".join(map(lambda field: ', "%s": "%s"'%(field, obj.__getattribute__(field)), extra_fields))
+        return """{"@id":"http://%s%s%s"%s}"""%(get_current_site(request), url, obj.pk, fields)
+    return "[%s]"%",".join(map(make_object, queryset.all()))
 
 def to_date(value):
     return DateTimeField.to_python(DateTimeField(), value)
