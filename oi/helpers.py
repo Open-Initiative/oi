@@ -14,6 +14,7 @@ from django.template.loader import render_to_string
 from django.utils.decorators import available_attrs
 from django.utils.http import urlquote
 from django.utils.translation import ugettext_lazy as _
+from django.utils.safestring import mark_safe
 from xhtml2pdf import pisa
 from django.conf import settings
 
@@ -82,7 +83,7 @@ def jsonld_array(request, queryset, url, extra_fields=()):
     def make_object(obj):
         fields = "".join(map(lambda field: ', "%s": "%s"'%(field, obj.__getattribute__(field)), extra_fields))
         return """{"@id":"http://%s%s%s"%s}"""%(get_current_site(request), url, obj.pk, fields)
-    return "[%s]"%",".join(map(make_object, queryset.all()))
+    return mark_safe("[%s]"%",".join(map(make_object, queryset.all())))
 
 def to_date(value):
     return DateTimeField.to_python(DateTimeField(), value)

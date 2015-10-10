@@ -36,34 +36,12 @@ def getmessage(request, id):
 def ldpmessage(request, id):
     """Return jsonLd object"""
     message = get_object_or_404(Message, id=id)
-    
-    jsonLd = """{
-        "@context" : "http://owl.openinitiative.com/oicontext.jsonld",
-        "@graph" : [{
-            "@id": "%(id)s",
-            "@type": "http://www.w3.org/ns/ldp#BasicContainer",
-            "title": "%(title)s",
-            "author": {"@id" : "http://%(current_site)s/user/ldpcontainer/%(author)s", "fullName" : "%(fullName)s"},
-            "descendants": %(descendants)s,
-            "date" : "%(date)s",
-            "text" : "%(text)s",
-            "ancestors" : %(ancestors)s,
-            "project" : "http://%(current_site)s/project/ldpcontainer/%(project)s"
-        }]
-    }"""%{
-        "id": message.pk,
+    response = render_to_response("ldp/message.json", {
+        "message": message,
         "current_site": get_current_site(request),
-        "title": message.title,
-        "author": message.author,
         "descendants": jsonld_array(request, message.descendants, "/message/ldpcontainer/"),
         "ancestors": jsonld_array(request, message.ancestors, "/message/ldpcontainer/"),
-        "text":message.text,
-        "date": message.created,
-        "project" : message.project.id,
-        "fullName": message.author.get_full_name() or message.author.username
     }
-    
-    response = HttpResponse(jsonLd)
     response["Content-Type"] = "application/ld+json"
     response["Access-Control-Allow-Origin"] = "*"
     return response

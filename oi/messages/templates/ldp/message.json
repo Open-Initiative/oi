@@ -1,0 +1,14 @@
+{
+    "@context" : "http://owl.openinitiative.com/oicontext.jsonld",
+    "@graph" : [{
+        "@id": "{{message.id}}",
+        "@type": "http://www.w3.org/ns/ldp#BasicContainer",
+        "title": "{{message.title}}",
+        "author": {"@id" : "http://{{current_site}}/user/ldpcontainer/{{message.author.username}}", "fullName" : "{{message.author.get_full_name|default:message.author.username}}"},
+        "descendants": {{descendants}},
+        "date" : "{{message.date}}",
+        "text" : "{{message.text}}",
+        "ancestors" : {{ancestors}},
+        "project" : "http://{{current_site}}/project/ldpcontainer/{{message.project.id}}"
+    }]
+}

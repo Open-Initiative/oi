@@ -39,19 +39,7 @@ def myprofile(request):
 
 def ldpuser(request, username):
     """Return jsonLd object"""
-    user = get_object_or_404(User, username=username)
-
-    jsonLd = """{
-        "@context" : "http://owl.openinitiative.com/oicontext.jsonld",
-        "@graph" : [{
-            "@id" : "%(id)s",
-            "firstname" : "%(firstname)s",
-            "lastname" : "%(lastname)s",
-            "picture" : "%(picture)s"
-        }]
-    }"""%{"id": user.id, "firstname": user.first_name, "lastname": user.last_name, "picture": user.profile.picture.url}
-    
-    response = HttpResponse(jsonLd)
+    response = render_to_response("ldp/message.json", {"user": get_object_or_404(User, username=username)})
     response["Content-Type"] = "application/ld+json"
     response["Access-Control-Allow-Origin"] = "*"
     return response

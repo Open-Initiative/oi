@@ -1,0 +1,10 @@
+{
+    "@context" : "http://owl.openinitiative.com/oicontext.jsonld",
+    "@graph" : [{
+        "@id" : "{{release.id}}",
+        "project" : "http://{{current_site}}/project/ldpcontainer/{{release.project.id}}",
+        "name" : "{{release.name}}",
+        "due_date" : "{{release.due_date}}",
+        "done" : "{{release.done}}",
+    }]
+}

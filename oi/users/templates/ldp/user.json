@@ -1,0 +1,9 @@
+{
+    "@context" : "http://owl.openinitiative.com/oicontext.jsonld",
+    "@graph" : [{
+        "@id" : "{{user.id}}",
+        "firstname" : "{{user.first_name}}",
+        "lastname" : "{{lastname}}",
+        "picture" : "{{user.profile.picture.url}}"
+    }]
+}
