@@ -41,7 +41,7 @@ def ldpmessage(request, id):
         "current_site": get_current_site(request),
         "descendants": jsonld_array(request, message.descendants, "/message/ldpcontainer/"),
         "ancestors": jsonld_array(request, message.ancestors, "/message/ldpcontainer/"),
-    }
+    })
     response["Content-Type"] = "application/ld+json"
     response["Access-Control-Allow-Origin"] = "*"
     return response
