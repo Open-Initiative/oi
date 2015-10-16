@@ -8,6 +8,7 @@
         "tasks" : {{tasks}},
         "descendants" : {{descendants}},
         "state" : "{{project.state}}",
+        "assignee" : {"@id" : "http://{{current_site}}/user/ldpcontainer/{{project.assignee}}", "fullName" : "{{project.assignee.get_full_name|default:project.assignee.username}}"},
         {% if project.target %}"target" : {"@id" : "http://{{current_site}}/user/ldpcontainer/{{project.id}}/releases/{{project.target.id}}", "name" : "{{project.target.name}}"},{% endif %}
         "specs" : {{specs}},
         "releases" : {{releases}},

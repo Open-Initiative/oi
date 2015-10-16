@@ -12,6 +12,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     HOME_DIR + "/oi/oi/platforms/project/templates/",
+    "/oi/oi/projects/templates/",
     "/oi/oi/messages/templates/",
     "/oi/oi/prjnotify/templates/",
     "/oi/oi/users/templates/", 
