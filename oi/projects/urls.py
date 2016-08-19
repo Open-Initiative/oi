@@ -8,7 +8,6 @@ from django.views.generic import TemplateView, DetailView
 from oi.projects.models import Project, Spec, OINeedsPrjPerms, OI_READ, OI_WRITE
 from oi.helpers import SPEC_TYPES
 from oi.projects.ldpviews import ldpspec, ldprelease, ProjectViewSet
-from ldpcontainer.views import LDPContainer
 from rest_framework import routers
 
 router = routers.DefaultRouter(trailing_slash=False)
