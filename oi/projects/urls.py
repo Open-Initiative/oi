@@ -7,12 +7,19 @@ from django.conf.urls import *
 from django.views.generic import TemplateView, DetailView
 from oi.projects.models import Project, Spec, OINeedsPrjPerms, OI_READ, OI_WRITE
 from oi.helpers import SPEC_TYPES
+from oi.projects.ldpviews import ldpspec, ldprelease, ProjectViewSet
+from ldpcontainer.views import LDPContainer
+from rest_framework import routers
+
+router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'ldpcontainer', ProjectViewSet)
 
 urlpatterns = patterns('oi.projects.views',
+    (r'^', include(router.urls)),
     (r'^(?P<id>\d+)/listtasks$', 'listtasks'),
-    (r'^ldpcontainer/(?P<id>\d+)$', 'ldpproject'),
-    (r'^ldpcontainer/(?P<id>\d+)/specs/(?P<specid>\d+)$', 'ldpspec'),
-    (r'^ldpcontainer/(?P<id>\d+)/releases/(?P<releaseid>\d+)$', 'ldprelease'),
+#    (r'^ldpcontainer/$', LDPContainer.as_view()),
+#    (r'^ldpcontainer/(?P<id>\d+)/specs/(?P<specid>\d+)$', ldpspec),
+#    (r'^ldpcontainer/(?P<id>\d+)/releases/(?P<releaseid>\d+)$', ldprelease),
     (r'^(?P<id>\d+)/addrelease$', 'addrelease'),
     (r'^(?P<id>\d+)/changerelease$', 'changerelease'),
     (r'^(?P<id>\d+)/assignrelease$', 'assignrelease'),

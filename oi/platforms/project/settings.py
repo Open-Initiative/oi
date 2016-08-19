@@ -30,6 +30,7 @@ INSTALLED_APPS = (
     'corsheaders',
     'compressor',
 #    'haystack',
+    'rest_framework',
     'oi.messages',
     'oi.projects',
     'oi.platforms.project',
@@ -37,3 +38,8 @@ INSTALLED_APPS = (
     'oi.prjnotify',
     'django.contrib.messages',
 )+ SPECIFIC_INSTALLED_APPS
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': ('oi.projects.serializers.JSONLDRenderer',),
+    'DEFAULT_PARSER_CLASSES': ('oi.projects.serializers.JSONLDParser',),
+}
