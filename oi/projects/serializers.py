@@ -5,9 +5,8 @@ from oi.projects.models import Project
 class JSONLDRenderer(renderers.JSONRenderer):
     media_type = 'application/ld+json'
     def render(self, data, accepted_media_type=None, renderer_context=None):
-        if data.has_key('@id'): #no context for OPTIONS requests
-            data["@context"] = "http://owl.openinitiative.com/oicontext.jsonld"
-        return super(JSONLDRenderer, self).render(jsonld.expand(data), accepted_media_type, renderer_context)
+        data["@context"] = "http://owl.openinitiative.com/oicontext.jsonld"
+        return super(JSONLDRenderer, self).render(data, accepted_media_type, renderer_context)
 
 class JSONLDParser(parsers.JSONParser):
     media_type = 'application/ld+json'
