@@ -1,5 +1,5 @@
 from StringIO import StringIO
-from django.core import serializers
+from django.core import serializers as django_serializers
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.serializers import base
 from django.core.serializers import python
@@ -11,11 +11,11 @@ def oiserialize(format, queryset, **options):
     Serialize a queryset (or any iterator that returns database objects) using
     a certain serializer.
     """
-    s = serializers.get_serializer(format)()
+    s = django_serializers.get_serializer(format)()
     s._oiserialize(queryset, **options)
     return s.getvalue()
 
-serializers.oiserialize = oiserialize
+django_serializers.oiserialize = oiserialize
 
 def _oiserialize(self, queryset, **options):
     """
