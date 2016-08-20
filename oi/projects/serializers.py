@@ -32,8 +32,8 @@ class IdField(serializers.CharField):
 
 class ProjectSerializer(serializers.ModelSerializer):
     tasks = LDPField(many=True, prefix="http://localhost:8000/project/ldpcontainer/")
-    messages = LDPField(many=True, prefix="http://localhost:8000/project/ldpcontainer/")
-    specs = LDPField(many=True, prefix="http://localhost:8000/project/ldpcontainer/")
+    message_set = LDPField(many=True, prefix="http://localhost:8000/project/ldpcontainer/")
+    spec_set = LDPField(many=True, prefix="http://localhost:8000/project/ldpcontainer/")
     author = LDPField(prefix="http://localhost:8000/user/ldpcontainer/")
     
     def __init__(self, *args, **kwargs):
