@@ -31,7 +31,6 @@ class IdField(serializers.CharField):
         return super(IdField, self).from_native(instance.split("/")[-1])
 
 class ProjectSerializer(serializers.ModelSerializer):
-    tasks = LDPField(many=True, prefix="http://localhost:8000/project/ldpcontainer/")
     message_set = LDPField(many=True, prefix="http://localhost:8000/project/ldpcontainer/")
     spec_set = LDPField(many=True, prefix="http://localhost:8000/project/ldpcontainer/")
     author = LDPField(prefix="http://localhost:8000/user/ldpcontainer/")
@@ -39,7 +38,8 @@ class ProjectSerializer(serializers.ModelSerializer):
     def __init__(self, *args, **kwargs):
         super(ProjectSerializer, self).__init__(*args, **kwargs)
         self.base_fields['@id'] = IdField(source="id")
+        self.base_fields['ldp:contains'] = LDPField(many=True, source="tasks", prefix="http://localhost:8000/project/ldpcontainer/")
     
     class Meta:
         model = Project
-        fields = ('@id', 'title', 'author', 'state', 'tasks', 'spec_set', 'message_set')
+        fields = ('@id', 'title', 'author', 'state', 'ldp:contains', 'spec_set', 'message_set')

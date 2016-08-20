@@ -42,18 +42,6 @@ LOGGING = {
     }
 }
 
-CORS_ORIGIN_ALLOW_ALL = False
-CORS_ORIGIN_WHITELIST = tuple(dict(OI_DOMAINS).values())
-CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_HEADERS = (
-    'X-Requested-With',
-    'content-type',
-    'accept',
-    'origin',
-    'authorization',
-    'X-CSRFToken',
-)
-
 # Github configuration
 OI_GITHUB_ID = "723cf00e03393afa2f32"
 OI_GITHUB_SECRET = "ebf46f0e906b808303f2b6240f5dd6eaf8897c62"
