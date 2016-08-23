@@ -1,6 +1,8 @@
 from pyld import jsonld
 from rest_framework import serializers, fields, renderers, parsers
+from django.conf import settings
 from oi.projects.models import Project
+domain = dict(settings.OI_DOMAINS)['Open Initiative Projects']
 
 class JSONLDRenderer(renderers.JSONRenderer):
     media_type = 'application/ld+json'
@@ -31,15 +33,16 @@ class IdField(serializers.CharField):
         return super(IdField, self).from_native(instance.split("/")[-1])
 
 class ProjectSerializer(serializers.ModelSerializer):
-    message_set = LDPField(many=True, prefix="http://localhost:8000/project/ldpcontainer/")
-    spec_set = LDPField(many=True, prefix="http://localhost:8000/project/ldpcontainer/")
-    author = LDPField(prefix="http://localhost:8000/user/ldpcontainer/")
+    descendants = LDPField(many=True, prefix="http://%s/project/ldpcontainer/"%domain)
+    message_set = LDPField(many=True, prefix="http://%s/project/ldpcontainer/"%domain)
+    spec_set = LDPField(many=True, prefix="http://%s/project/ldpcontainer/"%domain)
+    author = LDPField(prefix="http://%s/user/ldpcontainer/"%domain)
     
     def __init__(self, *args, **kwargs):
         super(ProjectSerializer, self).__init__(*args, **kwargs)
         self.base_fields['@id'] = IdField(source="id")
-        self.base_fields['ldp:contains'] = LDPField(many=True, source="tasks", prefix="http://localhost:8000/project/ldpcontainer/")
+        self.base_fields['ldp:contains'] = LDPField(many=True, source="tasks", prefix="http://%s/project/ldpcontainer/"%domain)
     
     class Meta:
         model = Project
-        fields = ('@id', 'title', 'author', 'state', 'ldp:contains', 'spec_set', 'message_set')
+        fields = ('@id', 'title', 'author', 'state', 'ldp:contains', 'descendants', 'spec_set', 'message_set')
