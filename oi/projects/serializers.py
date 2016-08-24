@@ -37,6 +37,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     message_set = LDPField(many=True, prefix="http://%s/project/ldpcontainer/"%domain)
     spec_set = LDPField(many=True, prefix="http://%s/project/ldpcontainer/"%domain)
     author = LDPField(prefix="http://%s/user/ldpcontainer/"%domain)
+    state = IdField()
     
     def __init__(self, *args, **kwargs):
         super(ProjectSerializer, self).__init__(*args, **kwargs)
