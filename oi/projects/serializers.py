@@ -19,10 +19,14 @@ class JSONLDParser(parsers.JSONParser):
 class LDPField(serializers.RelatedField):
     def __init__(self, *args, **kwargs):
         self.prefix = kwargs.pop("prefix", "")
+        self.fields = kwargs.pop("fields", [])
         super(LDPField, self).__init__(*args, **kwargs)
     
     def to_native(self, instance):
-        return {"@id": "%s%s"%(self.prefix, instance.pk) }
+        native = {"@id": "%s%s"%(self.prefix, instance.pk) }
+        for field in self.fields:
+            native[field] = instance.__getattribute__(field)
+        return native
     def from_native(self, instance):
         return super(LDPField, self).from_native(instance["@id"].replace(self.prefix, ""))
 
@@ -33,17 +37,18 @@ class IdField(serializers.CharField):
         return super(IdField, self).from_native(instance.split("/")[-1])
 
 class ProjectSerializer(serializers.ModelSerializer):
-    descendants = LDPField(many=True, prefix="http://%s/project/ldpcontainer/"%domain)
+    descendants = LDPField(many=True, prefix="http://%s/project/ldpcontainer/"%domain, fields=["title"])
     message_set = LDPField(many=True, prefix="http://%s/project/ldpcontainer/"%domain)
     spec_set = LDPField(many=True, prefix="http://%s/project/ldpcontainer/"%domain)
+    target = LDPField(prefix="http://%s/release/ldpcontainer/"%domain, fields=["name"])
     author = LDPField(prefix="http://%s/user/ldpcontainer/"%domain)
     state = IdField()
     
     def __init__(self, *args, **kwargs):
         super(ProjectSerializer, self).__init__(*args, **kwargs)
         self.base_fields['@id'] = IdField(source="id")
-        self.base_fields['ldp:contains'] = LDPField(many=True, source="tasks", prefix="http://%s/project/ldpcontainer/"%domain)
+        self.base_fields['ldp:contains'] = LDPField(many=True, source="tasks", prefix="http://%s/project/ldpcontainer/"%domain, fields=["title"])
     
     class Meta:
         model = Project
-        fields = ('@id', 'title', 'author', 'state', 'ldp:contains', 'descendants', 'spec_set', 'message_set')
+        fields = ('@id', 'title', 'author', 'state', 'target', 'ldp:contains', 'descendants', 'spec_set', 'message_set')
