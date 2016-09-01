@@ -38,8 +38,9 @@ class IdField(serializers.CharField):
 
 class ProjectSerializer(serializers.ModelSerializer):
     descendants = LDPField(many=True, prefix="http://%s/project/ldpcontainer/"%domain, fields=["title"])
-    message_set = LDPField(many=True, prefix="http://%s/project/ldpcontainer/"%domain)
-    spec_set = LDPField(many=True, prefix="http://%s/project/ldpcontainer/"%domain)
+    message_set = LDPField(many=True, prefix="http://%s/message/ldpcontainer/"%domain)
+    spec_set = LDPField(many=True, prefix="http://%s/spec/ldpcontainer/"%domain)
+    release_set = LDPField(many=True, prefix="http://%s/release/ldpcontainer/"%domain, fields=["name"])
     target = LDPField(prefix="http://%s/release/ldpcontainer/"%domain, fields=["name"])
     author = LDPField(prefix="http://%s/user/ldpcontainer/"%domain)
     state = IdField()
@@ -51,4 +52,4 @@ class ProjectSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Project
-        fields = ('@id', 'title', 'author', 'state', 'target', 'ldp:contains', 'descendants', 'spec_set', 'message_set')
+        fields = ('@id', 'title', 'author', 'state', 'target', 'ldp:contains', 'descendants', 'spec_set', 'message_set', 'release_set')
