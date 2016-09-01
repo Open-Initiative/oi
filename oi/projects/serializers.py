@@ -14,6 +14,8 @@ class JSONLDParser(parsers.JSONParser):
     media_type = 'application/ld+json'
     def parse(self, stream, media_type=None, parser_context=None):
         data = super(JSONLDParser, self).parse(stream, media_type, parser_context)
+        if data['@graph'][0]['@id'] == './':
+            del data['@graph'][0]['@id']
         return jsonld.compact(data['@graph'], data['@context'])
 
 class LDPField(serializers.RelatedField):
@@ -37,18 +39,18 @@ class IdField(serializers.CharField):
         return super(IdField, self).from_native(instance.split("/")[-1])
 
 class ProjectSerializer(serializers.ModelSerializer):
-    descendants = LDPField(many=True, prefix="http://%s/project/ldpcontainer/"%domain, fields=["title"])
-    message_set = LDPField(many=True, prefix="http://%s/message/ldpcontainer/"%domain)
-    spec_set = LDPField(many=True, prefix="http://%s/spec/ldpcontainer/"%domain)
-    release_set = LDPField(many=True, prefix="http://%s/release/ldpcontainer/"%domain, fields=["name"])
-    target = LDPField(prefix="http://%s/release/ldpcontainer/"%domain, fields=["name"])
-    author = LDPField(prefix="http://%s/user/ldpcontainer/"%domain)
-    state = IdField()
+    descendants = LDPField(many=True, required=False, prefix="http://%s/project/ldpcontainer/"%domain, fields=["title"])
+    message_set = LDPField(many=True, required=False, prefix="http://%s/message/ldpcontainer/"%domain)
+    spec_set = LDPField(many=True, required=False, prefix="http://%s/spec/ldpcontainer/"%domain)
+    release_set = LDPField(many=True, required=False, prefix="http://%s/release/ldpcontainer/"%domain, fields=["name"])
+    target = LDPField(required=False, prefix="http://%s/release/ldpcontainer/"%domain, fields=["name"])
+    author = LDPField(required=False, prefix="http://%s/user/ldpcontainer/"%domain)
+    state = IdField(required=False)
     
     def __init__(self, *args, **kwargs):
         super(ProjectSerializer, self).__init__(*args, **kwargs)
-        self.base_fields['@id'] = IdField(source="id")
-        self.base_fields['ldp:contains'] = LDPField(many=True, source="tasks", prefix="http://%s/project/ldpcontainer/"%domain, fields=["title"])
+        self.base_fields['@id'] = IdField(source="id", required=False)
+        self.base_fields['ldp:contains'] = LDPField(many=True, required=False, source="tasks", prefix="http://%s/project/ldpcontainer/"%domain, fields=["title"])
     
     class Meta:
         model = Project

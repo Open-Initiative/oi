@@ -10,13 +10,14 @@ from oi.helpers import OI_READ, OI_ANSWER, OI_BID, OI_MANAGE, OI_WRITE, OI_ALL_P
 from oi.projects.models import Project, Spec, OINeedsPrjPerms, Release
 
 from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework import status
 from oi.projects.serializers import ProjectSerializer
 
 
-#def exception_handler(exc):
-#    print 2
-#    print exc
-#    return HttpResponse({'detail' : exc, 'args' : ['arg1', 'arg2']}, status = 417)
+def exception_handler(exc):
+    print exc
+    return HttpResponse({'detail' : exc, 'args' : ['arg1', 'arg2']}, status = 417)
 
 class ProjectViewSet(viewsets.ModelViewSet):
     """
@@ -24,6 +25,16 @@ class ProjectViewSet(viewsets.ModelViewSet):
     """
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+
+    def create_with_parent(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.DATA, files=request.FILES)
+
+        if serializer.is_valid():
+            serializer.object.parent = self.get_object()
+            serializer.object.save()
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def dispatch(self, request, *args, **kwargs):
         response = super(ProjectViewSet, self).dispatch(request, *args, **kwargs)

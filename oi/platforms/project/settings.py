@@ -42,4 +42,5 @@ INSTALLED_APPS = (
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': ('oi.projects.serializers.JSONLDRenderer',),
     'DEFAULT_PARSER_CLASSES': ('oi.projects.serializers.JSONLDParser',),
+    'EXCEPTION_HANDLER': 'oi.projects.ldpviews.exception_handler'
 }
