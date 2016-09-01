@@ -41,7 +41,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
         response["Content-Type"] = "application/ld+json"
         response["Access-Control-Allow-Origin"] = "*"
         response["Access-Control-Allow-Methods"] = "POST,PUT"
-        response["Access-Control-Allow-Headers"] = "Content-Type"
+        response["Access-Control-Allow-Headers"] = "Content-Type, if-match"
         response["Accept-Post"] = "application/ld+json"
         return response
 
