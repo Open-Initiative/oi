@@ -16,6 +16,7 @@ from oi.projects.serializers import ProjectSerializer
 
 
 def exception_handler(exc):
+    print "Exception"
     print exc
     return HttpResponse({'detail' : exc, 'args' : ['arg1', 'arg2']}, status = 417)
 

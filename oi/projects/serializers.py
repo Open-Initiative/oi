@@ -15,10 +15,11 @@ class JSONLDParser(parsers.JSONParser):
     def parse(self, stream, media_type=None, parser_context=None):
         data = super(JSONLDParser, self).parse(stream, media_type, parser_context)
         iri = "http://%s/project/ldpcontainer/%s"%(domain, parser_context["kwargs"]["pk"])
-        if data['@graph'][0]['@id'] == './':
-            del data['@graph'][0]['@id']
         for obj in jsonld.compact(data['@graph'], data['@context'])['@graph']:
-            if obj["@id"] == iri:
+            if obj.get("@id") =='./':
+                del obj["@id"]
+                return obj
+            if obj.get("@id") == iri:
                 return obj
 
 class LDPField(serializers.RelatedField):
