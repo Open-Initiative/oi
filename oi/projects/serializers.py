@@ -15,7 +15,7 @@ class JSONLDParser(parsers.JSONParser):
     def parse(self, stream, media_type=None, parser_context=None):
         data = super(JSONLDParser, self).parse(stream, media_type, parser_context)
         iri = "http://%s/project/ldpcontainer/%s"%(domain, parser_context["kwargs"]["pk"])
-        for obj in jsonld.compact(data['@graph'], data['@context'])['@graph']:
+        for obj in jsonld.frame(data['@graph'], data['@context'])['@graph']:
             if obj.get("@id") =='./':
                 del obj["@id"]
                 return obj
