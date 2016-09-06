@@ -1,7 +1,7 @@
 from pyld import jsonld
 from rest_framework import serializers, fields, renderers, parsers
 from django.conf import settings
-from oi.projects.models import Project
+from oi.projects.models import Project, Release
 domain = dict(settings.OI_DOMAINS)['Open Initiative Projects']
 
 class JSONLDRenderer(renderers.JSONRenderer):
@@ -26,6 +26,7 @@ class LDPField(serializers.RelatedField):
     def __init__(self, *args, **kwargs):
         self.prefix = kwargs.pop("prefix", "")
         self.fields = kwargs.pop("fields", [])
+        self.model = kwargs.pop("model", None)
         super(LDPField, self).__init__(*args, **kwargs)
     
     def to_native(self, instance):
@@ -34,7 +35,7 @@ class LDPField(serializers.RelatedField):
             native[field] = instance.__getattribute__(field)
         return native
     def from_native(self, instance):
-        return super(LDPField, self).from_native(instance["@id"].replace(self.prefix, ""))
+        return self.model.objects.get(pk=instance["@id"].replace(self.prefix, ""))
 
 class IdField(serializers.CharField):
     def to_native(self, value):
@@ -47,7 +48,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     message_set = LDPField(many=True, required=False, prefix="http://%s/message/ldpcontainer/"%domain)
     spec_set = LDPField(many=True, required=False, prefix="http://%s/spec/ldpcontainer/"%domain)
     release_set = LDPField(many=True, required=False, prefix="http://%s/release/ldpcontainer/"%domain, fields=["name"])
-    target = LDPField(required=False, prefix="http://%s/release/ldpcontainer/"%domain, fields=["name"])
+    target = LDPField(read_only=False, model=Release, required=False, prefix="http://%s/release/ldpcontainer/"%domain, fields=["name"])
     author = LDPField(required=False, prefix="http://%s/user/ldpcontainer/"%domain)
     state = IdField(required=False)
     
