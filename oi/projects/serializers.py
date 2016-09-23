@@ -47,7 +47,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     descendants = LDPField(many=True, required=False, prefix="http://%s/project/ldpcontainer/"%domain, fields=["title"])
     message_set = LDPField(many=True, required=False, prefix="http://%s/message/ldpcontainer/"%domain)
     spec_set = LDPField(many=True, required=False, prefix="http://%s/spec/ldpcontainer/"%domain)
-    release_set = LDPField(many=True, required=False, prefix="http://%s/release/ldpcontainer/"%domain, fields=["name"])
+    release_set = LDPField(many=True, required=False, prefix="http://%s/release/ldpcontainer/"%domain, fields=["name", "done"])
     target = LDPField(read_only=False, model=Release, required=False, prefix="http://%s/release/ldpcontainer/"%domain, fields=["name"])
     author = LDPField(required=False, prefix="http://%s/user/ldpcontainer/"%domain)
     state = IdField(required=False)
