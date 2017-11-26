@@ -44,3 +44,5 @@ REST_FRAMEWORK = {
     'DEFAULT_PARSER_CLASSES': ('oi.projects.serializers.JSONLDParser',),
     'EXCEPTION_HANDLER': 'oi.projects.ldpviews.exception_handler'
 }
+
+LDP_DOMAIN = dict(OI_DOMAINS)['Open Initiative Projects']

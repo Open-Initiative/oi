@@ -4,14 +4,15 @@ from random import choice
 from string import letters
 from django.conf.urls import *
 from django.views.generic import TemplateView, DetailView
+from ldprest.actions import CONTAINER, RESOURCE
 from oi.projects.models import Project, Spec, OINeedsPrjPerms, OI_READ, OI_WRITE
 from oi.helpers import SPEC_TYPES
-from oi.projects.ldpviews import ldpspec, ldprelease, ProjectViewSet
+from oi.projects.ldpviews import ProjectView
 
 urlpatterns = patterns('oi.projects.views',
     (r'^(?P<id>\d+)/listtasks$', 'listtasks'),
-    (r'^ldpcontainer$', ProjectViewSet.as_view({'get': 'list','post': 'create'})),
-    (r'^ldpcontainer/(?P<pk>\d+)$', ProjectViewSet.as_view({'get': 'retrieve','put': 'update','patch': 'partial_update','delete': 'destroy', 'post': 'create_with_parent'})),
+    (r'^ldpcontainer$', ProjectView.as_view(actions=CONTAINER, model=Project)),
+    (r'^ldpcontainer/(?P<pk>\d+)$', ProjectView.as_view(actions=RESOURCE, model=Project)),
     (r'^(?P<id>\d+)/addrelease$', 'addrelease'),
     (r'^(?P<id>\d+)/changerelease$', 'changerelease'),
     (r'^(?P<id>\d+)/assignrelease$', 'assignrelease'),
